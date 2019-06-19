@@ -1,0 +1,278 @@
+[
+  {
+    "id": "io.quarkus:quarkus-arc",
+    "description": "Build time CDI dependency injection",
+    "name": "ArC",
+    "metadata": { "category": "Core" }
+  },
+  {
+    "name": "Netty",
+    "description": "Netty is a non-blocking I/O client-server framework. Used by Quarkus as foundation layer.",
+    "id": "io.quarkus:quarkus-netty",
+    "metadata": { "category": "Web" }
+  },
+  {
+    "name": "RESTEasy JAX-RS",
+    "description": "REST framework implementing JAX-RS and more",
+    "id": "io.quarkus:quarkus-resteasy",
+    "metadata": { "category": "Web" }
+  },
+  {
+    "name": "RESTEasy JSON-B",
+    "description": "JSON serialization support for RESTEasy",
+    "id": "io.quarkus:quarkus-resteasy-jsonb",
+    "metadata": { "category": "Web" }
+  },
+  {
+    "name": "SmallRye JWT",
+    "description": "Secure your applications with JSON Web Token",
+    "id": "io.quarkus:quarkus-smallrye-jwt",
+    "metadata": { "category": "Web" }
+  },
+  {
+    "name": "SmallRye OpenAPI",
+    "description": "Document your REST APIs with OpenAPI - comes with Swagger UI",
+    "id": "io.quarkus:quarkus-smallrye-openapi",
+    "metadata": { "category": "Web" }
+  },
+  {
+    "name": "SmallRye REST Client",
+    "description": "Call REST services",
+    "id": "io.quarkus:quarkus-smallrye-rest-client",
+    "metadata": { "category": "Web" }
+  },
+  {
+    "name": "Undertow Servlet",
+    "description": "Support for servlets",
+    "id": "io.quarkus:quarkus-undertow",
+    "metadata": { "category": "Web" }
+  },
+  {
+    "name": "Undertow WebSockets",
+    "description": "WebSocket support",
+    "id": "io.quarkus:quarkus-undertow-websockets",
+    "metadata": { "category": "Web" }
+  },
+  {
+    "name": "Hibernate Validator",
+    "description": "Validate data coming to your REST endpoints",
+    "id": "io.quarkus:quarkus-hibernate-validator",
+    "metadata": { "category": "Web" }
+  },
+  {
+    "name": "JDBC Driver - H2",
+    "description": "H2 database connector",
+    "id": "io.quarkus:quarkus-jdbc-h2",
+    "metadata": { "category": "Data" }
+  },
+  {
+    "name": "JDBC Driver - MariaDB",
+    "description": "MariaDB database connector",
+    "id": "io.quarkus:quarkus-jdbc-mariadb",
+    "metadata": { "category": "Data" }
+  },
+  {
+    "name": "JDBC Driver - PostgreSQL",
+    "description": "PostgreSQL database connector",
+    "id": "io.quarkus:quarkus-jdbc-postgresql",
+    "metadata": { "category": "Data" }
+  },
+  {
+    "name": "JDBC Driver - Microsoft SQL Server",
+    "description": "Microsoft SQL Server database connector",
+    "id": "io.quarkus:quarkus-jdbc-mssql",
+    "metadata": { "category": "Data" }
+  },
+  {
+    "name": "Hibernate ORM",
+    "description": "Define your persistent model with Hibernate ORM and JPA",
+    "id": "io.quarkus:quarkus-hibernate-orm",
+    "metadata": { "category": "Data" }
+  },
+  {
+    "name": "Hibernate ORM with Panache",
+    "description": "Define your persistent model in Hibernate ORM with Panache",
+    "id": "io.quarkus:quarkus-hibernate-orm-panache",
+    "metadata": { "category": "Data" }
+  },
+  {
+    "name": "Hibernate Validator",
+    "description": "Validate your persistent model",
+    "id": "io.quarkus:quarkus-hibernate-validator",
+    "metadata": { "category": "Data" }
+  },
+  {
+    "name": "Hibernate Search + Elasticsearch",
+    "description": "Automatically index your Hibernate entities in Elasticsearch",
+    "id": "io.quarkus:quarkus-hibernate-search-elasticsearch",
+    "metadata": { "category": "Data" }
+  },
+  {
+    "name": "Flyway",
+    "description": "Handle your database schema migrations",
+    "id": "io.quarkus:quarkus-flyway",
+    "metadata": { "category": "Data" }
+  },
+  {
+    "name": "Infinispan Client",
+    "description": "Connect to the Infinispan data grid for distributed caching",
+    "id": "io.quarkus:quarkus-infinispan-client",
+    "metadata": { "category": "Data" }
+  },
+  {
+    "name": "Agroal - Database connection pool",
+    "description": "Pool your database connections (included in Hibernate ORM)",
+    "id": "io.quarkus:quarkus-agroal",
+    "metadata": { "category": "Data" }
+  },
+  {
+    "name": "Narayana JTA - Transaction manager",
+    "description": "JTA transaction support (included in Hibernate ORM)",
+    "id": "io.quarkus:quarkus-narayana-jta",
+    "metadata": { "category": "Data" }
+  },
+  {
+    "name": "SmallRye Reactive Messaging",
+    "description": "Asynchronous messaging for Reactive Streams",
+    "id": "io.quarkus:quarkus-smallrye-reactive-messaging",
+    "metadata": { "category": "Messaging" }
+  },
+  {
+    "name": "SmallRye Reactive Messaging - Kafka Connector",
+    "description": "Kafka reactive messaging connector",
+    "id": "io.quarkus:quarkus-smallrye-reactive-messaging-kafka",
+    "metadata": { "category": "Messaging" }
+  },
+  {
+    "name": "Eclipse Vert.x",
+    "description": "Reactive application toolkit",
+    "id": "io.quarkus:quarkus-vertx",
+    "metadata": { "category": "Reactive" }
+  },
+  {
+    "name": "SmallRye Reactive Streams Operators",
+    "description": "Operators for Reactive Streams programming",
+    "id": "io.quarkus:quarkus-smallrye-reactive-streams-operators",
+   "metadata": { "category": "Reactive" }
+  },
+  {
+    "name": "Kubernetes",
+    "description": "Generate Kubernetes resources from annotations",
+    "id": "io.quarkus:quarkus-kubernetes",
+    "metadata": { "category": "Cloud" }
+  },
+  {
+    "name": "AWS Lambda",
+    "description": "AWS Lambda support",
+    "id": "io.quarkus:quarkus-amazon-lambda",
+    "metadata": { "category": "Cloud" }
+  },
+  {
+    "name": "SmallRye Fault Tolerance",
+    "description": "Define fault-tolerant services",
+    "id": "io.quarkus:quarkus-smallrye-fault-tolerance",
+    "metadata": { "category": "Cloud" }
+  },
+  {
+    "name": "SmallRye Health",
+    "description": "Monitor service health",
+    "id": "io.quarkus:quarkus-smallrye-health",
+    "metadata": { "category": "Cloud" }
+  },
+  {
+    "name": "SmallRye Metrics",
+    "description": "Extract metrics out of your services",
+    "id": "io.quarkus:quarkus-smallrye-metrics",
+    "metadata": { "category": "Observability" }
+  },
+  {
+    "name": "SmallRye OpenTracing",
+    "description": "Trace your services with Jaeger",
+    "id": "io.quarkus:quarkus-smallrye-opentracing",
+    "metadata": { "category": "Observability" }
+  },
+  {
+    "name": "Elytron Security",
+    "description": "Secure your services",
+    "id": "io.quarkus:quarkus-elytron-security",
+    "metadata": { "category": "Security" }
+  },
+  {
+    "name": "SmallRye JWT",
+    "description": "Secure your applications with JSON Web Token",
+    "id": "io.quarkus:quarkus-smallrye-jwt",
+    "metadata": { "category": "Security" }
+  },
+  {
+    "name": "Keycloak",
+    "description": "Secure your applications with Keycloak",
+    "id": "io.quarkus:quarkus-keycloak",
+    "metadata": { "category": "Security" }
+  },
+  {
+    "name": "Camel Core",
+    "description": "Camel integration",
+    "id": "io.quarkus:quarkus-camel-core",
+    "metadata": { "category": "Integration" }
+  },
+  {
+    "name": "Camel Infinispan",
+    "description": "Camel connector for Infinispan",
+    "id": "io.quarkus:quarkus-camel-infinispan",
+    "metadata": { "category": "Integration" }
+  },
+  {
+    "name": "Camel Netty4 HTTP",
+    "description": "Camel support for Netty",
+    "id": "io.quarkus:quarkus-camel-netty4-http",
+    "metadata": { "category": "Integration" }
+  },
+  {
+    "name": "Camel Salesforce",
+    "description": "Camel Salesforce connector",
+    "id": "io.quarkus:quarkus-camel-salesforce",
+    "metadata": { "category": "Integration" }
+  },
+  {
+    "name": "JSON-B",
+    "description": "JSON Binding support",
+    "id": "io.quarkus:quarkus-jsonb",
+    "metadata": { "category": "Serialization" }
+  },
+  {
+    "name": "JSON-P",
+    "description": "JSON Processing support",
+    "id": "io.quarkus:quarkus-jsonp",
+    "metadata": { "category": "Serialization" }
+  },
+  {
+    "name": "RESTEasy JSON-B",
+    "description": "JSON serialization support for RESTEasy",
+    "id": "io.quarkus:quarkus-resteasy-jsonb",
+    "metadata": { "category": "Serialization" }
+  },
+  {
+    "name": "JAXB",
+    "description": "XML serialization support",
+    "id": "io.quarkus:quarkus-jaxb",
+    "metadata": { "category": "Serialization" }
+  },
+  {
+    "name": "Scheduler - tasks",
+    "description": "Schedule jobs and tasks",
+    "id": "io.quarkus:quarkus-scheduler",
+    "metadata": { "category": "Miscellaneous" }
+  },
+  {
+    "name": "Spring DI compatibility layer",
+    "description": "Define your dependency injection with Spring DI",
+    "id": "io.quarkus:quarkus-spring-di",
+    "metadata": { "category": "Migration" }
+  },
+  {
+    "name": "Kotlin",
+    "description": "Write your services in Kotlin",
+    "id": "io.quarkus:quarkus-kotlin",
+    "metadata": { "category": "Alternative languages" }
+  }
+]
