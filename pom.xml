@@ -120,7 +120,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <nodeVersion>v10.16.0</nodeVersion>
+                    <nodeVersion>v11.15.0</nodeVersion>
                     <yarnVersion>v1.17.0</yarnVersion>
                     <workingDirectory>src/main/frontend</workingDirectory>
                 </configuration>
