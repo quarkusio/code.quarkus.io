@@ -29,9 +29,9 @@ export function QuarkusForm(props: QuarkusFormProps) {
     metadata: {
       groupId: 'org.example',
       artifactId: 'quarkus-app',
-      version: '0.0.1-SNAPSHOT',
+      version: 'latest',
       description: 'My application with Quarkus',
-      packageName: 'org.example',
+      packageName: 'org.example.quarkus-app',
     },
     dependencies: [],
   });

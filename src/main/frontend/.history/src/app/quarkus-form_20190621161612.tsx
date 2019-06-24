@@ -31,7 +31,7 @@ export function QuarkusForm(props: QuarkusFormProps) {
       artifactId: 'quarkus-app',
       version: '0.0.1-SNAPSHOT',
       description: 'My application with Quarkus',
-      packageName: 'org.example',
+      packageName: 'org.example.quarkus-app',
     },
     dependencies: [],
   });
