@@ -20,17 +20,32 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: mvn dependency:go-offline
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "~/repo/src/main/frontend/yarn.lock" }}
+
+      - run:
+          name: Prepare dependencies
+          command: mvn dependency:go-offline && mvn frontend:install-node-and-yarn &&  mvn frontend:yarn@"yarn install"
 
       - save_cache:
           paths:
             - ~/.m2
+            - ~/repo/node
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
-      # run tests!
-      - run: mvn integration-test
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "~/repo/src/main/frontend/yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
 
       - run: mvn package
+
+
+
+
 
       # Store context
       - persist_to_workspace:

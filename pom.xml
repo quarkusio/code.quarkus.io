@@ -120,8 +120,9 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <nodeVersion>v11.15.0</nodeVersion>
+                    <nodeVersion>v12.4.0</nodeVersion>
                     <yarnVersion>v1.17.0</yarnVersion>
+                    <installDirectory>./</installDirectory>
                     <workingDirectory>src/main/frontend</workingDirectory>
                 </configuration>
             </plugin>
@@ -141,6 +142,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${version.surefire-plugin}</version>
                 <configuration>
+                    <useSystemClassLoader>false</useSystemClassLoader>
                     <systemProperties>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                     </systemProperties>
