@@ -28,7 +28,7 @@ class QuarkusProject {
 
     @NotBlank
     @QueryParam("c")
-    @DefaultValue("org.example.quarkus-app.QuarkusApp")
+    @DefaultValue("org.example.QuarkusApp")
     val className: String = ""
 
     @QueryParam("e")

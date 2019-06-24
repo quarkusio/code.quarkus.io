@@ -26,7 +26,7 @@ async function downloadProject(project: QuarkusProject): Promise<{ downloadLink:
     g: project.metadata.groupId,
     a: project.metadata.artifactId,
     d: project.metadata.description,
-    v: project.metadata.version,
+    v: project.metadata.version
     c: `${project.metadata.packageName}.QuarkusApp`,
     e: project.dependencies
   }
