@@ -11,8 +11,7 @@
 # production
 /build
 
-# mvn
-/node
+/.history
 
 # misc
 .DS_Store

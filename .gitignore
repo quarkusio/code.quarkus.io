@@ -16,6 +16,9 @@ nb-configuration.xml
 # Visual Studio Code
 .vscode
 
+# mvn
+/node
+
 # OSX
 .DS_Store
 
