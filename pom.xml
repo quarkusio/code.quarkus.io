@@ -121,7 +121,7 @@
                 <configuration>
                     <nodeVersion>v12.4.0</nodeVersion>
                     <yarnVersion>v1.17.0</yarnVersion>
-                    <installDirectory>./</installDirectory>
+                    <installDirectory>target</installDirectory>
                     <workingDirectory>src/main/frontend</workingDirectory>
                 </configuration>
             </plugin>
