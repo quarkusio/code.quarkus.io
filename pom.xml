@@ -117,11 +117,21 @@
                             <arguments>clean</arguments>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>yarn test</id>
+                        <goals>
+                            <goal>yarn</goal>
+                        </goals>
+                        <phase>test</phase>
+                        <configuration>
+                            <arguments>test</arguments>
+                        </configuration>
+                    </execution>
                 </executions>
                 <configuration>
                     <nodeVersion>v12.4.0</nodeVersion>
                     <yarnVersion>v1.17.0</yarnVersion>
-                    <installDirectory>target</installDirectory>
+                    <installDirectory>./</installDirectory>
                     <workingDirectory>src/main/frontend</workingDirectory>
                 </configuration>
             </plugin>

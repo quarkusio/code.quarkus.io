@@ -1,9 +1,9 @@
 import { DependenciesPicker, DependencyItem, MavenSettingsPicker, Separator } from '@launcher/component';
 import { Button } from '@patternfly/react-core';
 import React, { Fragment, useState } from 'react';
-import { HotKeys } from 'react-hotkeys';
 import { DependencyListPicker } from './dependency-list-picker';
 import { ExtensionsLoader } from './extensions-loader';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 interface QuarkusFormProps {
   onSave: (project: QuarkusProject) => void;
@@ -39,61 +39,58 @@ export function QuarkusForm(props: QuarkusFormProps) {
 
   const setMetadata = (metadata: any) => setProject((prev) => ({ ...prev, metadata }));
   const setDependencies = (val: { dependencies: string[] }) => setProject((prev) => ({ ...prev, dependencies: val.dependencies }));
+
+  useHotkeys('alt+enter', () => props.onSave(project));
   return (
     <div className="quarkus-form-container">
-      <HotKeys style={{outline: 0}}
-        keyMap={{ save: 'alt+enter' }}
-        handlers={{ save: () => props.onSave(project) }}
-      >
-        <div className="brand-image" />
-        <div className="row">
-          <div className="header">
-            <h3>Project Metadata</h3>
-          </div>
-          <div className="form">
-            <MavenSettingsPicker.Element value={project.metadata} onChange={setMetadata} visibleFields={['groupId', 'artifactId', 'version', 'packageName']} />
-          </div>
+      <div className="brand-image" />
+      <div className="row">
+        <div className="header">
+          <h3>Project Metadata</h3>
         </div>
-        <div className="row">
-          <div className="header"></div>
-          <div className="form">
-            <Separator />
-          </div>
+        <div className="form">
+          <MavenSettingsPicker.Element value={project.metadata} onChange={setMetadata} visibleFields={['groupId', 'artifactId', 'version', 'packageName']} />
         </div>
-        <div className="row">
-          <ExtensionsLoader name="quarkus-extensions">
-            {extensions => (
-              <Fragment>
-                <div className="header">
-                  <h3>Extensions</h3>
-                  <Button variant="link" onClick={() => setOpen(true)}>See all</Button>
-                  <DependencyListPicker
-                    isOpen={open}
-                    close={close}
-                    extensions={extensions as DependencyItem[]}
-                    value={{ dependencies: project.dependencies }}
-                    onChange={setDependencies}
-                  />
-                </div>
-                <div className="form">
-                  <DependenciesPicker.Element
-                    items={extensions as DependencyItem[]}
-                    value={{ dependencies: project.dependencies }}
-                    onChange={setDependencies}
-                    placeholder="RESTEasy, Hibernate ORM, Web..."
-                  />
-                </div>
-              </Fragment>
-            )}
-          </ExtensionsLoader>
+      </div>
+      <div className="row">
+        <div className="header"></div>
+        <div className="form">
+          <Separator />
         </div>
-        <div className="row footer">
-          <div className="header"></div>
-          <div className="form">
-            <Button onClick={() => props.onSave(project)}>Generate Project - alt + ⏎</Button>
-          </div>
+      </div>
+      <div className="row">
+        <ExtensionsLoader name="quarkus-extensions">
+          {extensions => (
+            <Fragment>
+              <div className="header">
+                <h3>Extensions</h3>
+                <Button variant="link" onClick={() => setOpen(true)}>See all</Button>
+                <DependencyListPicker
+                  isOpen={open}
+                  close={close}
+                  extensions={extensions as DependencyItem[]}
+                  value={{ dependencies: project.dependencies }}
+                  onChange={setDependencies}
+                />
+              </div>
+              <div className="form">
+                <DependenciesPicker.Element
+                  items={extensions as DependencyItem[]}
+                  value={{ dependencies: project.dependencies }}
+                  onChange={setDependencies}
+                  placeholder="RESTEasy, Hibernate ORM, Web..."
+                />
+              </div>
+            </Fragment>
+          )}
+        </ExtensionsLoader>
+      </div>
+      <div className="row footer">
+        <div className="header"></div>
+        <div className="form">
+          <Button aria-label="Generate project" onClick={() => props.onSave(project)}>Generate Project - alt + ⏎</Button>
         </div>
-      </HotKeys>
+      </div>
     </div>
   );
 }
