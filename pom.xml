@@ -31,7 +31,19 @@
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-kotlin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-jsonb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-hibernate-validator</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -43,22 +55,9 @@
             <artifactId>kotlin-stdlib-jdk8</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-jsonb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-hibernate-validator</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-kotlin</artifactId>
-            <version>${version.quarkus}</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -122,7 +121,7 @@
                 <configuration>
                     <nodeVersion>v12.4.0</nodeVersion>
                     <yarnVersion>v1.17.0</yarnVersion>
-                    <installDirectory>./</installDirectory>
+                    <installDirectory>target</installDirectory>
                     <workingDirectory>src/main/frontend</workingDirectory>
                 </configuration>
             </plugin>
