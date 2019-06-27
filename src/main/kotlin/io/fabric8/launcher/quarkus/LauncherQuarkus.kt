@@ -32,7 +32,7 @@ class LauncherQuarkus {
                 val success = CreateProject(zipWrite)
                     .groupId(params.groupId)
                     .artifactId(params.artifactId)
-                    .version(params.description)
+                    .version(params.version)
                     .sourceType(sourceType)
                     .buildTool(BuildTool.MAVEN)
                     .className(params.className)
