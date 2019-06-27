@@ -22,11 +22,6 @@ class QuarkusProject {
     val version: String = ""
 
     @NotBlank
-    @QueryParam("d")
-    @DefaultValue("My application with Quarkus")
-    val description: String = ""
-
-    @NotBlank
     @QueryParam("c")
     @DefaultValue("org.example.QuarkusApp")
     val className: String = ""

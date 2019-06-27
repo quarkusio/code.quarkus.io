@@ -51,7 +51,7 @@ export function QuarkusForm(props: QuarkusFormProps) {
             <h3>Project Metadata</h3>
           </div>
           <div className="form">
-            <MavenSettingsPicker.Element value={project.metadata} onChange={setMetadata} />
+            <MavenSettingsPicker.Element value={project.metadata} onChange={setMetadata} visibleFields={['groupId', 'artifactId', 'version', 'packageName']} />
           </div>
         </div>
         <div className="row">
