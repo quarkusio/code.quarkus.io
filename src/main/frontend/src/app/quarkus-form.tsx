@@ -1,9 +1,9 @@
-import { DependencyItem, MavenSettingsPicker } from '@launcher/component';
+import { MavenSettingsPicker } from '@launcher/component';
 import { Button, FormGroup } from '@patternfly/react-core';
 import React, { Fragment, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { ExtensionsLoader } from './extensions-loader';
-import { DependencyListPicker } from './pickers/dependency-list-picker';
+import { ExtensionsListPicker } from './pickers/extension-list-picker';
 import { ExtensionEntry, ExtensionsPicker } from './pickers/extensions-picker';
 
 interface QuarkusFormProps {
@@ -39,7 +39,7 @@ export function QuarkusForm(props: QuarkusFormProps) {
 
 
   const setMetadata = (metadata: any) => setProject((prev) => ({ ...prev, metadata }));
-  const setDependencies = (val: { extensions: string[] }) => setProject((prev) => ({ ...prev, extensions: val.extensions }));
+  const setExtensions = (val: { extensions: string[] }) => setProject((prev) => ({ ...prev, extensions: val.extensions }));
 
   useHotkeys('alt+enter', () => props.onSave(project));
   return (
@@ -61,12 +61,12 @@ export function QuarkusForm(props: QuarkusFormProps) {
                 <div className="header">
                   <h3>Extensions</h3>
 
-                  <DependencyListPicker
+                  <ExtensionsListPicker
                     isOpen={open}
                     close={close}
-                    extensions={extensions as DependencyItem[]}
-                    value={{ dependencies: project.extensions }}
-                    onChange={setDependencies}
+                    extensions={extensions as ExtensionEntry[]}
+                    value={{ extensions: project.extensions }}
+                    onChange={setExtensions}
                   />
                 </div>
                 <div className="form">
@@ -77,7 +77,7 @@ export function QuarkusForm(props: QuarkusFormProps) {
                     <ExtensionsPicker.Element
                       entries={extensions as ExtensionEntry[]}
                       value={{ extensions: project.extensions }}
-                      onChange={setDependencies}
+                      onChange={setExtensions}
                       placeholder="RESTEasy, Hibernate ORM, Web..."
                     />
                   </FormGroup>
