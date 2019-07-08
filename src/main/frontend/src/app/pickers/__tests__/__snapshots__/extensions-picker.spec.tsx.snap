@@ -1,0 +1,136 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="pf-l-grid pf-m-gutter extensions-picker"
+  >
+    <div
+      class="pf-l-grid__item pf-m-12-col-on-sm pf-m-6-col-on-md"
+    >
+      <input
+        aria-invalid="false"
+        aria-label="Search extensions"
+        class="pf-c-form-control search-extensions-input"
+        placeholder=""
+        type="text"
+        value=""
+      />
+      <div
+        aria-label="Select extensions"
+        class="available-extensions"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<ExtensionsPicker /> select values and save 1`] = `
+<DocumentFragment>
+  <div
+    class="pf-l-grid pf-m-gutter extensions-picker"
+  >
+    <div
+      class="pf-l-grid__item pf-m-12-col-on-sm pf-m-6-col-on-md"
+    >
+      <input
+        aria-invalid="false"
+        aria-label="Search extensions"
+        class="pf-c-form-control search-extensions-input"
+        placeholder=""
+        type="text"
+        value="Netty"
+      />
+      <div
+        aria-label="Select extensions"
+        class="available-extensions"
+      >
+        <div
+          class=" extension-item"
+        >
+          <div
+            class="pf-l-stack"
+            style="position: relative;"
+          >
+            <div
+              class="pf-l-stack__item pf-m-main"
+            >
+              <h1
+                aria-label="Pick io.quarkus:quarkus-netty extension"
+                class="pf-c-title"
+              >
+                Netty
+              </h1>
+              <span
+                class="extension-category"
+              >
+                Web
+              </span>
+            </div>
+            <div
+              class="pf-l-stack__item"
+            >
+              Netty is a non-blocking I/O client-server framework. Used by Quarkus as foundation layer.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<ExtensionsPicker /> show results for valid search 1`] = `
+<DocumentFragment>
+  <div
+    class="pf-l-grid pf-m-gutter extensions-picker"
+  >
+    <div
+      class="pf-l-grid__item pf-m-12-col-on-sm pf-m-6-col-on-md"
+    >
+      <input
+        aria-invalid="false"
+        aria-label="Search extensions"
+        class="pf-c-form-control search-extensions-input"
+        placeholder=""
+        type="text"
+        value="CDI"
+      />
+      <div
+        aria-label="Select extensions"
+        class="available-extensions"
+      >
+        <div
+          class=" extension-item"
+        >
+          <div
+            class="pf-l-stack"
+            style="position: relative;"
+          >
+            <div
+              class="pf-l-stack__item pf-m-main"
+            >
+              <h1
+                aria-label="Pick io.quarkus:quarkus-arc extension"
+                class="pf-c-title"
+              >
+                ArC
+              </h1>
+              <span
+                class="extension-category"
+              >
+                Core
+              </span>
+            </div>
+            <div
+              class="pf-l-stack__item"
+            >
+              Build time CDI dependency injection
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

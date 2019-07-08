@@ -1148,23 +1148,23 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^12.0.9"
 
-"@launcher/client@^1.0.0-alpha.2":
-  version "1.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/@launcher/client/-/client-1.0.0-alpha.2.tgz#abb7dbcb076bf8b45657ec625661af6e20c8d183"
-  integrity sha512-FRlSfbfAB8xhI/jNi0gK54CoXK0DofjoC8IrYY+hgxgro4fdl1a392L0nuMpvCwbiXavivr3sNwaR765WN5eVA==
+"@launcher/client@^1.3.2":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@launcher/client/-/client-1.3.2.tgz#3d3ac88690194b44471e23f7a84d72db479c1b32"
+  integrity sha512-cbjOITda7qw0/qrxPqrI2tGoWr1LDXahHzW1N+ZedLXuIKLVIs51BxgyXSrTUXnaffBhwqBFxcl04dpV0izY4g==
   dependencies:
     axios "0.19.0"
     injection-js "2.2.1"
     lscache "1.3.0"
     reflect-metadata "0.1.13"
 
-"@launcher/component@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@launcher/component/-/component-1.1.0.tgz#d3c44e5ab7d7491b83c41c18ec8ae90b35bd414c"
-  integrity sha512-Xb8lh4VK8D+zm870DloYa5A5CM98XMg4CvUFJC7/PQYCFJ/j16ugas3PTrPNBZEdbvASyHJDNRrST1mBj7fzxg==
+"@launcher/component@1.3.2":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@launcher/component/-/component-1.3.2.tgz#5c9e59199ab7ec94e99ae834807dab2f579ac91d"
+  integrity sha512-rR2OTPKIKje3zPgRQcEgjpKIFwdTTRIwjwBkuQ5ZlnacPdO3Q7z0p+dwJmjiC+9UlEJAs/3s1/w+jpkQHYldFA==
   dependencies:
-    "@launcher/client" "^1.0.0-alpha.2"
-    project-name-generator "2.1.6"
+    "@launcher/client" "^1.3.2"
+    project-name-generator "2.1.7"
     react-use-sessionstorage "1.0.2"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
@@ -8944,10 +8944,10 @@ progress@^2.0.0:
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
-project-name-generator@2.1.6:
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/project-name-generator/-/project-name-generator-2.1.6.tgz#9cebc4af5c437241ae5a86554fdb436098d3dec7"
-  integrity sha512-5r5MzHoNf7GTKg0V7zZvolpip5UAQiVpfcSN6QfEK8i/fSKlusJwxzEsKty9ce8h0e5GLoQ85dIGgV1TAnj3Kg==
+project-name-generator@2.1.7:
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/project-name-generator/-/project-name-generator-2.1.7.tgz#504c68a2a843247aa3af493a226ecf78ce8beceb"
+  integrity sha512-kLGQGiyvkZsWtqhPhUs85UkSgmH5OnZJLNrtlqkK+GZPR0cybe8Nr9jG3bD52w2siH9EE3l/a9y56bn0YX5wYw==
   dependencies:
     commander "^2.15.1"
     lodash "^4.17.10"

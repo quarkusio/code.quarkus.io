@@ -28,7 +28,7 @@ async function downloadProject(project: QuarkusProject): Promise<{ downloadLink:
     d: project.metadata.description,
     v: project.metadata.version,
     c: `${project.metadata.packageName}.QuarkusApp`,
-    e: project.dependencies
+    e: project.extensions
   }
   const downloadLink = `${publicUrl}/api/quarkus/download?${stringify(params)}`;
   window.open(downloadLink, '_blank');

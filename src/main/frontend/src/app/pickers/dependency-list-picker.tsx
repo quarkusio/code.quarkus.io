@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import _ from 'lodash';
-import { Button, Checkbox, FormGroup, Title } from '@patternfly/react-core';
-import { FixedModal, DependencyItem } from '@launcher/component';
+import { Button, Checkbox, FormGroup, Title, Modal } from '@patternfly/react-core';
+import { DependencyItem } from '@launcher/component';
 import { InputProps } from '@launcher/component';
 
 import './dependency-list-picker.scss';
@@ -29,7 +29,7 @@ export function DependencyListPicker(props: DependencyListPickerProps) {
     props.onChange({ dependencies: Array.from(dependenciesSet) });
   };
 return (
-    <FixedModal
+    <Modal
       title="List of extensions for Quarkus"
       isOpen={props.isOpen}
       isLarge={false}
@@ -68,6 +68,6 @@ return (
           ))
         }
       </div>
-    </FixedModal>
+    </Modal>
   );
 }

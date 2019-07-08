@@ -1,0 +1,33 @@
+.extensions-picker {
+  .extension-item {
+    border: 2px solid #f7f7f7;
+    line-height: 24px;
+    padding: 8px 40px 8px 16px;
+    margin: 8px 0;
+    border-radius: 4px;
+    cursor: pointer;
+
+    h1 {
+      display: inline-block;
+      font-weight: 600;
+    }
+
+    .extension-icon {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      margin: auto 100%;
+    }
+
+    &.active {
+      background-color: #bee1f4;
+    }
+  }
+
+  .extension-category {
+    color: #06c;
+    padding-left: 10px;
+  }
+}
