@@ -1,17 +1,17 @@
 $color-1: #F0CA4D;
 $color-2: #4A97E8;
 $bg-color: #080A10;
+
 .launcher-container {
-  background-color: #080A10;
   padding: 20px 20px 100px;
 }
-
 body {
-  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk4BH7DwABWQEjeBQ2bAAAAABJRU5ErkJggg==);
-  background-repeat: repeat-y;
-  background-size: 275px 1px;
-  background-color: $bg-color;
+  background: $bg-color;
   font-family: monospace !important;
+}
+
+.pf-c-backdrop {
+  background: $bg-color !important;
 }
 
 .quarkus-form-container {
