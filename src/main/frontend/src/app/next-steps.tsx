@@ -1,5 +1,5 @@
-import { ExternalLink, FixedModal } from '@launcher/component';
-import { Button, Text, TextContent, TextVariants } from '@patternfly/react-core';
+import { ExternalLink } from '@launcher/component';
+import { Button, Text, TextContent, TextVariants, Modal } from '@patternfly/react-core';
 import React, { useState } from 'react';
 
 interface NextStepsProps {
@@ -10,7 +10,7 @@ export function NextSteps(props: NextStepsProps) {
   const [open, setOpen] = useState(true);
   const close = () => setOpen(false);
   return (
-    <FixedModal
+    <Modal
       title="Your new Quarkus app has been generated"
       isOpen={open}
       isLarge={false}
@@ -35,6 +35,6 @@ export function NextSteps(props: NextStepsProps) {
         You can follow the&nbsp;<ExternalLink href="https://quarkus.io/guides/" aria-label="Start playing with Quarkus">guides</ExternalLink> to learn more and build a great Quarkus app!
         </Text>
       </TextContent>
-    </FixedModal>
+    </Modal>
   );
 }
