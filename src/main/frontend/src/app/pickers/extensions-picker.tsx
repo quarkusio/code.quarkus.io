@@ -7,8 +7,10 @@ import { InputProps, useAnalytics, Picker } from '@launcher/component';
 export interface ExtensionEntry {
   id: string;
   name: string;
-  description: string;
-  metadata: { category: string; };
+  labels: Set<String>;
+  description?: string;
+  shortName?: string;
+  category: string;
 }
 
 export interface ExtensionsPickerValue {
@@ -31,7 +33,7 @@ interface ExtensionProps extends ExtensionEntry {
   onClick(id: string): void;
 }
 
-function Extension(props:ExtensionProps) {
+function Extension(props: ExtensionProps) {
   const [active, setActive] = useState(false);
   const onClick = () => {
     props.onClick(props.id);
@@ -47,7 +49,7 @@ function Extension(props:ExtensionProps) {
       <Stack style={{ position: 'relative' }}>
         <StackItem isMain>
           <Title size="sm" aria-label={`Pick ${props.id} extension`}>{props.name}</Title>
-          <span className="extension-category">{props.metadata.category}</span>
+          <span className="extension-category">{props.category}</span>
           {active && (props.operation === OperationType.Add ?
             <PlusIcon className="extension-icon" /> : <TimesIcon className="extension-icon" />)}
         </StackItem>
@@ -55,6 +57,53 @@ function Extension(props:ExtensionProps) {
       </Stack>
     </div>
   )
+}
+
+export const filterFunction = (filter: string, shortNames: Set<String>) => (d: ExtensionEntry) => {
+  const filterLowerCase = filter.toLowerCase();
+  if (!filterLowerCase) {
+    return true;
+  }
+  const shortName = d.shortName ? d.shortName.toLowerCase() : '';
+  if (filterLowerCase === shortName) {
+    return true;
+  }
+  if (shortNames.has(filterLowerCase)) {
+    return false;
+  }
+  return d.name.toLowerCase().includes(filterLowerCase)
+    || d.labels.has(filterLowerCase)
+    || (d.category && d.category.toLowerCase().startsWith(filterLowerCase))
+    || shortName.startsWith(filterLowerCase);
+}
+
+export function getShortNames(entries: ExtensionEntry[]) {
+  const shortNames = entries
+    .map(e => e.shortName && e.shortName.toLowerCase())
+    .filter(e => !!e) as string[];
+  return new Set(shortNames);
+}
+
+export const sortFunction = (filter: string) => (a: ExtensionEntry, b: ExtensionEntry) => {
+  const filterLowerCase = filter.toLowerCase();
+  if (!filterLowerCase) {
+    if (a.category === b.category) {
+      return a.name > b.name ? 1 : -1;
+    }
+    return a.category > b.category ? 1 : -1;
+  }
+  const startWithAShortName = !!a.shortName && a.shortName.toLowerCase().startsWith(filterLowerCase);
+  const startWithBShortName = !!b.shortName && b.shortName.toLowerCase().startsWith(filterLowerCase);
+  if (startWithAShortName !== startWithBShortName) {
+    return startWithAShortName ? 1 : -1;
+  }
+  if (a.labels.has(filterLowerCase) !== b.labels.has(filterLowerCase)) {
+    return a.labels.has(filterLowerCase) ? 1 : -1;
+  }
+  if (a.name.toLowerCase().startsWith(filterLowerCase) !== b.name.toLowerCase().startsWith(filterLowerCase)) {
+    return a.name.toLowerCase().startsWith(filterLowerCase) ? 1 : -1;
+  }
+  return a.name < b.name ? 1 : -1;
 }
 
 export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerValue> = {
@@ -78,12 +127,10 @@ export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerVal
       analytics.event('Picker', 'Remove-Extension', id)
     };
 
-    const filterFunction = (d: ExtensionEntry) =>
-      filter !== '' && (d.description.toLowerCase().includes(filter.toLowerCase())
-        || d.name.toLowerCase().includes(filter.toLowerCase())
-        || d.metadata.category.toLowerCase().includes(filter.toLowerCase()));
-    const result = props.entries.filter(filterFunction);
-    const categories = new Set(props.entries.map(i => i.metadata.category));
+    const shortNames = getShortNames(props.entries);
+
+    const result = props.entries.filter(filterFunction(filter, shortNames));
+    const categories = new Set(props.entries.map(i => i.category));
     return (
       <Grid gutter="md" className="extensions-picker">
         <GridItem sm={12} md={6}>
@@ -98,7 +145,7 @@ export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerVal
           </Tooltip>
           <div aria-label="Select extensions" className={`available-extensions`}>
             {
-              result.map((ex, i) => (
+              result.sort(sortFunction(filter)).map((ex, i) => (
                 <Extension
                   operation={OperationType.Add}
                   {...ex}

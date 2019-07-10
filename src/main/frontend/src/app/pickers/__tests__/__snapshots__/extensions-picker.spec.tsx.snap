@@ -19,7 +19,95 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
       <div
         aria-label="Select extensions"
         class="available-extensions"
-      />
+      >
+        <div
+          class=" extension-item"
+        >
+          <div
+            class="pf-l-stack"
+            style="position: relative;"
+          >
+            <div
+              class="pf-l-stack__item pf-m-main"
+            >
+              <h1
+                aria-label="Pick some-id extension"
+                class="pf-c-title"
+              >
+                A CDI in name test
+              </h1>
+              <span
+                class="extension-category"
+              >
+                Cloud
+              </span>
+            </div>
+            <div
+              class="pf-l-stack__item"
+            >
+              Some description
+            </div>
+          </div>
+        </div>
+        <div
+          class=" extension-item"
+        >
+          <div
+            class="pf-l-stack"
+            style="position: relative;"
+          >
+            <div
+              class="pf-l-stack__item pf-m-main"
+            >
+              <h1
+                aria-label="Pick io.quarkus:quarkus-arc extension"
+                class="pf-c-title"
+              >
+                ArC
+              </h1>
+              <span
+                class="extension-category"
+              >
+                Core
+              </span>
+            </div>
+            <div
+              class="pf-l-stack__item"
+            >
+              Build time CDI dependency injection
+            </div>
+          </div>
+        </div>
+        <div
+          class=" extension-item"
+        >
+          <div
+            class="pf-l-stack"
+            style="position: relative;"
+          >
+            <div
+              class="pf-l-stack__item pf-m-main"
+            >
+              <h1
+                aria-label="Pick io.quarkus:quarkus-camel-netty4-http extension"
+                class="pf-c-title"
+              >
+                Camel Netty4 test HTTP
+              </h1>
+              <span
+                class="extension-category"
+              >
+                Integration
+              </span>
+            </div>
+            <div
+              class="pf-l-stack__item"
+            >
+              Camel support for Netty
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -39,7 +127,7 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
         class="pf-c-form-control search-extensions-input"
         placeholder=""
         type="text"
-        value="Netty"
+        value="netty"
       />
       <div
         aria-label="Select extensions"
@@ -56,21 +144,21 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
               class="pf-l-stack__item pf-m-main"
             >
               <h1
-                aria-label="Pick io.quarkus:quarkus-netty extension"
+                aria-label="Pick io.quarkus:quarkus-camel-netty4-http extension"
                 class="pf-c-title"
               >
-                Netty
+                Camel Netty4 test HTTP
               </h1>
               <span
                 class="extension-category"
               >
-                Web
+                Integration
               </span>
             </div>
             <div
               class="pf-l-stack__item"
             >
-              Netty is a non-blocking I/O client-server framework. Used by Quarkus as foundation layer.
+              Camel support for Netty
             </div>
           </div>
         </div>
