@@ -4,7 +4,6 @@ import { QuarkusApp } from '../quarkus-app';
 
 
 afterEach(() => {
-  console.log('cleanup()');
   cleanup();
 });
 
