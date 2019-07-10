@@ -88,22 +88,22 @@ export const sortFunction = (filter: string) => (a: ExtensionEntry, b: Extension
   const filterLowerCase = filter.toLowerCase();
   if (!filterLowerCase) {
     if (a.category === b.category) {
-      return a.name > b.name ? 1 : -1;
+      return a.name > b.name ? -1 : 1;
     }
-    return a.category > b.category ? 1 : -1;
+    return a.category > b.category ? -1 : 1;
   }
   const startWithAShortName = !!a.shortName && a.shortName.toLowerCase().startsWith(filterLowerCase);
   const startWithBShortName = !!b.shortName && b.shortName.toLowerCase().startsWith(filterLowerCase);
   if (startWithAShortName !== startWithBShortName) {
-    return startWithAShortName ? 1 : -1;
+    return startWithAShortName ? -1 : 1;
   }
   if (a.labels.has(filterLowerCase) !== b.labels.has(filterLowerCase)) {
-    return a.labels.has(filterLowerCase) ? 1 : -1;
+    return a.labels.has(filterLowerCase) ? -1 : 1;
   }
   if (a.name.toLowerCase().startsWith(filterLowerCase) !== b.name.toLowerCase().startsWith(filterLowerCase)) {
-    return a.name.toLowerCase().startsWith(filterLowerCase) ? 1 : -1;
+    return a.name.toLowerCase().startsWith(filterLowerCase) ? -1 : 1;
   }
-  return a.name < b.name ? 1 : -1;
+  return a.name < b.name ? -1 : 1;
 }
 
 export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerValue> = {

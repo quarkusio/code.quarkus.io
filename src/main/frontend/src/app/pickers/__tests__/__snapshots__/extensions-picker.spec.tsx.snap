@@ -31,21 +31,21 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
               class="pf-l-stack__item pf-m-main"
             >
               <h1
-                aria-label="Pick some-id extension"
+                aria-label="Pick io.quarkus:quarkus-camel-netty4-http extension"
                 class="pf-c-title"
               >
-                A CDI in name test
+                Camel Netty4 test HTTP
               </h1>
               <span
                 class="extension-category"
               >
-                Cloud
+                Integration
               </span>
             </div>
             <div
               class="pf-l-stack__item"
             >
-              Some description
+              Camel support for Netty
             </div>
           </div>
         </div>
@@ -89,21 +89,21 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
               class="pf-l-stack__item pf-m-main"
             >
               <h1
-                aria-label="Pick io.quarkus:quarkus-camel-netty4-http extension"
+                aria-label="Pick some-id extension"
                 class="pf-c-title"
               >
-                Camel Netty4 test HTTP
+                A CDI in name test
               </h1>
               <span
                 class="extension-category"
               >
-                Integration
+                Cloud
               </span>
             </div>
             <div
               class="pf-l-stack__item"
             >
-              Camel support for Netty
+              Some description
             </div>
           </div>
         </div>

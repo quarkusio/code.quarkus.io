@@ -130,30 +130,30 @@ describe('filterFunction', () => {
 describe('sortFunction', () => {
   it('when using start of shortname of an extension, it should be first', () => {
     expect(sortFunction('cdi')(entries[0], entries[2]))
-      .toEqual(1);
-    expect(sortFunction('cdi')(entries[2], entries[0]))
       .toEqual(-1);
+    expect(sortFunction('cdi')(entries[2], entries[0]))
+      .toEqual(1);
   });
 
   it('when using one of the label of an extension, it should be first', () => {
     expect(sortFunction('amazon')(entries[2], entries[0]))
-      .toEqual(1);
-    expect(sortFunction('amazon')(entries[0], entries[2]))
       .toEqual(-1);
+    expect(sortFunction('amazon')(entries[0], entries[2]))
+      .toEqual(1);
   });
 
   it('when using start of the name of an extension, it should be first', () => {
     expect(sortFunction('a')(entries[0], entries[1]))
-      .toEqual(1);
-    expect(sortFunction('a')(entries[1], entries[0]))
       .toEqual(-1);
+    expect(sortFunction('a')(entries[1], entries[0]))
+      .toEqual(1);
   });
 
   it('when no match, it should compare the names', () => {
     expect(sortFunction('nomatch')(entries[0], entries[1]))
-      .toEqual(1);
-    expect(sortFunction('nomatch')(entries[1], entries[0]))
       .toEqual(-1);
+    expect(sortFunction('nomatch')(entries[1], entries[0]))
+      .toEqual(1);
   });
 
 });
