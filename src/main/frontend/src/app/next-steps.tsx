@@ -13,7 +13,7 @@ export function NextSteps(props: NextStepsProps) {
     <Modal
       title="Your new Quarkus app has been generated"
       isOpen={open}
-      isLarge={false}
+      isSmall={true}
       onClose={close}
       aria-label="Your new Quarkus app has been generated"
       actions={[

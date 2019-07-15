@@ -1,186 +1,30 @@
-$color-1: #F0CA4D;
-$color-2: #4A97E8;
-$bg-color: #080A10;
+@import url(https://fonts.googleapis.com/css?family=PT+Mono);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
-.launcher-container {
-  padding: 20px 20px 100px;
-}
 body {
-  background: $bg-color;
-  font-family: monospace !important;
+  background: #000;
+  font-family: "Open Sans", Regular;
+}
+
+.pf-c-backdrop__open {
+  background: #000;
 }
 
 .pf-c-backdrop {
-  background: $bg-color !important;
+  background-color: rgba(0, 0, 0, 0.8) !important;
 }
 
-.quarkus-form-container {
-  margin: 50px auto;
-
-  .brand-image {
-    background-image: url('/quarkus_logo_horizontal.svg');
-    background-repeat: no-repeat;
-    background-origin: content-box;
-    height: 35px;
-    padding-left: 15px;
-    margin-bottom: 50px;
-  }
-
-  .extensions-picker {
-
-    h1.pf-c-title {
-      color: white;
-    }
-
-    .extension-item {
-
-      border: 1px dashed $color-2;
-      border-radius: 0;
-
-      .pf-l-stack__item, span {
-        color: white;
-      }
-
-      h1 {
-        color: $color-2;
-      }
-
-      span {
-        color: $color-1;
-      }
-
-      &.active {
-        background-color: inherit;
-        border-color: $color-1;
-      }
-  }
-}
-.pf-c-button.pf-m-link {
-  padding: 0 0px;
-  color: $color-2;
-  font-size: 16px;
+.background-layer {
+  position: absolute;
+  width: 100%;
+  height: 360px;
+  background-image: url("/quarkus_background.jpg"); 
+  background-size: 100% 1080px;
+  background-repeat: no-repeat;
+  z-index: -1;  
 }
 
-  .pf-c-form-control {
-    border: none;
-    background-color: transparent;
-    color: white;
-    margin-left: 20px;
-    border-bottom: 1px dashed white;
-    max-width: 400px;
-    width: calc(100% - 20px);
-  }
-
-  .pf-c-form-control:focus {
-    border: none;
-    border-bottom: 1px dashed $color-2;
-    outline: none;
-  }
-
-  .pf-c-form__label {
-    color: #fff;
-    position: relative;
-    font-size: 16px;
-    display: block;
-  }
-
-  .pf-c-form__label:before {
-    position: absolute;
-    content: ">";
-    top: 30px;
-    left: 0;
-    font-size: 22px;
-    color: $color-2;
-  }
-
-  .pf-c-form {
-    max-width: 500px;
-  }
-
-  .form-body {
-    max-width: 1000px;
-  }
-  .row {
-    min-width: 900px;
-    .header {
-      padding: 8px 32px 8px 20px;
-      h3 {
-        font-size: 18px;
-        font-weight: 700;
-        color: #fff;
-      }
-      
-    }
-    .form {
-      padding: 8px 0 8px 32px;
-      flex: 2;
-    }
-
-    
-  }
-  .footer {
-    position: fixed;
-    bottom: 0;
-    min-width: 100%;
-
-    
-    .form {
-      padding-top: 20px;
-      background-color: $bg-color;
-      border-top: 1px dashed white;
-      button {
-        padding: 12px 32px;
-        color: white;
-        border-color: $color-2;
-      }
-    }
-  }
-}
-
-@media (max-width: 900px) {
-  body {
-      padding-bottom: 94px;
-      min-width: 0;
-  }
-
-  .quarkus-form-container {
-    margin: 25px auto;
-    .brand-image {
-      background-image: url('/quarkus_logo_horizontal_default.svg');
-      height: 25px;
-      padding-left: 15px;
-    }
-
-    .footer {
-      position: initial;
-    }
-
-    .row {
-      display: block;
-      max-width: none;
-      min-width: 0;
-      padding: 16px;
-
-      .header {
-        text-align: left;
-        padding: 0;
-        max-width: none;
-        min-width: 0;
-
-        .pf-m-link {
-          color: $color-1;
-          text-decoration: none;
-        }
-        .pf-m-link:hover, .pf-m-link:active, .pf-m-link:focus {
-          color: #004080;
-        }
-      }
-
-      .form {
-        padding: 0;
-        max-width: none;
-        min-width: 0;
-      }
-    }
-  }
+.quarkus-app {
+  max-width: 1200px;
+  margin: 0 auto;
 }

@@ -1,0 +1,37 @@
+.header {
+  display: flex;
+  align-items: center;
+  height: 132px;
+  
+  margin: 0 auto;
+  
+
+  .brand {
+    flex-grow: 1;
+    .brand-image {
+      background-image: url("/quarkus_logo_horizontal_rgb_reverse.svg");
+      background-repeat: no-repeat;
+      background-origin: content-box;
+      width: 277px;
+      height: 47px;
+    }
+  }
+
+  .nav {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+
+    a {
+      color: #fff;
+      padding: 0 10px;
+    }
+    a:hover,  a.active {
+      text-decoration: none;
+      border-bottom: 3px solid #fff;
+    }
+  }
+  
+}
