@@ -1,8 +1,9 @@
-import { Grid, GridItem, Stack, StackItem, TextInput, Title, Tooltip } from "@patternfly/react-core";
-import { PlusIcon, TimesIcon } from "@patternfly/react-icons";
+import { InputProps, Picker, useAnalytics } from '@launcher/component';
+import { FormGroup, TextInput, Tooltip } from "@patternfly/react-core";
+import { CheckIcon, ClipboardCheckIcon, ClipboardIcon, SearchIcon, TrashAltIcon } from "@patternfly/react-icons";
+import copy from 'copy-to-clipboard';
 import React, { useState } from "react";
 import './extensions-picker.scss';
-import { InputProps, useAnalytics, Picker } from '@launcher/component';
 
 export interface ExtensionEntry {
   id: string;
@@ -23,38 +24,71 @@ interface ExtensionsPickerProps extends InputProps<ExtensionsPickerValue> {
   filterFunction?(d: ExtensionEntry): boolean;
 }
 
-enum OperationType {
-  Add = 1,
-  Remove,
+interface ExtensionProps extends ExtensionEntry {
+  selected: boolean;
+  detailed?: boolean;
+  onClick(id: string): void;
 }
 
-interface ExtensionProps extends ExtensionEntry {
-  operation?: OperationType;
-  onClick(id: string): void;
+function CopyToClipboard(props: { content: string }) {
+  const [active, setActive] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const copyToClipboard = () => {
+    copy(props.content);
+    setCopied(true);
+  }
+  return (
+    <div
+      onMouseEnter={() => setActive(true)}
+      onMouseLeave={() => setActive(false)}
+      onClick={copyToClipboard}
+
+    >
+      {active || copied ? <ClipboardCheckIcon /> : <ClipboardIcon />}
+    </div>
+  )
+
 }
 
 function Extension(props: ExtensionProps) {
   const [active, setActive] = useState(false);
   const onClick = () => {
     props.onClick(props.id);
+    setActive(false);
   };
 
   return (
     <div
-      className={`${active ? 'active' : ''} extension-item`}
+      className={`${active ? 'active' : ''} ${props.selected ? 'selected' : ''} extension-item`}
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
-      onClick={onClick}
+      aria-label={`Switch ${props.id} extension`}
     >
-      <Stack style={{ position: 'relative' }}>
-        <StackItem isMain>
-          <Title size="sm" aria-label={`Pick ${props.id} extension`}>{props.name}</Title>
-          <span className="extension-category">{props.category}</span>
-          {active && (props.operation === OperationType.Add ?
-            <PlusIcon className="extension-icon" /> : <TimesIcon className="extension-icon" />)}
-        </StackItem>
-        <StackItem isMain={false}>{props.description}</StackItem>
-      </Stack>
+      {props.detailed && (
+        <div className="extension-selector" onClick={onClick}>
+          {((props.selected && !active) || (!props.selected && active)) && <CheckIcon />}
+          {(props.selected && active) && <TrashAltIcon />}
+        </div>
+      )}
+      <Tooltip position="top" content={props.name} exitDelay={0}>
+        <div className="extension-name" onClick={onClick}>{props.name}</div>
+      </Tooltip>
+      {!props.detailed && (
+        <div className="extension-remove" onClick={onClick}>
+          {active && props.selected && <TrashAltIcon />}
+        </div>
+      )}
+      {props.detailed && (
+        <div className="extension-details">
+          <Tooltip position="top" content={props.description} exitDelay={0}>
+            <div className="extension-description" onClick={onClick}>{props.description}</div>
+          </Tooltip>
+          <Tooltip position="left" content={`Copy '${props.id}' to clipboard`} exitDelay={0}>
+            <div className="extension-gav"><CopyToClipboard content={props.id} /></div>
+          </Tooltip>
+        </div>
+      )}
     </div>
   )
 }
@@ -113,7 +147,7 @@ export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerVal
     const analytics = useAnalytics();
     const extensions = props.value.extensions || [];
     const entrySet = new Set(extensions);
-    const entriesById = new Map(props.entries.map(item => [item.id, item]));
+    const entriesById: Map<String, ExtensionEntry> = new Map(props.entries.map(item => [item.id, item]));
 
     const add = (id: string) => {
       entrySet.add(id);
@@ -131,50 +165,67 @@ export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerVal
 
     const result = props.entries.filter(filterFunction(filter, shortNames));
     const categories = new Set(props.entries.map(i => i.category));
+    let currentCat: string | undefined = undefined;
     return (
-      <Grid gutter="md" className="extensions-picker">
-        <GridItem sm={12} md={6}>
+      <div className="extensions-picker">
+        <div className="control-container">
           <Tooltip position="right" content={`${Array.from(categories).join(', ')}`}>
-            <TextInput
-              aria-label="Search extensions"
-              placeholder={props.placeholder}
-              className="search-extensions-input"
-              value={filter}
-              onChange={value => setFilter(value)}
-            />
+            <FormGroup
+              fieldId="search-extensions-input"
+            >
+              <SearchIcon />
+              <TextInput
+                aria-label="Search extensions"
+                placeholder={props.placeholder}
+                className="search-extensions-input"
+                value={filter}
+                onChange={value => setFilter(value)}
+              />
+            </FormGroup>
           </Tooltip>
-          <div aria-label="Select extensions" className={`available-extensions`}>
-            {
-              result.sort(sortFunction(filter)).map((ex, i) => (
-                <Extension
-                  operation={OperationType.Add}
-                  {...ex}
-                  key={i}
-                  onClick={add}
-                />
-              ))
-            }
-            {filter && !result.length && <Title size="xs" style={{ paddingTop: '10px' }}>No result.</Title>}
-          </div>
-        </GridItem>
-        {extensions.length > 0 && (
-          <GridItem sm={12} md={6} >
-            <Title size="md">Selected:</Title>
-            <div className={`selected-extensions`}>
+          <div className={`selected-extensions`}>
+            <h4>Selected Extensions</h4>
+            <div className={`extension-list`}>
               {
-                extensions.map((selected, i) => (
+                extensions.map((ex, i) => (
                   <Extension
-                    operation={OperationType.Remove}
-                    {...entriesById.get(selected)!}
+                    selected={entrySet.has(ex)}
+                    {...entriesById.get(ex)!}
                     key={i}
-                    onClick={remove}
+                    onClick={entrySet.has(ex) ? remove : add}
                   />
                 ))
               }
             </div>
-          </GridItem>
-        )}
-      </Grid>
+          </div>
+        </div>
+        <div className="list-container">
+          {result.sort(sortFunction(filter)).map((ex, i) => {
+            const ext = (
+              <Extension
+                selected={entrySet.has(ex.id)}
+                {...ex}
+                key={i}
+                onClick={entrySet.has(ex.id) ? remove : add}
+                detailed
+              />
+            );
+            if (!filter && (!currentCat || currentCat !== ex.category)) {
+              currentCat = ex.category;
+              return (
+                <div style={{display: 'contents'}}>
+                  <div className="extension-category">
+                    {currentCat}
+                  </div>
+                  {ext}
+                </div>
+              )
+            }
+            return ext;
+          })}
+        </div>
+      </div>
+
     );
   }
 }

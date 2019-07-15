@@ -1,0 +1,91 @@
+.quarkus-form-container {
+  display: flex;
+  flex-wrap: wrap;
+
+  .title h3{
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .project-info {
+    order: 1;
+    flex-basis: 75%;
+    .base-settings {
+      margin: 0 20px 0 0;
+      padding: 0;
+    }
+    .extended-settings {
+      margin: 0 0 0 20px;
+      padding: 0;
+    }
+    .pf-c-button {
+      color: white;
+      font-size: 14px;
+      text-transform: uppercase;
+      text-align: left;
+      width: 233px;
+      svg {
+        color: #FF004A;
+      }
+    }
+  }
+
+  .project-extensions {
+    margin-top: 50px;
+    order: 3;
+    flex-basis: 100%;
+  }
+
+  .generate-project {
+    order: 2;
+    flex-basis: 25%;
+    align-self:center;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    button {
+      background-color: #FF004A;
+      border-radius: 0;
+      width: 300px;
+      height: 36px;
+      align-self: flex-end;
+    }
+  }
+  .pf-c-form {
+    grid-gap: 5px;
+    .pf-c-form__group {
+      .pf-c-form__label {
+        display: inline-block;
+        width: 100px;
+        color: #9AFF2D;
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: capitalize;
+      }
+  
+      input.pf-c-form-control {
+        border: none;
+        margin-left: -100px;
+        padding-left: 100px;
+        border-bottom: 1px solid #9AFF2D;
+        font-size: 14px;
+        width: 100%;
+        background: transparent;
+        color: white;
+        outline: none;
+        font-family: "PT Mono", Regular;
+        padding-bottom: 4px;
+      }
+  
+      input.pf-c-form-control:focus {
+        outline: none;
+        border-bottom: 1px solid #4695EB;
+      }
+    }
+    
+  }
+}

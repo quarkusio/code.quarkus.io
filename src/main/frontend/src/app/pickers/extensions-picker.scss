@@ -1,33 +1,140 @@
 .extensions-picker {
-  .extension-item {
-    border: 2px solid #f7f7f7;
-    line-height: 24px;
-    padding: 8px 40px 8px 16px;
-    margin: 8px 0;
-    border-radius: 4px;
-    cursor: pointer;
+  display: flex;
+  color: white;
 
-    h1 {
-      display: inline-block;
-      font-weight: 600;
+  .control-container {
+    flex-basis: 350px;
+
+    .pf-c-form__group {
+      svg {
+        margin: 0 10px;
+      }
     }
 
-    .extension-icon {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      margin: auto 100%;
+    input.pf-c-form-control {
+      border: 1px solid #9aff2d;
+      padding-left: 40px;
+      margin-left: -40px;
+      font-size: 14px;
+      width: 100%;
+      background: transparent;
+      color: white;
+      font-family: "PT Mono", Regular;
+      padding-bottom: 4px;
     }
 
-    &.active {
-      background-color: #bee1f4;
+    input.pf-c-form-control:focus {
+      outline: none;
+      border: 1px solid #4695eb;
+    }
+
+    h4 {
+      border-bottom: 1px solid #ff004a;
+      font-weight: bold;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+    .extension-list {
+      display: grid;
+      grid-template-columns: auto 30px;
+      .extension-item {
+        cursor: pointer;
+        display: contents;
+      }
     }
   }
 
+  .extension-item {
+    cursor: pointer;
+
+    .extension-selector {
+      color: #fff;
+    }
+
+    &.selected {
+      .extension-selector {
+        color: #71aeef;
+      }
+    }
+
+    &.active.selected {
+      .extension-selector {
+        color: #fff;
+      }
+    }
+
+    .extension-remove {
+      color: #ff004a;
+    }
+
+    & div:focus {
+      outline: none;
+    }
+
+    .extension-selector {
+      max-width: 10px;
+    }
+
+    .extension-name {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 0.9rem;
+      font-weight: bold;
+      height: 24px;
+    }
+
+    .extension-details {
+      display: contents;
+    }
+
+    .extension-description {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 0.8rem;
+    }
+
+    .extension-gav {
+      max-width: 150px;
+      direction: rtl;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      text-align: right;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.list-container {
+  margin-left: 30px;
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: 30px 300px auto 30px;
+  grid-template-rows: repeat(auto-fill, 24px);
+
+  
   .extension-category {
-    color: #06c;
-    padding-left: 10px;
+    grid-column: 1 / span 4;
+    grid-row: auto / span 3;
+    border-bottom: 1px solid #4695eb;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 10px 0 5px 0;
+  }
+
+  .extension-category:first-child {
+    margin: 0 0 5px 0;
+  }
+
+  .extension-item {
+    cursor: pointer;
+    color: white;
+    display: contents;
+
+    & > div {
+      margin: 0 10px;
+    }
   }
 }
