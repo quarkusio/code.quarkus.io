@@ -266,6 +266,18 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
       class="list-container"
     >
       <div
+        class="extension-search-clear"
+      >
+        Search results (
+        <button
+          class="pf-c-button pf-m-link"
+          type="button"
+        >
+          Clear search
+        </button>
+        )
+      </div>
+      <div
         aria-label="Switch io.quarkus:quarkus-camel-netty4-http extension"
         class="  extension-item"
       >
@@ -364,6 +376,18 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
     <div
       class="list-container"
     >
+      <div
+        class="extension-search-clear"
+      >
+        Search results (
+        <button
+          class="pf-c-button pf-m-link"
+          type="button"
+        >
+          Clear search
+        </button>
+        )
+      </div>
       <div
         aria-label="Switch io.quarkus:quarkus-arc extension"
         class="  extension-item"
