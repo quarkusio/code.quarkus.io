@@ -1,6 +1,6 @@
 import { InputProps, Picker, useAnalytics } from '@launcher/component';
-import { FormGroup, TextInput, Tooltip, Button } from "@patternfly/react-core";
-import { CheckIcon, ClipboardCheckIcon, ClipboardIcon, SearchIcon, TrashAltIcon } from "@patternfly/react-icons";
+import { Button, FormGroup, TextInput, Tooltip } from "@patternfly/react-core";
+import { CheckSquareIcon, ClipboardCheckIcon, ClipboardIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon } from "@patternfly/react-icons";
 import copy from 'copy-to-clipboard';
 import React, { useState } from "react";
 import './extensions-picker.scss';
@@ -68,8 +68,8 @@ function Extension(props: ExtensionProps) {
     >
       {props.detailed && (
         <div className="extension-selector" onClick={onClick}>
-          {((props.selected && !active) || (!props.selected && active)) && <CheckIcon />}
-          {(props.selected && active) && <TrashAltIcon />}
+          {!props.selected && !active && <OutlinedSquareIcon />}
+          {(active || props.selected) && <CheckSquareIcon />}
         </div>
       )}
       <Tooltip position="top" content={props.name} exitDelay={0}>
