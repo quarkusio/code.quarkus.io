@@ -1,5 +1,5 @@
 import { InputProps, Picker, useAnalytics } from '@launcher/component';
-import { FormGroup, TextInput, Tooltip } from "@patternfly/react-core";
+import { FormGroup, TextInput, Tooltip, Button } from "@patternfly/react-core";
 import { CheckIcon, ClipboardCheckIcon, ClipboardIcon, SearchIcon, TrashAltIcon } from "@patternfly/react-icons";
 import copy from 'copy-to-clipboard';
 import React, { useState } from "react";
@@ -37,6 +37,7 @@ function CopyToClipboard(props: { content: string }) {
   const copyToClipboard = () => {
     copy(props.content);
     setCopied(true);
+    setTimeout(() => setCopied(false), 1000);
   }
   return (
     <div
@@ -169,7 +170,7 @@ export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerVal
     return (
       <div className="extensions-picker">
         <div className="control-container">
-          <Tooltip position="right" content={`${Array.from(categories).join(', ')}`}>
+          <Tooltip position="right" exitDelay={0} content={`${Array.from(categories).join(', ')}`}>
             <FormGroup
               fieldId="search-extensions-input"
             >
@@ -200,6 +201,11 @@ export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerVal
           </div>
         </div>
         <div className="list-container">
+          {!!filter && (
+            <div className="extension-search-clear">
+              Search results (<Button variant="link" onClick={() => setFilter('')}>Clear search</Button>)
+            </div>
+          )}
           {result.sort(sortFunction(filter)).map((ex, i) => {
             const ext = (
               <Extension
@@ -213,7 +219,7 @@ export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerVal
             if (!filter && (!currentCat || currentCat !== ex.category)) {
               currentCat = ex.category;
               return (
-                <div style={{display: 'contents'}}>
+                <div style={{ display: 'contents' }}>
                   <div className="extension-category">
                     {currentCat}
                   </div>

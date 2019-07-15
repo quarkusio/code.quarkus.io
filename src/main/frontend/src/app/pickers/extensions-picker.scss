@@ -112,19 +112,18 @@
   flex-grow: 1;
   display: grid;
   grid-template-columns: 30px 300px auto 30px;
-  grid-template-rows: repeat(auto-fill, 24px);
-
   
-  .extension-category {
+  .extension-category, .extension-search-clear {
     grid-column: 1 / span 4;
-    grid-row: auto / span 3;
     border-bottom: 1px solid #4695eb;
     font-weight: bold;
     font-size: 1.1rem;
     margin: 10px 0 5px 0;
+    height: 30px;
+    .pf-c-button.pf-m-link { color: #ff004a; padding: 0 3px; }
   }
 
-  .extension-category:first-child {
+  .extension-category:first-child, .extension-search-clear {
     margin: 0 0 5px 0;
   }
 
