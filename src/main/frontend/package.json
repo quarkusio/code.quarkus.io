@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@launcher/component": "1.4.3",
+    "@launcher/component": "1.4.0",
     "@patternfly/react-core": "3.58.1",
     "@patternfly/react-icons": "3.10.6",
     "@sentry/browser": "5.0.8",
