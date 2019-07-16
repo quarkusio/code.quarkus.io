@@ -1,6 +1,20 @@
 .quarkus-form-container {
-  display: flex;
-  flex-wrap: wrap;
+  padding-bottom: 30px;
+
+  .form-header {
+    position: sticky;
+    top: 0;
+    height: 200px;
+    background-image: url("/quarkus_background_main.jpg");
+    background-size: 100% 200px;
+    background-repeat: no-repeat;
+    z-index: 10000;
+    .form-header-content {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  }
 
   .title h3{
     color: white;
@@ -10,8 +24,9 @@
   }
 
   .project-info {
-    order: 1;
     flex-basis: 75%;
+    height: 170px;
+    margin-top: 20px;
     .base-settings {
       margin: 0 20px 0 0;
       padding: 0;
@@ -33,16 +48,26 @@
   }
 
   .project-extensions {
-    margin-top: 50px;
-    order: 3;
+    max-width: 1200px;
+    margin: 0 auto;
     flex-basis: 100%;
+
+    .control-container {
+      margin-top: 20px;
+      position: sticky;
+      top: 220px;
+      height: 800px;
+    }
+
+    .result-container {
+      margin-top: 20px;
+    }
   }
 
   .generate-project {
-    order: 2;
     flex-basis: 25%;
     align-self:center;
-    height: 200px;
+    height: 180px;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;

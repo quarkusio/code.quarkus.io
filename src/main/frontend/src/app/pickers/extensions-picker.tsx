@@ -170,6 +170,9 @@ export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerVal
     return (
       <div className="extensions-picker">
         <div className="control-container">
+          <div className="title">
+            <h3>Extensions</h3>
+          </div>
           <Tooltip position="right" exitDelay={0} content={`${Array.from(categories).join(', ')}`}>
             <FormGroup
               fieldId="search-extensions-input"
@@ -200,35 +203,37 @@ export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerVal
             </div>
           </div>
         </div>
-        <div className="list-container">
+        <div className="result-container">
           {!!filter && (
             <div className="extension-search-clear">
               Search results (<Button variant="link" onClick={() => setFilter('')}>Clear search</Button>)
             </div>
           )}
-          {result.sort(sortFunction(filter)).map((ex, i) => {
-            const ext = (
-              <Extension
-                selected={entrySet.has(ex.id)}
-                {...ex}
-                key={i}
-                onClick={entrySet.has(ex.id) ? remove : add}
-                detailed
-              />
-            );
-            if (!filter && (!currentCat || currentCat !== ex.category)) {
-              currentCat = ex.category;
-              return (
-                <div style={{ display: 'contents' }}>
-                  <div className="extension-category">
-                    {currentCat}
+          <div className="list-container">
+            {result.sort(sortFunction(filter)).map((ex, i) => {
+              const ext = (
+                <Extension
+                  selected={entrySet.has(ex.id)}
+                  {...ex}
+                  key={i}
+                  onClick={entrySet.has(ex.id) ? remove : add}
+                  detailed
+                />
+              );
+              if (!filter && (!currentCat || currentCat !== ex.category)) {
+                currentCat = ex.category;
+                return (
+                  <div style={{ display: 'contents' }}>
+                    <div className="extension-category">
+                      {currentCat}
+                    </div>
+                    {ext}
                   </div>
-                  {ext}
-                </div>
-              )
-            }
-            return ext;
-          })}
+                )
+              }
+              return ext;
+            })}
+          </div>
         </div>
       </div>
 
