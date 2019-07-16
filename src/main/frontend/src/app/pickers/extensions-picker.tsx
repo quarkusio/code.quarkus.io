@@ -71,14 +71,14 @@ function Extension(props: ExtensionProps) {
       aria-label={`Switch ${props.id} extension`}
     >
       {props.detailed && (
-        <Tooltip position="bottom" content={tooltip} exitDelay={0}>
+        <Tooltip position="bottom" content={tooltip} exitDelay={0} zIndex={100}>
           <div className="extension-selector" onClick={onClick}>
             {!props.selected && !active && <OutlinedSquareIcon />}
             {(active || props.selected) && <CheckSquareIcon />}
           </div>
         </Tooltip>
       )}
-      <Tooltip position="bottom" content={tooltip} exitDelay={0}>
+      <Tooltip position="bottom" content={tooltip} exitDelay={0} zIndex={100}>
         <div className="extension-name" onClick={onClick}>{props.name}</div>
       </Tooltip>
       {!props.detailed && (
@@ -88,10 +88,10 @@ function Extension(props: ExtensionProps) {
       )}
       {props.detailed && (
         <div className="extension-details">
-          <Tooltip position="bottom" content={description} exitDelay={0}>
+          <Tooltip position="bottom" content={description} exitDelay={0} zIndex={100}>
             <div className="extension-description" onClick={onClick}>{description}</div>
           </Tooltip>
-          <Tooltip position="left" content={`Copy '${props.id}' to clipboard`} exitDelay={0}>
+          <Tooltip position="left" content={`Copy '${props.id}' to clipboard`} exitDelay={0} zIndex={100}>
             <div className="extension-gav"><CopyToClipboard content={props.id} /></div>
           </Tooltip>
         </div>
@@ -169,7 +169,7 @@ export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerVal
           <div className="title">
             <h3>Extensions</h3>
           </div>
-          <Tooltip position="bottom" exitDelay={0} content={`${Array.from(categories).join(', ')}`}>
+          <Tooltip position="bottom" exitDelay={0} zIndex={100} content={`${Array.from(categories).join(', ')}`}>
             <FormGroup
               fieldId="search-extensions-input"
             >
