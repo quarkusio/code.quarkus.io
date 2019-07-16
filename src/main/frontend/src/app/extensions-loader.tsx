@@ -14,7 +14,7 @@ interface Extension {
 
 export function ExtensionsLoader(props: { name: string, children: (entries: ExtensionEntry[]) => any }) {
   const loader = async () => {
-    return extensions.map(e => ({...e, labels: new Set(e.labels)}));
+    return extensions;
   };
   return (
     <DataLoader loader={loader}>

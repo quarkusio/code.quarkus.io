@@ -8,7 +8,7 @@ import './extensions-picker.scss';
 export interface ExtensionEntry {
   id: string;
   name: string;
-  labels: Set<String>;
+  labels: string[];
   description?: string;
   shortName?: string;
   category: string;
@@ -59,6 +59,10 @@ function Extension(props: ExtensionProps) {
     setActive(false);
   };
 
+  const description = props.description || '...';
+  const tooltip = props.detailed ?
+    `${props.selected ? 'Remove' : 'Add'} the extension '${props.name}'` : `${props.name}: ${description}`;
+
   return (
     <div
       className={`${active ? 'active' : ''} ${props.selected ? 'selected' : ''} extension-item`}
@@ -67,12 +71,14 @@ function Extension(props: ExtensionProps) {
       aria-label={`Switch ${props.id} extension`}
     >
       {props.detailed && (
-        <div className="extension-selector" onClick={onClick}>
-          {!props.selected && !active && <OutlinedSquareIcon />}
-          {(active || props.selected) && <CheckSquareIcon />}
-        </div>
+        <Tooltip position="bottom" content={tooltip} exitDelay={0}>
+          <div className="extension-selector" onClick={onClick}>
+            {!props.selected && !active && <OutlinedSquareIcon />}
+            {(active || props.selected) && <CheckSquareIcon />}
+          </div>
+        </Tooltip>
       )}
-      <Tooltip position="top" content={props.name} exitDelay={0}>
+      <Tooltip position="bottom" content={tooltip} exitDelay={0}>
         <div className="extension-name" onClick={onClick}>{props.name}</div>
       </Tooltip>
       {!props.detailed && (
@@ -82,8 +88,8 @@ function Extension(props: ExtensionProps) {
       )}
       {props.detailed && (
         <div className="extension-details">
-          <Tooltip position="top" content={props.description || 'Sorry, there is no description yet for this extension.'} exitDelay={0}>
-            <div className="extension-description" onClick={onClick}>{props.description || '...'}</div>
+          <Tooltip position="bottom" content={description} exitDelay={0}>
+            <div className="extension-description" onClick={onClick}>{description}</div>
           </Tooltip>
           <Tooltip position="left" content={`Copy '${props.id}' to clipboard`} exitDelay={0}>
             <div className="extension-gav"><CopyToClipboard content={props.id} /></div>
@@ -94,7 +100,7 @@ function Extension(props: ExtensionProps) {
   )
 }
 
-export const filterFunction = (filter: string, shortNames: Set<String>) => (d: ExtensionEntry) => {
+export const filterFunction = (filter: string) => (d: ExtensionEntry) => {
   const filterLowerCase = filter.toLowerCase();
   if (!filterLowerCase) {
     return true;
@@ -103,20 +109,10 @@ export const filterFunction = (filter: string, shortNames: Set<String>) => (d: E
   if (filterLowerCase === shortName) {
     return true;
   }
-  if (shortNames.has(filterLowerCase)) {
-    return false;
-  }
   return d.name.toLowerCase().includes(filterLowerCase)
-    || d.labels.has(filterLowerCase)
+    || d.labels.filter(l => l.startsWith(filterLowerCase)).length > 0
     || (d.category && d.category.toLowerCase().startsWith(filterLowerCase))
     || shortName.startsWith(filterLowerCase);
-}
-
-export function getShortNames(entries: ExtensionEntry[]) {
-  const shortNames = entries
-    .map(e => e.shortName && e.shortName.toLowerCase())
-    .filter(e => !!e) as string[];
-  return new Set(shortNames);
 }
 
 export const sortFunction = (filter: string) => (a: ExtensionEntry, b: ExtensionEntry) => {
@@ -132,8 +128,10 @@ export const sortFunction = (filter: string) => (a: ExtensionEntry, b: Extension
   if (startWithAShortName !== startWithBShortName) {
     return startWithAShortName ? -1 : 1;
   }
-  if (a.labels.has(filterLowerCase) !== b.labels.has(filterLowerCase)) {
-    return a.labels.has(filterLowerCase) ? -1 : 1;
+  const startWithOneOfALabel = a.labels.filter(l => l.startsWith(filterLowerCase)).length > 0;
+  const startWithOneOfBLabel = b.labels.filter(l => l.startsWith(filterLowerCase)).length > 0;
+  if (startWithOneOfALabel !== startWithOneOfBLabel) {
+    return startWithOneOfALabel ? -1 : 1;
   }
   if (a.name.toLowerCase().startsWith(filterLowerCase) !== b.name.toLowerCase().startsWith(filterLowerCase)) {
     return a.name.toLowerCase().startsWith(filterLowerCase) ? -1 : 1;
@@ -162,9 +160,7 @@ export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerVal
       analytics.event('Picker', 'Remove-Extension', id)
     };
 
-    const shortNames = getShortNames(props.entries);
-
-    const result = props.entries.filter(filterFunction(filter, shortNames));
+    const result = props.entries.filter(filterFunction(filter));
     const categories = new Set(props.entries.map(i => i.category));
     let currentCat: string | undefined = undefined;
     return (
@@ -173,7 +169,7 @@ export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerVal
           <div className="title">
             <h3>Extensions</h3>
           </div>
-          <Tooltip position="right" exitDelay={0} content={`${Array.from(categories).join(', ')}`}>
+          <Tooltip position="bottom" exitDelay={0} content={`${Array.from(categories).join(', ')}`}>
             <FormGroup
               fieldId="search-extensions-input"
             >
