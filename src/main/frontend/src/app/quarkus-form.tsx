@@ -1,6 +1,6 @@
 import { MavenSettingsPicker } from '@launcher/component';
 import { Button } from '@patternfly/react-core';
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { ExtensionsLoader } from './extensions-loader';
 import { ExtensionEntry, ExtensionsPicker } from './pickers/extensions-picker';
@@ -42,32 +42,34 @@ export function QuarkusForm(props: QuarkusFormProps) {
   useHotkeys('alt+enter', () => props.onSave(project));
   return (
     <div className="quarkus-form-container">
-      <div className="form-section project-info">
-        <div className="title">
-          <h3>Project Info</h3>
+      <div className="form-header">
+        <div className="form-header-content">
+          <div className="form-section project-info">
+            <div className="title">
+              <h3>Project Info</h3>
+            </div>
+            <MavenSettingsPicker.Element value={project.metadata} onChange={setMetadata} visibleFields={['groupId', 'artifactId', 'version', 'packageName']} mode="horizontal" />
+          </div>
+          <div className="form-section generate-project">
+            <Button aria-label="Generate project" onClick={() => props.onSave(project)}>Generate Project (alt + ⏎)</Button>
+          </div>
         </div>
-        <MavenSettingsPicker.Element value={project.metadata} onChange={setMetadata} visibleFields={['groupId', 'artifactId', 'version', 'packageName']} mode="horizontal"/>
       </div>
       <div className="form-section project-extensions">
         <ExtensionsLoader name="extensions">
           {extensions => (
-            <Fragment>
-              <div className="title">
-                <h3>Extensions</h3>
-              </div>
-              <ExtensionsPicker.Element
-                entries={extensions as ExtensionEntry[]}
-                value={{ extensions: project.extensions }}
-                onChange={setExtensions}
-                placeholder="RESTEasy, Hibernate ORM, Web..."
-              />
-            </Fragment>
+
+
+            <ExtensionsPicker.Element
+              entries={extensions as ExtensionEntry[]}
+              value={{ extensions: project.extensions }}
+              onChange={setExtensions}
+              placeholder="RESTEasy, Hibernate ORM, Web..."
+            />
           )}
         </ExtensionsLoader>
       </div>
-      <div className="form-section generate-project">
-        <Button aria-label="Generate project" onClick={() => props.onSave(project)}>Generate Project (alt + ⏎)</Button>
-      </div>
+
     </div>
   );
 }

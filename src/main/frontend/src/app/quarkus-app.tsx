@@ -7,11 +7,10 @@ import { QuarkusFlow } from './quarkus-flow';
 export function QuarkusApp() {
   return (
     <>
-    <div className="background-layer"/>
-    <div className="quarkus-app">
-      <Header />
-      <QuarkusFlow />
-    </div>
+      <div className="quarkus-app">
+        <Header />
+        <QuarkusFlow />
+      </div>
     </>
   );
 }

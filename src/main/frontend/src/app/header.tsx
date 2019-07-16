@@ -3,12 +3,11 @@ import './header.scss';
 
 export function Header() {
   return (
-    <>
-      <div className="header">
+    <div className="header">
+      <div className="header-content">
         <div className="brand">
           <div className="brand-image" />
         </div>
-
         <ul className="nav">
           <li><a href="https://quarkus.io/get-started/">Get Started</a></li>
           <li><a href="https://quarkus.io/guides/">Guides</a></li>
@@ -17,6 +16,6 @@ export function Header() {
           <li><a href="https://quarkus.io/blog/">Blog</a></li>
         </ul>
       </div>
-    </>
+    </div>
   );
 }

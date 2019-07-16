@@ -13,18 +13,3 @@ body {
 .pf-c-backdrop {
   background-color: rgba(0, 0, 0, 0.8) !important;
 }
-
-.background-layer {
-  position: absolute;
-  width: 100%;
-  height: 360px;
-  background-image: url("/quarkus_background.jpg"); 
-  background-size: 100% 1080px;
-  background-repeat: no-repeat;
-  z-index: -1;  
-}
-
-.quarkus-app {
-  max-width: 1200px;
-  margin: 0 auto;
-}
