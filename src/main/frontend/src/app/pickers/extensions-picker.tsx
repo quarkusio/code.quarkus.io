@@ -82,8 +82,8 @@ function Extension(props: ExtensionProps) {
       )}
       {props.detailed && (
         <div className="extension-details">
-          <Tooltip position="top" content={props.description} exitDelay={0}>
-            <div className="extension-description" onClick={onClick}>{props.description}</div>
+          <Tooltip position="top" content={props.description || 'Sorry, there is no description yet for this extension.'} exitDelay={0}>
+            <div className="extension-description" onClick={onClick}>{props.description || '...'}</div>
           </Tooltip>
           <Tooltip position="left" content={`Copy '${props.id}' to clipboard`} exitDelay={0}>
             <div className="extension-gav"><CopyToClipboard content={props.id} /></div>
@@ -223,7 +223,7 @@ export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerVal
               if (!filter && (!currentCat || currentCat !== ex.category)) {
                 currentCat = ex.category;
                 return (
-                  <div style={{ display: 'contents' }}>
+                  <div style={{ display: 'contents' }} key={i}>
                     <div className="extension-category">
                       {currentCat}
                     </div>
