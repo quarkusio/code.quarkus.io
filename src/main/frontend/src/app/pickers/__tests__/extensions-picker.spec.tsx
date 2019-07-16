@@ -1,6 +1,6 @@
+import { cleanup, fireEvent, render } from "@testing-library/react";
 import React from "react";
-import { render, fireEvent, cleanup } from "@testing-library/react";
-import { ExtensionsPicker, filterFunction, ExtensionEntry, getShortNames, sortFunction } from '../extensions-picker';
+import { ExtensionEntry, ExtensionsPicker, filterFunction, sortFunction } from '../extensions-picker';
 
 afterEach(() => {
   cleanup();
@@ -10,13 +10,13 @@ const entries: ExtensionEntry[] = [
   {
     "id": "io.quarkus:quarkus-arc",
     "name": "ArC",
-    "labels": new Set([
+    "labels": [
       "arc",
       "cdi",
       "dependency-injection",
       "di",
       "label"
-    ]),
+    ],
     "description": "Build time CDI dependency injection",
     "shortName": "CDI",
     "category": "Core"
@@ -24,31 +24,29 @@ const entries: ExtensionEntry[] = [
   {
     "id": "io.quarkus:quarkus-camel-netty4-http",
     "name": "Camel Netty4 test HTTP",
-    "labels": new Set([
+    "labels": [
       "camel-netty4-http",
       "camel"
-    ]),
+    ],
     "description": "Camel support for Netty",
     "category": "Integration"
   },
   {
     "id": "some-id",
     "name": "A CDI in name test",
-    "labels": new Set([
+    "labels": [
       "lambda",
       "amazon-lambda",
       "aws-lambda",
       "amazon",
       "aws",
       "label"
-    ]),
+    ],
     "shortName": "a shortname",
     "description": "Some description",
     "category": "Cloud"
   },
 ];
-
-const shortNames = getShortNames(entries);
 
 describe('<ExtensionsPicker />', () => {
 
@@ -79,50 +77,49 @@ describe('<ExtensionsPicker />', () => {
   });
 });
 
-describe('getShortNames', () => {
-  it('should work correctly', () => {
-    expect(shortNames).toEqual(new Set(['cdi', 'a shortname']));
-  });
-})
-
 describe('filterFunction', () => {
   it('when not using a filter, all extensions should be returned', () => {
-    expect(entries.filter(filterFunction('', shortNames)))
+    expect(entries.filter(filterFunction('')))
       .toEqual(entries);
   });
 
-  it('when using exact shortname, only the corresponding extension should be returned', () => {
-    expect(entries.filter(filterFunction('cdi', shortNames)))
-      .toEqual([entries[0]]);
+  it('when using exact shortname, the result should include the other corresponding extensions too', () => {
+    expect(entries.filter(filterFunction('cdi')))
+      .toEqual([entries[0], entries[2]]);
   });
 
   it('when using start of shortname, the result should include the other corresponding extensions too', () => {
-    expect(entries.filter(filterFunction('cd', shortNames)))
+    expect(entries.filter(filterFunction('cd')))
       .toEqual([entries[0], entries[2]]);
   });
 
   it('when using part of name, it should return the corresponding extensions', () => {
-    expect(entries.filter(filterFunction('test', shortNames)))
+    expect(entries.filter(filterFunction('test')))
       .toEqual([entries[1], entries[2]]);
   });
 
   it('when using label, it should return the corresponding extensions', () => {
-    expect(entries.filter(filterFunction('label', shortNames)))
+    expect(entries.filter(filterFunction('label')))
+      .toEqual([entries[0], entries[2]]);
+  });
+
+  it('when using part of label, it should return the corresponding extensions', () => {
+    expect(entries.filter(filterFunction('labe')))
       .toEqual([entries[0], entries[2]]);
   });
 
   it('when using part of category (not start), it should not return it', () => {
-    expect(entries.filter(filterFunction('oud', shortNames)))
+    expect(entries.filter(filterFunction('oud')))
       .toEqual([]);
   });
 
   it('when using start of category, it should return it', () => {
-    expect(entries.filter(filterFunction('clou', shortNames)))
+    expect(entries.filter(filterFunction('clou')))
       .toEqual([entries[2]]);
   });
 
   it('when using start of category, it should return it', () => {
-    expect(entries.filter(filterFunction('clou', shortNames)))
+    expect(entries.filter(filterFunction('clou')))
       .toEqual([entries[2]]);
   });
 });
@@ -139,6 +136,13 @@ describe('sortFunction', () => {
     expect(sortFunction('amazon')(entries[2], entries[0]))
       .toEqual(-1);
     expect(sortFunction('amazon')(entries[0], entries[2]))
+      .toEqual(1);
+  });
+
+  it('when using one part of the label of an extension, it should be first', () => {
+    expect(sortFunction('amazo')(entries[2], entries[0]))
+      .toEqual(-1);
+    expect(sortFunction('amazo')(entries[0], entries[2]))
       .toEqual(1);
   });
 
