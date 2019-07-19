@@ -11,8 +11,11 @@
     z-index: 110;
     .form-header-content {
       display: flex;
-      max-width: 1200px;
       margin: 0 auto;
+    }
+
+    @media screen and (max-width: 900px) {
+      display: none;
     }
   }
 
@@ -35,6 +38,11 @@
       margin: 0 0 0 20px;
       padding: 0;
     }
+   
+    @media screen and (max-width: 1200px) {
+      .extended-settings, .toggle-button { display: none; }
+    }
+
     .pf-c-button {
       color: white;
       font-size: 14px;
@@ -48,15 +56,26 @@
   }
 
   .project-extensions {
-    max-width: 1200px;
     margin: 0 auto;
     flex-basis: 100%;
 
+    & > .title {
+      text-align: center;
+      margin-top: 20px;
+      @media screen and (min-width: 900px) {
+        display: none;
+      }
+    }
+    
     .control-container {
       margin-top: 20px;
       position: sticky;
       top: 220px;
       height: 800px;
+
+      @media screen and (max-width: 900px) {
+        display: none;
+      }
     }
 
     .result-container {

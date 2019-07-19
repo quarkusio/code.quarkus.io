@@ -6,6 +6,19 @@ body {
   font-family: "Open Sans", Regular;
 }
 
+.responsive-container {
+  max-width: 1200px;
+
+  @media screen and (max-width: 1200px) {
+    max-width: 900px;
+  }
+
+  @media screen and (max-width: 900px) {
+   max-width: 100%;
+  }
+}
+
+
 .pf-c-backdrop__open {
   background: #000;
 }

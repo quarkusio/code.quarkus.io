@@ -73,6 +73,10 @@
 
     .extension-selector {
       max-width: 10px;
+
+      @media screen and (max-width: 900px) {
+        display: none;
+      }
     }
 
     .extension-name {
@@ -103,6 +107,10 @@
       overflow: hidden;
       text-align: right;
       font-size: 0.8rem;
+
+      @media screen and (max-width: 900px) {
+        display: none;
+      }
     }
   }
 }
@@ -110,6 +118,10 @@
 .result-container {
   margin-left: 30px;
   flex-grow: 1;
+
+  @media screen and (max-width: 900px) {
+    margin: 5px;
+  }
 
   .extension-search-clear {
     border-bottom: 1px solid #4695eb;
@@ -128,6 +140,10 @@
   display: grid;
   grid-template-columns: 30px 300px auto 30px;
 
+  @media screen and (max-width: 900px) {
+    grid-template-columns: 150px auto;
+  }
+
   .extension-category {
     grid-column: 1 / span 4;
     border-bottom: 1px solid #4695eb;
@@ -135,6 +151,10 @@
     font-size: 1.1rem;
     margin: 10px 0 5px 0;
     height: 30px;
+
+    @media screen and (max-width: 900px) {
+      grid-column: 1 / span 2;
+    }
   }
 
   .extension-category:first-child {
