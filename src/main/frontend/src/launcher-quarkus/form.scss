@@ -1,7 +1,7 @@
-.quarkus-form-container {
+.launcher-quarkus-form {
   padding-bottom: 30px;
-
-  .form-header {
+  
+  .form-header-sticky-container {
     position: sticky;
     top: 0;
     height: 200px;
@@ -9,7 +9,7 @@
     background-size: 100% 200px;
     background-repeat: no-repeat;
     z-index: 110;
-    .form-header-content {
+    .form-header {
       display: flex;
       margin: 0 auto;
     }
