@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/browser';
 import * as React from 'react';
 import { Component, ErrorInfo } from 'react';
-import { sentryDsn } from './app/config';
+import { sentryDsn } from './launcher-quarkus/config';
 import { Button } from '@patternfly/react-core';
 
 if (sentryDsn) {

@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { cleanup, fireEvent, render, act } from '@testing-library/react';
-import { QuarkusApp } from '../quarkus-app';
+import { LauncherQuarkus } from '../launcher-quarkus';
 
 
 afterEach(() => {
   cleanup();
 });
 
-it('Render QuarkusApp', async () => {
-  render(<QuarkusApp />);
+it('Render LauncherQuarkus', async () => {
+  render(<LauncherQuarkus />);
 });

@@ -1,10 +1,14 @@
+
 import React, { useState } from 'react';
 import { StatusMessage } from '@launcher/client';
 import { ProcessingApp } from '@launcher/component';
-import { QuarkusForm, QuarkusProject } from './quarkus-form';
-import { NextSteps } from './next-steps';
 import { stringify } from 'querystring';
 import { publicUrl } from './config';
+import './launcher-quarkus.scss';
+import { NextSteps } from './next-steps';
+import { Header } from './header';
+import { QuarkusProject, LauncherQuarkusForm } from './form';
+
 
 enum Status {
   EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
@@ -35,7 +39,7 @@ async function downloadProject(project: QuarkusProject): Promise<{ downloadLink:
   return { downloadLink };
 }
 
-export function QuarkusFlow(props: LaunchFlowProps) {
+export function LauncherQuarkus(props: LaunchFlowProps) {
   const [run, setRun] = useState<RunState>({ status: Status.EDITION, statusMessages: [] });
 
   const progressEvents = run.status === Status.RUNNING && run.result && run.result.events;
@@ -52,12 +56,13 @@ export function QuarkusFlow(props: LaunchFlowProps) {
   };
 
   return (
-    <React.Fragment>
-      <QuarkusForm onSave={project => download(project)} />
+    <div className="launcher-quarkus">
+      <Header />
+      <LauncherQuarkusForm onSave={project => download(project)} />
       {run.status === Status.RUNNING && (
         <ProcessingApp progressEvents={progressEvents} progressEventsResults={progressEventsResults} />)}
       {!run.error && run.status === Status.DOWNLOADED
         && (<NextSteps downloadLink={run.result.downloadLink} />)}
-    </React.Fragment>
+    </div>
   );
 }

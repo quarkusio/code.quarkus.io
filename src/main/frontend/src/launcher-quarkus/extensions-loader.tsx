@@ -1,7 +1,7 @@
 import React from 'react';
 import { DataLoader } from '@launcher/component';
 import extensions from './extensions.json';
-import { ExtensionEntry } from './pickers/extensions-picker.jsx';
+import { ExtensionEntry } from './pickers/extensions-picker';
 
 interface Extension {
   id: string;
