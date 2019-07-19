@@ -43,7 +43,7 @@ export function QuarkusForm(props: QuarkusFormProps) {
   return (
     <div className="quarkus-form-container">
       <div className="form-header">
-        <div className="form-header-content">
+        <div className="form-header-content responsive-container">
           <div className="form-section project-info">
             <div className="title">
               <h3>Project Info</h3>
@@ -55,11 +55,12 @@ export function QuarkusForm(props: QuarkusFormProps) {
           </div>
         </div>
       </div>
-      <div className="form-section project-extensions">
+      <div className="form-section project-extensions responsive-container">
+        <div className="title">
+          <h3>Extensions</h3>
+        </div>
         <ExtensionsLoader name="extensions">
           {extensions => (
-
-
             <ExtensionsPicker.Element
               entries={extensions as ExtensionEntry[]}
               value={{ extensions: project.extensions }}

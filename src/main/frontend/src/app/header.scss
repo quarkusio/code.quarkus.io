@@ -8,7 +8,6 @@
     display: flex;
     align-items: center;
     height: 132px;
-    max-width: 1200px;
     margin: 0 auto;
 
     margin: 0 auto;
@@ -19,8 +18,19 @@
         background-image: url("/quarkus_logo_horizontal_rgb_reverse.svg");
         background-repeat: no-repeat;
         background-origin: content-box;
+        background-position: center;
         width: 277px;
         height: 47px;
+
+        @media screen and (max-width: 1200px) {
+          width: 200px;
+          height: 47px;
+        }
+
+        @media screen and (max-width: 900px) {
+          width: 100%;
+        }
+  
       }
     }
 
@@ -30,6 +40,15 @@
       justify-content: flex-end;
       text-transform: uppercase;
       font-size: 1.2rem;
+      white-space: nowrap;
+
+      @media screen and (max-width: 1200px) {
+        font-size: 1rem;
+      }
+
+      @media screen and (max-width: 900px) {
+        display: none;
+      }
 
       a {
         color: #fff;

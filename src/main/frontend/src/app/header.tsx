@@ -4,9 +4,9 @@ import './header.scss';
 export function Header() {
   return (
     <div className="header">
-      <div className="header-content">
+      <div className="header-content responsive-container">
         <div className="brand">
-          <div className="brand-image" />
+          <a href="http://www.quarkus.io"><div className="brand-image" /></a>
         </div>
         <ul className="nav">
           <li><a href="https://quarkus.io/get-started/">Get Started</a></li>
