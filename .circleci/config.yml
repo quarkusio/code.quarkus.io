@@ -43,38 +43,14 @@ jobs:
 
       - run: mvn package
 
-
-
-
-
       # Store context
       - persist_to_workspace:
           root: /home/circleci
           paths:
             - repo
-  publish:
-    docker:
-      - image: circleci/openjdk:8-jdk
-
-    working_directory: ~/repo
-    steps:
-      - attach_workspace:
-          at: /home/circleci
-
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - run:
-          name: Build and push image to docker
-          command: .circleci/docker.sh
 
 workflows:
   version: 2
   ci:
     jobs:
       - build
-      - publish:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master

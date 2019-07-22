@@ -83,8 +83,7 @@
                         <goals>
                             <goal>install-node-and-yarn</goal>
                         </goals>
-                        <!-- optional: default phase is "generate-resources" -->
-                        <phase>generate-resources</phase>
+                        <phase>pre-clean</phase>
                     </execution>
                     <execution>
                         <id>yarn install</id>
