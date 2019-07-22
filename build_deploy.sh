@@ -5,8 +5,6 @@ set -exv
 IMAGE="quay.io/launcher/launcher-quarkus"
 IMAGE_TAG=$(git rev-parse --short=7 HEAD)
 
-mkdir -p tmp
-
 docker build -f src/main/docker/Dockerfile.native.multistage -t "${IMAGE}:${IMAGE_TAG}" .
 
 if [[ -n "$QUAY_USER" && -n "$QUAY_TOKEN" ]]; then
