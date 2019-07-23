@@ -1,0 +1,85 @@
+---
+apiVersion: v1
+kind: Template
+metadata:
+  name: launcher-quarkus
+objects:
+  - apiVersion: v1
+    kind: DeploymentConfig
+    metadata:
+      labels:
+        app: launcher-quarkus
+      name: launcher-quarkus
+    spec:
+      replicas: 1
+      selector:
+        app: launcher-quarkus
+        deploymentconfig: launcher-quarkus
+      strategy:
+        rollingParams:
+          intervalSeconds: 1
+          maxSurge: 25%
+          maxUnavailable: 25%
+          timeoutSeconds: 600
+          updatePeriodSeconds: 1
+        type: Rolling
+      template:
+        metadata:
+          labels:
+            app: launcher-quarkus
+            deploymentconfig: launcher-quarkus
+        spec:
+          containers:
+            - image: ${IMAGE}:${IMAGE_TAG}
+              imagePullPolicy: Always
+              name: launcher-quarkus
+              ports:
+                - containerPort: 8080
+              livenessProbe:
+                httpGet:
+                  path: /health/live
+                  port: 8080
+                initialDelaySeconds: 30
+                periodSeconds: 10
+                timeoutSeconds: 3
+              readinessProbe:
+                httpGet:
+                  path: /health/ready
+                  port: 8080
+                initialDelaySeconds: 3
+                periodSeconds: 10
+                timeoutSeconds: 3
+              resources:
+                limits:
+                  memory: ${MEMORY_LIMIT}
+      triggers:
+        - type: ConfigChange
+  - kind: Service
+    apiVersion: v1
+    metadata:
+      labels:
+        service: launcher-quarkus
+      name: launcher-quarkus
+    spec:
+      ports:
+        - name: '8080'
+          port: 8080
+          protocol: TCP
+          targetPort: 8080
+      selector:
+        service: launcher-quarkus
+      sessionAffinity: None
+      type: ClusterIP
+parameters:
+  - name: IMAGE
+    value: quay.io/launcher/launcher-quarkus
+    displayName: launcher quarkus image
+    description: launcher quarkus docker image. Defaults to quay.io/launcher/launcher-quarkus
+  - name: IMAGE_TAG
+    value: latest
+    displayName: launcher quarkus version
+    description: launcher quarkus version which defaults to latest
+  - name: MEMORY_LIMIT
+    value: 1Gi
+    displayName: Memory Limit
+    description: Maximum amount of memory the container can use. Defaults 1Gi
