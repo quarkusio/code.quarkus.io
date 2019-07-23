@@ -12,3 +12,4 @@ if [[ -n "$QUAY_USER" && -n "$QUAY_TOKEN" ]]; then
     mkdir -p "$DOCKER_CONF"
     docker --config="$DOCKER_CONF" login -u="$QUAY_USER" -p="$QUAY_TOKEN" quay.io
     docker --config="$DOCKER_CONF" push "${IMAGE}:${IMAGE_TAG}"
+fi
