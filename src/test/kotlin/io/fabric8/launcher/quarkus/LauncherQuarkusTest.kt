@@ -2,8 +2,10 @@ package io.quarkus.generator.rest
 
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
+import org.hamcrest.CoreMatchers
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import javax.ws.rs.core.MediaType
 
 @QuarkusTest
 internal class LauncherQuarkusTest {
@@ -29,5 +31,17 @@ internal class LauncherQuarkusTest {
             .statusCode(200)
             .contentType("application/zip")
             .header("Content-Disposition", "attachment; filename=\"test-app.zip\"")
+    }
+
+    @Test
+    @DisplayName("Should return the default configuration")
+    fun testConfig() {
+        given()
+            .`when`().get("/api/quarkus/config")
+            .then()
+            .statusCode(200)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body("environment", CoreMatchers.equalTo("dev"))
+            .body("gaTrackingId", CoreMatchers.nullValue())
     }
 }

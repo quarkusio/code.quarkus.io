@@ -5,8 +5,13 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { SentryBoundary } from './sentry-boundary';
 import { LauncherQuarkus } from './launcher-quarkus/launcher-quarkus';
+import { ConfigLoader } from './launcher-quarkus/config-loader';
 
-ReactDOM.render(<SentryBoundary><LauncherQuarkus /></SentryBoundary>, document.getElementById('root'));
+ReactDOM.render(
+  <SentryBoundary>
+    <ConfigLoader>{config => <LauncherQuarkus config={config}/>}</ConfigLoader>
+  </SentryBoundary>
+  , document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

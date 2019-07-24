@@ -1,5 +1,6 @@
 package io.fabric8.launcher.quarkus
 
+import io.fabric8.launcher.quarkus.model.Config
 import io.fabric8.launcher.quarkus.model.QuarkusProject
 import io.quarkus.cli.commands.AddExtensions
 import io.quarkus.cli.commands.CreateProject
@@ -13,11 +14,22 @@ import javax.ws.rs.BeanParam
 import javax.ws.rs.GET
 import javax.ws.rs.Path
 import javax.ws.rs.Produces
+import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 
 
 @Path("/quarkus")
 class LauncherQuarkus {
+
+    @GET
+    @Path("/config")
+    @Produces(MediaType.APPLICATION_JSON)
+    fun config(): Config {
+        return Config(
+            System.getenv("LAUNCHER_QUARKUS_ENV") ?: "dev",
+            System.getenv("LAUNCHER_QUARKUS_GA_TRACKING_ID") ?: null
+        )
+    }
 
     @GET
     @Path("/download")
