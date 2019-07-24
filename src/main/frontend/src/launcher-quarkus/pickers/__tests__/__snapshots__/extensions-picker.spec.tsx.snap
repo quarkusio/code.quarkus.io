@@ -65,10 +65,10 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
           <div
             class="extension-category"
           >
-            Integration
+            Cloud
           </div>
           <div
-            aria-label="Switch io.quarkus:quarkus-camel-netty4-http extension"
+            aria-label="Switch some-id extension"
             class="  extension-item"
           >
             <div
@@ -94,7 +94,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
               class="extension-name"
               tabindex="0"
             >
-              Camel Netty4 test HTTP
+              A CDI in name test
             </div>
             <div
               class="extension-details"
@@ -103,7 +103,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
                 class="extension-description"
                 tabindex="0"
               >
-                Camel support for Netty
+                Some description
               </div>
               <div
                 class="extension-gav"
@@ -205,10 +205,10 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
           <div
             class="extension-category"
           >
-            Cloud
+            Integration
           </div>
           <div
-            aria-label="Switch some-id extension"
+            aria-label="Switch io.quarkus:quarkus-camel-netty4-http extension"
             class="  extension-item"
           >
             <div
@@ -234,7 +234,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
               class="extension-name"
               tabindex="0"
             >
-              A CDI in name test
+              Camel Netty4 test HTTP
             </div>
             <div
               class="extension-details"
@@ -243,7 +243,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
                 class="extension-description"
                 tabindex="0"
               >
-                Some description
+                Camel support for Netty
               </div>
               <div
                 class="extension-gav"

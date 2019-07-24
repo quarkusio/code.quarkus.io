@@ -119,9 +119,9 @@ export const sortFunction = (filter: string) => (a: ExtensionEntry, b: Extension
   const filterLowerCase = filter.toLowerCase();
   if (!filterLowerCase) {
     if (a.category === b.category) {
-      return a.name > b.name ? -1 : 1;
+      return a.name < b.name ? -1 : 1;
     }
-    return a.category > b.category ? -1 : 1;
+    return a.category < b.category ? -1 : 1;
   }
   const startWithAShortName = !!a.shortName && a.shortName.toLowerCase().startsWith(filterLowerCase);
   const startWithBShortName = !!b.shortName && b.shortName.toLowerCase().startsWith(filterLowerCase);
