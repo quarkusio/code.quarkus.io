@@ -143,6 +143,7 @@ export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerVal
   checkCompletion: (value: ExtensionsPickerValue) => !!value.extensions && value.extensions.length > 0,
   Element: (props: ExtensionsPickerProps) => {
     const [filter, setFilter] = useState('');
+    const [hasSearched, setHasSearched] = useState(false);
     const analytics = useAnalytics();
     const extensions = props.value.extensions || [];
     const entrySet = new Set(extensions);
@@ -159,6 +160,14 @@ export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerVal
       props.onChange({ extensions: Array.from(entrySet) });
       analytics.event('Picker', 'Remove-Extension', id)
     };
+
+    const search = (f: string) => {
+      if(!hasSearched) {
+        analytics.event('Picker', 'Search-Extension')
+      }
+      setHasSearched(true);
+      setFilter(f);
+    }
 
     const result = props.entries.filter(filterFunction(filter));
     const categories = new Set(props.entries.map(i => i.category));
@@ -179,7 +188,7 @@ export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerVal
                 placeholder={props.placeholder}
                 className="search-extensions-input"
                 value={filter}
-                onChange={value => setFilter(value)}
+                onChange={search}
               />
             </FormGroup>
           </Tooltip>

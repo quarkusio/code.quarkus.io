@@ -8,5 +8,5 @@ afterEach(() => {
 });
 
 it('Render LauncherQuarkus', async () => {
-  render(<LauncherQuarkus />);
+  render(<LauncherQuarkus config={{ environment: 'test' }} />);
 });
