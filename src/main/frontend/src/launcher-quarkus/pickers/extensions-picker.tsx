@@ -101,7 +101,7 @@ function Extension(props: ExtensionProps) {
 }
 
 export const filterFunction = (filter: string) => (d: ExtensionEntry) => {
-  const filterLowerCase = filter.toLowerCase();
+  const filterLowerCase = filter.trim().toLowerCase();
   if (!filterLowerCase) {
     return true;
   }
@@ -116,7 +116,7 @@ export const filterFunction = (filter: string) => (d: ExtensionEntry) => {
 }
 
 export const sortFunction = (filter: string) => (a: ExtensionEntry, b: ExtensionEntry) => {
-  const filterLowerCase = filter.toLowerCase();
+  const filterLowerCase = filter.trim().toLowerCase();
   if (!filterLowerCase) {
     if (a.category === b.category) {
       return a.name < b.name ? -1 : 1;

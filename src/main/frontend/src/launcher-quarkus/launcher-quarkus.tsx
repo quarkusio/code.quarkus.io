@@ -29,7 +29,6 @@ async function generateProject(project: QuarkusProject): Promise<{ downloadLink:
   const params = {
     g: project.metadata.groupId,
     a: project.metadata.artifactId,
-    d: project.metadata.description,
     v: project.metadata.version,
     c: `${project.metadata.packageName}.QuarkusApp`,
     e: project.extensions
