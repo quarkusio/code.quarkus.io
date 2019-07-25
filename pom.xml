@@ -147,6 +147,9 @@
                         <goals>
                             <goal>build</goal>
                         </goals>
+                        <configuration>
+                            <additionalBuildArgs>-H:IncludeResources=templates/.*</additionalBuildArgs>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
