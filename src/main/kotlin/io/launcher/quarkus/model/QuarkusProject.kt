@@ -9,23 +9,23 @@ class QuarkusProject {
     @NotBlank
     @QueryParam("g")
     @DefaultValue("org.example")
-    val groupId: String = ""
+    var groupId: String = ""
 
     @NotBlank
     @QueryParam("a")
     @DefaultValue("quarkus-app")
-    val artifactId: String = "p"
+    var artifactId: String = "p"
 
     @NotBlank
     @QueryParam("v")
     @DefaultValue("0.0.1-SNAPSHOT")
-    val version: String = ""
+    var version: String = ""
 
     @NotBlank
     @QueryParam("c")
     @DefaultValue("org.example.QuarkusApp")
-    val className: String = ""
+    var className: String = ""
 
     @QueryParam("e")
-    val dependencies: Set<String> = mutableSetOf()
+    var dependencies: Set<String> = mutableSetOf()
 }
