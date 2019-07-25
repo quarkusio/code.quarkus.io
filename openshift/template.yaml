@@ -52,6 +52,11 @@ objects:
               resources:
                 limits:
                   memory: ${MEMORY_LIMIT}
+              env:
+                - name: LAUNCHER_QUARKUS_ENV
+                  value: ${LAUNCHER_QUARKUS_ENV}
+                - name: LAUNCHER_QUARKUS_GA_TRACKING_ID
+                  value: ${LAUNCHER_QUARKUS_GA_TRACKING_ID}
       triggers:
         - type: ConfigChange
   - kind: Service
@@ -71,6 +76,13 @@ objects:
       sessionAffinity: None
       type: ClusterIP
 parameters:
+  - name: LAUNCHER_QUARKUS_ENV
+    value: dev
+    displayName: launcher quarkus environment
+    description: launcher quarkus environment. Defaults to dev
+  - name: LAUNCHER_QUARKUS_GA_TRACKING_ID
+    displayName: launcher quarkus ga tracking id
+    description: launcher quarkus google analytics tracking id.
   - name: IMAGE
     value: quay.io/launcher/launcher-quarkus
     displayName: launcher quarkus image
