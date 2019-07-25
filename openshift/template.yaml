@@ -7,8 +7,6 @@ objects:
   - apiVersion: v1
     kind: DeploymentConfig
     metadata:
-      labels:
-        app: launcher-quarkus
       name: launcher-quarkus
     spec:
       replicas: 1
@@ -25,8 +23,7 @@ objects:
       template:
         metadata:
           labels:
-            app: launcher-quarkus
-            deploymentconfig: launcher-quarkus
+            service: launcher-quarkus
         spec:
           containers:
             - image: ${IMAGE}:${IMAGE_TAG}
