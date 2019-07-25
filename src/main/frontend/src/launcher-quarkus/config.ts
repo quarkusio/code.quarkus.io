@@ -11,6 +11,3 @@ function getEnv(env: string | undefined, name: string): string | undefined {
 }
 
 export const publicUrl = process.env.PUBLIC_URL && `${process.env.PUBLIC_URL}/`;
-
-export const sentryDsn =
-  getEnv(process.env.REACT_APP_SENTRY_DSN, 'sentryDsn');

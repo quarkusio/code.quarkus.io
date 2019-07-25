@@ -1,11 +1,10 @@
 import * as Sentry from '@sentry/browser';
 import * as React from 'react';
 import { Component, ErrorInfo } from 'react';
-import { sentryDsn } from './launcher-quarkus/config';
 import { Button } from '@patternfly/react-core';
 
 interface SentryBoundaryProps {
-  sentryDsn?: string;
+  sentryDSN?: string;
   environment: string;
 }
 
@@ -15,10 +14,10 @@ export class SentryBoundary extends Component<SentryBoundaryProps, { error?: Err
     super(props);
     this.state = {error: undefined};
 
-    if (props.sentryDsn) {
+    if (props.sentryDSN) {
       console.info('Sentry is enabled');
       Sentry.init({
-        dsn: props.sentryDsn,
+        dsn: props.sentryDSN,
         environment: props.environment,
       });
     } else {
@@ -27,7 +26,7 @@ export class SentryBoundary extends Component<SentryBoundaryProps, { error?: Err
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    if(sentryDsn) {
+    if(this.props.sentryDSN) {
       this.setState({error});
       Sentry.withScope(scope => {
         Object.keys(errorInfo).forEach(key => {

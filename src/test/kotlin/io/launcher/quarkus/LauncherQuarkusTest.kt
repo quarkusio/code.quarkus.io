@@ -43,6 +43,6 @@ internal class LauncherQuarkusTest {
             .contentType(MediaType.APPLICATION_JSON)
             .body("environment", CoreMatchers.equalTo("dev"))
             .body("gaTrackingId", CoreMatchers.nullValue())
-            .body("sentryDsn", CoreMatchers.nullValue())
+            .body("sentryDSN", CoreMatchers.nullValue())
     }
 }

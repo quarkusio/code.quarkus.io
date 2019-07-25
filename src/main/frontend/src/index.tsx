@@ -9,7 +9,7 @@ import { ConfigLoader } from './launcher-quarkus/config-loader';
 
 ReactDOM.render(
   <ConfigLoader>{config =>
-    <SentryBoundary sentryDsn={config.sentryDsn} environment={config.environment}>
+    <SentryBoundary sentryDSN={config.sentryDSN} environment={config.environment}>
       <LauncherQuarkus config={config} />
     </SentryBoundary>
   }</ConfigLoader>
