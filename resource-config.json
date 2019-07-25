@@ -1,0 +1,16 @@
+{
+  "resources": [
+    {
+      "pattern": "quarkus-bom/pom\\.xml$"
+    },
+    {
+      "pattern": ".*\\.ftl$"
+    },
+    {
+      "pattern": "extension-list.*$"
+    },
+    {
+      "pattern": "extensions\\.json$"
+    }
+  ]
+}

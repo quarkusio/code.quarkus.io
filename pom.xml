@@ -16,6 +16,7 @@
         <version.kotlin>1.3.31</version.kotlin>
         <version.surefire-plugin>2.22.0</version.surefire-plugin>
         <version.maven-failsafe-plugin>2.22.2</version.maven-failsafe-plugin>
+        <version.maven-compiler-plugin>3.8.0</version.maven-compiler-plugin>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -44,6 +45,11 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-hibernate-validator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-core-deployment</artifactId>
+            <version>${version.quarkus}</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -139,6 +145,20 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${version.maven-compiler-plugin}</version>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>io.quarkus</groupId>
+                            <artifactId>quarkus-extension-processor</artifactId>
+                            <version>${version.quarkus}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
                 <version>${version.quarkus}</version>
@@ -148,7 +168,7 @@
                             <goal>build</goal>
                         </goals>
                         <configuration>
-                            <additionalBuildArgs>-H:IncludeResources=templates/.*</additionalBuildArgs>
+                            <additionalBuildArgs>-H:ResourceConfigurationFiles=${project.basedir}/resource-config.json</additionalBuildArgs>
                         </configuration>
                     </execution>
                 </executions>
