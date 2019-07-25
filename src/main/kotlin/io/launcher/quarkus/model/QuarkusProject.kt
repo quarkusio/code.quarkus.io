@@ -1,4 +1,4 @@
-package io.fabric8.launcher.quarkus.model
+package io.launcher.quarkus.model
 
 import javax.validation.constraints.NotBlank
 import javax.ws.rs.DefaultValue

@@ -1,4 +1,4 @@
-package io.quarkus.generator.rest
+package io.launcher.quarkus
 
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
@@ -43,5 +43,6 @@ internal class LauncherQuarkusTest {
             .contentType(MediaType.APPLICATION_JSON)
             .body("environment", CoreMatchers.equalTo("dev"))
             .body("gaTrackingId", CoreMatchers.nullValue())
+            .body("sentryDsn", CoreMatchers.nullValue())
     }
 }

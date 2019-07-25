@@ -4,6 +4,7 @@ import React from 'react';
 export interface Config {
   environment: string;
   gaTrackingId?: string;
+  sentryDsn?: string;
 }
 
 export function ConfigLoader(props: { children: (config: Config) => any }) {
