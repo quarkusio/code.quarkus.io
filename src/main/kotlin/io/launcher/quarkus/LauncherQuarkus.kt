@@ -1,7 +1,7 @@
-package io.fabric8.launcher.quarkus
+package io.launcher.quarkus
 
-import io.fabric8.launcher.quarkus.model.Config
-import io.fabric8.launcher.quarkus.model.QuarkusProject
+import io.launcher.quarkus.model.Config
+import io.launcher.quarkus.model.QuarkusProject
 import io.quarkus.cli.commands.AddExtensions
 import io.quarkus.cli.commands.CreateProject
 import io.quarkus.cli.commands.writer.ZipProjectWriter
@@ -27,7 +27,8 @@ class LauncherQuarkus {
     fun config(): Config {
         return Config(
             System.getenv("LAUNCHER_QUARKUS_ENV") ?: "dev",
-            System.getenv("LAUNCHER_QUARKUS_GA_TRACKING_ID") ?: null
+            System.getenv("LAUNCHER_QUARKUS_GA_TRACKING_ID") ?: null,
+            System.getenv("LAUNCHER_QUARKUS_SENTRY_DSN") ?: null
         )
     }
 

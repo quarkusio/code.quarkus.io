@@ -4,19 +4,26 @@ import { Component, ErrorInfo } from 'react';
 import { sentryDsn } from './launcher-quarkus/config';
 import { Button } from '@patternfly/react-core';
 
-if (sentryDsn) {
-  console.info('Sentry is enabled');
-  Sentry.init({
-    dsn: sentryDsn
-  });
-} else {
-  console.info('Sentry is disabled');
+interface SentryBoundaryProps {
+  sentryDsn?: string;
+  environment: string;
 }
 
-export class SentryBoundary extends Component<{}, { error?: Error }> {
-  constructor(props: {}) {
+
+export class SentryBoundary extends Component<SentryBoundaryProps, { error?: Error }> {
+  constructor(props: SentryBoundaryProps) {
     super(props);
     this.state = {error: undefined};
+
+    if (props.sentryDsn) {
+      console.info('Sentry is enabled');
+      Sentry.init({
+        dsn: props.sentryDsn,
+        environment: props.environment,
+      });
+    } else {
+      console.info('Sentry is disabled');
+    }
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
