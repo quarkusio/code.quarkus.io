@@ -2,6 +2,8 @@
 FROM quay.io/quarkus/centos-quarkus-maven:19.0.2 AS build
 COPY src /usr/src/app/src
 COPY pom.xml /usr/src/app
+COPY reflection-config.json /usr/src/app
+COPY resources-config.json /usr/src/app
 USER root
 RUN chown -R quarkus /usr/src/app
 USER quarkus
