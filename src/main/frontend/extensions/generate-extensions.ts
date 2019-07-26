@@ -9,6 +9,7 @@ interface Extension {
     description?: string;
     shortName?: string;
     category: string;
+    order: number;
 }
 
 function getId(e) {
@@ -16,39 +17,40 @@ function getId(e) {
 }
 
 async function generate() {
-    const extIOResp = await axios.get('https://raw.githubusercontent.com/quarkusio/quarkusio.github.io/develop/_data/extensions.yaml');
-    const extCommonResp = await axios.get('https://raw.githubusercontent.com/quarkusio/quarkus/master/devtools/common/src/main/filtered/extensions.json');
+    const extWebsiteResp = await axios.get('https://raw.githubusercontent.com/quarkusio/quarkusio.github.io/develop/_data/extensions.yaml');
+    const extLibResp = await axios.get('https://raw.githubusercontent.com/quarkusio/quarkus/master/devtools/common/src/main/filtered/extensions.json');
 
-    const extIO = yaml.parse(extIOResp.data);
+    const extWebsite = yaml.parse(extWebsiteResp.data);
 
-    const fExtIO = extIO.categories.map(c => {
+    const fExtWebsite = extWebsite.categories.map(c => {
         return c.extensions.map(e => ({
             ...e,
             category: c.category,
             categoryId: c['cat-id']
         }));
     }).flat();
-    const fExtIOById = new Map<string, any>(fExtIO.map(f => [getId(f), f]));
-    const out = extCommonResp.data.map(e => {
-        const id = getId(e);
-        const extIO = fExtIOById.get(id);
-        if(!extIO) {
-            console.warn('Extension missing in UI ' + id);
+    const extLibById = new Map<string, any>(extLibResp.data.map(f => [getId(f), f]));
+    const out = fExtWebsite.map((eWebsite, i) => {
+        const id = getId(eWebsite);
+        const eLib = extLibById.get(id);
+        if(!eLib) {
+            console.warn('Extension missing in lib ' + id);
             return undefined;
         }
-        if(!extIO.description) {
+        if(!eWebsite.description) {
             console.warn('Description missing for ' + id);
         }
-        if(!e.shortName) {
+        if(!eLib.shortName) {
             console.warn('Shortname missing for ' + id);
         }
         return {
             id,
-            name: extIO.name,
-            labels: extIO.labels,
-            description: extIO.description,
-            shortName: e.shortName,
-            category: extIO.category,
+            name: eWebsite.name,
+            labels: eWebsite.labels,
+            description: eWebsite.description,
+            shortName: eLib.shortName,
+            category: eWebsite.category,
+            order: i,
         }
     }).filter(e => !!e);
 

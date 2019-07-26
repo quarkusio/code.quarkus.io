@@ -19,7 +19,8 @@ const entries: ExtensionEntry[] = [
     ],
     "description": "Build time CDI dependency injection",
     "shortName": "CDI",
-    "category": "Core"
+    "category": "Core",
+    "order": 0,
   },
   {
     "id": "io.quarkus:quarkus-camel-netty4-http",
@@ -29,7 +30,8 @@ const entries: ExtensionEntry[] = [
       "camel"
     ],
     "description": "Camel support for Netty",
-    "category": "Integration"
+    "category": "Integration",
+    "order": 2,
   },
   {
     "id": "some-id",
@@ -44,7 +46,8 @@ const entries: ExtensionEntry[] = [
     ],
     "shortName": "a shortname",
     "description": "Some description",
-    "category": "Cloud"
+    "category": "Cloud",
+    "order": 1,
   },
 ];
 
@@ -125,6 +128,11 @@ describe('filterFunction', () => {
 });
 
 describe('sortFunction', () => {
+  it('when using not filter, it should use the order field', () => {
+    const sorted = entries.slice(0).sort(sortFunction(''));
+    expect(sorted).toEqual([entries[0], entries[2], entries[1]]);
+  });
+
   it('when using start of shortname of an extension, it should be first', () => {
     expect(sortFunction('cdi')(entries[0], entries[2]))
       .toEqual(-1);
@@ -153,11 +161,9 @@ describe('sortFunction', () => {
       .toEqual(1);
   });
 
-  it('when no match, it should compare the names', () => {
-    expect(sortFunction('nomatch')(entries[0], entries[1]))
-      .toEqual(-1);
-    expect(sortFunction('nomatch')(entries[1], entries[0]))
-      .toEqual(1);
+  it('when no match, it should compare the order', () => {
+    const sorted = entries.slice(0).sort(sortFunction('anomatch'));
+    expect(sorted).toEqual([entries[0], entries[2], entries[1]]);
   });
 
 });

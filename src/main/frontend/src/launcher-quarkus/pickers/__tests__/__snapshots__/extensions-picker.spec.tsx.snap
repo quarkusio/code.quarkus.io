@@ -65,76 +65,6 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
           <div
             class="extension-category"
           >
-            Cloud
-          </div>
-          <div
-            aria-label="Switch some-id extension"
-            class="  extension-item"
-          >
-            <div
-              class="extension-selector"
-              tabindex="0"
-            >
-              <svg
-                aria-hidden="true"
-                fill="currentColor"
-                height="1em"
-                role="img"
-                style="vertical-align: -0.125em;"
-                viewBox="0 0 448 512"
-                width="1em"
-              >
-                <path
-                  d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-6 400H54c-3.3 0-6-2.7-6-6V86c0-3.3 2.7-6 6-6h340c3.3 0 6 2.7 6 6v340c0 3.3-2.7 6-6 6z"
-                  transform=""
-                />
-              </svg>
-            </div>
-            <div
-              class="extension-name"
-              tabindex="0"
-            >
-              A CDI in name test
-            </div>
-            <div
-              class="extension-details"
-            >
-              <div
-                class="extension-description"
-                tabindex="0"
-              >
-                Some description
-              </div>
-              <div
-                class="extension-gav"
-                tabindex="0"
-              >
-                <div>
-                  <svg
-                    aria-hidden="true"
-                    fill="currentColor"
-                    height="1em"
-                    role="img"
-                    style="vertical-align: -0.125em;"
-                    viewBox="0 0 384 512"
-                    width="1em"
-                  >
-                    <path
-                      d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
-                      transform=""
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          style="display: contents;"
-        >
-          <div
-            class="extension-category"
-          >
             Core
           </div>
           <div
@@ -174,6 +104,76 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
                 tabindex="0"
               >
                 Build time CDI dependency injection
+              </div>
+              <div
+                class="extension-gav"
+                tabindex="0"
+              >
+                <div>
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    height="1em"
+                    role="img"
+                    style="vertical-align: -0.125em;"
+                    viewBox="0 0 384 512"
+                    width="1em"
+                  >
+                    <path
+                      d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                      transform=""
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          style="display: contents;"
+        >
+          <div
+            class="extension-category"
+          >
+            Cloud
+          </div>
+          <div
+            aria-label="Switch some-id extension"
+            class="  extension-item"
+          >
+            <div
+              class="extension-selector"
+              tabindex="0"
+            >
+              <svg
+                aria-hidden="true"
+                fill="currentColor"
+                height="1em"
+                role="img"
+                style="vertical-align: -0.125em;"
+                viewBox="0 0 448 512"
+                width="1em"
+              >
+                <path
+                  d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-6 400H54c-3.3 0-6-2.7-6-6V86c0-3.3 2.7-6 6-6h340c3.3 0 6 2.7 6 6v340c0 3.3-2.7 6-6 6z"
+                  transform=""
+                />
+              </svg>
+            </div>
+            <div
+              class="extension-name"
+              tabindex="0"
+            >
+              A CDI in name test
+            </div>
+            <div
+              class="extension-details"
+            >
+              <div
+                class="extension-description"
+                tabindex="0"
+              >
+                Some description
               </div>
               <div
                 class="extension-gav"
