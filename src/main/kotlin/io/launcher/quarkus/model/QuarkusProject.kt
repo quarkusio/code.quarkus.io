@@ -9,23 +9,23 @@ class QuarkusProject {
     @NotBlank
     @QueryParam("g")
     @DefaultValue("org.example")
-    var groupId: String = ""
+    var groupId: String = "org.example"
 
     @NotBlank
     @QueryParam("a")
     @DefaultValue("quarkus-app")
-    var artifactId: String = "p"
+    var artifactId: String = "quarkus-app"
 
     @NotBlank
     @QueryParam("v")
     @DefaultValue("0.0.1-SNAPSHOT")
-    var version: String = ""
+    var version: String = "0.0.1-SNAPSHOT"
 
     @NotBlank
     @QueryParam("c")
     @DefaultValue("org.example.QuarkusApp")
-    var className: String = ""
+    var className: String = "org.example.QuarkusApp"
 
     @QueryParam("e")
-    var dependencies: Set<String> = mutableSetOf()
+    var extensions: Set<String> = mutableSetOf()
 }
