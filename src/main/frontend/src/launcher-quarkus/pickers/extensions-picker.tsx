@@ -12,6 +12,7 @@ export interface ExtensionEntry {
   description?: string;
   shortName?: string;
   category: string;
+  order: number,
 }
 
 export interface ExtensionsPickerValue {
@@ -118,10 +119,7 @@ export const filterFunction = (filter: string) => (d: ExtensionEntry) => {
 export const sortFunction = (filter: string) => (a: ExtensionEntry, b: ExtensionEntry) => {
   const filterLowerCase = filter.trim().toLowerCase();
   if (!filterLowerCase) {
-    if (a.category === b.category) {
-      return a.name < b.name ? -1 : 1;
-    }
-    return a.category < b.category ? -1 : 1;
+    return a.order > b.order ? 1 : -1;
   }
   const startWithAShortName = !!a.shortName && a.shortName.toLowerCase().startsWith(filterLowerCase);
   const startWithBShortName = !!b.shortName && b.shortName.toLowerCase().startsWith(filterLowerCase);
@@ -136,7 +134,7 @@ export const sortFunction = (filter: string) => (a: ExtensionEntry, b: Extension
   if (a.name.toLowerCase().startsWith(filterLowerCase) !== b.name.toLowerCase().startsWith(filterLowerCase)) {
     return a.name.toLowerCase().startsWith(filterLowerCase) ? -1 : 1;
   }
-  return a.name < b.name ? -1 : 1;
+  return a.order > b.order ? 1 : -1;
 }
 
 export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerValue> = {
