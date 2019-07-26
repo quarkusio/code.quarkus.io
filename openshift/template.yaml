@@ -9,7 +9,7 @@ objects:
     metadata:
       name: launcher-quarkus
     spec:
-      replicas: 1
+      replicas: ${REPLICAS}
       selector:
         service: launcher-quarkus
       strategy:
@@ -75,11 +75,11 @@ objects:
       type: ClusterIP
 parameters:
   - name: LAUNCHER_QUARKUS_SENTRY_DSN
-    value: dev
     displayName: launcher quarkus sentry dsn
     description: launcher quarkus sentry dsn.
   - name: LAUNCHER_QUARKUS_ENV
     value: dev
+    required: true
     displayName: launcher quarkus environment
     description: launcher quarkus environment. Defaults to dev
   - name: LAUNCHER_QUARKUS_GA_TRACKING_ID
@@ -87,13 +87,21 @@ parameters:
     description: launcher quarkus google analytics tracking id.
   - name: IMAGE
     value: quay.io/launcher/launcher-quarkus
+    required: true
     displayName: launcher quarkus image
     description: launcher quarkus docker image. Defaults to quay.io/launcher/launcher-quarkus
   - name: IMAGE_TAG
     value: latest
+    required: true
     displayName: launcher quarkus version
     description: launcher quarkus version which defaults to latest
   - name: MEMORY_LIMIT
     value: 1Gi
+    required: true
     displayName: Memory Limit
     description: Maximum amount of memory the container can use. Defaults 1Gi
+  - description: Number of deployment replicas
+    displayName: Number of deployment replicas
+    required: true
+    name: REPLICAS
+    value: '1'
