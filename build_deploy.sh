@@ -5,7 +5,7 @@ set -exv
 IMAGE="quay.io/launcher/launcher-quarkus"
 IMAGE_TAG=$(git rev-parse --short=7 HEAD)
 
-docker build -f src/main/docker/Dockerfile.jvm.multistage -t "${IMAGE}:${IMAGE_TAG}" .
+docker build -f src/main/docker/Dockerfile.native.multistage -t "${IMAGE}:${IMAGE_TAG}" .
 
 if [[ -n "$QUAY_USER" && -n "$QUAY_TOKEN" ]]; then
     DOCKER_CONF="$PWD/.docker"
