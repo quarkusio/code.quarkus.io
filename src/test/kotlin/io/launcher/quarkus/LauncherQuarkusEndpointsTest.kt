@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test
 import javax.ws.rs.core.MediaType
 
 @QuarkusTest
-internal class LauncherQuarkusTest {
+internal class LauncherQuarkusEndpointsTest {
 
     @Test
     @DisplayName("Should return a project with default configuration when there is no parameters")

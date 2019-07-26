@@ -11,6 +11,9 @@
     },
     {
       "pattern": "extensions\\.json$"
+    },
+    {
+      "pattern": "launcher/.*$"
     }
   ]
 }
