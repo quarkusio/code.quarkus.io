@@ -9,7 +9,7 @@ objects:
     metadata:
       name: launcher-quarkus
     spec:
-      replicas: ${REPLICAS}
+      replicas: ${{REPLICAS}}
       selector:
         service: launcher-quarkus
       strategy:
