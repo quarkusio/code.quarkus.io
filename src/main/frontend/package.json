@@ -22,6 +22,7 @@
     "react-dom": "16.9.0-alpha.0",
     "react-hotkeys-hook": "1.4.0",
     "react-scripts": "3.0.1",
+    "react-use-sessionstorage": "1.0.2",
     "typescript": "3.5.2"
   },
   "devDependencies": {

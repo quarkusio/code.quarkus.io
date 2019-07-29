@@ -1,9 +1,10 @@
 import { InputProps, Picker, useAnalytics } from '@launcher/component';
 import { Button, FormGroup, TextInput, Tooltip } from "@patternfly/react-core";
-import { CheckSquareIcon, ClipboardCheckIcon, ClipboardIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon } from "@patternfly/react-icons";
+import { CheckSquareIcon, ClipboardCheckIcon, ClipboardIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon, InfoIcon, CloseIcon } from "@patternfly/react-icons";
 import copy from 'copy-to-clipboard';
 import React, { useState } from "react";
 import { processEntries } from './extensions-picker-helpers';
+import { useSessionStorageWithObject } from 'react-use-sessionstorage';
 import './extensions-picker.scss';
 
 export interface ExtensionEntry {
@@ -100,6 +101,27 @@ function Extension(props: ExtensionProps) {
   )
 }
 
+function Blurb() {
+  const [visible, setVisible] = useSessionStorageWithObject<Boolean>('quarkus-blurb-visible', true);
+  return (
+    <>
+      {visible && (
+        <div className="quarkus-blurb">
+          <div className="blurb-icon"><InfoIcon /></div>
+          <div className="blurb-content">
+            <p>This page will help you bootstrap your Quarkus application and discover its extensions ecosystem.</p>
+            <br />
+            <p>Think of Quarkus extensions as your project dependencies. Extensions configure, boot and integrate a framework or technology into your Quarkus application. They also do all of the heavy lifting of providing the right information to GraalVM for your application to compile natively.</p>
+            <br />
+            <p>Explore the wide breath of technologies Quarkus applications and generate your project!</p>
+          </div>
+          <div className="blurb-close-icon" onClick={() => setVisible(false)}><CloseIcon /></div>
+        </div>)
+      }
+    </>
+  );
+}
+
 export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerValue> = {
   checkCompletion: (value: ExtensionsPickerValue) => !!value.extensions && value.extensions.length > 0,
   Element: (props: ExtensionsPickerProps) => {
@@ -169,6 +191,7 @@ export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerVal
           </div>
         </div>
         <div className="result-container">
+          <Blurb />
           {!!filter && (
             <div className="extension-search-clear">
               Search results (<Button variant="link" onClick={() => setFilter('')}>Clear search</Button>)
