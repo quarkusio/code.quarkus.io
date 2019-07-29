@@ -23,8 +23,8 @@ class QuarkusProject {
 
     @NotBlank
     @QueryParam("c")
-    @DefaultValue("org.example.QuarkusApp")
-    var className: String = "org.example.QuarkusApp"
+    @DefaultValue("org.example.ExampleResource")
+    var className: String = "org.example.ExampleResource"
 
     @NotBlank
     @QueryParam("p")
