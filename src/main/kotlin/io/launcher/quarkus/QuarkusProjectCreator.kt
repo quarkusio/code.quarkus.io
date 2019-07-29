@@ -1,13 +1,12 @@
 package io.launcher.quarkus
 
 import io.launcher.quarkus.model.QuarkusProject
-import io.launcher.quarkus.writer.ZipProjectWriter
+import io.launcher.quarkus.writer.CommonsZipProjectWriter
 import io.quarkus.cli.commands.AddExtensions
 import io.quarkus.cli.commands.CreateProject
 import io.quarkus.templates.BuildTool
 import java.io.ByteArrayOutputStream
 import java.io.IOException
-import java.util.zip.ZipOutputStream
 import javax.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
@@ -24,9 +23,8 @@ open class QuarkusProjectCreator {
 
     fun create(project: QuarkusProject): ByteArray {
         val baos = ByteArrayOutputStream()
-        val zos = ZipOutputStream(baos)
-        zos.use {
-            val zipWrite = ZipProjectWriter(zos, project.artifactId)
+        baos.use {
+            val zipWrite = CommonsZipProjectWriter.createWriter(baos, project.artifactId)
             zipWrite.use {
                 val sourceType = CreateProject.determineSourceType(project.extensions)
                 val success = CreateProject(zipWrite)
@@ -48,23 +46,23 @@ open class QuarkusProjectCreator {
         return baos.toByteArray()
     }
 
-    private fun addMvnw(zipWrite: ZipProjectWriter) {
+    private fun addMvnw(zipWrite: CommonsZipProjectWriter) {
         zipWrite.mkdirs(MAVEN_WRAPPER_DIR)
         writeResourceFile(zipWrite, MAVEN_WRAPPER_JAR)
         writeResourceFile(zipWrite, MAVEN_WRAPPER_PROPS)
         writeResourceFile(zipWrite, MAVEN_WRAPPER_DOWNLOADER)
-        writeResourceFile(zipWrite, MVNW_CMD)
-        writeResourceFile(zipWrite, MVNW)
+        writeResourceFile(zipWrite, MVNW_CMD, true)
+        writeResourceFile(zipWrite, MVNW, true)
     }
 
-    private fun writeResourceFile(zipWrite: ZipProjectWriter, filePath: String) {
+    private fun writeResourceFile(zipWrite: CommonsZipProjectWriter, filePath: String, allowExec: Boolean = false) {
         if (!zipWrite.exists(filePath)) {
             val resourcePath = "$RESOURCES_DIR/$filePath"
             val resource = QuarkusProjectCreator::class.java.getResource(resourcePath)
                 ?: throw IOException("missing resource $resourcePath")
             val fileAsBytes =
                 resource.readBytes()
-            zipWrite.write(filePath, fileAsBytes)
+            zipWrite.write(filePath, fileAsBytes, allowExec)
         }
     }
 
