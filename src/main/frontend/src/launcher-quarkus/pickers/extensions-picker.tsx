@@ -1,8 +1,10 @@
 import { InputProps, Picker, useAnalytics } from '@launcher/component';
 import { Button, FormGroup, TextInput, Tooltip } from "@patternfly/react-core";
-import { CheckSquareIcon, ClipboardCheckIcon, ClipboardIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon } from "@patternfly/react-icons";
+import { CheckSquareIcon, ClipboardCheckIcon, ClipboardIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon, InfoIcon, CloseIcon } from "@patternfly/react-icons";
 import copy from 'copy-to-clipboard';
 import React, { useState } from "react";
+import { processEntries } from './extensions-picker-helpers';
+import { useSessionStorageWithObject } from 'react-use-sessionstorage';
 import './extensions-picker.scss';
 
 export interface ExtensionEntry {
@@ -72,12 +74,10 @@ function Extension(props: ExtensionProps) {
       aria-label={`Switch ${props.id} extension`}
     >
       {props.detailed && (
-        <Tooltip position="bottom" content={tooltip} exitDelay={0} zIndex={100}>
-          <div className="extension-selector" onClick={onClick}>
-            {!props.selected && !active && <OutlinedSquareIcon />}
-            {(active || props.selected) && <CheckSquareIcon />}
-          </div>
-        </Tooltip>
+        <div className="extension-selector" onClick={onClick}>
+          {!props.selected && !active && <OutlinedSquareIcon />}
+          {(active || props.selected) && <CheckSquareIcon />}
+        </div>
       )}
       <Tooltip position="bottom" content={tooltip} exitDelay={0} zIndex={100}>
         <div className="extension-name" onClick={onClick}>{props.name}</div>
@@ -89,7 +89,7 @@ function Extension(props: ExtensionProps) {
       )}
       {props.detailed && (
         <div className="extension-details">
-          <Tooltip position="bottom" content={description} exitDelay={0} zIndex={100}>
+          <Tooltip position="bottom" content={`${props.name}: ${description}`} exitDelay={0} zIndex={100}>
             <div className="extension-description" onClick={onClick}>{description}</div>
           </Tooltip>
           <Tooltip position="left" content={`Copy '${props.id}' to clipboard`} exitDelay={0} zIndex={100}>
@@ -101,40 +101,25 @@ function Extension(props: ExtensionProps) {
   )
 }
 
-export const filterFunction = (filter: string) => (d: ExtensionEntry) => {
-  const filterLowerCase = filter.trim().toLowerCase();
-  if (!filterLowerCase) {
-    return true;
-  }
-  const shortName = d.shortName ? d.shortName.toLowerCase() : '';
-  if (filterLowerCase === shortName) {
-    return true;
-  }
-  return d.name.toLowerCase().includes(filterLowerCase)
-    || d.labels.filter(l => l.startsWith(filterLowerCase)).length > 0
-    || (d.category && d.category.toLowerCase().startsWith(filterLowerCase))
-    || shortName.startsWith(filterLowerCase);
-}
-
-export const sortFunction = (filter: string) => (a: ExtensionEntry, b: ExtensionEntry) => {
-  const filterLowerCase = filter.trim().toLowerCase();
-  if (!filterLowerCase) {
-    return a.order > b.order ? 1 : -1;
-  }
-  const startWithAShortName = !!a.shortName && a.shortName.toLowerCase().startsWith(filterLowerCase);
-  const startWithBShortName = !!b.shortName && b.shortName.toLowerCase().startsWith(filterLowerCase);
-  if (startWithAShortName !== startWithBShortName) {
-    return startWithAShortName ? -1 : 1;
-  }
-  const startWithOneOfALabel = a.labels.filter(l => l.startsWith(filterLowerCase)).length > 0;
-  const startWithOneOfBLabel = b.labels.filter(l => l.startsWith(filterLowerCase)).length > 0;
-  if (startWithOneOfALabel !== startWithOneOfBLabel) {
-    return startWithOneOfALabel ? -1 : 1;
-  }
-  if (a.name.toLowerCase().startsWith(filterLowerCase) !== b.name.toLowerCase().startsWith(filterLowerCase)) {
-    return a.name.toLowerCase().startsWith(filterLowerCase) ? -1 : 1;
-  }
-  return a.order > b.order ? 1 : -1;
+function Blurb() {
+  const [visible, setVisible] = useSessionStorageWithObject<Boolean>('quarkus-blurb-visible', true);
+  return (
+    <>
+      {visible && (
+        <div className="quarkus-blurb">
+          <div className="blurb-icon"><InfoIcon /></div>
+          <div className="blurb-content">
+            <p>This page will help you bootstrap your Quarkus application and discover its extensions ecosystem.</p>
+            <br />
+            <p>Think of Quarkus extensions as your project dependencies. Extensions configure, boot and integrate a framework or technology into your Quarkus application. They also do all of the heavy lifting of providing the right information to GraalVM for your application to compile natively.</p>
+            <br />
+            <p>Explore the wide breath of technologies Quarkus applications and generate your project!</p>
+          </div>
+          <div className="blurb-close-icon" onClick={() => setVisible(false)}><CloseIcon /></div>
+        </div>)
+      }
+    </>
+  );
 }
 
 export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerValue> = {
@@ -160,14 +145,13 @@ export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerVal
     };
 
     const search = (f: string) => {
-      if(!hasSearched) {
+      if (!hasSearched) {
         analytics.event('Picker', 'Search-Extension')
       }
       setHasSearched(true);
       setFilter(f);
     }
-
-    const result = props.entries.filter(filterFunction(filter));
+    const result = processEntries(filter, props.entries);
     const categories = new Set(props.entries.map(i => i.category));
     let currentCat: string | undefined = undefined;
     return (
@@ -207,13 +191,14 @@ export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerVal
           </div>
         </div>
         <div className="result-container">
+          <Blurb />
           {!!filter && (
             <div className="extension-search-clear">
               Search results (<Button variant="link" onClick={() => setFilter('')}>Clear search</Button>)
             </div>
           )}
           <div className="list-container">
-            {result.sort(sortFunction(filter)).map((ex, i) => {
+            {result.map((ex, i) => {
               const ext = (
                 <Extension
                   selected={entrySet.has(ex.id)}
