@@ -26,6 +26,11 @@ class QuarkusProject {
     @DefaultValue("org.example.QuarkusApp")
     var className: String = "org.example.QuarkusApp"
 
+    @NotBlank
+    @QueryParam("p")
+    @DefaultValue("/hello")
+    var path: String = "/hello"
+
     @QueryParam("e")
     var extensions: Set<String> = mutableSetOf()
 }
