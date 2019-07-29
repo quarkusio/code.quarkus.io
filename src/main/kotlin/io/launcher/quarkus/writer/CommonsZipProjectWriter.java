@@ -57,6 +57,7 @@ public class CommonsZipProjectWriter implements ProjectWriter {
         String dirPathText = dirPath.toString();
         if (!createdDirs.contains(dirPathText)) {
             ZipArchiveEntry ze = new ZipArchiveEntry(dirPathText + "/");
+            ze.setUnixMode(040755);
             aos.putArchiveEntry(ze);
             aos.closeArchiveEntry();
             createdDirs.add(dirPathText);
@@ -72,6 +73,8 @@ public class CommonsZipProjectWriter implements ProjectWriter {
         ZipArchiveEntry ze = new ZipArchiveEntry(filePath.toString());
         if (allowExec) {
             ze.setUnixMode(0100755);
+        } else {
+            ze.setUnixMode(0100644);
         }
         aos.putArchiveEntry(ze);
         aos.write(contentBytes);
