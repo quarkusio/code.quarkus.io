@@ -27,6 +27,7 @@ open class QuarkusProjectCreator {
             val zipWrite = CommonsZipProjectWriter.createWriter(baos, project.artifactId)
             zipWrite.use {
                 val sourceType = CreateProject.determineSourceType(project.extensions)
+                val context = mutableMapOf("path" to (project.path as Any))
                 val success = CreateProject(zipWrite)
                     .groupId(project.groupId)
                     .artifactId(project.artifactId)
@@ -34,7 +35,7 @@ open class QuarkusProjectCreator {
                     .sourceType(sourceType)
                     .buildTool(BuildTool.MAVEN)
                     .className(project.className)
-                    .doCreateProject(mutableMapOf())
+                    .doCreateProject(context)
                 if (!success) {
                     throw IOException("Error during Quarkus project creation")
                 }
