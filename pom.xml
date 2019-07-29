@@ -17,6 +17,7 @@
         <version.surefire-plugin>2.22.0</version.surefire-plugin>
         <version.maven-failsafe-plugin>2.22.2</version.maven-failsafe-plugin>
         <version.maven-compiler-plugin>3.8.0</version.maven-compiler-plugin>
+        <version.commons-compress>1.18</version.commons-compress>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -59,6 +60,13 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-compress -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+            <version>${version.commons-compress}</version>
+        </dependency>
+
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
