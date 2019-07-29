@@ -73,7 +73,6 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
           >
             <div
               class="extension-selector"
-              tabindex="0"
             >
               <svg
                 aria-hidden="true"
@@ -143,7 +142,6 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
           >
             <div
               class="extension-selector"
-              tabindex="0"
             >
               <svg
                 aria-hidden="true"
@@ -213,7 +211,6 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
           >
             <div
               class="extension-selector"
-              tabindex="0"
             >
               <svg
                 aria-hidden="true"
@@ -352,7 +349,6 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
         >
           <div
             class="extension-selector"
-            tabindex="0"
           >
             <svg
               aria-hidden="true"
@@ -490,7 +486,6 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
         >
           <div
             class="extension-selector"
-            tabindex="0"
           >
             <svg
               aria-hidden="true"
@@ -551,7 +546,6 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
         >
           <div
             class="extension-selector"
-            tabindex="0"
           >
             <svg
               aria-hidden="true"
