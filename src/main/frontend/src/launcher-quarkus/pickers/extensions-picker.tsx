@@ -109,11 +109,11 @@ function Blurb() {
         <div className="quarkus-blurb">
           <div className="blurb-icon"><InfoIcon /></div>
           <div className="blurb-content">
-            <p>This page will help you bootstrap your Quarkus application and discover its extensions ecosystem.</p>
+            <p>This page will help you bootstrap your Quarkus application and discover its extension ecosystem.</p>
             <br />
             <p>Think of Quarkus extensions as your project dependencies. Extensions configure, boot and integrate a framework or technology into your Quarkus application. They also do all of the heavy lifting of providing the right information to GraalVM for your application to compile natively.</p>
             <br />
-            <p>Explore the wide breath of technologies Quarkus applications and generate your project!</p>
+            <p>Explore the wide breadth of technologies Quarkus applications can be made with and generate your project!</p>
           </div>
           <div className="blurb-close-icon" onClick={() => setVisible(false)}><CloseIcon /></div>
         </div>)
