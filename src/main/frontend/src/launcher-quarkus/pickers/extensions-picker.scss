@@ -197,6 +197,10 @@
     svg {
       color: #0D1C2B;
     }
+
+    &:hover svg {
+      color: white;
+    }
   }
   .blurb-content {
     text-align: justify;

@@ -84,19 +84,24 @@
   }
 
   .generate-project {
-    flex-basis: 25%;
+    flex: 0 0 280px;
     align-self:center;
     height: 180px;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
 
-    button {
+    button.generate-button {
       background-color: #FF004A;
       border-radius: 0;
-      width: 300px;
+      width: 280px;
       height: 36px;
       align-self: flex-end;
+      text-align: center;
+      border: 1px solid #FF004A;
+      &:hover {
+        border: 1px solid #ffffff;
+      }
     }
   }
   .pf-c-form {
