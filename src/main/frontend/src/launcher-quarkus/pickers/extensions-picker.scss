@@ -183,7 +183,7 @@
   }
 
   .blurb-icon {
-    padding: 10px 20px;
+    padding: 10px 20px 10px 10px;
     color: #74AFED;
   }
   .blurb-close-icon {
@@ -196,6 +196,10 @@
     background-color: #FF004A; 
     svg {
       color: #0D1C2B;
+    }
+
+    &:hover svg {
+      color: white;
     }
   }
   .blurb-content {

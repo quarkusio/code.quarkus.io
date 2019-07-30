@@ -20,7 +20,7 @@ import javax.ws.rs.core.Response
 
 
 @Path("/quarkus")
-class LauncherQuarkusEndpoints {
+class LauncherQuarkusResource {
 
     @Inject
     lateinit var projectCreator: QuarkusProjectCreator

@@ -1,11 +1,11 @@
 import { InputProps, Picker, useAnalytics } from '@launcher/component';
 import { Button, FormGroup, TextInput, Tooltip } from "@patternfly/react-core";
-import { CheckSquareIcon, ClipboardCheckIcon, ClipboardIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon, InfoIcon, CloseIcon } from "@patternfly/react-icons";
-import copy from 'copy-to-clipboard';
+import { CheckSquareIcon, CloseIcon, InfoIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon } from "@patternfly/react-icons";
 import React, { useState } from "react";
-import { processEntries } from './extensions-picker-helpers';
 import { useSessionStorageWithObject } from 'react-use-sessionstorage';
+import { processEntries } from './extensions-picker-helpers';
 import './extensions-picker.scss';
+import { CopyToClipboard } from '../copy-to-clipboard';
 
 export interface ExtensionEntry {
   id: string;
@@ -33,28 +33,6 @@ interface ExtensionProps extends ExtensionEntry {
   onClick(id: string): void;
 }
 
-function CopyToClipboard(props: { content: string }) {
-  const [active, setActive] = useState(false);
-  const [copied, setCopied] = useState(false);
-
-  const copyToClipboard = () => {
-    copy(props.content);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1000);
-  }
-  return (
-    <div
-      onMouseEnter={() => setActive(true)}
-      onMouseLeave={() => setActive(false)}
-      onClick={copyToClipboard}
-
-    >
-      {active || copied ? <ClipboardCheckIcon /> : <ClipboardIcon />}
-    </div>
-  )
-
-}
-
 function Extension(props: ExtensionProps) {
   const [active, setActive] = useState(false);
   const onClick = () => {
@@ -63,9 +41,10 @@ function Extension(props: ExtensionProps) {
   };
 
   const description = props.description || '...';
+  const descTooltip = <div><b>{props.name}</b><p>{description}</p></div>;
   const tooltip = props.detailed ?
-    `${props.selected ? 'Remove' : 'Add'} the extension '${props.name}'` : `${props.name}: ${description}`;
-
+    <div>{props.selected ? 'Remove' : 'Add'} the extension <b>{props.name}</b></div> : descTooltip;
+  const addMvnExt = `./mvnw quarkus:add-extension -Dextensions="${props.id}"`;
   return (
     <div
       className={`${active ? 'active' : ''} ${props.selected ? 'selected' : ''} extension-item`}
@@ -89,11 +68,11 @@ function Extension(props: ExtensionProps) {
       )}
       {props.detailed && (
         <div className="extension-details">
-          <Tooltip position="bottom" content={`${props.name}: ${description}`} exitDelay={0} zIndex={100}>
+          <Tooltip position="bottom" content={descTooltip} exitDelay={0} zIndex={100}>
             <div className="extension-description" onClick={onClick}>{description}</div>
           </Tooltip>
-          <Tooltip position="left" content={`Copy '${props.id}' to clipboard`} exitDelay={0} zIndex={100}>
-            <div className="extension-gav"><CopyToClipboard content={props.id} /></div>
+          <Tooltip position="left" maxWidth="650px" content={<span>Copy mvn command to clipboard: <br/><code>$ {addMvnExt}</code></span>} exitDelay={0} zIndex={100}>
+            <div className="extension-gav"><CopyToClipboard content={addMvnExt} /></div>
           </Tooltip>
         </div>
       )}
@@ -113,7 +92,7 @@ function Blurb() {
             <br />
             <p>Think of Quarkus extensions as your project dependencies. Extensions configure, boot and integrate a framework or technology into your Quarkus application. They also do all of the heavy lifting of providing the right information to GraalVM for your application to compile natively.</p>
             <br />
-            <p>Explore the wide breadth of technologies Quarkus applications can be made with and generate your project!</p>
+            <p>Explore the wide breadth of technologies Quarkus applications can be made with.. Generate your project!</p>
           </div>
           <div className="blurb-close-icon" onClick={() => setVisible(false)}><CloseIcon /></div>
         </div>)

@@ -1,14 +1,14 @@
 
 import { StatusMessage } from '@launcher/client';
-import { GoogleAnalytics, ProcessingApp, AnalyticsContext, useAnalytics } from '@launcher/component';
+import { AnalyticsContext, GoogleAnalytics, ProcessingApp, useAnalytics } from '@launcher/component';
 import { stringify } from 'querystring';
 import React, { useEffect, useState } from 'react';
 import { publicUrl } from './config';
-import { LauncherQuarkusForm, QuarkusProject } from './form';
+import { Config } from './config-loader';
+import { LauncherQuarkusForm } from './form';
 import { Header } from './header';
 import './launcher-quarkus.scss';
 import { NextSteps } from './next-steps';
-import { Config } from './config-loader';
 
 enum Status {
   EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
@@ -25,6 +25,17 @@ interface LaunchFlowProps {
   config: Config
 }
 
+export interface QuarkusProject {
+  metadata: {
+    groupId: string;
+    artifactId: string;
+    version: string;
+    name?: string;
+    packageName?: string;
+  }
+  extensions: string[];
+}
+
 async function generateProject(project: QuarkusProject): Promise<{ downloadLink: string }> {
   const params = {
     g: project.metadata.groupId,
@@ -38,7 +49,18 @@ async function generateProject(project: QuarkusProject): Promise<{ downloadLink:
   return { downloadLink };
 }
 
+const DEFAULT_PROJECT = {
+  metadata: {
+    groupId: 'org.example',
+    artifactId: 'quarkus-app',
+    version: '0.0.1-SNAPSHOT',
+    packageName: 'org.example',
+  },
+  extensions: [],
+};
+
 export function LauncherQuarkus(props: LaunchFlowProps) {
+  const [project, setProject] = useState<QuarkusProject>(DEFAULT_PROJECT);
   const [run, setRun] = useState<RunState>({ status: Status.EDITION, statusMessages: [] });
   const baseAnalytics = useAnalytics();
   const analytics = props.config.gaTrackingId ? new GoogleAnalytics(props.config.gaTrackingId) : baseAnalytics;
@@ -49,7 +71,7 @@ export function LauncherQuarkus(props: LaunchFlowProps) {
     analytics && analytics.init();
   }, [analytics]);
 
-  const generate = (project: QuarkusProject) => {
+  const generate = () => {
     setRun({ status: Status.RUNNING, statusMessages: [] });
 
     analytics && analytics.event('Flow', 'Generate');
@@ -62,15 +84,22 @@ export function LauncherQuarkus(props: LaunchFlowProps) {
     });
   };
 
+  const closeNextSteps = (resetProject = true) => {
+    setRun({ status: Status.EDITION, statusMessages: [] });
+    if (resetProject) {
+      setProject(DEFAULT_PROJECT);
+    }
+  };
+
   return (
     <AnalyticsContext.Provider value={analytics}>
       <div className="launcher-quarkus">
         <Header />
-        <LauncherQuarkusForm onSave={project => generate(project)} />
+        <LauncherQuarkusForm project={project} setProject={setProject} onSave={generate} />
         {run.status === Status.RUNNING && (
           <ProcessingApp progressEvents={progressEvents} progressEventsResults={progressEventsResults} />)}
         {!run.error && run.status === Status.DOWNLOADED
-          && (<NextSteps downloadLink={run.result.downloadLink} />)}
+          && (<NextSteps onClose={closeNextSteps} downloadLink={run.result.downloadLink} />)}
       </div>
     </AnalyticsContext.Provider>
   );

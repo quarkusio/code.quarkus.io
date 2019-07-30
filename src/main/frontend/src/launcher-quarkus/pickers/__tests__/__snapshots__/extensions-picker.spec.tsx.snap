@@ -89,7 +89,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
           </p>
           <br />
           <p>
-            Explore the wide breadth of technologies Quarkus applications can be made with and generate your project!
+            Explore the wide breadth of technologies Quarkus applications can be made with.. Generate your project!
           </p>
         </div>
         <div
@@ -163,7 +163,10 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
                 class="extension-gav"
                 tabindex="0"
               >
-                <div>
+                <div
+                  class="copy-to-clipboard"
+                  style="cursor: pointer;"
+                >
                   <svg
                     aria-hidden="true"
                     fill="currentColor"
@@ -232,7 +235,10 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
                 class="extension-gav"
                 tabindex="0"
               >
-                <div>
+                <div
+                  class="copy-to-clipboard"
+                  style="cursor: pointer;"
+                >
                   <svg
                     aria-hidden="true"
                     fill="currentColor"
@@ -301,7 +307,10 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
                 class="extension-gav"
                 tabindex="0"
               >
-                <div>
+                <div
+                  class="copy-to-clipboard"
+                  style="cursor: pointer;"
+                >
                   <svg
                     aria-hidden="true"
                     fill="currentColor"
@@ -416,7 +425,7 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           </p>
           <br />
           <p>
-            Explore the wide breadth of technologies Quarkus applications can be made with and generate your project!
+            Explore the wide breadth of technologies Quarkus applications can be made with.. Generate your project!
           </p>
         </div>
         <div
@@ -494,7 +503,10 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
               class="extension-gav"
               tabindex="0"
             >
-              <div>
+              <div
+                class="copy-to-clipboard"
+                style="cursor: pointer;"
+              >
                 <svg
                   aria-hidden="true"
                   fill="currentColor"
@@ -608,7 +620,7 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           </p>
           <br />
           <p>
-            Explore the wide breadth of technologies Quarkus applications can be made with and generate your project!
+            Explore the wide breadth of technologies Quarkus applications can be made with.. Generate your project!
           </p>
         </div>
         <div
@@ -686,7 +698,10 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
               class="extension-gav"
               tabindex="0"
             >
-              <div>
+              <div
+                class="copy-to-clipboard"
+                style="cursor: pointer;"
+              >
                 <svg
                   aria-hidden="true"
                   fill="currentColor"
@@ -746,7 +761,10 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
               class="extension-gav"
               tabindex="0"
             >
-              <div>
+              <div
+                class="copy-to-clipboard"
+                style="cursor: pointer;"
+              >
                 <svg
                   aria-hidden="true"
                   fill="currentColor"
