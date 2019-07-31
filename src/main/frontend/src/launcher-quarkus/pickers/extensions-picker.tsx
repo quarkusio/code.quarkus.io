@@ -92,7 +92,7 @@ function Blurb() {
             <br />
             <p>Think of Quarkus extensions as your project dependencies. Extensions configure, boot and integrate a framework or technology into your Quarkus application. They also do all of the heavy lifting of providing the right information to GraalVM for your application to compile natively.</p>
             <br />
-            <p>Explore the wide breadth of technologies Quarkus applications can be made with.. Generate your project!</p>
+            <p>Explore the wide breadth of technologies Quarkus applications can be made with.. Generate your application!</p>
           </div>
           <div className="blurb-close-icon" onClick={() => setVisible(false)}><CloseIcon /></div>
         </div>)

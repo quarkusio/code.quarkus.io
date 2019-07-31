@@ -21,11 +21,11 @@ export function NextSteps(props: NextStepsProps) {
       isOpen={true}
       aria-label="Your new Quarkus app has been generated"
       actions={[
-        <Button key="launch-new" variant="secondary" aria-label=" Go back" onClick={() => close(false)}>
+        <Button key="launch-new" variant="secondary" aria-label="Go back" onClick={() => close(false)}>
           Go back
         </Button>,
-        <Button key="launch-new" variant="secondary" aria-label=" Start Over" onClick={() => close()}>
-          Start Over
+        <Button key="launch-new" variant="secondary" aria-label="Start a new application" onClick={() => close()}>
+          Start a new application
         </Button>
       ]}
     >
