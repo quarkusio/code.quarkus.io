@@ -89,7 +89,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
           </p>
           <br />
           <p>
-            Explore the wide breadth of technologies Quarkus applications can be made with.. Generate your project!
+            Explore the wide breadth of technologies Quarkus applications can be made with.. Generate your application!
           </p>
         </div>
         <div
@@ -425,7 +425,7 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           </p>
           <br />
           <p>
-            Explore the wide breadth of technologies Quarkus applications can be made with.. Generate your project!
+            Explore the wide breadth of technologies Quarkus applications can be made with.. Generate your application!
           </p>
         </div>
         <div
@@ -620,7 +620,7 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           </p>
           <br />
           <p>
-            Explore the wide breadth of technologies Quarkus applications can be made with.. Generate your project!
+            Explore the wide breadth of technologies Quarkus applications can be made with.. Generate your application!
           </p>
         </div>
         <div

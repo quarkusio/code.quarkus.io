@@ -30,7 +30,7 @@ export function LauncherQuarkusForm(props: QuarkusFormProps) {
             <MavenSettingsPicker.Element value={props.project.metadata} onChange={setMetadata} visibleFields={['groupId', 'artifactId', 'version', 'packageName']} mode="horizontal" />
           </div>
           <div className="generate-project">
-            <Button aria-label="Generate the application" className="generate-button" onClick={props.onSave}>Generate the Application (alt + ⏎)</Button>
+            <Button aria-label="Generate your application" className="generate-button" onClick={props.onSave}>Generate your application (alt + ⏎)</Button>
           </div>
         </div>
       </div>
