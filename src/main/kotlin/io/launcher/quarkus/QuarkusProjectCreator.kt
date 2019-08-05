@@ -3,7 +3,7 @@ package io.launcher.quarkus
 import io.launcher.quarkus.model.QuarkusProject
 import io.launcher.quarkus.writer.CommonsZipProjectWriter
 import io.quarkus.cli.commands.AddExtensions
-import io.quarkus.cli.commands.CreateProject
+import io.quarkus.dup.cli.commands.CreateProject
 import io.quarkus.templates.BuildTool
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -24,11 +24,12 @@ open class QuarkusProjectCreator {
     fun create(project: QuarkusProject): ByteArray {
         val baos = ByteArrayOutputStream()
         baos.use {
-            val zipWrite = CommonsZipProjectWriter.createWriter(baos, project.artifactId)
-            zipWrite.use {
+            val zipWriter = CommonsZipProjectWriter.createWriter(baos, project.artifactId)
+            zipWriter.use {
+                //FIXME use Quarkus CreateProject when updating version (remove duplication)
                 val sourceType = CreateProject.determineSourceType(project.extensions)
                 val context = mutableMapOf("path" to (project.path as Any))
-                val success = CreateProject(zipWrite)
+                val success = CreateProject(zipWriter)
                     .groupId(project.groupId)
                     .artifactId(project.artifactId)
                     .version(project.version)
@@ -39,9 +40,9 @@ open class QuarkusProjectCreator {
                 if (!success) {
                     throw IOException("Error during Quarkus project creation")
                 }
-                AddExtensions(zipWrite, "pom.xml")
+                AddExtensions(zipWriter, "pom.xml")
                     .addExtensions(project.extensions)
-                this.addMvnw(zipWrite)
+                this.addMvnw(zipWriter)
             }
         }
         return baos.toByteArray()

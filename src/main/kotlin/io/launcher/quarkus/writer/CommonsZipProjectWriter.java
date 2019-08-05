@@ -40,7 +40,7 @@ public class CommonsZipProjectWriter implements ProjectWriter {
         if (path.length() == 0) {
             return "";
         }
-        return Paths.get(path) + "/";
+        return Paths.get(path).toString();
     }
 
     @Override

@@ -9,8 +9,12 @@ import org.hamcrest.Matchers.contains
 import org.hamcrest.Matchers.equalTo
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Timeout
 import java.io.File
 import java.nio.file.Files
+import java.util.concurrent.Callable
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.Executors
 
 
 internal class QuarkusProjectCreatorTest {
@@ -68,6 +72,27 @@ internal class QuarkusProjectCreatorTest {
             .map { file -> file.relativeTo(testDir).toString() }
             .toList()
         assertThat(fileList.size, equalTo(33))
+    }
+
+    @Test
+    @DisplayName("Should create multiple project correctly")
+    @Timeout(1)
+    fun testCreateMultipleProject() {
+        val executorService = Executors.newFixedThreadPool(10)
+
+        val latch = CountDownLatch(50)
+        val creator = QuarkusProjectCreator()
+        val creates = (1..50).map {i ->
+            Callable {
+                val result = creator.create(QuarkusProject())
+                latch.countDown()
+                result
+            }
+        }
+        executorService.invokeAll(creates)
+        println("await")
+        latch.await()
+        println("done")
     }
 
     private fun unzip(outputDir: File, zipFile: File): List<String> {
