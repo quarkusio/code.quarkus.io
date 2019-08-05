@@ -74,8 +74,8 @@ export function LauncherQuarkus(props: LaunchFlowProps) {
   const generate = () => {
     setRun({ status: Status.RUNNING, statusMessages: [] });
 
-    analytics && analytics.event('Flow', 'Generate');
-    analytics && project.extensions.forEach(e => analytics.event('Flow', 'Generate-With-Extension', e));
+    analytics && analytics.event('App', 'Generate');
+    analytics && project.extensions.forEach(e => analytics.event('Extension', 'Used', e));
 
     generateProject(project).then((result) => {
       setRun((prev) => ({ ...prev, result, status: Status.DOWNLOADED }));
