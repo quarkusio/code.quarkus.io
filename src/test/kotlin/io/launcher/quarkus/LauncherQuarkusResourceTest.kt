@@ -18,7 +18,7 @@ internal class LauncherQuarkusResourceTest {
             .then()
             .statusCode(200)
             .contentType("application/zip")
-            .header("Content-Disposition", "attachment; filename=\"quarkus-app.zip\"")
+            .header("Content-Disposition", "attachment; filename=\"code-with-quarkus.zip\"")
     }
 
     @Test

@@ -41,7 +41,7 @@ async function generateProject(project: QuarkusProject): Promise<{ downloadLink:
     g: project.metadata.groupId,
     a: project.metadata.artifactId,
     v: project.metadata.version,
-    c: `${project.metadata.packageName}.QuarkusApp`,
+    c: `${project.metadata.packageName}.ExampleResource`,
     e: project.extensions
   }
   const downloadLink = `${publicUrl}/api/quarkus/download?${stringify(params)}`;
@@ -51,10 +51,10 @@ async function generateProject(project: QuarkusProject): Promise<{ downloadLink:
 
 const DEFAULT_PROJECT = {
   metadata: {
-    groupId: 'org.example',
-    artifactId: 'quarkus-app',
-    version: '0.0.1-SNAPSHOT',
-    packageName: 'org.example',
+    groupId: 'org.acme',
+    artifactId: 'code-with-quarkus',
+    version: '1.0.O-SNAPSHOT',
+    packageName: 'org.acme',
   },
   extensions: [],
 };
