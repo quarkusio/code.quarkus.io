@@ -4,7 +4,6 @@ import javax.validation.constraints.NotBlank
 import javax.ws.rs.DefaultValue
 import javax.ws.rs.QueryParam
 
-
 class QuarkusProject {
     @NotBlank
     @QueryParam("g")

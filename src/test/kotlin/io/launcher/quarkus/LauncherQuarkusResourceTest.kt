@@ -2,7 +2,7 @@ package io.launcher.quarkus
 
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
-import org.hamcrest.CoreMatchers
+import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import javax.ws.rs.core.MediaType
@@ -41,8 +41,19 @@ internal class LauncherQuarkusResourceTest {
             .then()
             .statusCode(200)
             .contentType(MediaType.APPLICATION_JSON)
-            .body("environment", CoreMatchers.equalTo("dev"))
-            .body("gaTrackingId", CoreMatchers.nullValue())
-            .body("sentryDSN", CoreMatchers.nullValue())
+            .body("environment", equalTo("dev"))
+            .body("gaTrackingId", nullValue())
+            .body("sentryDSN", nullValue())
+    }
+
+    @Test
+    @DisplayName("Should return the extension list")
+    fun testExtensions() {
+        given()
+            .`when`().get("/api/quarkus/extensions")
+            .then()
+            .statusCode(200)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body("$.size()", `is`(53))
     }
 }

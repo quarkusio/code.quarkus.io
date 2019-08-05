@@ -54,7 +54,7 @@ async function generate() {
         }
     }).filter(e => !!e);
 
-    await promises.writeFile('../src/launcher-quarkus/extensions.json', JSON.stringify(out));
+    await promises.writeFile('../src/main/resources/quarkus/extensions.json', JSON.stringify(out));
 }
 
 generate().catch(e => console.error(e));

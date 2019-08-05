@@ -1,7 +1,7 @@
 package io.launcher.quarkus.model
 
 class Config(
-    var environment: String,
-    var gaTrackingId: String?,
-    var sentryDSN: String?
+    val environment: String,
+    val gaTrackingId: String?,
+    val sentryDSN: String?
 )
