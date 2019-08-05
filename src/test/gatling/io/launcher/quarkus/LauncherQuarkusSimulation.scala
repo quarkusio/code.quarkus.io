@@ -1,9 +1,10 @@
 package io.launcher.quarkus
 
 import scala.concurrent.duration._
-
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
+
+import scala.language.postfixOps
 
 class LauncherQuarkusSimulation extends Simulation {
 

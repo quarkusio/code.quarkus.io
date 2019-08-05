@@ -12,6 +12,7 @@
     "start": "ts-node generate-extensions.ts"
   },
   "devDependencies": {
+    "@types/node": "12.6.9",
     "@types/yaml": "1.0.2"
   }
 }
