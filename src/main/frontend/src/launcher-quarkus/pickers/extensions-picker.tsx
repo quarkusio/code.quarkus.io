@@ -72,7 +72,7 @@ function Extension(props: ExtensionProps) {
             <div className="extension-description" onClick={onClick}>{description}</div>
           </Tooltip>
           <Tooltip position="left" maxWidth="650px" content={<span>Copy mvn command to clipboard: <br/><code>$ {addMvnExt}</code></span>} exitDelay={0} zIndex={100}>
-            <div className="extension-gav"><CopyToClipboard content={addMvnExt} /></div>
+            <div className="extension-gav"><CopyToClipboard eventId="Add-Extension-Command" content={addMvnExt} /></div>
           </Tooltip>
         </div>
       )}

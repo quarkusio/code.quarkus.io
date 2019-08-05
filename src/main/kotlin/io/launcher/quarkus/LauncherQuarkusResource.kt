@@ -27,7 +27,7 @@ class LauncherQuarkusResource {
     @GET
     @Path("/config")
     @Produces(APPLICATION_JSON)
-    @Operation(summary = "Get the Quarkus Launcher configuration")
+    @Operation(summary = "Get the Quarkus Launcher configuration", hidden = true)
     fun config(): Config {
         return Config(
             System.getenv("LAUNCHER_QUARKUS_ENV") ?: "dev",
