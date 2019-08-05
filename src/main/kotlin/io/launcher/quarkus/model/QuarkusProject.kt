@@ -8,23 +8,23 @@ import javax.ws.rs.QueryParam
 class QuarkusProject {
     @NotBlank
     @QueryParam("g")
-    @DefaultValue("org.example")
-    var groupId: String = "org.example"
+    @DefaultValue("org.acme")
+    var groupId: String = "org.acme"
 
     @NotBlank
     @QueryParam("a")
-    @DefaultValue("quarkus-app")
-    var artifactId: String = "quarkus-app"
+    @DefaultValue("code-with-quarkus")
+    var artifactId: String = "code-with-quarkus"
 
     @NotBlank
     @QueryParam("v")
-    @DefaultValue("0.0.1-SNAPSHOT")
-    var version: String = "0.0.1-SNAPSHOT"
+    @DefaultValue("1.0.0-SNAPSHOT")
+    var version: String = "1.0.0-SNAPSHOT"
 
     @NotBlank
     @QueryParam("c")
-    @DefaultValue("org.example.ExampleResource")
-    var className: String = "org.example.ExampleResource"
+    @DefaultValue("org.acme.ExampleResource")
+    var className: String = "org.acme.ExampleResource"
 
     @NotBlank
     @QueryParam("p")
