@@ -32,7 +32,7 @@ https://github.com/quarkusio/quarkusio.github.io/blob/develop/_data/extensions.y
 Then
 
 ```
-$ cd ./src/main/frontend/extensions
+$ cd ./extensions
 $ yarn
 $ yarn start
 ```
