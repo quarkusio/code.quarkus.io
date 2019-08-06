@@ -11,6 +11,7 @@ import org.eclipse.microprofile.openapi.annotations.parameters.Parameter
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 import java.io.IOException
 import javax.inject.Inject
+import javax.validation.constraints.NotEmpty
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType.APPLICATION_JSON
 import javax.ws.rs.core.Response
@@ -65,30 +66,34 @@ class LauncherQuarkusResource {
     @Operation(summary = "Download a custom Quarkus application with the provided settings")
     fun download(
 
+        @DefaultValue(QuarkusProject.DEFAULT_GROUPID)
+        @NotEmpty
         @QueryParam("g")
         @Parameter(name= "g", description = "GAV: groupId (default: ${QuarkusProject.DEFAULT_GROUPID})", required = false)
-        @DefaultValue(QuarkusProject.DEFAULT_GROUPID)
         groupId: String,
 
+        @DefaultValue(QuarkusProject.DEFAULT_ARTIFACTID)
+        @NotEmpty
         @QueryParam("a")
         @Parameter(name= "a", description = "GAV: artifactId (default: ${QuarkusProject.DEFAULT_ARTIFACTID})", required = false)
-        @DefaultValue(QuarkusProject.DEFAULT_ARTIFACTID)
         artifactId: String,
 
+        @DefaultValue(QuarkusProject.DEFAULT_VERSION)
+        @NotEmpty
         @QueryParam("v")
         @Parameter(name= "v", description = "GAV: version (default: ${QuarkusProject.DEFAULT_VERSION})", required = false)
-        @DefaultValue(QuarkusProject.DEFAULT_VERSION)
         version: String,
 
-
+        @DefaultValue(QuarkusProject.DEFAULT_CLASSNAME)
+        @NotEmpty
         @QueryParam("c")
         @Parameter(name= "c", description = "The class name to use in the generated application (default: ${QuarkusProject.DEFAULT_CLASSNAME})", required = false)
-        @DefaultValue(QuarkusProject.DEFAULT_CLASSNAME)
         className: String,
 
+        @DefaultValue(QuarkusProject.DEFAULT_PATH)
+        @NotEmpty
         @QueryParam("p")
         @Parameter(name= "p", description = "The path of the REST endpoint created in the generated application (default: ${QuarkusProject.DEFAULT_GROUPID})", required = false)
-        @DefaultValue(QuarkusProject.DEFAULT_PATH)
         path: String,
 
         @QueryParam("e")

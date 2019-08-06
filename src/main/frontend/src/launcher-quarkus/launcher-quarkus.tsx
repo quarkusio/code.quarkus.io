@@ -38,13 +38,14 @@ export interface QuarkusProject {
 
 async function generateProject(project: QuarkusProject): Promise<{ downloadLink: string }> {
   const params = {
-    g: project.metadata.groupId,
-    a: project.metadata.artifactId,
-    v: project.metadata.version,
-    c: `${project.metadata.packageName}.ExampleResource`,
-    e: project.extensions
+    ...(project.metadata.groupId && { g: project.metadata.groupId }),
+    ...(project.metadata.artifactId && { a: project.metadata.artifactId }),
+    ...(project.metadata.version && { v: project.metadata.version }),
+    ...(project.metadata.packageName && { c: `${project.metadata.packageName}.ExampleResource` }),
+    ...(project.extensions && { e: project.extensions }),
   }
-  const downloadLink = `${publicUrl}/api/quarkus/download?${stringify(params)}`;
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || publicUrl;
+  const downloadLink = `${backendUrl}/api/quarkus/download?${stringify(params)}`;
   window.open(downloadLink, '_blank');
   return { downloadLink };
 }

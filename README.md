@@ -19,6 +19,8 @@ $ yarn
 $ yarn start
 ```
 
+(in DEV mode, the frontend needs the backend to be started on http://localhost:8080)
+
 
 # Update the extensions list
 
