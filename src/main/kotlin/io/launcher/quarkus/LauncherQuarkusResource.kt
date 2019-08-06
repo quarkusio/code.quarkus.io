@@ -67,12 +67,6 @@ class LauncherQuarkusResource {
     @Path("/download")
     @Produces("application/zip")
     @Operation(summary = "Download a custom Quarkus application with the provided settings")
-    @Counted(name = "countedDownload", description = "How many time an application has been downloaded")
-    @Timed(
-        name = "timedDownload",
-        description = "How long it took to generate the application.",
-        unit = MetricUnits.MILLISECONDS
-    )
     fun download(
 
         @QueryParam("g")
