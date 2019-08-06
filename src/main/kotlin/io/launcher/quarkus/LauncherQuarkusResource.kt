@@ -3,9 +3,7 @@ package io.launcher.quarkus
 import io.launcher.quarkus.model.Config
 import io.launcher.quarkus.model.QuarkusExtension
 import io.launcher.quarkus.model.QuarkusProject
-import org.eclipse.microprofile.metrics.MetricUnits
 import org.eclipse.microprofile.metrics.annotation.Counted
-import org.eclipse.microprofile.metrics.annotation.Timed
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
@@ -13,10 +11,8 @@ import org.eclipse.microprofile.openapi.annotations.parameters.Parameter
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 import java.io.IOException
 import javax.inject.Inject
-import javax.validation.Valid
-import javax.validation.constraints.NotBlank
 import javax.ws.rs.*
-import javax.ws.rs.core.MediaType.*
+import javax.ws.rs.core.MediaType.APPLICATION_JSON
 import javax.ws.rs.core.Response
 
 
@@ -32,9 +28,9 @@ class LauncherQuarkusResource {
     @Operation(summary = "Get the Quarkus Launcher configuration", hidden = true)
     fun config(): Config {
         return Config(
-            System.getenv("LAUNCHER_QUARKUS_ENV") ?: "dev",
-            System.getenv("LAUNCHER_QUARKUS_GA_TRACKING_ID") ?: null,
-            System.getenv("LAUNCHER_QUARKUS_SENTRY_DSN") ?: null
+            System.getenv("ENV") ?: "dev",
+            System.getenv("GA_TRACKING_ID") ?: null,
+            System.getenv("SENTRY_DSN") ?: null
         )
     }
 
