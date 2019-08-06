@@ -1,6 +1,6 @@
 package io.launcher.quarkus.model
 
-class QuarkusExtension(
+data class QuarkusExtension(
     val id: String,
     val name: String,
     val description: String?,
