@@ -53,7 +53,7 @@ const DEFAULT_PROJECT = {
   metadata: {
     groupId: 'org.acme',
     artifactId: 'code-with-quarkus',
-    version: '1.0.O-SNAPSHOT',
+    version: '1.0.0-SNAPSHOT',
     packageName: 'org.acme',
   },
   extensions: [],
