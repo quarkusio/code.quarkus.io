@@ -22,6 +22,16 @@ internal class LauncherQuarkusResourceTest {
     }
 
     @Test
+    @DisplayName("Should fail when a param is specified has empty")
+    fun testWithEmptyParam() {
+        given()
+            .`when`()
+            .get("/api/quarkus/download?g=org.acme&a=&pv=1.0.0&c=org.acme.TotoResource&e=io.quarkus:quarkus-resteasy")
+            .then()
+            .statusCode(400)
+    }
+
+    @Test
     @DisplayName("Should return a project with specified configuration when parameters are specified")
     fun testWithSpecifiedParams() {
         given()

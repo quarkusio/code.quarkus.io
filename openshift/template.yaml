@@ -49,11 +49,11 @@ objects:
                 limits:
                   memory: ${MEMORY_LIMIT}
               env:
-                - name: LAUNCHER_QUARKUS_SENTRY_DSN
+                - name: SENTRY_DSN
                   value: ${LAUNCHER_QUARKUS_SENTRY_DSN}
-                - name: LAUNCHER_QUARKUS_ENV
+                - name: ENV
                   value: ${LAUNCHER_QUARKUS_ENV}
-                - name: LAUNCHER_QUARKUS_GA_TRACKING_ID
+                - name: GA_TRACKING_ID
                   value: ${LAUNCHER_QUARKUS_GA_TRACKING_ID}
       triggers:
         - type: ConfigChange

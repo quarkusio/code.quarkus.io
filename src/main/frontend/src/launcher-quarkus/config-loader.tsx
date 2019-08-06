@@ -10,7 +10,8 @@ export interface Config {
 export function ConfigLoader(props: { children: (config: Config) => any }) {
   const loader = async () => {
     try {
-      const data = await fetch('/api/quarkus/config');
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || "";
+      const data = await fetch(`${backendUrl}/api/quarkus/config`);
       return await data.json();
     } catch(e) {
       return {

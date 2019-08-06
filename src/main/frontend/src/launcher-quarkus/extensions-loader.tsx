@@ -15,7 +15,8 @@ interface Extension {
 export function ExtensionsLoader(props: { name: string, children: (entries: ExtensionEntry[]) => any }) {
   const loader = async () => {
     try {
-      const data = await fetch('/api/quarkus/extensions');
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || "";
+      const data = await fetch(`${backendUrl}/api/quarkus/extensions`);
       return await data.json();
     } catch(e) {
       throw new Error("Failed to load Quarkus extension list");
