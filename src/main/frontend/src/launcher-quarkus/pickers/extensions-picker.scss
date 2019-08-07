@@ -173,40 +173,5 @@
 }
 
 .quarkus-blurb {
-  background-color: #0D1C2B;
-  padding: 10px;
   margin-bottom: 20px;
-  display: flex;
-
-  @media screen and (max-width: 900px) {
-    display: none;
-  }
-
-  .blurb-icon {
-    padding: 10px 20px 10px 10px;
-    color: #74AFED;
-  }
-  .blurb-close-icon {
-    margin:0 10px;
-    height: 20px;
-    line-height: 20px;
-    flex: 0 0 20px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #FF004A; 
-    svg {
-      color: #0D1C2B;
-    }
-
-    &:hover svg {
-      color: white;
-    }
-  }
-  .blurb-content {
-    text-align: justify;
-    font-size: 0.9rem;
-  }
-  .blurb-icon svg{
-    height: 25px;
-  }
 }

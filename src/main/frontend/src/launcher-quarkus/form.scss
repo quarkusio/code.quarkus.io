@@ -1,5 +1,9 @@
 .launcher-quarkus-form {
   padding-bottom: 30px;
+
+  @media screen and (max-width: 900px) {
+    margin: 0 10px;
+  }
   
   .form-header-sticky-container {
     position: sticky;

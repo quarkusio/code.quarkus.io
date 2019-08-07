@@ -1,11 +1,11 @@
 import { InputProps, Picker, useAnalytics } from '@launcher/component';
-import { Button, FormGroup, TextInput, Tooltip } from "@patternfly/react-core";
-import { CheckSquareIcon, CloseIcon, InfoIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon } from "@patternfly/react-icons";
+import { Alert, AlertActionCloseButton, Button, FormGroup, TextInput, Tooltip } from "@patternfly/react-core";
+import { CheckSquareIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon } from "@patternfly/react-icons";
 import React, { useState } from "react";
 import { useSessionStorageWithObject } from 'react-use-sessionstorage';
+import { CopyToClipboard } from '../copy-to-clipboard';
 import { processEntries } from './extensions-picker-helpers';
 import './extensions-picker.scss';
-import { CopyToClipboard } from '../copy-to-clipboard';
 
 export interface ExtensionEntry {
   id: string;
@@ -71,7 +71,7 @@ function Extension(props: ExtensionProps) {
           <Tooltip position="bottom" content={descTooltip} exitDelay={0} zIndex={100}>
             <div className="extension-description" onClick={onClick}>{description}</div>
           </Tooltip>
-          <Tooltip position="left" maxWidth="650px" content={<span>Copy mvn command to clipboard: <br/><code>$ {addMvnExt}</code></span>} exitDelay={0} zIndex={100}>
+          <Tooltip position="left" maxWidth="650px" content={<span>Copy mvn command to clipboard: <br /><code>$ {addMvnExt}</code></span>} exitDelay={0} zIndex={100}>
             <div className="extension-gav"><CopyToClipboard eventId="Add-Extension-Command" content={addMvnExt} /></div>
           </Tooltip>
         </div>
@@ -85,17 +85,12 @@ function Blurb() {
   return (
     <>
       {visible && (
-        <div className="quarkus-blurb">
-          <div className="blurb-icon"><InfoIcon /></div>
-          <div className="blurb-content">
-            <p>This page will help you bootstrap your Quarkus application and discover its extension ecosystem.</p>
-            <br />
-            <p>Think of Quarkus extensions as your project dependencies. Extensions configure, boot and integrate a framework or technology into your Quarkus application. They also do all of the heavy lifting of providing the right information to GraalVM for your application to compile natively.</p>
-            <br />
-            <p>Explore the wide breadth of technologies Quarkus applications can be made with. Generate your application!</p>
-          </div>
-          <div className="blurb-close-icon" onClick={() => setVisible(false)}><CloseIcon /></div>
-        </div>)
+        <Alert className="quarkus-blurb" variant="info" title="This page will help you bootstrap your Quarkus application and discover its extension ecosystem." action={<AlertActionCloseButton onClose={() => setVisible(false)} />}>
+          <p>Think of Quarkus extensions as your project dependencies. Extensions configure, boot and integrate a framework or technology into your Quarkus application. They also do all of the heavy lifting of providing the right information to GraalVM for your application to compile natively.</p>
+          <br />
+          <p className="desktop-only">Explore the wide breadth of technologies Quarkus applications can be made with. Generate your application!</p>
+          <p className="mobile-only" style={{color: "#ff004a"}}>On mobile devices, you can explore the list of Quarkus extensions.<br /> If you wish to generate code, try it with your desktop browser...</p>
+        </Alert>)
       }
     </>
   );
