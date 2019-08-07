@@ -14,10 +14,21 @@ body {
   }
 
   @media screen and (max-width: 900px) {
-   max-width: 100%;
+    max-width: 100%;
   }
 }
 
+.mobile-only {
+  @media screen and (min-width: 900px) {
+    display: none;
+  }
+}
+
+.desktop-only {
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
+}
 
 .pf-c-backdrop__open {
   background: #000;
@@ -27,25 +38,50 @@ body {
   background-color: rgba(0, 0, 0, 0.8) !important;
 }
 
+.pf-c-alert {
+  background-color: #0d1c2b;
+  text-align: justify;
+  font-size: 0.9rem;
+
+  .pf-c-alert__icon {
+    background-color: transparent;
+    color: #74AFED;
+  }
+
+  .pf-c-alert__title {
+    font-weight: bold;
+    color: white;
+  }
+  .pf-c-alert__description {
+    color: white;
+  }
+
+  .pf-c-alert__action button.pf-c-button{
+    &:hover {
+      color: white;
+    }
+  }
+}
+
 .next-steps-modal {
   background-color: #000000;
   color: #ffffff;
-  border: 4px solid #FF004A;
+  border: 4px solid #ff004a;
   .pf-c-content {
     color: #ffffff;
 
     .pf-c-button.pf-m-link {
       padding: 0;
-      color: #FF004A;
+      color: #ff004a;
     }
   }
   .pf-c-title {
-    color: #4695EB;
+    color: #4695eb;
     font-weight: bold;
   }
 
   & > .pf-c-button {
-    background-color: #FF004A; 
+    background-color: #ff004a;
     height: 25px;
     width: 25px;
     line-height: 25px;
@@ -56,13 +92,13 @@ body {
       color: #000000;
     }
     &:hover {
-      background-color: rgba(255, 0, 72, 0.548); 
+      background-color: rgba(255, 0, 72, 0.548);
     }
   }
 
   code {
     display: block;
-    background-color: #0D1C2B;
+    background-color: #0d1c2b;
     margin: 10px 0;
     padding: 5px;
 
@@ -73,7 +109,7 @@ body {
   }
 
   .download-button {
-    background-color: #FF004A; 
+    background-color: #ff004a;
     border-radius: 0;
     text-transform: uppercase;
     width: 200px;
@@ -85,19 +121,18 @@ body {
   .pf-c-modal-box__footer {
     button.pf-c-button {
       background-color: white;
-      color: #FF004A;
+      color: #ff004a;
       border-radius: 0;
       border: 1px solid white;
     }
 
     button.pf-c-button:hover {
-      border: 1px solid #FF004A;
-      color: #FF004A;
+      border: 1px solid #ff004a;
+      color: #ff004a;
     }
 
     button.pf-c-button::after {
       display: none;
     }
   }
-  
 }

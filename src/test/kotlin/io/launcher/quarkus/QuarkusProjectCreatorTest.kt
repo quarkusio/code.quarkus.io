@@ -80,9 +80,9 @@ internal class QuarkusProjectCreatorTest {
     fun testCreateMultipleProject() {
         val executorService = Executors.newFixedThreadPool(10)
 
-        val latch = CountDownLatch(50)
+        val latch = CountDownLatch(20)
         val creator = QuarkusProjectCreator()
-        val creates = (1..50).map {i ->
+        val creates = (1..20).map {i ->
             Callable {
                 val result = creator.create(QuarkusProject())
                 latch.countDown()
