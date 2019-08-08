@@ -1,7 +1,8 @@
-import { ExternalLink } from '@launcher/component';
 import { Button, Modal, Text, TextContent, TextVariants } from '@patternfly/react-core';
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { CopyToClipboard } from './copy-to-clipboard';
+import { ExternalLinkSquareAltIcon } from '@patternfly/react-icons';
+import { ExternalLink } from '@launcher/component';
 
 interface NextStepsProps {
   downloadLink?: string;
