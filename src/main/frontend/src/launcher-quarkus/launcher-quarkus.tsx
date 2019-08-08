@@ -1,6 +1,5 @@
 
-import { StatusMessage } from '@launcher/client';
-import { AnalyticsContext, GoogleAnalytics, ProcessingApp, useAnalytics } from '@launcher/component';
+import { AnalyticsContext, GoogleAnalytics, useAnalytics } from '@launcher/component';
 import { stringify } from 'querystring';
 import React, { useEffect, useState } from 'react';
 import { publicUrl } from './config';
@@ -18,7 +17,6 @@ interface RunState {
   status: Status;
   result?: any;
   error?: any;
-  statusMessages: StatusMessage[];
 }
 
 interface LaunchFlowProps {
@@ -62,18 +60,16 @@ const DEFAULT_PROJECT = {
 
 export function LauncherQuarkus(props: LaunchFlowProps) {
   const [project, setProject] = useState<QuarkusProject>(DEFAULT_PROJECT);
-  const [run, setRun] = useState<RunState>({ status: Status.EDITION, statusMessages: [] });
+  const [run, setRun] = useState<RunState>({ status: Status.EDITION });
   const baseAnalytics = useAnalytics();
   const analytics = props.config.gaTrackingId ? new GoogleAnalytics(props.config.gaTrackingId) : baseAnalytics;
-  const progressEvents = run.status === Status.RUNNING && run.result && run.result.events;
-  const progressEventsResults = run.status === Status.RUNNING && run.result && run.statusMessages;
 
   useEffect(() => {
     analytics && analytics.init();
   }, [analytics]);
 
   const generate = () => {
-    setRun({ status: Status.RUNNING, statusMessages: [] });
+    setRun({ status: Status.RUNNING });
 
     analytics && analytics.event('App', 'Generate');
     analytics && project.extensions.forEach(e => analytics.event('Extension', 'Used', e));
@@ -86,7 +82,7 @@ export function LauncherQuarkus(props: LaunchFlowProps) {
   };
 
   const closeNextSteps = (resetProject = true) => {
-    setRun({ status: Status.EDITION, statusMessages: [] });
+    setRun({ status: Status.EDITION });
     if (resetProject) {
       setProject(DEFAULT_PROJECT);
     }
@@ -97,8 +93,6 @@ export function LauncherQuarkus(props: LaunchFlowProps) {
       <div className="launcher-quarkus">
         <Header />
         <LauncherQuarkusForm project={project} setProject={setProject} onSave={generate} />
-        {run.status === Status.RUNNING && (
-          <ProcessingApp progressEvents={progressEvents} progressEventsResults={progressEventsResults} />)}
         {!run.error && run.status === Status.DOWNLOADED
           && (<NextSteps onClose={closeNextSteps} downloadLink={run.result.downloadLink} />)}
       </div>
