@@ -21,7 +21,7 @@ open class QuarkusProjectCreator {
         const val MVNW = "mvnw"
     }
 
-    fun create(project: QuarkusProject): ByteArray {
+    open fun create(project: QuarkusProject): ByteArray {
         val baos = ByteArrayOutputStream()
         baos.use {
             val zipWriter = CommonsZipProjectWriter.createWriter(baos, project.artifactId)

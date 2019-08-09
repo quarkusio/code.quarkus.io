@@ -100,8 +100,9 @@ class LauncherQuarkusResource {
         @Parameter(name= "e", description = "The set of extension ids that will be included in the generated application", required = false)
         extensions: Set<String>
     ): Response {
+        val project = QuarkusProject(groupId, artifactId, version, className, path, extensions)
         return Response
-            .ok(projectCreator.create(QuarkusProject(groupId, artifactId, version, className, path, extensions)))
+            .ok(projectCreator.create(project))
             .type("application/zip")
             .header("Content-Disposition", "attachment; filename=\"$artifactId.zip\"")
             .build()

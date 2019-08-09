@@ -5,10 +5,14 @@ import io.restassured.RestAssured.given
 import org.hamcrest.CoreMatchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import javax.inject.Inject
 import javax.ws.rs.core.MediaType
 
 @QuarkusTest
-internal class LauncherQuarkusResourceTest {
+class LauncherQuarkusResourceTest {
+
+    @Inject
+    lateinit var projectCreator: QuarkusProjectCreator
 
     @Test
     @DisplayName("Should return a project with default configuration when there is no parameters")
@@ -36,11 +40,21 @@ internal class LauncherQuarkusResourceTest {
     fun testWithSpecifiedParams() {
         given()
             .`when`()
-            .get("/api/quarkus/download?g=org.acme&a=test-app&pv=1.0.0&c=org.acme.TotoResource&e=io.quarkus:quarkus-resteasy")
+            .get("/api/quarkus/download?g=org.toto&a=test-app&pv=1.0.0&p=%2Ftoto&c=org.toto.TotoResource&e=io.quarkus:quarkus-resteasy&e=io.quarkus:quarkus-resteasy-jsonb")
             .then()
             .statusCode(200)
             .contentType("application/zip")
             .header("Content-Disposition", "attachment; filename=\"test-app.zip\"")
+
+
+        /* assertThat((projectCreator as QuarkusProjectCreatorMock).createdProjectRef.get(), equalTo(QuarkusProject(
+            groupId = "com.toto",
+            artifactId = "test-app",
+            version = "1.0.0",
+            className = "org.toto.TotoResource",
+            path = "/toto",
+            extensions = setOf("io.quarkus:quarkus-resteasy", "io.quarkus:quarkus-resteasy-jsonb")
+        ))) */
     }
 
     @Test
