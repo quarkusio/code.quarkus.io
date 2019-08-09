@@ -1,8 +1,10 @@
 package io.launcher.quarkus
 
+import io.launcher.quarkus.model.QuarkusProject
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
 import org.hamcrest.CoreMatchers.*
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import javax.inject.Inject
@@ -12,7 +14,7 @@ import javax.ws.rs.core.MediaType
 class LauncherQuarkusResourceTest {
 
     @Inject
-    lateinit var projectCreator: QuarkusProjectCreator
+    lateinit var projectCreator: QuarkusProjectCreatorMock
 
     @Test
     @DisplayName("Should return a project with default configuration when there is no parameters")
@@ -23,6 +25,7 @@ class LauncherQuarkusResourceTest {
             .statusCode(200)
             .contentType("application/zip")
             .header("Content-Disposition", "attachment; filename=\"code-with-quarkus.zip\"")
+        assertThat(projectCreator.createdProjectRef.get(), equalTo(QuarkusProject()))
     }
 
     @Test
@@ -36,25 +39,48 @@ class LauncherQuarkusResourceTest {
     }
 
     @Test
-    @DisplayName("Should return a project with specified configuration when parameters are specified")
-    fun testWithSpecifiedParams() {
+    @DisplayName("Should return a project with specified configuration when a few parameters are specified")
+    fun testWithAFewParams() {
         given()
             .`when`()
-            .get("/api/quarkus/download?g=org.toto&a=test-app&pv=1.0.0&p=%2Ftoto&c=org.toto.TotoResource&e=io.quarkus:quarkus-resteasy&e=io.quarkus:quarkus-resteasy-jsonb")
+            .get("/api/quarkus/download?a=test-app-with-a-few-arg&v=1.0.0&e=io.quarkus:quarkus-smallrye-reactive-messaging&e=io.quarkus:quarkus-kafka-streams")
+            .then()
+            .statusCode(200)
+            .contentType("application/zip")
+            .header("Content-Disposition", "attachment; filename=\"test-app-with-a-few-arg.zip\"")
+        assertThat(
+            projectCreator.createdProjectRef.get(), equalTo(
+                QuarkusProject(
+                    artifactId = "test-app-with-a-few-arg",
+                    version = "1.0.0",
+                    extensions = setOf("io.quarkus:quarkus-kafka-streams", "io.quarkus:quarkus-smallrye-reactive-messaging")
+                )
+            )
+        )
+    }
+
+    @Test
+    @DisplayName("Should return a project with specified configuration when all parameters are specified")
+    fun testWithAllParams() {
+        given()
+            .`when`()
+            .get("/api/quarkus/download?g=com.toto&a=test-app&v=1.0.0&p=/toto&c=org.toto.TotoResource&e=io.quarkus:quarkus-resteasy&e=io.quarkus:quarkus-resteasy-jsonb")
             .then()
             .statusCode(200)
             .contentType("application/zip")
             .header("Content-Disposition", "attachment; filename=\"test-app.zip\"")
-
-
-        /* assertThat((projectCreator as QuarkusProjectCreatorMock).createdProjectRef.get(), equalTo(QuarkusProject(
-            groupId = "com.toto",
-            artifactId = "test-app",
-            version = "1.0.0",
-            className = "org.toto.TotoResource",
-            path = "/toto",
-            extensions = setOf("io.quarkus:quarkus-resteasy", "io.quarkus:quarkus-resteasy-jsonb")
-        ))) */
+        assertThat(
+            projectCreator.createdProjectRef.get(), equalTo(
+                QuarkusProject(
+                    groupId = "com.toto",
+                    artifactId = "test-app",
+                    version = "1.0.0",
+                    className = "org.toto.TotoResource",
+                    path = "/toto",
+                    extensions = setOf("io.quarkus:quarkus-resteasy-jsonb", "io.quarkus:quarkus-resteasy")
+                )
+            )
+        )
     }
 
     @Test

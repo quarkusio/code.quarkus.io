@@ -3,10 +3,10 @@ package io.launcher.quarkus
 import io.launcher.quarkus.model.QuarkusProject
 import io.quarkus.test.Mock
 import java.util.concurrent.atomic.AtomicReference
-import javax.enterprise.context.ApplicationScoped
+import javax.inject.Singleton
 
 @Mock
-@ApplicationScoped
+@Singleton
 open class QuarkusProjectCreatorMock: QuarkusProjectCreator() {
 
     val createdProjectRef : AtomicReference<QuarkusProject> = AtomicReference()
