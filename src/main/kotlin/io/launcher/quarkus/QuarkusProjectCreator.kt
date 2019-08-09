@@ -7,9 +7,9 @@ import io.quarkus.dup.cli.commands.CreateProject
 import io.quarkus.templates.BuildTool
 import java.io.ByteArrayOutputStream
 import java.io.IOException
-import javax.enterprise.context.ApplicationScoped
+import javax.inject.Singleton
 
-@ApplicationScoped
+@Singleton
 open class QuarkusProjectCreator {
     companion object {
         const val RESOURCES_DIR = "/launcher/mvnw"
