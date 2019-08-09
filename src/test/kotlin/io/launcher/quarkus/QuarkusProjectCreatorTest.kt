@@ -1,17 +1,13 @@
 package io.launcher.quarkus
 
 import io.launcher.quarkus.model.QuarkusProject
-import org.apache.commons.compress.archivers.ArchiveStreamFactory
-import org.apache.commons.compress.archivers.zip.ZipArchiveEntry
-import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream
+import io.quarkus.maven.utilities.MojoUtils
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.contains
-import org.hamcrest.Matchers.equalTo
+import org.hamcrest.Matchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Timeout
-import java.io.File
-import java.nio.file.Files
+import java.nio.file.Paths
 import java.util.concurrent.Callable
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
@@ -53,26 +49,106 @@ internal class QuarkusProjectCreatorTest {
             "code-with-quarkus/mvnw.cmd",
             "code-with-quarkus/mvnw"
         )
+
+        val EXPECTED_ZIP_CONTENT_CUSTOM = arrayOf(
+            "test-app/",
+            "test-app/pom.xml",
+            "test-app/src/",
+            "test-app/src/main/",
+            "test-app/src/main/java/",
+            "test-app/src/main/java/com/",
+            "test-app/src/main/java/com/test/",
+            "test-app/src/main/java/com/test/TestResource.java",
+            "test-app/src/test/",
+            "test-app/src/test/java/",
+            "test-app/src/test/java/com/",
+            "test-app/src/test/java/com/test/",
+            "test-app/src/test/java/com/test/TestResourceTest.java",
+            "test-app/src/test/java/com/test/NativeTestResourceIT.java",
+            "test-app/src/main/resources/",
+            "test-app/src/main/resources/META-INF/",
+            "test-app/src/main/resources/META-INF/resources/",
+            "test-app/src/main/resources/META-INF/resources/index.html",
+            "test-app/src/main/docker/",
+            "test-app/src/main/docker/Dockerfile.native",
+            "test-app/src/main/docker/Dockerfile.jvm",
+            "test-app/.dockerignore",
+            "test-app/src/main/resources/application.properties",
+            "test-app/.gitignore",
+            "test-app/.mvn/",
+            "test-app/.mvn/wrapper/",
+            "test-app/.mvn/wrapper/maven-wrapper.jar",
+            "test-app/.mvn/wrapper/maven-wrapper.properties",
+            "test-app/.mvn/wrapper/MavenWrapperDownloader.java",
+            "test-app/mvnw.cmd",
+            "test-app/mvnw"
+        )
     }
 
     @Test
-    @DisplayName("Should create a project correctly")
+    @DisplayName("When using default project, then, it should create all the files correctly with the requested content")
     fun testCreateProject() {
+        // When
         val creator = QuarkusProjectCreator()
         val proj = creator.create(QuarkusProject())
-        val testDir = Files.createTempDirectory("test-zip").toFile()
-        println(testDir)
-        val zipFile = testDir.resolve("project.zip")
-        zipFile.outputStream().use { output ->
-            output.write(proj)
-        }
-        val zipList = unzip(testDir, zipFile)
+        val (testDir, zipList) = ProjectTestHelpers.extractProject(proj)
+        val fileList = ProjectTestHelpers.readFiles(testDir)
+        val pomText = Paths.get(testDir.path, "code-with-quarkus/pom.xml")
+            .toFile().readText(Charsets.UTF_8)
+        val resourceText = Paths.get(testDir.path, "code-with-quarkus/src/main/java/org/acme/ExampleResource.java")
+            .toFile().readText(Charsets.UTF_8)
+        // Then
         assertThat(zipList, contains(*EXPECTED_ZIP_CONTENT))
-        val fileList = testDir.walkTopDown()
-            .map { file -> file.relativeTo(testDir).toString() }
-            .toList()
+
         assertThat(fileList.size, equalTo(33))
+
+        assertThat(pomText, containsString("<groupId>org.acme</groupId>"))
+        assertThat(pomText, containsString("<artifactId>code-with-quarkus</artifactId>"))
+        assertThat(pomText, containsString("<version>1.0.0-SNAPSHOT</version>"))
+        assertThat(pomText, containsString("<quarkus.version>${MojoUtils.getPluginVersion()}</quarkus.version>"))
+
+        assertThat(resourceText, containsString("@Path(\"/hello\")"))
     }
+
+    @Test
+    @DisplayName("When using a custom project, then, it should create all the files correctly with the requested content")
+    fun testCreateCustomProject() {
+        // When
+        val creator = QuarkusProjectCreator()
+        val proj = creator.create(
+            QuarkusProject(
+                groupId = "com.test",
+                artifactId = "test-app",
+                version = "2.0.0",
+                className = "com.test.TestResource",
+                path = "/test/it",
+                extensions = setOf("io.quarkus:quarkus-resteasy-jsonb", "io.quarkus:quarkus-hibernate-validator", "io.quarkus:quarkus-neo4j")
+            )
+        )
+        val (testDir, zipList) = ProjectTestHelpers.extractProject(proj)
+        val fileList = ProjectTestHelpers.readFiles(testDir)
+        val pomText = Paths.get(testDir.path, "test-app/pom.xml")
+            .toFile().readText(Charsets.UTF_8)
+        val resourceText = Paths.get(testDir.path, "test-app/src/main/java/com/test/TestResource.java")
+            .toFile().readText(Charsets.UTF_8)
+
+        // Then
+        assertThat(zipList, contains(*EXPECTED_ZIP_CONTENT_CUSTOM))
+        assertThat(fileList.size, equalTo(33))
+
+        assertThat(pomText, containsString("<groupId>com.test</groupId>"))
+        assertThat(pomText, containsString("<artifactId>test-app</artifactId>"))
+        assertThat(pomText, containsString("<version>2.0.0</version>"))
+        assertThat(pomText, containsString("<quarkus.version>${MojoUtils.getPluginVersion()}</quarkus.version>"))
+        assertThat(pomText, containsString("<groupId>io.quarkus</groupId>"))
+        assertThat(pomText, containsString("<artifactId>quarkus-resteasy-jsonb</artifactId>"))
+        assertThat(pomText, containsString("<artifactId>quarkus-hibernate-validator</artifactId>"))
+        assertThat(pomText, containsString("<artifactId>quarkus-neo4j</artifactId>"))
+
+        assertThat(resourceText, containsString("@Path(\"/test/it\")"))
+    }
+
+
 
     @Test
     @DisplayName("Should create multiple project correctly")
@@ -82,7 +158,7 @@ internal class QuarkusProjectCreatorTest {
 
         val latch = CountDownLatch(20)
         val creator = QuarkusProjectCreator()
-        val creates = (1..20).map {i ->
+        val creates = (1..20).map { i ->
             Callable {
                 val result = creator.create(QuarkusProject())
                 latch.countDown()
@@ -93,34 +169,6 @@ internal class QuarkusProjectCreatorTest {
         println("await")
         latch.await()
         println("done")
-    }
-
-    private fun unzip(outputDir: File, zipFile: File): List<String> {
-        zipFile.inputStream().use { zfis ->
-            ArchiveStreamFactory().createArchiveInputStream(ArchiveStreamFactory.ZIP, zfis).use { zip ->
-                var entry: ZipArchiveEntry?
-                val list = arrayListOf<String>()
-                do {
-                    entry = (zip as ZipArchiveInputStream).nextZipEntry
-                    if (entry == null)
-                        break
-                    list.add(entry.name)
-                    val file = File(outputDir, entry.name)
-                    if (entry.isDirectory) {
-                        file.mkdirs()
-                    } else {
-                        if (!file.parentFile.exists()) {
-                            file.parentFile.mkdirs()
-                        }
-                        file.outputStream().use { output ->
-                            zip.copyTo(output)
-                        }
-                    }
-                } while (true)
-                return list
-            }
-        }
-
     }
 
 }

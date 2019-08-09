@@ -23,6 +23,7 @@ public class CommonsZipProjectWriter implements ProjectWriter {
     private final ArchiveOutputStream aos;
     private final String basePath;
     private final Set<String> createdDirs = new HashSet<>();
+    private final Map<String, ZipArchiveEntry> archiveEntriesByPath = new LinkedHashMap<>();
     private final Map<String, byte[]> contentByPath = new LinkedHashMap<>();
 
     private CommonsZipProjectWriter(final ArchiveOutputStream aos, final String basePath) {
@@ -64,21 +65,15 @@ public class CommonsZipProjectWriter implements ProjectWriter {
         }
     }
 
-    public void write(String path, byte[] contentBytes, boolean allowExec) throws IOException {
+    public void write(String path, byte[] contentBytes, boolean allowExec) {
         Path filePath = Paths.get(this.basePath, "/", path);
-        if (contentByPath.containsKey(filePath.toString())) {
-            return;
-        }
-        this.mkdirs(filePath.getParent());
         ZipArchiveEntry ze = new ZipArchiveEntry(filePath.toString());
         if (allowExec) {
             ze.setUnixMode(0100755);
         } else {
             ze.setUnixMode(0100644);
         }
-        aos.putArchiveEntry(ze);
-        aos.write(contentBytes);
-        aos.closeArchiveEntry();
+        archiveEntriesByPath.put(filePath.toString(), ze);
         contentByPath.put(filePath.toString(), contentBytes);
     }
 
@@ -94,6 +89,13 @@ public class CommonsZipProjectWriter implements ProjectWriter {
 
     @Override
     public void close() throws IOException {
+        for (Map.Entry<String, byte[]> entry : contentByPath.entrySet()) {
+            ZipArchiveEntry ze = archiveEntriesByPath.get(entry.getKey());
+            this.mkdirs(Paths.get(entry.getKey()).getParent());
+            aos.putArchiveEntry(ze);
+            aos.write(entry.getValue());
+            aos.closeArchiveEntry();
+        }
         aos.close();
     }
 
