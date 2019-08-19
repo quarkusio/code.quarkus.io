@@ -152,9 +152,9 @@ internal class QuarkusProjectCreatorTest {
 
     @Test
     @DisplayName("Should create multiple project correctly")
-    @Timeout(1)
+    @Timeout(2)
     fun testCreateMultipleProject() {
-        val executorService = Executors.newFixedThreadPool(10)
+        val executorService = Executors.newFixedThreadPool(4)
 
         val latch = CountDownLatch(20)
         val creator = QuarkusProjectCreator()

@@ -3,8 +3,8 @@ package io.launcher.quarkus
 import io.launcher.quarkus.model.QuarkusProject
 import io.launcher.quarkus.writer.CommonsZipProjectWriter
 import io.quarkus.cli.commands.AddExtensions
-import io.quarkus.dup.cli.commands.CreateProject
-import io.quarkus.templates.BuildTool
+import io.quarkus.cli.commands.CreateProject
+import io.quarkus.generators.BuildTool
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import javax.inject.Singleton
@@ -40,7 +40,7 @@ open class QuarkusProjectCreator {
                 if (!success) {
                     throw IOException("Error during Quarkus project creation")
                 }
-                AddExtensions(zipWriter, "pom.xml")
+                AddExtensions(zipWriter, BuildTool.MAVEN)
                     .addExtensions(project.extensions)
                 this.addMvnw(zipWriter)
             }

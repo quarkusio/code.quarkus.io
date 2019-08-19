@@ -16,9 +16,12 @@ function getId(e) {
     return e.groupId + ':' + e.artifactId;
 }
 
+const version = process.argv.length > 2 ? process.argv[2] : 'master';
+
 async function generate() {
+    console.log(`Quarkus version: ${version}`);
     const extWebsiteResp = await axios.get('https://raw.githubusercontent.com/quarkusio/quarkusio.github.io/develop/_data/extensions.yaml');
-    const extLibResp = await axios.get('https://raw.githubusercontent.com/quarkusio/quarkus/master/devtools/common/src/main/filtered/extensions.json');
+    const extLibResp = await axios.get(`https://raw.githubusercontent.com/quarkusio/quarkus/${version}/devtools/common/src/main/filtered/extensions.json`);
 
     const extWebsite = yaml.parse(extWebsiteResp.data);
 

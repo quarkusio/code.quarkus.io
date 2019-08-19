@@ -15,4 +15,9 @@ open class QuarkusProjectCreatorMock: QuarkusProjectCreator() {
         createdProjectRef.set(project)
         return super.create(project)
     }
+
+    fun getCreatedProject(): QuarkusProject {
+        return this.createdProjectRef.get()
+    }
+
 }
