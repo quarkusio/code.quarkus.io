@@ -49,7 +49,7 @@ class LauncherQuarkusResourceTest {
             .contentType("application/zip")
             .header("Content-Disposition", "attachment; filename=\"test-app-with-a-few-arg.zip\"")
         assertThat(
-            projectCreator.createdProjectRef.get(), equalTo(
+            projectCreator.getCreatedProject(), equalTo(
                 QuarkusProject(
                     artifactId = "test-app-with-a-few-arg",
                     version = "1.0.0",
@@ -70,7 +70,7 @@ class LauncherQuarkusResourceTest {
             .contentType("application/zip")
             .header("Content-Disposition", "attachment; filename=\"test-app.zip\"")
         assertThat(
-            projectCreator.createdProjectRef.get(), equalTo(
+            projectCreator.getCreatedProject(), equalTo(
                 QuarkusProject(
                     groupId = "com.toto",
                     artifactId = "test-app",
