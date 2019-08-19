@@ -104,6 +104,6 @@ class LauncherQuarkusResourceTest {
             .then()
             .statusCode(200)
             .contentType(MediaType.APPLICATION_JSON)
-            .body("$.size()", `is`(53))
+            .body("$.size()", `is`(54))
     }
 }
