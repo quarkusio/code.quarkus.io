@@ -1,6 +1,7 @@
 import React from 'react';
 import { DataLoader } from '@launcher/component';
 import { ExtensionEntry } from './pickers/extensions-picker';
+import { fetchExtensions } from './backend-api';
 
 interface Extension {
   id: string;
@@ -13,17 +14,8 @@ interface Extension {
 }
 
 export function ExtensionsLoader(props: { name: string, children: (entries: ExtensionEntry[]) => any }) {
-  const loader = async () => {
-    try {
-      const backendUrl = process.env.REACT_APP_BACKEND_URL || "";
-      const data = await fetch(`${backendUrl}/api/quarkus/extensions`);
-      return await data.json();
-    } catch(e) {
-      throw new Error("Failed to load Quarkus extension list");
-    }   
-  };
   return (
-    <DataLoader loader={loader}>
+    <DataLoader loader={fetchExtensions}>
       {props.children}
     </DataLoader>
   );

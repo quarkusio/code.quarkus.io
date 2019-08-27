@@ -1,4 +1,4 @@
-import { MavenSettingsPicker } from '@launcher/component';
+import { GAVPicker } from '@launcher/component';
 import { Button } from '@patternfly/react-core';
 import React, { SetStateAction } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -27,7 +27,7 @@ export function LauncherQuarkusForm(props: QuarkusFormProps) {
             <div className="title">
               <h3>Application Info</h3>
             </div>
-            <MavenSettingsPicker.Element value={props.project.metadata} onChange={setMetadata} visibleFields={['groupId', 'artifactId', 'version', 'packageName']} mode="horizontal" />
+            <GAVPicker.Element value={props.project.metadata} onChange={setMetadata} visibleFields={['groupId', 'artifactId', 'version', 'packageName']} mode="horizontal" />
           </div>
           <div className="generate-project">
             <Button aria-label="Generate your application" className="generate-button" onClick={props.onSave}>Generate your application (alt + ⏎)</Button>

@@ -50,10 +50,10 @@ function Extension(props: ExtensionProps) {
       className={`${active ? 'active' : ''} ${props.selected ? 'selected' : ''} extension-item`}
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
-      aria-label={`Switch ${props.id} extension`}
+      
     >
       {props.detailed && (
-        <div className="extension-selector" onClick={onClick}>
+        <div className="extension-selector" onClick={onClick} aria-label={`Switch ${props.id} extension`}>
           {!props.selected && !active && <OutlinedSquareIcon />}
           {(active || props.selected) && <CheckSquareIcon />}
         </div>
@@ -129,7 +129,7 @@ export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerVal
     const categories = new Set(props.entries.map(i => i.category));
     let currentCat: string | undefined = undefined;
     return (
-      <div className="extensions-picker">
+      <div className="extensions-picker" aria-label="Extensions picker">
         <div className="control-container">
           <div className="title">
             <h3>Extensions</h3>

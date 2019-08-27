@@ -3,6 +3,7 @@
 exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
 <DocumentFragment>
   <div
+    aria-label="Extensions picker"
     class="extensions-picker"
   >
     <div
@@ -146,10 +147,10 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             Core
           </div>
           <div
-            aria-label="Switch io.quarkus:quarkus-arc extension"
             class="  extension-item"
           >
             <div
+              aria-label="Switch io.quarkus:quarkus-arc extension"
               class="extension-selector"
             >
               <svg
@@ -218,10 +219,10 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             Cloud
           </div>
           <div
-            aria-label="Switch some-id extension"
             class="  extension-item"
           >
             <div
+              aria-label="Switch some-id extension"
               class="extension-selector"
             >
               <svg
@@ -290,10 +291,10 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             Integration
           </div>
           <div
-            aria-label="Switch io.quarkus:quarkus-camel-netty4-http extension"
             class="  extension-item"
           >
             <div
+              aria-label="Switch io.quarkus:quarkus-camel-netty4-http extension"
               class="extension-selector"
             >
               <svg
@@ -362,6 +363,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
 exports[`<ExtensionsPicker /> select values and save 1`] = `
 <DocumentFragment>
   <div
+    aria-label="Extensions picker"
     class="extensions-picker"
   >
     <div
@@ -509,10 +511,10 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
         class="list-container"
       >
         <div
-          aria-label="Switch io.quarkus:quarkus-camel-netty4-http extension"
           class="  extension-item"
         >
           <div
+            aria-label="Switch io.quarkus:quarkus-camel-netty4-http extension"
             class="extension-selector"
           >
             <svg
@@ -580,6 +582,7 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
 exports[`<ExtensionsPicker /> show results for valid search 1`] = `
 <DocumentFragment>
   <div
+    aria-label="Extensions picker"
     class="extensions-picker"
   >
     <div
@@ -727,10 +730,10 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
         class="list-container"
       >
         <div
-          aria-label="Switch io.quarkus:quarkus-arc extension"
           class="  extension-item"
         >
           <div
+            aria-label="Switch io.quarkus:quarkus-arc extension"
             class="extension-selector"
           >
             <svg
@@ -790,10 +793,10 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           </div>
         </div>
         <div
-          aria-label="Switch some-id extension"
           class="  extension-item"
         >
           <div
+            aria-label="Switch some-id extension"
             class="extension-selector"
           >
             <svg

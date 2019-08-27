@@ -1,5 +1,5 @@
 import { ExternalLink } from '@launcher/component';
-import { Button, Modal, Text, TextContent, TextVariants } from '@patternfly/react-core';
+import { Button, Modal, TextContent } from '@patternfly/react-core';
 import React from 'react';
 import { CopyToClipboard } from './copy-to-clipboard';
 
@@ -21,23 +21,23 @@ export function NextSteps(props: NextStepsProps) {
       isOpen={true}
       aria-label="Your new Quarkus app has been generated"
       actions={[
-        <Button key="launch-new" variant="secondary" aria-label="Go back" onClick={() => close(false)}>
+        <Button key="go-back" variant="secondary" aria-label="Go back" onClick={() => close(false)}>
           Go back
         </Button>,
-        <Button key="launch-new" variant="secondary" aria-label="Start a new application" onClick={() => close()}>
+        <Button key="start-new" variant="secondary" aria-label="Start a new application" onClick={() => close()}>
           Start a new application
         </Button>
       ]}
     >
       <TextContent>
-        <Text component={TextVariants.p}>Your download should start shortly. If it doesn't, please use the direct link:</Text>
+        <p>Your download should start shortly. If it doesn't, please use the direct link:</p>
         <Button component="a" href={props.downloadLink as string} aria-label="Download link" className="download-button">Download the zip</Button>
-        <Text component={TextVariants.h1}>What's next!</Text>
-        <Text component={TextVariants.p}>
+        <h1>What's next!</h1>
+        <div>
           Unzip the project and start playing with Quarkus by running:
         <code>$ ./mvnw compile quarkus:dev <CopyToClipboard eventId="Start-Dev-Command" content="./mvnw compile quarkus:dev" /></code>
           Follow the <ExternalLink href="https://quarkus.io/guides/" aria-label="Start playing with Quarkus">guides</ExternalLink>  for your next steps!
-        </Text>
+        </div>
       </TextContent>
     </Modal>
   );
