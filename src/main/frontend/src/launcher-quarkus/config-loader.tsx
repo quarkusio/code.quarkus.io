@@ -1,5 +1,6 @@
 import { DataLoader } from '@launcher/component';
 import React from 'react';
+import { fetchConfig } from './backend-api';
 
 export interface Config {
   environment: string;
@@ -8,19 +9,8 @@ export interface Config {
 }
 
 export function ConfigLoader(props: { children: (config: Config) => any }) {
-  const loader = async () => {
-    try {
-      const backendUrl = process.env.REACT_APP_BACKEND_URL || "";
-      const data = await fetch(`${backendUrl}/api/quarkus/config`);
-      return await data.json();
-    } catch(e) {
-      return {
-        environment: 'dev'
-      }
-    }    
-  };
   return (
-    <DataLoader loader={loader}>
+    <DataLoader loader={fetchConfig}>
       {props.children}
     </DataLoader>
   );

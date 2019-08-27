@@ -1,0 +1,6 @@
+---
+scripts:
+  dev: ./mvnw compile quarkus:dev
+  ext:add: mvn quarkus:add-extension -Dextensions="${id}"
+  ext:list: mvn quarkus:list-extensions
+  update-ext: yarn --cwd ./extensions start ${version}
