@@ -93,7 +93,7 @@ class LauncherQuarkusResource {
         @DefaultValue(QuarkusProject.DEFAULT_PATH)
         @NotEmpty
         @QueryParam("p")
-        @Parameter(name= "p", description = "The path of the REST endpoint created in the generated application (default: ${QuarkusProject.DEFAULT_GROUPID})", required = false)
+        @Parameter(name= "p", description = "The path of the REST endpoint created in the generated application (default: ${QuarkusProject.DEFAULT_PATH})", required = false)
         path: String,
 
         @QueryParam("e")
