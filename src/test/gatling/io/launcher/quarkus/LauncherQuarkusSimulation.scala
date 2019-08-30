@@ -41,7 +41,7 @@ class LauncherQuarkusSimulation extends Simulation {
         .get("/static/js/2.8a086a4a.chunk.js")
         .headers(headers),
       http("request_8")
-        .get("/api/quarkus/config")
+        .get("/api/config")
         .headers(headers),
       http("request_9")
         .get("/quarkus_logo_horizontal_rgb_reverse.svg")

@@ -20,7 +20,7 @@ class LauncherQuarkusResourceTest {
     @DisplayName("Should return a project with default configuration when there is no parameters")
     fun testNoParams() {
         given()
-            .`when`().get("/api/quarkus/download")
+            .`when`().get("/api/download")
             .then()
             .statusCode(200)
             .contentType("application/zip")
@@ -33,7 +33,7 @@ class LauncherQuarkusResourceTest {
     fun testWithEmptyParam() {
         given()
             .`when`()
-            .get("/api/quarkus/download?g=org.acme&a=&pv=1.0.0&c=org.acme.TotoResource&e=io.quarkus:quarkus-resteasy")
+            .get("/api/download?g=org.acme&a=&pv=1.0.0&c=org.acme.TotoResource&e=io.quarkus:quarkus-resteasy")
             .then()
             .statusCode(400)
     }
@@ -43,7 +43,7 @@ class LauncherQuarkusResourceTest {
     fun testWithAFewParams() {
         given()
             .`when`()
-            .get("/api/quarkus/download?a=test-app-with-a-few-arg&v=1.0.0&e=io.quarkus:quarkus-smallrye-reactive-messaging&e=io.quarkus:quarkus-kafka-streams")
+            .get("/api/download?a=test-app-with-a-few-arg&v=1.0.0&e=io.quarkus:quarkus-smallrye-reactive-messaging&e=io.quarkus:quarkus-kafka-streams")
             .then()
             .statusCode(200)
             .contentType("application/zip")
@@ -64,7 +64,7 @@ class LauncherQuarkusResourceTest {
     fun testWithAllParams() {
         given()
             .`when`()
-            .get("/api/quarkus/download?g=com.toto&a=test-app&v=1.0.0&p=/toto&c=org.toto.TotoResource&e=io.quarkus:quarkus-resteasy&e=io.quarkus:quarkus-resteasy-jsonb")
+            .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto&c=org.toto.TotoResource&e=io.quarkus:quarkus-resteasy&e=io.quarkus:quarkus-resteasy-jsonb")
             .then()
             .statusCode(200)
             .contentType("application/zip")
@@ -87,7 +87,7 @@ class LauncherQuarkusResourceTest {
     @DisplayName("Should return the default configuration")
     fun testConfig() {
         given()
-            .`when`().get("/api/quarkus/config")
+            .`when`().get("/api/config")
             .then()
             .statusCode(200)
             .contentType(MediaType.APPLICATION_JSON)
@@ -100,7 +100,7 @@ class LauncherQuarkusResourceTest {
     @DisplayName("Should return the extension list")
     fun testExtensions() {
         given()
-            .`when`().get("/api/quarkus/extensions")
+            .`when`().get("/api/extensions")
             .then()
             .statusCode(200)
             .contentType(MediaType.APPLICATION_JSON)
