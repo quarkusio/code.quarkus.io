@@ -17,7 +17,7 @@ import javax.ws.rs.core.MediaType.APPLICATION_JSON
 import javax.ws.rs.core.Response
 
 
-@Path("/quarkus")
+@Path("/")
 class LauncherQuarkusResource {
 
     @Inject
