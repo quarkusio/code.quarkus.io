@@ -1,7 +1,7 @@
-package io.launcher.quarkus
+package io.quarkus.code
 
-import io.launcher.quarkus.model.QuarkusProject
-import io.launcher.quarkus.writer.CommonsZipProjectWriter
+import io.quarkus.code.model.QuarkusProject
+import io.quarkus.code.writer.CommonsZipProjectWriter
 import io.quarkus.cli.commands.AddExtensions
 import io.quarkus.cli.commands.CreateProject
 import io.quarkus.generators.BuildTool
@@ -12,7 +12,7 @@ import javax.inject.Singleton
 @Singleton
 open class QuarkusProjectCreator {
     companion object {
-        const val RESOURCES_DIR = "/launcher/mvnw"
+        const val RESOURCES_DIR = "/creator/mvnw"
         const val MAVEN_WRAPPER_DIR = ".mvn/wrapper"
         const val MAVEN_WRAPPER_JAR = "$MAVEN_WRAPPER_DIR/maven-wrapper.jar"
         const val MAVEN_WRAPPER_PROPS = "$MAVEN_WRAPPER_DIR/maven-wrapper.properties"

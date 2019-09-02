@@ -4,9 +4,9 @@ import { stringify } from 'querystring';
 import React, { useEffect, useState } from 'react';
 import { publicUrl } from './config';
 import { Config } from './config-loader';
-import { LauncherQuarkusForm } from './form';
+import { CodeQuarkusForm } from './form';
 import { Header } from './header';
-import './launcher-quarkus.scss';
+import './code-quarkus.scss';
 import { NextSteps } from './next-steps';
 
 enum Status {
@@ -58,7 +58,7 @@ const DEFAULT_PROJECT = {
   extensions: [],
 };
 
-export function LauncherQuarkus(props: LaunchFlowProps) {
+export function CodeQuarkus(props: LaunchFlowProps) {
   const [project, setProject] = useState<QuarkusProject>(DEFAULT_PROJECT);
   const [run, setRun] = useState<RunState>({ status: Status.EDITION });
   const baseAnalytics = useAnalytics();
@@ -90,9 +90,9 @@ export function LauncherQuarkus(props: LaunchFlowProps) {
 
   return (
     <AnalyticsContext.Provider value={analytics}>
-      <div className="launcher-quarkus">
+      <div className="code-quarkus">
         <Header />
-        <LauncherQuarkusForm project={project} setProject={setProject} onSave={generate} />
+        <CodeQuarkusForm project={project} setProject={setProject} onSave={generate} />
         {!run.error && run.status === Status.DOWNLOADED
           && (<NextSteps onClose={closeNextSteps} downloadLink={run.result.downloadLink} />)}
       </div>

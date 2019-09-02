@@ -13,7 +13,7 @@
       "pattern": "extensions\\.json$"
     },
     {
-      "pattern": "launcher/.*$"
+      "pattern": "creator/.*$"
     },
     {
       "pattern": "quarkus/extensions\\.json$"

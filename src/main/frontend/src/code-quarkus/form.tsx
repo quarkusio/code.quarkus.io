@@ -4,23 +4,23 @@ import React, { SetStateAction } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { ExtensionsLoader } from './extensions-loader';
 import './form.scss';
-import { QuarkusProject } from './launcher-quarkus';
+import { QuarkusProject } from './code-quarkus';
 import { ExtensionEntry, ExtensionsPicker } from './pickers/extensions-picker';
 
-interface QuarkusFormProps {
+interface CodeQuarkusFormProps {
   project: QuarkusProject;
   setProject: React.Dispatch<SetStateAction<QuarkusProject>>;
   onSave: () => void;
 }
 
-export function LauncherQuarkusForm(props: QuarkusFormProps) {
+export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
   const setProject = props.setProject;
   const setMetadata = (metadata: any) => setProject((prev) => ({ ...prev, metadata }));
   const setExtensions = (val: { extensions: string[] }) => setProject((prev) => ({ ...prev, extensions: val.extensions }));
 
   useHotkeys('alt+enter', props.onSave);
   return (
-    <div className="launcher-quarkus-form">
+    <div className="code-quarkus-form">
       <div className="form-header-sticky-container">
         <div className="form-header responsive-container">
           <div className="project-info">

@@ -1,6 +1,6 @@
-package io.launcher.quarkus
+package io.quarkus.code
 
-import io.launcher.quarkus.model.QuarkusProject
+import io.quarkus.code.model.QuarkusProject
 import io.quarkus.maven.utilities.MojoUtils
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*
@@ -122,7 +122,11 @@ internal class QuarkusProjectCreatorTest {
                 version = "2.0.0",
                 className = "com.test.TestResource",
                 path = "/test/it",
-                extensions = setOf("io.quarkus:quarkus-resteasy-jsonb", "io.quarkus:quarkus-hibernate-validator", "io.quarkus:quarkus-neo4j")
+                extensions = setOf(
+                    "io.quarkus:quarkus-resteasy-jsonb",
+                    "io.quarkus:quarkus-hibernate-validator",
+                    "io.quarkus:quarkus-neo4j"
+                )
             )
         )
         val (testDir, zipList) = ProjectTestHelpers.extractProject(proj)

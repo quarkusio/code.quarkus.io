@@ -1,5 +1,5 @@
 {
-  "name": "@launcher/quarkus-ext-converter",
+  "name": "quarkus-extensions-converter",
   "version": "1.0.0",
   "private": true,
   "dependencies": {

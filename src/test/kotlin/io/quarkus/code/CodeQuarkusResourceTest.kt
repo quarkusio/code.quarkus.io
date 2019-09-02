@@ -1,6 +1,6 @@
-package io.launcher.quarkus
+package io.quarkus.code
 
-import io.launcher.quarkus.model.QuarkusProject
+import io.quarkus.code.model.QuarkusProject
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
 import org.hamcrest.CoreMatchers.*
@@ -11,7 +11,7 @@ import javax.inject.Inject
 import javax.ws.rs.core.MediaType
 
 @QuarkusTest
-class LauncherQuarkusResourceTest {
+class CodeQuarkusResourceTest {
 
     @Inject
     lateinit var projectCreator: QuarkusProjectCreatorMock
@@ -53,7 +53,10 @@ class LauncherQuarkusResourceTest {
                 QuarkusProject(
                     artifactId = "test-app-with-a-few-arg",
                     version = "1.0.0",
-                    extensions = setOf("io.quarkus:quarkus-kafka-streams", "io.quarkus:quarkus-smallrye-reactive-messaging")
+                    extensions = setOf(
+                        "io.quarkus:quarkus-kafka-streams",
+                        "io.quarkus:quarkus-smallrye-reactive-messaging"
+                    )
                 )
             )
         )

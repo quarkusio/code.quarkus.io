@@ -1,4 +1,4 @@
-package io.launcher.quarkus.model
+package io.quarkus.code.model
 
 data class Config(
     val environment: String,
