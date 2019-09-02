@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { cleanup, fireEvent, render, RenderResult, act } from '@testing-library/react';
-import { LauncherQuarkus } from '../launcher-quarkus';
+import { CodeQuarkus } from '../code-quarkus';
 import { fetchExtensions } from '../backend-api';
 
 jest.mock('../backend-api', () => ({
@@ -74,10 +74,10 @@ afterEach(() => {
   cleanup();
 });
 
-it('Render LauncherQuarkus', async () => {
+it('Render CodeQuarkus', async () => {
   let comp: RenderResult;
   await act(async () => {
-    comp = render(<LauncherQuarkus config={{ environment: 'test' }} />);
+    comp = render(<CodeQuarkus config={{ environment: 'test' }} />);
     await comp.findByLabelText('Extensions picker');
   });
 });
@@ -86,7 +86,7 @@ it('Let user Generate default application', async () => {
   window.open = jest.fn();
   let comp: RenderResult;
   await act(async () => {
-    comp = render(<LauncherQuarkus config={{ environment: 'test' }} />);
+    comp = render(<CodeQuarkus config={{ environment: 'test' }} />);
     await comp.findByLabelText('Extensions picker');
   });
 
@@ -102,7 +102,7 @@ it('Let user customize an Application and Generate it', async () => {
   window.open = jest.fn();
   let comp: RenderResult;
   await act(async () => {
-    comp = render(<LauncherQuarkus config={{ environment: 'test' }} />);
+    comp = render(<CodeQuarkus config={{ environment: 'test' }} />);
     await comp.findByLabelText('Extensions picker');
   });
 

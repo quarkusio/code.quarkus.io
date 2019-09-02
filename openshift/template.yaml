@@ -2,16 +2,16 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name: launcher-quarkus
+  name: code-quarkus-app
 objects:
   - apiVersion: v1
     kind: DeploymentConfig
     metadata:
-      name: launcher-quarkus
+      name: code-quarkus-app
     spec:
       replicas: ${{REPLICAS}}
       selector:
-        service: launcher-quarkus
+        service: code-quarkus
       strategy:
         rollingParams:
           intervalSeconds: 1
@@ -23,12 +23,12 @@ objects:
       template:
         metadata:
           labels:
-            service: launcher-quarkus
+            service: code-quarkus-app
         spec:
           containers:
             - image: ${IMAGE}:${IMAGE_TAG}
               imagePullPolicy: Always
-              name: launcher-quarkus
+              name: code-quarkus-app
               ports:
                 - containerPort: 8080
               livenessProbe:
@@ -50,19 +50,19 @@ objects:
                   memory: ${MEMORY_LIMIT}
               env:
                 - name: SENTRY_DSN
-                  value: ${LAUNCHER_QUARKUS_SENTRY_DSN}
+                  value: ${CODE_QUARKUS_SENTRY_DSN}
                 - name: ENV
-                  value: ${LAUNCHER_QUARKUS_ENV}
+                  value: ${CODE_QUARKUS_ENV}
                 - name: GA_TRACKING_ID
-                  value: ${LAUNCHER_QUARKUS_GA_TRACKING_ID}
+                  value: ${CODE_QUARKUS_GA_TRACKING_ID}
       triggers:
         - type: ConfigChange
   - kind: Service
     apiVersion: v1
     metadata:
       labels:
-        service: launcher-quarkus
-      name: launcher-quarkus
+        service: code-quarkus-app
+      name: code-quarkus-app
     spec:
       ports:
         - name: '8080'
@@ -70,31 +70,31 @@ objects:
           protocol: TCP
           targetPort: 8080
       selector:
-        service: launcher-quarkus
+        service: code-quarkus-app
       sessionAffinity: None
       type: ClusterIP
 parameters:
-  - name: LAUNCHER_QUARKUS_SENTRY_DSN
-    displayName: launcher quarkus sentry dsn
-    description: launcher quarkus sentry dsn.
-  - name: LAUNCHER_QUARKUS_ENV
+  - name: CODE_QUARKUS_SENTRY_DSN
+    displayName: Code Quarkus App sentry dsn
+    description: Code Quarkus App sentry dsn.
+  - name: CODE_QUARKUS_ENV
     value: dev
     required: true
-    displayName: launcher quarkus environment
-    description: launcher quarkus environment. Defaults to dev
-  - name: LAUNCHER_QUARKUS_GA_TRACKING_ID
-    displayName: launcher quarkus ga tracking id
-    description: launcher quarkus google analytics tracking id.
+    displayName: Code Quarkus App environment
+    description: Code Quarkus App environment. Defaults to dev
+  - name: CODE_QUARKUS_GA_TRACKING_ID
+    displayName: Code Quarkus App ga tracking id
+    description: Code Quarkus App google analytics tracking id.
   - name: IMAGE
-    value: quay.io/launcher/launcher-quarkus
+    value: quay.io/quarkus/code-quarkus-app
     required: true
-    displayName: launcher quarkus image
-    description: launcher quarkus docker image. Defaults to quay.io/launcher/launcher-quarkus
+    displayName: Code Quarkus App image
+    description: Code Quarkus App docker image. Defaults to quay.io/quarkus/code-quarkus-app
   - name: IMAGE_TAG
     value: latest
     required: true
-    displayName: launcher quarkus version
-    description: launcher quarkus version which defaults to latest
+    displayName: Code Quarkus App version
+    description: Code Quarkus App version which defaults to latest
   - name: MEMORY_LIMIT
     value: 1Gi
     required: true

@@ -1,4 +1,4 @@
-package io.launcher.quarkus
+package io.quarkus.code
 
 import org.apache.commons.compress.archivers.ArchiveStreamFactory
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry
@@ -22,7 +22,7 @@ class ProjectTestHelpers {
             zipFile.outputStream().use { output ->
                 output.write(proj)
             }
-            val zipList = ProjectTestHelpers.unzip(testDir, zipFile)
+            val zipList = unzip(testDir, zipFile)
             return Pair(testDir, zipList)
         }
 

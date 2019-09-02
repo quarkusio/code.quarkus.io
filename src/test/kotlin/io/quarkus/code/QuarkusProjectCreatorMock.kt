@@ -1,6 +1,6 @@
-package io.launcher.quarkus
+package io.quarkus.code
 
-import io.launcher.quarkus.model.QuarkusProject
+import io.quarkus.code.model.QuarkusProject
 import io.quarkus.test.Mock
 import java.util.concurrent.atomic.AtomicReference
 import javax.inject.Singleton

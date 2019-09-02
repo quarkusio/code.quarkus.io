@@ -3,8 +3,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.launcher</groupId>
-  <artifactId>launcher-quarkus</artifactId>
-  <version>1-SNAPSHOT</version>
+  <artifactId>code.quarkus.io</artifactId>
+  <version>1.0.0</version>
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <version.kotlin-stdlib>1.3.21</version.kotlin-stdlib>

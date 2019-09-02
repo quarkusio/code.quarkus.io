@@ -1,10 +1,10 @@
-# Quarkus Launcher
+# Code Quarkus App
 
-[![CircleCI](https://circleci.com/gh/fabric8-launcher/launcher-quarkus/tree/master.svg?style=svg)](https://circleci.com/gh/fabric8-launcher/launcher-quarkus/tree/master)
+[![CircleCI](https://circleci.com/gh/fabric8-launcher/code.quarkus.io/tree/master.svg?style=svg)](https://circleci.com/gh/fabric8-launcher/code.quarkus.io/tree/master)
 
 This is a standalone web-app to configure & generate a Quarkus project.
 
-# Start the Quarkus Launcher in dev mode
+# Start the Code Quarkus App in dev mode
 
 ```
 $ ./mvnw compile quarkus:dev
@@ -24,7 +24,7 @@ $ yarn start
 
 # Update the extensions list
 
-> This procedure will soon be easier, you can follow it here: https://github.com/fabric8-launcher/launcher-quarkus/issues/40
+> This procedure will soon be easier, you can follow it here: https://github.com/fabric8-launcher/code.quarkus.io/issues/40
 
 Provide PRs to udpate the Quarkus extensions list:
 https://github.com/quarkusio/quarkus/blob/master/devtools/common/src/main/filtered/extensions.json
@@ -39,6 +39,6 @@ $ yarn
 $ yarn start
 ```
 
-It will automatically update the Quarkus Launcher `extensions.json` list.
+It will automatically update the Code Quarkus App `extensions.json` list.
 
 Then provide a PR to request a merge on master.

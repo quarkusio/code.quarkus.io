@@ -1,4 +1,4 @@
-package io.launcher.quarkus
+package io.quarkus.code
 
 import scala.concurrent.duration._
 import io.gatling.core.Predef._

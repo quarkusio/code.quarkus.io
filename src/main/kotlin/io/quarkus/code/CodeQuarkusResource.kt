@@ -1,8 +1,8 @@
-package io.launcher.quarkus
+package io.quarkus.code
 
-import io.launcher.quarkus.model.Config
-import io.launcher.quarkus.model.QuarkusExtension
-import io.launcher.quarkus.model.QuarkusProject
+import io.quarkus.code.model.Config
+import io.quarkus.code.model.QuarkusExtension
+import io.quarkus.code.model.QuarkusProject
 import org.eclipse.microprofile.metrics.annotation.Counted
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
@@ -18,7 +18,7 @@ import javax.ws.rs.core.Response
 
 
 @Path("/")
-class LauncherQuarkusResource {
+class CodeQuarkusResource {
 
     @Inject
     lateinit var projectCreator: QuarkusProjectCreator
@@ -53,7 +53,7 @@ class LauncherQuarkusResource {
     fun extensions(): Response {
         return Response
             .ok(
-                (LauncherQuarkusResource::class.java.getResource("/quarkus/extensions.json")
+                (CodeQuarkusResource::class.java.getResource("/quarkus/extensions.json")
                     ?: throw IOException("missing extensions.json file")).readBytes()
             )
             .type(APPLICATION_JSON)
