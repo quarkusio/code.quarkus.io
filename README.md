@@ -1,6 +1,6 @@
 # Code Quarkus App
 
-[![CircleCI](https://circleci.com/gh/fabric8-launcher/code.quarkus.io/tree/master.svg?style=svg)](https://circleci.com/gh/fabric8-launcher/code.quarkus.io/tree/master)
+[![CircleCI](https://circleci.com/gh/quarkusio/code.quarkus.io/tree/master.svg?style=svg)](https://circleci.com/gh/quarkusio/code.quarkus.io/tree/master)
 
 This is a standalone web-app to configure & generate a Quarkus project.
 
@@ -24,7 +24,7 @@ $ yarn start
 
 # Update the extensions list
 
-> This procedure will soon be easier, you can follow it here: https://github.com/fabric8-launcher/code.quarkus.io/issues/40
+> This procedure will soon be easier, you can follow it here: https://github.com/quarkusio/code.quarkus.io/issues/40
 
 Provide PRs to udpate the Quarkus extensions list:
 https://github.com/quarkusio/quarkus/blob/master/devtools/common/src/main/filtered/extensions.json
