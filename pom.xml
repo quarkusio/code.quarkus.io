@@ -117,6 +117,9 @@
             <goals>
               <goal>yarn</goal>
             </goals>
+            <configuration>
+              <arguments>--frozen-lockfile</arguments>
+            </configuration>
           </execution>
           <execution>
             <id>yarn build</id>
