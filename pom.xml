@@ -17,7 +17,7 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <version.frontend-maven-plugin>1.7.6</version.frontend-maven-plugin>
     <version.commons-compress>1.18</version.commons-compress>
-    <version.quarkus>0.21.1</version.quarkus>
+    <version.quarkus>0.21.2</version.quarkus>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -99,6 +99,16 @@
   <build>
     <sourceDirectory>src/main/kotlin</sourceDirectory>
     <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+      </resource>
+      <resource>
+        <directory>src/main/resources-filtered</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>com.github.eirslett</groupId>
@@ -166,6 +176,23 @@
           <yarnVersion>v1.17.0</yarnVersion>
           <installDirectory>./</installDirectory>
           <workingDirectory>src/main/frontend</workingDirectory>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>pl.project13.maven</groupId>
+        <artifactId>git-commit-id-plugin</artifactId>
+        <version>3.0.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>revision</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <gitDescribe>
+            <skip>true</skip>
+          </gitDescribe>
         </configuration>
       </plugin>
       <plugin>

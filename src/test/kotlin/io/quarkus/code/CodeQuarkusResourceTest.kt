@@ -20,11 +20,11 @@ class CodeQuarkusResourceTest {
     @DisplayName("Should return a project with default configuration when there is no parameters")
     fun testNoParams() {
         given()
-            .`when`().get("/api/download")
-            .then()
-            .statusCode(200)
-            .contentType("application/zip")
-            .header("Content-Disposition", "attachment; filename=\"code-with-quarkus.zip\"")
+                .`when`().get("/api/download")
+                .then()
+                .statusCode(200)
+                .contentType("application/zip")
+                .header("Content-Disposition", "attachment; filename=\"code-with-quarkus.zip\"")
         assertThat(projectCreator.createdProjectRef.get(), equalTo(QuarkusProject()))
     }
 
@@ -32,33 +32,33 @@ class CodeQuarkusResourceTest {
     @DisplayName("Should fail when a param is specified has empty")
     fun testWithEmptyParam() {
         given()
-            .`when`()
-            .get("/api/download?g=org.acme&a=&pv=1.0.0&c=org.acme.TotoResource&e=io.quarkus:quarkus-resteasy")
-            .then()
-            .statusCode(400)
+                .`when`()
+                .get("/api/download?g=org.acme&a=&pv=1.0.0&c=org.acme.TotoResource&e=io.quarkus:quarkus-resteasy")
+                .then()
+                .statusCode(400)
     }
 
     @Test
     @DisplayName("Should return a project with specified configuration when a few parameters are specified")
     fun testWithAFewParams() {
         given()
-            .`when`()
-            .get("/api/download?a=test-app-with-a-few-arg&v=1.0.0&e=io.quarkus:quarkus-smallrye-reactive-messaging&e=io.quarkus:quarkus-kafka-streams")
-            .then()
-            .statusCode(200)
-            .contentType("application/zip")
-            .header("Content-Disposition", "attachment; filename=\"test-app-with-a-few-arg.zip\"")
+                .`when`()
+                .get("/api/download?a=test-app-with-a-few-arg&v=1.0.0&e=io.quarkus:quarkus-smallrye-reactive-messaging&e=io.quarkus:quarkus-kafka-streams")
+                .then()
+                .statusCode(200)
+                .contentType("application/zip")
+                .header("Content-Disposition", "attachment; filename=\"test-app-with-a-few-arg.zip\"")
         assertThat(
-            projectCreator.getCreatedProject(), equalTo(
+                projectCreator.getCreatedProject(), equalTo(
                 QuarkusProject(
-                    artifactId = "test-app-with-a-few-arg",
-                    version = "1.0.0",
-                    extensions = setOf(
-                        "io.quarkus:quarkus-kafka-streams",
-                        "io.quarkus:quarkus-smallrye-reactive-messaging"
-                    )
+                        artifactId = "test-app-with-a-few-arg",
+                        version = "1.0.0",
+                        extensions = setOf(
+                                "io.quarkus:quarkus-kafka-streams",
+                                "io.quarkus:quarkus-smallrye-reactive-messaging"
+                        )
                 )
-            )
+        )
         )
     }
 
@@ -66,23 +66,23 @@ class CodeQuarkusResourceTest {
     @DisplayName("Should return a project with specified configuration when all parameters are specified")
     fun testWithAllParams() {
         given()
-            .`when`()
-            .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto&c=org.toto.TotoResource&e=io.quarkus:quarkus-resteasy&e=io.quarkus:quarkus-resteasy-jsonb")
-            .then()
-            .statusCode(200)
-            .contentType("application/zip")
-            .header("Content-Disposition", "attachment; filename=\"test-app.zip\"")
+                .`when`()
+                .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto&c=org.toto.TotoResource&e=io.quarkus:quarkus-resteasy&e=io.quarkus:quarkus-resteasy-jsonb")
+                .then()
+                .statusCode(200)
+                .contentType("application/zip")
+                .header("Content-Disposition", "attachment; filename=\"test-app.zip\"")
         assertThat(
-            projectCreator.getCreatedProject(), equalTo(
+                projectCreator.getCreatedProject(), equalTo(
                 QuarkusProject(
-                    groupId = "com.toto",
-                    artifactId = "test-app",
-                    version = "1.0.0",
-                    className = "org.toto.TotoResource",
-                    path = "/toto",
-                    extensions = setOf("io.quarkus:quarkus-resteasy-jsonb", "io.quarkus:quarkus-resteasy")
+                        groupId = "com.toto",
+                        artifactId = "test-app",
+                        version = "1.0.0",
+                        className = "org.toto.TotoResource",
+                        path = "/toto",
+                        extensions = setOf("io.quarkus:quarkus-resteasy-jsonb", "io.quarkus:quarkus-resteasy")
                 )
-            )
+        )
         )
     }
 
@@ -90,23 +90,25 @@ class CodeQuarkusResourceTest {
     @DisplayName("Should return the default configuration")
     fun testConfig() {
         given()
-            .`when`().get("/api/config")
-            .then()
-            .statusCode(200)
-            .contentType(MediaType.APPLICATION_JSON)
-            .body("environment", equalTo("dev"))
-            .body("gaTrackingId", nullValue())
-            .body("sentryDSN", nullValue())
+                .`when`().get("/api/config")
+                .then()
+                .statusCode(200)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("environment", equalTo("dev"))
+                .body("gaTrackingId", nullValue())
+                .body("sentryDSN", nullValue())
+                .body("quarkusVersion", notNullValue())
+                .body("gitCommitId", notNullValue())
     }
 
     @Test
     @DisplayName("Should return the extension list")
     fun testExtensions() {
         given()
-            .`when`().get("/api/extensions")
-            .then()
-            .statusCode(200)
-            .contentType(MediaType.APPLICATION_JSON)
-            .body("$.size()", `is`(57))
+                .`when`().get("/api/extensions")
+                .then()
+                .statusCode(200)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("$.size()", `is`(58))
     }
 }

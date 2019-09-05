@@ -6,6 +6,8 @@ export interface Config {
   environment: string;
   gaTrackingId?: string;
   sentryDSN?: string;
+  quarkusVersion: string;
+  gitCommitId: string;
 }
 
 export function ConfigLoader(props: { children: (config: Config) => any }) {
