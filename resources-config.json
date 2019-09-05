@@ -17,9 +17,6 @@
     },
     {
       "pattern": "quarkus/extensions\\.json$"
-    },
-    {
-      "pattern": "application\\.properties$"
     }
   ]
 }

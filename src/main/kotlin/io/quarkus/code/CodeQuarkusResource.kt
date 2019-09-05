@@ -3,8 +3,8 @@ package io.quarkus.code
 import io.quarkus.code.model.Config
 import io.quarkus.code.model.QuarkusExtension
 import io.quarkus.code.model.QuarkusProject
-import io.quarkus.runtime.Quarkus
 import io.quarkus.runtime.configuration.ApplicationPropertiesConfigSource
+import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.eclipse.microprofile.metrics.annotation.Counted
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
@@ -25,6 +25,12 @@ class CodeQuarkusResource {
     @Inject
     lateinit var projectCreator: QuarkusProjectCreator
 
+    @ConfigProperty(name = "io.quarkus.code.quarkus-version")
+    lateinit var  quarkusVersion: String
+
+    @ConfigProperty(name = "io.quarkus.code.git-commit-id")
+    lateinit var  gitCommitId: String
+
     @GET
     @Path("/config")
     @Produces(APPLICATION_JSON)
@@ -35,8 +41,8 @@ class CodeQuarkusResource {
             System.getenv("ENV") ?: "dev",
             System.getenv("GA_TRACKING_ID") ?: null,
             System.getenv("SENTRY_DSN") ?: null,
-                applicationProperties.getValue("code-quarkus.quarkus-version"),
-                applicationProperties.getValue("code-quarkus.git-commit-id")
+                quarkusVersion,
+                gitCommitId
         )
     }
 
