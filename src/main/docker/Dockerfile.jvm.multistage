@@ -6,7 +6,7 @@ COPY pom.xml /usr/src/app
 USER root
 RUN chown -R quarkus /usr/src/app
 USER quarkus
-RUN mvn -f /usr/src/app/pom.xml clean package
+RUN cd /usr/src/app/ && mvn clean package
 
 FROM fabric8/java-alpine-openjdk8-jre
 ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
