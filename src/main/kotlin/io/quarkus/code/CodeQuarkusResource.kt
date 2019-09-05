@@ -3,6 +3,8 @@ package io.quarkus.code
 import io.quarkus.code.model.Config
 import io.quarkus.code.model.QuarkusExtension
 import io.quarkus.code.model.QuarkusProject
+import io.quarkus.runtime.Quarkus
+import io.quarkus.runtime.configuration.ApplicationPropertiesConfigSource
 import org.eclipse.microprofile.metrics.annotation.Counted
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
@@ -28,10 +30,13 @@ class CodeQuarkusResource {
     @Produces(APPLICATION_JSON)
     @Operation(summary = "Get the Quarkus Launcher configuration", hidden = true)
     fun config(): Config {
+        val applicationProperties = ApplicationPropertiesConfigSource.InJar()
         return Config(
             System.getenv("ENV") ?: "dev",
             System.getenv("GA_TRACKING_ID") ?: null,
-            System.getenv("SENTRY_DSN") ?: null
+            System.getenv("SENTRY_DSN") ?: null,
+                applicationProperties.getValue("code-quarkus.quarkus-version"),
+                applicationProperties.getValue("code-quarkus.git-commit-id")
         )
     }
 

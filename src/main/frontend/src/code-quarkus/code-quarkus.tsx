@@ -71,7 +71,7 @@ export function CodeQuarkus(props: LaunchFlowProps) {
   const generate = () => {
     setRun({ status: Status.RUNNING });
 
-    analytics && analytics.event('App', 'Generate');
+    analytics && analytics.event('App', 'Generate', props.config.quarkusVersion);
     analytics && project.extensions.forEach(e => analytics.event('Extension', 'Used', e));
 
     generateProject(project).then((result) => {
