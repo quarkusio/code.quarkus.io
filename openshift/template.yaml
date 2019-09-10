@@ -49,11 +49,11 @@ objects:
                 limits:
                   memory: ${MEMORY_LIMIT}
               env:
-                - name: SENTRY_DSN
+                - name: io.quarkus.code.sentry-dsn
                   value: ${CODE_QUARKUS_SENTRY_DSN}
-                - name: ENV
+                - name: io.quarkus.code.environment
                   value: ${CODE_QUARKUS_ENV}
-                - name: GA_TRACKING_ID
+                - name: io.quarkus.code.ga-tracking-id
                   value: ${CODE_QUARKUS_GA_TRACKING_ID}
       triggers:
         - type: ConfigChange
