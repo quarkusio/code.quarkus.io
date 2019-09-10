@@ -95,8 +95,8 @@ class CodeQuarkusResourceTest {
                 .statusCode(200)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body("environment", equalTo("dev"))
-                .body("gaTrackingId", nullValue())
-                .body("sentryDSN", nullValue())
+                .body("gaTrackingId", equalTo(""))
+                .body("sentryDSN", equalTo(""))
                 .body("quarkusVersion", notNullValue())
                 .body("gitCommitId", notNullValue())
     }
