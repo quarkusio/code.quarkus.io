@@ -47,6 +47,10 @@
   .extension-item {
     cursor: pointer;
 
+    svg {
+      pointer-events: none;
+    }
+
     .extension-selector {
       color: #fff;
     }

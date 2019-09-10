@@ -35,9 +35,17 @@ interface ExtensionProps extends ExtensionEntry {
 
 function Extension(props: ExtensionProps) {
   const [active, setActive] = useState(false);
+  const activate = () => setActive(true);
+  const desactivate = () => setActive(false);
   const onClick = () => {
     props.onClick(props.id);
     setActive(false);
+  };
+
+  const activationEvents = {
+    onClick,
+    onMouseEnter: activate ,
+    onMouseLeave: desactivate,
   };
 
   const description = props.description || '...';
@@ -46,30 +54,38 @@ function Extension(props: ExtensionProps) {
     <div>{props.selected ? 'Remove' : 'Add'} the extension <b>{props.name}</b></div> : descTooltip;
   const addMvnExt = `./mvnw quarkus:add-extension -Dextensions="${props.id}"`;
   return (
-    <div
-      className={`${active ? 'active' : ''} ${props.selected ? 'selected' : ''} extension-item`}
-      onMouseEnter={() => setActive(true)}
-      onMouseLeave={() => setActive(false)}
-      
-    >
+    <div className={`${active ? 'active' : ''} ${props.selected ? 'selected' : ''} extension-item`}>
       {props.detailed && (
-        <div className="extension-selector" onClick={onClick} aria-label={`Switch ${props.id} extension`}>
+        <div
+          className="extension-selector"
+          {...activationEvents}
+          aria-label={`Switch ${props.id} extension`}
+        >
           {!props.selected && !active && <OutlinedSquareIcon />}
           {(active || props.selected) && <CheckSquareIcon />}
         </div>
       )}
       <Tooltip position="bottom" content={tooltip} exitDelay={0} zIndex={100}>
-        <div className="extension-name" onClick={onClick}>{props.name}</div>
+        <div
+          className="extension-name"
+          {...activationEvents}
+        >{props.name}</div>
       </Tooltip>
       {!props.detailed && (
-        <div className="extension-remove" onClick={onClick}>
+        <div
+          className="extension-remove"
+          {...activationEvents}
+        >
           {active && props.selected && <TrashAltIcon />}
         </div>
       )}
       {props.detailed && (
         <div className="extension-details">
           <Tooltip position="bottom" content={descTooltip} exitDelay={0} zIndex={100}>
-            <div className="extension-description" onClick={onClick}>{description}</div>
+            <div
+              className="extension-description"
+              {...activationEvents}
+            >{description}</div>
           </Tooltip>
           <Tooltip position="left" maxWidth="650px" content={<span>Copy mvn command to clipboard: <br /><code>$ {addMvnExt}</code></span>} exitDelay={0} zIndex={100}>
             <div className="extension-gav"><CopyToClipboard eventId="Add-Extension-Command" content={addMvnExt} /></div>
@@ -89,7 +105,7 @@ function Blurb() {
           <p>Think of Quarkus extensions as your project dependencies. Extensions configure, boot and integrate a framework or technology into your Quarkus application. They also do all of the heavy lifting of providing the right information to GraalVM for your application to compile natively.</p>
           <br />
           <p className="desktop-only">Explore the wide breadth of technologies Quarkus applications can be made with. Generate your application!</p>
-          <p className="mobile-only" style={{color: "#ff004a"}}>On mobile devices, you can explore the list of Quarkus extensions.<br /> If you wish to generate code, try it with your desktop browser...</p>
+          <p className="mobile-only" style={{ color: "#ff004a" }}>On mobile devices, you can explore the list of Quarkus extensions.<br /> If you wish to generate code, try it with your desktop browser...</p>
         </Alert>)
       }
     </>
