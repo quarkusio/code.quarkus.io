@@ -5,6 +5,7 @@ import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers.greaterThan
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import javax.inject.Inject
@@ -109,6 +110,6 @@ class CodeQuarkusResourceTest {
                 .then()
                 .statusCode(200)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body("$.size()", `is`(58))
+                .body("$.size()", greaterThan(50))
     }
 }
