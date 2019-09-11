@@ -32,7 +32,7 @@ export function NextSteps(props: NextStepsProps) {
       <TextContent>
         <p>Your download should start shortly. If it doesn't, please use the direct link:</p>
         <Button component="a" href={props.downloadLink as string} aria-label="Download link" className="download-button">Download the zip</Button>
-        <h1>What's next!</h1>
+        <h1>What's next?</h1>
         <div>
           Unzip the project and start playing with Quarkus by running:
         <code>$ ./mvnw compile quarkus:dev <CopyToClipboard eventId="Start-Dev-Command" content="./mvnw compile quarkus:dev" /></code>
