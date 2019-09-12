@@ -55,12 +55,12 @@ const entries: ExtensionEntry[] = [
 describe('<ExtensionsPicker />', () => {
 
   it('renders the ExtensionsPicker correctly', () => {
-    const comp = render(<ExtensionsPicker.Element placeholder="" entries={entries} value={{}} onChange={() => { }} />);
+    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{}} onChange={() => { }} />);
     expect(comp.asFragment()).toMatchSnapshot();
   });
 
   it('show results for valid search', async () => {
-    const comp = render(<ExtensionsPicker.Element placeholder="" entries={entries} value={{}} onChange={() => { }} />);
+    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{}} onChange={() => { }} />);
 
     const searchField = comp.getByLabelText('Search extensions');
     fireEvent.change(searchField, { target: { value: 'CDI' } });
@@ -71,7 +71,7 @@ describe('<ExtensionsPicker />', () => {
 
   it('select values and save', async () => {
     const handleChange = jest.fn();
-    const comp = render(<ExtensionsPicker.Element placeholder="" entries={entries} value={{}} onChange={handleChange} />);
+    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{}} onChange={handleChange} />);
 
     const searchField = comp.getByLabelText('Search extensions');
     fireEvent.change(searchField, { target: { value: 'netty' } });

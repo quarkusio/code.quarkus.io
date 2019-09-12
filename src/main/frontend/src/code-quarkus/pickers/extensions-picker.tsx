@@ -1,4 +1,4 @@
-import { InputProps, Picker, useAnalytics } from '@launcher/component';
+import { InputProps, useAnalytics } from '@launcher/component';
 import { Alert, AlertActionCloseButton, Button, FormGroup, TextInput, Tooltip } from "@patternfly/react-core";
 import { CheckSquareIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon } from "@patternfly/react-icons";
 import React, { useState } from "react";
@@ -44,7 +44,7 @@ function Extension(props: ExtensionProps) {
 
   const activationEvents = {
     onClick,
-    onMouseEnter: activate ,
+    onMouseEnter: activate,
     onMouseLeave: desactivate,
   };
 
@@ -112,109 +112,105 @@ function Blurb() {
   );
 }
 
-export const ExtensionsPicker: Picker<ExtensionsPickerProps, ExtensionsPickerValue> = {
-  checkCompletion: (value: ExtensionsPickerValue) => !!value.extensions && value.extensions.length > 0,
-  Element: (props: ExtensionsPickerProps) => {
-    const [filter, setFilter] = useState('');
-    const [hasSearched, setHasSearched] = useState(false);
-    const analytics = useAnalytics();
-    const extensions = props.value.extensions || [];
-    const entrySet = new Set(extensions);
-    const entriesById: Map<String, ExtensionEntry> = new Map(props.entries.map(item => [item.id, item]));
+export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
+  const [filter, setFilter] = useState('');
+  const [hasSearched, setHasSearched] = useState(false);
+  const analytics = useAnalytics();
+  const extensions = props.value.extensions || [];
+  const entrySet = new Set(extensions);
+  const entriesById: Map<String, ExtensionEntry> = new Map(props.entries.map(item => [item.id, item]));
 
-    const add = (id: string) => {
-      entrySet.add(id);
-      props.onChange({ extensions: Array.from(entrySet) });
-      analytics.event('Picker', 'Add-Extension', id);
-    };
+  const add = (id: string) => {
+    entrySet.add(id);
+    props.onChange({ extensions: Array.from(entrySet) });
+    analytics.event('Picker', 'Add-Extension', id);
+  };
 
-    const remove = (id: string) => {
-      entrySet.delete(id);
-      props.onChange({ extensions: Array.from(entrySet) });
-      analytics.event('Picker', 'Remove-Extension', id)
-    };
+  const remove = (id: string) => {
+    entrySet.delete(id);
+    props.onChange({ extensions: Array.from(entrySet) });
+    analytics.event('Picker', 'Remove-Extension', id)
+  };
 
-    const search = (f: string) => {
-      if (!hasSearched) {
-        analytics.event('Picker', 'Search-Extension')
-      }
-      setHasSearched(true);
-      setFilter(f);
+  const search = (f: string) => {
+    if (!hasSearched) {
+      analytics.event('Picker', 'Search-Extension')
     }
-    const result = processEntries(filter, props.entries);
-    const categories = new Set(props.entries.map(i => i.category));
-    let currentCat: string | undefined = undefined;
-    return (
-      <div className="extensions-picker" aria-label="Extensions picker">
-        <div className="control-container">
-          <div className="title">
-            <h3>Extensions</h3>
-          </div>
-          <Tooltip position="bottom" exitDelay={0} zIndex={100} content={`${Array.from(categories).join(', ')}`}>
-            <FormGroup
-              fieldId="search-extensions-input"
-            >
-              <SearchIcon />
-              <TextInput
-                aria-label="Search extensions"
-                placeholder={props.placeholder}
-                className="search-extensions-input"
-                value={filter}
-                onChange={search}
-              />
-            </FormGroup>
-          </Tooltip>
-          <div className={`selected-extensions`}>
-            <h4>Selected Extensions</h4>
-            <div className={`extension-list`}>
-              {
-                extensions.map((ex, i) => (
-                  <Extension
-                    selected={entrySet.has(ex)}
-                    {...entriesById.get(ex)!}
-                    key={i}
-                    onClick={entrySet.has(ex) ? remove : add}
-                  />
-                ))
-              }
-            </div>
-          </div>
+    setHasSearched(true);
+    setFilter(f);
+  }
+  const result = processEntries(filter, props.entries);
+  const categories = new Set(props.entries.map(i => i.category));
+  let currentCat: string | undefined = undefined;
+  return (
+    <div className="extensions-picker" aria-label="Extensions picker">
+      <div className="control-container">
+        <div className="title">
+          <h3>Extensions</h3>
         </div>
-        <div className="result-container">
-          <Blurb />
-          {!!filter && (
-            <div className="extension-search-clear">
-              Search results (<Button variant="link" onClick={() => setFilter('')}>Clear search</Button>)
-            </div>
-          )}
-          <div className="list-container">
-            {result.map((ex, i) => {
-              const ext = (
+        <Tooltip position="bottom" exitDelay={0} zIndex={100} content={`${Array.from(categories).join(', ')}`}>
+          <FormGroup
+            fieldId="search-extensions-input"
+          >
+            <SearchIcon />
+            <TextInput
+              aria-label="Search extensions"
+              placeholder={props.placeholder}
+              className="search-extensions-input"
+              value={filter}
+              onChange={search}
+            />
+          </FormGroup>
+        </Tooltip>
+        <div className={`selected-extensions`}>
+          <h4>Selected Extensions</h4>
+          <div className={`extension-list`}>
+            {
+              extensions.map((ex, i) => (
                 <Extension
-                  selected={entrySet.has(ex.id)}
-                  {...ex}
+                  selected={entrySet.has(ex)}
+                  {...entriesById.get(ex)!}
                   key={i}
-                  onClick={entrySet.has(ex.id) ? remove : add}
-                  detailed
+                  onClick={entrySet.has(ex) ? remove : add}
                 />
-              );
-              if (!filter && (!currentCat || currentCat !== ex.category)) {
-                currentCat = ex.category;
-                return (
-                  <div style={{ display: 'contents' }} key={i}>
-                    <div className="extension-category">
-                      {currentCat}
-                    </div>
-                    {ext}
-                  </div>
-                )
-              }
-              return ext;
-            })}
+              ))
+            }
           </div>
         </div>
       </div>
-
-    );
-  }
+      <div className="result-container">
+        <Blurb />
+        {!!filter && (
+          <div className="extension-search-clear">
+            Search results (<Button variant="link" onClick={() => setFilter('')}>Clear search</Button>)
+            </div>
+        )}
+        <div className="list-container">
+          {result.map((ex, i) => {
+            const ext = (
+              <Extension
+                selected={entrySet.has(ex.id)}
+                {...ex}
+                key={i}
+                onClick={entrySet.has(ex.id) ? remove : add}
+                detailed
+              />
+            );
+            if (!filter && (!currentCat || currentCat !== ex.category)) {
+              currentCat = ex.category;
+              return (
+                <div style={{ display: 'contents' }} key={i}>
+                  <div className="extension-category">
+                    {currentCat}
+                  </div>
+                  {ext}
+                </div>
+              )
+            }
+            return ext;
+          })}
+        </div>
+      </div>
+    </div>
+  );
 }
