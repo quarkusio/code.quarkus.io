@@ -30,11 +30,51 @@ class CodeQuarkusResourceTest {
     }
 
     @Test
-    @DisplayName("Should fail when a param is specified has empty")
+    @DisplayName("Should fail when a param is specified as empty")
     fun testWithEmptyParam() {
         given()
                 .`when`()
                 .get("/api/download?g=org.acme&a=&pv=1.0.0&c=org.acme.TotoResource&e=io.quarkus:quarkus-resteasy")
+                .then()
+                .statusCode(400)
+    }
+
+    @Test
+    @DisplayName("Should fail when using invalid groupId")
+    fun testWithInvalidGroupId() {
+        given()
+                .`when`()
+                .get("/api/download?g=org.acme.&e=io.quarkus:quarkus-resteasy")
+                .then()
+                .statusCode(400)
+    }
+
+    @Test
+    @DisplayName("Should fail when using invalid artifactId")
+    fun testWithInvalidArtifactId() {
+        given()
+                .`when`()
+                .get("/api/download?a=Art.&e=io.quarkus:quarkus-resteasy")
+                .then()
+                .statusCode(400)
+    }
+
+    @Test
+    @DisplayName("Should fail when using invalid path")
+    fun testWithInvalidPath() {
+        given()
+                .`when`()
+                .get("/api/download?p=invalid&e=io.quarkus:quarkus-resteasy")
+                .then()
+                .statusCode(400)
+    }
+
+    @Test
+    @DisplayName("Should fail when using invalid className")
+    fun testWithInvalidClassName() {
+        given()
+                .`when`()
+                .get("/api/download?c=com.1e&e=io.quarkus:quarkus-resteasy")
                 .then()
                 .statusCode(400)
     }
@@ -68,7 +108,7 @@ class CodeQuarkusResourceTest {
     fun testWithAllParams() {
         given()
                 .`when`()
-                .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto&c=org.toto.TotoResource&e=io.quarkus:quarkus-resteasy&e=io.quarkus:quarkus-resteasy-jsonb")
+                .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=org.toto.TotoResource&e=io.quarkus:quarkus-resteasy&e=io.quarkus:quarkus-resteasy-jsonb")
                 .then()
                 .statusCode(200)
                 .contentType("application/zip")
@@ -80,7 +120,7 @@ class CodeQuarkusResourceTest {
                         artifactId = "test-app",
                         version = "1.0.0",
                         className = "org.toto.TotoResource",
-                        path = "/toto",
+                        path = "/toto/titi",
                         extensions = setOf("io.quarkus:quarkus-resteasy-jsonb", "io.quarkus:quarkus-resteasy")
                 )
         )

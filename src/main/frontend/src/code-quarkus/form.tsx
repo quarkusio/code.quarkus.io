@@ -1,11 +1,11 @@
-import { GAVPicker } from '@launcher/component';
 import { Button } from '@patternfly/react-core';
-import React, { SetStateAction } from 'react';
+import React, { SetStateAction, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { ExtensionsLoader } from './extensions-loader';
 import './form.scss';
 import { QuarkusProject } from './code-quarkus';
 import { ExtensionEntry, ExtensionsPicker } from './pickers/extensions-picker';
+import { InfoPicker } from './pickers/info-picker';
 
 interface CodeQuarkusFormProps {
   project: QuarkusProject;
@@ -14,8 +14,12 @@ interface CodeQuarkusFormProps {
 }
 
 export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
+  const [isMetadataValid, setIsMetadataValid] = useState(false);
   const setProject = props.setProject;
-  const setMetadata = (metadata: any) => setProject((prev) => ({ ...prev, metadata }));
+  const setMetadata = (metadata: any, isValid: boolean) => {
+    setIsMetadataValid(isValid);
+    setProject((prev) => ({ ...prev, metadata }));
+  };
   const setExtensions = (val: { extensions: string[] }) => setProject((prev) => ({ ...prev, extensions: val.extensions }));
 
   useHotkeys('alt+enter', props.onSave);
@@ -27,10 +31,10 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
             <div className="title">
               <h3>Application Info</h3>
             </div>
-            <GAVPicker.Element value={props.project.metadata} onChange={setMetadata} visibleFields={['groupId', 'artifactId', 'version', 'packageName']} mode="horizontal" />
+            <InfoPicker value={props.project.metadata} isValid={isMetadataValid} onChange={setMetadata} />
           </div>
           <div className="generate-project">
-            <Button aria-label="Generate your application" className="generate-button" onClick={props.onSave}>Generate your application (alt + ⏎)</Button>
+            <Button aria-label="Generate your application" isDisabled={!isMetadataValid} className="generate-button" onClick={props.onSave}>Generate your application (alt + ⏎)</Button>
           </div>
         </div>
       </div>
@@ -40,7 +44,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
         </div>
         <ExtensionsLoader name="extensions">
           {extensions => (
-            <ExtensionsPicker.Element
+            <ExtensionsPicker
               entries={extensions as ExtensionEntry[]}
               value={{ extensions: props.project.extensions }}
               onChange={setExtensions}

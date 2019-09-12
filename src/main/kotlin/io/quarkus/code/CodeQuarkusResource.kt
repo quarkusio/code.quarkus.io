@@ -13,6 +13,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 import java.io.IOException
 import javax.inject.Inject
 import javax.validation.constraints.NotEmpty
+import javax.validation.constraints.Pattern
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType.APPLICATION_JSON
 import javax.ws.rs.core.Response
@@ -20,6 +21,13 @@ import javax.ws.rs.core.Response
 
 @Path("/")
 class CodeQuarkusResource {
+
+    companion object {
+        const val GROUPID_PATTERN = "^([a-zA-Z_\$][a-zA-Z\\d_\$]*\\.)*[a-zA-Z_\$][a-zA-Z\\d_\$]*\$"
+        const val ARTIFACTID_PATTERN = "^[a-z][a-z0-9-.]{3,63}\$"
+        const val CLASSNAME_PATTERN = GROUPID_PATTERN
+        const val PATH_PATTERN = "^\\/([a-z0-9\\-._~%!\$&'()*+,;=:@]+\\/?)*\$"
+    }
 
     @Inject
     lateinit var projectCreator: QuarkusProjectCreator
@@ -82,12 +90,14 @@ class CodeQuarkusResource {
     fun download(
             @DefaultValue(QuarkusProject.DEFAULT_GROUPID)
             @NotEmpty
+            @Pattern(regexp=GROUPID_PATTERN)
             @QueryParam("g")
             @Parameter(name = "g", description = "GAV: groupId (default: ${QuarkusProject.DEFAULT_GROUPID})", required = false)
             groupId: String,
 
             @DefaultValue(QuarkusProject.DEFAULT_ARTIFACTID)
             @NotEmpty
+            @Pattern(regexp= ARTIFACTID_PATTERN)
             @QueryParam("a")
             @Parameter(name = "a", description = "GAV: artifactId (default: ${QuarkusProject.DEFAULT_ARTIFACTID})", required = false)
             artifactId: String,
@@ -101,12 +111,14 @@ class CodeQuarkusResource {
             @DefaultValue(QuarkusProject.DEFAULT_CLASSNAME)
             @NotEmpty
             @QueryParam("c")
+            @Pattern(regexp=CLASSNAME_PATTERN)
             @Parameter(name = "c", description = "The class name to use in the generated application (default: ${QuarkusProject.DEFAULT_CLASSNAME})", required = false)
             className: String,
 
             @DefaultValue(QuarkusProject.DEFAULT_PATH)
             @NotEmpty
             @QueryParam("p")
+            @Pattern(regexp=PATH_PATTERN)
             @Parameter(name = "p", description = "The path of the REST endpoint created in the generated application (default: ${QuarkusProject.DEFAULT_PATH})", required = false)
             path: String,
 

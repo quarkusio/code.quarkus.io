@@ -103,8 +103,15 @@
       align-self: flex-end;
       text-align: center;
       border: 1px solid #FF004A;
+      color: white;
       &:hover {
         border: 1px solid #ffffff;
+      }
+
+      &.pf-m-disabled {
+        background-color: rgba(255, 0, 72, 0.342);
+        border: 1px solid rgba(255, 0, 72, 0.342);
+        color: rgba(255, 255, 255, 0.384);
       }
     }
   }
