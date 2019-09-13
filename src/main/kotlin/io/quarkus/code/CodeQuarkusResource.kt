@@ -24,7 +24,7 @@ class CodeQuarkusResource {
 
     companion object {
         const val GROUPID_PATTERN = "^([a-zA-Z_\$][a-zA-Z\\d_\$]*\\.)*[a-zA-Z_\$][a-zA-Z\\d_\$]*\$"
-        const val ARTIFACTID_PATTERN = "^[a-z][a-z0-9-.]{3,63}\$"
+        const val ARTIFACTID_PATTERN = "^[a-z][a-z0-9-._]*\$"
         const val CLASSNAME_PATTERN = GROUPID_PATTERN
         const val PATH_PATTERN = "^\\/([a-z0-9\\-._~%!\$&'()*+,;=:@]+\\/?)*\$"
     }
