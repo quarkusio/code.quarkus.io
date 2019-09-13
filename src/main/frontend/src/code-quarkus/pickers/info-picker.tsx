@@ -13,16 +13,16 @@ interface InfoPickerProps extends InputPropsWithValidation<InfoPickerValue> {
   showMoreOptions?: boolean;
 }
 
-const ID_REGEXP = /^[a-z][a-z0-9-.]{3,63}$/;
-const PACKAGE_NAME_REGEXP = /^([a-zA-Z_$][a-zA-Z\d_$]*\.)*[a-zA-Z_$][a-zA-Z\d_$]*$/;
+const ARTIFACTID_PATTERN = /^[a-z][a-z0-9-._]*$/;
+const GROUPID_PATTERN = /^([a-zA-Z_$][a-zA-Z\d_$]*\.)*[a-zA-Z_$][a-zA-Z\d_$]*$/;
 
-const isValidId = (value?: string) => !!value && ID_REGEXP.test(value || '');
-const isValidPackageName = (value?: string) => !!value && PACKAGE_NAME_REGEXP.test(value);
+const isValidId = (value?: string) => !!value && ARTIFACTID_PATTERN.test(value || '');
+const isValidGroupId = (value?: string) => !!value && GROUPID_PATTERN.test(value);
 const isValidInfo = (value: InfoPickerValue) => {
-  return isValidPackageName(value.groupId)
+  return isValidGroupId(value.groupId)
     && isValidId(value.artifactId)
     && !!value.version
-    && isValidPackageName(value.packageName || value.groupId)
+    && (!value.packageName || isValidGroupId(value.packageName))
 }
 
 export const InfoPicker = (props: InfoPickerProps) => {
@@ -54,8 +54,8 @@ export const InfoPicker = (props: InfoPickerProps) => {
           value={value.groupId || ''}
           autoComplete="off"
           onChange={onGroupIdChange}
-          pattern={PACKAGE_NAME_REGEXP.source}
-          isValid={isValidPackageName(value.groupId)}
+          pattern={GROUPID_PATTERN.source}
+          isValid={isValidGroupId(value.groupId)}
         />
         <ExtendedTextInput
           label="Artifact"
@@ -67,7 +67,7 @@ export const InfoPicker = (props: InfoPickerProps) => {
           value={value.artifactId || ''}
           autoComplete="off"
           onChange={onArtifactIdChange}
-          pattern={ID_REGEXP.source}
+          pattern={ARTIFACTID_PATTERN.source}
           isValid={isValidId(value.artifactId)}
         />
       </div>
@@ -96,8 +96,8 @@ export const InfoPicker = (props: InfoPickerProps) => {
               value={value.packageName || value.groupId || ''}
               autoComplete="off"
               onChange={onPackageNameChange}
-              pattern={PACKAGE_NAME_REGEXP.source}
-              isValid={isValidPackageName(value.packageName || value.groupId)}
+              pattern={GROUPID_PATTERN.source}
+              isValid={isValidGroupId(value.packageName || value.groupId)}
             />
           </div>
         </TogglePanel>
