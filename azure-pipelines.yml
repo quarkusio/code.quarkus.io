@@ -11,6 +11,7 @@ pr:
   paths:
     exclude:
       - README.md
+      - openshift/template.yaml
 
 pool:
   vmImage: 'ubuntu-16.04'
