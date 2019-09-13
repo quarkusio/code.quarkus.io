@@ -46,7 +46,11 @@ objects:
                 periodSeconds: 10
                 timeoutSeconds: 3
               resources:
+                requests:
+                  cpu: ${CPU_REQUEST}
+                  memory: ${MEMORY_REQUEST}
                 limits:
+                  cpu: ${CPU_LIMIT}
                   memory: ${MEMORY_LIMIT}
               env:
                 - name: io.quarkus.code.sentry-dsn
@@ -95,11 +99,26 @@ parameters:
     required: true
     displayName: Code Quarkus App version
     description: Code Quarkus App version which defaults to latest
-  - name: MEMORY_LIMIT
-    value: 1Gi
+  - description: CPU request
+    displayName: CPU request
     required: true
-    displayName: Memory Limit
-    description: Maximum amount of memory the container can use. Defaults 1Gi
+    name: CPU_REQUEST
+    value: 400m
+  - description: CPU limit
+    displayName: CPU limit
+    required: true
+    name: CPU_LIMIT
+    value: 1000m
+  - description: Memory request
+    displayName: Memory request
+    required: true
+    name: MEMORY_REQUEST
+    value: 768Mi
+  - description: Memory limit
+    displayName: Memory limit
+    required: true
+    name: MEMORY_LIMIT
+    value: 1Gi
   - description: Number of deployment replicas
     displayName: Number of deployment replicas
     required: true
