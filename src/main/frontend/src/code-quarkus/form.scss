@@ -134,11 +134,12 @@
         border-bottom: 1px solid #9AFF2D;
         font-size: 14px;
         width: 100%;
-        background: transparent;
+        background-color: transparent;
         color: white;
         outline: none;
         font-family: "PT Mono", Regular;
         padding-bottom: 4px;
+        padding-right: 30px;
       }
   
       input.pf-c-form-control:focus {

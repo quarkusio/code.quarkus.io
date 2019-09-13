@@ -1,4 +1,4 @@
-import { ExternalLink } from '@launcher/component';
+import { ExternalLink } from '../core';
 import { Button, Modal, TextContent } from '@patternfly/react-core';
 import React from 'react';
 import { CopyToClipboard } from './copy-to-clipboard';

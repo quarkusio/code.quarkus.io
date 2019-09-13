@@ -115,7 +115,7 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
             pattern="^([a-zA-Z_$][a-zA-Z\\\\d_$]*\\\\.)*[a-zA-Z_$][a-zA-Z\\\\d_$]*$"
             required=""
             type="text"
-            value=""
+            value="org.test"
           />
         </div>
       </div>

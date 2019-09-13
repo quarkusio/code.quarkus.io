@@ -1,4 +1,4 @@
-import { InputProps, useAnalytics } from '@launcher/component';
+import { InputProps, useAnalytics } from '../../core';
 import { Alert, AlertActionCloseButton, Button, FormGroup, TextInput, Tooltip } from "@patternfly/react-core";
 import { CheckSquareIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon } from "@patternfly/react-icons";
 import React, { useState } from "react";
@@ -18,7 +18,7 @@ export interface ExtensionEntry {
 }
 
 export interface ExtensionsPickerValue {
-  extensions?: string[];
+  extensions: string[];
 }
 
 interface ExtensionsPickerProps extends InputProps<ExtensionsPickerValue> {

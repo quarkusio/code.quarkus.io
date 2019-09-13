@@ -20,7 +20,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
     setIsMetadataValid(isValid);
     setProject((prev) => ({ ...prev, metadata }));
   };
-  const setExtensions = (val: { extensions: string[] }) => setProject((prev) => ({ ...prev, extensions: val.extensions }));
+  const setExtensions = (value: { extensions: string[] }) => setProject((prev) => ({ ...prev, extensions: value.extensions }));
 
   useHotkeys('alt+enter', props.onSave);
   return (

@@ -1,5 +1,5 @@
 
-import { AnalyticsContext, GoogleAnalytics, useAnalytics } from '@launcher/component';
+import { AnalyticsContext, GoogleAnalytics, useAnalytics } from '../core';
 import { stringify } from 'querystring';
 import React, { useEffect, useState } from 'react';
 import { publicUrl } from './config';
@@ -35,11 +35,12 @@ export interface QuarkusProject {
 }
 
 async function generateProject(project: QuarkusProject): Promise<{ downloadLink: string }> {
+  const packageName = project.metadata.packageName || project.metadata.groupId;
   const params = {
     ...(project.metadata.groupId && { g: project.metadata.groupId }),
     ...(project.metadata.artifactId && { a: project.metadata.artifactId }),
     ...(project.metadata.version && { v: project.metadata.version }),
-    ...(project.metadata.packageName && { c: `${project.metadata.packageName}.ExampleResource` }),
+    ...(packageName && { c: `${packageName}.ExampleResource` }),
     ...(project.extensions && { e: project.extensions }),
   }
   const backendUrl = process.env.REACT_APP_BACKEND_URL || publicUrl;
@@ -53,7 +54,6 @@ const DEFAULT_PROJECT = {
     groupId: 'org.acme',
     artifactId: 'code-with-quarkus',
     version: '1.0.0-SNAPSHOT',
-    packageName: 'org.acme',
   },
   extensions: [],
 };

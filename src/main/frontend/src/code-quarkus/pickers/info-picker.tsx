@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ExtendedTextInput, optionalBool, TogglePanel, InputPropsWithValidation } from '@launcher/component';
+import { ExtendedTextInput, InputPropsWithValidation, optionalBool, TogglePanel } from '../../core';
 import './info-picker.scss';
 
 export interface InfoPickerValue {
@@ -22,7 +22,7 @@ const isValidInfo = (value: InfoPickerValue) => {
   return isValidPackageName(value.groupId)
     && isValidId(value.artifactId)
     && !!value.version
-    && isValidPackageName(value.packageName)
+    && isValidPackageName(value.packageName || value.groupId)
 }
 
 export const InfoPicker = (props: InfoPickerProps) => {
@@ -36,34 +36,37 @@ export const InfoPicker = (props: InfoPickerProps) => {
       onChange(value, !isValid);
     }
   }, [value, isValid, onChange])
+
+  const onGroupIdChange = (newValue: string) => onInputChange({ ...value, groupId: newValue });
+  const onArtifactIdChange = (newValue: string) => onInputChange({ ...value, artifactId: newValue });
+  const onVersionChange = (newValue: string) => onInputChange({ ...value, version: newValue });
+  const onPackageNameChange = (newValue: string) => onInputChange({ ...value, packageName: newValue });
   return (
     <div className={`info-picker horizontal`}>
       <div className="base-settings pf-c-form">
         <ExtendedTextInput
           label="Group"
           isRequired
-          helperTextInvalid="Please provide a valid groupId"
           type="text"
           id="groupId"
           name="groupId"
           aria-label="Edit groupId"
           value={value.groupId || ''}
           autoComplete="off"
-          onChange={newValue => onInputChange({ ...value, groupId: newValue })}
+          onChange={onGroupIdChange}
           pattern={PACKAGE_NAME_REGEXP.source}
           isValid={isValidPackageName(value.groupId)}
         />
         <ExtendedTextInput
           label="Artifact"
           isRequired
-          helperTextInvalid="Please provide a valid artifactId"
           type="text"
           id="artifactId"
           name="artifactId"
           aria-label="Edit artifactId"
           value={value.artifactId || ''}
           autoComplete="off"
-          onChange={newValue => onInputChange({ ...value, artifactId: newValue })}
+          onChange={onArtifactIdChange}
           pattern={ID_REGEXP.source}
           isValid={isValidId(value.artifactId)}
         />
@@ -73,7 +76,6 @@ export const InfoPicker = (props: InfoPickerProps) => {
           <div className="extended-settings pf-c-form">
             <ExtendedTextInput
               label="Version"
-              helperTextInvalid="Please provide a valid version"
               isRequired
               type="text"
               id="version"
@@ -81,22 +83,21 @@ export const InfoPicker = (props: InfoPickerProps) => {
               aria-label="Edit version"
               value={value.version || ''}
               autoComplete="off"
-              onChange={newValue => onInputChange({ ...value, version: newValue })}
+              onChange={onVersionChange}
               isValid={!!value.version}
             />
             <ExtendedTextInput
               label="Package Name"
-              helperTextInvalid="Please provide a package name"
               isRequired
               type="text"
               id="packageName"
               name="packageName"
               aria-label="Edit package name"
-              value={value.packageName || ''}
+              value={value.packageName || value.groupId || ''}
               autoComplete="off"
-              onChange={newValue => onInputChange({ ...value, packageName: newValue })}
+              onChange={onPackageNameChange}
               pattern={PACKAGE_NAME_REGEXP.source}
-              isValid={isValidPackageName(value.packageName)}
+              isValid={isValidPackageName(value.packageName || value.groupId)}
             />
           </div>
         </TogglePanel>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import copy from 'copy-to-clipboard';
 import {ClipboardCheckIcon, ClipboardIcon} from "@patternfly/react-icons";
-import { useAnalytics } from '@launcher/component';
+import { useAnalytics } from '../core';
 
 export function CopyToClipboard(props: { eventId?: string, content: string }) {
   const [active, setActive] = useState(false);
