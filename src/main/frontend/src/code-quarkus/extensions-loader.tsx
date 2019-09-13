@@ -1,5 +1,5 @@
 import React from 'react';
-import { DataLoader } from '@launcher/component';
+import { DataLoader } from '../core';
 import { ExtensionEntry } from './pickers/extensions-picker';
 import { fetchExtensions } from './backend-api';
 

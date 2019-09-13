@@ -1,0 +1,23 @@
+.toggle-panel {
+  overflow: hidden;
+
+  &.vertical {
+    max-height: 0;
+    transition: max-height 0.25s ease-in-out;
+    &.open {
+      max-height: 1000px;
+    }
+  }
+
+  &.horizontal {
+    visibility: hidden;
+    &.open {
+      visibility: visible;
+    }
+  }
+
+  button {
+    text-transform: uppercase;
+  }
+}
+

@@ -1,6 +1,6 @@
-import { DataLoader } from '@launcher/component';
 import React from 'react';
 import { fetchConfig } from './backend-api';
+import { DataLoader } from '../core';
 
 export interface Config {
   environment: string;
