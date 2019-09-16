@@ -1,9 +1,8 @@
 import { Button } from '@patternfly/react-core';
 import { CaretSquareDownIcon, CaretSquareUpIcon, CaretSquareRightIcon, CaretSquareLeftIcon } from '@patternfly/react-icons';
 import React, { Fragment, ReactNode } from 'react';
-import { useSessionStorageWithObject } from 'react-use-sessionstorage';
+import createPersistedState from 'use-persisted-state';
 import './toggle-panel.scss';
-
 
 interface TogglePanelProps {
   id: string;
@@ -14,7 +13,8 @@ interface TogglePanelProps {
 }
 
 export function TogglePanel(props: TogglePanelProps) {
-  const [open, setOpen] = useSessionStorageWithObject(props.id, false);
+  const useTogglePanelState = createPersistedState(props.id);
+  const [open, setOpen] = useTogglePanelState(false);
   const mode = props.mode || 'vertical';
   const CloseIcon = mode === 'horizontal' ? <CaretSquareLeftIcon /> : <CaretSquareUpIcon />;
   const OpenIcon = mode === 'horizontal' ? <CaretSquareRightIcon /> : <CaretSquareDownIcon />;

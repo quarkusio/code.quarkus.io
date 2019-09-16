@@ -1,9 +1,11 @@
 import { Alert, AlertActionCloseButton } from '@patternfly/react-core';
 import React from "react";
-import { useSessionStorageWithObject } from 'react-use-sessionstorage';
+import createPersistedState from 'use-persisted-state';
+
+const useQuarkusBlurbVisibleState = createPersistedState('quarkus-blurb-visible-v1');
 
 export function InfoBlurb() {
-  const [visible, setVisible] = useSessionStorageWithObject<Boolean>('quarkus-blurb-visible', true);
+  const [visible, setVisible] = useQuarkusBlurbVisibleState<Boolean>(true);
   return (
     <>
       {visible && (
