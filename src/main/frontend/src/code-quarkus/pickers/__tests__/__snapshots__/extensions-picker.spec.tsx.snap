@@ -113,7 +113,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
           <p>
             [
             <a
-              href="https://github.com/quarkusio/code.quarkus.io/issues/new"
+              href="https://github.com/quarkusio/code.quarkus.io/issues/new?labels=feature&template=feature_request.md"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -121,7 +121,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             </a>
              
             <a
-              href="https://github.com/quarkusio/code.quarkus.io/issues/new"
+              href="https://github.com/quarkusio/code.quarkus.io/issues/new?labels=bug&template=bug_report.md"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -493,7 +493,7 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           <p>
             [
             <a
-              href="https://github.com/quarkusio/code.quarkus.io/issues/new"
+              href="https://github.com/quarkusio/code.quarkus.io/issues/new?labels=feature&template=feature_request.md"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -501,7 +501,7 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
             </a>
              
             <a
-              href="https://github.com/quarkusio/code.quarkus.io/issues/new"
+              href="https://github.com/quarkusio/code.quarkus.io/issues/new?labels=bug&template=bug_report.md"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -732,7 +732,7 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           <p>
             [
             <a
-              href="https://github.com/quarkusio/code.quarkus.io/issues/new"
+              href="https://github.com/quarkusio/code.quarkus.io/issues/new?labels=feature&template=feature_request.md"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -740,7 +740,7 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
             </a>
              
             <a
-              href="https://github.com/quarkusio/code.quarkus.io/issues/new"
+              href="https://github.com/quarkusio/code.quarkus.io/issues/new?labels=bug&template=bug_report.md"
               rel="noopener noreferrer"
               target="_blank"
             >
