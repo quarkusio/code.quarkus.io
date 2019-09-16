@@ -23,7 +23,7 @@ You can check deployed commit hash on: https://stage.code.quarkus.io/api/config
 
 # Promote to production
 
-1. Check that everything works as expected on staging: https://stage.code.quarkus.io
+1. Check that everything works as expected on [staging](#staging)
 2. Create a PR on https://github.com/quarkusio/code.quarkus.io-release with the commit hash to release
 3. Merging the PR will trigger a deployment on production
 
