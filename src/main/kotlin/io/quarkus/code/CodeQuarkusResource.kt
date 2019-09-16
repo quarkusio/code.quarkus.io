@@ -3,6 +3,7 @@ package io.quarkus.code
 import io.quarkus.code.model.Config
 import io.quarkus.code.model.QuarkusExtension
 import io.quarkus.code.model.QuarkusProject
+import io.quarkus.runtime.StartupEvent
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.eclipse.microprofile.metrics.annotation.Counted
 import org.eclipse.microprofile.openapi.annotations.Operation
@@ -11,6 +12,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 import java.io.IOException
+import javax.enterprise.event.Observes
 import javax.inject.Inject
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.Pattern
@@ -47,6 +49,14 @@ class CodeQuarkusResource {
     @ConfigProperty(name = "io.quarkus.code.sentry-dsn", defaultValue = "")
     lateinit var sentryDSN: String
 
+    lateinit var extensions: ByteArray
+
+    fun onStart(@Observes ev: StartupEvent) {
+        val extensionsResource = CodeQuarkusResource::class.java.getResource("/quarkus/extensions.json")
+                ?: throw IOException("missing extensions.json file")
+        extensions = extensionsResource.readBytes()
+    }
+
     @GET
     @Path("/config")
     @Produces(APPLICATION_JSON)
@@ -75,10 +85,8 @@ class CodeQuarkusResource {
     )
     @Counted(name = "countedExtensions", description = "How many time an application has been downloaded")
     fun extensions(): Response {
-        val extensionsResource = CodeQuarkusResource::class.java.getResource("/quarkus/extensions.json")
-                ?: throw IOException("missing extensions.json file")
         return Response
-                .ok(extensionsResource.readBytes())
+                .ok(extensions)
                 .type(APPLICATION_JSON)
                 .build()
     }
