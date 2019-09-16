@@ -109,6 +109,26 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             <br />
              If you wish to generate code, try it with your desktop browser...
           </p>
+          <br />
+          <p>
+            [
+            <a
+              href="https://github.com/quarkusio/code.quarkus.io/issues/new"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Missing a feature?
+            </a>
+             
+            <a
+              href="https://github.com/quarkusio/code.quarkus.io/issues/new"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Found a bug?
+            </a>
+             We are listening for feedbacks]
+          </p>
         </div>
         <div
           class="pf-c-alert__action"
@@ -469,6 +489,26 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
             <br />
              If you wish to generate code, try it with your desktop browser...
           </p>
+          <br />
+          <p>
+            [
+            <a
+              href="https://github.com/quarkusio/code.quarkus.io/issues/new"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Missing a feature?
+            </a>
+             
+            <a
+              href="https://github.com/quarkusio/code.quarkus.io/issues/new"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Found a bug?
+            </a>
+             We are listening for feedbacks]
+          </p>
         </div>
         <div
           class="pf-c-alert__action"
@@ -687,6 +727,26 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
             On mobile devices, you can explore the list of Quarkus extensions.
             <br />
              If you wish to generate code, try it with your desktop browser...
+          </p>
+          <br />
+          <p>
+            [
+            <a
+              href="https://github.com/quarkusio/code.quarkus.io/issues/new"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Missing a feature?
+            </a>
+             
+            <a
+              href="https://github.com/quarkusio/code.quarkus.io/issues/new"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Found a bug?
+            </a>
+             We are listening for feedbacks]
           </p>
         </div>
         <div

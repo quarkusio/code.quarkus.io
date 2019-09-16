@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { InputProps, useAnalytics } from '../../core';
 import { CopyToClipboard } from '../copy-to-clipboard';
 import { processEntries } from './extensions-picker-helpers';
-import { InfoBlurb } from './info-blurb';
+import { QuarkusBlurb } from '../quarkus-blurb';
 import './extensions-picker.scss';
 
 
@@ -164,7 +164,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
         </div>
       </div>
       <div className="result-container">
-        <InfoBlurb />
+        <QuarkusBlurb />
         {!!filter && (
           <div className="extension-search-clear">
             Search results (<Button variant="link" onClick={() => setFilter('')}>Clear search</Button>)
