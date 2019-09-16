@@ -18,6 +18,12 @@ function getId(e) {
 
 const version = process.argv.length > 2 ? process.argv[2] : 'master';
 
+function flatten(arr) {
+  return arr.reduce(function (flat, toFlatten) {
+    return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
+  }, []);
+}
+
 async function generate() {
     console.log(`Quarkus version: ${version}`);
     const extWebsiteResp = await axios.get('https://raw.githubusercontent.com/quarkusio/quarkusio.github.io/develop/_data/extensions.yaml');
@@ -25,13 +31,13 @@ async function generate() {
 
     const extWebsite = yaml.parse(extWebsiteResp.data);
 
-    const fExtWebsite = extWebsite.categories.map(c => {
+    const fExtWebsite = flatten(extWebsite.categories.map(c => {
         return c.extensions.map(e => ({
             ...e,
             category: c.category,
             categoryId: c['cat-id']
         }));
-    }).flat();
+    }));
     const extLibById = new Map<string, any>(extLibResp.data.map(f => [getId(f), f]));
     const out = fExtWebsite.map((eWebsite, i) => {
         const id = getId(eWebsite);
