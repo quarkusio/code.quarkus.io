@@ -4,13 +4,16 @@ import io.quarkus.cli.commands.writer.ProjectWriter;
 import org.apache.commons.compress.archivers.ArchiveException;
 import org.apache.commons.compress.archivers.ArchiveOutputStream;
 import org.apache.commons.compress.archivers.ArchiveStreamFactory;
+import org.apache.commons.compress.archivers.zip.X5455_ExtendedTimestamp;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
+import org.apache.commons.compress.archivers.zip.ZipExtraField;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -25,6 +28,7 @@ public class CommonsZipProjectWriter implements ProjectWriter {
     private final Set<String> createdDirs = new HashSet<>();
     private final Map<String, ZipArchiveEntry> archiveEntriesByPath = new LinkedHashMap<>();
     private final Map<String, byte[]> contentByPath = new LinkedHashMap<>();
+    private final Date creation = new Date();
 
     private CommonsZipProjectWriter(final ArchiveOutputStream aos, final String basePath) {
         this.aos = aos;
@@ -59,11 +63,14 @@ public class CommonsZipProjectWriter implements ProjectWriter {
         if (!createdDirs.contains(dirPathText)) {
             ZipArchiveEntry ze = new ZipArchiveEntry(dirPathText + "/");
             ze.setUnixMode(040755);
+            ze.setExtraFields(new ZipExtraField[]{getTimestamp()});
             aos.putArchiveEntry(ze);
             aos.closeArchiveEntry();
             createdDirs.add(dirPathText);
         }
     }
+
+
 
     public void write(String path, byte[] contentBytes, boolean allowExec) {
         Path filePath = Paths.get(this.basePath, "/", path);
@@ -73,6 +80,7 @@ public class CommonsZipProjectWriter implements ProjectWriter {
         } else {
             ze.setUnixMode(0100644);
         }
+        ze.setExtraFields(new ZipExtraField[]{getTimestamp()});
         archiveEntriesByPath.put(filePath.toString(), ze);
         contentByPath.put(filePath.toString(), contentBytes);
     }
@@ -97,6 +105,14 @@ public class CommonsZipProjectWriter implements ProjectWriter {
             aos.closeArchiveEntry();
         }
         aos.close();
+    }
+
+    private X5455_ExtendedTimestamp getTimestamp() {
+        X5455_ExtendedTimestamp timestamp = new X5455_ExtendedTimestamp();
+        timestamp.setCreateJavaTime(creation);
+        timestamp.setModifyJavaTime(creation);
+        timestamp.setAccessJavaTime(creation);
+        return timestamp;
     }
 
 }
