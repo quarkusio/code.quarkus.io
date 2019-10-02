@@ -118,6 +118,36 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
             value="org.test"
           />
         </div>
+        <div
+          aria-label="Choose build tool"
+          class="pf-c-form__group"
+        >
+          <label
+            class="pf-c-form__label"
+            for="buildTool"
+          >
+            <span
+              class="pf-c-form__label-text"
+            >
+              Build Tool
+            </span>
+          </label>
+          <select
+            class="pf-c-form-control"
+            id="buildtool"
+          >
+            <option
+              value="MAVEN"
+            >
+              Maven
+            </option>
+            <option
+              value="GRADLE"
+            >
+              Gradle
+            </option>
+          </select>
+        </div>
       </div>
     </div>
     <div

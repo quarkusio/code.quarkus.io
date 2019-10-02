@@ -34,15 +34,19 @@ open class QuarkusProjectCreator {
                     .artifactId(project.artifactId)
                     .version(project.version)
                     .sourceType(sourceType)
-                    .buildTool(BuildTool.MAVEN)
+                    .buildTool(project.buildTool)
                     .className(project.className)
                     .doCreateProject(context)
                 if (!success) {
                     throw IOException("Error during Quarkus project creation")
                 }
-                AddExtensions(zipWriter, BuildTool.MAVEN)
+                AddExtensions(zipWriter, project.buildTool)
                     .addExtensions(project.extensions)
-                this.addMvnw(zipWriter)
+                if (project.buildTool == BuildTool.MAVEN) {
+                    this.addMvnw(zipWriter)
+                } else if (project.buildTool == BuildTool.GRADLE) {
+                    //TODO: Add Gradle executables
+                }
             }
         }
         return baos.toByteArray()

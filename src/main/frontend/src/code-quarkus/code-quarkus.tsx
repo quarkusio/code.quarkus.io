@@ -30,6 +30,7 @@ export interface QuarkusProject {
     version: string;
     name?: string;
     packageName?: string;
+    buildTool: string;
   }
   extensions: string[];
 }
@@ -40,6 +41,7 @@ async function generateProject(project: QuarkusProject): Promise<{ downloadLink:
     ...(project.metadata.groupId && { g: project.metadata.groupId }),
     ...(project.metadata.artifactId && { a: project.metadata.artifactId }),
     ...(project.metadata.version && { v: project.metadata.version }),
+    ...(project.metadata.buildTool && {b: project.metadata.buildTool}),
     ...(packageName && { c: `${packageName}.ExampleResource` }),
     ...(project.extensions && { e: project.extensions }),
   }
@@ -54,6 +56,7 @@ const DEFAULT_PROJECT = {
     groupId: 'org.acme',
     artifactId: 'code-with-quarkus',
     version: '1.0.0-SNAPSHOT',
+    buildTool: 'MAVEN'
   },
   extensions: [],
 };

@@ -3,6 +3,7 @@ package io.quarkus.code
 import io.quarkus.code.model.Config
 import io.quarkus.code.model.QuarkusExtension
 import io.quarkus.code.model.QuarkusProject
+import io.quarkus.generators.BuildTool
 import io.quarkus.runtime.StartupEvent
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.eclipse.microprofile.metrics.annotation.Counted
@@ -16,7 +17,11 @@ import javax.enterprise.event.Observes
 import javax.inject.Inject
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.Pattern
-import javax.ws.rs.*
+import javax.ws.rs.DefaultValue
+import javax.ws.rs.GET
+import javax.ws.rs.Path
+import javax.ws.rs.Produces
+import javax.ws.rs.QueryParam
 import javax.ws.rs.core.MediaType.APPLICATION_JSON
 import javax.ws.rs.core.Response
 
@@ -98,14 +103,14 @@ class CodeQuarkusResource {
     fun download(
             @DefaultValue(QuarkusProject.DEFAULT_GROUPID)
             @NotEmpty
-            @Pattern(regexp=GROUPID_PATTERN)
+            @Pattern(regexp = GROUPID_PATTERN)
             @QueryParam("g")
             @Parameter(name = "g", description = "GAV: groupId (default: ${QuarkusProject.DEFAULT_GROUPID})", required = false)
             groupId: String,
 
             @DefaultValue(QuarkusProject.DEFAULT_ARTIFACTID)
             @NotEmpty
-            @Pattern(regexp= ARTIFACTID_PATTERN)
+            @Pattern(regexp = ARTIFACTID_PATTERN)
             @QueryParam("a")
             @Parameter(name = "a", description = "GAV: artifactId (default: ${QuarkusProject.DEFAULT_ARTIFACTID})", required = false)
             artifactId: String,
@@ -119,22 +124,27 @@ class CodeQuarkusResource {
             @DefaultValue(QuarkusProject.DEFAULT_CLASSNAME)
             @NotEmpty
             @QueryParam("c")
-            @Pattern(regexp=CLASSNAME_PATTERN)
+            @Pattern(regexp = CLASSNAME_PATTERN)
             @Parameter(name = "c", description = "The class name to use in the generated application (default: ${QuarkusProject.DEFAULT_CLASSNAME})", required = false)
             className: String,
 
             @DefaultValue(QuarkusProject.DEFAULT_PATH)
             @NotEmpty
             @QueryParam("p")
-            @Pattern(regexp=PATH_PATTERN)
+            @Pattern(regexp = PATH_PATTERN)
             @Parameter(name = "p", description = "The path of the REST endpoint created in the generated application (default: ${QuarkusProject.DEFAULT_PATH})", required = false)
             path: String,
 
             @QueryParam("e")
             @Parameter(name = "e", description = "The set of extension ids that will be included in the generated application", required = false)
-            extensions: Set<String>
+            extensions: Set<String>,
+
+            @DefaultValue("MAVEN")
+            @QueryParam("b")
+            @Parameter(name = "b", description = "The build tool to use (MAVEN or GRADLE) (default: MAVEN)")
+            buildTool: BuildTool
     ): Response {
-        val project = QuarkusProject(groupId, artifactId, version, className, path, extensions)
+        val project = QuarkusProject(groupId, artifactId, version, className, path, extensions, buildTool)
         return Response
                 .ok(projectCreator.create(project))
                 .type("application/zip")

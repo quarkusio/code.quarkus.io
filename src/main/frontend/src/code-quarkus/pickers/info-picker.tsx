@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
-import { ExtendedTextInput, InputPropsWithValidation, optionalBool, TogglePanel } from '../../core';
+import React, {ChangeEvent, useEffect} from 'react';
+import {ExtendedTextInput, InputPropsWithValidation, optionalBool, TogglePanel} from '../../core';
 import './info-picker.scss';
+import {FormGroup} from "@patternfly/react-core";
 
 export interface InfoPickerValue {
   groupId?: string;
   artifactId?: string;
   version?: string;
   packageName?: string;
+  buildTool?: string;
 }
 
 interface InfoPickerProps extends InputPropsWithValidation<InfoPickerValue> {
@@ -41,6 +43,8 @@ export const InfoPicker = (props: InfoPickerProps) => {
   const onArtifactIdChange = (newValue: string) => onInputChange({ ...value, artifactId: newValue });
   const onVersionChange = (newValue: string) => onInputChange({ ...value, version: newValue });
   const onPackageNameChange = (newValue: string) => onInputChange({ ...value, packageName: newValue });
+  const onBuildToolChange = (event: ChangeEvent<HTMLSelectElement>) => onInputChange({ ...value, buildTool: event.target.value });
+
   return (
     <div className={`info-picker horizontal`}>
       <div className="base-settings pf-c-form">
@@ -99,6 +103,15 @@ export const InfoPicker = (props: InfoPickerProps) => {
               pattern={GROUPID_PATTERN.source}
               isValid={isValidGroupId(value.packageName || value.groupId)}
             />
+            <FormGroup
+                fieldId="buildTool"
+                label="Build Tool"
+                aria-label="Choose build tool">
+              <select id="buildtool" value={value.buildTool} onChange={onBuildToolChange} className={'pf-c-form-control'}>
+                <option value={"MAVEN"}>Maven</option>
+                <option value={"GRADLE"}>Gradle</option>
+              </select>
+            </FormGroup>
           </div>
         </TogglePanel>
       )}

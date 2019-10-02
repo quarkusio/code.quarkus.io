@@ -1,12 +1,15 @@
 package io.quarkus.code.model
 
+import io.quarkus.generators.BuildTool
+
 data class QuarkusProject(
     val groupId: String = DEFAULT_GROUPID,
     val artifactId: String = DEFAULT_ARTIFACTID,
     val version: String = DEFAULT_VERSION,
     val className: String = DEFAULT_CLASSNAME,
     val path: String = DEFAULT_PATH,
-    val extensions: Set<String> = setOf()
+    val extensions: Set<String> = setOf(),
+    val buildTool: BuildTool = BuildTool.MAVEN
 ) {
     companion object {
         const val DEFAULT_GROUPID = "org.acme"
