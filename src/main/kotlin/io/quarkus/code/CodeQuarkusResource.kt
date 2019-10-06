@@ -3,7 +3,6 @@ package io.quarkus.code
 import io.quarkus.code.model.Config
 import io.quarkus.code.model.QuarkusExtension
 import io.quarkus.code.model.QuarkusProject
-import io.quarkus.generators.BuildTool
 import io.quarkus.runtime.StartupEvent
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.eclipse.microprofile.metrics.annotation.Counted
@@ -142,9 +141,9 @@ class CodeQuarkusResource {
             @DefaultValue("MAVEN")
             @QueryParam("b")
             @Parameter(name = "b", description = "The build tool to use (MAVEN or GRADLE) (default: MAVEN)")
-            buildTool: BuildTool
+            buildTool: io.quarkus.code.model.BuildTool
     ): Response {
-        val project = QuarkusProject(groupId, artifactId, version, className, path, extensions, buildTool)
+        val project = QuarkusProject(groupId, artifactId, version, className, path, extensions, io.quarkus.generators.BuildTool.valueOf(buildTool.name))
         return Response
                 .ok(projectCreator.create(project))
                 .type("application/zip")
