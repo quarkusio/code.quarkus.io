@@ -8,6 +8,7 @@ import org.apache.commons.compress.archivers.zip.X5455_ExtendedTimestamp;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipExtraField;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
@@ -94,7 +95,17 @@ public class CommonsZipProjectWriter implements ProjectWriter {
 
     @Override
     public boolean exists(String path) {
-        return contentByPath.containsKey(path);
+        return contentByPath.containsKey(Paths.get(this.basePath, "/", path).toString());
+    }
+
+    @Override
+    public File getProjectFolder() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean hasFile() {
+        return false;
     }
 
     @Override
