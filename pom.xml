@@ -16,7 +16,7 @@
     <version.gatling>3.2.0</version.gatling>
     <maven.compiler.target>1.8</maven.compiler.target>
     <version.frontend-maven-plugin>1.7.6</version.frontend-maven-plugin>
-    <version.commons-compress>1.18</version.commons-compress>
+    <version.commons-compress>1.19</version.commons-compress>
     <version.quarkus>0.24.0</version.quarkus>
   </properties>
   <dependencyManagement>
