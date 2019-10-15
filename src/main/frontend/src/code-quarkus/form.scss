@@ -145,28 +145,31 @@
         padding-right: 30px;
       }
 
-      input.pf-c-form-control:read-only {
-        cursor: not-allowed;
-
-        &:focus {
-          border-bottom: 1px solid #9aff2d;
-        }
-      }
-
       &.quarkus-version {
+        
+        .pf-c-form__label {
+          color: #707070;
+        }
         input.pf-c-form-control {
+          cursor: not-allowed;
           padding-right: 82px;
           margin-right: -82px;
+          color: #bdbcbc;
+          border-bottom: 1px solid #707070;
+          
+          &:focus {
+            border-bottom: 1px solid #707070;
+          }
         }
         &:after {
           content: "READONLY";
           float: right;
-          color: #4695eb;
+          color: #707070;
           font-size: 11px;
           padding: 2px;
           margin-top: 7px;
           margin-right: 5px;
-          border: 1px solid #4695eb;
+          border: 1px solid #707070;
         }
       }
 
