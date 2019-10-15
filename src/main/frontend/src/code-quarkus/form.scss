@@ -4,7 +4,7 @@
   @media screen and (max-width: 900px) {
     margin: 0 10px;
   }
-  
+
   .form-header-sticky-container {
     position: sticky;
     top: 0;
@@ -22,7 +22,7 @@
     }
   }
 
-  .title h3{
+  .title h3 {
     color: white;
     font-size: 32px;
     font-weight: bold;
@@ -41,9 +41,12 @@
       margin: 0 0 0 20px;
       padding: 0;
     }
-   
+
     @media screen and (max-width: 1200px) {
-      .extended-settings, .toggle-button { display: none; }
+      .extended-settings,
+      .toggle-button {
+        display: none;
+      }
     }
 
     .pf-c-button {
@@ -53,7 +56,7 @@
       text-align: left;
       width: 233px;
       svg {
-        color: #FF004A;
+        color: #ff004a;
       }
     }
   }
@@ -69,7 +72,7 @@
         display: none;
       }
     }
-    
+
     .control-container {
       margin-top: 20px;
       position: sticky;
@@ -88,20 +91,20 @@
 
   .generate-project {
     flex: 0 0 280px;
-    align-self:center;
+    align-self: center;
     height: 200px;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
 
     button.generate-button {
-      background-color: #FF004A;
+      background-color: #ff004a;
       border-radius: 0;
       width: 280px;
       height: 36px;
       align-self: flex-end;
       text-align: center;
-      border: 1px solid #FF004A;
+      border: 1px solid #ff004a;
       color: white;
       &:hover {
         border: 1px solid #ffffff;
@@ -119,18 +122,19 @@
     .pf-c-form__group {
       .pf-c-form__label {
         display: inline-block;
-        width: 100px;
-        color: #9AFF2D;
+        width: 115px;
+        color: #9aff2d;
         font-size: 14px;
         font-weight: bold;
         text-transform: capitalize;
       }
-  
-      input.pf-c-form-control {
+
+      input.pf-c-form-control,
+      select.pf-c-form-control {
         border: none;
-        margin-left: -100px;
-        padding-left: 100px;
-        border-bottom: 1px solid #9AFF2D;
+        margin-left: -115px;
+        padding-left: 115px;
+        border-bottom: 1px solid #9aff2d;
         font-size: 14px;
         width: 100%;
         background-color: transparent;
@@ -141,20 +145,34 @@
         padding-right: 30px;
       }
 
+      input.pf-c-form-control:read-only {
+        cursor: not-allowed;
+
+        &:focus {
+          border-bottom: 1px solid #9aff2d;
+        }
+      }
+
+      &.quarkus-version {
+        input.pf-c-form-control {
+          padding-right: 82px;
+          margin-right: -82px;
+        }
+        &:after {
+          content: "READONLY";
+          float: right;
+          color: #4695eb;
+          font-size: 11px;
+          padding: 2px;
+          margin-top: 7px;
+          margin-right: 5px;
+          border: 1px solid #4695eb;
+        }
+      }
+
       select.pf-c-form-control {
-        --pf-c-form-control__select--Background: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath fill='%239AFF2D' d='M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z'/%3E%3C/svg%3E") calc(100% - 0.5rem) center/0.875rem no-repeat;
-        border: none;
-        margin-left: -100px;
-        padding-left: 100px;
-        border-bottom: 1px solid #9AFF2D;
-        font-size: 14px;
-        width: 100%;
-        background-color: transparent;
-        color: white;
-        outline: none;
-        font-family: "PT Mono", Regular;
-        padding-bottom: 4px;
-        padding-right: 30px;
+        --pf-c-form-control__select--Background: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath fill='%239AFF2D' d='M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z'/%3E%3C/svg%3E")
+          calc(100% - 0.5rem) center/0.875rem no-repeat;
       }
 
       select.pf-c-form-control > option {
@@ -163,9 +181,8 @@
 
       input.pf-c-form-control:focus {
         outline: none;
-        border-bottom: 1px solid #4695EB;
+        border-bottom: 1px solid #4695eb;
       }
     }
-    
   }
 }
