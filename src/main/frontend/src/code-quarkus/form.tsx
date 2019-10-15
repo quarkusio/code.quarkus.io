@@ -51,6 +51,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
               value={{ extensions: props.project.extensions }}
               onChange={setExtensions}
               placeholder="RESTEasy, Hibernate ORM, Web..."
+              buildTool={props.project.metadata.buildTool}
             />
           )}
         </ExtensionsLoader>
