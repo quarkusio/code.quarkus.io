@@ -37,22 +37,23 @@ open class QuarkusProjectCreator {
                 //FIXME use Quarkus CreateProject when updating version (remove duplication)
                 val sourceType = CreateProject.determineSourceType(project.extensions)
                 val context = mutableMapOf("path" to (project.path as Any))
+                val buildTool = io.quarkus.generators.BuildTool.valueOf(project.buildTool)
                 val success = CreateProject(zipWriter)
                         .groupId(project.groupId)
                         .artifactId(project.artifactId)
                         .version(project.version)
                         .sourceType(sourceType)
-                        .buildTool(project.buildTool)
+                        .buildTool(buildTool)
                         .className(project.className)
                         .doCreateProject(context)
                 if (!success) {
                     throw IOException("Error during Quarkus project creation")
                 }
-                AddExtensions(zipWriter, project.buildTool)
+                AddExtensions(zipWriter, buildTool)
                         .addExtensions(project.extensions)
-                if (project.buildTool == BuildTool.MAVEN) {
+                if (buildTool == BuildTool.MAVEN) {
                     addMvnw(zipWriter)
-                } else if (project.buildTool == BuildTool.GRADLE) {
+                } else if (buildTool == BuildTool.GRADLE) {
                     addGradlew(zipWriter)
                 }
             }

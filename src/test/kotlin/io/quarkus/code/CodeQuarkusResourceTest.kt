@@ -1,7 +1,6 @@
 package io.quarkus.code
 
 import io.quarkus.code.model.QuarkusProject
-import io.quarkus.generators.BuildTool
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
 import org.hamcrest.CoreMatchers.*
@@ -173,7 +172,7 @@ class CodeQuarkusResourceTest {
                                 "io.quarkus:quarkus-kafka-streams",
                                 "io.quarkus:quarkus-smallrye-reactive-messaging"
                         ),
-                        buildTool = BuildTool.GRADLE
+                        buildTool = "GRADLE"
                 )
         )
         )

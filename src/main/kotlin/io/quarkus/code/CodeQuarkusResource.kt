@@ -139,11 +139,12 @@ class CodeQuarkusResource {
             extensions: Set<String>,
 
             @DefaultValue("MAVEN")
+            @NotEmpty
             @QueryParam("b")
-            @Parameter(name = "b", description = "The build tool to use (MAVEN or GRADLE) (default: MAVEN)")
-            buildTool: io.quarkus.code.model.BuildTool
+            @Parameter(name = "b", description = "The build tool to use (MAVEN or GRADLE) (default:  ${QuarkusProject.DEFAULT_BUILDTOOL})")
+            buildTool: String
     ): Response {
-        val project = QuarkusProject(groupId, artifactId, version, className, path, extensions, io.quarkus.generators.BuildTool.valueOf(buildTool.name))
+        val project = QuarkusProject(groupId, artifactId, version, className, path, extensions, buildTool)
         return Response
                 .ok(projectCreator.create(project))
                 .type("application/zip")

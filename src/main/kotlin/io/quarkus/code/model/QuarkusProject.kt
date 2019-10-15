@@ -1,7 +1,5 @@
 package io.quarkus.code.model
 
-import io.quarkus.generators.BuildTool
-
 data class QuarkusProject(
     val groupId: String = DEFAULT_GROUPID,
     val artifactId: String = DEFAULT_ARTIFACTID,
@@ -9,7 +7,7 @@ data class QuarkusProject(
     val className: String = DEFAULT_CLASSNAME,
     val path: String = DEFAULT_PATH,
     val extensions: Set<String> = setOf(),
-    val buildTool: BuildTool = BuildTool.MAVEN
+    val buildTool: String = DEFAULT_BUILDTOOL
 ) {
     companion object {
         const val DEFAULT_GROUPID = "org.acme"
@@ -17,5 +15,6 @@ data class QuarkusProject(
         const val DEFAULT_VERSION = "1.0.0-SNAPSHOT"
         const val DEFAULT_CLASSNAME = "org.acme.ExampleResource"
         const val DEFAULT_PATH = "/hello"
+        const val DEFAULT_BUILDTOOL = "MAVEN"
     }
 }
