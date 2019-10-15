@@ -8,9 +8,8 @@
   .form-header-sticky-container {
     position: sticky;
     top: 0;
-    height: 250px;
     background-image: url("/quarkus_background_main.jpg");
-    background-size: 100% 250px;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     z-index: 110;
     .form-header {
@@ -32,7 +31,7 @@
 
   .project-info {
     flex-basis: 75%;
-    height: 250px;
+    height: 200px;
     margin-top: 20px;
     .base-settings {
       margin: 0 20px 0 0;
@@ -90,7 +89,7 @@
   .generate-project {
     flex: 0 0 280px;
     align-self:center;
-    height: 180px;
+    height: 200px;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -143,6 +142,7 @@
       }
 
       select.pf-c-form-control {
+        --pf-c-form-control__select--Background: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath fill='%239AFF2D' d='M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z'/%3E%3C/svg%3E") calc(100% - 0.5rem) center/0.875rem no-repeat;
         border: none;
         margin-left: -100px;
         padding-left: 100px;
