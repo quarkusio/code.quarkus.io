@@ -127,7 +127,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               Found a bug?
             </a>
-             We are listening for feedbacks]
+             We are listening for feedback]
           </p>
         </div>
         <div
@@ -507,7 +507,7 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
             >
               Found a bug?
             </a>
-             We are listening for feedbacks]
+             We are listening for feedback]
           </p>
         </div>
         <div
@@ -746,7 +746,7 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
             >
               Found a bug?
             </a>
-             We are listening for feedbacks]
+             We are listening for feedback]
           </p>
         </div>
         <div
