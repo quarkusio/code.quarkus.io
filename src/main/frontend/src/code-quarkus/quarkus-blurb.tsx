@@ -16,7 +16,7 @@ export function QuarkusBlurb() {
           <p className="desktop-only">Explore the wide breadth of technologies Quarkus applications can be made with. Generate your application!</p>
           <p className="mobile-only" style={{ color: "#ff004a" }}>On mobile devices, you can explore the list of Quarkus extensions.<br /> If you wish to generate code, try it with your desktop browser...</p>
           <br />
-          <p>[<a href="https://github.com/quarkusio/code.quarkus.io/issues/new?labels=feature&template=feature_request.md" target="_blank" rel="noopener noreferrer">Missing a feature?</a> <a href="https://github.com/quarkusio/code.quarkus.io/issues/new?labels=bug&template=bug_report.md" target="_blank" rel="noopener noreferrer">Found a bug?</a> We are listening for feedbacks]</p>
+          <p>[<a href="https://github.com/quarkusio/code.quarkus.io/issues/new?labels=feature&template=feature_request.md" target="_blank" rel="noopener noreferrer">Missing a feature?</a> <a href="https://github.com/quarkusio/code.quarkus.io/issues/new?labels=bug&template=bug_report.md" target="_blank" rel="noopener noreferrer">Found a bug?</a> We are listening for feedback]</p>
         </Alert>)
       }
     </>
