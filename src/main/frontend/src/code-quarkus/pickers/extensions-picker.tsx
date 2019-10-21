@@ -1,6 +1,7 @@
 import { Button, FormGroup, TextInput, Tooltip } from "@patternfly/react-core";
-import { CheckSquareIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon } from "@patternfly/react-icons";
+import { CheckSquareIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon, SquareIcon } from "@patternfly/react-icons";
 import React, { useState } from "react";
+import { useHotkeys } from 'react-hotkeys-hook';
 import { InputProps, useAnalytics } from '../../core';
 import { CopyToClipboard } from '../copy-to-clipboard';
 import { processEntries } from './extensions-picker-helpers';
@@ -30,6 +31,7 @@ interface ExtensionsPickerProps extends InputProps<ExtensionsPickerValue> {
 
 interface ExtensionProps extends ExtensionEntry {
   selected: boolean;
+  actived: boolean;
   detailed?: boolean;
   onClick(id: string): void;
 }
@@ -62,8 +64,9 @@ function Extension(props: ExtensionProps) {
           {...activationEvents}
           aria-label={`Switch ${props.id} extension`}
         >
-          {!props.selected && !active && <OutlinedSquareIcon />}
+          {!props.selected && !(active || props.actived) && <OutlinedSquareIcon />}
           {(active || props.selected) && <CheckSquareIcon />}
+          {props.actived && !props.selected && !active && <SquareIcon />}
         </div>
       )}
       <Tooltip position="bottom" content={tooltip} exitDelay={0} zIndex={100}>
@@ -104,6 +107,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const extensions = props.value.extensions || [];
   const entrySet = new Set(extensions);
   const entriesById: Map<String, ExtensionEntry> = new Map(props.entries.map(item => [item.id, item]));
+  const [keyboardSelected, setKeyBoardSelected] = useState(0);
 
   const add = (id: string) => {
     entrySet.add(id);
@@ -122,9 +126,16 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
       analytics.event('Picker', 'Search-Extension')
     }
     setHasSearched(true);
+    setKeyBoardSelected(0);
     setFilter(f);
   }
   const result = processEntries(filter, props.entries);
+
+  useHotkeys('up', () => setKeyBoardSelected(Math.max(0, keyboardSelected - 1)));
+  useHotkeys('down', () => {setKeyBoardSelected(Math.min(result.length - 1, keyboardSelected + 1))});
+  useHotkeys('enter', () => add(result[keyboardSelected].id));
+  useHotkeys('esc', () => remove(result[keyboardSelected].id));
+
   const categories = new Set(props.entries.map(i => i.category));
   let currentCat: string | undefined = undefined;
   return (
@@ -154,6 +165,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
               extensions.map((ex, i) => (
                 <Extension
                   selected={entrySet.has(ex)}
+                  actived={i === keyboardSelected}
                   {...entriesById.get(ex)!}
                   key={i}
                   onClick={entrySet.has(ex) ? remove : add}
@@ -175,6 +187,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
             const ext = (
               <Extension
                 selected={entrySet.has(ex.id)}
+                actived={i === keyboardSelected}
                 {...ex}
                 key={i}
                 onClick={entrySet.has(ex.id) ? remove : add}
