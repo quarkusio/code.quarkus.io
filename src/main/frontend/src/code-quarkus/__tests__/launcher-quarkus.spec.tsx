@@ -65,7 +65,11 @@ jest.mock('../backend-api', () => ({
       "order": 6
     },
   ]),
-  fetchConfig: () => { throw new Error("not used"); }
+  fetchConfig: () => { throw new Error("not used"); },
+  shortenUrl: async (url: string) => Promise.resolve(
+    {
+        link: 'http://bit.ly/2Mzdn9Z'
+    })
 }));
 
 

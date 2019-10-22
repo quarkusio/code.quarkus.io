@@ -13,6 +13,7 @@ export function NextSteps(props: NextStepsProps) {
   const close = (reset?: boolean) => {
     props.onClose && props.onClose(reset);
   };
+  const curlCmd = 'curl --output code-with-quarkus.zip ' + (props.downloadLink as string).replace(/&/g, '\\&');
   return (
     <Modal
       title="Your Quarkus Application is Ready!"
@@ -33,6 +34,7 @@ export function NextSteps(props: NextStepsProps) {
       <TextContent>
         <p>Your download should start shortly. If it doesn't, please use the direct link:</p>
         <Button component="a" href={props.downloadLink as string} aria-label="Download link" className="download-button">Download the zip</Button>
+        <code>$ {curlCmd} <CopyToClipboard eventId="Download-via-curl-Command" content={curlCmd} /></code>
         <h1>What's next?</h1>
         <div>
           Unzip the project and start playing with Quarkus by running:

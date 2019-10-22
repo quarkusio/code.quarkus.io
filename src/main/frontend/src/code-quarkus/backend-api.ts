@@ -19,3 +19,19 @@ export async function fetchConfig() {
     }
   }
 }
+
+export async function shortenUrl(downloadLink: string) {
+  const response = await fetch('https://api-ssl.bitly.com/v4/shorten', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer a3badec1a128e46e42f36a138165cbbd21ed6cee'
+    },
+    body: JSON.stringify({
+      'group_guid': 'Bjam8omLBjB',
+      'long_url': downloadLink
+    })
+  });
+  return response.ok ? await response.json() : undefined
+}
