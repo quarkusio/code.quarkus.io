@@ -34,7 +34,6 @@ open class QuarkusProjectCreator {
         baos.use {
             val zipWriter = CommonsZipProjectWriter.createWriter(baos, project.artifactId)
             zipWriter.use {
-                //FIXME use Quarkus CreateProject when updating version (remove duplication)
                 val sourceType = CreateProject.determineSourceType(project.extensions)
                 val context = mutableMapOf("path" to (project.path as Any))
                 val buildTool = io.quarkus.generators.BuildTool.valueOf(project.buildTool)
@@ -45,6 +44,7 @@ open class QuarkusProjectCreator {
                         .sourceType(sourceType)
                         .buildTool(buildTool)
                         .className(project.className)
+                        .extensions(project.extensions)
                         .doCreateProject(context)
                 if (!success) {
                     throw IOException("Error during Quarkus project creation")
