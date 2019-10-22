@@ -131,7 +131,6 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   }
 
   const flip = (id: string) => {
-    console.log("flip" + id);
     if(entrySet.has(id)) {
       remove(id);
     } else {
