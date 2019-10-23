@@ -49,9 +49,9 @@ async function generateProject(project: QuarkusProject): Promise<{ downloadLink:
   const backendUrl = process.env.REACT_APP_BACKEND_URL || publicUrl;
   const downloadLink = `${backendUrl}/api/download?${stringify(params)}`;
 
-  const data = await shortenUrl(downloadLink);
+  const link = await shortenUrl(stringify(params));
   window.open(downloadLink, '_blank');
-  return { downloadLink: data ? data.link : downloadLink };
+  return { downloadLink: link || downloadLink };
 }
 
 const DEFAULT_PROJECT = {
