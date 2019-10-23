@@ -27,7 +27,7 @@ function flatten(arr) {
 async function generate() {
     console.log(`Quarkus version: ${version}`);
     const extWebsiteResp = await axios.get('https://raw.githubusercontent.com/quarkusio/quarkusio.github.io/develop/_data/extensions.yaml');
-    const extLibResp = await axios.get(`https://raw.githubusercontent.com/quarkusio/quarkus/${version}/devtools/common/src/main/filtered/extensions.json`);
+    const extLibResp = await axios.get(`https://raw.githubusercontent.com/quarkusio/quarkus/${version}/devtools/platform-descriptor-legacy/src/main/filtered/extensions.json`);
 
     const extWebsite = yaml.parse(extWebsiteResp.data);
 
