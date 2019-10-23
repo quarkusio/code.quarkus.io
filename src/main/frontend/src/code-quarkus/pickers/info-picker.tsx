@@ -16,8 +16,8 @@ interface InfoPickerProps extends InputPropsWithValidation<InfoPickerValue> {
   quarkusVersion: string;
 }
 
-const ARTIFACTID_PATTERN = /^[a-z][a-z0-9-._]*$/;
-const GROUPID_PATTERN = /^([a-zA-Z_$][a-zA-Z\d_$]*\.)*[a-zA-Z_$][a-zA-Z\d_$]*$/;
+const ARTIFACTID_PATTERN = /^[a-z\d_#][a-z\d-._#]*$/;
+const GROUPID_PATTERN = /^([a-zA-Z\d_$][a-zA-Z\d_$]*\.)*[a-zA-Z\d_$][a-zA-Z\d-_$]*$/;
 
 const isValidId = (value?: string) => !!value && ARTIFACTID_PATTERN.test(value || '');
 const isValidGroupId = (value?: string) => !!value && GROUPID_PATTERN.test(value);
