@@ -16,7 +16,11 @@ function getId(e) {
     return e.groupId + ':' + e.artifactId;
 }
 
-const version = process.argv.length > 2 ? process.argv[2] : 'master';
+if(process.argv.length <= 2 || process.argv[2].match('^\d+\.\d+\.\d+$')) {
+    throw new Error('Invalid version');
+}
+
+const version = process.argv[2];
 
 function flatten(arr) {
   return arr.reduce(function (flat, toFlatten) {
@@ -27,7 +31,7 @@ function flatten(arr) {
 async function generate() {
     console.log(`Quarkus version: ${version}`);
     const extWebsiteResp = await axios.get('https://raw.githubusercontent.com/quarkusio/quarkusio.github.io/develop/_data/extensions.yaml');
-    const extLibResp = await axios.get(`https://raw.githubusercontent.com/quarkusio/quarkus/${version}/devtools/common/src/main/filtered/extensions.json`);
+    const extLibResp = await axios.get(`https://repo1.maven.org/maven2/io/quarkus/quarkus-bom-descriptor-json/${version}/quarkus-bom-descriptor-json-${version}.json`);
 
     const extWebsite = yaml.parse(extWebsiteResp.data);
 
@@ -38,7 +42,7 @@ async function generate() {
             categoryId: c['cat-id']
         }));
     }));
-    const extLibById = new Map<string, any>(extLibResp.data.map(f => [getId(f), f]));
+    const extLibById = new Map<string, any>(extLibResp.data.extensions.map(f => [getId(f), f]));
     const out = fExtWebsite.map((eWebsite, i) => {
         const id = getId(eWebsite);
         const eLib = extLibById.get(id);
@@ -46,7 +50,7 @@ async function generate() {
             console.warn('Extension missing in lib ' + id);
             return undefined;
         }
-        if(!eWebsite.description) {
+        if(!eLib.description) {
             console.warn('Description missing for ' + id);
         }
         if(!eLib.shortName) {
@@ -54,9 +58,9 @@ async function generate() {
         }
         return {
             id,
-            name: eWebsite.name,
-            labels: eWebsite.labels,
-            description: eWebsite.description,
+            name: eLib.name,
+            labels: eLib.labels,
+            description: eLib.description,
             shortName: eLib.shortName,
             category: eWebsite.category,
             order: i,
