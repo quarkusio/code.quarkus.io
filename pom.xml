@@ -184,8 +184,8 @@
           </execution>
         </executions>
         <configuration>
-          <nodeVersion>v12.4.0</nodeVersion>
-          <yarnVersion>v1.17.0</yarnVersion>
+          <nodeVersion>v12.12.0</nodeVersion>
+          <yarnVersion>v1.19.1</yarnVersion>
           <installDirectory>./</installDirectory>
           <workingDirectory>src/main/frontend</workingDirectory>
         </configuration>
