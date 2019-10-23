@@ -17,6 +17,12 @@
     },
     {
       "pattern": "quarkus/extensions\\.json$"
+    },
+    {
+      "pattern": "quarkus\\.properties"
+    },
+    {
+      "pattern": "META-INF/services/io\\.quarkus\\.platform\\.descriptor\\.loader\\.QuarkusPlatformDescriptorLoader$"
     }
   ]
 }
