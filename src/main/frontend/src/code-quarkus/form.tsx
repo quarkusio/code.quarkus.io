@@ -10,6 +10,7 @@ import { InfoPicker } from './pickers/info-picker';
 interface CodeQuarkusFormProps {
   project: QuarkusProject;
   setProject: React.Dispatch<SetStateAction<QuarkusProject>>;
+  quarkusVersion: string;
   onSave: () => void;
 }
 
@@ -32,7 +33,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
             <div className="title">
               <h3>Application Info</h3>
             </div>
-            <InfoPicker value={props.project.metadata} isValid={isMetadataValid} onChange={setMetadata} />
+            <InfoPicker value={props.project.metadata} isValid={isMetadataValid} onChange={setMetadata} quarkusVersion={props.quarkusVersion} />
           </div>
           <div className="generate-project">
             <Button aria-label="Generate your application" isDisabled={!isMetadataValid} className="generate-button" onClick={props.onSave}>Generate your application ({keyName} + ⏎)</Button>
@@ -50,6 +51,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
               value={{ extensions: props.project.extensions }}
               onChange={setExtensions}
               placeholder="RESTEasy, Hibernate ORM, Web..."
+              buildTool={props.project.metadata.buildTool}
             />
           )}
         </ExtensionsLoader>

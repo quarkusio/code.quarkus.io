@@ -1,16 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { ChangeEvent, useEffect } from 'react';
 import { ExtendedTextInput, InputPropsWithValidation, optionalBool, TogglePanel } from '../../core';
 import './info-picker.scss';
+import { FormGroup, Tooltip } from "@patternfly/react-core";
 
 export interface InfoPickerValue {
   groupId?: string;
   artifactId?: string;
   version?: string;
   packageName?: string;
+  buildTool?: string;
 }
 
 interface InfoPickerProps extends InputPropsWithValidation<InfoPickerValue> {
   showMoreOptions?: boolean;
+  quarkusVersion: string;
 }
 
 const ARTIFACTID_PATTERN = /^[a-z][a-z0-9-._]*$/;
@@ -41,6 +44,8 @@ export const InfoPicker = (props: InfoPickerProps) => {
   const onArtifactIdChange = (newValue: string) => onInputChange({ ...value, artifactId: newValue });
   const onVersionChange = (newValue: string) => onInputChange({ ...value, version: newValue });
   const onPackageNameChange = (newValue: string) => onInputChange({ ...value, packageName: newValue });
+  const onBuildToolChange = (event: ChangeEvent<HTMLSelectElement>) => onInputChange({ ...value, buildTool: event.target.value });
+  const configFileName = value.buildTool === 'MAVEN' ? 'pom.xml' : 'gradle.properties';
   return (
     <div className={`info-picker horizontal`}>
       <div className="base-settings pf-c-form">
@@ -70,6 +75,15 @@ export const InfoPicker = (props: InfoPickerProps) => {
           pattern={ARTIFACTID_PATTERN.source}
           isValid={isValidId(value.artifactId)}
         />
+        <FormGroup
+          fieldId="buildTool"
+          label="Build Tool"
+          aria-label="Choose build tool">
+          <select id="buildtool" value={value.buildTool || 'MAVEN'} onChange={onBuildToolChange} className={'pf-c-form-control'}>
+            <option value={"MAVEN"}>Maven</option>
+            <option value={"GRADLE"}>Gradle</option>
+          </select>
+        </FormGroup>
       </div>
       {optionalBool(props.showMoreOptions, true) && (
         <TogglePanel id="info-extended" mode="horizontal" openLabel="Configure more options">
@@ -99,6 +113,20 @@ export const InfoPicker = (props: InfoPickerProps) => {
               pattern={GROUPID_PATTERN.source}
               isValid={isValidGroupId(value.packageName || value.groupId)}
             />
+
+            <Tooltip position="right" content={`You may change the Quarkus Version after generation in the ${configFileName}. Just be cautious with extension compatibily.`} exitDelay={0} zIndex={200}>
+              <ExtendedTextInput
+                label="Quarkus Version"
+                isRequired
+                type="text"
+                id="quarkusVersion"
+                name="quarkusVersion"
+                aria-label="Quarkus Version"
+                value={props.quarkusVersion}
+                isReadOnly={true}
+                className="quarkus-version"
+              />
+            </Tooltip>
           </div>
         </TogglePanel>
       )}

@@ -60,6 +60,36 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
           value="test"
         />
       </div>
+      <div
+        aria-label="Choose build tool"
+        class="pf-c-form__group"
+      >
+        <label
+          class="pf-c-form__label"
+          for="buildTool"
+        >
+          <span
+            class="pf-c-form__label-text"
+          >
+            Build Tool
+          </span>
+        </label>
+        <select
+          class="pf-c-form-control"
+          id="buildtool"
+        >
+          <option
+            value="MAVEN"
+          >
+            Maven
+          </option>
+          <option
+            value="GRADLE"
+          >
+            Gradle
+          </option>
+        </select>
+      </div>
     </div>
     <div
       class="toggle-panel horizontal "
@@ -116,6 +146,32 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
             required=""
             type="text"
             value="org.test"
+          />
+        </div>
+        <div
+          class="pf-c-form__group quarkus-version"
+          tabindex="0"
+        >
+          <label
+            class="pf-c-form__label"
+            for="quarkusVersion"
+          >
+            <span
+              class="pf-c-form__label-text"
+            >
+              Quarkus Version
+            </span>
+          </label>
+          <input
+            aria-invalid="false"
+            aria-label="Quarkus Version"
+            class="pf-c-form-control"
+            id="quarkusVersion"
+            name="quarkusVersion"
+            readonly=""
+            required=""
+            type="text"
+            value=""
           />
         </div>
       </div>
