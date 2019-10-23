@@ -8,6 +8,11 @@ dev:
 clean:
 	./mvnw clean
 
+#make native
+.PHONY: native
+native:
+	./mvnw package -Pnative
+
 #make ext-add ID=kotlin
 .PHONY: ext-add
 ext-add:
