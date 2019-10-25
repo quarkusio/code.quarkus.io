@@ -6,7 +6,6 @@ import { CopyToClipboard } from './copy-to-clipboard';
 interface NextStepsProps {
   downloadLink?: string;
   onClose?(reset?: boolean): void;
-  buildTool: string
 }
 
 export function NextSteps(props: NextStepsProps) {
@@ -36,14 +35,7 @@ export function NextSteps(props: NextStepsProps) {
         <h1>What's next?</h1>
         <div>
           Unzip the project and start playing with Quarkus by running:
-
-          {props.buildTool === 'MAVEN' &&
-          <code>$ ./mvnw compile quarkus:dev <CopyToClipboard eventId="Start-Dev-Command" content="./mvnw compile quarkus:dev"/></code>
-          }
-
-          {props.buildTool === 'GRADLE' &&
-          <code>$ ./gradlew quarkusDev <CopyToClipboard eventId="Start-Dev-Command" content="./gradlew quarkusDev"/></code>
-          }
+        <code>$ ./mvnw compile quarkus:dev <CopyToClipboard eventId="Start-Dev-Command" content="./mvnw compile quarkus:dev" /></code>
           Follow the <ExternalLink href="https://quarkus.io/guides/" aria-label="Start playing with Quarkus">guides</ExternalLink>  for your next steps!
         </div>
       </TextContent>

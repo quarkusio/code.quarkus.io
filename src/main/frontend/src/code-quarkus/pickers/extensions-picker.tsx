@@ -6,7 +6,6 @@ import { CopyToClipboard } from '../copy-to-clipboard';
 import { processEntries } from './extensions-picker-helpers';
 import { QuarkusBlurb } from '../quarkus-blurb';
 import './extensions-picker.scss';
-import _ from 'lodash';
 
 
 export interface ExtensionEntry {
@@ -26,14 +25,12 @@ export interface ExtensionsPickerValue {
 interface ExtensionsPickerProps extends InputProps<ExtensionsPickerValue> {
   entries: ExtensionEntry[];
   placeholder: string;
-  buildTool: string;
   filterFunction?(d: ExtensionEntry): boolean;
 }
 
 interface ExtensionProps extends ExtensionEntry {
   selected: boolean;
   detailed?: boolean;
-  buildTool: string;
   onClick(id: string): void;
 }
 
@@ -56,10 +53,7 @@ function Extension(props: ExtensionProps) {
   const descTooltip = <div><b>{props.name}</b><p>{description}</p></div>;
   const tooltip = props.detailed ?
     <div>{props.selected ? 'Remove' : 'Add'} the extension <b>{props.name}</b></div> : descTooltip;
-  const buildTool = props.buildTool || 'MAVEN';
   const addMvnExt = `./mvnw quarkus:add-extension -Dextensions="${props.id}"`;
-  const addGradleExt = `./gradlew addExtension --extensions="${props.id}"`;
-  const addExtCmd = buildTool === 'GRADLE' ? addGradleExt : addMvnExt;
   return (
     <div className={`${active ? 'active' : ''} ${props.selected ? 'selected' : ''} extension-item`}>
       {props.detailed && (
@@ -94,8 +88,8 @@ function Extension(props: ExtensionProps) {
               {...activationEvents}
             >{description}</div>
           </Tooltip>
-          <Tooltip position="left" maxWidth="700px" content={<span>Copy {_.upperFirst(buildTool.toLowerCase())} command to clipboard: <br /><code>$ {addExtCmd}</code></span>} exitDelay={0} zIndex={100}>
-            <div className="extension-gav"><CopyToClipboard eventId="Add-Extension-Command" content={addExtCmd} /></div>
+          <Tooltip position="left" maxWidth="650px" content={<span>Copy mvn command to clipboard: <br /><code>$ {addMvnExt}</code></span>} exitDelay={0} zIndex={100}>
+            <div className="extension-gav"><CopyToClipboard eventId="Add-Extension-Command" content={addMvnExt} /></div>
           </Tooltip>
         </div>
       )}
@@ -161,7 +155,6 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
                 <Extension
                   selected={entrySet.has(ex)}
                   {...entriesById.get(ex)!}
-                  buildTool={props.buildTool}
                   key={i}
                   onClick={entrySet.has(ex) ? remove : add}
                 />
@@ -184,7 +177,6 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
                 selected={entrySet.has(ex.id)}
                 {...ex}
                 key={i}
-                buildTool={props.buildTool}
                 onClick={entrySet.has(ex.id) ? remove : add}
                 detailed
               />

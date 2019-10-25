@@ -6,17 +6,15 @@
     .base-settings {
       order: 1;
       flex-grow: 1;
-      padding: 0 7px;
+      padding: 0 10px;
       align-self: flex-start;
-      margin: 0;
     }
 
     .toggle-panel {
       align-self: flex-start;
       order: 4;
       flex-grow: 1;
-      padding: 0 7x;
-     
+      padding: 0 10px;
     }
 
     .toggle-panel.open {

@@ -6,8 +6,7 @@ data class QuarkusProject(
     val version: String = DEFAULT_VERSION,
     val className: String = DEFAULT_CLASSNAME,
     val path: String = DEFAULT_PATH,
-    val extensions: Set<String> = setOf(),
-    val buildTool: String = DEFAULT_BUILDTOOL
+    val extensions: Set<String> = setOf()
 ) {
     companion object {
         const val DEFAULT_GROUPID = "org.acme"
@@ -15,6 +14,5 @@ data class QuarkusProject(
         const val DEFAULT_VERSION = "1.0.0-SNAPSHOT"
         const val DEFAULT_CLASSNAME = "org.acme.ExampleResource"
         const val DEFAULT_PATH = "/hello"
-        const val DEFAULT_BUILDTOOL = "MAVEN"
     }
 }

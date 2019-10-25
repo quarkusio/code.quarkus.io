@@ -152,29 +152,4 @@ class CodeQuarkusResourceTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body("$.size()", greaterThan(50))
     }
-
-    @Test
-    @DisplayName("Should generate a gradle project")
-    fun testGradle() {
-        given()
-                .`when`()
-                .get("/api/download?b=GRADLE&a=test-app-with-a-few-arg&v=1.0.0&e=io.quarkus:quarkus-smallrye-reactive-messaging&e=io.quarkus:quarkus-kafka-streams")
-                .then()
-                .statusCode(200)
-                .contentType("application/zip")
-                .header("Content-Disposition", "attachment; filename=\"test-app-with-a-few-arg.zip\"")
-        assertThat(
-                projectCreator.getCreatedProject(), equalTo(
-                QuarkusProject(
-                        artifactId = "test-app-with-a-few-arg",
-                        version = "1.0.0",
-                        extensions = setOf(
-                                "io.quarkus:quarkus-kafka-streams",
-                                "io.quarkus:quarkus-smallrye-reactive-messaging"
-                        ),
-                        buildTool = "GRADLE"
-                )
-        )
-        )
-    }
 }

@@ -9,7 +9,7 @@ export interface ExtendedTextInputProps extends TextInputProps {
 
 export function ExtendedTextInput(props: ExtendedTextInputProps) {
   const [isDirty, setIsDirty] = useState(false);
-  const { onChange, isValid, helperTextInvalid, label, className, ...rest } = props;
+  const { onChange, isValid, helperTextInvalid, label, ...rest } = props;
   const analytics = useAnalytics();
   const valid = (!isDirty && !props.value) || isValid;
   const onChangeWithDirty = (value: string, event: FormEvent<HTMLInputElement>) => {
@@ -27,7 +27,6 @@ export function ExtendedTextInput(props: ExtendedTextInputProps) {
       label={label}
       isValid={!helperTextInvalid ? undefined : valid}
       helperTextInvalid={helperTextInvalid}
-      className={className}
     >
       <TextInput
         onChange={onChangeWithDirty}
