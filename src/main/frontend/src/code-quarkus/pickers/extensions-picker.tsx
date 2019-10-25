@@ -1,6 +1,7 @@
 import { Button, FormGroup, TextInput, Tooltip } from "@patternfly/react-core";
-import { CheckSquareIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon } from "@patternfly/react-icons";
+import { CheckSquareIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon, SquareIcon } from "@patternfly/react-icons";
 import React, { useState } from "react";
+import { useHotkeys } from 'react-hotkeys-hook';
 import { InputProps, useAnalytics } from '../../core';
 import { CopyToClipboard } from '../copy-to-clipboard';
 import { processEntries } from './extensions-picker-helpers';
@@ -30,6 +31,7 @@ interface ExtensionsPickerProps extends InputProps<ExtensionsPickerValue> {
 
 interface ExtensionProps extends ExtensionEntry {
   selected: boolean;
+  actived: boolean;
   detailed?: boolean;
   onClick(id: string): void;
 }
@@ -62,8 +64,9 @@ function Extension(props: ExtensionProps) {
           {...activationEvents}
           aria-label={`Switch ${props.id} extension`}
         >
-          {!props.selected && !active && <OutlinedSquareIcon />}
+          {!props.selected && !(active || props.actived) && <OutlinedSquareIcon />}
           {(active || props.selected) && <CheckSquareIcon />}
+          {props.actived && !props.selected && !active && <SquareIcon />}
         </div>
       )}
       <Tooltip position="bottom" content={tooltip} exitDelay={0} zIndex={100}>
@@ -100,6 +103,7 @@ function Extension(props: ExtensionProps) {
 export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const [filter, setFilter] = useState('');
   const [hasSearched, setHasSearched] = useState(false);
+  const [keyboardActived, setKeyBoardActived] = useState<number>(-1);
   const analytics = useAnalytics();
   const extensions = props.value.extensions || [];
   const entrySet = new Set(extensions);
@@ -122,9 +126,29 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
       analytics.event('Picker', 'Search-Extension')
     }
     setHasSearched(true);
+    setKeyBoardActived(-1);
     setFilter(f);
   }
+
+  const flip = (id: string) => {
+    if(entrySet.has(id)) {
+      remove(id);
+    } else {
+      add(id);
+    }
+  }
+
   const result = processEntries(filter, props.entries);
+
+  useHotkeys('up', () => setKeyBoardActived(Math.max(0, keyboardActived - 1)), [keyboardActived]);
+  useHotkeys('down', () => setKeyBoardActived(Math.min(result.length - 1, keyboardActived + 1)), [result, keyboardActived]);
+  useHotkeys('space', (event) => {
+    if(keyboardActived > 0) {
+      event.preventDefault();
+      flip(result[keyboardActived].id);
+    }
+  }, [result, keyboardActived]);
+
   const categories = new Set(props.entries.map(i => i.category));
   let currentCat: string | undefined = undefined;
   return (
@@ -154,9 +178,10 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
               extensions.map((ex, i) => (
                 <Extension
                   selected={entrySet.has(ex)}
+                  actived={i === keyboardActived}
                   {...entriesById.get(ex)!}
                   key={i}
-                  onClick={entrySet.has(ex) ? remove : add}
+                  onClick={() => flip(ex)}
                 />
               ))
             }
@@ -175,9 +200,10 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
             const ext = (
               <Extension
                 selected={entrySet.has(ex.id)}
+                actived={i === keyboardActived}
                 {...ex}
                 key={i}
-                onClick={entrySet.has(ex.id) ? remove : add}
+                onClick={() => flip(ex.id)}
                 detailed
               />
             );
