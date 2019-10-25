@@ -21,8 +21,12 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
     setProject((prev) => ({ ...prev, metadata }));
   };
   const setExtensions = (value: { extensions: string[] }) => setProject((prev) => ({ ...prev, extensions: value.extensions }));
-
-  useHotkeys('alt+enter', props.onSave);
+  const save = () => {
+    if(isMetadataValid) {
+      props.onSave();
+    }
+  };
+  useHotkeys('alt+enter', save);
   const keyName = window.navigator.userAgent.toLowerCase().indexOf('mac') > -1 ? '⌥' : 'alt';
   return (
     <div className="code-quarkus-form">
@@ -35,7 +39,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
             <InfoPicker value={props.project.metadata} isValid={isMetadataValid} onChange={setMetadata} />
           </div>
           <div className="generate-project">
-            <Button aria-label="Generate your application" isDisabled={!isMetadataValid} className="generate-button" onClick={props.onSave}>Generate your application ({keyName} + ⏎)</Button>
+            <Button aria-label="Generate your application" isDisabled={!isMetadataValid} className="generate-button" onClick={save}>Generate your application ({keyName} + ⏎)</Button>
           </div>
         </div>
       </div>
