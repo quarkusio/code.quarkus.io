@@ -81,6 +81,16 @@
       <version>${version.commons-compress}</version>
     </dependency>
     <dependency>
+      <groupId>com.google.apis</groupId>
+      <artifactId>google-api-services-analytics</artifactId>
+      <version>v3-rev161-1.25.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.oauth-client</groupId>
+      <artifactId>google-oauth-client-jetty</artifactId>
+      <version>1.30.2</version>
+    </dependency>
+    <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>rest-assured</artifactId>
       <scope>test</scope>

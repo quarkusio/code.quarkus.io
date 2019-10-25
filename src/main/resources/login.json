@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "code-quarkus-io",
+  "private_key_id": "b759566c7807554506921c639d1dd3dd9e9fdddd",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCPs3UrPLLazJNI\nCUrl33TCFhxbYK0koFr921vTKaMMyQ/EdxpLBFkmenoj2lfsG8XVJFT6VdRTCq8+\nyDg8YhN4C6Q/n35KUOAes4eH5T0sEcIWGCEWrUofZJ84Mttxb4SRyE4jQE1/SqUA\nxGp8Iohk5LAh9rfF+9B4KVjmr+9n4BxezYI+nv3xt5b1fma9VqU7b6YBHaQw3wxt\nibQ86fqC9KioWRRM/DYVUZ6oq6tyyHYpPd7Zt+Rz0J3s2bvsN7qEVmFlf8/+8+uw\nvWkXZBBuuLHDqY2voTZkA5kvK7F5CctAMULRRNe82kzy8r5Dmi2KnVJlcGlGbIgo\nrH+6v4XfAgMBAAECggEAH18ix8cvFsRNrQ7WSpv/jfWsyCgxdIsLgls2z0FKRtrI\nNfB4jYMMAXIAoz4iLrobdP5DDQna2iw9ePvWBxy0OmN0Pq2PsSK54wn3nyvlMG9K\nC2/GHYDEa1kYx3iW3stlSjxMDrcVlCIUJrg6tRIG69vfNfL6SN9CMlF4hphHMEpx\ntd5W3/e2pjD8h9zfcBH6/x94RwW4rCCWcWvuIzu7OOCy718bT5BulHqB1IO9wV+1\nqN5KgmzD4KyHtHDeK3X/Ep9EpqkgVfEL9I45V31g2v+HnsYUh8+KIELdIHtSBG5I\nyJU4ZBd9sgWN3hQ9LqRM+/0VfA5Gm3Y11UAcxV6pzQKBgQDCouRyk8UY84YJ2/fm\nP3Tw5vTKPNTLvn3GNg5Duk4mDNTS3gzpYiYdOdjsYqTFC3mwiJ7D8HNWaSeqFfd6\nSIe9DQpcS2gs/mhsxpSQCG0ys13Msgb5g8iy+YBoD34EkmZ0g+5D5WJHFOiK/jfr\nV7OnFNlMXNKu5yy9AtVnyIL8owKBgQC9AZMlHYGOW645P4pKMDhEpplgUzYpegZD\nATvWunRHZLB3HBNPbuzIUJrEfOlc/pB7fNGuWizC1c55xpvtV0hYkIviEbtBt93n\nChzckg9vg9O7Kuw/IRBrlicpqANNDdp9QHiMlNbN7e1gO4eDCqZAmgh0aUt0U6hx\nWFEIMShJlQKBgCnjFHb0Bj7QadBFXpxWm7wceCHt5X3TiQ3XJEq/FYJq0IJw9yZi\n0QEJKf31XLBrP80WGdThMnEuQDMCdzgB0/SDke866ziDp8WBFwfISHfY0h7zUTzx\nd4fM2i2K5/vj5di9a9GA1B2oCkOfYjlrrmYOvpUIhO7PIXmr2nFzXX0xAoGAdd1W\nio207jbEFhVGwu8BF+agvQ4HN6RN5VkOnOCXhLIIza5naGCvLlf9u8x9pq1lImz7\nQXQgd7vnT8+IC2Ejz38MjIUsNlZX/i0zRGWdVJhr4EtrGg8fc0gm0fZhYJrkBrm+\ns0RaE/9syVc2MYThmmW0IgxLrpZA87X0ilxFWGUCgYA6O3ccpoBUUR1SuZk85786\nEb9X9mdqZHLTqpBNSWh+F/Ejq8ElZshxub8YcyPtakHmRo6/aUWWnWMKemYQTF5X\nxxFAUVsjtjenTLXwLzJsndlco0BZVZZscds0QCdBptaLIF6Fo7PfiPOuOXMPJEbB\nYwHCdF+lA/rzHM3iN5NfDA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "backend@code-quarkus-io.iam.gserviceaccount.com",
+  "client_id": "114562245633211645876",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/backend%40code-quarkus-io.iam.gserviceaccount.com"
+}
