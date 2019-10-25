@@ -175,3 +175,49 @@
     }
   }
 }
+
+@supports (not (display: contents)) {
+  .extensions-picker .extension-item .extension-selector {
+    max-width: 30px;
+  }
+
+  .extensions-picker .control-container .extension-list {
+    display: table;
+    .extension-item {
+      display: table-row;
+      .extension-name {
+        display: table-cell;
+        width: 90%;
+      }
+      .extension-remove {
+        display: table-cell;
+        width: 10%;
+      }
+    }
+  }
+
+  .list-container {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    .extension-selector {
+      display: table-cell;
+      width: 30px;
+    }
+    .extension-name {
+      display: table-cell;
+      width: 300px;
+    }
+    .extension-details {
+      .extension-description {
+        display: inline;
+      }
+      .extension-gav {
+        float: right;
+      }  
+    }
+    .extension-item > div {
+      margin: 0;
+    }
+  }
+}
