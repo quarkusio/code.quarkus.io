@@ -22,7 +22,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
   };
   const setExtensions = (value: { extensions: string[] }) => setProject((prev) => ({ ...prev, extensions: value.extensions }));
   const save = () => {
-    if(isMetadataValid) {
+    if (isMetadataValid) {
       props.onSave();
     }
   };

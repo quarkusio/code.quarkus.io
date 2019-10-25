@@ -11,7 +11,7 @@ clean:
 #make native
 .PHONY: native
 native:
-	./mvnw package -Pnative
+	./mvnw package -Pnative -DskipTests
 
 #make ext-add ID=kotlin
 .PHONY: ext-add
