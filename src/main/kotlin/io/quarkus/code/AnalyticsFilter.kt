@@ -16,7 +16,7 @@ class AnalyticsFilter : ContainerRequestFilter {
     @Context
     internal var info: UriInfo? = null
 
-    @ConfigProperty(name = "io.quarkus.code.google-tracking-id")
+    @ConfigProperty(name = "io.quarkus.code.ga-tracking-id", defaultValue = "")
     lateinit var googleTrackingId: String
 
     override fun filter(context: ContainerRequestContext) {
