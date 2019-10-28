@@ -2,6 +2,7 @@ import { Button, FormGroup, TextInput, Tooltip } from "@patternfly/react-core";
 import { CheckSquareIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon, SquareIcon } from "@patternfly/react-icons";
 import React, { useState } from "react";
 import { useHotkeys } from 'react-hotkeys-hook';
+import hotkeys from 'hotkeys-js';
 import { InputProps, useAnalytics } from '../../core';
 import { CopyToClipboard } from '../copy-to-clipboard';
 import { processEntries } from './extensions-picker-helpers';
@@ -108,6 +109,8 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const extensions = props.value.extensions || [];
   const entrySet = new Set(extensions);
   const entriesById: Map<String, ExtensionEntry> = new Map(props.entries.map(item => [item.id, item]));
+
+  hotkeys.filter = () => true
 
   const add = (id: string) => {
     entrySet.add(id);
