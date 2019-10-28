@@ -1,6 +1,5 @@
 package io.quarkus.code
 
-import com.brsanthu.googleanalytics.GoogleAnalytics
 import io.quarkus.code.model.Config
 import io.quarkus.code.model.QuarkusProject
 import io.quarkus.code.services.CodeQuarkusConfigManager
@@ -50,16 +49,6 @@ class CodeQuarkusResource {
         val extensionsResource = CodeQuarkusResource::class.java.getResource("/quarkus/extensions.json")
                 ?: throw IOException("missing extensions.json file")
         extensions = extensionsResource.readBytes()
-
-        val ga = GoogleAnalytics.builder()
-                .withTrackingId("UA-150941584-1")
-                .build()
-
-        ga.pageView()
-                .documentTitle("bla")
-                .documentPath("/bla")
-                .clientId("don't know")
-                .send();
     }
 
     @GET
