@@ -3,6 +3,7 @@ package io.quarkus.code
 import com.brsanthu.googleanalytics.GoogleAnalytics
 import com.brsanthu.googleanalytics.GoogleAnalyticsConfig
 import org.eclipse.microprofile.config.inject.ConfigProperty
+import java.util.logging.Logger
 import java.util.stream.Collectors
 import javax.ws.rs.container.ContainerRequestContext
 import javax.ws.rs.container.ContainerRequestFilter
@@ -12,6 +13,7 @@ import javax.ws.rs.ext.Provider
 
 @Provider
 class AnalyticsFilter : ContainerRequestFilter {
+    private val logger = Logger.getLogger(AnalyticsFilter::class.java.name)
 
     @Context
     internal var info: UriInfo? = null
@@ -30,6 +32,11 @@ class AnalyticsFilter : ContainerRequestFilter {
         val path = info!!.path
         val divider = if (params != null) "?" else ""
 
-        googleAnalytics.pageView().documentPath("$path$divider${params ?: ""}").sendAsync()
+        val request = "$path$divider${params ?: ""}";
+        if (!"".equals(googleTrackingId)) {
+            googleAnalytics.pageView().documentPath(request).sendAsync()
+        } else {
+            logger.info(request)
+        }
     }
 }
