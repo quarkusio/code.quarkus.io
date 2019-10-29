@@ -18,6 +18,7 @@ export interface ExtensionEntry {
   shortName?: string;
   category: string;
   order: number,
+  included: boolean
 }
 
 export interface ExtensionsPickerValue {
@@ -34,6 +35,7 @@ interface ExtensionProps extends ExtensionEntry {
   selected: boolean;
   actived: boolean;
   detailed?: boolean;
+  included: boolean;
   onClick(id: string): void;
 }
 
@@ -65,9 +67,9 @@ function Extension(props: ExtensionProps) {
           {...activationEvents}
           aria-label={`Switch ${props.id} extension`}
         >
-          {!props.selected && !(active || props.actived) && <OutlinedSquareIcon />}
-          {(active || props.selected) && <CheckSquareIcon />}
-          {props.actived && !props.selected && !active && <SquareIcon />}
+          {!props.selected && !(active || props.actived || props.included) && <OutlinedSquareIcon />}
+          {(active || props.selected || props.included) && <CheckSquareIcon />}
+          {props.actived && !props.selected && !props.included && !active && <SquareIcon />}
         </div>
       )}
       <Tooltip position="bottom" content={tooltip} exitDelay={0} zIndex={100}>
