@@ -1,18 +1,15 @@
 package io.quarkus.code
 
-import io.quarkus.code.model.Config
 import io.quarkus.code.model.CodeQuarkusExtension
+import io.quarkus.code.model.Config
 import io.quarkus.code.model.QuarkusProject
 import io.quarkus.code.services.CodeQuarkusConfigManager
 import io.quarkus.code.services.QuarkusExtensionCatalog
 import io.quarkus.code.services.QuarkusProjectCreator
-import io.quarkus.runtime.StartupEvent
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
-import java.io.IOException
-import javax.enterprise.event.Observes
 import javax.inject.Inject
 import javax.validation.Valid
 import javax.ws.rs.BeanParam
@@ -36,12 +33,6 @@ class CodeQuarkusResource {
     lateinit var projectCreator: QuarkusProjectCreator
 
     lateinit var extensions: ByteArray
-
-    fun onStart(@Observes ev: StartupEvent) {
-        val extensionsResource = CodeQuarkusResource::class.java.getResource("/quarkus/extensions.json")
-                ?: throw IOException("missing extensions.json file")
-        extensions = extensionsResource.readBytes()
-    }
 
     @GET
     @Path("/config")
