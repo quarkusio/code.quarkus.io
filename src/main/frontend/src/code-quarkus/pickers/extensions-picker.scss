@@ -173,6 +173,10 @@
     & > div {
       margin: 0 10px;
     }
+
+    &.readonly {
+      cursor: initial;
+    }
   }
 }
 

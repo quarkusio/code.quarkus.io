@@ -18,7 +18,7 @@ export interface ExtensionEntry {
   shortName?: string;
   category: string;
   order: number,
-  included: boolean
+  default: boolean
 }
 
 export interface ExtensionsPickerValue {
@@ -35,7 +35,7 @@ interface ExtensionProps extends ExtensionEntry {
   selected: boolean;
   actived: boolean;
   detailed?: boolean;
-  included: boolean;
+  default: boolean;
   onClick(id: string): void;
 }
 
@@ -44,6 +44,9 @@ function Extension(props: ExtensionProps) {
   const activate = () => setActive(true);
   const desactivate = () => setActive(false);
   const onClick = () => {
+    if(props.default) {
+      return;
+    }
     props.onClick(props.id);
     setActive(false);
   };
@@ -55,21 +58,23 @@ function Extension(props: ExtensionProps) {
   };
 
   const description = props.description || '...';
-  const descTooltip = <div><b>{props.name}</b><p>{description}</p></div>;
-  const tooltip = props.detailed ?
+  const descTooltip = props.default ? <div><b>{props.name}</b><p>{description}<i>(This extension is included by default)</i></p></div> : <div><b>{props.name}</b><p>{description}</p></div>;
+  let tooltip = props.detailed && !props.default ?
     <div>{props.selected ? 'Remove' : 'Add'} the extension <b>{props.name}</b></div> : descTooltip;
+  
   const addMvnExt = `./mvnw quarkus:add-extension -Dextensions="${props.id}"`;
+  const selected = props.selected || props.default;
   return (
-    <div className={`${active ? 'active' : ''} ${props.selected ? 'selected' : ''} extension-item`}>
+    <div className={`${active ? 'active' : ''} ${props.selected ? 'selected' : ''} extension-item ${props.default ? 'readonly' : ''}`}>
       {props.detailed && (
         <div
           className="extension-selector"
           {...activationEvents}
           aria-label={`Switch ${props.id} extension`}
         >
-          {!props.selected && !(active || props.actived || props.included) && <OutlinedSquareIcon />}
-          {(active || props.selected || props.included) && <CheckSquareIcon />}
-          {props.actived && !props.selected && !props.included && !active && <SquareIcon />}
+          {!selected && !(active || props.actived ) && <OutlinedSquareIcon />}
+          {(active || selected) && <CheckSquareIcon />}
+          {props.actived && !props.selected && !active && <SquareIcon />}
         </div>
       )}
       <Tooltip position="bottom" content={tooltip} exitDelay={0} zIndex={100}>

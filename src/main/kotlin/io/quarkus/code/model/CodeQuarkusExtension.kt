@@ -7,7 +7,7 @@ data class CodeQuarkusExtension(
         val shortName: String?,
         val category: String,
         val status: String,
-        val included: Boolean,
+        val default: Boolean,
         val keywords: List<String>,
         val order: Int,
 
