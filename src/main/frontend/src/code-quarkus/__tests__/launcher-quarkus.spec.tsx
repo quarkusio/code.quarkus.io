@@ -7,7 +7,7 @@ jest.mock('../backend-api', () => ({
     {
       "id": "io.quarkus:quarkus-arc",
       "name": "ArC",
-      "labels": [
+      "keywords": [
         "arc",
         "cdi",
         "dependency-injection",
@@ -21,7 +21,7 @@ jest.mock('../backend-api', () => ({
     {
       "id": "io.quarkus:quarkus-resteasy",
       "name": "RESTEasy JAX-RS",
-      "labels": [
+      "keywords": [
         "resteasy",
         "jaxrs",
         "web",
@@ -35,7 +35,7 @@ jest.mock('../backend-api', () => ({
     {
       "id": "io.quarkus:quarkus-resteasy-jsonb",
       "name": "RESTEasy JSON-B",
-      "labels": [
+      "keywords": [
         "resteasy-jsonb",
         "jaxrs-json",
         "resteasy-json",
@@ -51,7 +51,7 @@ jest.mock('../backend-api', () => ({
     {
       "id": "io.quarkus:quarkus-resteasy-jackson",
       "name": "RESTEasy Jackson",
-      "labels": [
+      "keywords": [
         "resteasy-jackson",
         "jaxrs-json",
         "resteasy-json",

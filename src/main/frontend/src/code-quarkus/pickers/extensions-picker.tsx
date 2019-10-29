@@ -13,7 +13,7 @@ import './extensions-picker.scss';
 export interface ExtensionEntry {
   id: string;
   name: string;
-  labels: string[];
+  keywords: string[];
   description?: string;
   shortName?: string;
   category: string;
