@@ -16,9 +16,6 @@
       "pattern": "creator/.*$"
     },
     {
-      "pattern": "quarkus/extensions\\.json$"
-    },
-    {
       "pattern": "quarkus\\.properties"
     },
     {

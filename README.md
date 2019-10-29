@@ -29,29 +29,9 @@ You can check deployed commit hash on: https://stage.code.quarkus.io/api/config
 
 # To update the Quarkus version (after a new Quarkus release)
 
-1. [Update the extension list](#update-the-code-quarkus-extension-list) with the new Quarkus version
-2. Edit the `pom.xml` with the new Quarkus version `<version.quarkus>x.y.z</version.quarkus>`
-3. Provide a PR, merge, and [promote to production](#promote-to-production)
+1. Edit the `pom.xml` with the new Quarkus version `<version.quarkus>x.y.z</version.quarkus>`
+2. Provide a PR, merge, and [promote to production](#promote-to-production)
 
-# Update the Code Quarkus extension list
-
-`x.y.z` is the Quarkus version.
-
-```
-$ yarn --cwd ./extensions && yarn --cwd ./extensions start x.y.z
-```
-
-It will automatically generate a new `extensions.json` to commit.
-
-# Include a new extension
-
-1. The extension must be available in a Quarkus release:
-    https://github.com/quarkusio/quarkus/blob/x.y.z/devtools/common/src/main/filtered/extensions.json
-2. The extension must be added to the website extension list (with metadata):
-    https://github.com/quarkusio/quarkusio.github.io/blob/develop/_data/extensions.yaml
-     > Updating the website will soon not be required anymore, you can follow progress here: https://github.com/quarkusio/code.quarkus.io/issues/40
-3. [Update the extension list](#update-the-code-quarkus-extension-list)
-   
 
 # API Documentation
 
