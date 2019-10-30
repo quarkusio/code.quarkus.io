@@ -39,8 +39,7 @@ object QuarkusExtensionUtils {
         if (ext == null) {
             return null
         }
-        val unlisted = ext.metadata[Extension.MD_UNLISTED] !== null && ext.metadata[Extension.MD_UNLISTED] as Boolean
-        if (unlisted) {
+        if (isExtensionUnlisted(ext)) {
             return null
         }
         return CodeQuarkusExtension(
@@ -56,6 +55,18 @@ object QuarkusExtensionUtils {
                 ext.keywords
         )
 
+    }
+
+    private fun isExtensionUnlisted(ext: Extension): Boolean {
+        val unlisted = ext.metadata[Extension.MD_UNLISTED]
+        if (unlisted !== null) {
+            if (unlisted is Boolean) {
+                return unlisted
+            } else if (unlisted is String) {
+               return unlisted.toBoolean()
+            }
+        }
+        return false
     }
 
     @JvmStatic
