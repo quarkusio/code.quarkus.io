@@ -4,7 +4,7 @@
   @media screen and (max-width: 900px) {
     margin: 0 10px;
   }
-  
+
   .form-header-sticky-container {
     position: sticky;
     top: 0;
@@ -42,7 +42,7 @@
       margin: 0 0 0 20px;
       padding: 0;
     }
-   
+
     @media screen and (max-width: 1200px) {
       .extended-settings, .toggle-button { display: none; }
     }
@@ -70,7 +70,7 @@
         display: none;
       }
     }
-    
+
     .control-container {
       margin-top: 20px;
       position: sticky;
@@ -90,15 +90,39 @@
   .generate-project {
     flex: 0 0 280px;
     align-self:center;
-    height: 180px;
+    margin-top: 130px;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
 
-    button.generate-button {
-      background-color: #FF004A;
+    button.main:first-child {
       border-radius: 0;
-      width: 280px;
+      margin-right: 1px;
+    }
+
+    .generate-button {
+      li {
+        list-style-type: none;
+        svg {
+          margin-left: 5px;
+        }
+      }
+      &.pf-c-dropdown {
+        border: 1px solid #FF004A;
+        --pf-c-dropdown__toggle--BorderWidth: 0;
+        --pf-c-dropdown__toggle--MinWidth: 100%;
+        --pf-c-dropdown__toggle--expanded--BorderBottomWidth: 0;
+        --pf-c-dropdown__toggle--active--BorderBottomWidth: 0;
+        --pf-c-dropdown__toggle--focus--BorderBottomWidth: 0;
+        --pf-c-dropdown__toggle--expanded--BorderBottomWidth: 0;
+        --pf-c-dropdown__toggle--Color: white;
+        line-height: 24px;
+      }
+      &.pf-c-dropdown__toggle {
+        border: 0;
+      }
+
+      background-color: #FF004A;
       height: 36px;
       align-self: flex-end;
       text-align: center;
@@ -126,7 +150,7 @@
         font-weight: bold;
         text-transform: capitalize;
       }
-  
+
       input.pf-c-form-control {
         border: none;
         margin-left: -100px;
@@ -141,12 +165,12 @@
         padding-bottom: 4px;
         padding-right: 30px;
       }
-  
+
       input.pf-c-form-control:focus {
         outline: none;
         border-bottom: 1px solid #4695EB;
       }
     }
-    
+
   }
 }

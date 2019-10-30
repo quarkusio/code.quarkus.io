@@ -23,7 +23,7 @@ interface LaunchFlowProps {
   config: Config
 }
 
-export interface QuarkusProject {
+export class QuarkusProject {
   metadata: {
     groupId: string;
     artifactId: string;
@@ -31,20 +31,18 @@ export interface QuarkusProject {
     name?: string;
     packageName?: string;
   }
-  extensions: string[];
+  extensions: string[]
+  generateProject: () => string;
+
+  constructor(other: QuarkusProject = DEFAULT_PROJECT) {
+    this.extensions = other.extensions
+    this.metadata = other.metadata
+    this.generateProject = other.generateProject
+  }
 }
 
 async function generateProject(project: QuarkusProject): Promise<{ downloadLink: string }> {
-  const packageName = project.metadata.packageName || project.metadata.groupId;
-  const params = {
-    ...(project.metadata.groupId && { g: project.metadata.groupId }),
-    ...(project.metadata.artifactId && { a: project.metadata.artifactId }),
-    ...(project.metadata.version && { v: project.metadata.version }),
-    ...(packageName && { c: `${packageName}.ExampleResource` }),
-    ...(project.extensions && { e: project.extensions }),
-  }
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || publicUrl;
-  const downloadLink = `${backendUrl}/api/download?${stringify(params)}`;
+  const downloadLink = project.generateProject();
   window.open(downloadLink, '_blank');
   return { downloadLink };
 }
@@ -54,8 +52,22 @@ const DEFAULT_PROJECT = {
     groupId: 'org.acme',
     artifactId: 'code-with-quarkus',
     version: '1.0.0-SNAPSHOT',
+    packageName: undefined
   },
   extensions: [],
+  generateProject() {
+    const project = this;
+    const packageName = project.metadata.packageName || project.metadata.groupId;
+    const params = {
+      ...(project.metadata.groupId && { g: project.metadata.groupId }),
+      ...(project.metadata.artifactId && { a: project.metadata.artifactId }),
+      ...(project.metadata.version && { v: project.metadata.version }),
+      ...(packageName && { c: `${packageName}.ExampleResource` }),
+      ...(project.extensions && { e: project.extensions }),
+    }
+    const backendUrl = process.env.REACT_APP_BACKEND_URL || publicUrl;
+    return `${backendUrl}/api/download?${stringify(params)}`;
+  }
 };
 
 export function CodeQuarkus(props: LaunchFlowProps) {
