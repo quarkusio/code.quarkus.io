@@ -5,5 +5,5 @@ data class Config(
         val gaTrackingId: String,
         val sentryDSN: String,
         val quarkusVersion: String,
-        val gitCommitId: String
+        val gitCommitId: String?
 )

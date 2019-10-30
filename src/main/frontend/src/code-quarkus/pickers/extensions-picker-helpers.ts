@@ -10,7 +10,7 @@ export const filterFunction = (filter: string) => (d: ExtensionEntry) => {
     return true;
   }
   return d.name.toLowerCase().includes(filterLowerCase)
-    || d.labels.filter(l => l.startsWith(filterLowerCase)).length > 0
+    || d.keywords.filter(l => l.startsWith(filterLowerCase)).length > 0
     || (d.category && d.category.toLowerCase().startsWith(filterLowerCase))
     || shortName.startsWith(filterLowerCase);
 }
@@ -25,8 +25,8 @@ export const sortFunction = (filter: string) => (a: ExtensionEntry, b: Extension
   if (startWithAShortName !== startWithBShortName) {
     return startWithAShortName ? -1 : 1;
   }
-  const startWithOneOfALabel = a.labels.filter(l => l.startsWith(filterLowerCase)).length > 0;
-  const startWithOneOfBLabel = b.labels.filter(l => l.startsWith(filterLowerCase)).length > 0;
+  const startWithOneOfALabel = a.keywords.filter(l => l.startsWith(filterLowerCase)).length > 0;
+  const startWithOneOfBLabel = b.keywords.filter(l => l.startsWith(filterLowerCase)).length > 0;
   if (startWithOneOfALabel !== startWithOneOfBLabel) {
     return startWithOneOfALabel ? -1 : 1;
   }

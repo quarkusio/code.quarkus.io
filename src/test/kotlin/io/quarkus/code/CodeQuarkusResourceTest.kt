@@ -1,6 +1,7 @@
 package io.quarkus.code
 
 import io.quarkus.code.model.QuarkusProject
+import io.quarkus.code.services.QuarkusProjectCreatorMock
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
 import org.hamcrest.CoreMatchers.*
@@ -139,7 +140,6 @@ class CodeQuarkusResourceTest {
                 .body("gaTrackingId", equalTo(""))
                 .body("sentryDSN", equalTo(""))
                 .body("quarkusVersion", notNullValue())
-                .body("gitCommitId", notNullValue())
     }
 
     @Test

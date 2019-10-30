@@ -6,11 +6,12 @@ import { fetchExtensions } from './backend-api';
 interface Extension {
   id: string;
   name: string;
-  labels: string[];
+  keywords: string[];
   description?: string;
   shortName?: string;
   category: string;
-  order: number,
+  default: boolean;
+  order: number;
 }
 
 export function ExtensionsLoader(props: { name: string, children: (entries: ExtensionEntry[]) => any }) {

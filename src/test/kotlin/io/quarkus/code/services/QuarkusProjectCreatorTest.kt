@@ -1,4 +1,4 @@
-package io.quarkus.code
+package io.quarkus.code.services
 
 import io.quarkus.code.model.QuarkusProject
 import io.quarkus.maven.utilities.MojoUtils

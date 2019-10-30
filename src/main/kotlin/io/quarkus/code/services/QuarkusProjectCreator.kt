@@ -1,9 +1,9 @@
-package io.quarkus.code
+package io.quarkus.code.services
 
-import io.quarkus.code.model.QuarkusProject
-import io.quarkus.code.writer.CommonsZipProjectWriter
 import io.quarkus.cli.commands.AddExtensions
 import io.quarkus.cli.commands.CreateProject
+import io.quarkus.code.model.QuarkusProject
+import io.quarkus.code.writer.CommonsZipProjectWriter
 import io.quarkus.generators.BuildTool
 import java.io.ByteArrayOutputStream
 import java.io.IOException

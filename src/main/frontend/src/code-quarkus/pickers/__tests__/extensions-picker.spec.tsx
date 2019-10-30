@@ -11,13 +11,14 @@ const entries: ExtensionEntry[] = [
   {
     "id": "io.quarkus:quarkus-arc",
     "name": "ArC",
-    "labels": [
+    "keywords": [
       "arc",
       "cdi",
       "dependency-injection",
       "di",
       "label"
     ],
+    "default": false,
     "description": "Build time CDI dependency injection",
     "shortName": "CDI",
     "category": "Core",
@@ -26,7 +27,8 @@ const entries: ExtensionEntry[] = [
   {
     "id": "io.quarkus:quarkus-camel-netty4-http",
     "name": "Camel Netty4 test HTTP",
-    "labels": [
+    "default": false,
+    "keywords": [
       "camel-netty4-http",
       "camel"
     ],
@@ -37,7 +39,8 @@ const entries: ExtensionEntry[] = [
   {
     "id": "some-id",
     "name": "A CDI in name test",
-    "labels": [
+    "default": false,
+    "keywords": [
       "lambda",
       "amazon-lambda",
       "aws-lambda",
