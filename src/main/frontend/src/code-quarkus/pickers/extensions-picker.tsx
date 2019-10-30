@@ -74,7 +74,7 @@ function Extension(props: ExtensionProps) {
         >
           {!selected && !(active || props.actived ) && <OutlinedSquareIcon />}
           {(active || selected) && <CheckSquareIcon />}
-          {props.actived && !props.selected && !active && <SquareIcon />}
+          {props.actived && !selected && !active && <SquareIcon />}
         </div>
       )}
       <Tooltip position="bottom" content={tooltip} exitDelay={0} zIndex={100}>
