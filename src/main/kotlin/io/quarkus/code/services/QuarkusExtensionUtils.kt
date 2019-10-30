@@ -17,7 +17,7 @@ object QuarkusExtensionUtils {
         val extByCategory = getExtByCategory(descriptor)
         val order = AtomicInteger()
         descriptor.categories.forEach { cat ->
-            val pinnedList = if (cat.metadata != null && cat.metadata[Category.MD_PINNED] != null && cat.metadata[Category.MD_PINNED] is List<*>) cat.metadata["pinned"] as List<String> else emptyList()
+            val pinnedList = getCategoryPinnedList(cat)
             val pinnedSet = pinnedList.toSet()
             pinnedList.forEach { id ->
                 val codeQExt = toCodeQuarkusExtension(extById[id]?.get(0), cat, order)
@@ -34,6 +34,15 @@ object QuarkusExtensionUtils {
         return list
     }
 
+    private fun getCategoryPinnedList(cat: Category): List<String> {
+        if (cat.metadata?.get(Category.MD_PINNED) == null || cat.metadata[Category.MD_PINNED] !is List<*>) {
+            return emptyList()
+        }
+        @Suppress("UNCHECKED_CAST")
+        return cat.metadata["pinned"] as List<String>
+    }
+
+
     @JvmStatic
     fun toCodeQuarkusExtension(ext: Extension?, cat: Category, order: AtomicInteger): CodeQuarkusExtension? {
         if (ext == null) {
@@ -46,9 +55,9 @@ object QuarkusExtensionUtils {
                 "${ext.groupId}:${ext.artifactId}",
                 ext.name,
                 ext.description,
-                ext.metadata[Extension.MD_SHORT_NAME] as String?,
+                getExtensionShortName(ext),
                 cat.name,
-                ext.metadata[Extension.MD_STATUS] as String? ?: "stable",
+                getExtensionStatus(ext),
                 ext.artifactId == "quarkus-resteasy",
                 ext.keywords,
                 order.getAndIncrement(),
@@ -57,13 +66,19 @@ object QuarkusExtensionUtils {
 
     }
 
+    private fun getExtensionStatus(ext: Extension) =
+            ext.metadata?.get(Extension.MD_STATUS) as String? ?: "stable"
+
+    private fun getExtensionShortName(ext: Extension) =
+            ext.metadata?.get(Extension.MD_SHORT_NAME) as String?
+
     private fun isExtensionUnlisted(ext: Extension): Boolean {
-        val unlisted = ext.metadata[Extension.MD_UNLISTED]
+        val unlisted = ext.metadata?.get(Extension.MD_UNLISTED)
         if (unlisted !== null) {
             if (unlisted is Boolean) {
                 return unlisted
             } else if (unlisted is String) {
-               return unlisted.toBoolean()
+                return unlisted.toBoolean()
             }
         }
         return false
@@ -76,7 +91,7 @@ object QuarkusExtensionUtils {
     fun getExtByCategory(descriptor: QuarkusPlatformDescriptor): Map<String, List<Extension>> {
         val extByCategory = HashMap<String, ArrayList<Extension>>()
         descriptor.extensions.forEach {
-            val categories = it.metadata["categories"]
+            val categories = it.metadata?.get("categories")
             if (categories is Collection<*>) {
                 categories.forEach { cat ->
                     if (cat is String) {
