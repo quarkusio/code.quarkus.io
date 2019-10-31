@@ -35,7 +35,7 @@ export function NextSteps(props: NextStepsProps) {
         <h1>What's next?</h1>
         <div>
           Unzip the project and start playing with Quarkus by running:
-        <code>$ ./mvnw compile quarkus:dev <CopyToClipboard eventId="Start-Dev-Command" content="./mvnw compile quarkus:dev" /></code>
+        <code>$ ./mvnw compile quarkus:dev <CopyToClipboard eventId="Start-Dev-Command" content="./mvnw compile quarkus:dev" zIndex={5000} tooltipPosition="left" /></code>
           Follow the <ExternalLink href="https://quarkus.io/guides/" aria-label="Start playing with Quarkus">guides</ExternalLink>  for your next steps!
         </div>
       </TextContent>
