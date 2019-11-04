@@ -152,8 +152,6 @@ internal class QuarkusProjectCreatorTest {
         assertThat(resourceText, containsString("@Path(\"/test/it\")"))
     }
 
-
-
     @Test
     @DisplayName("Should create multiple project correctly")
     @Timeout(2)
