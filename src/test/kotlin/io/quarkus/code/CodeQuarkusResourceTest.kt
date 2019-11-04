@@ -168,11 +168,12 @@ class CodeQuarkusResourceTest {
                 QuarkusProject(
                         artifactId = "test-app-with-a-few-arg",
                         version = "1.0.0",
+                        buildTool = "GRADLE",
                         extensions = setOf(
                                 "io.quarkus:quarkus-kafka-streams",
                                 "io.quarkus:quarkus-smallrye-reactive-messaging"
-                        ),
-                        buildTool = "GRADLE"
+                        )
+
                 )
         )
         )

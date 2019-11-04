@@ -29,6 +29,7 @@ class QuarkusProject {
                 version: String = DEFAULT_VERSION,
                 className: String = DEFAULT_CLASSNAME,
                 path: String = DEFAULT_PATH,
+                buildTool: String = DEFAULT_BUILDTOOL,
                 extensions: Set<String> = setOf()) {
         this.groupId = groupId
         this.artifactId = artifactId
@@ -36,6 +37,7 @@ class QuarkusProject {
         this.className = className
         this.extensions = extensions
         this.path = path
+        this.buildTool = buildTool
     }
 
     @DefaultValue(DEFAULT_GROUPID)
