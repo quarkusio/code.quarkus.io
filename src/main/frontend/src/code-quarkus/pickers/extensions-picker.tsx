@@ -124,9 +124,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     entrySet.add(id);
     props.onChange({ extensions: Array.from(entrySet) });
     analytics.event('Picker', 'Add-Extension', id);
-    if(keyboardActived >= 0) {
-      setKeyBoardActived(index);
-    } 
+    setKeyBoardActived(index);
   };
 
   const remove = (id: string) => {
@@ -164,7 +162,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   useHotkeys('up', () => setKeyBoardActived(Math.max(0, keyboardActived - 1)), [keyboardActived]);
   useHotkeys('down', () => setKeyBoardActived(Math.min(result.length - 1, keyboardActived + 1)), [result, keyboardActived]);
   useHotkeys('space', (event) => {
-    if (keyboardActived > 0) {
+    if (keyboardActived >= 0) {
       event.preventDefault();
       flip(keyboardActived);
     }
