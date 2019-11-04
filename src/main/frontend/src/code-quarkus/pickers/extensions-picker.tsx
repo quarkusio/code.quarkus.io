@@ -160,7 +160,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   }
 
 
-
+  useHotkeys('esc', () => setKeyBoardActived(-1));
   useHotkeys('up', () => setKeyBoardActived(Math.max(0, keyboardActived - 1)), [keyboardActived]);
   useHotkeys('down', () => setKeyBoardActived(Math.min(result.length - 1, keyboardActived + 1)), [result, keyboardActived]);
   useHotkeys('space', (event) => {
@@ -185,6 +185,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
             <SearchIcon />
             <TextInput
               id="extension-search"
+              type="search"
               onKeyDown={onSearchKeyDown}
               aria-label="Search extensions"
               placeholder={props.placeholder}
