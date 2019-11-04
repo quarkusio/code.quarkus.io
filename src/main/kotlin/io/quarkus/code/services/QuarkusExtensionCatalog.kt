@@ -19,14 +19,11 @@ open class QuarkusExtensionCatalog {
         @JvmStatic
         val descriptor = QuarkusJsonPlatformDescriptorResolver.newInstance().resolveFromBom("io.quarkus", "quarkus-universe-bom", platformVersion)
 
-        @JvmStatic
-        val staticExtensions = QuarkusExtensionUtils.processExtensions(descriptor)
-
         init {
             checkState(descriptor.quarkusVersion == bundledQuarkusVersion, "The platform version (%s) must be compatible with the bundled Quarkus version (%s != %s)", descriptor.bomVersion, descriptor.quarkusVersion, bundledQuarkusVersion)
         }
     }
 
-    val extensions: List<CodeQuarkusExtension> = staticExtensions
+    val extensions: List<CodeQuarkusExtension> = QuarkusExtensionUtils.processExtensions(descriptor)
 
 }
