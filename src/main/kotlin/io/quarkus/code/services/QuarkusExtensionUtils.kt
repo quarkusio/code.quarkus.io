@@ -45,12 +45,13 @@ object QuarkusExtensionUtils {
 
     @JvmStatic
     fun toCodeQuarkusExtension(ext: Extension?, cat: Category, order: AtomicInteger): CodeQuarkusExtension? {
-        if (ext == null) {
+        if (ext == null || ext.name == null) {
             return null
         }
         if (isExtensionUnlisted(ext)) {
             return null
         }
+        val keywords = ext.keywords ?: emptyList()
         return CodeQuarkusExtension(
                 "${ext.groupId}:${ext.artifactId}",
                 ext.name,
@@ -59,9 +60,9 @@ object QuarkusExtensionUtils {
                 cat.name,
                 getExtensionStatus(ext),
                 ext.artifactId == "quarkus-resteasy",
-                ext.keywords,
+                keywords,
                 order.getAndIncrement(),
-                ext.keywords
+                keywords
         )
 
     }

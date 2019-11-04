@@ -3,6 +3,11 @@
 dev:
 	./mvnw compile quarkus:dev
 
+#make debug
+.PHONY: debug
+debug:
+	./mvnw compile quarkus:dev -Ddebug -Dsuspend
+
 #make clean
 .PHONY: clean
 clean:
