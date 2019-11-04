@@ -10,7 +10,6 @@ import { QuarkusBlurb } from '../quarkus-blurb';
 import { processEntries } from './extensions-picker-helpers';
 import './extensions-picker.scss';
 
-
 export interface ExtensionEntry {
   id: string;
   name: string;
@@ -29,6 +28,7 @@ export interface ExtensionsPickerValue {
 interface ExtensionsPickerProps extends InputProps<ExtensionsPickerValue> {
   entries: ExtensionEntry[];
   placeholder: string;
+  buildTool: string;
   filterFunction?(d: ExtensionEntry): boolean;
 }
 
@@ -37,6 +37,7 @@ interface ExtensionProps extends ExtensionEntry {
   keyboardActived: boolean;
   detailed?: boolean;
   default: boolean;
+  buildTool: string;
   onClick(id: string): void;
 }
 
@@ -61,8 +62,11 @@ function Extension(props: ExtensionProps) {
   let tooltip = props.detailed && !props.default ?
     <div>{props.selected ? 'Remove' : 'Add'} the extension <b>{props.name}</b></div> : descTooltip;
 
+  const buildTool = props.buildTool || 'MAVEN';
   const addMvnExt = `./mvnw quarkus:add-extension -Dextensions="${props.id}"`;
   const selected = props.selected || props.default;
+  const addGradleExt = `./gradlew addExtension --extensions="${props.id}"`;
+  const addExtCmd = buildTool === 'GRADLE' ? addGradleExt : addMvnExt;
   return (
     <div {...activationEvents} className={classNames('extension-item', { 'keyboard-actived': props.keyboardActived, hover, selected, readonly: props.default })}>
       {props.detailed && (
@@ -93,7 +97,7 @@ function Extension(props: ExtensionProps) {
               className="extension-description"
             >{description}</div>
           </Tooltip>
-          <div className="extension-gav"><CopyToClipboard eventId="Add-Extension-Command" content={addMvnExt} tooltipPosition="left" /></div>
+          <div className="extension-gav"><CopyToClipboard eventId="Add-Extension-Command" content={addExtCmd} tooltipPosition="left" /></div>
         </div>
       )}
     </div>
@@ -126,7 +130,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     analytics.event('Picker', 'Add-Extension', id);
     if(keyboardActived >= 0) {
       setKeyBoardActived(index);
-    } 
+    }
   };
 
   const remove = (id: string) => {
@@ -204,6 +208,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
                   selected={entrySet.has(ex)}
                   keyboardActived={i === keyboardActived}
                   {...entriesById.get(ex)!}
+                  buildTool={props.buildTool}
                   key={i}
                   onClick={() => remove(ex)}
                 />
@@ -228,6 +233,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
                 {...ex}
                 key={i}
                 onClick={() => flip(i)}
+                buildTool={props.buildTool}
                 detailed
               />
             );
