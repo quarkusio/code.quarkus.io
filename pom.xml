@@ -18,11 +18,11 @@
     <version.frontend-maven-plugin>1.7.6</version.frontend-maven-plugin>
     <version.commons-compress>1.19</version.commons-compress>
 
-    <!-- Quarkus version is used for bundling Code Quarkus, it is not used for generated applications -->
+    <!-- Quarkus version is used for bundling Code Quarkus -->
     <version.quarkus>0.28.0</version.quarkus>
 
-    <!-- Quarkus Platform version will induce Quarkus version in generated applications -->
-    <quarkus-platform-version>0.0.5</quarkus-platform-version>
+    <!-- Quarkus Platform version must be compatible with Quarkus version -->
+    <version.quarkus-platform>0.0.6</version.quarkus-platform>
   </properties>
   <dependencyManagement>
     <dependencies>
