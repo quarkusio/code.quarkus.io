@@ -23,7 +23,9 @@ open class QuarkusProjectCreator {
     }
 
     open fun create(project: QuarkusProject): ByteArray {
-        QuarkusPlatformConfig.defaultConfigBuilder().setPlatformDescriptor(QuarkusExtensionCatalog.descriptor).build()
+        if (!QuarkusPlatformConfig.hasGlobalDefault()) {
+            QuarkusPlatformConfig.defaultConfigBuilder().setPlatformDescriptor(QuarkusExtensionCatalog.descriptor).build()
+        }
         val baos = ByteArrayOutputStream()
         baos.use {
             val zipWriter = CommonsZipProjectWriter.createWriter(baos, project.artifactId)
@@ -31,18 +33,18 @@ open class QuarkusProjectCreator {
                 val sourceType = CreateProject.determineSourceType(project.extensions)
                 val context = mutableMapOf("path" to (project.path as Any))
                 val success = CreateProject(zipWriter)
-                    .groupId(project.groupId)
-                    .artifactId(project.artifactId)
-                    .version(project.version)
-                    .sourceType(sourceType)
-                    .buildTool(BuildTool.MAVEN)
-                    .className(project.className)
-                    .doCreateProject(context)
+                        .groupId(project.groupId)
+                        .artifactId(project.artifactId)
+                        .version(project.version)
+                        .sourceType(sourceType)
+                        .buildTool(BuildTool.MAVEN)
+                        .className(project.className)
+                        .doCreateProject(context)
                 if (!success) {
                     throw IOException("Error during Quarkus project creation")
                 }
                 AddExtensions(zipWriter, BuildTool.MAVEN)
-                    .addExtensions(project.extensions)
+                        .addExtensions(project.extensions)
                 this.addMvnw(zipWriter)
             }
         }
@@ -62,9 +64,9 @@ open class QuarkusProjectCreator {
         if (!zipWrite.exists(filePath)) {
             val resourcePath = "$RESOURCES_DIR/$filePath"
             val resource = QuarkusProjectCreator::class.java.getResource(resourcePath)
-                ?: throw IOException("missing resource $resourcePath")
+                    ?: throw IOException("missing resource $resourcePath")
             val fileAsBytes =
-                resource.readBytes()
+                    resource.readBytes()
             zipWrite.write(filePath, fileAsBytes, allowExec)
         }
     }
