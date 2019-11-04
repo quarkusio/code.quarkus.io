@@ -29,7 +29,7 @@ You can check deployed commit hash on: https://stage.code.quarkus.io/api/config
 
 # To update the Quarkus version (after a new Quarkus release)
 
-1. Edit the `pom.xml` with the new **Quarkus** & ** compatible Quarkus Platform version**: 
+1. Edit the `pom.xml` with the new **Quarkus** & **compatible Quarkus Platform version**: 
 ```
     <!-- Quarkus version is used for bundling Code Quarkus -->
     <version.quarkus>x.y.z</version.quarkus>
