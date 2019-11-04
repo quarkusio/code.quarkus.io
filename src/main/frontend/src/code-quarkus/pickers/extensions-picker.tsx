@@ -1,12 +1,13 @@
 import { Button, FormGroup, TextInput, Tooltip } from "@patternfly/react-core";
-import { CheckSquareIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon, SquareIcon } from "@patternfly/react-icons";
-import React, { useState } from "react";
-import { useHotkeys } from 'react-hotkeys-hook';
+import { CheckSquareIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon } from "@patternfly/react-icons";
+import classNames from 'classnames';
 import hotkeys from 'hotkeys-js';
+import React, { useState, KeyboardEvent } from "react";
+import { useHotkeys } from 'react-hotkeys-hook';
 import { InputProps, useAnalytics } from '../../core';
 import { CopyToClipboard } from '../copy-to-clipboard';
-import { processEntries } from './extensions-picker-helpers';
 import { QuarkusBlurb } from '../quarkus-blurb';
+import { processEntries } from './extensions-picker-helpers';
 import './extensions-picker.scss';
 
 
@@ -33,62 +34,56 @@ interface ExtensionsPickerProps extends InputProps<ExtensionsPickerValue> {
 
 interface ExtensionProps extends ExtensionEntry {
   selected: boolean;
-  actived: boolean;
+  keyboardActived: boolean;
   detailed?: boolean;
   default: boolean;
   onClick(id: string): void;
 }
 
 function Extension(props: ExtensionProps) {
-  const [active, setActive] = useState(false);
-  const activate = () => setActive(true);
-  const desactivate = () => setActive(false);
+  const [hover, setHover] = useState(false);
   const onClick = () => {
-    if(props.default) {
+    if (props.default) {
       return;
     }
     props.onClick(props.id);
-    setActive(false);
+    setHover(false);
   };
 
   const activationEvents = {
     onClick,
-    onMouseEnter: activate,
-    onMouseLeave: desactivate,
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => setHover(false),
   };
 
   const description = props.description || '...';
   const descTooltip = props.default ? <div><b>{props.name}</b><p>{description}<i>(This extension is included by default)</i></p></div> : <div><b>{props.name}</b><p>{description}</p></div>;
   let tooltip = props.detailed && !props.default ?
     <div>{props.selected ? 'Remove' : 'Add'} the extension <b>{props.name}</b></div> : descTooltip;
-  
+
   const addMvnExt = `./mvnw quarkus:add-extension -Dextensions="${props.id}"`;
   const selected = props.selected || props.default;
   return (
-    <div className={`${active ? 'active' : ''} ${props.selected ? 'selected' : ''} extension-item ${props.default ? 'readonly' : ''}`}>
+    <div {...activationEvents} className={classNames('extension-item', { 'keyboard-actived': props.keyboardActived, hover, selected, readonly: props.default })}>
       {props.detailed && (
         <div
           className="extension-selector"
-          {...activationEvents}
           aria-label={`Switch ${props.id} extension`}
         >
-          {!selected && !(active || props.actived ) && <OutlinedSquareIcon />}
-          {(active || selected) && <CheckSquareIcon />}
-          {props.actived && !selected && !active && <SquareIcon />}
+          {!selected && !(hover) && <OutlinedSquareIcon />}
+          {(hover || selected) && <CheckSquareIcon />}
         </div>
       )}
       <Tooltip position="bottom" content={tooltip} exitDelay={0} zIndex={100}>
         <div
           className="extension-name"
-          {...activationEvents}
         >{props.name}</div>
       </Tooltip>
       {!props.detailed && (
         <div
           className="extension-remove"
-          {...activationEvents}
         >
-          {active && props.selected && <TrashAltIcon />}
+          {hover && props.selected && <TrashAltIcon />}
         </div>
       )}
       {props.detailed && (
@@ -96,12 +91,9 @@ function Extension(props: ExtensionProps) {
           <Tooltip position="bottom" content={descTooltip} exitDelay={0} zIndex={100}>
             <div
               className="extension-description"
-              {...activationEvents}
             >{description}</div>
           </Tooltip>
-          <Tooltip position="left" maxWidth="650px" content={<span>Copy mvn command to clipboard: <br /><code>$ {addMvnExt}</code></span>} exitDelay={0} zIndex={100}>
-            <div className="extension-gav"><CopyToClipboard eventId="Add-Extension-Command" content={addMvnExt} /></div>
-          </Tooltip>
+          <div className="extension-gav"><CopyToClipboard eventId="Add-Extension-Command" content={addMvnExt} tooltipPosition="left" /></div>
         </div>
       )}
     </div>
@@ -117,12 +109,24 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const entrySet = new Set(extensions);
   const entriesById: Map<String, ExtensionEntry> = new Map(props.entries.map(item => [item.id, item]));
 
-  hotkeys.filter = () => true
+  hotkeys.filter = (e) => {
+    const el = (e.target || e.srcElement) as any | undefined;
+    if (!el) {
+      return true;
+    }
+    var tagName = el && el.tagName;
+    return el.id === 'extension-search' || !(tagName === 'INPUT' || tagName === 'SELECT' || tagName === 'TEXTAREA');
+  };
+  const result = processEntries(filter, props.entries);
 
-  const add = (id: string) => {
+  const add = (index: number) => {
+    const id = result[index].id
     entrySet.add(id);
     props.onChange({ extensions: Array.from(entrySet) });
     analytics.event('Picker', 'Add-Extension', id);
+    if(keyboardActived >= 0) {
+      setKeyBoardActived(index);
+    } 
   };
 
   const remove = (id: string) => {
@@ -130,7 +134,11 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     props.onChange({ extensions: Array.from(entrySet) });
     analytics.event('Picker', 'Remove-Extension', id)
   };
-
+  const onSearchKeyDown = (e: KeyboardEvent) => {
+    if (e.which === 38 || e.which === 40) {
+      e.preventDefault();
+    }
+  };
   const search = (f: string) => {
     if (!hasSearched) {
       analytics.event('Picker', 'Search-Extension')
@@ -140,22 +148,25 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     setFilter(f);
   }
 
-  const flip = (id: string) => {
-    if(entrySet.has(id)) {
-      remove(id);
+  const flip = (index: number) => {
+    if(!result[index]) {
+      return;
+    }
+    if (entrySet.has(result[index].id)) {
+      remove(result[index].id);
     } else {
-      add(id);
+      add(index);
     }
   }
 
-  const result = processEntries(filter, props.entries);
+
 
   useHotkeys('up', () => setKeyBoardActived(Math.max(0, keyboardActived - 1)), [keyboardActived]);
   useHotkeys('down', () => setKeyBoardActived(Math.min(result.length - 1, keyboardActived + 1)), [result, keyboardActived]);
   useHotkeys('space', (event) => {
-    if(keyboardActived > 0) {
+    if (keyboardActived > 0) {
       event.preventDefault();
-      flip(result[keyboardActived].id);
+      flip(keyboardActived);
     }
   }, [result, keyboardActived]);
 
@@ -173,6 +184,8 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
           >
             <SearchIcon />
             <TextInput
+              id="extension-search"
+              onKeyDown={onSearchKeyDown}
               aria-label="Search extensions"
               placeholder={props.placeholder}
               className="search-extensions-input"
@@ -188,10 +201,10 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
               extensions.map((ex, i) => (
                 <Extension
                   selected={entrySet.has(ex)}
-                  actived={i === keyboardActived}
+                  keyboardActived={i === keyboardActived}
                   {...entriesById.get(ex)!}
                   key={i}
-                  onClick={() => flip(ex)}
+                  onClick={() => remove(ex)}
                 />
               ))
             }
@@ -210,10 +223,10 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
             const ext = (
               <Extension
                 selected={entrySet.has(ex.id)}
-                actived={i === keyboardActived}
+                keyboardActived={i === keyboardActived}
                 {...ex}
                 key={i}
-                onClick={() => flip(ex.id)}
+                onClick={() => flip(i)}
                 detailed
               />
             );

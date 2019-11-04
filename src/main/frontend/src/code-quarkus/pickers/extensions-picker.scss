@@ -2,57 +2,12 @@
   display: flex;
   color: white;
 
-  .control-container {
-    flex: 0 0 350px;
-
-    .pf-c-form__group {
-      svg {
-        margin: 0 10px;
-      }
-    }
-
-    input.pf-c-form-control {
-      border: 1px solid #9aff2d;
-      padding-left: 40px;
-      margin-left: -40px;
-      font-size: 14px;
-      width: 100%;
-      background: transparent;
-      color: white;
-      font-family: "PT Mono", Regular;
-      padding-bottom: 4px;
-    }
-
-    input.pf-c-form-control:focus {
-      outline: none;
-      border: 1px solid #4695eb;
-    }
-
-    h4 {
-      border-bottom: 1px solid #ff004a;
-      font-weight: bold;
-      margin-top: 40px;
-      margin-bottom: 20px;
-    }
-    .extension-list {
-      display: grid;
-      grid-template-columns: auto 30px;
-      .extension-item {
-        cursor: pointer;
-        display: contents;
-      }
-    }
-  }
-
   .extension-item {
+    display: flex;
+    width: 100%;
     cursor: pointer;
-
     svg {
       pointer-events: none;
-    }
-
-    .extension-selector {
-      color: #fff;
     }
 
     &.selected {
@@ -61,7 +16,7 @@
       }
     }
 
-    &.active.selected {
+    &.hover.selected {
       .extension-selector {
         color: #fff;
       }
@@ -117,65 +72,118 @@
       }
     }
   }
-}
 
-.result-container {
-  margin-left: 30px;
-  flex-grow: 1;
+  .list-container {
+    .extension-category {
+      border-bottom: 1px solid #4695eb;
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin: 10px 0 5px 0;
+      height: 30px;
+    }
 
-  @media screen and (max-width: 900px) {
-    margin: 5px;
-  }
+    .extension-category:first-child {
+      margin: 0 0 5px 0;
+    }
 
-  .extension-search-clear {
-    border-bottom: 1px solid #4695eb;
-    font-weight: bold;
-    font-size: 1.1rem;
-    margin: 0 0 5px 0;
-    height: 30px;
-    .pf-c-button.pf-m-link {
-      color: #ff004a;
-      padding: 0 3px;
+    .extension-item {
+      height: 30px;
+      color: white;
+
+      & > div {
+        margin: 0 10px;
+      }
+
+      &.keyboard-actived {
+        color: #4695eb;
+      }
+
+      .extension-selector {
+        flex-basis: 30px;
+      }
+      .extension-description {
+        flex: 1;
+      }
+
+      .extension-name {
+        flex-basis: 300px;
+
+        @media screen and (max-width: 900px) {
+          flex-basis: 150px;
+        }
+
+        @media screen and (max-width: 1200px) {
+          flex-basis: 200px;
+        }
+      }
+
+      .extension-gav {
+        flex-basis: 30px;
+        color: white;
+      }
+
+      &.readonly {
+        cursor: initial;
+      }
     }
   }
-}
 
-.list-container {
-  display: grid;
-  grid-template-columns: 30px 300px auto 30px;
+  .control-container {
+    flex: 0 0 350px;
 
-  @media screen and (max-width: 900px) {
-    grid-template-columns: 150px auto;
+    .pf-c-form__group {
+      svg {
+        margin: 0 10px;
+      }
+    }
+
+    input.pf-c-form-control {
+      border: 1px solid #9aff2d;
+      padding-left: 40px;
+      margin-left: -40px;
+      font-size: 14px;
+      width: 100%;
+      background: transparent;
+      color: white;
+      font-family: "PT Mono", Regular;
+      padding-bottom: 4px;
+    }
+
+    input.pf-c-form-control:focus {
+      outline: none;
+      border: 1px solid #4695eb;
+    }
+
+    h4 {
+      border-bottom: 1px solid #ff004a;
+      font-weight: bold;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+    .extension-name {
+      flex-grow: 1;
+    }
   }
 
-  .extension-category {
-    grid-column: 1 / span 4;
-    border-bottom: 1px solid #4695eb;
-    font-weight: bold;
-    font-size: 1.1rem;
-    margin: 10px 0 5px 0;
-    height: 30px;
+  .result-container {
+    margin-left: 30px;
+    flex-grow: 1;
+    overflow: hidden;
 
     @media screen and (max-width: 900px) {
-      grid-column: 1 / span 2;
-    }
-  }
-
-  .extension-category:first-child {
-    margin: 0 0 5px 0;
-  }
-
-  .extension-item {
-    cursor: pointer;
-    color: white;
-    display: contents;
-
-    & > div {
-      margin: 0 10px;
+      margin: 5px;
     }
 
-    &.readonly {
-      cursor: initial;
+    .extension-search-clear {
+      border-bottom: 1px solid #4695eb;
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin: 0 0 5px 0;
+      height: 30px;
+      .pf-c-button.pf-m-link {
+        color: #ff004a;
+        padding: 0 3px;
+      }
     }
   }
 }
@@ -213,6 +221,7 @@
       width: 300px;
     }
     .extension-details {
+      width: 100%;
       .extension-description {
         display: inline;
       }
@@ -224,4 +233,4 @@
       margin: 0;
     }
   }
-}
+} 

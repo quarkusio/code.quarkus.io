@@ -38,6 +38,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
           aria-invalid="false"
           aria-label="Search extensions"
           class="pf-c-form-control search-extensions-input"
+          id="extension-search"
           placeholder=""
           type="text"
           value=""
@@ -167,7 +168,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             Core
           </div>
           <div
-            class="  extension-item "
+            class="extension-item"
           >
             <div
               aria-label="Switch io.quarkus:quarkus-arc extension"
@@ -205,11 +206,11 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
               </div>
               <div
                 class="extension-gav"
-                tabindex="0"
               >
                 <div
                   class="copy-to-clipboard"
                   style="cursor: pointer;"
+                  tabindex="0"
                 >
                   <svg
                     aria-hidden="true"
@@ -239,7 +240,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             Cloud
           </div>
           <div
-            class="  extension-item "
+            class="extension-item"
           >
             <div
               aria-label="Switch some-id extension"
@@ -277,11 +278,11 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
               </div>
               <div
                 class="extension-gav"
-                tabindex="0"
               >
                 <div
                   class="copy-to-clipboard"
                   style="cursor: pointer;"
+                  tabindex="0"
                 >
                   <svg
                     aria-hidden="true"
@@ -311,7 +312,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             Integration
           </div>
           <div
-            class="  extension-item "
+            class="extension-item"
           >
             <div
               aria-label="Switch io.quarkus:quarkus-camel-netty4-http extension"
@@ -349,11 +350,11 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
               </div>
               <div
                 class="extension-gav"
-                tabindex="0"
               >
                 <div
                   class="copy-to-clipboard"
                   style="cursor: pointer;"
+                  tabindex="0"
                 >
                   <svg
                     aria-hidden="true"
@@ -418,6 +419,7 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           aria-invalid="false"
           aria-label="Search extensions"
           class="pf-c-form-control search-extensions-input"
+          id="extension-search"
           placeholder=""
           type="text"
           value="netty"
@@ -551,7 +553,7 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
         class="list-container"
       >
         <div
-          class="  extension-item "
+          class="extension-item"
         >
           <div
             aria-label="Switch io.quarkus:quarkus-camel-netty4-http extension"
@@ -589,11 +591,11 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
             </div>
             <div
               class="extension-gav"
-              tabindex="0"
             >
               <div
                 class="copy-to-clipboard"
                 style="cursor: pointer;"
+                tabindex="0"
               >
                 <svg
                   aria-hidden="true"
@@ -657,6 +659,7 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           aria-invalid="false"
           aria-label="Search extensions"
           class="pf-c-form-control search-extensions-input"
+          id="extension-search"
           placeholder=""
           type="text"
           value="CDI"
@@ -790,7 +793,7 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
         class="list-container"
       >
         <div
-          class="  extension-item "
+          class="extension-item"
         >
           <div
             aria-label="Switch io.quarkus:quarkus-arc extension"
@@ -828,11 +831,11 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
             </div>
             <div
               class="extension-gav"
-              tabindex="0"
             >
               <div
                 class="copy-to-clipboard"
                 style="cursor: pointer;"
+                tabindex="0"
               >
                 <svg
                   aria-hidden="true"
@@ -853,7 +856,7 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           </div>
         </div>
         <div
-          class="  extension-item "
+          class="extension-item"
         >
           <div
             aria-label="Switch some-id extension"
@@ -891,11 +894,11 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
             </div>
             <div
               class="extension-gav"
-              tabindex="0"
             >
               <div
                 class="copy-to-clipboard"
                 style="cursor: pointer;"
+                tabindex="0"
               >
                 <svg
                   aria-hidden="true"
