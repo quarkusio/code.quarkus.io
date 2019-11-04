@@ -17,6 +17,7 @@ open class QuarkusExtensionCatalog {
 
         @JvmStatic
         val descriptor = QuarkusJsonPlatformDescriptorResolver.newInstance().resolveFromBom("io.quarkus", "quarkus-universe-bom", platformVersion)
+
     }
 
     lateinit var extensions: List<CodeQuarkusExtension>

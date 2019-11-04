@@ -14,13 +14,8 @@ open class CodeQuarkusConfigManager {
         const val PATH_PATTERN = "^\\/([a-z0-9\\-._~%!\$&'()*+,;=:@]+\\/?)*\$"
     }
 
-    @ConfigProperty(name = "io.quarkus.code.quarkus-version")
-    lateinit var quarkusVersion: String
-        private set
 
-    @ConfigProperty(name = "io.quarkus.code.quarkus-platform-version")
-    lateinit var quarkusPlatformVersion: String
-        private set
+    val quarkusVersion = QuarkusExtensionCatalog.descriptor.quarkusVersion
 
     @ConfigProperty(name = "io.quarkus.code.git-commit-id", defaultValue = "test")
     var gitCommitId: String? = null
