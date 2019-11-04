@@ -32,8 +32,6 @@ class CodeQuarkusResource {
     @Inject
     lateinit var projectCreator: QuarkusProjectCreator
 
-    lateinit var extensions: ByteArray
-
     @GET
     @Path("/config")
     @Produces(APPLICATION_JSON)
