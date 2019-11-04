@@ -17,7 +17,12 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <version.frontend-maven-plugin>1.7.6</version.frontend-maven-plugin>
     <version.commons-compress>1.19</version.commons-compress>
-    <version.quarkus>0.27.0</version.quarkus>
+
+    <!-- Quarkus version is used for bundling Code Quarkus -->
+    <version.quarkus>0.28.0</version.quarkus>
+
+    <!-- Quarkus Platform version must be compatible with Quarkus version -->
+    <version.quarkus-platform>0.0.6</version.quarkus-platform>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -55,6 +60,11 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-platform-descriptor-json</artifactId>
+      <version>${version.quarkus}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-platform-descriptor-resolver-json</artifactId>
       <version>${version.quarkus}</version>
     </dependency>
     <dependency>

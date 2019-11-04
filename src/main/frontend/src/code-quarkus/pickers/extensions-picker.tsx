@@ -124,7 +124,9 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     entrySet.add(id);
     props.onChange({ extensions: Array.from(entrySet) });
     analytics.event('Picker', 'Add-Extension', id);
-    setKeyBoardActived(index);
+    if(keyboardActived >= 0) {
+      setKeyBoardActived(index);
+    } 
   };
 
   const remove = (id: string) => {

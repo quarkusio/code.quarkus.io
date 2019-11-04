@@ -17,6 +17,8 @@ import java.util.ArrayList
 import java.util.function.Function
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*
+import java.io.IOException
+import java.io.InputStream
 
 internal class QuarkusExtensionCatalogTest {
 
@@ -69,47 +71,42 @@ internal class QuarkusExtensionCatalogTest {
 
     internal fun getTestDescriptor(): QuarkusJsonPlatformDescriptor {
         val qpd = QuarkusJsonPlatformDescriptorLoaderImpl()
-        val context = object : QuarkusJsonPlatformDescriptorLoaderContext {
-            internal var mw: MessageWriter = DefaultMessageWriter()
 
-            override fun getMessageWriter(): MessageWriter {
-                return mw
+        val artifactResolver = object : ArtifactResolver {
+
+            override fun <T> process(groupId: String, artifactId: String, classifier: String, type: String, version: String,
+                                     processor: Function<Path, T>): T {
+                throw UnsupportedOperationException()
             }
 
-            override fun getArtifactResolver(): ArtifactResolver {
-                return object : ArtifactResolver {
-
-                    override fun getManagedDependencies(groupId: String, artifactId: String,
-                                                        version: String): List<Dependency> {
-                        val lx = ArrayList<Dependency>()
-
-                        val core = Dependency()
-                        core.artifactId = "quarkus-core"
-                        core.groupId = "io.quarkus"
-                        core.version = "I don't care!"
-                        lx.add(core)
-                        return lx
-                    }
-
-                    override fun <T> process(groupId: String, artifactId: String, classifier: String, type: String,
-                                             version: String, processor: Function<Path, T>): T? {
-                        // TODO Auto-generated method stub
-                        return null
-                    }
-                }
-
-            }
-
-            override fun <T> parseJson(parser: Function<Path, T>): T {
-                val resourceName = "fakeextensions.json"
-
-                val classLoader = javaClass.classLoader
-                val file = File(classLoader.getResource(resourceName)!!.file)
-
-                return parser.apply(file.toPath())
+            override fun getManagedDependencies(groupId: String, artifactId: String, classifier: String?,
+                                                type: String, version: String): List<Dependency> {
+                return emptyList()
             }
         }
+
+        val context = object : QuarkusJsonPlatformDescriptorLoaderContext(artifactResolver) {
+            override fun <T> parseJson(parser: Function<InputStream, T>): T {
+                val resourceName = "fakeextensions.json"
+
+                val `is` = javaClass.classLoader.getResourceAsStream(resourceName)
+                        ?: throw IllegalStateException("Failed to locate $resourceName on the classpath")
+
+                try {
+                    return parser.apply(`is`)
+                } finally {
+                    try {
+                        `is`.close()
+                    } catch (e: IOException) {
+                    }
+
+                }
+            }
+
+        }
+
         val load = qpd.load(context)
+
         assertNotNull(load)
         return load
     }

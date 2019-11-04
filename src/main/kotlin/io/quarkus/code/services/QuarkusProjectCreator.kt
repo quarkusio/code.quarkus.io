@@ -5,6 +5,7 @@ import io.quarkus.cli.commands.CreateProject
 import io.quarkus.code.model.QuarkusProject
 import io.quarkus.code.writer.CommonsZipProjectWriter
 import io.quarkus.generators.BuildTool
+import io.quarkus.platform.tools.config.QuarkusPlatformConfig
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import javax.inject.Singleton
@@ -22,11 +23,11 @@ open class QuarkusProjectCreator {
     }
 
     open fun create(project: QuarkusProject): ByteArray {
+        QuarkusPlatformConfig.defaultConfigBuilder().setPlatformDescriptor(QuarkusExtensionCatalog.descriptor).build()
         val baos = ByteArrayOutputStream()
         baos.use {
             val zipWriter = CommonsZipProjectWriter.createWriter(baos, project.artifactId)
             zipWriter.use {
-                //FIXME use Quarkus CreateProject when updating version (remove duplication)
                 val sourceType = CreateProject.determineSourceType(project.extensions)
                 val context = mutableMapOf("path" to (project.path as Any))
                 val success = CreateProject(zipWriter)

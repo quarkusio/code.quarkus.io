@@ -1,6 +1,7 @@
 package io.quarkus.code.services
 
 import io.quarkus.code.model.Config
+import io.quarkus.code.services.QuarkusExtensionCatalog.Companion.bundledQuarkusVersion
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import javax.inject.Singleton
 
@@ -14,9 +15,7 @@ open class CodeQuarkusConfigManager {
         const val PATH_PATTERN = "^\\/([a-z0-9\\-._~%!\$&'()*+,;=:@]+\\/?)*\$"
     }
 
-    @ConfigProperty(name = "io.quarkus.code.quarkus-version")
-    lateinit var quarkusVersion: String
-        private set
+    val quarkusVersion = bundledQuarkusVersion
 
     @ConfigProperty(name = "io.quarkus.code.git-commit-id", defaultValue = "test")
     var gitCommitId: String? = null

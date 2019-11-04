@@ -3,6 +3,11 @@
 dev:
 	./mvnw compile quarkus:dev
 
+#make debug
+.PHONY: debug
+debug:
+	./mvnw compile quarkus:dev -Ddebug -Dsuspend
+
 #make clean
 .PHONY: clean
 clean:
@@ -22,8 +27,3 @@ ext-add:
 .PHONY: ext-list
 ext-list:
 	./mvnw quarkus:list-extensions
-
-#make ext-add VERSION=0.22.0
-.PHONY: update-ext
-update-ext:
-	yarn --cwd ./extensions start $(VERSION)
