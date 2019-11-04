@@ -1,8 +1,9 @@
 package io.quarkus.code.services
 
 import io.quarkus.code.model.CodeQuarkusExtension
-import io.quarkus.platform.tools.config.QuarkusPlatformConfig
+import io.quarkus.platform.descriptor.resolver.json.QuarkusJsonPlatformDescriptorResolver
 import io.quarkus.runtime.StartupEvent
+import org.eclipse.microprofile.config.spi.ConfigProviderResolver
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.enterprise.event.Observes
 import javax.inject.Singleton
@@ -12,7 +13,10 @@ open class QuarkusExtensionCatalog {
 
     companion object {
         @JvmStatic
-        val descriptor = QuarkusPlatformConfig.getGlobalDefault().platformDescriptor
+        val platformVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-platform-version", String::class.java)
+
+        @JvmStatic
+        val descriptor = QuarkusJsonPlatformDescriptorResolver.newInstance().resolveFromBom("io.quarkus", "quarkus-universe-bom", platformVersion)
     }
 
     lateinit var extensions: List<CodeQuarkusExtension>

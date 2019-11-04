@@ -18,6 +18,10 @@ open class CodeQuarkusConfigManager {
     lateinit var quarkusVersion: String
         private set
 
+    @ConfigProperty(name = "io.quarkus.code.quarkus-platform-version")
+    lateinit var quarkusPlatformVersion: String
+        private set
+
     @ConfigProperty(name = "io.quarkus.code.git-commit-id", defaultValue = "test")
     var gitCommitId: String? = null
         private set
