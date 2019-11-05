@@ -141,7 +141,7 @@
             <id>install node and yarn - pre</id>
             <phase>pre-clean</phase>
             <goals>
-              <goal>yarn</goal>
+              <goal>install-node-and-yarn</goal>
             </goals>
           </execution>
           <execution>
@@ -153,6 +153,7 @@
           </execution>
           <execution>
             <id>yarn install</id>
+            <phase>pre-clean</phase>
             <goals>
               <goal>yarn</goal>
             </goals>
