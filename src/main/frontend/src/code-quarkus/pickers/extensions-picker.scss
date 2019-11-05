@@ -52,7 +52,7 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-weight: bold;
       height: 24px;
     }
@@ -61,9 +61,9 @@
       font-size: 0.6rem;
       line-height: 24px;
       margin: 3px 5px;
-      padding: 0 5px;
+      padding: 0 3px;
       border: 1px solid $highlight;
-      background-color: #152B43;
+      background-color: #152b43;
     }
 
     .extension-details {
@@ -75,6 +75,10 @@
       white-space: nowrap;
       overflow: hidden;
       font-size: 0.8rem;
+
+      @media screen and (max-width: 1200px) {
+        display: none;
+      }
     }
 
     .extension-gav {
@@ -125,14 +129,10 @@
       }
 
       .extension-summary {
-        flex-basis: 300px;
-
-        @media screen and (max-width: 900px) {
-          flex-basis: 150px;
-        }
+        flex-basis: 350px;
 
         @media screen and (max-width: 1200px) {
-          flex-basis: 200px;
+          flex-grow: 1;
         }
       }
 

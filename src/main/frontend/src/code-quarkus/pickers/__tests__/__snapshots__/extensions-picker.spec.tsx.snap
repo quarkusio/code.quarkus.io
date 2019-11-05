@@ -173,6 +173,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             <div
               aria-label="Switch io.quarkus:quarkus-arc extension"
               class="extension-selector"
+              tabindex="0"
             >
               <svg
                 aria-hidden="true"
@@ -249,6 +250,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             <div
               aria-label="Switch some-id extension"
               class="extension-selector"
+              tabindex="0"
             >
               <svg
                 aria-hidden="true"
@@ -325,6 +327,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             <div
               aria-label="Switch io.quarkus:quarkus-camel-netty4-http extension"
               class="extension-selector"
+              tabindex="0"
             >
               <svg
                 aria-hidden="true"
@@ -570,6 +573,7 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           <div
             aria-label="Switch io.quarkus:quarkus-camel-netty4-http extension"
             class="extension-selector"
+            tabindex="0"
           >
             <svg
               aria-hidden="true"
@@ -814,6 +818,7 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           <div
             aria-label="Switch io.quarkus:quarkus-arc extension"
             class="extension-selector"
+            tabindex="0"
           >
             <svg
               aria-hidden="true"
@@ -881,6 +886,7 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           <div
             aria-label="Switch some-id extension"
             class="extension-selector"
+            tabindex="0"
           >
             <svg
               aria-hidden="true"

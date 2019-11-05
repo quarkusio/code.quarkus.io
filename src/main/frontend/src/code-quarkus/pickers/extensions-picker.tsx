@@ -78,17 +78,19 @@ function Extension(props: ExtensionProps) {
         </div>
       )}
       {props.detailed && (
-        <div
-          className="extension-selector"
-          aria-label={`Switch ${props.id} extension`}
-        >
-          {!selected && !(hover) && <OutlinedSquareIcon />}
-          {(hover || selected) && <CheckSquareIcon />}
-        </div>
+        <Tooltip position="bottom" content={tooltip} exitDelay={0} zIndex={100}>
+          <div
+            className="extension-selector"
+            aria-label={`Switch ${props.id} extension`}
+          >
+            {!selected && !(hover) && <OutlinedSquareIcon />}
+            {(hover || selected) && <CheckSquareIcon />}
+          </div>
+        </Tooltip>
       )}
 
       <div className="extension-summary">
-        <Tooltip position="bottom" content={tooltip} exitDelay={0} zIndex={100}>
+        <Tooltip position="bottom" content={descTooltip} exitDelay={0} zIndex={100}>
           <span
             className="extension-name"
           >{props.name}</span>
