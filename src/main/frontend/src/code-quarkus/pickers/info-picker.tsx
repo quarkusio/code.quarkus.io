@@ -114,7 +114,7 @@ export const InfoPicker = (props: InfoPickerProps) => {
               isValid={isValidGroupId(value.packageName || value.groupId)}
             />
 
-            <Tooltip position="right" content={`You may change the Quarkus Version after generation in the ${configFileName}. Just be cautious with extension compatibily.`} exitDelay={0} zIndex={200}>
+            <Tooltip position="right" content={`You may change the Quarkus Version after generation in the ${configFileName}. Just be cautious with extension compatibility.`} exitDelay={0} zIndex={200}>
               <ExtendedTextInput
                 label="Quarkus Version"
                 isRequired
