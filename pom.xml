@@ -138,8 +138,15 @@
         <version>${version.frontend-maven-plugin}</version>
         <executions>
           <execution>
-            <id>install node and yarn</id>
+            <id>install node and yarn - pre</id>
             <phase>pre-clean</phase>
+            <goals>
+              <goal>install-node-and-yarn</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>install node and yarn</id>
+            <phase>generate-resources</phase>
             <goals>
               <goal>install-node-and-yarn</goal>
             </goals>
