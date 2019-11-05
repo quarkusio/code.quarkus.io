@@ -3,8 +3,8 @@
 .header {
   height: 70px;
   background-image: url("/bg-header.jpg");
-  background-size: 1920px 70px;
-  background-repeat: no-repeat;
+  background-size: 100% 70px;
+  background-repeat: repeat-x;
 
   .header-content {
     grid-column: span 12;
