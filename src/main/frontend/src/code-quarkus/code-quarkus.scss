@@ -68,13 +68,13 @@ body {
 .next-steps-modal {
   background-color: $background;
   color: $main;
-  border: 4px solid $secondary;
+  border: 4px solid $highlight;
   .pf-c-content {
     color: $main;
 
     .pf-c-button.pf-m-link {
       padding: 0;
-      color: $secondary;
+      color: $highlight;
     }
   }
   .pf-c-title {
@@ -83,7 +83,7 @@ body {
   }
 
   & > .pf-c-button {
-    background-color: $secondary;
+    background-color: $highlight;
     height: 25px;
     width: 25px;
     line-height: 25px;
@@ -111,7 +111,7 @@ body {
   }
 
   .download-button {
-    background-color: $secondary;
+    background-color: $highlight;
     border-radius: 0;
     text-transform: uppercase;
     width: 200px;
@@ -123,14 +123,14 @@ body {
   .pf-c-modal-box__footer {
     button.pf-c-button {
       background-color: $main;
-      color: $secondary;
+      color: $highlight;
       border-radius: 0;
       border: 1px solid $main;
     }
 
     button.pf-c-button:hover {
-      border: 1px solid $secondary;
-      color: $secondary;
+      border: 1px solid $highlight;
+      color: $highlight;
     }
 
     button.pf-c-button::after {
