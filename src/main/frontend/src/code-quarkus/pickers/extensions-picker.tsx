@@ -18,7 +18,8 @@ export interface ExtensionEntry {
   shortName?: string;
   category: string;
   order: number,
-  default: boolean
+  default: boolean,
+  status: string
 }
 
 export interface ExtensionsPickerValue {
@@ -69,6 +70,13 @@ function Extension(props: ExtensionProps) {
   const addExtCmd = buildTool === 'GRADLE' ? addGradleExt : addMvnExt;
   return (
     <div {...activationEvents} className={classNames('extension-item', { 'keyboard-actived': props.keyboardActived, hover, selected, readonly: props.default })}>
+      {!props.detailed && (
+        <div
+          className="extension-remove"
+        >
+          {hover && props.selected && <TrashAltIcon />}
+        </div>
+      )}
       {props.detailed && (
         <div
           className="extension-selector"
@@ -78,18 +86,18 @@ function Extension(props: ExtensionProps) {
           {(hover || selected) && <CheckSquareIcon />}
         </div>
       )}
-      <Tooltip position="bottom" content={tooltip} exitDelay={0} zIndex={100}>
-        <div
-          className="extension-name"
-        >{props.name}</div>
-      </Tooltip>
-      {!props.detailed && (
-        <div
-          className="extension-remove"
-        >
-          {hover && props.selected && <TrashAltIcon />}
-        </div>
-      )}
+
+      <div className="extension-summary">
+        <Tooltip position="bottom" content={tooltip} exitDelay={0} zIndex={100}>
+          <span
+            className="extension-name"
+          >{props.name}</span>
+        </Tooltip>
+        {props.status === 'preview' && <Tooltip position="right" content="This is work in progress. API or configuration properties might change as the extension matures. Give us your feedback :)" exitDelay={0} zIndex={100}><span
+          className="extension-status"
+        >PREVIEW</span></Tooltip>}
+      </div>
+
       {props.detailed && (
         <div className="extension-details">
           <Tooltip position="bottom" content={descTooltip} exitDelay={0} zIndex={100}>
@@ -128,7 +136,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     entrySet.add(id);
     props.onChange({ extensions: Array.from(entrySet) });
     analytics.event('Picker', 'Add-Extension', id);
-    if(keyboardActived >= 0) {
+    if (keyboardActived >= 0) {
       setKeyBoardActived(index);
     }
   };
@@ -153,7 +161,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   }
 
   const flip = (index: number) => {
-    if(!result[index] || result[index].default) {
+    if (!result[index] || result[index].default) {
       return;
     }
     if (entrySet.has(result[index].id)) {

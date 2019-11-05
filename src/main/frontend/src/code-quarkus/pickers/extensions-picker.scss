@@ -7,6 +7,7 @@
   .extension-item {
     display: flex;
     width: 100%;
+    line-height: 30px;
     cursor: pointer;
     svg {
       pointer-events: none;
@@ -25,7 +26,9 @@
     }
 
     .extension-remove {
+      flex-basis: 25px;
       color: $secondary;
+      height: 30px;
     }
 
     & div:focus {
@@ -40,13 +43,27 @@
       }
     }
 
+    .extension-summary {
+      overflow: hidden;
+      display: flex;
+    }
     .extension-name {
+      flex-grow: 1;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
       font-size: 0.9rem;
       font-weight: bold;
       height: 24px;
+    }
+
+    .extension-status {
+      font-size: 0.6rem;
+      line-height: 24px;
+      margin: 3px 5px;
+      padding: 0 5px;
+      border: 1px solid $highlight;
+      background-color: #152B43;
     }
 
     .extension-details {
@@ -107,7 +124,7 @@
         flex: 1;
       }
 
-      .extension-name {
+      .extension-summary {
         flex-basis: 300px;
 
         @media screen and (max-width: 900px) {
@@ -162,7 +179,7 @@
       margin-top: 40px;
       margin-bottom: 20px;
     }
-    .extension-name {
+    .extension-summary {
       flex-grow: 1;
     }
   }
@@ -199,7 +216,7 @@
     display: table;
     .extension-item {
       display: table-row;
-      .extension-name {
+      .extension-summary {
         display: table-cell;
         width: 90%;
       }
@@ -218,7 +235,7 @@
       display: table-cell;
       width: 30px;
     }
-    .extension-name {
+    .extension-summary {
       display: table-cell;
       width: 300px;
     }
