@@ -30,7 +30,7 @@
         @media screen and (max-width: 900px) {
           width: 100%;
         }
-  
+
       }
     }
 
@@ -53,11 +53,18 @@
       a {
         color: #fff;
         padding: 0 10px;
+        text-decoration: none;
       }
-      a:hover,
+      a:hover {
+        border-bottom: 3px solid #fff;
+      }
       a.active {
         text-decoration: none;
-        border-bottom: 3px solid #fff;
+        background-color: white;
+        color: #0D1C2C;
+        &:hover {
+          border-bottom: 0;
+        }
       }
     }
   }
