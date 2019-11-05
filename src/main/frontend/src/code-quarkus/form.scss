@@ -1,3 +1,5 @@
+@import "config.scss";
+
 .code-quarkus-form {
   padding-bottom: 30px;
 
@@ -8,8 +10,8 @@
   .form-header-sticky-container {
     position: sticky;
     top: 0;
-    background-image: url("/quarkus_background_main.jpg");
-    background-size: 100% 100%;
+    background-image: url("/bg-form.jpg");
+    background-size: 1920px 220px;
     background-repeat: no-repeat;
     z-index: 110;
     .form-header {
@@ -23,7 +25,7 @@
   }
 
   .title h3 {
-    color: white;
+    color: $main;
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 20px;
@@ -50,13 +52,13 @@
     }
 
     .pf-c-button {
-      color: white;
+      color: $main;
       font-size: 14px;
       text-transform: uppercase;
       text-align: left;
       width: 233px;
       svg {
-        color: #ff004a;
+        color: $main;
       }
     }
   }
@@ -98,21 +100,22 @@
     justify-content: flex-end;
 
     button.generate-button {
-      background-color: #ff004a;
+      background-color: $highlight;
       border-radius: 0;
+      box-shadow: 0px 2px 2px #00000040;
       width: 280px;
       height: 36px;
       align-self: flex-end;
       text-align: center;
-      border: 1px solid #ff004a;
-      color: white;
+      border: 1px solid $highlight;
+      color: $main;
       &:hover {
-        border: 1px solid #ffffff;
+        border: 1px solid $main;
       }
 
-      &.pf-m-disabled {
-        background-color: rgba(255, 0, 72, 0.342);
-        border: 1px solid rgba(255, 0, 72, 0.342);
+      &:disabled {
+        background-color: rgba(90, 149, 235, 0.342);
+        border: 1px solid rgba(90, 149, 235, 0.342);
         color: rgba(255, 255, 255, 0.384);
       }
     }
@@ -123,7 +126,7 @@
       .pf-c-form__label {
         display: inline-block;
         width: 115px;
-        color: #9aff2d;
+        color: $primary;
         font-size: 14px;
         font-weight: bold;
         text-transform: capitalize;
@@ -134,11 +137,11 @@
         border: none;
         margin-left: -115px;
         padding-left: 115px;
-        border-bottom: 1px solid #9aff2d;
+        border-bottom: 1px solid $primary;
         font-size: 14px;
         width: 100%;
         background-color: transparent;
-        color: white;
+        color: $main;
         outline: none;
         font-family: "PT Mono", Regular;
         padding-bottom: 4px;
@@ -146,45 +149,45 @@
       }
 
       &.quarkus-version {
-        
+
         .pf-c-form__label {
-          color: #707070;
+          color: $readonly;
         }
         input.pf-c-form-control {
           cursor: not-allowed;
           padding-right: 82px;
           margin-right: -82px;
           color: #bdbcbc;
-          border-bottom: 1px solid #707070;
-          
+          border-bottom: 1px solid $readonly;
+
           &:focus {
-            border-bottom: 1px solid #707070;
+            border-bottom: 1px solid $readonly;
           }
         }
         &:after {
           content: "READ-ONLY";
           float: right;
-          color: #707070;
+          color: $readonly;
           font-size: 11px;
           padding: 2px;
           margin-top: 7px;
           margin-right: 5px;
-          border: 1px solid #707070;
+          border: 1px solid $readonly;
         }
       }
 
       select.pf-c-form-control {
-        --pf-c-form-control__select--Background: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath fill='%239AFF2D' d='M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z'/%3E%3C/svg%3E")
+        --pf-c-form-control__select--Background: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath fill='%2371aeef' d='M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z'/%3E%3C/svg%3E")
           calc(100% - 0.5rem) center/0.875rem no-repeat;
       }
 
       select.pf-c-form-control > option {
-        color: black;
+        color: $background;
       }
 
       input.pf-c-form-control:focus {
         outline: none;
-        border-bottom: 1px solid #4695eb;
+        border-bottom: 1px solid $highlight;
       }
     }
   }

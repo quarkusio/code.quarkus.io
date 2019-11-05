@@ -1,10 +1,13 @@
+@import "../config.scss";
+
 .extensions-picker {
   display: flex;
-  color: white;
+  color: $main;
 
   .extension-item {
     display: flex;
     width: 100%;
+    line-height: 30px;
     cursor: pointer;
     svg {
       pointer-events: none;
@@ -12,18 +15,19 @@
 
     &.selected {
       .extension-selector {
-        color: #71aeef;
+        color: $alert;
       }
     }
 
     &.hover.selected {
       .extension-selector {
-        color: #fff;
+        color: $main;
       }
     }
 
     .extension-remove {
-      color: #ff004a;
+      color: $secondary;
+      height: 30px;
     }
 
     & div:focus {
@@ -38,13 +42,26 @@
       }
     }
 
+    .extension-summary {
+      overflow: hidden;
+      display: flex;
+    }
     .extension-name {
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       font-weight: bold;
       height: 24px;
+      outline: none;
+    }
+
+    .extension-status {
+      font-size: 0.6rem;
+      line-height: 20px;
+      margin: 5px 5px;
+      padding: 0 3px;
+      border: 1px solid $highlight;
     }
 
     .extension-details {
@@ -56,6 +73,10 @@
       white-space: nowrap;
       overflow: hidden;
       font-size: 0.8rem;
+
+      @media screen and (max-width: 1200px) {
+        display: none;
+      }
     }
 
     .extension-gav {
@@ -75,7 +96,7 @@
 
   .list-container {
     .extension-category {
-      border-bottom: 1px solid #4695eb;
+      border-bottom: 1px solid $highlight;
       font-weight: bold;
       font-size: 1.1rem;
       margin: 10px 0 5px 0;
@@ -88,14 +109,14 @@
 
     .extension-item {
       height: 30px;
-      color: white;
+      color: $main;
 
       & > div {
         margin: 0 10px;
       }
 
       &.keyboard-actived {
-        color: #4695eb;
+        color: $highlight;
       }
 
       .extension-selector {
@@ -105,21 +126,17 @@
         flex: 1;
       }
 
-      .extension-name {
-        flex-basis: 300px;
-
-        @media screen and (max-width: 900px) {
-          flex-basis: 150px;
-        }
+      .extension-summary {
+        flex-basis: 350px;
 
         @media screen and (max-width: 1200px) {
-          flex-basis: 200px;
+          flex-grow: 1;
         }
       }
 
       .extension-gav {
         flex-basis: 30px;
-        color: white;
+        color: $main;
       }
 
       &.readonly {
@@ -130,6 +147,7 @@
 
   .control-container {
     flex: 0 0 350px;
+    overflow: hidden;
 
     .pf-c-form__group {
       svg {
@@ -138,29 +156,29 @@
     }
 
     input.pf-c-form-control {
-      border: 1px solid #9aff2d;
+      border: 1px solid $main;
       padding-left: 40px;
-      margin-left: -40px;
+      margin-left: -36px;
       font-size: 14px;
       width: 100%;
       background: transparent;
-      color: white;
+      color: $main;
       font-family: "PT Mono", Regular;
       padding-bottom: 4px;
     }
 
     input.pf-c-form-control:focus {
       outline: none;
-      border: 1px solid #4695eb;
+      border: 1px solid $highlight;
     }
 
     h4 {
-      border-bottom: 1px solid #ff004a;
+      border-bottom: 1px solid $readonly;
       font-weight: bold;
       margin-top: 40px;
       margin-bottom: 20px;
     }
-    .extension-name {
+    .extension-summary {
       flex-grow: 1;
     }
   }
@@ -175,13 +193,13 @@
     }
 
     .extension-search-clear {
-      border-bottom: 1px solid #4695eb;
+      border-bottom: 1px solid $highlight;
       font-weight: bold;
       font-size: 1.1rem;
       margin: 0 0 5px 0;
       height: 30px;
       .pf-c-button.pf-m-link {
-        color: #ff004a;
+        color: $secondary;
         padding: 0 3px;
       }
     }
@@ -197,7 +215,7 @@
     display: table;
     .extension-item {
       display: table-row;
-      .extension-name {
+      .extension-summary {
         display: table-cell;
         width: 90%;
       }
@@ -216,7 +234,7 @@
       display: table-cell;
       width: 30px;
     }
-    .extension-name {
+    .extension-summary {
       display: table-cell;
       width: 300px;
     }
@@ -227,10 +245,10 @@
       }
       .extension-gav {
         float: right;
-      }  
+      }
     }
     .extension-item > div {
       margin: 0;
     }
   }
-} 
+}

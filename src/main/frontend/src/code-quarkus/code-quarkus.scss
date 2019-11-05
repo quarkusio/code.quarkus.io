@@ -1,8 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=PT+Mono);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import "config.scss";
 
 body {
-  background: #000;
+  background: $background;
   font-family: "Open Sans", Regular;
 }
 
@@ -31,7 +32,7 @@ body {
 }
 
 .pf-c-backdrop__open {
-  background: #000;
+  background: $background;
 }
 
 .pf-c-backdrop {
@@ -46,43 +47,43 @@ body {
 
   .pf-c-alert__icon {
     background-color: transparent;
-    color: #74AFED;
+    color: $alert;
   }
 
   .pf-c-alert__title {
     font-weight: bold;
-    color: white;
+    color: $main;
   }
   .pf-c-alert__description {
-    color: white;
+    color: $main;
   }
 
   .pf-c-alert__action button.pf-c-button{
     &:hover {
-      color: white;
+      color: $main;
     }
   }
 }
 
 .next-steps-modal {
-  background-color: #000000;
-  color: #ffffff;
-  border: 4px solid #ff004a;
+  background-color: $background;
+  color: $main;
+  border: 4px solid $highlight;
   .pf-c-content {
-    color: #ffffff;
+    color: $main;
 
     .pf-c-button.pf-m-link {
       padding: 0;
-      color: #ff004a;
+      color: $highlight;
     }
   }
   .pf-c-title {
-    color: #4695eb;
+    color: $highlight;
     font-weight: bold;
   }
 
   & > .pf-c-button {
-    background-color: #ff004a;
+    background-color: $highlight;
     height: 25px;
     width: 25px;
     line-height: 25px;
@@ -90,10 +91,10 @@ body {
     padding: 0;
     border-radius: 0;
     svg {
-      color: #000000;
+      color: $background;
     }
     &:hover {
-      background-color: rgba(255, 0, 72, 0.548);
+      background-color: rgba(70, 149, 235, 0.548);
     }
   }
 
@@ -110,7 +111,7 @@ body {
   }
 
   .download-button {
-    background-color: #ff004a;
+    background-color: $highlight;
     border-radius: 0;
     text-transform: uppercase;
     width: 200px;
@@ -121,15 +122,15 @@ body {
 
   .pf-c-modal-box__footer {
     button.pf-c-button {
-      background-color: white;
-      color: #ff004a;
+      background-color: $main;
+      color: $highlight;
       border-radius: 0;
-      border: 1px solid white;
+      border: 1px solid $main;
     }
 
     button.pf-c-button:hover {
-      border: 1px solid #ff004a;
-      color: #ff004a;
+      border: 1px solid $highlight;
+      color: $highlight;
     }
 
     button.pf-c-button::after {

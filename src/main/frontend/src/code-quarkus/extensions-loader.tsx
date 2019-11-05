@@ -12,6 +12,7 @@ interface Extension {
   category: string;
   default: boolean;
   order: number;
+  status: string;
 }
 
 export function ExtensionsLoader(props: { name: string, children: (entries: ExtensionEntry[]) => any }) {

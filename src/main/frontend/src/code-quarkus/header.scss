@@ -1,45 +1,34 @@
+@import "config.scss";
+
 .header {
-  height: 132px;
-  background-image: url("/quarkus_background_header.jpg");
-  background-size: 100% 132px;
+  height: 70px;
+  background-image: url("/bg-header.jpg");
+  background-size: 1920px 70px;
   background-repeat: no-repeat;
 
   .header-content {
-    display: flex;
+    grid-column: span 12;
     align-items: center;
-    height: 132px;
+    width: 100%;
     margin: 0 auto;
 
-    margin: 0 auto;
-
+    .nav-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      float: right;
+    }
     .brand {
-      flex-grow: 1;
-      .brand-image {
-        background-image: url("/quarkus_logo_horizontal_rgb_reverse.svg");
-        background-repeat: no-repeat;
-        background-origin: content-box;
-        background-position: center;
-        width: 277px;
-        height: 47px;
-
-        @media screen and (max-width: 1200px) {
-          width: 200px;
-          height: 47px;
-        }
-
-        @media screen and (max-width: 900px) {
-          width: 100%;
-        }
-  
+      display: inline-block;
+      margin-top: 1.2rem;
+      width: 13rem;
+      @media screen and (max-width: 900px) {
+        margin-left: 20px;
       }
     }
 
-    .nav {
-      display: flex;
-      flex-grow: 1;
-      justify-content: flex-end;
+    .nav-list {
+      height: 70px;
       text-transform: uppercase;
-      font-size: 1.2rem;
       white-space: nowrap;
 
       @media screen and (max-width: 1200px) {
@@ -50,14 +39,39 @@
         display: none;
       }
 
-      a {
-        color: #fff;
-        padding: 0 10px;
+      li {
+        float: left;
+        position: relative;
+        margin: 0;
       }
-      a:hover,
-      a.active {
+
+      a {
+        display: inline-block;
+        color: $main;
+        padding: 0 10px;
         text-decoration: none;
-        border-bottom: 3px solid #fff;
+        line-height: 70px;
+        height: 55px;
+        font-size: 1rem;
+      }
+      a:hover {
+        border-bottom: 3px solid $main;
+      }
+      a.active {
+        margin-left: 3px;
+        text-decoration: none;
+        color: $main;
+        border: 2px solid $main;
+        border: 2px solid $highlight;
+        height: 37px;
+        line-height: 37px;
+        margin-top: 15px;
+        background-color: $highlight;
+        border-bottom: 0;
+        transition: background .2s ease-in 0s;
+        &:hover {
+          color: $main;
+        }
       }
     }
   }
