@@ -1,13 +1,13 @@
 .header {
-  height: 132px;
-  background-image: url("/quarkus_background_header.jpg");
-  background-size: 100% 132px;
+  height: 70px;
+  background-image: url("/bg-header.jpg");
+  background-size: 1920px 70px;
   background-repeat: no-repeat;
 
   .header-content {
     display: flex;
     align-items: center;
-    height: 132px;
+    height: 70px;
     margin: 0 auto;
 
     margin: 0 auto;
@@ -15,7 +15,7 @@
     .brand {
       flex-grow: 1;
       .brand-image {
-        background-image: url("/quarkus_logo_horizontal_rgb_reverse.svg");
+        background-image: url("/quarkus_logo.svg");
         background-repeat: no-repeat;
         background-origin: content-box;
         background-position: center;
