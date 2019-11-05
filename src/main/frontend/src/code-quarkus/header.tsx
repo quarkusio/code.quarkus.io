@@ -7,7 +7,7 @@ export function Header() {
       <div className="header-content responsive-container">
         <div className="brand">
           <a href="/">
-            <img src="quarkus_logo.svg" className="project-logo" title="Quarkus" alt="Quarkus"/>
+            <img src="quarkus-logo.svg" className="project-logo" title="Quarkus" alt="Quarkus"/>
           </a>
         </div>
         <div className="nav-container">

@@ -9,7 +9,44 @@
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
     <link rel="shortcut icon" type="image/png" href="https://quarkus.io/favicon.ico">
     <title>Quarkus - Start coding with code.quarkus.io</title>
-    
+
+    <style>
+        body {
+            background: black;
+        }
+
+        #loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -87.5px;
+            margin-left: -120px;
+            width: 240px;
+            height: 175px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: monospace;
+            text-align: center;
+            justify-content: center;
+            padding: 20px;
+            color: #fff;
+            font-size: 1.5rem;
+            line-height: 20px;
+            box-sizing: border-box;
+        }
+
+        #loading span:nth-child(3) {
+            color: #71aeef;
+        }
+
+        #loading img {
+            height: 75px;
+            display: block;
+            margin: 20px auto;
+        }
+    </style>
+
     <!-- Google Analytics -->
     <script>
         (function (i, s, o, g, r, a, m) {
@@ -20,40 +57,16 @@
         })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
     </script>
     <!-- End Google Analytics -->
-    
-    <style>
-        body {
-            background: black;
-        }
 
-        #loading {
-            margin-top: 300px;
-            font-family: monospace;
-            text-align: center;
-            padding: 20px;
-            color: #fff;
-            font-size: 1.5rem;
-            line-height: 20px;
-            white-space: nowrap;
-        }
 
-        #loading span {
-            color: #9AFF2D;
-        }
-
-        #loading img {
-            height: 75px;
-            display: block;
-            margin: 20px auto;
-        }
-    </style>
 </head>
 
 <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
         <div id="loading">
-            <img src="%PUBLIC_URL%/quarkus_icon_rgb_reverse.svg" title="Quarkus">Start coding with
+            <img src="%PUBLIC_URL%/quarkus-icon-splash.svg" title="Quarkus">
+            <span>Start coding with</span>
             <span>code.quarkus.io</span>
         </div>
     </div>
