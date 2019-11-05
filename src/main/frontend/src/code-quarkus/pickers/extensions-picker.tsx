@@ -70,13 +70,6 @@ function Extension(props: ExtensionProps) {
   const addExtCmd = buildTool === 'GRADLE' ? addGradleExt : addMvnExt;
   return (
     <div {...activationEvents} className={classNames('extension-item', { 'keyboard-actived': props.keyboardActived, hover, selected, readonly: props.default })}>
-      {!props.detailed && (
-        <div
-          className="extension-remove"
-        >
-          {hover && props.selected && <TrashAltIcon />}
-        </div>
-      )}
       {props.detailed && (
         <Tooltip position="bottom" content={tooltip} exitDelay={0} zIndex={100}>
           <div
@@ -99,6 +92,14 @@ function Extension(props: ExtensionProps) {
           className="extension-status"
         >PREVIEW</span></Tooltip>}
       </div>
+      
+      {!props.detailed && (
+        <div
+          className="extension-remove"
+        >
+          {hover && props.selected && <TrashAltIcon />}
+        </div>
+      )}
 
       {props.detailed && (
         <div className="extension-details">

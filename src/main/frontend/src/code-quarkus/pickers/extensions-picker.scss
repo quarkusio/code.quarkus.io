@@ -26,7 +26,6 @@
     }
 
     .extension-remove {
-      flex-basis: 25px;
       color: $secondary;
       height: 30px;
     }
@@ -48,7 +47,6 @@
       display: flex;
     }
     .extension-name {
-      flex-grow: 1;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
@@ -59,11 +57,10 @@
 
     .extension-status {
       font-size: 0.6rem;
-      line-height: 24px;
-      margin: 3px 5px;
+      line-height: 20px;
+      margin: 5px 5px;
       padding: 0 3px;
       border: 1px solid $highlight;
-      background-color: #152b43;
     }
 
     .extension-details {
@@ -149,6 +146,7 @@
 
   .control-container {
     flex: 0 0 350px;
+    overflow: hidden;
 
     .pf-c-form__group {
       svg {

@@ -4,7 +4,7 @@ import './header.scss';
 export function Header() {
   return (
     <div className="header">
-      <div className="header-content">
+      <div className="header-content responsive-container">
         <div className="brand">
           <a href="/">
             <img src="quarkus_logo_white.png" className="project-logo" title="Quarkus" />

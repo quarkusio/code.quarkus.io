@@ -9,22 +9,25 @@
   .header-content {
     grid-column: span 12;
     align-items: center;
-    padding: 0 13rem;
-    margin: 0 0 6rem 0;
+    width: 100%;
+    margin: 0 auto;
 
     .nav-container {
       max-width: 1000px;
       margin: 0 auto;
-      display: inline;
+      float: right;
     }
     .brand {
       display: inline-block;
       margin-top: 1.2rem;
       width: 13rem;
+      @media screen and (max-width: 900px) {
+        margin-left: 20px;
+      }
     }
 
     .nav-list {
-      float: right;
+      height: 70px;
       text-transform: uppercase;
       white-space: nowrap;
 
@@ -43,26 +46,31 @@
       }
 
       a {
+        display: inline-block;
         color: $main;
         padding: 0 10px;
         text-decoration: none;
         line-height: 70px;
         height: 55px;
-        font-size: 1.3rem;
+        font-size: 1rem;
       }
       a:hover {
         border-bottom: 3px solid $main;
       }
       a.active {
+        margin-left: 3px;
         text-decoration: none;
         color: $main;
         border: 2px solid $main;
-        padding: .4rem 1rem;
-        margin-top: 1rem;
+        border: 2px solid $highlight;
+        height: 37px;
+        line-height: 37px;
+        margin-top: 15px;
+        background-color: $highlight;
+        border-bottom: 0;
+        transition: background .2s ease-in 0s;
         &:hover {
-          border: 2px solid $highlight;
-          background-color: $highlight;
-          border-bottom: 0;
+          color: $main;
         }
       }
     }
