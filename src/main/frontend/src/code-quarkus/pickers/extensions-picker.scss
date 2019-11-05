@@ -1,6 +1,8 @@
+@import "../config.scss";
+
 .extensions-picker {
   display: flex;
-  color: white;
+  color: $main;
 
   .extension-item {
     display: flex;
@@ -12,18 +14,18 @@
 
     &.selected {
       .extension-selector {
-        color: #71aeef;
+        color: $alert;
       }
     }
 
     &.hover.selected {
       .extension-selector {
-        color: #fff;
+        color: $main;
       }
     }
 
     .extension-remove {
-      color: #ff004a;
+      color: $secondary;
     }
 
     & div:focus {
@@ -75,7 +77,7 @@
 
   .list-container {
     .extension-category {
-      border-bottom: 1px solid #4695eb;
+      border-bottom: 1px solid $highlight;
       font-weight: bold;
       font-size: 1.1rem;
       margin: 10px 0 5px 0;
@@ -88,14 +90,14 @@
 
     .extension-item {
       height: 30px;
-      color: white;
+      color: $main;
 
       & > div {
         margin: 0 10px;
       }
 
       &.keyboard-actived {
-        color: #4695eb;
+        color: $highlight;
       }
 
       .extension-selector {
@@ -119,7 +121,7 @@
 
       .extension-gav {
         flex-basis: 30px;
-        color: white;
+        color: $main;
       }
 
       &.readonly {
@@ -138,24 +140,24 @@
     }
 
     input.pf-c-form-control {
-      border: 1px solid #9aff2d;
+      border: 1px solid $primary;
       padding-left: 40px;
       margin-left: -40px;
       font-size: 14px;
       width: 100%;
       background: transparent;
-      color: white;
+      color: $main;
       font-family: "PT Mono", Regular;
       padding-bottom: 4px;
     }
 
     input.pf-c-form-control:focus {
       outline: none;
-      border: 1px solid #4695eb;
+      border: 1px solid $highlight;
     }
 
     h4 {
-      border-bottom: 1px solid #ff004a;
+      border-bottom: 1px solid $secondary;
       font-weight: bold;
       margin-top: 40px;
       margin-bottom: 20px;
@@ -175,13 +177,13 @@
     }
 
     .extension-search-clear {
-      border-bottom: 1px solid #4695eb;
+      border-bottom: 1px solid $highlight;
       font-weight: bold;
       font-size: 1.1rem;
       margin: 0 0 5px 0;
       height: 30px;
       .pf-c-button.pf-m-link {
-        color: #ff004a;
+        color: $secondary;
         padding: 0 3px;
       }
     }
@@ -227,10 +229,10 @@
       }
       .extension-gav {
         float: right;
-      }  
+      }
     }
     .extension-item > div {
       margin: 0;
     }
   }
-} 
+}

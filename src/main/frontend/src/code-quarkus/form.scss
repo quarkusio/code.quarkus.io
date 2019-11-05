@@ -1,3 +1,5 @@
+@import "config.scss";
+
 .code-quarkus-form {
   padding-bottom: 30px;
 
@@ -23,7 +25,7 @@
   }
 
   .title h3 {
-    color: white;
+    color: $main;
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 20px;
@@ -50,13 +52,13 @@
     }
 
     .pf-c-button {
-      color: white;
+      color: $main;
       font-size: 14px;
       text-transform: uppercase;
       text-align: left;
       width: 233px;
       svg {
-        color: #ff004a;
+        color: $secondary;
       }
     }
   }
@@ -98,16 +100,16 @@
     justify-content: flex-end;
 
     button.generate-button {
-      background-color: #ff004a;
+      background-color: $secondary;
       border-radius: 0;
       width: 280px;
       height: 36px;
       align-self: flex-end;
       text-align: center;
-      border: 1px solid #ff004a;
-      color: white;
+      border: 1px solid $secondary;
+      color: $main;
       &:hover {
-        border: 1px solid #ffffff;
+        border: 1px solid $main;
       }
 
       &.pf-m-disabled {
@@ -123,7 +125,7 @@
       .pf-c-form__label {
         display: inline-block;
         width: 115px;
-        color: #9aff2d;
+        color: $primary;
         font-size: 14px;
         font-weight: bold;
         text-transform: capitalize;
@@ -134,11 +136,11 @@
         border: none;
         margin-left: -115px;
         padding-left: 115px;
-        border-bottom: 1px solid #9aff2d;
+        border-bottom: 1px solid $primary;
         font-size: 14px;
         width: 100%;
         background-color: transparent;
-        color: white;
+        color: $main;
         outline: none;
         font-family: "PT Mono", Regular;
         padding-bottom: 4px;
@@ -146,30 +148,30 @@
       }
 
       &.quarkus-version {
-        
+
         .pf-c-form__label {
-          color: #707070;
+          color: $readonly;
         }
         input.pf-c-form-control {
           cursor: not-allowed;
           padding-right: 82px;
           margin-right: -82px;
           color: #bdbcbc;
-          border-bottom: 1px solid #707070;
-          
+          border-bottom: 1px solid $readonly;
+
           &:focus {
-            border-bottom: 1px solid #707070;
+            border-bottom: 1px solid $readonly;
           }
         }
         &:after {
           content: "READ-ONLY";
           float: right;
-          color: #707070;
+          color: $readonly;
           font-size: 11px;
           padding: 2px;
           margin-top: 7px;
           margin-right: 5px;
-          border: 1px solid #707070;
+          border: 1px solid $readonly;
         }
       }
 
@@ -179,12 +181,12 @@
       }
 
       select.pf-c-form-control > option {
-        color: black;
+        color: $background;
       }
 
       input.pf-c-form-control:focus {
         outline: none;
-        border-bottom: 1px solid #4695eb;
+        border-bottom: 1px solid $highlight;
       }
     }
   }
