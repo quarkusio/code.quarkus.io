@@ -1,3 +1,5 @@
+@import "config.scss";
+
 .header {
   height: 70px;
   background-image: url("/bg-header.jpg");
@@ -5,41 +7,25 @@
   background-repeat: no-repeat;
 
   .header-content {
-    display: flex;
+    grid-column: span 12;
     align-items: center;
-    height: 70px;
-    margin: 0 auto;
+    padding: 0 13rem;
+    margin: 0 0 6rem 0;
 
-    margin: 0 auto;
-
+    .nav-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: inline;
+    }
     .brand {
-      flex-grow: 1;
-      .brand-image {
-        background-image: url("/quarkus_logo.svg");
-        background-repeat: no-repeat;
-        background-origin: content-box;
-        background-position: center;
-        width: 277px;
-        height: 47px;
-
-        @media screen and (max-width: 1200px) {
-          width: 200px;
-          height: 47px;
-        }
-
-        @media screen and (max-width: 900px) {
-          width: 100%;
-        }
-
-      }
+      display: inline-block;
+      margin-top: 1.2rem;
+      width: 13rem;
     }
 
-    .nav {
-      display: flex;
-      flex-grow: 1;
-      justify-content: flex-end;
+    .nav-list {
+      float: right;
       text-transform: uppercase;
-      font-size: 1.2rem;
       white-space: nowrap;
 
       @media screen and (max-width: 1200px) {
@@ -50,19 +36,32 @@
         display: none;
       }
 
+      li {
+        float: left;
+        position: relative;
+        margin: 0;
+      }
+
       a {
-        color: #fff;
+        color: $main;
         padding: 0 10px;
         text-decoration: none;
+        line-height: 70px;
+        height: 55px;
+        font-size: 1.3rem;
       }
       a:hover {
-        border-bottom: 3px solid #fff;
+        border-bottom: 3px solid $main;
       }
       a.active {
         text-decoration: none;
-        background-color: white;
-        color: #0D1C2C;
+        color: $main;
+        border: 2px solid $main;
+        padding: .4rem 1rem;
+        margin-top: 1rem;
         &:hover {
+          border: 2px solid $highlight;
+          background-color: $highlight;
           border-bottom: 0;
         }
       }
