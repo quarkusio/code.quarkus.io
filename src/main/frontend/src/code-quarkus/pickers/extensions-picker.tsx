@@ -153,7 +153,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   }
 
   const flip = (index: number) => {
-    if(!result[index]) {
+    if(!result[index] || result[index].default) {
       return;
     }
     if (entrySet.has(result[index].id)) {
