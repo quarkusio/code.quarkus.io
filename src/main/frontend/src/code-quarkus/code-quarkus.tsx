@@ -1,5 +1,5 @@
 
-import { AnalyticsContext, GoogleAnalytics, useAnalytics } from '../core';
+import { AnalyticsContext, GoogleAnalytics, useAnalytics, Analytics } from '../core';
 import { stringify } from 'querystring';
 import React, { useEffect, useState } from 'react';
 import { publicUrl } from './config';
@@ -41,7 +41,7 @@ async function generateProject(project: QuarkusProject): Promise<{ downloadLink:
     ...(project.metadata.groupId && { g: project.metadata.groupId }),
     ...(project.metadata.artifactId && { a: project.metadata.artifactId }),
     ...(project.metadata.version && { v: project.metadata.version }),
-    ...(project.metadata.buildTool && {b: project.metadata.buildTool}),
+    ...(project.metadata.buildTool && { b: project.metadata.buildTool }),
     ...(packageName && { c: `${packageName}.ExampleResource` }),
     ...(project.extensions && { e: project.extensions }),
   }
@@ -64,12 +64,15 @@ const DEFAULT_PROJECT = {
 export function CodeQuarkus(props: LaunchFlowProps) {
   const [project, setProject] = useState<QuarkusProject>(DEFAULT_PROJECT);
   const [run, setRun] = useState<RunState>({ status: Status.EDITION });
-  const baseAnalytics = useAnalytics();
-  const analytics = props.config.gaTrackingId ? new GoogleAnalytics(props.config.gaTrackingId) : baseAnalytics;
+  const [analytics, setAnalytics] = useState<Analytics>(useAnalytics());
 
   useEffect(() => {
-    analytics && analytics.init();
-  }, [analytics]);
+    setAnalytics((analytics) => {
+      const newAnalytics = props.config.gaTrackingId ? new GoogleAnalytics(props.config.gaTrackingId) : analytics;
+      newAnalytics.init();
+      return newAnalytics;
+    });
+  }, [props.config.gaTrackingId]);
 
   const generate = () => {
     setRun({ status: Status.RUNNING });
@@ -97,7 +100,7 @@ export function CodeQuarkus(props: LaunchFlowProps) {
         <Header />
         <CodeQuarkusForm project={project} setProject={setProject} onSave={generate} quarkusVersion={props.config.quarkusVersion} />
         {!run.error && run.status === Status.DOWNLOADED
-          && (<NextSteps onClose={closeNextSteps} downloadLink={run.result.downloadLink} buildTool={project.metadata.buildTool}/>)}
+          && (<NextSteps onClose={closeNextSteps} downloadLink={run.result.downloadLink} buildTool={project.metadata.buildTool} />)}
       </div>
     </AnalyticsContext.Provider>
   );

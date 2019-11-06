@@ -18,11 +18,16 @@ declare var ga: any;
  */
 export class GoogleAnalytics implements Analytics {
 
+    private initialized:boolean = false;
+
     constructor(private readonly trackingId: string){}
 
     init(withPageView = true) {
-        ga('create', this.trackingId, 'auto');
-        withPageView && ga('send', 'pageview');
+        if(!this.initialized) {
+            ga('create', this.trackingId, 'auto');
+            withPageView && ga('send', 'pageview');
+            this.initialized = true;
+        }
     }
 
     pageview(path: string) {
