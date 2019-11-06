@@ -1,3 +1,5 @@
 package io.quarkus.code.model
 
-data class ShortUrl(val id: String, val url: String)
+import me.nimavat.shortid.ShortId
+
+data class ShortUrl(val id: String = ShortId.generate(), val url: String)

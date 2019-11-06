@@ -25,6 +25,13 @@
     <!-- Quarkus Platform version must be compatible with Quarkus version -->
     <version.quarkus-platform>1.0.0.CR1</version.quarkus-platform>
   </properties>
+  <repositories>
+    <repository>
+      <id>shortid</id>
+      <name>shortid</name>
+      <url>http://dl.bintray.com/snimavat/maven</url>
+    </repository>
+  </repositories>
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -84,6 +91,11 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-mongodb-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>me.nimavat</groupId>
+      <artifactId>shortid</artifactId>
+      <version>1.0.1.RC1</version>
     </dependency>
     <dependency>
       <groupId>io.rest-assured</groupId>

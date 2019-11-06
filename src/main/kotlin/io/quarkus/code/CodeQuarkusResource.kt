@@ -3,6 +3,7 @@ package io.quarkus.code
 import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.code.model.Config
 import io.quarkus.code.model.QuarkusProject
+import io.quarkus.code.model.ShortUrl
 import io.quarkus.code.services.CodeQuarkusConfigManager
 import io.quarkus.code.services.QuarkusExtensionCatalog
 import io.quarkus.code.services.QuarkusProjectCreator
@@ -10,9 +11,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
-import java.io.IOException
 import java.net.URI
-import java.util.*
 import javax.inject.Inject
 import javax.validation.Valid
 import javax.ws.rs.BeanParam
@@ -69,17 +68,16 @@ class CodeQuarkusResource {
     @Operation(summary = "Create a short url based on the parameters")
     fun createShort(@Valid @BeanParam project: QuarkusProject): Response {
         val url = "https://code.quarkus.io/api/download?g=${project.groupId}&a=${project.artifactId}&v=${project.version}&c=${project.className}&e=${project.extensions}"
-        val response = { id: String ->
-            Response.ok("https://code.quarkus.io/api/shorten/$id").build()
+        val response = { shortUrl: ShortUrl ->
+            Response.ok("https://code.quarkus.io/api/shorten/${shortUrl.id}").build()
         }
         urlRepository.getByUrl(url)?.let { shortUrl ->
-            return response(shortUrl.id)
+            return response(shortUrl)
         }
-        val id = UUID.randomUUID().toString()
-        val shortUrl = ShortUrl(id, url)
+        val shortUrl = ShortUrl(url = url)
         urlRepository.save(shortUrl)
 
-        return response(id)
+        return response(shortUrl)
     }
 
     @GET
