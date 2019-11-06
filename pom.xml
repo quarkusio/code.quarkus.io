@@ -152,8 +152,17 @@
             </goals>
           </execution>
           <execution>
-            <id>yarn install</id>
+            <id>yarn install - pre</id>
             <phase>pre-clean</phase>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+            <configuration>
+              <arguments>--frozen-lockfile</arguments>
+            </configuration>
+          </execution>
+          <execution>
+            <id>yarn install</id>
             <goals>
               <goal>yarn</goal>
             </goals>
