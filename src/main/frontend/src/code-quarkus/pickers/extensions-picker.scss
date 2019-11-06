@@ -56,12 +56,20 @@
       outline: none;
     }
 
-    .extension-status {
+    .extension-tag {
       font-size: 0.6rem;
       line-height: 20px;
       margin: 5px 5px;
       padding: 0 3px;
-      border: 1px solid $highlight;
+
+      &.preview {
+        border: 1px solid $highlight;
+      }
+
+      &.default {
+        border: 1px solid $main;
+      }
+      
     }
 
     .extension-details {

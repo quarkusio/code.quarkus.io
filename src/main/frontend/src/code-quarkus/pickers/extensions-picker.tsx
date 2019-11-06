@@ -59,7 +59,7 @@ function Extension(props: ExtensionProps) {
   };
 
   const description = props.description || '...';
-  const descTooltip = props.default ? <div><b>{props.name}</b><p>{description}<i>(This extension is included by default)</i></p></div> : <div><b>{props.name}</b><p>{description}</p></div>;
+  const descTooltip = <div><b>{props.name}</b><p>{description}</p></div>;
   let tooltip = props.detailed && !props.default ?
     <div>{props.selected ? 'Remove' : 'Add'} the extension <b>{props.name}</b></div> : descTooltip;
 
@@ -89,8 +89,11 @@ function Extension(props: ExtensionProps) {
           >{props.name}</span>
         </Tooltip>
         {props.status === 'preview' && <Tooltip position="right" content="This is work in progress. API or configuration properties might change as the extension matures. Give us your feedback :)" exitDelay={0} zIndex={100}><span
-          className="extension-status"
+          className="extension-tag preview"
         >PREVIEW</span></Tooltip>}
+        {props.default && <Tooltip position="right" content="This extension is already included by default and can't be removed" exitDelay={0} zIndex={100}><span
+          className="extension-tag default"
+        >INCLUDED</span></Tooltip>}
       </div>
       
       {!props.detailed && (
