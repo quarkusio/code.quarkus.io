@@ -10,8 +10,10 @@ import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
+import java.io.IOException
+import java.net.URI
+import java.util.*
 import javax.inject.Inject
-import javax.json.bind.JsonbBuilder
 import javax.validation.Valid
 import javax.ws.rs.BeanParam
 import javax.ws.rs.GET
@@ -20,11 +22,6 @@ import javax.ws.rs.Produces
 import javax.ws.rs.core.MediaType.APPLICATION_JSON
 import javax.ws.rs.core.MediaType.TEXT_PLAIN
 import javax.ws.rs.core.Response
-
-import okhttp3.*
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.IOException
 
 @Path("/")
 class CodeQuarkusResource {
@@ -38,7 +35,8 @@ class CodeQuarkusResource {
     @Inject
     lateinit var projectCreator: QuarkusProjectCreator
 
-    private val httpClient = OkHttpClient()
+    @Inject
+    lateinit var urlRepository: UrlRepository
 
     @GET
     @Path("/config")
@@ -69,31 +67,32 @@ class CodeQuarkusResource {
     @Path("/shorten")
     @Produces(TEXT_PLAIN)
     @Operation(summary = "Create a short url based on the parameters")
-    fun shorten(@Valid @BeanParam project: QuarkusProject): Response {
-        val JSON = "application/json; charset=utf-8".toMediaType()
-        val body = """
-        {
-                "group_guid": "${configManager.bitlyGroupId}",
-                "long_url": "https://code.quarkus.io/api/download?g=${project.groupId}&a=${project.artifactId}&v=${project.version}&c=${project.className}&e=${project.extensions}"
+    fun createShort(@Valid @BeanParam project: QuarkusProject): Response {
+        val url = "https://code.quarkus.io/api/download?g=${project.groupId}&a=${project.artifactId}&v=${project.version}&c=${project.className}&e=${project.extensions}"
+        val response = { id: String ->
+            Response.ok("https://code.quarkus.io/api/shorten/$id").build()
         }
-        """.toRequestBody(JSON)
-
-        val request = Request.Builder()
-                .url("https://api-ssl.bitly.com/v4/shorten")
-                .addHeader("Authorization", "Bearer ${configManager.bitlyAccessToken}")
-                .post(body)
-                .build()
-
-        httpClient.newCall(request).execute().use { response ->
-
-                if (!response.isSuccessful) throw IOException("Unexpected code $response")
-
-                val jsonb = JsonbBuilder.create()
-                val obj = jsonb.fromJson(response.body!!.string(), BitlyResponse::class.java)
-
-                return Response.ok(obj.link).build()
+        urlRepository.getByUrl(url)?.let { shortUrl ->
+            return response(shortUrl.id)
         }
+        val id = UUID.randomUUID().toString()
+        val shortUrl = ShortUrl(id, url)
+        urlRepository.save(shortUrl)
+
+        return response(id)
     }
+
+    @GET
+    @Path("/shorten/{id}")
+    @Operation(summary = "Redirect user to download for this id")
+    fun getShort(@PathParam("id") id: String): Response {
+        val shortUrl = urlRepository.getById(id)
+        shortUrl?.url?.let { url ->
+            return Response.seeOther(URI(url)).build()
+        }
+        return Response.serverError().build()
+    }
+
 
     @GET
     @Path("/download")

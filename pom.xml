@@ -7,9 +7,9 @@
   <version>1.0.0</version>
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
-    <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
     <version.kotlin-stdlib>1.3.21</version.kotlin-stdlib>
     <version.maven-failsafe-plugin>2.22.2</version.maven-failsafe-plugin>
+    <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
     <version.rest-assured>3.3.0</version.rest-assured>
     <version.surefire-plugin>2.22.0</version.surefire-plugin>
     <version.kotlin>1.3.31</version.kotlin>
@@ -82,9 +82,8 @@
       <version>${version.commons-compress}</version>
     </dependency>
     <dependency>
-      <groupId>com.squareup.okhttp3</groupId>
-      <artifactId>okhttp</artifactId>
-      <version>4.2.2</version>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-mongodb-client</artifactId>
     </dependency>
     <dependency>
       <groupId>io.rest-assured</groupId>
@@ -122,16 +121,15 @@
     <testSourceDirectory>src/test/kotlin</testSourceDirectory>
     <resources>
       <resource>
-        <directory>src/main/resources</directory>
         <filtering>true</filtering>
+        <directory>src/main/resources</directory>
         <includes>
           <include>application.properties</include>
         </includes>
       </resource>
-
       <resource>
-        <directory>src/main/resources</directory>
         <filtering>false</filtering>
+        <directory>src/main/resources</directory>
         <excludes>
           <exclude>application.properties</exclude>
         </excludes>
