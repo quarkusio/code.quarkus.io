@@ -91,7 +91,7 @@ function Extension(props: ExtensionProps) {
         {props.status === 'preview' && <Tooltip position="right" content="This is work in progress. API or configuration properties might change as the extension matures. Give us your feedback :)" exitDelay={0} zIndex={100}><span
           className="extension-tag preview"
         >PREVIEW</span></Tooltip>}
-        {props.default && <Tooltip position="right" content="This extension is already included by default and can't be removed" exitDelay={0} zIndex={100}><span
+        {props.default && <Tooltip position="right" content="Applications generated with Code Quarkus are currently demonstrating a Hello World REST endpoint, this extension is therefore included by default to make this use case work." exitDelay={0} zIndex={100}><span
           className="extension-tag default"
         >INCLUDED</span></Tooltip>}
       </div>
