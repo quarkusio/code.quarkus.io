@@ -152,13 +152,14 @@
     .pf-c-form__group {
       svg {
         margin: 0 10px;
+        width: 20px;
       }
     }
 
     input.pf-c-form-control {
       border: 1px solid $main;
       padding-left: 40px;
-      margin-left: -36px;
+      margin-left: -40px;
       font-size: 14px;
       width: 100%;
       background: transparent;
