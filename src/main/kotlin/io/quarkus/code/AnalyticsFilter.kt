@@ -30,10 +30,10 @@ class AnalyticsFilter : ContainerRequestFilter {
         val stream = context.uriInfo.queryParameters.entries.stream()
         val params = stream.map { entry -> "${entry.key}=${entry.value}" }.collect(Collectors.joining("&"))
         val path = info!!.path
-        val divider = if (params != null) "?" else ""
+        val divider = if (params != "") "?" else ""
 
-        val request = "$path$divider${params ?: ""}";
-        if (!"".equals(googleTrackingId)) {
+        val request = "$path$divider${params ?: ""}"
+        if (googleTrackingId != "") {
             googleAnalytics.pageView().documentPath(request).sendAsync()
         } else {
             logger.info(request)
