@@ -24,6 +24,7 @@ import javax.ws.rs.core.Response
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.IOException
 
 @Path("/")
 class CodeQuarkusResource {
@@ -72,14 +73,14 @@ class CodeQuarkusResource {
         val JSON = "application/json; charset=utf-8".toMediaType()
         val body = """
         {
-                "group_guid": "$bitlyGroupId",
+                "group_guid": "${configManager.bitlyGroupId}",
                 "long_url": "https://code.quarkus.io/api/download?g=${project.groupId}&a=${project.artifactId}&v=${project.version}&c=${project.className}&e=${project.extensions}"
         }
         """.toRequestBody(JSON)
 
         val request = Request.Builder()
                 .url("https://api-ssl.bitly.com/v4/shorten")
-                .addHeader("Authorization", "Bearer $bitlyAccessToken")
+                .addHeader("Authorization", "Bearer ${configManager.bitlyAccessToken}")
                 .post(body)
                 .build()
 
