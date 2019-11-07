@@ -41,7 +41,7 @@ class ShortUrlResource {
         shortUrl?.url?.let { url ->
             return Response.seeOther(URI(url)).build()
         }
-        return Response.serverError().build()
+        return Response.status(404).entity("This link has expired").build()
     }
 
 }
