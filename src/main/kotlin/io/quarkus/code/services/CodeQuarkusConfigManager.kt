@@ -33,14 +33,6 @@ open class CodeQuarkusConfigManager {
     lateinit var sentryDSN: String
         private set
 
-    @ConfigProperty(name = "io.quarkus.code.bitly.generic-access-token")
-    lateinit var bitlyAccessToken: String
-        private set
-
-    @ConfigProperty(name = "io.quarkus.code.bitly.group-id")
-    lateinit var bitlyGroupId: String
-        private set
-
     fun getConfig(): Config {
         return Config(
                 environment,
