@@ -21,6 +21,6 @@ export async function fetchConfig() {
 }
 
 export async function shortenUrl(params: string) {
-  const response = await fetch(`${backendUrl}/api/shorten?${params}`);
+  const response = await fetch(`${backendUrl}/s/?${params}`);
   return response.ok ? await response.text() : undefined
 }
