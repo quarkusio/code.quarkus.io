@@ -83,6 +83,84 @@ internal class QuarkusProjectCreatorTest {
             "test-app/mvnw.cmd",
             "test-app/mvnw"
         )
+        
+        val EXPECTED_ZIP_CONTENT_GRADLE_KOTLIN = arrayOf(
+            "test-app/",
+            "test-app/build.gradle",
+            "test-app/settings.gradle",
+            "test-app/gradle.properties",
+            "test-app/src/",
+            "test-app/src/main/",
+            "test-app/src/main/kotlin/",
+            "test-app/src/main/kotlin/com/",
+            "test-app/src/main/kotlin/com/test/",
+            "test-app/src/main/kotlin/com/test/TestResource.kt",
+            "test-app/src/test/",
+            "test-app/src/test/kotlin/",
+            "test-app/src/test/kotlin/com/",
+            "test-app/src/test/kotlin/com/test/",
+            "test-app/src/test/kotlin/com/test/TestResourceTest.kt",
+            "test-app/src/native-test/",
+            "test-app/src/native-test/kotlin/",
+            "test-app/src/native-test/kotlin/com/",
+            "test-app/src/native-test/kotlin/com/test/",
+            "test-app/src/native-test/kotlin/com/test/NativeTestResourceIT.kt",
+            "test-app/src/main/resources/",
+            "test-app/src/main/resources/META-INF/",
+            "test-app/src/main/resources/META-INF/resources/",
+            "test-app/src/main/resources/META-INF/resources/index.html",
+            "test-app/src/main/docker/",
+            "test-app/src/main/docker/Dockerfile.native",
+            "test-app/src/main/docker/Dockerfile.jvm",
+            "test-app/.dockerignore",
+            "test-app/src/main/resources/application.properties",
+            "test-app/.gitignore",
+            "test-app/gradle/",
+            "test-app/gradle/wrapper/",
+            "test-app/gradle/wrapper/gradle-wrapper.jar",
+            "test-app/gradle/wrapper/gradle-wrapper.properties",
+            "test-app/gradlew.bat",
+            "test-app/gradlew"
+        )
+        
+        val EXPECTED_ZIP_CONTENT_GRADLE_SCALA = arrayOf(
+            "test-app/",
+            "test-app/build.gradle",
+            "test-app/settings.gradle",
+            "test-app/gradle.properties",
+            "test-app/src/",
+            "test-app/src/main/",
+            "test-app/src/main/scala/",
+            "test-app/src/main/scala/com/",
+            "test-app/src/main/scala/com/test/",
+            "test-app/src/main/scala/com/test/TestResource.scala",
+            "test-app/src/test/",
+            "test-app/src/test/scala/",
+            "test-app/src/test/scala/com/",
+            "test-app/src/test/scala/com/test/",
+            "test-app/src/test/scala/com/test/TestResourceTest.scala",
+            "test-app/src/native-test/",
+            "test-app/src/native-test/scala/",
+            "test-app/src/native-test/scala/com/",
+            "test-app/src/native-test/scala/com/test/",
+            "test-app/src/native-test/scala/com/test/NativeTestResourceIT.scala",
+            "test-app/src/main/resources/",
+            "test-app/src/main/resources/META-INF/",
+            "test-app/src/main/resources/META-INF/resources/",
+            "test-app/src/main/resources/META-INF/resources/index.html",
+            "test-app/src/main/docker/",
+            "test-app/src/main/docker/Dockerfile.native",
+            "test-app/src/main/docker/Dockerfile.jvm",
+            "test-app/.dockerignore",
+            "test-app/src/main/resources/application.properties",
+            "test-app/.gitignore",
+            "test-app/gradle/",
+            "test-app/gradle/wrapper/",
+            "test-app/gradle/wrapper/gradle-wrapper.jar",
+            "test-app/gradle/wrapper/gradle-wrapper.properties",
+            "test-app/gradlew.bat",
+            "test-app/gradlew"
+        )
     }
 
     @Test
@@ -148,8 +226,87 @@ internal class QuarkusProjectCreatorTest {
         assertThat(pomText, containsString("<artifactId>quarkus-resteasy-jsonb</artifactId>"))
         assertThat(pomText, containsString("<artifactId>quarkus-hibernate-validator</artifactId>"))
         assertThat(pomText, containsString("<artifactId>quarkus-neo4j</artifactId>"))
-
+        
         assertThat(resourceText, containsString("@Path(\"/test/it\")"))
+    }
+    
+    @Test
+    @DisplayName("Create a Gradle project using kotlin source")
+    fun testCreateGradleKotlinProject() {
+        // When
+        val creator = QuarkusProjectCreator()
+        val proj = creator.create(
+            QuarkusProject(
+                groupId = "com.test",
+                artifactId = "test-app",
+                version = "2.0.0",
+                buildTool = "GRADLE",
+                className = "com.test.TestResource",
+                extensions = setOf(
+                    "io.quarkus:quarkus-kotlin"
+                )
+            )
+        )
+        val (testDir, zipList) = ProjectTestHelpers.extractProject(proj)
+        val fileList = ProjectTestHelpers.readFiles(testDir)
+        val buildGradleText = Paths.get(testDir.path, "test-app/build.gradle")
+            .toFile().readText(Charsets.UTF_8)
+        val resourceText = Paths.get(testDir.path, "test-app/src/main/kotlin/com/test/TestResource.kt")
+            .toFile().readText(Charsets.UTF_8)
+
+        // Then
+        assertThat(zipList, contains(*EXPECTED_ZIP_CONTENT_GRADLE_KOTLIN))
+
+        assertThat(fileList.size, equalTo(38))
+
+        assertThat(buildGradleText, containsString("id 'org.jetbrains.kotlin.jvm' version "))
+        assertThat(buildGradleText, containsString("implementation 'io.quarkus:quarkus-kotlin'"))
+        assertThat(buildGradleText, containsString("implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk"))
+        assertThat(buildGradleText, containsString("group 'com.test'"))
+        assertThat(buildGradleText, containsString("version '2.0.0'"))
+        // Ensure dependency block is not duplicated (issue #5251)
+        assertThat(buildGradleText.indexOf("implementation enforcedPlatform"), equalTo(buildGradleText.lastIndexOf("implementation enforcedPlatform")));
+
+        assertThat(resourceText, containsString("fun hello() = \"hello\""))
+    }
+    
+    @Test
+    @DisplayName("Create a Gradle project using scala source")
+    fun testCreateGradleScalaProject() {
+        // When
+        val creator = QuarkusProjectCreator()
+        val proj = creator.create(
+            QuarkusProject(
+                groupId = "com.test",
+                artifactId = "test-app",
+                version = "2.0.0",
+                buildTool = "GRADLE",
+                className = "com.test.TestResource",
+                extensions = setOf(
+                    "io.quarkus:quarkus-scala"
+                )
+            )
+        )
+        val (testDir, zipList) = ProjectTestHelpers.extractProject(proj)
+        val fileList = ProjectTestHelpers.readFiles(testDir)
+        val buildGradleText = Paths.get(testDir.path, "test-app/build.gradle")
+            .toFile().readText(Charsets.UTF_8)
+        val resourceText = Paths.get(testDir.path, "test-app/src/main/scala/com/test/TestResource.scala")
+            .toFile().readText(Charsets.UTF_8)
+
+        // Then
+        assertThat(zipList, contains(*EXPECTED_ZIP_CONTENT_GRADLE_SCALA))
+
+        assertThat(fileList.size, equalTo(38))
+
+        assertThat(buildGradleText, containsString("id 'scala'"))
+        assertThat(buildGradleText, containsString("implementation 'io.quarkus:quarkus-scala'"))
+        assertThat(buildGradleText, containsString("group 'com.test'"))
+        assertThat(buildGradleText, containsString("version '2.0.0'"))
+        // Ensure dependency block is not duplicated (issue #5251)
+        assertThat(buildGradleText.indexOf("implementation enforcedPlatform"), equalTo(buildGradleText.lastIndexOf("implementation enforcedPlatform")));
+
+        assertThat(resourceText, containsString("def hello() = \"hello\""))
     }
 
     @Test
