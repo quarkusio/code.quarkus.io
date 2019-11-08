@@ -2,12 +2,17 @@ package io.quarkus.code.services
 
 import io.quarkus.cli.commands.AddExtensions
 import io.quarkus.cli.commands.CreateProject
+import io.quarkus.cli.commands.writer.FileProjectWriter
+import io.quarkus.cli.commands.writer.ProjectWriter
 import io.quarkus.code.model.QuarkusProject
 import io.quarkus.code.writer.CommonsZipProjectWriter
 import io.quarkus.generators.BuildTool
 import io.quarkus.platform.tools.config.QuarkusPlatformConfig
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.io.IOException
+import java.nio.file.Files
+import java.nio.file.Path
 import javax.inject.Singleton
 
 @Singleton
@@ -38,34 +43,45 @@ open class QuarkusProjectCreator {
         baos.use {
             val zipWriter = CommonsZipProjectWriter.createWriter(baos, project.artifactId)
             zipWriter.use {
-                val sourceType = CreateProject.determineSourceType(project.extensions)
-                val context = mutableMapOf("path" to (project.path as Any))
-                val buildTool = io.quarkus.generators.BuildTool.valueOf(project.buildTool)
-                val success = CreateProject(zipWriter)
-                        .groupId(project.groupId)
-                        .artifactId(project.artifactId)
-                        .version(project.version)
-                        .sourceType(sourceType)
-                        .buildTool(buildTool)
-                        .className(project.className)
-                        .extensions(project.extensions)
-                        .doCreateProject(context)
-                if (!success) {
-                    throw IOException("Error during Quarkus project creation")
-                }
-                AddExtensions(zipWriter, buildTool)
-                        .addExtensions(project.extensions)
-                if (buildTool == BuildTool.MAVEN) {
-                    addMvnw(zipWriter)
-                } else if (buildTool == BuildTool.GRADLE) {
-                    addGradlew(zipWriter)
-                }
+                createProject(project, zipWriter)
             }
         }
         return baos.toByteArray()
     }
 
-    private fun addMvnw(zipWrite: CommonsZipProjectWriter) {
+    open fun createTmp(project: QuarkusProject): Path {
+        val location = Files.createTempDirectory("generated-")
+        val fileProjectWriter = FileProjectWriter(location.toFile())
+        createProject(project, fileProjectWriter)
+        return location;
+    }
+
+    private fun createProject(project: QuarkusProject, projectWriter: ProjectWriter) {
+        val sourceType = CreateProject.determineSourceType(project.extensions)
+        val context = mutableMapOf("path" to (project.path as Any))
+        val buildTool = BuildTool.valueOf(project.buildTool)
+        val success = CreateProject(projectWriter)
+                .groupId(project.groupId)
+                .artifactId(project.artifactId)
+                .version(project.version)
+                .sourceType(sourceType)
+                .buildTool(buildTool)
+                .className(project.className)
+                .extensions(project.extensions)
+                .doCreateProject(context)
+        if (!success) {
+            throw IOException("Error during Quarkus project creation")
+        }
+        AddExtensions(projectWriter, buildTool)
+                .addExtensions(project.extensions)
+        if (buildTool == BuildTool.MAVEN) {
+            addMvnw(projectWriter)
+        } else if (buildTool == BuildTool.GRADLE) {
+            addGradlew(projectWriter)
+        }
+    }
+
+    private fun addMvnw(zipWrite: ProjectWriter) {
         zipWrite.mkdirs(MVNW_WRAPPER_DIR)
         writeResourceFile(zipWrite, MVNW_RESOURCES_DIR, MVNW_WRAPPER_JAR)
         writeResourceFile(zipWrite, MVNW_RESOURCES_DIR, MVNW_WRAPPER_PROPS)
@@ -74,7 +90,7 @@ open class QuarkusProjectCreator {
         writeResourceFile(zipWrite, MVNW_RESOURCES_DIR, MVNW, true)
     }
 
-    private fun addGradlew(zipWrite: CommonsZipProjectWriter) {
+    private fun addGradlew(zipWrite: ProjectWriter) {
         zipWrite.mkdirs(GRADLEW_WRAPPER_DIR)
         writeResourceFile(zipWrite, GRADLEW_RESOURCES_DIR, GRADLEW_WRAPPER_JAR)
         writeResourceFile(zipWrite, GRADLEW_RESOURCES_DIR, GRADLEW_WRAPPER_PROPS)
@@ -82,14 +98,18 @@ open class QuarkusProjectCreator {
         writeResourceFile(zipWrite, GRADLEW_RESOURCES_DIR, GRADLEW, true)
     }
 
-    private fun writeResourceFile(zipWrite: CommonsZipProjectWriter, resourcesDir: String, filePath: String, allowExec: Boolean = false) {
-        if (!zipWrite.exists(filePath)) {
+    private fun writeResourceFile(projectWriter: ProjectWriter, resourcesDir: String, filePath: String, allowExec: Boolean = false) {
+        if (!projectWriter.exists(filePath)) {
             val resourcePath = "$resourcesDir/$filePath"
             val resource = QuarkusProjectCreator::class.java.getResource(resourcePath)
                     ?: throw IOException("missing resource $resourcePath")
-            val fileAsBytes =
-                    resource.readBytes()
-            zipWrite.write(filePath, fileAsBytes, allowExec)
+            val fileAsBytes = resource.readBytes()
+
+            if (projectWriter is CommonsZipProjectWriter){
+                projectWriter.write(filePath, fileAsBytes, allowExec)
+            } else {
+                projectWriter.write(filePath, resource.file)
+            }
         }
     }
 
