@@ -75,7 +75,7 @@ class CodeQuarkusResourceTest {
     fun testWithInvalidClassName() {
         given()
                 .`when`()
-                .get("/api/download?c=com.1e&e=io.quarkus:quarkus-resteasy")
+                .get("/api/download?c=com.àe&e=io.quarkus:quarkus-resteasy")
                 .then()
                 .statusCode(400)
     }

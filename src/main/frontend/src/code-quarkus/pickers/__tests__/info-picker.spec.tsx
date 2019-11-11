@@ -37,7 +37,9 @@ describe('<InfoPicker />', () => {
     fireEvent.change(comp!.getByLabelText('Edit version'), { target: { value: '' } });
     expect(onChangeMock).lastCalledWith({...value, version: ''}, false);
     fireEvent.change(comp!.getByLabelText('Edit package name'), { target: { value: 'com.1a' } });
-    expect(onChangeMock).lastCalledWith({...value, packageName: 'com.1a'}, false);
+    expect(onChangeMock).lastCalledWith({...value, packageName: 'com.1a'}, true);
+    fireEvent.change(comp!.getByLabelText('Edit package name'), { target: { value: 'com.àa' } });
+    expect(onChangeMock).lastCalledWith({...value, packageName: 'com.àa'}, false);
   });
 
   it('auto update untouched package name when groupId is edited', () => {
@@ -58,7 +60,7 @@ describe('<InfoPicker />', () => {
   it('display errors when using invalid values', async () => {
     const onChangeMock = jest.fn();
     const initialValue = { groupId: 'com.test', version: 'version', artifactId: 'test', packageName: 'org.package' };
-    const invalidValue = { groupId: 'com.1t', version: '', artifactId: 'Te', packageName: 'org.package ' };
+    const invalidValue = { groupId: 'com.àt', version: '', artifactId: 'Te', packageName: 'org.package ' };
     let comp: RenderResult;
     act(() => {
       comp = render(<InfoPicker value={initialValue} isValid={true} onChange={onChangeMock} />);
