@@ -9,21 +9,21 @@ import javax.enterprise.context.ApplicationScoped
 open class GitHubServiceMock: GitHubService() {
 
     companion object {
-        const val TEST_TOKEN = "599256c4309d494b9d1c7ed3c5cbb1c13c91254c"
-        const val TEST_CODE = "e12996e3cd2fc129264a"
+        const val TEST_TOKEN = "test-token"
+        const val TEST_CODE = "e7d2998d567533b24fb8"
     }
     override fun createRepository(token: String, repositoryName: String): Pair<String, String> {
-        if (token == TEST_TOKEN) super.createRepository(token, repositoryName)
+        if (token == TEST_TOKEN) return super.createRepository(token, repositoryName)
         assert(token == "123")
-        return Pair("https://github.com/edewit/$repositoryName", "edewit")
+        return Pair("edewit", "https://github.com/edewit/$repositoryName")
     }
 
-    override fun push(token: String, httpTransportUrl: String, ownerName: String, path: Path) {
-        if (token == TEST_TOKEN) super.push(token, httpTransportUrl, ownerName, path)
+    override fun push(ownerName: String, token: String, httpTransportUrl: String, path: Path) {
+        if (token == TEST_TOKEN) super.push(ownerName, token, httpTransportUrl, path)
     }
 
     override fun fetchAccessToken(code: String, state: String): String {
-        if (code == TEST_CODE) super.fetchAccessToken(code, state)
+        if (code == TEST_CODE) return super.fetchAccessToken(code, state)
         return "AccessToken"
     }
 }

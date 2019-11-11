@@ -24,7 +24,8 @@ class GitHubResourceTest {
     @DisplayName("Fetch the token from github")
     fun testAuth() {
         given()
-                .queryParam("code", "code-with-quarkus").`when`().get("/api/github/auth")
+                .queryParam("code", "code-with-quarkus")
+                .queryParam("state", "someRandomState").`when`().get("/api/github/auth")
                 .then()
                 .statusCode(200)
                 .body("token", equalTo("AccessToken"))

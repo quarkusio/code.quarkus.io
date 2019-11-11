@@ -14,9 +14,16 @@ import org.kohsuke.github.GitHubBuilder
 import java.io.IOException
 import java.io.UncheckedIOException
 import java.nio.file.Path
+import java.security.cert.CertificateException
+import java.security.cert.X509Certificate
 import java.util.Objects.requireNonNull
 import javax.enterprise.context.ApplicationScoped
 import javax.inject.Inject
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.SSLContext
+import javax.net.ssl.TrustManager
+import javax.net.ssl.X509TrustManager
+
 
 @ApplicationScoped
 open class GitHubService {
@@ -41,7 +48,7 @@ open class GitHubService {
         return Pair(newlyCreatedRepo.ownerName, newlyCreatedRepo.httpTransportUrl)
     }
 
-    open fun push(token: String, httpTransportUrl: String, ownerName: String, path: Path) {
+    open fun push(ownerName: String, token: String, httpTransportUrl: String, path: Path) {
         requireNonNull(httpTransportUrl, "httpTransportUrl must not be null.")
         requireNonNull(ownerName, "ownerName must not be null.")
         requireNonNull(path, "path must not be null.")
@@ -76,10 +83,34 @@ open class GitHubService {
                 .url("https://github.com/login/oauth/access_token")
                 .post(node.toString().toRequestBody("application/json".toMediaType())).build()
 
-        client.newCall(request).execute().use { response ->
+        val trustAllSslContext = SSLContext.getInstance("SSL")
+        trustAllSslContext.init(null, arrayOfTrustManagers, java.security.SecureRandom())
+
+        val builder = client.newBuilder()
+        builder.sslSocketFactory(trustAllSslContext.socketFactory, arrayOfTrustManagers[0] as X509TrustManager)
+        builder.hostnameVerifier(HostnameVerifier { _, _ -> true })
+
+        builder.build().newCall(request).execute().use { response ->
             if (!response.isSuccessful) throw IOException("Unexpected code $response")
 
             return response.body!!.string()
         }
     }
+
+    private val arrayOfTrustManagers: Array<TrustManager>
+        get() {
+            return arrayOf(object : X509TrustManager {
+                @Throws(CertificateException::class)
+                override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {
+                }
+
+                @Throws(CertificateException::class)
+                override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {
+                }
+
+                override fun getAcceptedIssuers(): Array<X509Certificate> {
+                    return arrayOf()
+                }
+            })
+        }
 }

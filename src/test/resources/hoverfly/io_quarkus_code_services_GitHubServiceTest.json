@@ -251,6 +251,55 @@
           "X-Github-Request-Id" : [ "F46A:AA1C:72087E5:AAFC61F:5DC5314F" ]
         }
       }
+    }, {
+      "request" : {
+        "path" : [ {
+          "matcher" : "exact",
+          "value" : "/login/oauth/access_token"
+        } ],
+        "method" : [ {
+          "matcher" : "exact",
+          "value" : "POST"
+        } ],
+        "destination" : [ {
+          "matcher" : "exact",
+          "value" : "github.com"
+        } ],
+        "scheme" : [ {
+          "matcher" : "exact",
+          "value" : "https"
+        } ],
+        "body" : [ {
+          "matcher" : "exact",
+          "value" : "{\"client_id\":\"\",\"client_secret\":\"\",\"state\":\"shortRandomString\",\"code\":\"e7d2998d567533b24fb8\"}"
+        } ]
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "access_token=b8410f0d46ab49b237000e4646c33fb7b193182a&scope=admin%3Arepo_hook%2Crepo&token_type=bearer",
+        "encodedBody" : false,
+        "templated" : false,
+        "headers" : {
+          "Cache-Control" : [ "max-age=0, private, must-revalidate" ],
+          "Content-Security-Policy" : [ "default-src 'none'; base-uri 'self'; block-all-mixed-content; connect-src 'self' uploads.github.com www.githubstatus.com collector.githubapp.com api.github.com www.google-analytics.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com wss://live.github.com; font-src github.githubassets.com; form-action 'self' github.com gist.github.com; frame-ancestors 'none'; frame-src render.githubusercontent.com; img-src 'self' data: github.githubassets.com identicons.github.com collector.githubapp.com github-cloud.s3.amazonaws.com *.githubusercontent.com; manifest-src 'self'; media-src 'none'; script-src github.githubassets.com; style-src 'unsafe-inline' github.githubassets.com" ],
+          "Content-Type" : [ "application/x-www-form-urlencoded; charset=utf-8" ],
+          "Date" : [ "Mon, 11 Nov 2019 13:20:43 GMT" ],
+          "Etag" : [ "W/\"dd23f8e69702163353ce9b2b1eb9f6e4\"" ],
+          "Expect-Ct" : [ "max-age=2592000, report-uri=\"https://api.github.com/_private/browser/errors\"" ],
+          "Hoverfly" : [ "Was-Here" ],
+          "Referrer-Policy" : [ "origin-when-cross-origin, strict-origin-when-cross-origin" ],
+          "Server" : [ "GitHub.com" ],
+          "Set-Cookie" : [ "has_recent_activity=1; path=/; expires=Mon, 11 Nov 2019 14:20:42 -0000", "ignored_unsupported_browser_notice=false; path=/" ],
+          "Status" : [ "200 OK" ],
+          "Strict-Transport-Security" : [ "max-age=31536000; includeSubdomains; preload" ],
+          "Vary" : [ "X-PJAX", "Accept-Encoding" ],
+          "X-Content-Type-Options" : [ "nosniff" ],
+          "X-Frame-Options" : [ "deny" ],
+          "X-Github-Request-Id" : [ "C2CC:2D002:1E2C1CE:2D6AC75:5DC9602A" ],
+          "X-Request-Id" : [ "91504e90-d9bb-4bfd-9581-f24bf2276227" ],
+          "X-Xss-Protection" : [ "1; mode=block" ]
+        }
+      }
     } ],
     "globalActions" : {
       "delays" : [ ]

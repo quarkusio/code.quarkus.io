@@ -33,8 +33,8 @@ class GitHubResource {
     fun pushCode(@Valid @BeanParam project: QuarkusProject, @HeaderParam("token") token: String): Response {
         val location = projectCreator.createTmp(project)
         val repo = gitHubService.createRepository(token, project.artifactId)
-        gitHubService.push(token, repo.first, repo.second, location)
-        return Response.ok("{ \"repository\": \"${repo.first}\"}").build()
+        gitHubService.push(repo.first, token, repo.second, location)
+        return Response.ok("{ \"repository\": \"${repo.second}\"}").build()
     }
 
     @GET

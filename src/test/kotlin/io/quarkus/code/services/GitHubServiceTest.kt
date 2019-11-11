@@ -2,11 +2,7 @@ package io.quarkus.code.services
 
 import io.quarkus.test.junit.QuarkusTest
 import io.specto.hoverfly.junit5.HoverflyExtension
-import io.specto.hoverfly.junit5.api.HoverflyCapture
-import io.specto.hoverfly.junit5.api.HoverflyConfig
 import io.specto.hoverfly.junit5.api.HoverflySimulate
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import java.io.File
@@ -15,8 +11,7 @@ import javax.inject.Inject
 
 
 @QuarkusTest
-//@HoverflySimulate
-@HoverflyCapture(config = HoverflyConfig(statefulCapture = true))
+@HoverflySimulate
 @ExtendWith(HoverflyExtension::class)
 internal class GitHubServiceTest {
 
@@ -30,12 +25,12 @@ internal class GitHubServiceTest {
         Files.copy(GitHubServiceTest::class.java.getResourceAsStream("/fakeextensions.json"), File(path.toString(), "test.json").toPath())
 
         //when
-        val repository = gitHubService.createRepository(GitHubServiceMock.TEST_TOKEN, "repo-name")
-        gitHubService.push(GitHubServiceMock.TEST_TOKEN, repository.first, repository.second, path)
+        val result = gitHubService.createRepository(GitHubServiceMock.TEST_TOKEN, "repo-name")
+        gitHubService.push(result.first, GitHubServiceMock.TEST_TOKEN, result.second, path)
     }
 
     @Test
     fun fetchAccessToken() {
-        gitHubService.fetchAccessToken(GitHubServiceMock.TEST_CODE, "shortRandomString");
+        gitHubService.fetchAccessToken(GitHubServiceMock.TEST_CODE, "shortRandomString")
     }
 }
