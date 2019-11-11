@@ -14,6 +14,7 @@ import java.io.IOException
 import javax.inject.Inject
 import javax.validation.Valid
 import javax.ws.rs.*
+import javax.ws.rs.core.MediaType.APPLICATION_JSON
 import javax.ws.rs.core.Response
 
 @Path("/github")
@@ -25,42 +26,22 @@ class GitHubResource {
     @Inject
     lateinit var projectCreator: QuarkusProjectCreator
 
-    @Inject
-    lateinit var configManager: CodeQuarkusConfigManager
-
-    var client: OkHttpClient = OkHttpClient()
-
     @GET
     @Path("/push")
+    @Produces(APPLICATION_JSON)
     @Operation(summary = "Push generated code to GitHub")
-    fun pushCode(@Valid @BeanParam project: QuarkusProject, @QueryParam("token") token: String): Response {
+    fun pushCode(@Valid @BeanParam project: QuarkusProject, @HeaderParam("token") token: String): Response {
         val location = projectCreator.createTmp(project)
         val repo = gitHubService.createRepository(token, project.artifactId)
-        gitHubService.push(token, repo, location)
-        return Response.ok(repo.fullName).build()
+        gitHubService.push(token, repo.first, repo.second, location)
+        return Response.ok("{ \"repository\": \"${repo.first}\"}").build()
     }
 
     @GET
     @Path("/auth")
+    @Produces(APPLICATION_JSON)
     fun authenticate(@QueryParam("code") code: String, @QueryParam("state") state: String): Response {
-        val token = fetchAccessToken(code, state)
-        return Response.ok(token).build()
-    }
-
-    private fun fetchAccessToken(code: String, state: String): String {
-        val node = ObjectMapper().createObjectNode()
-                .put("client_id", configManager.clientId)
-                .put("client_secret", configManager.clientSecret)
-                .put("state", state)
-                .put("code", code)
-        val request = Request.Builder()
-                .url("https://github.com/login/oauth/access_token")
-                .post(node.toString().toRequestBody("application/json".toMediaType())).build()
-
-        client.newCall(request).execute().use { response ->
-            if (!response.isSuccessful) throw IOException("Unexpected code $response")
-
-            return response.body!!.string()
-        }
+        val token = gitHubService.fetchAccessToken(code, state)
+        return Response.ok("{ \"token\": \"$token\"}").build()
     }
 }
