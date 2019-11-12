@@ -8,26 +8,21 @@
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <version.kotlin-stdlib>1.3.21</version.kotlin-stdlib>
-    <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
     <version.maven-failsafe-plugin>2.22.2</version.maven-failsafe-plugin>
+    <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
+    <version.github-api>1.95</version.github-api>
     <version.rest-assured>3.3.0</version.rest-assured>
     <version.surefire-plugin>2.22.0</version.surefire-plugin>
     <version.kotlin>1.3.31</version.kotlin>
     <version.maven-compiler-plugin>3.8.0</version.maven-compiler-plugin>
     <version.gatling>3.2.0</version.gatling>
+    <version.hoverfly>0.12.2</version.hoverfly>
     <maven.compiler.target>1.8</maven.compiler.target>
     <version.frontend-maven-plugin>1.7.6</version.frontend-maven-plugin>
-    <version.commons-compress>1.19</version.commons-compress>
-    <version.jgit>5.5.0.201909110433-r</version.jgit>
-    <version.okhttp>4.2.2</version.okhttp>
-    <version.github-api>1.95</version.github-api>
-    <version.hoverfly>0.12.2</version.hoverfly>
-
-    <!-- Quarkus version is used for bundling Code Quarkus -->
-    <version.quarkus>1.0.0.CR1</version.quarkus>
-
-    <!-- Quarkus Platform version must be compatible with Quarkus version -->
+    <version.okhttp>3.13.1</version.okhttp>
     <version.quarkus-platform>1.0.0.CR1</version.quarkus-platform>
+    <version.commons-compress>1.19</version.commons-compress>
+    <version.quarkus>1.0.0.CR1</version.quarkus>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -96,11 +91,6 @@
       <version>${version.github-api}</version>
     </dependency>
     <dependency>
-      <groupId>org.eclipse.jgit</groupId>
-      <artifactId>org.eclipse.jgit</artifactId>
-      <version>${version.jgit}</version>
-    </dependency>
-    <dependency>
       <groupId>io.specto</groupId>
       <artifactId>hoverfly-java-junit5</artifactId>
       <version>${version.hoverfly}</version>
@@ -136,22 +126,29 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-metrics</artifactId>
     </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-jgit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-rest-client</artifactId>
+    </dependency>
   </dependencies>
   <build>
     <sourceDirectory>src/main/kotlin</sourceDirectory>
     <testSourceDirectory>src/test/kotlin</testSourceDirectory>
     <resources>
       <resource>
-        <directory>src/main/resources</directory>
         <filtering>true</filtering>
+        <directory>src/main/resources</directory>
         <includes>
           <include>application.properties</include>
         </includes>
       </resource>
-
       <resource>
-        <directory>src/main/resources</directory>
         <filtering>false</filtering>
+        <directory>src/main/resources</directory>
         <excludes>
           <exclude>application.properties</exclude>
         </excludes>

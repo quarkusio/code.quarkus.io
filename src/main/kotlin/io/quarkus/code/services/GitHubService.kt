@@ -1,36 +1,27 @@
 package io.quarkus.code.services
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
+import io.quarkus.code.model.AccessToken
+import io.quarkus.code.model.TokenParameter
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.errors.GitAPIException
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
+import org.eclipse.microprofile.rest.client.RestClientBuilder
 import org.kohsuke.github.GHCreateRepositoryBuilder
 import org.kohsuke.github.GHRepository
 import org.kohsuke.github.GitHubBuilder
 import java.io.IOException
 import java.io.UncheckedIOException
+import java.net.URI
 import java.nio.file.Path
-import java.security.cert.CertificateException
-import java.security.cert.X509Certificate
 import java.util.Objects.requireNonNull
 import javax.enterprise.context.ApplicationScoped
 import javax.inject.Inject
-import javax.net.ssl.HostnameVerifier
-import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManager
-import javax.net.ssl.X509TrustManager
 
 
 @ApplicationScoped
 open class GitHubService {
     @Inject
     lateinit var configManager: CodeQuarkusConfigManager
-
-    val client: OkHttpClient = OkHttpClient()
 
     @Throws(UncheckedIOException::class)
     open fun createRepository(token: String, repositoryName: String): Pair<String, String> {
@@ -73,44 +64,11 @@ open class GitHubService {
 
     }
 
-    open fun fetchAccessToken(code: String, state: String): String {
-        val node = ObjectMapper().createObjectNode()
-                .put("client_id", configManager.clientId)
-                .put("client_secret", configManager.clientSecret)
-                .put("state", state)
-                .put("code", code)
-        val request = Request.Builder()
-                .url("https://github.com/login/oauth/access_token")
-                .post(node.toString().toRequestBody("application/json".toMediaType())).build()
+    open fun fetchAccessToken(code: String, state: String): AccessToken {
+        val gitHubOAuthClient = RestClientBuilder.newBuilder()
+                .baseUri(URI("https://github.com/"))
+                .build(GitHubOAuthClient::class.java)
 
-        val trustAllSslContext = SSLContext.getInstance("SSL")
-        trustAllSslContext.init(null, arrayOfTrustManagers, java.security.SecureRandom())
-
-        val builder = client.newBuilder()
-        builder.sslSocketFactory(trustAllSslContext.socketFactory, arrayOfTrustManagers[0] as X509TrustManager)
-        builder.hostnameVerifier(HostnameVerifier { _, _ -> true })
-
-        builder.build().newCall(request).execute().use { response ->
-            if (!response.isSuccessful) throw IOException("Unexpected code $response")
-
-            return response.body!!.string()
-        }
+        return AccessToken(gitHubOAuthClient.getAccessToken(TokenParameter(configManager.clientId, configManager.clientSecret, code, state)))
     }
-
-    private val arrayOfTrustManagers: Array<TrustManager>
-        get() {
-            return arrayOf(object : X509TrustManager {
-                @Throws(CertificateException::class)
-                override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {
-                }
-
-                @Throws(CertificateException::class)
-                override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {
-                }
-
-                override fun getAcceptedIssuers(): Array<X509Certificate> {
-                    return arrayOf()
-                }
-            })
-        }
 }

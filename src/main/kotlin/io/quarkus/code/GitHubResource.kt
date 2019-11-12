@@ -1,16 +1,9 @@
 package io.quarkus.code
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import io.quarkus.code.model.QuarkusProject
-import io.quarkus.code.services.CodeQuarkusConfigManager
 import io.quarkus.code.services.GitHubService
 import io.quarkus.code.services.QuarkusProjectCreator
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
 import org.eclipse.microprofile.openapi.annotations.Operation
-import java.io.IOException
 import javax.inject.Inject
 import javax.validation.Valid
 import javax.ws.rs.*
@@ -42,6 +35,6 @@ class GitHubResource {
     @Produces(APPLICATION_JSON)
     fun authenticate(@QueryParam("code") code: String, @QueryParam("state") state: String): Response {
         val token = gitHubService.fetchAccessToken(code, state)
-        return Response.ok("{ \"token\": \"$token\"}").build()
+        return Response.ok(token).build()
     }
 }
