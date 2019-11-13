@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 
 @QuarkusTest
-@HoverflySimulate(config = HoverflyConfig(destination = "github.com"))
+@HoverflySimulate(config = HoverflyConfig(destination = "github.com", disableTlsVerification = true))
 @ExtendWith(HoverflyExtension::class)
 internal class GitHubServiceTest {
 
