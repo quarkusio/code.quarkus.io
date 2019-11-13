@@ -38,5 +38,5 @@ steps:
   displayName: 'Maven Build'
   inputs:
     goals: 'clean package'
-    jdkVersionOption: '1.8'
+    jdkVersionOption: '1.11'
     options: ''
