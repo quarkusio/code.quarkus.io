@@ -43,6 +43,6 @@ internal class GitHubServiceTest {
         gitHubService.authService = authService
         gitHubService.config = GitHubConfig("", "")
         val token = gitHubService.fetchAccessToken(GitHubServiceMock.TEST_CODE, "shortRandomString")
-        assertThat(token, `is`("access_token=b8410f0d46ab49b237000e4646c33fb7b193182a&scope=admin%3Arepo_hook%2Crepo&token_type=bearer"))
+        assertThat(token, `is`("b8410f0d46ab49b237000e4646c33fb7b193182a"))
     }
 }

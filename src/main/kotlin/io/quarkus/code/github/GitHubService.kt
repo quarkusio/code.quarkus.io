@@ -69,6 +69,6 @@ open class GitHubService {
     }
 
     open fun fetchAccessToken(code: String, state: String): String {
-        return authService.getAccessToken(TokenParameter(config.clientId, config.clientSecret, code, state))
+        return authService.getAccessToken(TokenParameter(config.clientId, config.clientSecret, code, state)).getFirst("access_token")
     }
 }
