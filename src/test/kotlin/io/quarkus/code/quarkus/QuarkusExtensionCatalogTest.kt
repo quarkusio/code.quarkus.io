@@ -1,20 +1,21 @@
 package io.quarkus.code.quarkus
 
-import io.quarkus.code.quarkus.model.CodeQuarkusExtension
 import io.quarkus.code.quarkus.QuarkusExtensionUtils.processExtensions
+import io.quarkus.code.quarkus.model.CodeQuarkusExtension
 import io.quarkus.platform.descriptor.loader.json.ArtifactResolver
 import io.quarkus.platform.descriptor.loader.json.QuarkusJsonPlatformDescriptorLoaderContext
 import io.quarkus.platform.descriptor.loader.json.impl.QuarkusJsonPlatformDescriptor
 import io.quarkus.platform.descriptor.loader.json.impl.QuarkusJsonPlatformDescriptorLoaderImpl
 import org.apache.maven.model.Dependency
-import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.Test
-import java.nio.file.Path
-import java.util.function.Function
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.*
+import org.hamcrest.Matchers.`is`
+import org.hamcrest.Matchers.contains
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Test
 import java.io.IOException
 import java.io.InputStream
+import java.nio.file.Path
+import java.util.function.Function
 
 internal class QuarkusExtensionCatalogTest {
 

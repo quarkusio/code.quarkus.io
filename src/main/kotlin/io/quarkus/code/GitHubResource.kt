@@ -1,8 +1,8 @@
 package io.quarkus.code
 
-import io.quarkus.code.quarkus.model.QuarkusProject
 import io.quarkus.code.github.GitHubService
 import io.quarkus.code.quarkus.QuarkusProjectCreator
+import io.quarkus.code.quarkus.model.QuarkusProject
 import org.eclipse.microprofile.openapi.annotations.Operation
 import javax.inject.Inject
 import javax.validation.Valid

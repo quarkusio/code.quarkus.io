@@ -1,10 +1,10 @@
 package io.quarkus.code
 
+import io.quarkus.code.quarkus.QuarkusExtensionCatalog
+import io.quarkus.code.quarkus.QuarkusProjectCreator
 import io.quarkus.code.quarkus.model.CodeQuarkusExtension
 import io.quarkus.code.quarkus.model.PublicConfig
 import io.quarkus.code.quarkus.model.QuarkusProject
-import io.quarkus.code.quarkus.QuarkusExtensionCatalog
-import io.quarkus.code.quarkus.QuarkusProjectCreator
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema

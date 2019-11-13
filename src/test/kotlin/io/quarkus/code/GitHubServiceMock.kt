@@ -1,7 +1,7 @@
 package io.quarkus.code
 
-import io.quarkus.code.github.model.CreatedRepository
 import io.quarkus.code.github.GitHubService
+import io.quarkus.code.github.model.CreatedRepository
 import io.quarkus.test.Mock
 import java.nio.file.Path
 import javax.enterprise.context.ApplicationScoped
