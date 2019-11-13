@@ -1,15 +1,14 @@
-package io.quarkus.code.services
+package io.quarkus.code.quarkus
 
 import io.quarkus.cli.commands.AddExtensions
 import io.quarkus.cli.commands.CreateProject
 import io.quarkus.cli.commands.writer.FileProjectWriter
 import io.quarkus.cli.commands.writer.ProjectWriter
-import io.quarkus.code.model.QuarkusProject
-import io.quarkus.code.writer.CommonsZipProjectWriter
+import io.quarkus.code.quarkus.model.QuarkusProject
+import io.quarkus.code.quarkus.writer.CommonsZipProjectWriter
 import io.quarkus.generators.BuildTool
 import io.quarkus.platform.tools.config.QuarkusPlatformConfig
 import java.io.ByteArrayOutputStream
-import java.io.File
 import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path

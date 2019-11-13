@@ -1,19 +1,15 @@
-package io.quarkus.code.services
+package io.quarkus.code.quarkus
 
-import io.quarkus.code.model.CodeQuarkusExtension
-import io.quarkus.code.services.QuarkusExtensionUtils.processExtensions
+import io.quarkus.code.quarkus.model.CodeQuarkusExtension
+import io.quarkus.code.quarkus.QuarkusExtensionUtils.processExtensions
 import io.quarkus.platform.descriptor.loader.json.ArtifactResolver
 import io.quarkus.platform.descriptor.loader.json.QuarkusJsonPlatformDescriptorLoaderContext
 import io.quarkus.platform.descriptor.loader.json.impl.QuarkusJsonPlatformDescriptor
 import io.quarkus.platform.descriptor.loader.json.impl.QuarkusJsonPlatformDescriptorLoaderImpl
-import io.quarkus.platform.tools.DefaultMessageWriter
-import io.quarkus.platform.tools.MessageWriter
 import org.apache.maven.model.Dependency
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import java.io.File
 import java.nio.file.Path
-import java.util.ArrayList
 import java.util.function.Function
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*

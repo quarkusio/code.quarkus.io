@@ -1,12 +1,11 @@
-package io.quarkus.code.services
+package io.quarkus.code
 
-import io.quarkus.code.model.Config
-import io.quarkus.code.services.QuarkusExtensionCatalog.Companion.bundledQuarkusVersion
+import io.quarkus.code.quarkus.QuarkusExtensionCatalog.Companion.bundledQuarkusVersion
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import javax.inject.Singleton
 
 @Singleton
-open class CodeQuarkusConfigManager {
+open class CodeQuarkusConfig {
 
     companion object {
         const val GROUPID_PATTERN = "^([a-zA-Z_\$][a-zA-Z\\d_\$]*\\.)*[a-zA-Z_\$][a-zA-Z\\d_\$]*\$"
@@ -40,15 +39,5 @@ open class CodeQuarkusConfigManager {
     @ConfigProperty(name = "io.quarkus.code.github.clientSecret", defaultValue = "")
     lateinit var clientSecret: String
         private set
-
-    fun getConfig(): Config {
-        return Config(
-                environment,
-                gaTrackingId,
-                sentryDSN,
-                quarkusVersion,
-                gitCommitId
-        )
-    }
 
 }

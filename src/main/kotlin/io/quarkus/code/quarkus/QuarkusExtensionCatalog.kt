@@ -1,7 +1,7 @@
-package io.quarkus.code.services
+package io.quarkus.code.quarkus
 
 import com.google.common.base.Preconditions.checkState
-import io.quarkus.code.model.CodeQuarkusExtension
+import io.quarkus.code.quarkus.model.CodeQuarkusExtension
 import io.quarkus.platform.descriptor.resolver.json.QuarkusJsonPlatformDescriptorResolver
 import org.eclipse.microprofile.config.spi.ConfigProviderResolver
 import javax.inject.Singleton

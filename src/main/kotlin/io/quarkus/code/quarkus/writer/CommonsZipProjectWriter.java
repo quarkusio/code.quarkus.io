@@ -1,4 +1,4 @@
-package io.quarkus.code.writer;
+package io.quarkus.code.quarkus.writer;
 
 import io.quarkus.cli.commands.writer.ProjectWriter;
 import org.apache.commons.compress.archivers.ArchiveException;

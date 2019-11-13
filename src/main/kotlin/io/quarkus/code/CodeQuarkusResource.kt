@@ -1,11 +1,10 @@
 package io.quarkus.code
 
-import io.quarkus.code.model.CodeQuarkusExtension
-import io.quarkus.code.model.Config
-import io.quarkus.code.model.QuarkusProject
-import io.quarkus.code.services.CodeQuarkusConfigManager
-import io.quarkus.code.services.QuarkusExtensionCatalog
-import io.quarkus.code.services.QuarkusProjectCreator
+import io.quarkus.code.quarkus.model.CodeQuarkusExtension
+import io.quarkus.code.quarkus.model.PublicConfig
+import io.quarkus.code.quarkus.model.QuarkusProject
+import io.quarkus.code.quarkus.QuarkusExtensionCatalog
+import io.quarkus.code.quarkus.QuarkusProjectCreator
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
@@ -24,7 +23,7 @@ import javax.ws.rs.core.Response
 class CodeQuarkusResource {
 
     @Inject
-    lateinit var configManager: CodeQuarkusConfigManager
+    lateinit var config: CodeQuarkusConfig
 
     @Inject
     lateinit var extensionCatalog: QuarkusExtensionCatalog
@@ -36,8 +35,14 @@ class CodeQuarkusResource {
     @Path("/config")
     @Produces(APPLICATION_JSON)
     @Operation(summary = "Get the Quarkus Launcher configuration (DEPRECATED to '/v1/...')", hidden = true)
-    fun config(): Config {
-        return configManager.getConfig()
+    fun config(): PublicConfig {
+        return PublicConfig(
+                config.environment,
+                config.gaTrackingId,
+                config.sentryDSN,
+                config.quarkusVersion,
+                config.gitCommitId
+        )
     }
 
 

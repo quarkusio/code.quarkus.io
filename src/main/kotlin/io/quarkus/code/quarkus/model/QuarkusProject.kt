@@ -1,4 +1,4 @@
-package io.quarkus.code.model
+package io.quarkus.code.quarkus.model
 
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter
 import javax.validation.constraints.NotEmpty

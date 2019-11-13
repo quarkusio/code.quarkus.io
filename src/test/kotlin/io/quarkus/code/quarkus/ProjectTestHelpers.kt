@@ -1,4 +1,4 @@
-package io.quarkus.code.services
+package io.quarkus.code.quarkus
 
 import org.apache.commons.compress.archivers.ArchiveStreamFactory
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry

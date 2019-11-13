@@ -1,6 +1,7 @@
-package io.quarkus.code.services
+package io.quarkus.code.github
 
-import io.quarkus.code.model.TokenParameter
+import io.quarkus.code.github.model.CreatedRepository
+import io.quarkus.code.github.model.TokenParameter
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.errors.GitAPIException
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
@@ -18,15 +19,16 @@ import javax.inject.Inject
 
 @ApplicationScoped
 open class GitHubService {
+
     @Inject
-    lateinit var configManager: CodeQuarkusConfigManager
+    lateinit var config: GitHubConfig
 
     @Inject
     @field: RestClient
-    internal lateinit var gitHubOAuthClient: GitHubOAuthClient
+    internal lateinit var authService: GitHubOAuthService
 
-            @Throws(UncheckedIOException::class)
-    open fun createRepository(token: String, repositoryName: String): Pair<String, String> {
+    @Throws(UncheckedIOException::class)
+    open fun createRepository(token: String, repositoryName: String): CreatedRepository {
         val newlyCreatedRepo: GHRepository
         try {
             val gitHub = GitHubBuilder().withOAuthToken(token).build()
@@ -38,7 +40,7 @@ open class GitHubService {
             throw UncheckedIOException(String.format("Could not create GitHub repository named '%s'", repositoryName), e)
         }
 
-        return Pair(newlyCreatedRepo.ownerName, newlyCreatedRepo.httpTransportUrl)
+        return CreatedRepository(newlyCreatedRepo.ownerName, newlyCreatedRepo.httpTransportUrl)
     }
 
     open fun push(ownerName: String, token: String, httpTransportUrl: String, path: Path) {
@@ -67,6 +69,6 @@ open class GitHubService {
     }
 
     open fun fetchAccessToken(code: String, state: String): String {
-        return gitHubOAuthClient.getAccessToken(TokenParameter(configManager.clientId, configManager.clientSecret, code, state))
+        return authService.getAccessToken(TokenParameter(config.clientId, config.clientSecret, code, state))
     }
 }

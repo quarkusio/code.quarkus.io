@@ -1,4 +1,4 @@
-package io.quarkus.code.model
+package io.quarkus.code.github.model
 
 data class TokenParameter(
         var client_id: String,

@@ -1,8 +1,8 @@
 package io.quarkus.code
 
-import io.quarkus.code.model.QuarkusProject
-import io.quarkus.code.services.GitHubService
-import io.quarkus.code.services.QuarkusProjectCreator
+import io.quarkus.code.quarkus.model.QuarkusProject
+import io.quarkus.code.github.GitHubService
+import io.quarkus.code.quarkus.QuarkusProjectCreator
 import org.eclipse.microprofile.openapi.annotations.Operation
 import javax.inject.Inject
 import javax.validation.Valid
@@ -26,8 +26,8 @@ class GitHubResource {
     fun pushCode(@Valid @BeanParam project: QuarkusProject, @HeaderParam("token") token: String): Response {
         val location = projectCreator.createTmp(project)
         val repo = gitHubService.createRepository(token, project.artifactId)
-        gitHubService.push(repo.first, token, repo.second, location)
-        return Response.ok("{ \"repository\": \"${repo.second}\"}").build()
+        gitHubService.push(repo.ownerName, token, repo.url, location)
+        return Response.ok("{ \"repository\": \"${repo.url}\"}").build()
     }
 
     @GET
