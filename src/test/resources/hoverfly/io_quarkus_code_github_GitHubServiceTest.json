@@ -271,7 +271,7 @@
         } ],
         "body" : [ {
           "matcher" : "exact",
-          "value" : "{\"client_id\":\"\",\"client_secret\":\"\",\"code\":\"e7d2998d567533b24fb8\",\"state\":\"shortRandomString\"}"
+          "value" : "{\"client_id\":\"The client id\",\"client_secret\":\"The client secret\",\"code\":\"e7d2998d567533b24fb8\",\"state\":\"shortRandomString\"}"
         } ]
       },
       "response" : {

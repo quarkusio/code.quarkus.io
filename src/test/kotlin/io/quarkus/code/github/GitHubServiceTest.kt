@@ -41,7 +41,7 @@ internal class GitHubServiceTest {
     @Test
     fun fetchAccessToken() {
         gitHubService.authService = authService
-        gitHubService.config = GitHubConfig("", "")
+        gitHubService.config = GitHubConfig("The client id", "The client secret")
         val token = gitHubService.fetchAccessToken(GitHubServiceMock.TEST_CODE, "shortRandomString")
         assertThat(token, `is`("b8410f0d46ab49b237000e4646c33fb7b193182a"))
     }
