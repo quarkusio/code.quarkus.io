@@ -1,17 +1,15 @@
 package io.quarkus.code.services
 
-import io.quarkus.code.model.AccessToken
 import io.quarkus.code.model.TokenParameter
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.errors.GitAPIException
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
-import org.eclipse.microprofile.rest.client.RestClientBuilder
+import org.eclipse.microprofile.rest.client.inject.RestClient
 import org.kohsuke.github.GHCreateRepositoryBuilder
 import org.kohsuke.github.GHRepository
 import org.kohsuke.github.GitHubBuilder
 import java.io.IOException
 import java.io.UncheckedIOException
-import java.net.URI
 import java.nio.file.Path
 import java.util.Objects.requireNonNull
 import javax.enterprise.context.ApplicationScoped
@@ -23,7 +21,11 @@ open class GitHubService {
     @Inject
     lateinit var configManager: CodeQuarkusConfigManager
 
-    @Throws(UncheckedIOException::class)
+    @Inject
+    @field: RestClient
+    internal lateinit var gitHubOAuthClient: GitHubOAuthClient
+
+            @Throws(UncheckedIOException::class)
     open fun createRepository(token: String, repositoryName: String): Pair<String, String> {
         val newlyCreatedRepo: GHRepository
         try {
@@ -64,11 +66,7 @@ open class GitHubService {
 
     }
 
-    open fun fetchAccessToken(code: String, state: String): AccessToken {
-        val gitHubOAuthClient = RestClientBuilder.newBuilder()
-                .baseUri(URI("https://github.com/"))
-                .build(GitHubOAuthClient::class.java)
-
-        return AccessToken(gitHubOAuthClient.getAccessToken(TokenParameter(configManager.clientId, configManager.clientSecret, code, state)))
+    open fun fetchAccessToken(code: String, state: String): String {
+        return gitHubOAuthClient.getAccessToken(TokenParameter(configManager.clientId, configManager.clientSecret, code, state))
     }
 }

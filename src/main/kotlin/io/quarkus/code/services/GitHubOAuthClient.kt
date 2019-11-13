@@ -1,7 +1,6 @@
 @file:JvmName("io.quarkus.code.services.GitHubApi")
 package io.quarkus.code.services
 
-import io.quarkus.code.model.AccessToken
 import io.quarkus.code.model.TokenParameter
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient
 import javax.ws.rs.POST

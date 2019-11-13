@@ -19,7 +19,6 @@
     <version.hoverfly>0.12.2</version.hoverfly>
     <maven.compiler.target>1.8</maven.compiler.target>
     <version.frontend-maven-plugin>1.7.6</version.frontend-maven-plugin>
-    <version.okhttp>3.13.1</version.okhttp>
     <version.quarkus-platform>1.0.0.CR1</version.quarkus-platform>
     <version.commons-compress>1.19</version.commons-compress>
     <version.quarkus>1.0.0.CR1</version.quarkus>
@@ -79,11 +78,6 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-compress</artifactId>
       <version>${version.commons-compress}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.squareup.okhttp3</groupId>
-      <artifactId>okhttp</artifactId>
-      <version>${version.okhttp}</version>
     </dependency>
     <dependency>
       <groupId>org.kohsuke</groupId>

@@ -1,6 +1,5 @@
 package io.quarkus.code.services
 
-import io.quarkus.code.model.AccessToken
 import io.quarkus.test.Mock
 import java.nio.file.Path
 import javax.enterprise.context.ApplicationScoped
@@ -23,8 +22,8 @@ open class GitHubServiceMock: GitHubService() {
         if (token == TEST_TOKEN) super.push(ownerName, token, httpTransportUrl, path)
     }
 
-    override fun fetchAccessToken(code: String, state: String): AccessToken {
+    override fun fetchAccessToken(code: String, state: String): String {
         if (code == TEST_CODE) return super.fetchAccessToken(code, state)
-        return AccessToken("AccessToken")
+        return "{ \"access_token\": \"AccessToken\"}"
     }
 }

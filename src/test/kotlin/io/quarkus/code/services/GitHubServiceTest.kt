@@ -2,6 +2,7 @@ package io.quarkus.code.services
 
 import io.quarkus.test.junit.QuarkusTest
 import io.specto.hoverfly.junit5.HoverflyExtension
+import io.specto.hoverfly.junit5.api.HoverflyConfig
 import io.specto.hoverfly.junit5.api.HoverflySimulate
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -11,7 +12,7 @@ import javax.inject.Inject
 
 
 @QuarkusTest
-@HoverflySimulate
+@HoverflySimulate(config = HoverflyConfig(destination = "github.com"))
 @ExtendWith(HoverflyExtension::class)
 internal class GitHubServiceTest {
 
