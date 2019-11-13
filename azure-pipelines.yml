@@ -19,6 +19,8 @@ pool:
 variables:
   YARN_CACHE_FOLDER: $(Pipeline.Workspace)/.cache/yarn
   MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository/
+  MAVEN_OPTS: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER) -Xmx3072m'
+  QUARKUS_LOCAL_REPO: $(MAVEN_CACHE_FOLDER)
 
 steps:
 - task: CacheBeta@0
@@ -36,6 +38,5 @@ steps:
   displayName: 'Maven Build'
   inputs:
     goals: 'clean package'
-    mavenOptions: '-Xmx3072m -Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
     jdkVersionOption: '1.8'
     options: ''
