@@ -179,8 +179,8 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
 
 
   useHotkeys('esc', () => setKeyBoardActived(-1));
-  useHotkeys('up', () => setKeyBoardActived(Math.max(0, keyboardActived - 1)), [keyboardActived]);
-  useHotkeys('down', () => setKeyBoardActived(Math.min(result.length - 1, keyboardActived + 1)), [result, keyboardActived]);
+  useHotkeys('up', () => setKeyBoardActived((prev) => Math.max(0, prev - 1)));
+  useHotkeys('down', () => setKeyBoardActived((prev) => Math.min(result.length - 1, prev + 1)), [result]);
   useHotkeys('space', (event) => {
     if (keyboardActived >= 0) {
       event.preventDefault();
