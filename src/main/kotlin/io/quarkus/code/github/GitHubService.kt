@@ -2,6 +2,7 @@ package io.quarkus.code.github
 
 import io.quarkus.code.github.model.CreatedRepository
 import io.quarkus.code.github.model.TokenParameter
+import io.quarkus.code.github.model.TokenResponse
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.errors.GitAPIException
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
@@ -29,9 +30,7 @@ open class GitHubService {
 
     @Throws(UncheckedIOException::class)
     open fun createRepository(token: String, repositoryName: String): CreatedRepository {
-        if(!config.isGitHubEnabled()) {
-            throw IllegalStateException("GitHub is not enabled")
-        }
+        check(config.isGitHubEnabled()) { "GitHub is not enabled" }
         require(token.isNotEmpty()) { "token must not be empty." }
         require(repositoryName.isNotEmpty()) { "repositoryName must not be empty." }
         val newlyCreatedRepo: GHRepository
@@ -49,9 +48,7 @@ open class GitHubService {
     }
 
     open fun push(ownerName: String, token: String, httpTransportUrl: String, path: Path) {
-        if(!config.isGitHubEnabled()) {
-            throw IllegalStateException("GitHub is not enabled")
-        }
+        check(config.isGitHubEnabled()) { "GitHub is not enabled" }
         require(token.isNotEmpty()) { "token must not be empty." }
         require(httpTransportUrl.isNotEmpty()) { "httpTransportUrl must not be empty." }
         require(ownerName.isNotEmpty()) { "ownerName must not be empty." }
@@ -77,10 +74,9 @@ open class GitHubService {
 
     }
 
-    open fun fetchAccessToken(code: String, state: String): String {
-        if(!config.isGitHubEnabled()) {
-            throw IllegalStateException("GitHub is not enabled")
-        }
-        return authService.getAccessToken(TokenParameter(config.clientId, config.clientSecret, code, state)).getFirst("access_token")
+    open fun fetchAccessToken(code: String, state: String): TokenResponse {
+        check(config.isGitHubEnabled()) { "GitHub is not enabled" }
+        val response = authService.getAccessToken(TokenParameter(config.clientId, config.clientSecret, code, state))
+        return TokenResponse(response.getFirst("access_token"), response.getFirst("scope"), response.getFirst("token_type"))
     }
 }

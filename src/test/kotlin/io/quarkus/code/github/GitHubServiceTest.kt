@@ -1,6 +1,5 @@
 package io.quarkus.code.github
 
-import io.quarkus.code.GitHubServiceMock
 import io.quarkus.test.junit.QuarkusTest
 import io.specto.hoverfly.junit5.HoverflyExtension
 import io.specto.hoverfly.junit5.api.HoverflyConfig
@@ -8,7 +7,6 @@ import io.specto.hoverfly.junit5.api.HoverflySimulate
 import org.eclipse.microprofile.rest.client.inject.RestClient
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -25,7 +23,7 @@ internal class GitHubServiceTest {
     @field: RestClient
     internal lateinit var authService: GitHubOAuthService
 
-    val gitHubService = GitHubService()
+    private val gitHubService = GitHubService()
 
     @BeforeEach
     fun initService() {
@@ -40,15 +38,15 @@ internal class GitHubServiceTest {
         Files.copy(GitHubServiceTest::class.java.getResourceAsStream("/fakeextensions.json"), File(path.toString(), "test.json").toPath())
 
         //when
-        val result = gitHubService.createRepository(GitHubServiceMock.TEST_TOKEN, "repo-name")
+        val result = gitHubService.createRepository("test-token", "repo-name")
         assertThat(result.url, `is`("https://github.com/edewit/repo-name.git"))
         assertThat(result.ownerName, `is`("edewit"))
-        gitHubService.push(result.ownerName, GitHubServiceMock.TEST_TOKEN, result.url, path)
+        gitHubService.push(result.ownerName, "test-token", result.url, path)
     }
 
     @Test
     fun fetchAccessToken() {
-        val token = gitHubService.fetchAccessToken(GitHubServiceMock.TEST_CODE, "shortRandomString")
-        assertThat(token, `is`("b8410f0d46ab49b237000e4646c33fb7b193182a"))
+        val token = gitHubService.fetchAccessToken("e7d2998d567533b24fb8", "shortRandomString")
+        assertThat(token.accessToken, `is`("b8410f0d46ab49b237000e4646c33fb7b193182a"))
     }
 }

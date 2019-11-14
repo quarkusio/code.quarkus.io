@@ -2,7 +2,6 @@
 package io.quarkus.code.github
 
 import io.quarkus.code.github.model.TokenParameter
-import io.quarkus.code.github.model.TokenResponse
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient
 import javax.ws.rs.POST
 import javax.ws.rs.Path

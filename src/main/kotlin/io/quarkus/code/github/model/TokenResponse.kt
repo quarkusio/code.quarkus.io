@@ -1,7 +1,7 @@
 package io.quarkus.code.github.model
 
 data class TokenResponse(
-        var access_token: String,
+        var accessToken: String,
         var scope: String,
-        var token_type: String
+        var tokenType: String
 )

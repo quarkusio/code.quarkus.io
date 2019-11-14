@@ -28,6 +28,7 @@ class GitHubResourceTest {
                 .queryParam("state", "someRandomState").`when`().get("/api/github/auth")
                 .then()
                 .statusCode(200)
-                .body("access_token", equalTo("AccessToken"))
+                .log().body()
+                .body("accessToken", equalTo("AccessToken"))
     }
 }
