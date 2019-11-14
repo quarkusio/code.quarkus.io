@@ -38,5 +38,5 @@ steps:
   inputs:
     goals: 'clean package'
     mavenOptions: '-Xmx3072m -Dmaven.repo.local=$(MAVEN_CACHE_FOLDER)'
-    jdkVersionOption: '1.8'
+    jdkVersionOption: '1.11'
     options: ''
