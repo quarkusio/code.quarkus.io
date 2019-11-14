@@ -18,4 +18,6 @@ open class GitHubConfig() {
         this.clientId = clientId
         this.clientSecret = clientSecret
     }
+
+    fun isGitHubEnabled() = this.clientId.isNotEmpty() && this.clientSecret.isNotEmpty()
 }

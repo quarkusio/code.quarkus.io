@@ -8,6 +8,8 @@ import io.specto.hoverfly.junit5.api.HoverflySimulate
 import org.eclipse.microprofile.rest.client.inject.RestClient
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import java.io.File
@@ -25,6 +27,13 @@ internal class GitHubServiceTest {
 
     val gitHubService = GitHubService()
 
+    @BeforeEachàé'§(é
+    '
+    fun initService() {
+        gitHubService.authService = authService
+        gitHubService.config = GitHubConfig("The client id", "The client secret")
+    }
+
     @Test
     fun createAndPushRepository() {
         //given
@@ -40,8 +49,6 @@ internal class GitHubServiceTest {
 
     @Test
     fun fetchAccessToken() {
-        gitHubService.authService = authService
-        gitHubService.config = GitHubConfig("The client id", "The client secret")
         val token = gitHubService.fetchAccessToken(GitHubServiceMock.TEST_CODE, "shortRandomString")
         assertThat(token, `is`("b8410f0d46ab49b237000e4646c33fb7b193182a"))
     }

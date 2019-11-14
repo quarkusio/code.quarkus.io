@@ -29,6 +29,11 @@ open class GitHubService {
 
     @Throws(UncheckedIOException::class)
     open fun createRepository(token: String, repositoryName: String): CreatedRepository {
+        if(!config.isGitHubEnabled()) {
+            throw IllegalStateException("GitHub is not enabled")
+        }
+        require(token.isNotEmpty()) { "token must not be empty." }
+        require(repositoryName.isNotEmpty()) { "repositoryName must not be empty." }
         val newlyCreatedRepo: GHRepository
         try {
             val gitHub = GitHubBuilder().withOAuthToken(token).build()
@@ -44,8 +49,12 @@ open class GitHubService {
     }
 
     open fun push(ownerName: String, token: String, httpTransportUrl: String, path: Path) {
-        requireNonNull(httpTransportUrl, "httpTransportUrl must not be null.")
-        requireNonNull(ownerName, "ownerName must not be null.")
+        if(!config.isGitHubEnabled()) {
+            throw IllegalStateException("GitHub is not enabled")
+        }
+        require(token.isNotEmpty()) { "token must not be empty." }
+        require(httpTransportUrl.isNotEmpty()) { "httpTransportUrl must not be empty." }
+        require(ownerName.isNotEmpty()) { "ownerName must not be empty." }
         requireNonNull(path, "path must not be null.")
 
         try {
@@ -69,6 +78,9 @@ open class GitHubService {
     }
 
     open fun fetchAccessToken(code: String, state: String): String {
+        if(!config.isGitHubEnabled()) {
+            throw IllegalStateException("GitHub is not enabled")
+        }
         return authService.getAccessToken(TokenParameter(config.clientId, config.clientSecret, code, state)).getFirst("access_token")
     }
 }
