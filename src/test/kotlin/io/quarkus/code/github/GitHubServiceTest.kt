@@ -27,8 +27,7 @@ internal class GitHubServiceTest {
 
     val gitHubService = GitHubService()
 
-    @BeforeEachàé'§(é
-    '
+    @BeforeEach
     fun initService() {
         gitHubService.authService = authService
         gitHubService.config = GitHubConfig("The client id", "The client secret")
