@@ -1,42 +1,46 @@
 package io.quarkus.code
 
-import com.mongodb.client.MongoClient
-import com.mongodb.client.MongoCollection
 import io.quarkus.code.model.ShortUrl
-import org.bson.Document
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue
+import java.util.stream.Collectors
 import javax.enterprise.context.ApplicationScoped
 import javax.inject.Inject
-import com.mongodb.client.model.Filters.eq
+
 
 @ApplicationScoped
-open class UrlRepository {
+open class UrlRepository: AbstractRepository() {
     @Inject
-    lateinit var mongoClient: MongoClient
+    lateinit var dynamoDbClient: DynamoDbClient
 
     open fun getById(id: String): ShortUrl? {
-        return findByField("_id", id)
+        return from(dynamoDbClient.getItem(getRequest(id)).item())
     }
 
     open fun getByUrl(url: String): ShortUrl? {
-        return findByField("url", url)
-    }
-
-    open fun save(shortUrl: ShortUrl) {
-        val document = Document()
-                .append("_id", shortUrl.id)
-                .append("url", shortUrl.url)
-        getCollection().insertOne(document)
-    }
-
-    private fun getCollection(): MongoCollection<Document> {
-        return mongoClient.getDatabase("shorten").getCollection("urls")
-    }
-
-    private fun findByField(field: String, value: String): ShortUrl? {
-        val document = getCollection().find(eq(field, value)).first()
-        document?.let {
-            return ShortUrl(document["_id"].toString(), document["url"] as String)
+        val items = dynamoDbClient.scan(queryRequest(url)).items()
+        return if (items.isNotEmpty()) {
+            from(items.first())
+        } else {
+            null
         }
-        return null
+    }
+
+    open fun save(shortUrl: ShortUrl): List<ShortUrl> {
+        dynamoDbClient.putItem(putRequest(shortUrl));
+        return findAll()
+    }
+
+    fun findAll(): List<ShortUrl> {
+        return dynamoDbClient.scanPaginator(scanRequest()).items().stream()
+                .map(({ from(it) }))
+        .collect(Collectors.toList())
+    }
+
+    fun from(item: Map<String, AttributeValue>?): ShortUrl {
+        if (item != null && item.isNotEmpty()) {
+            return ShortUrl((item[ID_COL] ?: error("invalid")).s(), (item[URL_COL] ?: error("invalid")).s())
+        }
+        error("invalid")
     }
 }
