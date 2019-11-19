@@ -33,6 +33,10 @@ open class CodeQuarkusConfigManager {
     lateinit var sentryDSN: String
         private set
 
+    @ConfigProperty(name = "io.quarkus.code.dynamodb.enabled", defaultValue = "false")
+    var dynamoDbEnabled: Boolean = false
+        private set
+
     fun getConfig(): Config {
         return Config(
                 environment,
