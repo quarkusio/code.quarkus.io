@@ -1,5 +1,6 @@
 package io.quarkus.code
 
+import io.quarkus.code.services.CodeQuarkusConfigManager
 import io.quarkus.code.services.UrlRepositoryMock
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
@@ -7,6 +8,7 @@ import io.restassured.config.RedirectConfig.redirectConfig
 import io.restassured.config.RestAssuredConfig.newConfig
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import javax.inject.Inject
@@ -15,7 +17,15 @@ import javax.inject.Inject
 class ShortUrlResourceTest {
 
     @Inject
+    lateinit var configManager: CodeQuarkusConfigManager
+
+    @Inject
     lateinit var urlRepository: UrlRepositoryMock
+
+    @BeforeEach
+    fun setup() {
+        configManager.dynamoDbEnabled = true
+    }
 
     @Test
     @DisplayName("Should return a short url for specified download parameters")

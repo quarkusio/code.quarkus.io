@@ -35,7 +35,6 @@ open class CodeQuarkusConfigManager {
 
     @ConfigProperty(name = "io.quarkus.code.dynamodb.enabled", defaultValue = "false")
     var dynamoDbEnabled: Boolean = false
-        private set
 
     fun getConfig(): Config {
         return Config(
