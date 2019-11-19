@@ -6,6 +6,7 @@ import io.quarkus.code.model.QuarkusProject
 import io.quarkus.code.services.CodeQuarkusConfigManager
 import io.quarkus.code.services.QuarkusExtensionCatalog
 import io.quarkus.code.services.QuarkusProjectCreator
+import io.quarkus.code.services.UrlRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema

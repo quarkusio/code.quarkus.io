@@ -1,4 +1,4 @@
-package io.quarkus.code
+package io.quarkus.code.services
 
 import io.quarkus.code.model.ShortUrl
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient

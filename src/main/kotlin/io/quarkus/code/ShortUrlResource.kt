@@ -2,6 +2,7 @@ package io.quarkus.code
 
 import io.quarkus.code.model.QuarkusProject
 import io.quarkus.code.model.ShortUrl
+import io.quarkus.code.services.UrlRepository
 import org.eclipse.microprofile.openapi.annotations.Operation
 import java.net.URI
 import javax.inject.Inject
