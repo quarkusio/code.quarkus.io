@@ -24,6 +24,10 @@ open class QuarkusExtensionCatalog {
             checkState(descriptor.quarkusVersion == bundledQuarkusVersion, "The platform version (%s) must be compatible with the bundled Quarkus version (%s != %s)", descriptor.bomVersion, descriptor.quarkusVersion, bundledQuarkusVersion)
             QuarkusPlatformConfig.defaultConfigBuilder().setPlatformDescriptor(descriptor).build()
         }
+
+        fun checkPlatformInitialization() {
+            check(QuarkusPlatformConfig.hasGlobalDefault()) { "Quarkus platform must be initialized" }
+        }
     }
 
     val extensions: List<CodeQuarkusExtension> = QuarkusExtensionUtils.processExtensions(descriptor)

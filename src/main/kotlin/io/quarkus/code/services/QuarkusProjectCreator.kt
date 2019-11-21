@@ -30,6 +30,7 @@ open class QuarkusProjectCreator {
     }
 
     open fun create(project: QuarkusProject): ByteArray {
+        QuarkusExtensionCatalog.checkPlatformInitialization()
         val baos = ByteArrayOutputStream()
         baos.use {
             val zipWriter = CommonsZipProjectWriter.createWriter(baos, project.artifactId)
