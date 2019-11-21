@@ -5,7 +5,6 @@ import io.quarkus.cli.commands.CreateProject
 import io.quarkus.code.model.QuarkusProject
 import io.quarkus.code.writer.CommonsZipProjectWriter
 import io.quarkus.generators.BuildTool
-import io.quarkus.platform.tools.config.QuarkusPlatformConfig
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import javax.inject.Singleton
@@ -31,9 +30,7 @@ open class QuarkusProjectCreator {
     }
 
     open fun create(project: QuarkusProject): ByteArray {
-        if (!QuarkusPlatformConfig.hasGlobalDefault()) {
-            QuarkusPlatformConfig.defaultConfigBuilder().setPlatformDescriptor(QuarkusExtensionCatalog.descriptor).build()
-        }
+        QuarkusExtensionCatalog.checkPlatformInitialization()
         val baos = ByteArrayOutputStream()
         baos.use {
             val zipWriter = CommonsZipProjectWriter.createWriter(baos, project.artifactId)
