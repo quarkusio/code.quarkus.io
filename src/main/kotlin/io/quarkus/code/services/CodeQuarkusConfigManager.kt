@@ -3,6 +3,7 @@ package io.quarkus.code.services
 import io.quarkus.code.model.Config
 import io.quarkus.code.services.QuarkusExtensionCatalog.Companion.bundledQuarkusVersion
 import org.eclipse.microprofile.config.inject.ConfigProperty
+import javax.inject.Provider
 import javax.inject.Singleton
 
 @Singleton
@@ -26,7 +27,7 @@ open class CodeQuarkusConfigManager {
         private set
 
     @ConfigProperty(name = "io.quarkus.code.ga-tracking-id", defaultValue = "")
-    lateinit var gaTrackingId: String
+    lateinit var gaTrackingId: Provider<String>
         private set
 
     @ConfigProperty(name = "io.quarkus.code.sentry-dsn", defaultValue = "")
@@ -36,7 +37,7 @@ open class CodeQuarkusConfigManager {
     fun getConfig(): Config {
         return Config(
                 environment,
-                gaTrackingId,
+                gaTrackingId.get(),
                 sentryDSN,
                 quarkusVersion,
                 gitCommitId
