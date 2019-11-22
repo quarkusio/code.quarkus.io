@@ -8,6 +8,7 @@ import { CodeQuarkusForm } from './form';
 import { Header } from './header';
 import './code-quarkus.scss';
 import { NextSteps } from './next-steps';
+import { CLIENT_NAME } from './backend-api';
 
 enum Status {
   EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
@@ -44,6 +45,7 @@ async function generateProject(project: QuarkusProject): Promise<{ downloadLink:
     ...(project.metadata.buildTool && { b: project.metadata.buildTool }),
     ...(packageName && { c: `${packageName}.ExampleResource` }),
     ...(project.extensions && { e: project.extensions }),
+    cn: CLIENT_NAME,
   }
   const backendUrl = process.env.REACT_APP_BACKEND_URL || publicUrl;
   const downloadLink = `${backendUrl}/api/download?${stringify(params)}`;
