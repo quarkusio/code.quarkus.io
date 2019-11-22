@@ -44,4 +44,19 @@ You can check deployed commit hash on: https://stage.code.quarkus.io/api/config
 
 - [OpenApi](http://editor.swagger.io/?url=https://code.quarkus.io/openapi)
 
+# Analytics events
+
+| Category | Action | Label | Description |
+| --- | --- | --- | --- |
+| Picker | Add-Extension | *Extension ID* | The user selects an extension |
+| Picker | Remove-Extension | *Extension ID* | The user unselects an extension |
+| Picker | Search-Extension | *Not set* | The user has used the extension search at least once in one page view |
+| Extension | Used | *Extension ID* | The user has generated an application with this extension |
+| Extension | Combined | *Extension IDS* | The user has generated an application with those extensions (sorted & separated by a comma) |
+| App | Generate | *Quarkus version* | The user has generated an application this Quarkus version |
+| Input | Customized-Value | *Field Name* | The user has edited this field at least once in one page view |
+| Copy-To-Clipboard | Add-Extension-Command | *Command* | The user has copied this command to add an extension to the clipboard (at the right of the extension list) |
+| Copy-To-Clipboard | Start-Dev-Command | *Command* | The user has copied the command to start developing to the clipboard (in the after generation popup) |
+
+
 

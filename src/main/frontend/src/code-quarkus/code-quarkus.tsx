@@ -8,6 +8,7 @@ import { CodeQuarkusForm } from './form';
 import { Header } from './header';
 import './code-quarkus.scss';
 import { NextSteps } from './next-steps';
+import { CLIENT_NAME } from './backend-api';
 
 enum Status {
   EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
@@ -44,6 +45,7 @@ async function generateProject(project: QuarkusProject): Promise<{ downloadLink:
     ...(project.metadata.buildTool && { b: project.metadata.buildTool }),
     ...(packageName && { c: `${packageName}.ExampleResource` }),
     ...(project.extensions && { e: project.extensions }),
+    cn: CLIENT_NAME,
   }
   const backendUrl = process.env.REACT_APP_BACKEND_URL || publicUrl;
   const downloadLink = `${backendUrl}/api/download?${stringify(params)}`;
@@ -77,11 +79,13 @@ export function CodeQuarkus(props: LaunchFlowProps) {
   const generate = () => {
     setRun({ status: Status.RUNNING });
 
-    analytics && analytics.event('App', 'Generate', props.config.quarkusVersion);
-    analytics && project.extensions.forEach(e => analytics.event('Extension', 'Used', e));
+    
 
     generateProject(project).then((result) => {
       setRun((prev) => ({ ...prev, result, status: Status.DOWNLOADED }));
+      analytics && analytics.event('App', 'Generate', props.config.quarkusVersion);
+      analytics && analytics.event('Extension', 'Combination', project.extensions.sort().join(","));
+      analytics && project.extensions.forEach(e => analytics.event('Extension', 'Used', e));
     }).catch(error => {
       setRun((prev) => ({ ...prev, status: Status.ERROR, error }));
     });

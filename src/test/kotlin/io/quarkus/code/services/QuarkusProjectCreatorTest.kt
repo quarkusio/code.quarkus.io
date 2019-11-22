@@ -183,7 +183,7 @@ internal class QuarkusProjectCreatorTest {
         assertThat(pomText, containsString("<groupId>org.acme</groupId>"))
         assertThat(pomText, containsString("<artifactId>code-with-quarkus</artifactId>"))
         assertThat(pomText, containsString("<version>1.0.0-SNAPSHOT</version>"))
-        assertThat(pomText, containsString("<quarkus.version>${MojoUtils.getPluginVersion()}</quarkus.version>"))
+        assertThat(pomText, containsString("<quarkus-plugin.version>${MojoUtils.getPluginVersion()}</quarkus-plugin.version>"))
 
         assertThat(resourceText, containsString("@Path(\"/hello\")"))
     }
@@ -221,7 +221,7 @@ internal class QuarkusProjectCreatorTest {
         assertThat(pomText, containsString("<groupId>com.test</groupId>"))
         assertThat(pomText, containsString("<artifactId>test-app</artifactId>"))
         assertThat(pomText, containsString("<version>2.0.0</version>"))
-        assertThat(pomText, containsString("<quarkus.version>${MojoUtils.getPluginVersion()}</quarkus.version>"))
+        assertThat(pomText, containsString("<quarkus-plugin.version>${MojoUtils.getPluginVersion()}</quarkus-plugin.version>"))
         assertThat(pomText, containsString("<groupId>io.quarkus</groupId>"))
         assertThat(pomText, containsString("<artifactId>quarkus-resteasy-jsonb</artifactId>"))
         assertThat(pomText, containsString("<artifactId>quarkus-hibernate-validator</artifactId>"))
