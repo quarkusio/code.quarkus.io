@@ -40,6 +40,7 @@ class CodeQuarkusResource {
         return configManager.getConfig()
     }
 
+
     @GET
     @Path("/extensions")
     @Produces(APPLICATION_JSON)
