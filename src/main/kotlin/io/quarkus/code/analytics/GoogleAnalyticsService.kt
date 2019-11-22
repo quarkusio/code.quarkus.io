@@ -4,12 +4,11 @@ import com.brsanthu.googleanalytics.GoogleAnalytics
 import com.brsanthu.googleanalytics.GoogleAnalyticsConfig
 import com.brsanthu.googleanalytics.request.DefaultRequest
 import io.quarkus.code.services.CodeQuarkusConfigManager
-import javax.inject.Singleton
 import io.quarkus.runtime.StartupEvent
-import org.eclipse.microprofile.config.inject.ConfigProperty
 import java.util.logging.Logger
 import javax.enterprise.event.Observes
 import javax.inject.Inject
+import javax.inject.Singleton
 
 
 @Singleton
@@ -25,7 +24,7 @@ open class GoogleAnalyticsService {
     var googleAnalytics: GoogleAnalytics? = null
 
     fun onStart(@Observes e: StartupEvent) {
-        if (googleAnalytics == null && config.gaTrackingId.isNotEmpty()) {
+        if (googleAnalytics == null && config.gaTrackingId.get().isNotEmpty()) {
             val defaultRequest = DefaultRequest()
 
             defaultRequest.documentHostName("code.quarkus.io")
@@ -33,17 +32,17 @@ open class GoogleAnalyticsService {
 
             googleAnalytics = GoogleAnalytics.builder()
                     .withDefaultRequest(defaultRequest)
-                    .withTrackingId(config.gaTrackingId)
+                    .withTrackingId(config.gaTrackingId.get())
                     .withConfig(GoogleAnalyticsConfig().setBatchSize(30).setBatchingEnabled(true))
                     .build()
-            log.info("GoogleAnalytics is enabled, trackingId: ${config.gaTrackingId}")
+            log.info("GoogleAnalytics is enabled, trackingId: ${config.gaTrackingId.get()}")
         } else {
             log.info("GoogleAnalytics is disabled")
         }
     }
 
     fun sendEvent(clientName: String? = "unknown", action: String, label: String) {
-        if(googleAnalytics != null) {
+        if (googleAnalytics != null) {
             googleAnalytics!!.event()
                     .campaignSource(clientName)
                     .eventCategory("API")
