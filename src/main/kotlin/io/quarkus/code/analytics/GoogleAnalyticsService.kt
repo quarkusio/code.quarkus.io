@@ -31,8 +31,9 @@ open class GoogleAnalyticsService {
             defaultRequest.documentReferrer("https://code.quarkus.io")
 
             googleAnalytics = GoogleAnalytics.builder()
-                    .withTrackingId(googleTrackingId)
                     .withDefaultRequest(defaultRequest)
+                    .withTrackingId(googleTrackingId)
+                    .withConfig(GoogleAnalyticsConfig().setBatchSize(30).setBatchingEnabled(true))
                     .build()
             log.info("GoogleAnalytics is enabled, trackingId: $googleTrackingId")
         } else {
@@ -49,7 +50,7 @@ open class GoogleAnalyticsService {
                     .eventLabel(label)
                     .sendAsync()
         } else {
-            log.info("analytics-disabled>event(API, $action, $label) from $clientName")
+            log.info("fake-analytics->event(API, $action, $label) from $clientName")
         }
 
     }

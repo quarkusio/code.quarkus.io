@@ -1,5 +1,6 @@
 const backendUrl = process.env.REACT_APP_BACKEND_URL || "";
-const headers = { headers: { 'Client-Name': 'Code Quarkus Frontend'}};
+export const CLIENT_NAME = 'Code Quarkus Frontend';
+const headers = { headers: { 'Client-Name': CLIENT_NAME}};
 
 export async function fetchExtensions() {
   try {

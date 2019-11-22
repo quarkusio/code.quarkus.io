@@ -18,10 +18,10 @@ class AnalyticsFilter : ContainerRequestFilter {
     internal var info: UriInfo? = null
 
     override fun filter(context: ContainerRequestContext) {
-        val stream = context.uriInfo.queryParameters.entries.stream()
-        val params = stream.map { entry -> "${entry.key}=${entry.value}" }.collect(Collectors.joining("&"))
+        val queryParams = context.uriInfo.queryParameters
+        val params =  queryParams.entries.stream().filter {it.key != "cn"}.map { entry -> "${entry.key}=${entry.value}" }.collect(Collectors.joining("&"))
         val path = info!!.path
-        val clientName = context.getHeaderString("Client-Name")
+        val clientName = queryParams.getFirst("cn") ?: context.getHeaderString("Client-Name")
         googleAnalyticsService.sendEvent(clientName, path, params)
     }
 }
