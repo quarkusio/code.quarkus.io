@@ -1,7 +1,8 @@
 package io.quarkus.code.services
 
 import io.quarkus.code.model.QuarkusProject
-import io.quarkus.maven.utilities.MojoUtils
+import io.quarkus.platform.descriptor.resolver.json.QuarkusJsonPlatformDescriptorResolver
+import org.eclipse.microprofile.config.spi.ConfigProviderResolver
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*
 import org.junit.jupiter.api.DisplayName
@@ -161,6 +162,9 @@ internal class QuarkusProjectCreatorTest {
             "test-app/gradlew.bat",
             "test-app/gradlew"
         )
+
+        val platformVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-platform-version", String::class.java)
+        val pluginVersion = QuarkusJsonPlatformDescriptorResolver.newInstance().resolveFromBom("io.quarkus", "quarkus-universe-bom", platformVersion).getQuarkusVersion()
     }
 
     @Test
@@ -183,7 +187,7 @@ internal class QuarkusProjectCreatorTest {
         assertThat(pomText, containsString("<groupId>org.acme</groupId>"))
         assertThat(pomText, containsString("<artifactId>code-with-quarkus</artifactId>"))
         assertThat(pomText, containsString("<version>1.0.0-SNAPSHOT</version>"))
-        assertThat(pomText, containsString("<quarkus-plugin.version>${MojoUtils.getPluginVersion()}</quarkus-plugin.version>"))
+        assertThat(pomText, containsString("<quarkus-plugin.version>${pluginVersion}</quarkus-plugin.version>"))
 
         assertThat(resourceText, containsString("@Path(\"/hello\")"))
     }
@@ -221,7 +225,7 @@ internal class QuarkusProjectCreatorTest {
         assertThat(pomText, containsString("<groupId>com.test</groupId>"))
         assertThat(pomText, containsString("<artifactId>test-app</artifactId>"))
         assertThat(pomText, containsString("<version>2.0.0</version>"))
-        assertThat(pomText, containsString("<quarkus-plugin.version>${MojoUtils.getPluginVersion()}</quarkus-plugin.version>"))
+        assertThat(pomText, containsString("<quarkus-plugin.version>${pluginVersion}</quarkus-plugin.version>"))
         assertThat(pomText, containsString("<groupId>io.quarkus</groupId>"))
         assertThat(pomText, containsString("<artifactId>quarkus-resteasy-jsonb</artifactId>"))
         assertThat(pomText, containsString("<artifactId>quarkus-hibernate-validator</artifactId>"))
