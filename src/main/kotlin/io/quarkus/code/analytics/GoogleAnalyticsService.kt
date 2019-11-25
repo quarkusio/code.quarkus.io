@@ -32,7 +32,7 @@ open class GoogleAnalyticsService {
             googleAnalytics = GoogleAnalytics.builder()
                     .withDefaultRequest(defaultRequest)
                     .withTrackingId(config.gaTrackingId.get())
-                    .withConfig(GoogleAnalyticsConfig().setBatchSize(30).setBatchingEnabled(true))
+                    .withConfig(GoogleAnalyticsConfig().setBatchSize(5).setBatchingEnabled(true))
                     .build()
             log.info("GoogleAnalytics is enabled, trackingId: ${config.gaTrackingId.get()}")
         } else {
