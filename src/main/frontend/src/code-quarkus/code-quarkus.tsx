@@ -79,7 +79,7 @@ export function CodeQuarkus(props: LaunchFlowProps) {
 
   const generate = () => {
     setRun({ status: Status.RUNNING });
-    
+
     generateProject(project).then((result) => {
       setRun((prev) => ({ ...prev, result, status: Status.DOWNLOADED }));
     }).catch(error => {

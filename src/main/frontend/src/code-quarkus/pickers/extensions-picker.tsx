@@ -47,6 +47,7 @@ interface ExtensionProps extends ExtensionEntry {
 function Extension(props: ExtensionProps) {
   const [hover, setHover] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
+  const analytics = useAnalytics();
   const onClick = () => {
     if (props.default) {
       return;
@@ -62,6 +63,11 @@ function Extension(props: ExtensionProps) {
   };
   const closeMore = () => {
     setTimeout(() => setIsMoreOpen(false), 1000);
+  }
+
+  const openGuide = () => {
+    analytics && analytics.event('UX', 'OpenGuide', props.id);
+    closeMore();
   }
   const description = props.description || '...';
   const descTooltip = <div><b>{props.name}</b><p>{description}</p></div>;
@@ -84,7 +90,7 @@ function Extension(props: ExtensionProps) {
   ];
   if (props.guide) {
     moreItems.push(
-      <DropdownItem key="guide" variant="icon" href={props.guide} target="_blank" onClick={closeMore}>
+      <DropdownItem key="guide" variant="icon" href={props.guide} target="_blank" onClick={openGuide}>
         <MapIcon /> Open Guide
       </DropdownItem>
     );

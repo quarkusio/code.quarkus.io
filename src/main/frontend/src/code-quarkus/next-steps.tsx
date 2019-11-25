@@ -38,11 +38,11 @@ export function NextSteps(props: NextStepsProps) {
           Unzip the project and start playing with Quarkus by running:
 
           {props.buildTool === 'MAVEN' &&
-          <code>$ ./mvnw compile quarkus:dev <CopyToClipboard zIndex={5000} tooltipPosition="left" eventId="Start-Dev-Command" content="./mvnw compile quarkus:dev"/></code>
+          <code>$ ./mvnw compile quarkus:dev <CopyToClipboard zIndex={5000} tooltipPosition="left" eventId="Cmd.StartDevMode" content="./mvnw compile quarkus:dev"/></code>
           }
 
           {props.buildTool === 'GRADLE' &&
-          <code>$ ./gradlew quarkusDev <CopyToClipboard zIndex={5000} tooltipPosition="left" eventId="Start-Dev-Command" content="./gradlew quarkusDev"/></code>
+          <code>$ ./gradlew quarkusDev <CopyToClipboard zIndex={5000} tooltipPosition="left" eventId="Cmd.StartDevMode" content="./gradlew quarkusDev"/></code>
           }
           Follow the <ExternalLink href="https://quarkus.io/guides/" aria-label="Start playing with Quarkus">guides</ExternalLink>  for your next steps!
         </div>

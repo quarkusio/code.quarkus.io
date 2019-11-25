@@ -35,7 +35,7 @@ export function CopyToClipboard(props: CopyToClipboardProps) {
     props.onClick && props.onClick(e)
     copy(props.content);
     if (props.eventId && !copied) {
-      analytics && analytics.event('Copy-To-Clipboard', props.eventId, props.content);
+      analytics && analytics.event('UX', `ClipboardCopy.${props.eventId}`, props.content);
     }
     setCopied(true);
     setCopiedText(true);
