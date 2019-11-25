@@ -28,7 +28,6 @@ open class GoogleAnalyticsService {
             val defaultRequest = DefaultRequest()
 
             defaultRequest.documentHostName("code.quarkus.io")
-            defaultRequest.documentReferrer("https://code.quarkus.io")
 
             googleAnalytics = GoogleAnalytics.builder()
                     .withDefaultRequest(defaultRequest)
