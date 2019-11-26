@@ -8,7 +8,7 @@ COPY resources-config.json /usr/src/app
 USER root
 RUN chown -R quarkus /usr/src/app
 USER quarkus
-RUN cd /usr/src/app/ && mvn clean package -Pnative -Dnative-image.xmx=6g
+RUN cd /usr/src/app/ && mvn clean package -Pnative -Dnative-image.xmx=5g
 RUN mkdir -p /tmp/ssl-libs/lib \
   && cp /opt/graalvm/jre/lib/security/cacerts /tmp/ssl-libs \
   && cp /opt/graalvm/jre/lib/amd64/libsunec.so /tmp/ssl-libs/lib/
