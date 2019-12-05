@@ -24,14 +24,14 @@ open class GoogleAnalyticsService {
     var googleAnalytics: GoogleAnalytics? = null
 
     fun onStart(@Observes e: StartupEvent) {
-        if (googleAnalytics == null && config.gaTrackingId.get().isNotEmpty()) {
+        if (googleAnalytics == null && config.gaTrackingId.get().isPresent) {
             val defaultRequest = DefaultRequest()
 
             defaultRequest.documentHostName("code.quarkus.io")
 
             googleAnalytics = GoogleAnalytics.builder()
                     .withDefaultRequest(defaultRequest)
-                    .withTrackingId(config.gaTrackingId.get())
+                    .withTrackingId(config.gaTrackingId.get().get())
                     .withConfig(GoogleAnalyticsConfig().setBatchSize(5).setBatchingEnabled(true))
                     .build()
             log.info("GoogleAnalytics is enabled, trackingId: ${config.gaTrackingId.get()}")

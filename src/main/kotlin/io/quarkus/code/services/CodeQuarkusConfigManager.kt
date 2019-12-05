@@ -3,6 +3,7 @@ package io.quarkus.code.services
 import io.quarkus.code.model.Config
 import io.quarkus.code.services.QuarkusExtensionCatalog.Companion.bundledQuarkusVersion
 import org.eclipse.microprofile.config.inject.ConfigProperty
+import java.util.*
 import javax.inject.Provider
 import javax.inject.Singleton
 
@@ -18,29 +19,29 @@ open class CodeQuarkusConfigManager {
 
     val quarkusVersion = bundledQuarkusVersion
 
-    @ConfigProperty(name = "io.quarkus.code.git-commit-id", defaultValue = "test")
-    var gitCommitId: String? = null
+    @ConfigProperty(name = "io.quarkus.code.git-commit-id", defaultValue = "")
+    lateinit var gitCommitId: Provider<Optional<String>>
         private set
 
     @ConfigProperty(name = "io.quarkus.code.environment", defaultValue = "dev")
-    lateinit var environment: String
+    lateinit var environment: Provider<String>
         private set
 
     @ConfigProperty(name = "io.quarkus.code.ga-tracking-id", defaultValue = "")
-    lateinit var gaTrackingId: Provider<String>
+    lateinit var gaTrackingId: Provider<Optional<String>>
         private set
 
     @ConfigProperty(name = "io.quarkus.code.sentry-dsn", defaultValue = "")
-    lateinit var sentryDSN: String
+    lateinit var sentryDSN: Provider<Optional<String>>
         private set
 
     fun getConfig(): Config {
         return Config(
-                environment,
-                gaTrackingId.get(),
-                sentryDSN,
+                environment.get(),
+                gaTrackingId.get().orElse(null),
+                sentryDSN.get().orElse(null),
                 quarkusVersion,
-                gitCommitId
+                gitCommitId.get().orElse(null)
         )
     }
 
