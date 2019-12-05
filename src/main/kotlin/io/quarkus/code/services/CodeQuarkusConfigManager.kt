@@ -17,23 +17,19 @@ open class CodeQuarkusConfigManager {
         const val PATH_PATTERN = "^\\/([a-z0-9\\-._~%!\$&'()*+,;=:@]+\\/?)*\$"
     }
 
-    val quarkusVersion = bundledQuarkusVersion
+    internal val quarkusVersion = bundledQuarkusVersion
 
     @ConfigProperty(name = "io.quarkus.code.git-commit-id", defaultValue = "")
-    lateinit var gitCommitId: Provider<Optional<String>>
-        private set
+    internal lateinit var gitCommitId: Provider<Optional<String>>
 
     @ConfigProperty(name = "io.quarkus.code.environment", defaultValue = "dev")
-    lateinit var environment: Provider<String>
-        private set
+    internal lateinit var environment: Provider<String>
 
     @ConfigProperty(name = "io.quarkus.code.ga-tracking-id", defaultValue = "")
-    lateinit var gaTrackingId: Provider<Optional<String>>
-        private set
+    internal lateinit var gaTrackingId: Provider<Optional<String>>
 
     @ConfigProperty(name = "io.quarkus.code.sentry-dsn", defaultValue = "")
-    lateinit var sentryDSN: Provider<Optional<String>>
-        private set
+    internal lateinit var sentryDSN: Provider<Optional<String>>
 
     fun getConfig(): Config {
         return Config(

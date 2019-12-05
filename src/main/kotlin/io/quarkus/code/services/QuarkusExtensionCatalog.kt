@@ -12,13 +12,16 @@ open class QuarkusExtensionCatalog {
 
     companion object {
         @JvmStatic
-        val platformVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-platform-version", String::class.java)
+        internal val platformVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-platform-version", String::class.java)
 
         @JvmStatic
-        val bundledQuarkusVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-version", String::class.java)
+        internal val bundledQuarkusVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-version", String::class.java)
 
         @JvmStatic
-        val descriptor = QuarkusJsonPlatformDescriptorResolver.newInstance().resolveFromBom("io.quarkus", "quarkus-universe-bom", platformVersion)
+        internal val descriptor = QuarkusJsonPlatformDescriptorResolver.newInstance().resolveFromBom("io.quarkus", "quarkus-universe-bom", platformVersion)
+
+        @JvmStatic
+        internal val processedExtensions = QuarkusExtensionUtils.processExtensions(descriptor)
 
         init {
             checkState(descriptor.quarkusVersion == bundledQuarkusVersion, "The platform version (%s) must be compatible with the bundled Quarkus version (%s != %s)", descriptor.bomVersion, descriptor.quarkusVersion, bundledQuarkusVersion)
@@ -32,6 +35,6 @@ open class QuarkusExtensionCatalog {
         }
     }
 
-    val extensions: List<CodeQuarkusExtension> = QuarkusExtensionUtils.processExtensions(descriptor)
+    val extensions = processedExtensions
 
 }

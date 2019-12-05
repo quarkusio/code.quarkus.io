@@ -24,13 +24,13 @@ import javax.ws.rs.core.Response
 class CodeQuarkusResource {
 
     @Inject
-    lateinit var configManager: CodeQuarkusConfigManager
+    internal lateinit var configManager: CodeQuarkusConfigManager
 
     @Inject
-    lateinit var extensionCatalog: QuarkusExtensionCatalog
+    internal lateinit var extensionCatalog: QuarkusExtensionCatalog
 
     @Inject
-    lateinit var projectCreator: QuarkusProjectCreator
+    internal lateinit var projectCreator: QuarkusProjectCreator
 
     @GET
     @Path("/config")
