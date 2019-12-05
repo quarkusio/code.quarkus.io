@@ -35,7 +35,7 @@ class CodeQuarkusResource {
     @GET
     @Path("/config")
     @Produces(APPLICATION_JSON)
-    @Operation(summary = "Get the Quarkus Launcher configuration (DEPRECATED to '/v1/...')", hidden = true)
+    @Operation(summary = "Get the Quarkus Launcher configuration", hidden = true)
     fun config(): Config {
         return configManager.getConfig()
     }
@@ -43,7 +43,7 @@ class CodeQuarkusResource {
     @GET
     @Path("/extensions")
     @Produces(APPLICATION_JSON)
-    @Operation(summary = "Get the Quarkus Launcher list of Quarkus extensions (DEPRECATED to '/v1/...')")
+    @Operation(summary = "Get the Quarkus Launcher list of Quarkus extensions")
     @APIResponse(
             responseCode = "200",
             description = "List of Quarkus extensions",
@@ -59,7 +59,7 @@ class CodeQuarkusResource {
     @GET
     @Path("/download")
     @Produces("application/zip")
-    @Operation(summary = "Download a custom Quarkus application with the provided settings (DEPRECATED to '/v1/...')")
+    @Operation(summary = "Download a custom Quarkus application with the provided settings")
     fun download(@Valid @BeanParam project: QuarkusProject): Response {
         return Response
                 .ok(projectCreator.create(project))
