@@ -53,12 +53,18 @@ objects:
                   cpu: ${CPU_LIMIT}
                   memory: ${MEMORY_LIMIT}
               env:
-                - name: io.quarkus.code.sentry-dsn
-                  value: ${CODE_QUARKUS_SENTRY_DSN}
                 - name: io.quarkus.code.environment
                   value: ${CODE_QUARKUS_ENV}
+                - name: io.quarkus.code.sentry-dsn
+                    valueFrom:
+                      secretKeyRef:
+                        key: secrets
+                        name: sentry-dsn
                 - name: io.quarkus.code.ga-tracking-id
-                  value: ${CODE_QUARKUS_GA_TRACKING_ID}
+                  valueFrom:
+                    secretKeyRef:
+                      key: secrets
+                      name: ga-tracking-id
       triggers:
         - type: ConfigChange
   - kind: Service
