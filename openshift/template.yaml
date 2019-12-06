@@ -56,10 +56,10 @@ objects:
                 - name: io.quarkus.code.environment
                   value: ${CODE_QUARKUS_ENV}
                 - name: io.quarkus.code.sentry-dsn
-                    valueFrom:
-                      secretKeyRef:
-                        key: secrets
-                        name: sentry-dsn
+                  valueFrom:
+                    secretKeyRef:
+                      key: secrets
+                      name: sentry-dsn
                 - name: io.quarkus.code.ga-tracking-id
                   valueFrom:
                     secretKeyRef:
