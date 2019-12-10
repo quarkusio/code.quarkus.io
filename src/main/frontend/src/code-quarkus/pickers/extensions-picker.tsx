@@ -1,8 +1,8 @@
-import { Button, FormGroup, TextInput, Tooltip } from "@patternfly/react-core";
-import { CheckSquareIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon } from "@patternfly/react-icons";
+import { Button, Dropdown, DropdownItem, DropdownPosition, FormGroup, KebabToggle, TextInput, Tooltip } from "@patternfly/react-core";
+import { CheckSquareIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon, MapIcon } from "@patternfly/react-icons";
 import classNames from 'classnames';
 import hotkeys from 'hotkeys-js';
-import React, { useState, KeyboardEvent } from "react";
+import React, { KeyboardEvent, useState } from "react";
 import { useHotkeys } from 'react-hotkeys-hook';
 import { InputProps, useAnalytics } from '../../core';
 import { CopyToClipboard } from '../copy-to-clipboard';
@@ -19,7 +19,8 @@ export interface ExtensionEntry {
   category: string;
   order: number,
   default: boolean,
-  status: string
+  status: string,
+  guide?: string,
 }
 
 export interface ExtensionsPickerValue {
@@ -44,6 +45,7 @@ interface ExtensionProps extends ExtensionEntry {
 
 function Extension(props: ExtensionProps) {
   const [hover, setHover] = useState(false);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
   const onClick = () => {
     if (props.default) {
       return;
@@ -57,17 +59,32 @@ function Extension(props: ExtensionProps) {
     onMouseEnter: () => setHover(true),
     onMouseLeave: () => setHover(false),
   };
-
+  const closeMore = () => {
+    setTimeout(() => setIsMoreOpen(false), 1000);
+  }
   const description = props.description || '...';
   const descTooltip = <div><b>{props.name}</b><p>{description}</p></div>;
   let tooltip = props.detailed && !props.default ?
     <div>{props.selected ? 'Remove' : 'Add'} the extension <b>{props.name}</b></div> : descTooltip;
 
-  const buildTool = props.buildTool || 'MAVEN';
   const addMvnExt = `./mvnw quarkus:add-extension -Dextensions="${props.id}"`;
   const selected = props.selected || props.default;
   const addGradleExt = `./gradlew addExtension --extensions="${props.id}"`;
-  const addExtCmd = buildTool === 'GRADLE' ? addGradleExt : addMvnExt;
+  const moreItems = [
+    <DropdownItem key="maven" variant="icon">
+      <CopyToClipboard eventId="Add-Extension-Command" content={addMvnExt} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy Maven command</CopyToClipboard>
+    </DropdownItem>,
+    <DropdownItem key="gradle" variant="icon">
+      <CopyToClipboard eventId="Add-Extension-Command" content={addGradleExt} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy Gradle command</CopyToClipboard>
+    </DropdownItem>
+  ];
+  if (props.guide) {
+    moreItems.push(
+      <DropdownItem key="guide" variant="icon" href={props.guide} target="_blank" onClick={closeMore}>
+        <MapIcon /> Open Guide
+      </DropdownItem>
+    );
+  }
   return (
     <div {...activationEvents} className={classNames('extension-item', { 'keyboard-actived': props.keyboardActived, hover, selected, readonly: props.default })}>
       {props.detailed && (
@@ -98,7 +115,7 @@ function Extension(props: ExtensionProps) {
           className="extension-tag default"
         >INCLUDED</span></Tooltip>}
       </div>
-      
+
       {!props.detailed && (
         <div
           className="extension-remove"
@@ -114,7 +131,15 @@ function Extension(props: ExtensionProps) {
               className="extension-description"
             >{description}</div>
           </Tooltip>
-          <div className="extension-gav"><CopyToClipboard eventId="Add-Extension-Command" content={addExtCmd} tooltipPosition="left" /></div>
+          <div className="extension-more">
+            <Dropdown
+              isOpen={isMoreOpen}
+              position={DropdownPosition.left}
+              toggle={
+                <KebabToggle onToggle={() => setIsMoreOpen(!isMoreOpen)} />
+              }
+              dropdownItems={moreItems} />
+          </div>
         </div>
       )}
     </div>

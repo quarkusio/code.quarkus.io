@@ -53,22 +53,26 @@ object QuarkusExtensionUtils {
         }
         val keywords = ext.keywords ?: emptyList()
         return CodeQuarkusExtension(
-                "${ext.groupId}:${ext.artifactId}",
-                ext.name,
-                ext.description,
-                getExtensionShortName(ext),
-                cat.name,
-                getExtensionStatus(ext),
-                ext.artifactId == "quarkus-resteasy",
-                keywords,
-                order.getAndIncrement(),
-                keywords
+                id ="${ext.groupId}:${ext.artifactId}",
+                name = ext.name,
+                description = ext.description,
+                shortName = getExtensionShortName(ext),
+                category = cat.name,
+                status = getExtensionStatus(ext),
+                default = ext.artifactId == "quarkus-resteasy",
+                keywords = keywords,
+                order = order.getAndIncrement(),
+                labels = keywords,
+                guide = getExtensionGuide(ext)
         )
 
     }
 
     private fun getExtensionStatus(ext: Extension) =
             ext.metadata?.get(Extension.MD_STATUS) as String? ?: "stable"
+
+    private fun getExtensionGuide(ext: Extension) =
+            ext.metadata?.get(Extension.MD_GUIDE) as String?
 
     private fun getExtensionShortName(ext: Extension) =
             ext.metadata?.get(Extension.MD_SHORT_NAME) as String?

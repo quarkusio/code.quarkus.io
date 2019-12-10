@@ -40,30 +40,6 @@ body {
   backdrop-filter: blur(5px);
 }
 
-.pf-c-alert {
-  background-color: #0d1c2b;
-  text-align: justify;
-  font-size: 0.9rem;
-
-  .pf-c-alert__icon {
-    background-color: transparent;
-    color: $alert;
-  }
-
-  .pf-c-alert__title {
-    font-weight: bold;
-    color: $main;
-  }
-  .pf-c-alert__description {
-    color: $main;
-  }
-
-  .pf-c-alert__action button.pf-c-button{
-    &:hover {
-      color: $main;
-    }
-  }
-}
 
 .next-steps-modal {
   background-color: $background;
