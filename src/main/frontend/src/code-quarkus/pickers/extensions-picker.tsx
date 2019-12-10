@@ -138,9 +138,8 @@ function Extension(props: ExtensionProps) {
             <Dropdown
               isOpen={isMoreOpen}
               position={DropdownPosition.left}
-              toggle={
-                <KebabToggle onToggle={() => setIsMoreOpen(!isMoreOpen)} />
-              }
+              toggle={<KebabToggle onToggle={() => setIsMoreOpen(!isMoreOpen)} />}
+              onClick={(e) => e.stopPropagation()}
               dropdownItems={moreItems} />
           </div>
         </div>

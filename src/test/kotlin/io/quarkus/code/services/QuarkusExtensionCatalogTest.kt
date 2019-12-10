@@ -34,6 +34,7 @@ internal class QuarkusExtensionCatalogTest {
                 "stable",
                 false,
                 listOf("arc", "cdi", "dependency-injection", "di"),
+                "https://quarkus.io/guides/cdi-reference",
                 0,
                 listOf("arc", "cdi", "dependency-injection", "di")))
         )
@@ -46,6 +47,7 @@ internal class QuarkusExtensionCatalogTest {
                 "stable",
                 false,
                 listOf(),
+                null,
                 5,
                 listOf()))
         )
