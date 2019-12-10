@@ -46,6 +46,7 @@ export const InfoPicker = (props: InfoPickerProps) => {
   const onPackageNameChange = (newValue: string) => onInputChange({ ...value, packageName: newValue });
   const onBuildToolChange = (event: ChangeEvent<HTMLSelectElement>) => onInputChange({ ...value, buildTool: event.target.value });
   const configFileName = value.buildTool === 'MAVEN' ? 'pom.xml' : 'gradle.properties';
+  const packageName = value.packageName === undefined ? value.groupId : value.packageName;
   return (
     <div className={`info-picker horizontal`}>
       <div className="base-settings pf-c-form">
@@ -107,11 +108,11 @@ export const InfoPicker = (props: InfoPickerProps) => {
               id="packageName"
               name="packageName"
               aria-label="Edit package name"
-              value={value.packageName || value.groupId || ''}
+              value={packageName || ''}
               autoComplete="off"
               onChange={onPackageNameChange}
               pattern={GROUPID_PATTERN.source}
-              isValid={isValidGroupId(value.packageName || value.groupId)}
+              isValid={isValidGroupId(packageName)}
             />
 
             <Tooltip position="right" content={`You may change the Quarkus Version after generation in the ${configFileName}. Just be cautious with extension compatibility.`} exitDelay={0} zIndex={200}>
