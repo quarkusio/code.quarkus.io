@@ -13,6 +13,7 @@ interface Extension {
   default: boolean;
   order: number;
   status: string;
+  guide?: string;
 }
 
 export function ExtensionsLoader(props: { name: string, children: (entries: ExtensionEntry[]) => any }) {

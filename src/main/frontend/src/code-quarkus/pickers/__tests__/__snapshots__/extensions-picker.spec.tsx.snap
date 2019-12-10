@@ -210,27 +210,34 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
                 Build time CDI dependency injection
               </div>
               <div
-                class="extension-gav"
+                class="extension-more"
               >
                 <div
-                  class="copy-to-clipboard"
-                  style="cursor: pointer;"
-                  tabindex="0"
+                  class="pf-c-dropdown"
                 >
-                  <svg
-                    aria-hidden="true"
-                    fill="currentColor"
-                    height="1em"
-                    role="img"
-                    style="vertical-align: -0.125em;"
-                    viewBox="0 0 384 512"
-                    width="1em"
+                  <button
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    aria-label="Actions"
+                    class="pf-c-dropdown__toggle"
+                    id="pf-toggle-id-0"
+                    type="button"
                   >
-                    <path
-                      d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
-                      transform=""
-                    />
-                  </svg>
+                    <svg
+                      aria-hidden="true"
+                      fill="currentColor"
+                      height="1em"
+                      role="img"
+                      style="vertical-align: -0.125em;"
+                      viewBox="0 0 192 512"
+                      width="1em"
+                    >
+                      <path
+                        d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                        transform=""
+                      />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
@@ -287,27 +294,34 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
                 Some description
               </div>
               <div
-                class="extension-gav"
+                class="extension-more"
               >
                 <div
-                  class="copy-to-clipboard"
-                  style="cursor: pointer;"
-                  tabindex="0"
+                  class="pf-c-dropdown"
                 >
-                  <svg
-                    aria-hidden="true"
-                    fill="currentColor"
-                    height="1em"
-                    role="img"
-                    style="vertical-align: -0.125em;"
-                    viewBox="0 0 384 512"
-                    width="1em"
+                  <button
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    aria-label="Actions"
+                    class="pf-c-dropdown__toggle"
+                    id="pf-toggle-id-1"
+                    type="button"
                   >
-                    <path
-                      d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
-                      transform=""
-                    />
-                  </svg>
+                    <svg
+                      aria-hidden="true"
+                      fill="currentColor"
+                      height="1em"
+                      role="img"
+                      style="vertical-align: -0.125em;"
+                      viewBox="0 0 192 512"
+                      width="1em"
+                    >
+                      <path
+                        d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                        transform=""
+                      />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
@@ -364,27 +378,34 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
                 Camel support for Netty
               </div>
               <div
-                class="extension-gav"
+                class="extension-more"
               >
                 <div
-                  class="copy-to-clipboard"
-                  style="cursor: pointer;"
-                  tabindex="0"
+                  class="pf-c-dropdown"
                 >
-                  <svg
-                    aria-hidden="true"
-                    fill="currentColor"
-                    height="1em"
-                    role="img"
-                    style="vertical-align: -0.125em;"
-                    viewBox="0 0 384 512"
-                    width="1em"
+                  <button
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    aria-label="Actions"
+                    class="pf-c-dropdown__toggle"
+                    id="pf-toggle-id-2"
+                    type="button"
                   >
-                    <path
-                      d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
-                      transform=""
-                    />
-                  </svg>
+                    <svg
+                      aria-hidden="true"
+                      fill="currentColor"
+                      height="1em"
+                      role="img"
+                      style="vertical-align: -0.125em;"
+                      viewBox="0 0 192 512"
+                      width="1em"
+                    >
+                      <path
+                        d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                        transform=""
+                      />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
@@ -610,27 +631,34 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
               Camel support for Netty
             </div>
             <div
-              class="extension-gav"
+              class="extension-more"
             >
               <div
-                class="copy-to-clipboard"
-                style="cursor: pointer;"
-                tabindex="0"
+                class="pf-c-dropdown"
               >
-                <svg
-                  aria-hidden="true"
-                  fill="currentColor"
-                  height="1em"
-                  role="img"
-                  style="vertical-align: -0.125em;"
-                  viewBox="0 0 384 512"
-                  width="1em"
+                <button
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  aria-label="Actions"
+                  class="pf-c-dropdown__toggle"
+                  id="pf-toggle-id-11"
+                  type="button"
                 >
-                  <path
-                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
-                    transform=""
-                  />
-                </svg>
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    height="1em"
+                    role="img"
+                    style="vertical-align: -0.125em;"
+                    viewBox="0 0 192 512"
+                    width="1em"
+                  >
+                    <path
+                      d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                      transform=""
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -855,27 +883,34 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
               Build time CDI dependency injection
             </div>
             <div
-              class="extension-gav"
+              class="extension-more"
             >
               <div
-                class="copy-to-clipboard"
-                style="cursor: pointer;"
-                tabindex="0"
+                class="pf-c-dropdown"
               >
-                <svg
-                  aria-hidden="true"
-                  fill="currentColor"
-                  height="1em"
-                  role="img"
-                  style="vertical-align: -0.125em;"
-                  viewBox="0 0 384 512"
-                  width="1em"
+                <button
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  aria-label="Actions"
+                  class="pf-c-dropdown__toggle"
+                  id="pf-toggle-id-6"
+                  type="button"
                 >
-                  <path
-                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
-                    transform=""
-                  />
-                </svg>
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    height="1em"
+                    role="img"
+                    style="vertical-align: -0.125em;"
+                    viewBox="0 0 192 512"
+                    width="1em"
+                  >
+                    <path
+                      d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                      transform=""
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -923,27 +958,34 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
               Some description
             </div>
             <div
-              class="extension-gav"
+              class="extension-more"
             >
               <div
-                class="copy-to-clipboard"
-                style="cursor: pointer;"
-                tabindex="0"
+                class="pf-c-dropdown"
               >
-                <svg
-                  aria-hidden="true"
-                  fill="currentColor"
-                  height="1em"
-                  role="img"
-                  style="vertical-align: -0.125em;"
-                  viewBox="0 0 384 512"
-                  width="1em"
+                <button
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  aria-label="Actions"
+                  class="pf-c-dropdown__toggle"
+                  id="pf-toggle-id-7"
+                  type="button"
                 >
-                  <path
-                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
-                    transform=""
-                  />
-                </svg>
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    height="1em"
+                    role="img"
+                    style="vertical-align: -0.125em;"
+                    viewBox="0 0 192 512"
+                    width="1em"
+                  >
+                    <path
+                      d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                      transform=""
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>

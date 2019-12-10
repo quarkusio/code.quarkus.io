@@ -12,13 +12,11 @@
     svg {
       pointer-events: none;
     }
-
     &.selected {
       .extension-selector {
         color: $alert;
       }
     }
-
     &.hover.selected {
       .extension-selector {
         color: $main;
@@ -73,7 +71,6 @@
       &.default {
         border: 1px solid $main;
       }
-      
     }
 
     .extension-details {
@@ -91,15 +88,44 @@
       }
     }
 
-    .extension-gav {
+    .extension-more {
       max-width: 150px;
-      direction: rtl;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-      text-align: right;
       font-size: 0.8rem;
-
+      .pf-c-dropdown {
+        border: 0;
+        &.pf-m-expanded {
+          background-color: $backgroundSecondary;
+        }
+      }
+      .pf-c-dropdown__menu {
+        right: 0;
+        top: 30px;
+        background-color: $backgroundSecondary;
+        padding: 0;
+        li {
+          background-color: $backgroundSecondary;
+          a {
+            color: $main;
+            background-color: $backgroundSecondary;
+            border-right: 2px solid $backgroundSecondary;
+            svg {
+              margin-right: 20px;
+            }
+          }
+          a:hover {
+            border-right: 2px solid $main;
+          }
+        }
+      }
+      button.pf-c-dropdown__toggle {
+        color: $main;
+        min-width: 0;
+        height: 30px;
+        outline: none;
+      }
+      button.pf-c-dropdown__toggle:before {
+        border: 0;
+      }
       @media screen and (max-width: 900px) {
         display: none;
       }
