@@ -12,13 +12,11 @@
     svg {
       pointer-events: none;
     }
-
     &.selected {
       .extension-selector {
         color: $alert;
       }
     }
-
     &.hover.selected {
       .extension-selector {
         color: $main;
@@ -104,20 +102,16 @@
         top: 30px;
         background-color: $backgroundSecondary;
         padding: 0;
-
         li {
           background-color: $backgroundSecondary;
           a {
             color: $main;
             background-color: $backgroundSecondary;
             border-right: 2px solid $backgroundSecondary;
-
             svg {
               margin-right: 20px;
             }
-          
           }
-
           a:hover {
             border-right: 2px solid $main;
           }

@@ -76,6 +76,9 @@ function Extension(props: ExtensionProps) {
     </DropdownItem>,
     <DropdownItem key="gradle" variant="icon">
       <CopyToClipboard eventId="Add-Extension-Command" content={addGradleExt} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy Gradle command</CopyToClipboard>
+    </DropdownItem>,
+    <DropdownItem key="id" variant="icon">
+      <CopyToClipboard eventId="Extension-GAV" content={props.id} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy extension GAV</CopyToClipboard>
     </DropdownItem>
   ];
   if (props.guide) {
