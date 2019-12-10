@@ -66,6 +66,10 @@
         border: 1px solid $highlight;
       }
 
+      &.experimental {
+        border: 1px solid $warning;
+      }
+
       &.default {
         border: 1px solid $main;
       }

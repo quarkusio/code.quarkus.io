@@ -91,6 +91,9 @@ function Extension(props: ExtensionProps) {
         {props.status === 'preview' && <Tooltip position="right" content="This is work in progress. API or configuration properties might change as the extension matures. Give us your feedback :)" exitDelay={0} zIndex={100}><span
           className="extension-tag preview"
         >PREVIEW</span></Tooltip>}
+        {props.status === 'experimental' && <Tooltip position="right" content="Early feedback is requested to mature the idea. There is no guarantee of stability nor long term presence in the platform until the solution matures." exitDelay={0} zIndex={100}><span
+          className="extension-tag experimental"
+        >EXPERIMENTAL</span></Tooltip>}
         {props.default && <Tooltip position="right" content="Applications generated with Code Quarkus are currently demonstrating a Hello World REST endpoint, this extension is therefore included by default to make this use case work." exitDelay={0} zIndex={100}><span
           className="extension-tag default"
         >INCLUDED</span></Tooltip>}
