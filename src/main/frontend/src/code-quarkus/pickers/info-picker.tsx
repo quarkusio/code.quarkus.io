@@ -103,9 +103,9 @@ export const InfoPicker = (props: InfoPickerProps) => {
               label="Version"
               isRequired
               type="text"
-              id="version"
-              name="version"
-              aria-label="Edit version"
+              id="projectVersion"
+              name="projectVersion"
+              aria-label="Edit project version"
               value={value.version || ''}
               autoComplete="off"
               onChange={onVersionChange}

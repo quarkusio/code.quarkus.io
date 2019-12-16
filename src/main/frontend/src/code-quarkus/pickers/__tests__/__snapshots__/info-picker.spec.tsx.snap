@@ -102,7 +102,7 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
         >
           <label
             class="pf-c-form__label"
-            for="version"
+            for="projectVersion"
           >
             <span
               class="pf-c-form__label-text"
@@ -112,11 +112,11 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
           </label>
           <input
             aria-invalid="false"
-            aria-label="Edit version"
+            aria-label="Edit project version"
             autocomplete="off"
             class="pf-c-form-control"
-            id="version"
-            name="version"
+            id="projectVersion"
+            name="projectVersion"
             required=""
             type="text"
             value="1.0.0"
@@ -170,7 +170,7 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
             readonly=""
             required=""
             type="text"
-            value=""
+            value="1.0.0"
           />
         </div>
       </div>
