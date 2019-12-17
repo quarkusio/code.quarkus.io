@@ -60,6 +60,13 @@ objects:
                     secretKeyRef:
                       name: secrets
                       key: sentry-dsn
+                - name: quarkus.log.sentry
+                  value: true
+                - name: quarkus.log.sentry.dsn
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: sentry-dsn
                 - name: io.quarkus.code.ga-tracking-id
                   valueFrom:
                     secretKeyRef:
