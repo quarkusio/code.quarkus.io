@@ -163,8 +163,8 @@ internal class QuarkusProjectCreatorTest {
             "test-app/gradlew"
         )
 
-        val platformVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-platform-version", String::class.java)
-        val pluginVersion = QuarkusJsonPlatformDescriptorResolver.newInstance().resolveFromBom("io.quarkus", "quarkus-universe-bom", platformVersion).getQuarkusVersion()
+        val platformVersion = "1.1.0.Final"
+        val pluginVersion = "1.1.0.Final"
     }
 
     @Test

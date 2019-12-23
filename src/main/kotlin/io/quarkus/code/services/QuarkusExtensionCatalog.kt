@@ -12,10 +12,10 @@ open class QuarkusExtensionCatalog {
 
     companion object {
         @JvmStatic
-        internal val platformVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-platform-version", String::class.java)
+        internal val platformVersion = "1.1.0.Final"
 
         @JvmStatic
-        internal val bundledQuarkusVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-version", String::class.java)
+        internal val bundledQuarkusVersion = "1.1.0.Final"
 
         @JvmStatic
         internal val descriptor = QuarkusJsonPlatformDescriptorResolver.newInstance().resolveFromBom("io.quarkus", "quarkus-universe-bom", platformVersion)
