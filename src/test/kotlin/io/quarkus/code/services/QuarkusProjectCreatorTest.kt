@@ -48,7 +48,8 @@ internal class QuarkusProjectCreatorTest {
             "code-with-quarkus/.mvn/wrapper/maven-wrapper.properties",
             "code-with-quarkus/.mvn/wrapper/MavenWrapperDownloader.java",
             "code-with-quarkus/mvnw.cmd",
-            "code-with-quarkus/mvnw"
+            "code-with-quarkus/mvnw",
+            "code-with-quarkus/README.md"
         )
 
         val EXPECTED_ZIP_CONTENT_CUSTOM = arrayOf(
@@ -82,7 +83,8 @@ internal class QuarkusProjectCreatorTest {
             "test-app/.mvn/wrapper/maven-wrapper.properties",
             "test-app/.mvn/wrapper/MavenWrapperDownloader.java",
             "test-app/mvnw.cmd",
-            "test-app/mvnw"
+            "test-app/mvnw",
+            "test-app/README.md"
         )
         
         val EXPECTED_ZIP_CONTENT_GRADLE_KOTLIN = arrayOf(
@@ -121,7 +123,8 @@ internal class QuarkusProjectCreatorTest {
             "test-app/gradle/wrapper/gradle-wrapper.jar",
             "test-app/gradle/wrapper/gradle-wrapper.properties",
             "test-app/gradlew.bat",
-            "test-app/gradlew"
+            "test-app/gradlew",
+            "test-app/README.md"
         )
         
         val EXPECTED_ZIP_CONTENT_GRADLE_SCALA = arrayOf(
@@ -160,7 +163,8 @@ internal class QuarkusProjectCreatorTest {
             "test-app/gradle/wrapper/gradle-wrapper.jar",
             "test-app/gradle/wrapper/gradle-wrapper.properties",
             "test-app/gradlew.bat",
-            "test-app/gradlew"
+            "test-app/gradlew",
+            "test-app/README.md"
         )
 
         val platformVersion = "1.1.0.Final"
@@ -180,9 +184,9 @@ internal class QuarkusProjectCreatorTest {
         val resourceText = Paths.get(testDir.path, "code-with-quarkus/src/main/java/org/acme/ExampleResource.java")
             .toFile().readText(Charsets.UTF_8)
         // Then
-        assertThat(zipList, contains(*EXPECTED_ZIP_CONTENT))
+        assertThat(zipList, containsInAnyOrder(*EXPECTED_ZIP_CONTENT))
 
-        assertThat(fileList.size, equalTo(33))
+        assertThat(fileList.size, equalTo(34))
 
         assertThat(pomText, containsString("<groupId>org.acme</groupId>"))
         assertThat(pomText, containsString("<artifactId>code-with-quarkus</artifactId>"))
@@ -219,8 +223,8 @@ internal class QuarkusProjectCreatorTest {
             .toFile().readText(Charsets.UTF_8)
 
         // Then
-        assertThat(zipList, contains(*EXPECTED_ZIP_CONTENT_CUSTOM))
-        assertThat(fileList.size, equalTo(33))
+        assertThat(zipList, containsInAnyOrder(*EXPECTED_ZIP_CONTENT_CUSTOM))
+        assertThat(fileList.size, equalTo(34))
 
         assertThat(pomText, containsString("<groupId>com.test</groupId>"))
         assertThat(pomText, containsString("<artifactId>test-app</artifactId>"))
@@ -259,9 +263,9 @@ internal class QuarkusProjectCreatorTest {
             .toFile().readText(Charsets.UTF_8)
 
         // Then
-        assertThat(zipList, contains(*EXPECTED_ZIP_CONTENT_GRADLE_KOTLIN))
+        assertThat(zipList, containsInAnyOrder(*EXPECTED_ZIP_CONTENT_GRADLE_KOTLIN))
 
-        assertThat(fileList.size, equalTo(38))
+        assertThat(fileList.size, equalTo(39))
 
         assertThat(buildGradleText, containsString("id 'org.jetbrains.kotlin.jvm' version "))
         assertThat(buildGradleText, containsString("implementation 'io.quarkus:quarkus-kotlin'"))
@@ -299,9 +303,9 @@ internal class QuarkusProjectCreatorTest {
             .toFile().readText(Charsets.UTF_8)
 
         // Then
-        assertThat(zipList, contains(*EXPECTED_ZIP_CONTENT_GRADLE_SCALA))
+        assertThat(zipList, containsInAnyOrder(*EXPECTED_ZIP_CONTENT_GRADLE_SCALA))
 
-        assertThat(fileList.size, equalTo(38))
+        assertThat(fileList.size, equalTo(39))
 
         assertThat(buildGradleText, containsString("id 'scala'"))
         assertThat(buildGradleText, containsString("implementation 'io.quarkus:quarkus-scala'"))
