@@ -1,7 +1,6 @@
 package io.quarkus.code.services
 
 import com.google.common.base.Preconditions.checkState
-import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.platform.descriptor.resolver.json.QuarkusJsonPlatformDescriptorResolver
 import io.quarkus.platform.tools.config.QuarkusPlatformConfig
 import org.eclipse.microprofile.config.spi.ConfigProviderResolver
@@ -24,6 +23,8 @@ open class QuarkusExtensionCatalog {
         internal val processedExtensions = QuarkusExtensionUtils.processExtensions(descriptor)
 
         init {
+            checkState(platformVersion.isNotEmpty()) { "io.quarkus.code.quarkus-platform-version must not be null or empty" }
+            checkState(bundledQuarkusVersion.isNotEmpty()) { "io.quarkus.code.quarkus-version must not be null or empty" }
             checkState(descriptor.quarkusVersion == bundledQuarkusVersion, "The platform version (%s) must be compatible with the bundled Quarkus version (%s != %s)", descriptor.bomVersion, descriptor.quarkusVersion, bundledQuarkusVersion)
             if (!QuarkusPlatformConfig.hasGlobalDefault()) {
                 QuarkusPlatformConfig.defaultConfigBuilder().setPlatformDescriptor(descriptor).build()

@@ -2,6 +2,7 @@ package io.quarkus.code.services
 
 import io.quarkus.code.model.QuarkusProject
 import io.quarkus.platform.descriptor.resolver.json.QuarkusJsonPlatformDescriptorResolver
+import io.quarkus.test.junit.QuarkusTest
 import org.eclipse.microprofile.config.spi.ConfigProviderResolver
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*
@@ -13,7 +14,7 @@ import java.util.concurrent.Callable
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 
-
+@QuarkusTest
 internal class QuarkusProjectCreatorTest {
 
     companion object {
@@ -167,7 +168,10 @@ internal class QuarkusProjectCreatorTest {
             "test-app/README.md"
         )
 
+        @JvmStatic
         val platformVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-platform-version", String::class.java)
+
+        @JvmStatic
         val pluginVersion = QuarkusJsonPlatformDescriptorResolver.newInstance().resolveFromBom("io.quarkus", "quarkus-universe-bom", platformVersion).getQuarkusVersion()
     }
 
