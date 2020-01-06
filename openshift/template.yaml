@@ -61,7 +61,7 @@ objects:
                       name: secrets
                       key: sentry-dsn
                 - name: quarkus.log.sentry
-                  value: true
+                  value: "true"
                 - name: quarkus.log.sentry.dsn
                   valueFrom:
                     secretKeyRef:
