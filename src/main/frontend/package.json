@@ -34,7 +34,7 @@
     "clean": "rm -Rf build",
     "start": "react-scripts start",
     "build": "[ ! -d \"build\" ] && react-scripts build || exit 0",
-    "copy-to-resources": "export TARGET_DIR=../../../target/classes/META-INF/resources && mkdir -p ${TARGET_DIR} && cp -R ./build/. ${TARGET_DIR}",
+    "copy-to-resources": "export TARGET_DIR=../resources/META-INF/resources && mkdir -p ${TARGET_DIR} && cp -R ./build/. ${TARGET_DIR}",
     "test:i": "react-scripts test",
     "test": "CI=true react-scripts test",
     "eject": "react-scripts eject"
