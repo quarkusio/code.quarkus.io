@@ -38,3 +38,5 @@ pom.xml.releaseBackup
 pom.xml.versionsBackup
 release.properties
 /node
+
+src/main/resources/META-INF/resources

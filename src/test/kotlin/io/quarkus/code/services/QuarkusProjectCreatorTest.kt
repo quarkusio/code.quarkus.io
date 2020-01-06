@@ -2,6 +2,7 @@ package io.quarkus.code.services
 
 import io.quarkus.code.model.QuarkusProject
 import io.quarkus.platform.descriptor.resolver.json.QuarkusJsonPlatformDescriptorResolver
+import io.quarkus.test.junit.QuarkusTest
 import org.eclipse.microprofile.config.spi.ConfigProviderResolver
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*
@@ -13,7 +14,7 @@ import java.util.concurrent.Callable
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 
-
+@QuarkusTest
 internal class QuarkusProjectCreatorTest {
 
     companion object {
@@ -41,6 +42,7 @@ internal class QuarkusProjectCreatorTest {
             "code-with-quarkus/src/main/docker/Dockerfile.jvm",
             "code-with-quarkus/.dockerignore",
             "code-with-quarkus/src/main/resources/application.properties",
+            "code-with-quarkus/README.md",
             "code-with-quarkus/.gitignore",
             "code-with-quarkus/.mvn/",
             "code-with-quarkus/.mvn/wrapper/",
@@ -48,8 +50,7 @@ internal class QuarkusProjectCreatorTest {
             "code-with-quarkus/.mvn/wrapper/maven-wrapper.properties",
             "code-with-quarkus/.mvn/wrapper/MavenWrapperDownloader.java",
             "code-with-quarkus/mvnw.cmd",
-            "code-with-quarkus/mvnw",
-            "code-with-quarkus/README.md"
+            "code-with-quarkus/mvnw"
         )
 
         val EXPECTED_ZIP_CONTENT_CUSTOM = arrayOf(
@@ -76,6 +77,7 @@ internal class QuarkusProjectCreatorTest {
             "test-app/src/main/docker/Dockerfile.jvm",
             "test-app/.dockerignore",
             "test-app/src/main/resources/application.properties",
+            "test-app/README.md",
             "test-app/.gitignore",
             "test-app/.mvn/",
             "test-app/.mvn/wrapper/",
@@ -83,10 +85,9 @@ internal class QuarkusProjectCreatorTest {
             "test-app/.mvn/wrapper/maven-wrapper.properties",
             "test-app/.mvn/wrapper/MavenWrapperDownloader.java",
             "test-app/mvnw.cmd",
-            "test-app/mvnw",
-            "test-app/README.md"
+            "test-app/mvnw"
         )
-        
+
         val EXPECTED_ZIP_CONTENT_GRADLE_KOTLIN = arrayOf(
             "test-app/",
             "test-app/build.gradle",
@@ -117,16 +118,16 @@ internal class QuarkusProjectCreatorTest {
             "test-app/src/main/docker/Dockerfile.jvm",
             "test-app/.dockerignore",
             "test-app/src/main/resources/application.properties",
+            "test-app/README.md",
             "test-app/.gitignore",
             "test-app/gradle/",
             "test-app/gradle/wrapper/",
             "test-app/gradle/wrapper/gradle-wrapper.jar",
             "test-app/gradle/wrapper/gradle-wrapper.properties",
             "test-app/gradlew.bat",
-            "test-app/gradlew",
-            "test-app/README.md"
+            "test-app/gradlew"
         )
-        
+
         val EXPECTED_ZIP_CONTENT_GRADLE_SCALA = arrayOf(
             "test-app/",
             "test-app/build.gradle",
@@ -157,18 +158,21 @@ internal class QuarkusProjectCreatorTest {
             "test-app/src/main/docker/Dockerfile.jvm",
             "test-app/.dockerignore",
             "test-app/src/main/resources/application.properties",
+            "test-app/README.md",
             "test-app/.gitignore",
             "test-app/gradle/",
             "test-app/gradle/wrapper/",
             "test-app/gradle/wrapper/gradle-wrapper.jar",
             "test-app/gradle/wrapper/gradle-wrapper.properties",
             "test-app/gradlew.bat",
-            "test-app/gradlew",
-            "test-app/README.md"
+            "test-app/gradlew"
         )
 
-        val platformVersion = "1.1.0.Final"
-        val pluginVersion = "1.1.0.Final"
+        @JvmStatic
+        val platformVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-platform-version", String::class.java)
+
+        @JvmStatic
+        val pluginVersion = QuarkusJsonPlatformDescriptorResolver.newInstance().resolveFromBom("io.quarkus", "quarkus-universe-bom", platformVersion).getQuarkusVersion()
     }
 
     @Test
@@ -223,7 +227,7 @@ internal class QuarkusProjectCreatorTest {
             .toFile().readText(Charsets.UTF_8)
 
         // Then
-        assertThat(zipList, containsInAnyOrder(*EXPECTED_ZIP_CONTENT_CUSTOM))
+        assertThat(zipList, contains(*EXPECTED_ZIP_CONTENT_CUSTOM))
         assertThat(fileList.size, equalTo(34))
 
         assertThat(pomText, containsString("<groupId>com.test</groupId>"))
@@ -234,10 +238,10 @@ internal class QuarkusProjectCreatorTest {
         assertThat(pomText, containsString("<artifactId>quarkus-resteasy-jsonb</artifactId>"))
         assertThat(pomText, containsString("<artifactId>quarkus-hibernate-validator</artifactId>"))
         assertThat(pomText, containsString("<artifactId>quarkus-neo4j</artifactId>"))
-        
+
         assertThat(resourceText, containsString("@Path(\"/test/it\")"))
     }
-    
+
     @Test
     @DisplayName("Create a Gradle project using kotlin source")
     fun testCreateGradleKotlinProject() {
@@ -263,7 +267,7 @@ internal class QuarkusProjectCreatorTest {
             .toFile().readText(Charsets.UTF_8)
 
         // Then
-        assertThat(zipList, containsInAnyOrder(*EXPECTED_ZIP_CONTENT_GRADLE_KOTLIN))
+        assertThat(zipList, contains(*EXPECTED_ZIP_CONTENT_GRADLE_KOTLIN))
 
         assertThat(fileList.size, equalTo(39))
 
@@ -277,7 +281,7 @@ internal class QuarkusProjectCreatorTest {
 
         assertThat(resourceText, containsString("fun hello() = \"hello\""))
     }
-    
+
     @Test
     @DisplayName("Create a Gradle project using scala source")
     fun testCreateGradleScalaProject() {
@@ -303,7 +307,7 @@ internal class QuarkusProjectCreatorTest {
             .toFile().readText(Charsets.UTF_8)
 
         // Then
-        assertThat(zipList, containsInAnyOrder(*EXPECTED_ZIP_CONTENT_GRADLE_SCALA))
+        assertThat(zipList, contains(*EXPECTED_ZIP_CONTENT_GRADLE_SCALA))
 
         assertThat(fileList.size, equalTo(39))
 
