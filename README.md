@@ -37,7 +37,8 @@ You can check deployed commit hash on: https://stage.code.quarkus.io/api/config
     <!-- Quarkus Platform version must be compatible with Quarkus version -->
     <version.quarkus-platform>a.b.c</version.quarkus-platform>
 ```
-2. Provide a PR, merge, and [promote to production](#promote-to-production)
+2. Check that the `centos-quarkus-maven` image is matching the new Quarkus version: https://github.com/quarkusio/code.quarkus.io/blob/master/src/main/docker/Dockerfile.native.multistage#L2
+3. Provide a PR, merge, and [promote to production](#promote-to-production)
 
 
 # API Documentation
