@@ -102,14 +102,6 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
           >
             Explore the wide breadth of technologies Quarkus applications can be made with. Generate your application!
           </p>
-          <p
-            class="mobile-only"
-            style="color: rgb(255, 0, 74);"
-          >
-            On mobile devices, you can explore the list of Quarkus extensions.
-            <br />
-             If you wish to generate code, try it with your desktop browser...
-          </p>
           <br />
           <p>
             [
@@ -154,6 +146,48 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
               />
             </svg>
           </button>
+        </div>
+      </div>
+      <div
+        aria-label="Info Alert"
+        class="pf-c-alert pf-m-info mobile-only quarkus-blurb"
+      >
+        <div
+          class="pf-c-alert__icon"
+        >
+          <svg
+            aria-hidden="true"
+            fill="currentColor"
+            height="1em"
+            role="img"
+            style="vertical-align: -0.125em;"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <path
+              d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"
+              transform=""
+            />
+          </svg>
+        </div>
+        <h4
+          class="pf-c-alert__title"
+        >
+          <span
+            class="pf-u-screen-reader"
+          >
+            Info alert:
+          </span>
+          On mobile devices, you can explore the list of Quarkus extensions.
+        </h4>
+        <div
+          class="pf-c-alert__description"
+        >
+          <p
+            style="color: rgb(255, 0, 74);"
+          >
+            If you wish to generate code, try it with your desktop browser...
+          </p>
         </div>
       </div>
       <div
@@ -519,14 +553,6 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           >
             Explore the wide breadth of technologies Quarkus applications can be made with. Generate your application!
           </p>
-          <p
-            class="mobile-only"
-            style="color: rgb(255, 0, 74);"
-          >
-            On mobile devices, you can explore the list of Quarkus extensions.
-            <br />
-             If you wish to generate code, try it with your desktop browser...
-          </p>
           <br />
           <p>
             [
@@ -571,6 +597,48 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
               />
             </svg>
           </button>
+        </div>
+      </div>
+      <div
+        aria-label="Info Alert"
+        class="pf-c-alert pf-m-info mobile-only quarkus-blurb"
+      >
+        <div
+          class="pf-c-alert__icon"
+        >
+          <svg
+            aria-hidden="true"
+            fill="currentColor"
+            height="1em"
+            role="img"
+            style="vertical-align: -0.125em;"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <path
+              d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"
+              transform=""
+            />
+          </svg>
+        </div>
+        <h4
+          class="pf-c-alert__title"
+        >
+          <span
+            class="pf-u-screen-reader"
+          >
+            Info alert:
+          </span>
+          On mobile devices, you can explore the list of Quarkus extensions.
+        </h4>
+        <div
+          class="pf-c-alert__description"
+        >
+          <p
+            style="color: rgb(255, 0, 74);"
+          >
+            If you wish to generate code, try it with your desktop browser...
+          </p>
         </div>
       </div>
       <div
@@ -771,14 +839,6 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           >
             Explore the wide breadth of technologies Quarkus applications can be made with. Generate your application!
           </p>
-          <p
-            class="mobile-only"
-            style="color: rgb(255, 0, 74);"
-          >
-            On mobile devices, you can explore the list of Quarkus extensions.
-            <br />
-             If you wish to generate code, try it with your desktop browser...
-          </p>
           <br />
           <p>
             [
@@ -823,6 +883,48 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
               />
             </svg>
           </button>
+        </div>
+      </div>
+      <div
+        aria-label="Info Alert"
+        class="pf-c-alert pf-m-info mobile-only quarkus-blurb"
+      >
+        <div
+          class="pf-c-alert__icon"
+        >
+          <svg
+            aria-hidden="true"
+            fill="currentColor"
+            height="1em"
+            role="img"
+            style="vertical-align: -0.125em;"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <path
+              d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"
+              transform=""
+            />
+          </svg>
+        </div>
+        <h4
+          class="pf-c-alert__title"
+        >
+          <span
+            class="pf-u-screen-reader"
+          >
+            Info alert:
+          </span>
+          On mobile devices, you can explore the list of Quarkus extensions.
+        </h4>
+        <div
+          class="pf-c-alert__description"
+        >
+          <p
+            style="color: rgb(255, 0, 74);"
+          >
+            If you wish to generate code, try it with your desktop browser...
+          </p>
         </div>
       </div>
       <div

@@ -14,11 +14,13 @@ export function QuarkusBlurb() {
           <p>Think of Quarkus extensions as your project dependencies. Extensions configure, boot and integrate a framework or technology into your Quarkus application. They also do all of the heavy lifting of providing the right information to GraalVM for your application to compile natively.</p>
           <br />
           <p className="desktop-only">Explore the wide breadth of technologies Quarkus applications can be made with. Generate your application!</p>
-          <p className="mobile-only" style={{ color: "#ff004a" }}>On mobile devices, you can explore the list of Quarkus extensions.<br /> If you wish to generate code, try it with your desktop browser...</p>
           <br />
           <p>[<a href="https://github.com/quarkusio/code.quarkus.io/issues/new?labels=feature&template=feature_request.md" target="_blank" rel="noopener noreferrer">Missing a feature?</a> <a href="https://github.com/quarkusio/code.quarkus.io/issues/new?labels=bug&template=bug_report.md" target="_blank" rel="noopener noreferrer">Found a bug?</a> We are listening for feedback]</p>
         </Alert>)
       }
+      <Alert className="mobile-only quarkus-blurb" variant="info" title="On mobile devices, you can explore the list of Quarkus extensions.">
+        <p style={{ color: "#ff004a" }}>If you wish to generate code, try it with your desktop browser...</p>
+      </Alert>
     </>
   );
 }
