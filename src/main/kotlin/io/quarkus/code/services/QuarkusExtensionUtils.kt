@@ -54,6 +54,7 @@ object QuarkusExtensionUtils {
         val keywords = ext.keywords ?: emptyList()
         return CodeQuarkusExtension(
                 id ="${ext.groupId}:${ext.artifactId}",
+                linkId = createId(ext.artifactId),
                 name = ext.name,
                 description = ext.description,
                 shortName = getExtensionShortName(ext),
@@ -66,6 +67,17 @@ object QuarkusExtensionUtils {
                 guide = getExtensionGuide(ext)
         )
 
+    }
+
+    internal fun createId(artifactId: String): String {
+        val array = if (artifactId.startsWith("io.quarkus:quarkus-") || artifactId.startsWith("quarkus-")) {
+            artifactId.substring(artifactId.indexOf("quarkus-") + "quarkus-".length).toCharArray()
+        } else {
+            artifactId.toCharArray()
+        }
+
+        val number = array.reduce { acc, c ->  c + acc.toInt() }.toInt()
+        return "${number.toString(36)}${array.last()}"
     }
 
     private fun getExtensionStatus(ext: Extension) =

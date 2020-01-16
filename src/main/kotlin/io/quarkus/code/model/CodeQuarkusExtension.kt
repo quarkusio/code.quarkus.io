@@ -2,6 +2,7 @@ package io.quarkus.code.model
 
 data class CodeQuarkusExtension(
         val id: String,
+        val linkId: String,
         val name: String,
         val description: String?,
         val shortName: String?,

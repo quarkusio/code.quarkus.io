@@ -24,6 +24,7 @@ internal class QuarkusExtensionUtilsTest {
         val extensions = processExtensions(getTestDescriptor())
         assertThat(extensions[0], `is`(CodeQuarkusExtension(
                 "io.quarkus:quarkus-arc",
+                "8mc",
                 "ArC",
                 "Build time CDI dependency injection",
                 "CDI",
@@ -37,6 +38,7 @@ internal class QuarkusExtensionUtilsTest {
         )
         assertThat(extensions[5], `is`(CodeQuarkusExtension(
                 "io.quarkus:quarkus-netty",
+                "foy",
                 "Netty",
                 "Netty is a non-blocking I/O client-server framework. Used by Quarkus as foundation layer.",
                 null,
