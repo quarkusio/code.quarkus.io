@@ -30,7 +30,8 @@ class QuarkusProject {
                 className: String = DEFAULT_CLASSNAME,
                 path: String = DEFAULT_PATH,
                 buildTool: String = DEFAULT_BUILDTOOL,
-                extensions: Set<String> = setOf()) {
+                extensions: Set<String> = setOf(),
+                shortExtensions: Set<String> = setOf()) {
         this.groupId = groupId
         this.artifactId = artifactId
         this.version = version
@@ -38,6 +39,7 @@ class QuarkusProject {
         this.extensions = extensions
         this.path = path
         this.buildTool = buildTool
+        this.shortExtensions = shortExtensions
     }
 
     @DefaultValue(DEFAULT_GROUPID)
@@ -87,8 +89,13 @@ class QuarkusProject {
     var buildTool: String = DEFAULT_BUILDTOOL
 
     @QueryParam("e")
-    @Parameter(name = "e", description = "The set of extension ids separated by a '.' that will be included in the generated application", required = false)
+    @Parameter(name = "e", description = "The set of extension that will be included in the generated application", required = false)
     var extensions: Set<String> = setOf()
+        private set
+
+    @QueryParam("s")
+    @Parameter(name = "s", description = "The set of extension shortIds separated by a '.' that will be included in the generated application", required = false)
+    var shortExtensions: Set<String> = setOf()
         private set
         get() {
             return if (field.size == 1 && field.first().contains(".")) {

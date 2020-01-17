@@ -34,7 +34,7 @@ open class QuarkusProjectCreator {
     internal lateinit var extensionCatalog: QuarkusExtensionCatalog
 
     open fun create(project: QuarkusProject): ByteArray {
-        val extensions = convertToMavenGAV(project.extensions)
+        val extensions = (project.extensions union convertToMavenGAV(project.shortExtensions))
         QuarkusExtensionCatalog.checkPlatformInitialization()
         val baos = ByteArrayOutputStream()
         baos.use {

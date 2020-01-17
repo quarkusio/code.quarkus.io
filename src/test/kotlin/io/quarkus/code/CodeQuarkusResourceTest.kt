@@ -85,7 +85,7 @@ class CodeQuarkusResourceTest {
     fun testWithAFewParams() {
         given()
                 .`when`()
-                .get("/api/download?a=test-app-with-a-few-arg&v=1.0.0&e=250g.10qs")
+                .get("/api/download?a=test-app-with-a-few-arg&v=1.0.0&s=250g.10qs")
                 .then()
                 .statusCode(200)
                 .contentType("application/zip")
@@ -95,7 +95,7 @@ class CodeQuarkusResourceTest {
                 QuarkusProject(
                         artifactId = "test-app-with-a-few-arg",
                         version = "1.0.0",
-                        extensions = setOf(
+                        shortExtensions = setOf(
                                 "10qs",
                                 "250g"
                         )
@@ -109,7 +109,7 @@ class CodeQuarkusResourceTest {
     fun testWithAllParams() {
         given()
                 .`when`()
-                .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=org.toto.TotoResource&e=ogy.14pb")
+                .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=org.toto.TotoResource&s=ogy.14pb")
                 .then()
                 .statusCode(200)
                 .contentType("application/zip")
@@ -122,7 +122,31 @@ class CodeQuarkusResourceTest {
                         version = "1.0.0",
                         className = "org.toto.TotoResource",
                         path = "/toto/titi",
-                        extensions = setOf("ogy", "14pb")
+                        shortExtensions = setOf("ogy", "14pb")
+                )
+        )
+        )
+    }
+
+    @Test
+    @DisplayName("Should return a project with specified with old extension syntax")
+    fun testWithOldExtensionSyntaxParams() {
+        given()
+                .`when`()
+                .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=com.toto.TotoResource&e=io.quarkus:quarkus-resteasy")
+                .then()
+                .statusCode(200)
+                .contentType("application/zip")
+                .header("Content-Disposition", "attachment; filename=\"test-app.zip\"")
+        assertThat(
+                projectCreator.getCreatedProject(), equalTo(
+                QuarkusProject(
+                        groupId = "com.toto",
+                        artifactId = "test-app",
+                        version = "1.0.0",
+                        className = "com.toto.TotoResource",
+                        path = "/toto/titi",
+                        extensions = setOf("io.quarkus:quarkus-resteasy")
                 )
         )
         )
@@ -158,7 +182,7 @@ class CodeQuarkusResourceTest {
     fun testGradle() {
         given()
                 .`when`()
-                .get("/api/download?b=GRADLE&a=test-app-with-a-few-arg&v=1.0.0&e=250g.10qs")
+                .get("/api/download?b=GRADLE&a=test-app-with-a-few-arg&v=1.0.0&s=250g.10qs")
                 .then()
                 .statusCode(200)
                 .contentType("application/zip")
@@ -169,7 +193,7 @@ class CodeQuarkusResourceTest {
                         artifactId = "test-app-with-a-few-arg",
                         version = "1.0.0",
                         buildTool = "GRADLE",
-                        extensions = setOf(
+                        shortExtensions = setOf(
                                 "250g",
                                 "10qs"
                         )

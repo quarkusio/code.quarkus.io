@@ -214,7 +214,7 @@ internal class QuarkusProjectCreatorTest {
                 version = "2.0.0",
                 className = "com.test.TestResource",
                 path = "/test/it",
-                extensions = setOf(
+                shortExtensions = setOf(
                     "14pb",
                     "1idr",
                     "dcj"
@@ -257,7 +257,7 @@ internal class QuarkusProjectCreatorTest {
                 version = "2.0.0",
                 buildTool = "GRADLE",
                 className = "com.test.TestResource",
-                extensions = setOf(
+                shortExtensions = setOf(
                     "i9n"
                 )
             )
@@ -298,7 +298,7 @@ internal class QuarkusProjectCreatorTest {
                 version = "2.0.0",
                 buildTool = "GRADLE",
                 className = "com.test.TestResource",
-                extensions = setOf(
+                shortExtensions = setOf(
                     "eca"
                 )
             )
