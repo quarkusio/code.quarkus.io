@@ -9,7 +9,11 @@
     width: 100%;
     line-height: 30px;
     cursor: pointer;
-    
+
+    @media screen and (max-width: $tabletWidth) {
+      flex-wrap: wrap;
+    }
+
     svg {
       pointer-events: none;
     }
@@ -32,7 +36,6 @@
     }
 
     .extension-selector {
-      max-width: 10px;
 
       @media screen and (max-width: $mobileWidth) {
         display: none;
@@ -79,19 +82,23 @@
     }
 
     .extension-description {
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
       font-size: 0.8rem;
-
+      
+      @media screen and (min-width: $tabletWidth) {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
       @media screen and (max-width: $tabletWidth) {
-        display: none;
+        line-height: 1.2rem;
+        color: #ccc;
       }
     }
 
     .extension-more {
       max-width: 150px;
       font-size: 0.8rem;
+
       .pf-c-dropdown {
         border: 0;
         &.pf-m-expanded {
@@ -127,9 +134,6 @@
       button.pf-c-dropdown__toggle:before {
         border: 0;
       }
-      @media screen and (max-width: $mobileWidth) {
-        display: none;
-      }
     }
   }
 
@@ -149,32 +153,39 @@
     .extension-item {
       color: $main;
 
-      & > div {
-        margin: 0 10px;
-      }
-
       &.keyboard-actived {
         color: $highlight;
       }
 
       .extension-selector {
         flex-basis: 30px;
+        order: 1;
       }
       .extension-description {
         flex: 1;
+        order: 4;
+        @media screen and (max-width: $tabletWidth) {
+          line-height: 1.2rem;
+          color: #ccc;
+          flex-basis: 100%;
+        }
       }
 
       .extension-summary {
         flex-basis: 350px;
-
+        order: 2;
+       
         @media screen and (max-width: $tabletWidth) {
           flex-grow: 1;
+          flex-basis: initial;
         }
       }
 
-      .extension-gav {
-        flex-basis: 30px;
-        color: $main;
+      .extension-more {
+        order: 5;
+         @media screen and (max-width: $tabletWidth) {
+          order: 3;
+        }
       }
 
       &.readonly {
