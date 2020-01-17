@@ -6,6 +6,7 @@ jest.mock('../backend-api', () => ({
   fetchExtensions: () => ([
     {
       "id": "io.quarkus:quarkus-arc",
+      "shortId": "8mc",
       "name": "ArC",
       "keywords": [
         "arc",
@@ -20,6 +21,7 @@ jest.mock('../backend-api', () => ({
     },
     {
       "id": "io.quarkus:quarkus-resteasy",
+      "shortId": "ogy",
       "name": "RESTEasy JAX-RS",
       "keywords": [
         "resteasy",
@@ -34,6 +36,7 @@ jest.mock('../backend-api', () => ({
     },
     {
       "id": "io.quarkus:quarkus-resteasy-jsonb",
+      "shortId": "14pb",
       "name": "RESTEasy JSON-B",
       "keywords": [
         "resteasy-jsonb",
@@ -50,6 +53,7 @@ jest.mock('../backend-api', () => ({
     },
     {
       "id": "io.quarkus:quarkus-resteasy-jackson",
+      "shortId": "1aen",
       "name": "RESTEasy Jackson",
       "keywords": [
         "resteasy-jackson",
@@ -91,7 +95,7 @@ it('Let user Generate default application', async () => {
     await comp.findByLabelText('Extensions picker');
   });
 
-  // Generate 
+  // Generate
   const generateBtn = await comp!.findByLabelText('Generate your application');
   fireEvent.click(generateBtn);
 
@@ -129,7 +133,7 @@ it('Let user customize an Application and Generate it', async () => {
   const ext3 = await comp!.findByLabelText('Switch io.quarkus:quarkus-resteasy-jackson extension');
   fireEvent.click(ext3);
 
-  // Generate 
+  // Generate
   const generateBtn = await comp!.findByLabelText('Generate your application');
   fireEvent.click(generateBtn);
 

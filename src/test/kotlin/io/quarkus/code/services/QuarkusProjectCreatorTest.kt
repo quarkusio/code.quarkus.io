@@ -180,6 +180,7 @@ internal class QuarkusProjectCreatorTest {
     fun testCreateProject() {
         // When
         val creator = QuarkusProjectCreator()
+        creator.extensionCatalog = QuarkusExtensionCatalog()
         val proj = creator.create(QuarkusProject())
         val (testDir, zipList) = ProjectTestHelpers.extractProject(proj)
         val fileList = ProjectTestHelpers.readFiles(testDir)
@@ -205,6 +206,7 @@ internal class QuarkusProjectCreatorTest {
     fun testCreateCustomProject() {
         // When
         val creator = QuarkusProjectCreator()
+        creator.extensionCatalog = QuarkusExtensionCatalog()
         val proj = creator.create(
             QuarkusProject(
                 groupId = "com.test",
@@ -213,9 +215,9 @@ internal class QuarkusProjectCreatorTest {
                 className = "com.test.TestResource",
                 path = "/test/it",
                 extensions = setOf(
-                    "io.quarkus:quarkus-resteasy-jsonb",
-                    "io.quarkus:quarkus-hibernate-validator",
-                    "io.quarkus:quarkus-neo4j"
+                    "14pb",
+                    "1idr",
+                    "dcj"
                 )
             )
         )
@@ -247,6 +249,7 @@ internal class QuarkusProjectCreatorTest {
     fun testCreateGradleKotlinProject() {
         // When
         val creator = QuarkusProjectCreator()
+        creator.extensionCatalog = QuarkusExtensionCatalog()
         val proj = creator.create(
             QuarkusProject(
                 groupId = "com.test",
@@ -255,7 +258,7 @@ internal class QuarkusProjectCreatorTest {
                 buildTool = "GRADLE",
                 className = "com.test.TestResource",
                 extensions = setOf(
-                    "io.quarkus:quarkus-kotlin"
+                    "i9n"
                 )
             )
         )
@@ -287,6 +290,7 @@ internal class QuarkusProjectCreatorTest {
     fun testCreateGradleScalaProject() {
         // When
         val creator = QuarkusProjectCreator()
+        creator.extensionCatalog = QuarkusExtensionCatalog()
         val proj = creator.create(
             QuarkusProject(
                 groupId = "com.test",
@@ -295,7 +299,7 @@ internal class QuarkusProjectCreatorTest {
                 buildTool = "GRADLE",
                 className = "com.test.TestResource",
                 extensions = setOf(
-                    "io.quarkus:quarkus-scala"
+                    "eca"
                 )
             )
         )
@@ -329,7 +333,8 @@ internal class QuarkusProjectCreatorTest {
 
         val latch = CountDownLatch(20)
         val creator = QuarkusProjectCreator()
-        val creates = (1..20).map { i ->
+        creator.extensionCatalog = QuarkusExtensionCatalog()
+        val creates = (1..20).map { _ ->
             Callable {
                 val result = creator.create(QuarkusProject())
                 latch.countDown()

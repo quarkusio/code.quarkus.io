@@ -87,9 +87,16 @@ class QuarkusProject {
     var buildTool: String = DEFAULT_BUILDTOOL
 
     @QueryParam("e")
-    @Parameter(name = "e", description = "The set of extension ids that will be included in the generated application", required = false)
+    @Parameter(name = "e", description = "The set of extension ids separated by a '.' that will be included in the generated application", required = false)
     var extensions: Set<String> = setOf()
         private set
+        get() {
+            return if (field.size == 1 && field.first().contains(".")) {
+                HashSet(field.first().split("."))
+            } else {
+                field
+            }
+        }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

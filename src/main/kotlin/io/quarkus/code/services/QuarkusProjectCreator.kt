@@ -7,6 +7,7 @@ import io.quarkus.code.writer.CommonsZipProjectWriter
 import io.quarkus.generators.BuildTool
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
@@ -29,13 +30,17 @@ open class QuarkusProjectCreator {
         private const val GRADLEW = "gradlew"
     }
 
+    @Inject
+    internal lateinit var extensionCatalog: QuarkusExtensionCatalog
+
     open fun create(project: QuarkusProject): ByteArray {
+        val extensions = convertToMavenGAV(project.extensions)
         QuarkusExtensionCatalog.checkPlatformInitialization()
         val baos = ByteArrayOutputStream()
         baos.use {
             val zipWriter = CommonsZipProjectWriter.createWriter(baos, project.artifactId)
             zipWriter.use {
-                val sourceType = CreateProject.determineSourceType(project.extensions)
+                val sourceType = CreateProject.determineSourceType(extensions)
                 val context = mutableMapOf("path" to (project.path as Any))
                 val buildTool = io.quarkus.generators.BuildTool.valueOf(project.buildTool)
                 val success = CreateProject(zipWriter)
@@ -45,13 +50,13 @@ open class QuarkusProjectCreator {
                         .sourceType(sourceType)
                         .buildTool(buildTool)
                         .className(project.className)
-                        .extensions(project.extensions)
+                        .extensions(extensions)
                         .doCreateProject(context)
                 if (!success) {
                     throw IOException("Error during Quarkus project creation")
                 }
                 AddExtensions(zipWriter, buildTool)
-                        .addExtensions(project.extensions)
+                        .addExtensions(extensions)
                 if (buildTool == BuildTool.MAVEN) {
                     addMvnw(zipWriter)
                 } else if (buildTool == BuildTool.GRADLE) {
@@ -60,6 +65,10 @@ open class QuarkusProjectCreator {
             }
         }
         return baos.toByteArray()
+    }
+
+    private fun convertToMavenGAV(extensions: Set<String>): Set<String> {
+        return extensionCatalog.extensions.filter { extension -> extensions.contains(extension.shortId) }.map { e -> e.id }.toHashSet()
     }
 
     private fun addMvnw(zipWrite: CommonsZipProjectWriter) {

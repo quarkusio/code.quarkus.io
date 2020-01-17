@@ -35,7 +35,7 @@ class CodeQuarkusResourceTest {
     fun testWithEmptyParam() {
         given()
                 .`when`()
-                .get("/api/download?g=org.acme&a=&pv=1.0.0&c=org.acme.TotoResource&e=io.quarkus:quarkus-resteasy")
+                .get("/api/download?g=org.acme&a=&pv=1.0.0&c=org.acme.TotoResource&e=ogy")
                 .then()
                 .statusCode(400)
     }
@@ -45,7 +45,7 @@ class CodeQuarkusResourceTest {
     fun testWithInvalidGroupId() {
         given()
                 .`when`()
-                .get("/api/download?g=org.acme.&e=io.quarkus:quarkus-resteasy")
+                .get("/api/download?g=org.acme.&e=ogy")
                 .then()
                 .statusCode(400)
     }
@@ -55,7 +55,7 @@ class CodeQuarkusResourceTest {
     fun testWithInvalidArtifactId() {
         given()
                 .`when`()
-                .get("/api/download?a=Art.&e=io.quarkus:quarkus-resteasy")
+                .get("/api/download?a=Art.&e=ogy")
                 .then()
                 .statusCode(400)
     }
@@ -65,7 +65,7 @@ class CodeQuarkusResourceTest {
     fun testWithInvalidPath() {
         given()
                 .`when`()
-                .get("/api/download?p=invalid&e=io.quarkus:quarkus-resteasy")
+                .get("/api/download?p=invalid&e=ogy")
                 .then()
                 .statusCode(400)
     }
@@ -75,7 +75,7 @@ class CodeQuarkusResourceTest {
     fun testWithInvalidClassName() {
         given()
                 .`when`()
-                .get("/api/download?c=com.1e&e=io.quarkus:quarkus-resteasy")
+                .get("/api/download?c=com.1e&e=ogy")
                 .then()
                 .statusCode(400)
     }
@@ -85,7 +85,7 @@ class CodeQuarkusResourceTest {
     fun testWithAFewParams() {
         given()
                 .`when`()
-                .get("/api/download?a=test-app-with-a-few-arg&v=1.0.0&e=io.quarkus:quarkus-smallrye-reactive-messaging&e=io.quarkus:quarkus-kafka-streams")
+                .get("/api/download?a=test-app-with-a-few-arg&v=1.0.0&e=250g.10qs")
                 .then()
                 .statusCode(200)
                 .contentType("application/zip")
@@ -96,8 +96,8 @@ class CodeQuarkusResourceTest {
                         artifactId = "test-app-with-a-few-arg",
                         version = "1.0.0",
                         extensions = setOf(
-                                "io.quarkus:quarkus-kafka-streams",
-                                "io.quarkus:quarkus-smallrye-reactive-messaging"
+                                "10qs",
+                                "250g"
                         )
                 )
         )
@@ -109,7 +109,7 @@ class CodeQuarkusResourceTest {
     fun testWithAllParams() {
         given()
                 .`when`()
-                .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=org.toto.TotoResource&e=io.quarkus:quarkus-resteasy&e=io.quarkus:quarkus-resteasy-jsonb")
+                .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=org.toto.TotoResource&e=ogy.14pb")
                 .then()
                 .statusCode(200)
                 .contentType("application/zip")
@@ -122,7 +122,7 @@ class CodeQuarkusResourceTest {
                         version = "1.0.0",
                         className = "org.toto.TotoResource",
                         path = "/toto/titi",
-                        extensions = setOf("io.quarkus:quarkus-resteasy-jsonb", "io.quarkus:quarkus-resteasy")
+                        extensions = setOf("ogy", "14pb")
                 )
         )
         )
@@ -158,7 +158,7 @@ class CodeQuarkusResourceTest {
     fun testGradle() {
         given()
                 .`when`()
-                .get("/api/download?b=GRADLE&a=test-app-with-a-few-arg&v=1.0.0&e=io.quarkus:quarkus-smallrye-reactive-messaging&e=io.quarkus:quarkus-kafka-streams")
+                .get("/api/download?b=GRADLE&a=test-app-with-a-few-arg&v=1.0.0&e=250g.10qs")
                 .then()
                 .statusCode(200)
                 .contentType("application/zip")
@@ -170,8 +170,8 @@ class CodeQuarkusResourceTest {
                         version = "1.0.0",
                         buildTool = "GRADLE",
                         extensions = setOf(
-                                "io.quarkus:quarkus-kafka-streams",
-                                "io.quarkus:quarkus-smallrye-reactive-messaging"
+                                "250g",
+                                "10qs"
                         )
 
                 )

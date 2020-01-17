@@ -12,6 +12,7 @@ import './extensions-picker.scss';
 
 export interface ExtensionEntry {
   id: string;
+  shortId: string;
   name: string;
   keywords: string[];
   description?: string;
@@ -155,7 +156,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const analytics = useAnalytics();
   const extensions = props.value.extensions || [];
   const entrySet = new Set(extensions);
-  const entriesById: Map<String, ExtensionEntry> = new Map(props.entries.map(item => [item.id, item]));
+  const entriesById: Map<String, ExtensionEntry> = new Map(props.entries.map(item => [item.shortId, item]));
 
   hotkeys.filter = (e) => {
     const el = (e.target || e.srcElement) as any | undefined;
@@ -168,7 +169,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const result = processEntries(filter, props.entries);
 
   const add = (index: number) => {
-    const id = result[index].id
+    const id = result[index].shortId
     entrySet.add(id);
     props.onChange({ extensions: Array.from(entrySet) });
     analytics.event('Picker', 'Add-Extension', id);
@@ -272,7 +273,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
           {result.map((ex, i) => {
             const ext = (
               <Extension
-                selected={entrySet.has(ex.id)}
+                selected={entrySet.has(ex.shortId)}
                 keyboardActived={i === keyboardActived}
                 {...ex}
                 key={i}

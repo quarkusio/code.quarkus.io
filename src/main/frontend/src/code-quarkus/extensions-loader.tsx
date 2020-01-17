@@ -5,6 +5,7 @@ import { fetchExtensions } from './backend-api';
 
 interface Extension {
   id: string;
+  shortId: string;
   name: string;
   keywords: string[];
   description?: string;

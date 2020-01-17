@@ -44,7 +44,7 @@ async function generateProject(project: QuarkusProject): Promise<{ downloadLink:
     ...(project.metadata.version && { v: project.metadata.version }),
     ...(project.metadata.buildTool && { b: project.metadata.buildTool }),
     ...(packageName && { c: `${packageName}.ExampleResource` }),
-    ...(project.extensions && { e: project.extensions }),
+    ...(project.extensions && { e: project.extensions.toString().replace(/,/g, '.') }),
     cn: CLIENT_NAME,
   }
   const backendUrl = process.env.REACT_APP_BACKEND_URL || publicUrl;
@@ -79,7 +79,7 @@ export function CodeQuarkus(props: LaunchFlowProps) {
   const generate = () => {
     setRun({ status: Status.RUNNING });
 
-    
+
 
     generateProject(project).then((result) => {
       setRun((prev) => ({ ...prev, result, status: Status.DOWNLOADED }));
