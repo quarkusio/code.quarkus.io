@@ -70,11 +70,7 @@ object QuarkusExtensionUtils {
     }
 
     internal fun createId(artifactId: String): String {
-        val array = if (artifactId.startsWith("io.quarkus:quarkus-") || artifactId.startsWith("quarkus-")) {
-            artifactId.substring(artifactId.indexOf("quarkus-") + "quarkus-".length).toCharArray()
-        } else {
-            artifactId.toCharArray()
-        }
+        val array = artifactId.replace("^(io.quarkus:)?quarkus-".toRegex(), "").toCharArray()
 
         val number = array.reduce { acc, c ->  c + acc.toInt() }.toInt()
         return "${number.toString(36)}${array.last()}"
