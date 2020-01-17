@@ -9,18 +9,21 @@
     width: 100%;
     line-height: 30px;
     cursor: pointer;
+    
     svg {
       pointer-events: none;
     }
-    &.selected {
-      .extension-selector {
-        color: $alert;
-      }
+
+    &.selected .extension-selector {
+      color: $alert;
     }
-    &.hover.selected {
-      .extension-selector {
-        color: $main;
-      }
+
+    &.hover.selected .extension-selector {
+      color: $main;
+    }
+
+    div:focus {
+      outline: none;
     }
 
     .extension-remove {
@@ -28,14 +31,10 @@
       height: 30px;
     }
 
-    & div:focus {
-      outline: none;
-    }
-
     .extension-selector {
       max-width: 10px;
 
-      @media screen and (max-width: 900px) {
+      @media screen and (max-width: $mobileWidth) {
         display: none;
       }
     }
@@ -44,6 +43,7 @@
       overflow: hidden;
       display: flex;
     }
+
     .extension-name {
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -59,6 +59,7 @@
       line-height: 20px;
       margin: 5px 5px;
       padding: 0 3px;
+      height: 20px;
 
       &.preview {
         border: 1px solid $highlight;
@@ -83,7 +84,7 @@
       overflow: hidden;
       font-size: 0.8rem;
 
-      @media screen and (max-width: 1200px) {
+      @media screen and (max-width: $tabletWidth) {
         display: none;
       }
     }
@@ -126,13 +127,13 @@
       button.pf-c-dropdown__toggle:before {
         border: 0;
       }
-      @media screen and (max-width: 900px) {
+      @media screen and (max-width: $mobileWidth) {
         display: none;
       }
     }
   }
 
-  .list-container {
+  .main-container .extension-list-wrapper {
     .extension-category {
       border-bottom: 1px solid $highlight;
       font-weight: bold;
@@ -146,7 +147,6 @@
     }
 
     .extension-item {
-      height: 30px;
       color: $main;
 
       & > div {
@@ -167,7 +167,7 @@
       .extension-summary {
         flex-basis: 350px;
 
-        @media screen and (max-width: 1200px) {
+        @media screen and (max-width: $tabletWidth) {
           flex-grow: 1;
         }
       }
@@ -186,6 +186,14 @@
   .control-container {
     flex: 0 0 350px;
     overflow: hidden;
+    margin-top: 20px;
+    position: sticky;
+    top: 220px;
+    height: 800px;
+
+    @media screen and (max-width: $mobileWidth) {
+      display: none;
+    }
 
     .pf-c-form__group {
       svg {
@@ -222,12 +230,13 @@
     }
   }
 
-  .result-container {
+  .main-container {
     margin-left: 30px;
+    margin-top: 20px;
     flex-grow: 1;
     overflow: hidden;
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: $mobileWidth) {
       margin: 5px;
     }
 
@@ -243,51 +252,51 @@
       }
     }
   }
-}
 
-@supports (not (display: contents)) {
-  .extensions-picker .extension-item .extension-selector {
-    max-width: 30px;
-  }
+  @supports (not (display: contents)) {
+    .extension-item .extension-selector {
+      max-width: 30px;
+    }
 
-  .extensions-picker .control-container .extension-list {
-    display: table;
-    .extension-item {
-      display: table-row;
+    .control-container .extension-list-wrapper {
+      display: table;
+      .extension-item {
+        display: table-row;
+        .extension-summary {
+          display: table-cell;
+          width: 90%;
+        }
+        .extension-remove {
+          display: table-cell;
+          width: 10%;
+        }
+      }
+    }
+
+    .main-container .extension-list-wrapper {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+      .extension-selector {
+        display: table-cell;
+        width: 30px;
+      }
       .extension-summary {
         display: table-cell;
-        width: 90%;
+        width: 300px;
       }
-      .extension-remove {
-        display: table-cell;
-        width: 10%;
+      .extension-details {
+        width: 100%;
+        .extension-description {
+          display: inline;
+        }
+        .extension-gav {
+          float: right;
+        }
       }
-    }
-  }
-
-  .list-container {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-    .extension-selector {
-      display: table-cell;
-      width: 30px;
-    }
-    .extension-summary {
-      display: table-cell;
-      width: 300px;
-    }
-    .extension-details {
-      width: 100%;
-      .extension-description {
-        display: inline;
+      .extension-item > div {
+        margin: 0;
       }
-      .extension-gav {
-        float: right;
-      }
-    }
-    .extension-item > div {
-      margin: 0;
     }
   }
 }
