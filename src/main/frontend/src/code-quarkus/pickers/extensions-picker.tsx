@@ -245,7 +245,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
         </Tooltip>
         <div className={`selected-extensions`}>
           <h4>Selected Extensions</h4>
-          <div className={`extension-list`}>
+          <div className="extension-list-wrapper">
             {
               extensions.map((ex, i) => (
                 <Extension
@@ -261,14 +261,14 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
           </div>
         </div>
       </div>
-      <div className="result-container">
+      <div className="main-container">
         <QuarkusBlurb />
         {!!filter && (
           <div className="extension-search-clear">
             Search results (<Button variant="link" onClick={() => setFilter('')}>Clear search</Button>)
             </div>
         )}
-        <div className="list-container">
+        <div className="extension-list-wrapper">
           {result.map((ex, i) => {
             const ext = (
               <Extension

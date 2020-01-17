@@ -44,7 +44,7 @@
       padding: 0;
     }
 
-    @media screen and (max-width: 1200px) {
+    @media screen and (max-width: $tabletWidth) {
       .extended-settings,
       .toggle-button {
         display: none;
@@ -70,25 +70,11 @@
     & > .title {
       text-align: center;
       margin-top: 20px;
-      @media screen and (min-width: 900px) {
+      @media screen and (min-width: $mobileWidth) {
         display: none;
       }
     }
 
-    .control-container {
-      margin-top: 20px;
-      position: sticky;
-      top: 220px;
-      height: 800px;
-
-      @media screen and (max-width: 900px) {
-        display: none;
-      }
-    }
-
-    .result-container {
-      margin-top: 20px;
-    }
   }
 
   .generate-project {

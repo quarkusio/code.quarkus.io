@@ -51,12 +51,12 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
           Selected Extensions
         </h4>
         <div
-          class="extension-list"
+          class="extension-list-wrapper"
         />
       </div>
     </div>
     <div
-      class="result-container"
+      class="main-container"
     >
       <div
         aria-label="Info Alert"
@@ -191,7 +191,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
         </div>
       </div>
       <div
-        class="list-container"
+        class="extension-list-wrapper"
       >
         <div
           style="display: contents;"
@@ -502,12 +502,12 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           Selected Extensions
         </h4>
         <div
-          class="extension-list"
+          class="extension-list-wrapper"
         />
       </div>
     </div>
     <div
-      class="result-container"
+      class="main-container"
     >
       <div
         aria-label="Info Alert"
@@ -654,7 +654,7 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
         )
       </div>
       <div
-        class="list-container"
+        class="extension-list-wrapper"
       >
         <div
           class="extension-item"
@@ -788,12 +788,12 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           Selected Extensions
         </h4>
         <div
-          class="extension-list"
+          class="extension-list-wrapper"
         />
       </div>
     </div>
     <div
-      class="result-container"
+      class="main-container"
     >
       <div
         aria-label="Info Alert"
@@ -940,7 +940,7 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
         )
       </div>
       <div
-        class="list-container"
+        class="extension-list-wrapper"
       >
         <div
           class="extension-item"
