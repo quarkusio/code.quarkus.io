@@ -54,7 +54,7 @@ object QuarkusExtensionUtils {
         val keywords = ext.keywords ?: emptyList()
         return CodeQuarkusExtension(
                 id ="${ext.groupId}:${ext.artifactId}",
-                linkId = createId(ext.artifactId),
+                shortId = createId(ext.artifactId),
                 name = ext.name,
                 description = ext.description,
                 shortName = getExtensionShortName(ext),
