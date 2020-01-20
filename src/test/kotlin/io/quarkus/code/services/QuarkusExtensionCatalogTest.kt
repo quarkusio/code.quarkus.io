@@ -4,6 +4,7 @@ import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.test.junit.QuarkusTest
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.util.stream.Collectors
 
@@ -18,11 +19,11 @@ internal class QuarkusExtensionCatalogTest {
         assertThat(QuarkusExtensionCatalog.processedExtensions, not(empty<CodeQuarkusExtension>()))
     }
 
-    @Test
-    fun testUniqueId() {
+    @DisplayName("Check that our shortIds are unique")
+    fun testUniqueShortIds() {
         val extensions = QuarkusExtensionCatalog.processedExtensions
         val uniqueIds = HashSet(extensions.map {it.id})
-        val linkIds = uniqueIds.map { QuarkusExtensionUtils.createId(it) }
+        val linkIds = uniqueIds.map { QuarkusExtensionUtils.createShortId(it) }
         val duplicates = findDuplicates(linkIds)
         assertThat(duplicates?.size, `is`(0))
     }
