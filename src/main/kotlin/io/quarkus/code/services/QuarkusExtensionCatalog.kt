@@ -38,4 +38,7 @@ open class QuarkusExtensionCatalog {
 
     val extensions = processedExtensions
 
+    val extensionsByShortId = processedExtensions.associateBy { it.shortId }
+    val extensionsById = processedExtensions.associateBy { it.id }
+
 }

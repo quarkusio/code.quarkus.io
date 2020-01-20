@@ -61,11 +61,14 @@ class CodeQuarkusResource {
     @Produces("application/zip")
     @Operation(summary = "Download a custom Quarkus application with the provided settings")
     fun download(@Valid @BeanParam project: QuarkusProject): Response {
-        return Response
-                .ok(projectCreator.create(project))
-                .type("application/zip")
-                .header("Content-Disposition", "attachment; filename=\"${project.artifactId}.zip\"")
-                .build()
-
+        try {
+            return Response
+                    .ok(projectCreator.create(project))
+                    .type("application/zip")
+                    .header("Content-Disposition", "attachment; filename=\"${project.artifactId}.zip\"")
+                    .build()
+        } catch (e: IllegalStateException) {
+            return Response.status(400, e.message).build()
+        }
     }
 }

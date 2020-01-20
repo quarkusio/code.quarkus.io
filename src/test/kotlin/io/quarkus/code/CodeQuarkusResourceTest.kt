@@ -81,6 +81,26 @@ class CodeQuarkusResourceTest {
     }
 
     @Test
+    @DisplayName("Should fail when using invalid shortId")
+    fun testWithInvalidShortId() {
+        given()
+                .`when`()
+                .get("/api/download?s=inv")
+                .then()
+                .statusCode(400)
+    }
+
+    @Test
+    @DisplayName("Should fail when using invalid extensionId")
+    fun testWithInvalidExtensionId() {
+        given()
+                .`when`()
+                .get("/api/download?e=inv")
+                .then()
+                .statusCode(400)
+    }
+
+    @Test
     @DisplayName("Should return a project with specified configuration when a few parameters are specified")
     fun testWithAFewParams() {
         given()

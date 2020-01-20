@@ -7,6 +7,7 @@ import io.quarkus.code.writer.CommonsZipProjectWriter
 import io.quarkus.generators.BuildTool
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.util.stream.Collectors.toSet
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -34,7 +35,7 @@ open class QuarkusProjectCreator {
     internal lateinit var extensionCatalog: QuarkusExtensionCatalog
 
     open fun create(project: QuarkusProject): ByteArray {
-        val extensions = (project.extensions union convertToMavenGAV(project.shortExtensions))
+        val extensions = checkAndMergeExtensions(project)
         QuarkusExtensionCatalog.checkPlatformInitialization()
         val baos = ByteArrayOutputStream()
         baos.use {
@@ -67,8 +68,13 @@ open class QuarkusProjectCreator {
         return baos.toByteArray()
     }
 
-    private fun convertToMavenGAV(extensions: Set<String>): Set<String> {
-        return extensionCatalog.extensions.filter { extension -> extensions.contains(extension.shortId) }.map { e -> e.id }.toHashSet()
+    private fun checkAndMergeExtensions(project: QuarkusProject): Set<String> {
+        project.extensions.forEach {
+            checkNotNull(extensionCatalog.extensionsById[it]) {"Invalid extension: $it"}
+        }
+        val fromShortId = project.shortExtensions.stream().map { (extensionCatalog.extensionsByShortId[it] ?: error("Invalid shortId: $it")).id }
+                .collect(toSet())
+        return project.extensions union fromShortId
     }
 
     private fun addMvnw(zipWrite: CommonsZipProjectWriter) {
