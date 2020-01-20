@@ -125,6 +125,30 @@ class CodeQuarkusResourceTest {
     }
 
     @Test
+    @DisplayName("Should return a project with the url rewrite")
+    fun testWithUrlRewrite() {
+        given()
+                .`when`()
+                .get("/d?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=org.toto.TotoResource&s=5Lt.L0j.9Ie")
+                .then()
+                .statusCode(200)
+                .contentType("application/zip")
+                .header("Content-Disposition", "attachment; filename=\"test-app.zip\"")
+        assertThat(
+                projectCreator.getCreatedProject(), equalTo(
+                QuarkusProject(
+                        groupId = "com.toto",
+                        artifactId = "test-app",
+                        version = "1.0.0",
+                        className = "org.toto.TotoResource",
+                        path = "/toto/titi",
+                        shortExtensions = setOf("5Lt", "L0j", "9Ie")
+                )
+        )
+        )
+    }
+
+    @Test
     @DisplayName("Should return a project with specified configuration when all parameters are specified")
     fun testWithAllParams() {
         given()
