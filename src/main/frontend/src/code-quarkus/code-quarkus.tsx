@@ -44,7 +44,7 @@ async function generateProject(project: QuarkusProject): Promise<{ downloadLink:
     ...(project.metadata.version && { v: project.metadata.version }),
     ...(project.metadata.buildTool && { b: project.metadata.buildTool }),
     ...(packageName && { c: `${packageName}.ExampleResource` }),
-    ...(project.extensions && { s: project.extensions.toString().replace(/,/g, '.') }),
+    ...(project.extensions && { s: project.extensions.join('.') }),
     cn: CLIENT_NAME,
   }
   const backendUrl = process.env.REACT_APP_BACKEND_URL || publicUrl;
