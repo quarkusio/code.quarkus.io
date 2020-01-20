@@ -177,7 +177,7 @@
        
         @media screen and (max-width: $tabletWidth) {
           flex-grow: 1;
-          flex-basis: initial;
+          flex-basis: calc(100% - 32px);
         }
       }
 
@@ -185,6 +185,7 @@
         order: 5;
          @media screen and (max-width: $tabletWidth) {
           order: 3;
+          flex-basis: 32px;
         }
       }
 
