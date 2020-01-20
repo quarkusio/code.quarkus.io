@@ -72,13 +72,13 @@ function Extension(props: ExtensionProps) {
   const addGradleExt = `./gradlew addExtension --extensions="${props.id}"`;
   const moreItems = [
     <DropdownItem key="maven" variant="icon">
-      <CopyToClipboard eventId="Add-Extension-Command" content={addMvnExt} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy Maven command</CopyToClipboard>
+      <CopyToClipboard eventId="Add-Extension-Command" content={addMvnExt} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy the command to add it with Maven</CopyToClipboard>
     </DropdownItem>,
     <DropdownItem key="gradle" variant="icon">
-      <CopyToClipboard eventId="Add-Extension-Command" content={addGradleExt} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy Gradle command</CopyToClipboard>
+      <CopyToClipboard eventId="Add-Extension-Command" content={addGradleExt} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy the command to add it with Gradle</CopyToClipboard>
     </DropdownItem>,
     <DropdownItem key="id" variant="icon">
-      <CopyToClipboard eventId="Extension-GAV" content={props.id} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy extension GAV</CopyToClipboard>
+      <CopyToClipboard eventId="Extension-GAV" content={props.id} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy the extension GAV</CopyToClipboard>
     </DropdownItem>
   ];
   if (props.guide) {
