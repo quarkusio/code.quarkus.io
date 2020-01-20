@@ -35,7 +35,7 @@ class CodeQuarkusResourceTest {
     fun testWithEmptyParam() {
         given()
                 .`when`()
-                .get("/api/download?g=org.acme&a=&pv=1.0.0&c=org.acme.TotoResource&e=ogy")
+                .get("/api/download?g=org.acme&a=&pv=1.0.0&c=org.acme.TotoResource&s=98e")
                 .then()
                 .statusCode(400)
     }
@@ -45,7 +45,7 @@ class CodeQuarkusResourceTest {
     fun testWithInvalidGroupId() {
         given()
                 .`when`()
-                .get("/api/download?g=org.acme.&e=ogy")
+                .get("/api/download?g=org.acme.&s=98e")
                 .then()
                 .statusCode(400)
     }
@@ -55,7 +55,7 @@ class CodeQuarkusResourceTest {
     fun testWithInvalidArtifactId() {
         given()
                 .`when`()
-                .get("/api/download?a=Art.&e=ogy")
+                .get("/api/download?a=Art.&s=98e")
                 .then()
                 .statusCode(400)
     }
@@ -65,7 +65,7 @@ class CodeQuarkusResourceTest {
     fun testWithInvalidPath() {
         given()
                 .`when`()
-                .get("/api/download?p=invalid&e=ogy")
+                .get("/api/download?p=invalid&s=98e")
                 .then()
                 .statusCode(400)
     }
@@ -75,7 +75,7 @@ class CodeQuarkusResourceTest {
     fun testWithInvalidClassName() {
         given()
                 .`when`()
-                .get("/api/download?c=com.1e&e=ogy")
+                .get("/api/download?c=com.1e&s=98e")
                 .then()
                 .statusCode(400)
     }
@@ -105,7 +105,7 @@ class CodeQuarkusResourceTest {
     fun testWithAFewParams() {
         given()
                 .`when`()
-                .get("/api/download?a=test-app-with-a-few-arg&v=1.0.0&s=250g.10qs")
+                .get("/api/download?a=test-app-with-a-few-arg&v=1.0.0&s=D9x.9Ie")
                 .then()
                 .statusCode(200)
                 .contentType("application/zip")
@@ -129,7 +129,7 @@ class CodeQuarkusResourceTest {
     fun testWithAllParams() {
         given()
                 .`when`()
-                .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=org.toto.TotoResource&s=ogy.14pb")
+                .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=org.toto.TotoResource&s=5Lt.L0j.9Ie")
                 .then()
                 .statusCode(200)
                 .contentType("application/zip")
@@ -142,7 +142,7 @@ class CodeQuarkusResourceTest {
                         version = "1.0.0",
                         className = "org.toto.TotoResource",
                         path = "/toto/titi",
-                        shortExtensions = setOf("ogy", "14pb")
+                        shortExtensions = setOf("5Lt", "L0j", "9Ie")
                 )
         )
         )
@@ -153,7 +153,7 @@ class CodeQuarkusResourceTest {
     fun testWithOldExtensionSyntaxParams() {
         given()
                 .`when`()
-                .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=com.toto.TotoResource&e=io.quarkus:quarkus-resteasy")
+                .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=com.toto.TotoResource&e=io.quarkus:quarkus-resteasy&s9Ie")
                 .then()
                 .statusCode(200)
                 .contentType("application/zip")
@@ -166,7 +166,8 @@ class CodeQuarkusResourceTest {
                         version = "1.0.0",
                         className = "com.toto.TotoResource",
                         path = "/toto/titi",
-                        extensions = setOf("io.quarkus:quarkus-resteasy")
+                        extensions = setOf("io.quarkus:quarkus-resteasy"),
+                        shortExtensions = setOf("9Ie")
                 )
         )
         )
@@ -202,7 +203,7 @@ class CodeQuarkusResourceTest {
     fun testGradle() {
         given()
                 .`when`()
-                .get("/api/download?b=GRADLE&a=test-app-with-a-few-arg&v=1.0.0&s=250g.10qs")
+                .get("/api/download?b=GRADLE&a=test-app-with-a-few-arg&v=1.0.0&s=pDS.L0j")
                 .then()
                 .statusCode(200)
                 .contentType("application/zip")
@@ -214,8 +215,8 @@ class CodeQuarkusResourceTest {
                         version = "1.0.0",
                         buildTool = "GRADLE",
                         shortExtensions = setOf(
-                                "250g",
-                                "10qs"
+                                "pDS",
+                                "L0j"
                         )
 
                 )

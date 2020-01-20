@@ -2,6 +2,7 @@ package io.quarkus.code.services
 
 import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.code.services.QuarkusExtensionUtils.processExtensions
+import io.quarkus.code.services.QuarkusExtensionUtils.shorten
 import io.quarkus.platform.descriptor.loader.json.ArtifactResolver
 import io.quarkus.platform.descriptor.loader.json.QuarkusJsonPlatformDescriptorLoaderContext
 import io.quarkus.platform.descriptor.loader.json.impl.QuarkusJsonPlatformDescriptor
@@ -18,6 +19,14 @@ import java.nio.file.Path
 import java.util.function.Function
 
 internal class QuarkusExtensionUtilsTest {
+
+    @Test
+    internal fun testShorten() {
+        assertThat(shorten("some random long string"), `is`("ODO"))
+        assertThat(shorten(""), `is`("a"))
+        assertThat(shorten("some-id"), `is`("gLa"))
+        assertThat(shorten("io.quarkus:quarkus-arc"), `is`("3eJ"))
+    }
 
     @Test
     internal fun textContent() {

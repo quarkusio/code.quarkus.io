@@ -30,7 +30,7 @@ object QuarkusExtensionUtils {
      * This function will shorten the given string with the defined hashAlphabet and with a defined maximum length
      * Collisions are a possibility since only maxHashCode combination are available
      */
-    internal fun shorten(input: String): String
+    fun shorten(input: String): String
     {
         var res = abs(input.hashCode()) % maxHashCode
         var hash = ""
