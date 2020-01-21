@@ -69,12 +69,23 @@ open class QuarkusProjectCreator {
     }
 
     private fun checkAndMergeExtensions(project: QuarkusProject): Set<String> {
-        project.extensions.forEach {
-            checkNotNull(extensionCatalog.extensionsById[it]) {"Invalid extension: $it"}
-        }
-        val fromShortId = project.shortExtensions.stream().map { (extensionCatalog.extensionsByShortId[it] ?: error("Invalid shortId: $it")).id }
+        val fromId = project.extensions
+                .stream()
+                .filter { !it.isBlank() }
+                .map { (extensionCatalog.extensionsById[it] ?: error("Invalid extension: $it")).id }
                 .collect(toSet())
-        return project.extensions union fromShortId
+        val fromShortId = parseShortExtensions(project.shortExtensions).stream()
+                .map { (extensionCatalog.extensionsByShortId[it] ?: error("Invalid shortId: $it")).id }
+                .collect(toSet())
+        return fromId union fromShortId
+    }
+
+    private fun parseShortExtensions(shortExtension: String): Set<String> {
+        return if (shortExtension.isBlank()) {
+            setOf()
+        } else {
+            shortExtension.split(".").filter { !it.isBlank() }.toSet()
+        }
     }
 
     private fun addMvnw(zipWrite: CommonsZipProjectWriter) {

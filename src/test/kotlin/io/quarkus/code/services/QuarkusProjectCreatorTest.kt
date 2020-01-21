@@ -215,11 +215,7 @@ internal class QuarkusProjectCreatorTest {
                 className = "com.test.TestResource",
                 path = "/test/it",
                 extensions = setOf("io.quarkus:quarkus-resteasy-jsonb"),
-                shortExtensions = setOf(
-                    "YjV",
-                    "pDS"
-                )
-
+                shortExtensions = "YjV.pDS"
             )
         )
         val (testDir, zipList) = ProjectTestHelpers.extractProject(proj)
@@ -258,9 +254,7 @@ internal class QuarkusProjectCreatorTest {
                 version = "2.0.0",
                 buildTool = "GRADLE",
                 className = "com.test.TestResource",
-                shortExtensions = setOf(
-                    "OxX"
-                )
+                shortExtensions = "OxX"
             )
         )
         val (testDir, zipList) = ProjectTestHelpers.extractProject(proj)
@@ -299,9 +293,7 @@ internal class QuarkusProjectCreatorTest {
                 version = "2.0.0",
                 buildTool = "GRADLE",
                 className = "com.test.TestResource",
-                shortExtensions = setOf(
-                    "3e"
-                )
+                shortExtensions = "3e"
             )
         )
         val (testDir, zipList) = ProjectTestHelpers.extractProject(proj)
