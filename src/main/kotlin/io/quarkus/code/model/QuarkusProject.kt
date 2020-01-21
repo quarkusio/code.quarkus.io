@@ -100,6 +100,8 @@ class QuarkusProject {
         get() {
             return if (field.size == 1 && field.first().contains(".")) {
                 HashSet(field.first().split("."))
+            } else if (field.size == 1 && field.first().isBlank()) {
+                HashSet()
             } else {
                 field
             }
