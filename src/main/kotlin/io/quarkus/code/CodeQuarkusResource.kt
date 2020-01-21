@@ -10,6 +10,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
+import java.util.logging.Logger
 import javax.inject.Inject
 import javax.validation.Valid
 import javax.ws.rs.BeanParam
@@ -23,6 +24,10 @@ import javax.ws.rs.core.Response
 
 @Path("/")
 class CodeQuarkusResource {
+
+    companion object {
+        private val log = Logger.getLogger(CodeQuarkusResource::class.java.name)
+    }
 
     @Inject
     internal lateinit var configManager: CodeQuarkusConfigManager
@@ -69,6 +74,7 @@ class CodeQuarkusResource {
                     .header("Content-Disposition", "attachment; filename=\"${project.artifactId}.zip\"")
                     .build()
         } catch (e: IllegalStateException) {
+            log.warning("Bad request: ${e.message}")
             return Response
                     .status(Response.Status.BAD_REQUEST)
                     .entity(e.message)

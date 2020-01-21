@@ -125,6 +125,27 @@ class CodeQuarkusResourceTest {
     }
 
     @Test
+    @DisplayName("Should return a project with specified configuration when a shortIds is empty")
+    fun testWithEmptyShortIds() {
+        given()
+                .`when`()
+                .get("/api/download?g=org.acme&a=test-empty-shortids&v=1.0.1&b=MAVEN&c=org.acme.ExampleResource&s=&cn=code.quarkus.io")
+                .then()
+                .statusCode(200)
+                .contentType("application/zip")
+                .header("Content-Disposition", "attachment; filename=\"test-empty-shortids.zip\"")
+        assertThat(
+                projectCreator.getCreatedProject(), equalTo(
+                QuarkusProject(
+                        artifactId = "test-empty-shortids",
+                        version = "1.0.1",
+                        shortExtensions = setOf()
+                )
+        )
+        )
+    }
+
+    @Test
     @DisplayName("Should return a project with the url rewrite")
     fun testWithUrlRewrite() {
         given()
