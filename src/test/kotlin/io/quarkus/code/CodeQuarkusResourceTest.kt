@@ -115,21 +115,18 @@ class CodeQuarkusResourceTest {
                 QuarkusProject(
                         artifactId = "test-app-with-a-few-arg",
                         version = "1.0.0",
-                        shortExtensions = setOf(
-                                "10qs",
-                                "250g"
-                        )
-                )
+                        shortExtensions = "D9x.9Ie"
+                ))
         )
-        )
+
     }
 
     @Test
-    @DisplayName("Should return a project with specified configuration when a shortIds is empty")
+    @DisplayName("Should return a project with specified configuration when shortIds is empty")
     fun testWithEmptyShortIds() {
         given()
                 .`when`()
-                .get("/api/download?g=org.acme&a=test-empty-shortids&v=1.0.1&b=MAVEN&c=org.acme.ExampleResource&s=&cn=code.quarkus.io")
+                .get("/api/download?g=org.acme&a=test-empty-shortids&v=1.0.1&b=MAVEN&c=org.acme.ExampleResource&s=")
                 .then()
                 .statusCode(200)
                 .contentType("application/zip")
@@ -138,10 +135,28 @@ class CodeQuarkusResourceTest {
                 projectCreator.getCreatedProject(), equalTo(
                 QuarkusProject(
                         artifactId = "test-empty-shortids",
-                        version = "1.0.1",
-                        shortExtensions = setOf()
-                )
+                        version = "1.0.1"
+                ))
         )
+    }
+
+    @Test
+    @DisplayName("Should return a project with specified configuration when extensions is empty")
+    fun testWithEmptyExtensions() {
+        given()
+                .`when`()
+                .get("/api/download?g=org.acme&a=test-empty-ext&v=1.0.1&b=MAVEN&c=org.acme.ExampleResource&e=")
+                .then()
+                .statusCode(200)
+                .contentType("application/zip")
+                .header("Content-Disposition", "attachment; filename=\"test-empty-ext.zip\"")
+        assertThat(
+                projectCreator.getCreatedProject(), equalTo(
+                QuarkusProject(
+                        artifactId = "test-empty-ext",
+                        version = "1.0.1",
+                        extensions = setOf("")
+                ))
         )
     }
 
@@ -163,7 +178,7 @@ class CodeQuarkusResourceTest {
                         version = "1.0.0",
                         className = "org.toto.TotoResource",
                         path = "/toto/titi",
-                        shortExtensions = setOf("5Lt", "L0j", "9Ie")
+                        shortExtensions = "5Lt.L0j.9Ie"
                 )
         )
         )
@@ -187,9 +202,8 @@ class CodeQuarkusResourceTest {
                         version = "1.0.0",
                         className = "org.toto.TotoResource",
                         path = "/toto/titi",
-                        shortExtensions = setOf("5Lt", "L0j", "9Ie")
-                )
-        )
+                        shortExtensions = "5Lt.L0j.9Ie"
+                ))
         )
     }
 
@@ -198,7 +212,7 @@ class CodeQuarkusResourceTest {
     fun testWithOldExtensionSyntaxParams() {
         given()
                 .`when`()
-                .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=com.toto.TotoResource&e=io.quarkus:quarkus-resteasy&s9Ie")
+                .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=com.toto.TotoResource&e=io.quarkus:quarkus-resteasy&s=9Ie")
                 .then()
                 .statusCode(200)
                 .contentType("application/zip")
@@ -212,7 +226,7 @@ class CodeQuarkusResourceTest {
                         className = "com.toto.TotoResource",
                         path = "/toto/titi",
                         extensions = setOf("io.quarkus:quarkus-resteasy"),
-                        shortExtensions = setOf("9Ie")
+                        shortExtensions = "9Ie"
                 )
         )
         )
@@ -259,11 +273,7 @@ class CodeQuarkusResourceTest {
                         artifactId = "test-app-with-a-few-arg",
                         version = "1.0.0",
                         buildTool = "GRADLE",
-                        shortExtensions = setOf(
-                                "pDS",
-                                "L0j"
-                        )
-
+                        shortExtensions = "pDS.L0j"
                 )
         )
         )
