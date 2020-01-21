@@ -17,6 +17,7 @@ import javax.ws.rs.GET
 import javax.ws.rs.Path
 import javax.ws.rs.Produces
 import javax.ws.rs.core.MediaType.APPLICATION_JSON
+import javax.ws.rs.core.MediaType.TEXT_PLAIN
 import javax.ws.rs.core.Response
 
 
@@ -61,11 +62,18 @@ class CodeQuarkusResource {
     @Produces("application/zip")
     @Operation(summary = "Download a custom Quarkus application with the provided settings")
     fun download(@Valid @BeanParam project: QuarkusProject): Response {
-        return Response
-                .ok(projectCreator.create(project))
-                .type("application/zip")
-                .header("Content-Disposition", "attachment; filename=\"${project.artifactId}.zip\"")
-                .build()
-
+        try {
+            return Response
+                    .ok(projectCreator.create(project))
+                    .type("application/zip")
+                    .header("Content-Disposition", "attachment; filename=\"${project.artifactId}.zip\"")
+                    .build()
+        } catch (e: IllegalStateException) {
+            return Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .entity(e.message)
+                    .type(TEXT_PLAIN)
+                    .build()
+        }
     }
 }

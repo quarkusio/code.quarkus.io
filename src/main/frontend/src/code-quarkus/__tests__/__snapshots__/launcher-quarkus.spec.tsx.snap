@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Let user Generate default application 1`] = `"/api/download?g=org.acme&a=code-with-quarkus&v=1.0.0-SNAPSHOT&b=MAVEN&c=org.acme.ExampleResource&cn="`;
+exports[`Let user Generate default application 1`] = `"/d?g=org.acme&a=code-with-quarkus&v=1.0.0-SNAPSHOT&b=MAVEN&c=org.acme.ExampleResource&s=&cn="`;
 
-exports[`Let user customize an Application and Generate it 1`] = `"/api/download?g=io.test.group&a=custom-test-app&v=1.0.0-TEST&b=MAVEN&c=io.test.pack.ExampleResource&e=io.quarkus%3Aquarkus-arc&e=io.quarkus%3Aquarkus-resteasy&e=io.quarkus%3Aquarkus-resteasy-jackson&cn="`;
+exports[`Let user customize an Application and Generate it 1`] = `"/d?g=io.test.group&a=custom-test-app&v=1.0.0-TEST&b=MAVEN&c=io.test.pack.ExampleResource&s=8mc.ogy.1aen&cn="`;
