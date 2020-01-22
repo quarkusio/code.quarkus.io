@@ -177,6 +177,10 @@
        
         @media screen and (max-width: $tabletWidth) {
           flex-grow: 1;
+          flex-basis: calc(100% - 62px);
+        }
+
+        @media screen and (max-width: $mobileWidth) {
           flex-basis: calc(100% - 32px);
         }
       }
