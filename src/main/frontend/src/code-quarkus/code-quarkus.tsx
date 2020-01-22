@@ -49,7 +49,7 @@ async function generateProject(project: QuarkusProject): Promise<{ downloadLink:
   }
   const backendUrl = process.env.REACT_APP_BACKEND_URL || publicUrl;
   const downloadLink = `${backendUrl}/d?${stringify(params)}`;
-  window.open(downloadLink, '_blank');
+  setTimeout(() => window.open(downloadLink, '_blank'), 1000);
   return { downloadLink };
 }
 
