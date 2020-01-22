@@ -36,10 +36,13 @@ body {
 }
 
 .pf-c-backdrop {
-  background-color: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: none;
 }
 
+button.pf-c-button {
+  outline: none;
+}
 
 .next-steps-modal {
   background-color: $background;
@@ -85,6 +88,7 @@ body {
       margin-right: 10px;
     }
   }
+
 
   .download-button {
     background-color: $highlight;

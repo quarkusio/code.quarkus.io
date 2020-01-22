@@ -150,7 +150,6 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
         </div>
         <div
           class="pf-c-form__group quarkus-version"
-          tabindex="0"
         >
           <label
             class="pf-c-form__label"

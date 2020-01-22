@@ -18,7 +18,6 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
       </div>
       <div
         class="pf-c-form__group"
-        tabindex="0"
       >
         <svg
           aria-hidden="true"
@@ -207,7 +206,6 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             <div
               aria-label="Switch io.quarkus:quarkus-arc extension"
               class="extension-selector"
-              tabindex="0"
             >
               <svg
                 aria-hidden="true"
@@ -229,7 +227,6 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <span
                 class="extension-name"
-                tabindex="0"
               >
                 ArC
               </span>
@@ -239,7 +236,6 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <div
                 class="extension-description"
-                tabindex="0"
               >
                 Build time CDI dependency injection
               </div>
@@ -291,7 +287,6 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             <div
               aria-label="Switch some-id extension"
               class="extension-selector"
-              tabindex="0"
             >
               <svg
                 aria-hidden="true"
@@ -313,7 +308,6 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <span
                 class="extension-name"
-                tabindex="0"
               >
                 A CDI in name test
               </span>
@@ -323,7 +317,6 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <div
                 class="extension-description"
-                tabindex="0"
               >
                 Some description
               </div>
@@ -375,7 +368,6 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             <div
               aria-label="Switch io.quarkus:quarkus-camel-netty4-http extension"
               class="extension-selector"
-              tabindex="0"
             >
               <svg
                 aria-hidden="true"
@@ -397,7 +389,6 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <span
                 class="extension-name"
-                tabindex="0"
               >
                 Camel Netty4 test HTTP
               </span>
@@ -407,7 +398,6 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <div
                 class="extension-description"
-                tabindex="0"
               >
                 Camel support for Netty
               </div>
@@ -469,7 +459,6 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
       </div>
       <div
         class="pf-c-form__group"
-        tabindex="0"
       >
         <svg
           aria-hidden="true"
@@ -662,7 +651,6 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           <div
             aria-label="Switch io.quarkus:quarkus-camel-netty4-http extension"
             class="extension-selector"
-            tabindex="0"
           >
             <svg
               aria-hidden="true"
@@ -684,7 +672,6 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           >
             <span
               class="extension-name"
-              tabindex="0"
             >
               Camel Netty4 test HTTP
             </span>
@@ -694,7 +681,6 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           >
             <div
               class="extension-description"
-              tabindex="0"
             >
               Camel support for Netty
             </div>
@@ -755,7 +741,6 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
       </div>
       <div
         class="pf-c-form__group"
-        tabindex="0"
       >
         <svg
           aria-hidden="true"
@@ -948,7 +933,6 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           <div
             aria-label="Switch io.quarkus:quarkus-arc extension"
             class="extension-selector"
-            tabindex="0"
           >
             <svg
               aria-hidden="true"
@@ -970,7 +954,6 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           >
             <span
               class="extension-name"
-              tabindex="0"
             >
               ArC
             </span>
@@ -980,7 +963,6 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           >
             <div
               class="extension-description"
-              tabindex="0"
             >
               Build time CDI dependency injection
             </div>
@@ -1023,7 +1005,6 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           <div
             aria-label="Switch some-id extension"
             class="extension-selector"
-            tabindex="0"
           >
             <svg
               aria-hidden="true"
@@ -1045,7 +1026,6 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           >
             <span
               class="extension-name"
-              tabindex="0"
             >
               A CDI in name test
             </span>
@@ -1055,7 +1035,6 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           >
             <div
               class="extension-description"
-              tabindex="0"
             >
               Some description
             </div>
