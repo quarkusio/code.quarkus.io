@@ -25,7 +25,7 @@ export interface ExtensionEntry {
 }
 
 export interface ExtensionsPickerValue {
-  extensions: string[];
+  extensions: ExtensionEntry[];
 }
 
 interface ExtensionsPickerProps extends InputProps<ExtensionsPickerValue> {
@@ -155,8 +155,8 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const [keyboardActived, setKeyBoardActived] = useState<number>(-1);
   const analytics = useAnalytics();
   const extensions = props.value.extensions || [];
-  const entrySet = new Set(extensions);
-  const entriesById: Map<String, ExtensionEntry> = new Map(props.entries.map(item => [item.shortId, item]));
+  const entrySet = new Set(extensions.map(e => e.id));
+  const entriesById: Map<String, ExtensionEntry> = new Map(props.entries.map(item => [item.id, item]));
 
   hotkeys.filter = (e) => {
     const el = (e.target || e.srcElement) as any | undefined;
@@ -169,9 +169,9 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const result = processEntries(filter, props.entries);
 
   const add = (index: number) => {
-    const id = result[index].shortId
+    const id = result[index].id
     entrySet.add(id);
-    props.onChange({ extensions: Array.from(entrySet) });
+    props.onChange({ extensions: Array.from(entrySet).map(e => entriesById.get(e)!) });
     analytics.event('Picker', 'Add-Extension', id);
     if (keyboardActived >= 0) {
       setKeyBoardActived(index);
@@ -180,7 +180,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
 
   const remove = (id: string) => {
     entrySet.delete(id);
-    props.onChange({ extensions: Array.from(entrySet) });
+    props.onChange({ extensions: Array.from(entrySet).map(e => entriesById.get(e)!) });
     analytics.event('Picker', 'Remove-Extension', id)
   };
   const onSearchKeyDown = (e: KeyboardEvent) => {
@@ -250,12 +250,12 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
             {
               extensions.map((ex, i) => (
                 <Extension
-                  selected={entrySet.has(ex)}
+                  selected={entrySet.has(ex.id)}
                   keyboardActived={i === keyboardActived}
-                  {...entriesById.get(ex)!}
+                  {...ex}
                   buildTool={props.buildTool}
                   key={i}
-                  onClick={() => remove(ex)}
+                  onClick={() => remove(ex.id)}
                 />
               ))
             }
@@ -273,7 +273,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
           {result.map((ex, i) => {
             const ext = (
               <Extension
-                selected={entrySet.has(ex.shortId)}
+                selected={entrySet.has(ex.id)}
                 keyboardActived={i === keyboardActived}
                 {...ex}
                 key={i}
