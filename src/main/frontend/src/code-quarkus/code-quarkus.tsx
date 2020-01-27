@@ -9,6 +9,7 @@ import { Header } from './header';
 import './code-quarkus.scss';
 import { NextSteps } from './next-steps';
 import { CLIENT_NAME } from './backend-api';
+import { ExtensionEntry } from './pickers/extensions-picker';
 
 enum Status {
   EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
@@ -33,7 +34,7 @@ export interface QuarkusProject {
     packageName?: string;
     buildTool: string;
   }
-  extensions: string[];
+  extensions: ExtensionEntry[];
 }
 
 async function generateProject(project: QuarkusProject): Promise<{ downloadLink: string }> {
@@ -44,7 +45,7 @@ async function generateProject(project: QuarkusProject): Promise<{ downloadLink:
     ...(project.metadata.version && { v: project.metadata.version }),
     ...(project.metadata.buildTool && { b: project.metadata.buildTool }),
     ...(packageName && { c: `${packageName}.ExampleResource` }),
-    ...(project.extensions && { s: project.extensions.join('.') }),
+    ...(project.extensions && { s: project.extensions.map(e => e.shortId).join('.') }),
     cn: CLIENT_NAME,
   }
   const backendUrl = process.env.REACT_APP_BACKEND_URL || publicUrl;
@@ -78,14 +79,13 @@ export function CodeQuarkus(props: LaunchFlowProps) {
 
   const generate = () => {
     setRun({ status: Status.RUNNING });
-
-
-
+    
     generateProject(project).then((result) => {
       setRun((prev) => ({ ...prev, result, status: Status.DOWNLOADED }));
+      const extensionIds = project.extensions.map(e => e.id);
       analytics && analytics.event('App', 'Generate', props.config.quarkusVersion);
-      analytics && analytics.event('Extension', 'Combination', project.extensions.sort().join(","));
-      analytics && project.extensions.forEach(e => analytics.event('Extension', 'Used', e));
+      analytics && analytics.event('Extension', 'Combination', extensionIds.sort().join(","));
+      analytics && extensionIds.forEach(e => analytics.event('Extension', 'Used', e));
     }).catch(error => {
       setRun((prev) => ({ ...prev, status: Status.ERROR, error }));
     });

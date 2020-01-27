@@ -21,7 +21,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
     setIsMetadataValid(isValid);
     setProject((prev) => ({ ...prev, metadata }));
   };
-  const setExtensions = (value: { extensions: string[] }) => setProject((prev) => ({ ...prev, extensions: value.extensions }));
+  const setExtensions = (value: { extensions: ExtensionEntry[] }) => setProject((prev) => ({ ...prev, extensions: value.extensions }));
   const save = () => {
     if (isMetadataValid) {
       props.onSave();
