@@ -3,7 +3,7 @@
 # Backend dev
 
 ```
-$ ./mvnw compile quarkus:dev
+$ ./mvnw quarkus:dev
 ```
 
 # Frontend dev
