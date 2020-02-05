@@ -19,6 +19,7 @@ internal class QuarkusExtensionCatalogTest {
         assertThat(QuarkusExtensionCatalog.processedExtensions, not(empty<CodeQuarkusExtension>()))
     }
 
+    @Test
     @DisplayName("Check that our shortIds are unique")
     fun testUniqueShortIds() {
         val extensions = QuarkusExtensionCatalog.processedExtensions
