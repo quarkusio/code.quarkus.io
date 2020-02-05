@@ -1,12 +1,12 @@
 #make dev
 .PHONY: dev
 dev:
-	./mvnw quarkus:dev
+	./mvnw compile quarkus:dev
 
 #make debug
 .PHONY: debug
 debug:
-	./mvnw quarkus:dev -Ddebug -Dsuspend
+	./mvnw compile quarkus:dev -Ddebug -Dsuspend
 
 #make clean
 .PHONY: clean
