@@ -9,14 +9,6 @@ import javax.inject.Singleton
 
 @Singleton
 open class CodeQuarkusConfigManager {
-
-    companion object {
-        const val GROUPID_PATTERN = "^([a-zA-Z_\$][a-zA-Z\\d_\$]*\\.)*[a-zA-Z_\$][a-zA-Z\\d_\$]*\$"
-        const val ARTIFACTID_PATTERN = "^[a-z][a-z0-9-._]*\$"
-        const val CLASSNAME_PATTERN = GROUPID_PATTERN
-        const val PATH_PATTERN = "^\\/([a-z0-9\\-._~%!\$&'()*+,;=:@]+\\/?)*\$"
-    }
-
     internal val quarkusVersion = bundledQuarkusVersion
 
     @ConfigProperty(name = "io.quarkus.code.git-commit-id", defaultValue = "")
