@@ -2,7 +2,6 @@ package io.quarkus.code.analytics
 
 import com.brsanthu.googleanalytics.GoogleAnalytics
 import com.brsanthu.googleanalytics.GoogleAnalyticsConfig
-import com.brsanthu.googleanalytics.request.DefaultRequest
 import io.quarkus.code.services.CodeQuarkusConfigManager
 import io.quarkus.runtime.StartupEvent
 import java.util.logging.Logger
@@ -25,12 +24,7 @@ open class GoogleAnalyticsService {
 
     fun onStart(@Observes e: StartupEvent) {
         if (googleAnalytics == null && config.gaTrackingId.get().filter(String::isNotBlank).isPresent) {
-            val defaultRequest = DefaultRequest()
-
-            defaultRequest.documentHostName("code.quarkus.io")
-
             googleAnalytics = GoogleAnalytics.builder()
-                    .withDefaultRequest(defaultRequest)
                     .withTrackingId(config.gaTrackingId.get().get())
                     .withConfig(GoogleAnalyticsConfig().setBatchSize(5).setBatchingEnabled(true))
                     .build()
@@ -40,16 +34,31 @@ open class GoogleAnalyticsService {
         }
     }
 
-    fun sendEvent(clientName: String? = "unknown", action: String, label: String) {
+    fun sendEvent(clientName: String? = "unknown",
+                  path: String,
+                  url: String,
+                  userAgent: String?,
+                  referer: String?,
+                  host: String?,
+                  remoteAddr: String?
+    ) {
         if (googleAnalytics != null) {
             googleAnalytics!!.event()
+                    .userAgent(userAgent)
+                    .documentReferrer(referer)
+                    .documentHostName(host)
+                    .userIp(remoteAddr)
+                    .dataSource("api")
+                    .anonymizeIp(true)
                     .campaignSource(clientName)
                     .eventCategory("API")
-                    .eventAction(action)
-                    .eventLabel(label)
+                    .documentUrl(url)
+                    .documentPath(path)
+                    .eventAction(path)
+                    .eventLabel(clientName)
                     .sendAsync()
         } else {
-            log.info("fake-analytics->event(API, $action, $label) from $clientName")
+            log.info("fake-analytics->event(API, $path, $clientName)")
         }
 
     }
