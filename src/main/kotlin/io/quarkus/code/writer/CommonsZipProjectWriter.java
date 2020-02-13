@@ -53,7 +53,7 @@ public class CommonsZipProjectWriter implements ProjectWriter {
     }
 
     @Override
-    public void write(String path, String content) throws IOException {
+    public void write(String path, String content) {
         byte[] contentBytes = content.getBytes(StandardCharsets.UTF_8);
         this.write(path, contentBytes, false);
     }
