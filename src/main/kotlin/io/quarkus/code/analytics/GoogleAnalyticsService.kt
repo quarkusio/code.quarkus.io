@@ -11,6 +11,7 @@ import java.util.logging.Level
 import java.util.logging.Logger
 import javax.enterprise.event.Observes
 import javax.inject.Inject
+import javax.inject.Provider
 import javax.inject.Singleton
 
 
@@ -25,23 +26,23 @@ open class GoogleAnalyticsService {
     @Inject
     lateinit var config: CodeQuarkusConfigManager
 
-    @ConfigProperty(name = "io.quarkus.code.ga.extensions-dimension-index")
-    internal lateinit var extensionsDimensionIndex: Optional<Int>
+    @ConfigProperty(name = "io.quarkus.code.ga.extensions-dimension-index", defaultValue = "-1")
+    internal lateinit var extensionsDimensionIndex: Provider<Int>
 
-    @ConfigProperty(name = "io.quarkus.code.ga.quarkus-version-dimension-index")
-    internal lateinit var quarkusVersionDimensionIndex: Optional<Int>
+    @ConfigProperty(name = "io.quarkus.code.ga.quarkus-version-dimension-index", defaultValue = "-1")
+    internal lateinit var quarkusVersionDimensionIndex: Provider<Int>
 
-    @ConfigProperty(name = "io.quarkus.code.ga.build-tool-dimension-index")
-    internal lateinit var buildToolDimensionIndex: Optional<Int>
+    @ConfigProperty(name = "io.quarkus.code.ga.build-tool-dimension-index", defaultValue = "-1")
+    internal lateinit var buildToolDimensionIndex: Provider<Int>
 
-    @ConfigProperty(name = "io.quarkus.code.ga.extension-quantity-index")
-    internal lateinit var extensionQtyDimensionIndex: Optional<Int>
+    @ConfigProperty(name = "io.quarkus.code.ga.extension-quantity-index", defaultValue = "-1")
+    internal lateinit var extensionQtyDimensionIndex: Provider<Int>
 
     var googleAnalytics: GoogleAnalytics? = null
 
     fun onStart(@Observes e: StartupEvent) {
-        val gaTrackingId = ConfigProvider.getConfig().getOptionalValue("io.quarkus.code.ga.tracking-id", String::class.java)
-        if (googleAnalytics == null && gaTrackingId.isPresent) {
+        val gaTrackingId = config.gaTrackingId.get()
+        if (googleAnalytics == null && gaTrackingId.filter(String::isNotBlank).isPresent) {
             googleAnalytics = GoogleAnalytics.builder()
                     .withTrackingId(gaTrackingId.get())
                     .withConfig(GoogleAnalyticsConfig().setBatchSize(20).setBatchingEnabled(true))
@@ -68,16 +69,16 @@ open class GoogleAnalyticsService {
     ) {
         if (googleAnalytics != null) {
             val event = googleAnalytics!!.event()
-            if (extensions != null && extensionsDimensionIndex.isPresent) {
+            if (extensions != null && extensionsDimensionIndex.get() >= 0) {
                 event.customDimension(extensionsDimensionIndex.get(), extensions.sorted().joinToString(","))
             }
-            if (extensions != null && extensionQtyDimensionIndex.isPresent) {
+            if (extensions != null && extensionQtyDimensionIndex.get() >= 0) {
                 event.customDimension(extensionQtyDimensionIndex.get(), extensions.size.toString())
             }
-            if (quarkusVersionDimensionIndex.isPresent) {
+            if (quarkusVersionDimensionIndex.get() >= 0) {
                 event.customDimension(quarkusVersionDimensionIndex.get(), config.quarkusVersion)
             }
-            if (buildTool != null && buildToolDimensionIndex.isPresent) {
+            if (buildTool != null && buildToolDimensionIndex.get() >= 0) {
                 event.customDimension(buildToolDimensionIndex.get(), buildTool)
             }
             if (category == "API" && action == "/download") {
