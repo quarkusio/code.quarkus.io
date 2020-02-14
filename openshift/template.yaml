@@ -53,21 +53,29 @@ objects:
                   cpu: ${CPU_LIMIT}
                   memory: ${MEMORY_LIMIT}
               env:
-                - name: io.quarkus.code.environment
-                  value: ${CODE_QUARKUS_ENV}
-                - name: io.quarkus.code.sentry-dsn
+                - name: IO_QUARKUS_CODE_ENVIRONMENT
+                  value: ${IO_QUARKUS_CODE_ENVIRONMENT}
+                - name: IO_QUARKUS_CODE_GA_EXTENSIONS_DIMENSION_INDEX
+                  value: ${IO_QUARKUS_CODE_GA_EXTENSIONS_DIMENSION_INDEX}
+                - name: IO_QUARKUS_CODE_GA_QUARKUS_VERSION_DIMENSION_INDEX
+                  value: ${IO_QUARKUS_CODE_GA_QUARKUS_VERSION_DIMENSION_INDEX}
+                - name: IO_QUARKUS_CODE_GA_BUILD_TOOL_DIMENSION_INDEX
+                    value: ${IO_QUARKUS_CODE_GA_BUILD_TOOL_DIMENSION_INDEX}
+                - name: IO_QUARKUS_CODE_GA_EXTENSION_QUANTITY_INDEX
+                    value: ${IO_QUARKUS_CODE_GA_EXTENSION_QUANTITY_INDEX}
+                - name: IO_QUARKUS_CODE_SENTRY_DSN
                   valueFrom:
                     secretKeyRef:
                       name: secrets
                       key: sentry-dsn
-                - name: quarkus.log.sentry
+                - name: QUARKUS_LOG_SENTRY
                   value: "true"
-                - name: quarkus.log.sentry.dsn
+                - name: QUARKUS_LOG_SENTRY_DSN
                   valueFrom:
                     secretKeyRef:
                       name: secrets
                       key: sentry-dsn
-                - name: io.quarkus.code.ga-tracking-id
+                - name: IO_QUARKUS_CODE_GA_TRACKING_ID
                   valueFrom:
                     secretKeyRef:
                       name: secrets

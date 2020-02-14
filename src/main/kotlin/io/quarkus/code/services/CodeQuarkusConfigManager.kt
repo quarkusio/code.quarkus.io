@@ -11,25 +11,25 @@ import javax.inject.Singleton
 open class CodeQuarkusConfigManager {
     internal val quarkusVersion = bundledQuarkusVersion
 
-    @ConfigProperty(name = "io.quarkus.code.git-commit-id", defaultValue = "")
-    internal lateinit var gitCommitId: Provider<Optional<String>>
+    @ConfigProperty(name = "io.quarkus.code.git-commit-id")
+    internal lateinit var gitCommitId: Optional<String>
 
     @ConfigProperty(name = "io.quarkus.code.environment", defaultValue = "dev")
-    internal lateinit var environment: Provider<String>
+    internal lateinit var environment: String
 
-    @ConfigProperty(name = "io.quarkus.code.ga-tracking-id", defaultValue = "")
-    internal lateinit var gaTrackingId: Provider<Optional<String>>
+    @ConfigProperty(name = "io.quarkus.code.ga.tracking-id")
+    internal lateinit var gaTrackingId: Optional<String>
 
-    @ConfigProperty(name = "io.quarkus.code.sentry-dsn", defaultValue = "")
-    internal lateinit var sentryDSN: Provider<Optional<String>>
+    @ConfigProperty(name = "io.quarkus.code.sentry-dsn")
+    internal lateinit var sentryDSN: Optional<String>
 
     fun getConfig(): Config {
         return Config(
-                environment.get(),
-                gaTrackingId.get().orElse(null),
-                sentryDSN.get().orElse(null),
+                environment,
+                gaTrackingId.orElse(null),
+                sentryDSN.orElse(null),
                 quarkusVersion,
-                gitCommitId.get().orElse(null)
+                gitCommitId.orElse(null)
         )
     }
 
