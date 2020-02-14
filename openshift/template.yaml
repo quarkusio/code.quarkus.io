@@ -99,17 +99,27 @@ objects:
       sessionAffinity: None
       type: ClusterIP
 parameters:
-  - name: CODE_QUARKUS_SENTRY_DSN
-    displayName: Code Quarkus App sentry dsn
-    description: Code Quarkus App sentry dsn.
-  - name: CODE_QUARKUS_ENV
+  - name: IO_QUARKUS_CODE_ENVIRONMENT
     value: dev
     required: true
     displayName: Code Quarkus App environment
     description: Code Quarkus App environment. Defaults to dev
-  - name: CODE_QUARKUS_GA_TRACKING_ID
-    displayName: Code Quarkus App ga tracking id
-    description: Code Quarkus App google analytics tracking id.
+  - name: IO_QUARKUS_CODE_GA_EXTENSIONS_DIMENSION_INDEX
+    required: false
+    displayName: Code Quarkus Google Analytics extensions dimension index
+    description: Code Quarkus Google Analytics extensions dimension index
+  - name: IO_QUARKUS_CODE_GA_QUARKUS_VERSION_DIMENSION_INDEX
+    required: false
+    displayName: Code Quarkus Google Analytics Quarkus version dimension index
+    description: Code Quarkus Google Analytics Quarkus version dimension index
+  - name: IO_QUARKUS_CODE_GA_BUILD_TOOL_DIMENSION_INDEX
+    required: false
+    displayName: Code Quarkus Google Analytics build tool dimension index
+    description: Code Quarkus Google Analytics build tool dimension index
+  - name: IO_QUARKUS_CODE_GA_EXTENSION_QUANTITY_INDEX
+    required: false
+    displayName: Code Quarkus Google Analytics extension qty dimension index
+    description: Code Quarkus Google Analytics extension qty dimension index
   - name: IMAGE
     value: quay.io/quarkus/code-quarkus-app
     required: true
