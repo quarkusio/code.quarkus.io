@@ -38,7 +38,7 @@ class AnalyticsFilter : ContainerRequestFilter {
         try {
             val queryParams = context.uriInfo.queryParameters
             val path = info!!.path
-            val clientName = queryParams.getFirst("cn") ?: context.getHeaderString("Client-Name")
+            val clientName = queryParams.getFirst("cn") ?: context.getHeaderString("Client-Name") ?: "unknown"
             var extensions: Set<String>? = null
             var buildTool: String? = null
             val url = info!!.requestUri.toString()

@@ -56,7 +56,7 @@ open class GoogleAnalyticsService {
             category: String,
             action: String,
             label: String,
-            clientName: String? = "unknown",
+            clientName: String,
             path: String,
             url: String,
             userAgent: String?,
