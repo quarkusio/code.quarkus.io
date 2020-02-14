@@ -60,9 +60,9 @@ objects:
                 - name: IO_QUARKUS_CODE_GA_QUARKUS_VERSION_DIMENSION_INDEX
                   value: ${IO_QUARKUS_CODE_GA_QUARKUS_VERSION_DIMENSION_INDEX}
                 - name: IO_QUARKUS_CODE_GA_BUILD_TOOL_DIMENSION_INDEX
-                    value: ${IO_QUARKUS_CODE_GA_BUILD_TOOL_DIMENSION_INDEX}
+                  value: ${IO_QUARKUS_CODE_GA_BUILD_TOOL_DIMENSION_INDEX}
                 - name: IO_QUARKUS_CODE_GA_EXTENSION_QUANTITY_INDEX
-                    value: ${IO_QUARKUS_CODE_GA_EXTENSION_QUANTITY_INDEX}
+                  value: ${IO_QUARKUS_CODE_GA_EXTENSION_QUANTITY_INDEX}
                 - name: IO_QUARKUS_CODE_SENTRY_DSN
                   valueFrom:
                     secretKeyRef:
