@@ -63,6 +63,8 @@ objects:
                   value: ${IO_QUARKUS_CODE_GA_BUILD_TOOL_DIMENSION_INDEX}
                 - name: IO_QUARKUS_CODE_GA_EXTENSION_QUANTITY_INDEX
                   value: ${IO_QUARKUS_CODE_GA_EXTENSION_QUANTITY_INDEX}
+                - name: IO_QUARKUS_CODE_GA_BATCHING_ENABLED
+                  value: ${IO_QUARKUS_CODE_GA_BATCHING_ENABLED}
                 - name: IO_QUARKUS_CODE_SENTRY_DSN
                   valueFrom:
                     secretKeyRef:
@@ -104,6 +106,11 @@ parameters:
     required: true
     displayName: Code Quarkus App environment
     description: Code Quarkus App environment. Defaults to dev
+  - name: IO_QUARKUS_CODE_GA_EXTENSIONS_DIMENSION_INDEX
+    value: true
+    required: false
+    displayName: Code Quarkus Google Analytics enabled batching
+    description: Code Quarkus Google Analytics enabled batching
   - name: IO_QUARKUS_CODE_GA_EXTENSIONS_DIMENSION_INDEX
     required: false
     displayName: Code Quarkus Google Analytics extensions dimension index
