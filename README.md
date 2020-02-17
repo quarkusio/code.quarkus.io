@@ -47,18 +47,45 @@ You can check deployed commit hash on: https://stage.code.quarkus.io/api/config
 
 # Analytics events
 
+## How popular an extension is in the Code Quarkus app?
+
+The category gives an overall overview of the popularity of an extension, then you can deep dive to particular actions related to extension 
+
 | Category | Action | Label | Description |
 | --- | --- | --- | --- |
-| Edition | Extension.Selected | *Extension ID* | The user selects an extension |
-| Edition | Extension.Unselected | *Extension ID* | The user unselects an extension |
-| Edition | Extension.Searched | *Not set* | The user has used the extension search at least once in one page view |
-| Edition | Field.Edited | *Field Name* | The user has edited this field at least once in one page view |
-| Generation | Extension | *Extension ID* | The user has generated an application with this extension |
-| Generation | Extension.Combined | *Extension IDS* | The user has generated an application with those extensions (sorted & separated by a comma) |
-| Generation | QuarkusVersion | *Quarkus version* | The user has generated an application this Quarkus version |
-| Generation | BuildTool | *BuildTool* | The user has generated an application this buildtool |
-| UX | ClipboardCopy.Cmd.MavenAddExtension | *Command* | The user has copied the command to add an extension with Maven to the clipboard |
-| UX | ClipboardCopy.Cmd.GradleAddExtension | *Command* | The user has copied the command to add an extension with Maven to the clipboard |
-| UX | ClipboardCopy.Cmd.StartDevMode | *Command* | The user has copied the start dev mode command to the clipbooard |
-| UX | ClipboardCopy.ExtensionGAV | *Command* | The user has copied the extension GAV to the clipboard) |
-| UX | OpenGuide | *Extension ID* | The user has opened the guide for this extension |
+| Extension | Used | *Extension ID* | This extension has been used in a project |
+| Extension | Copy the command to add it with Maven | *Extension ID* | ... |
+| Extension | Copy the command to add it with Gradle | *Extension ID* | ... |
+| Extension | Copy GAV | *Extension ID* | ... |
+| Extension | Click on "Open Extension Guide" link | *Extension ID* | ... |
+| Extension | Display in search top 5 results | *Extension ID* | ... |
+
+## What's the preferred way to get the application? / What is the content of generated applications?			
+
+Some custom dimensions are available for those events:
+- Extensions: sorted list of selected extension separated by comma
+- Build Tool: the selected build tool
+- Extension Quantity: the quantity of selected extensions
+- Quarkus Version: The Quarkus version
+
+| Category | Action | Label | Description |
+| --- | --- | --- | --- |
+| App | Download | *clientName* | A application has been generated for the specified client |
+
+## How do users interact with code quarkus?
+
+| Category | Action | Label | Description |
+| --- | --- | --- | --- |
+| UX | Generate application | Click on "Generate your application" button | ... |
+| UX | Post-Generate Popup Action | Start new | ... |
+| | | Close | ... |
+| | | Go back | ... |
+| | | Copy "Dev mode" command | ... |
+| | | Click "Download the zip" link | ... |
+| | | Click "guides" link | ... |
+| | Extension - Unselect | Keyboard/Selection/List | ... |
+| | Extension - Select | Keyboard/Selection/List | ... |
+| | Extension - Search | *Value* | ... |
+| | Blurb | Click on "Missing a feature?" link | ... |
+| | | Click on "Found a bug?" link | ... |
+| | | Close | ... |

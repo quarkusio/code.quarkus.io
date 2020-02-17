@@ -12,7 +12,7 @@ export function useAnalyticsEditionField(id: string, onChange: any): [boolean, (
   const analytics = useAnalytics();
   const onChangeWithDirty = (value: string, event: ChangeEvent<any>) => {
     if (!isDirty) {
-      analytics.event('Edition', 'Field.Edited', id);
+      analytics.event('Edition', 'Change field', id);
     }
     setIsDirty(true);
     if (onChange) {

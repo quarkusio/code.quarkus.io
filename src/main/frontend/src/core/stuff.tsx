@@ -82,6 +82,7 @@ export function effectSafety(): EffectSafety {
 
 export function ExternalLink(props: {
   'aria-label'?: string;
+  onClick?: React.MouseEventHandler<any>; 
   children: React.ReactNode;
   href: string;
   style?: CSSProperties;
@@ -94,6 +95,7 @@ export function ExternalLink(props: {
       href={props.href}
       aria-label={props['aria-label']}
       target={'_blank'}
+      onClick={props.onClick}
     >
         {props.children} <ExternalLinkSquareAltIcon />
     </Button>);

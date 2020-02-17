@@ -1,4 +1,5 @@
 import { Analytics } from './analytics';
+import _ from 'lodash';
 
 declare var ga: any;
 
@@ -35,6 +36,6 @@ export class GoogleAnalytics implements Analytics {
     }
 
     event(category: string, action: string, label?: string, value?: number, params?: object) {
-        ga('send', 'event', category, action, label, value, params);
+        _.defer(() => ga('send', 'event', category, action, label, value, params));
     }
 }
