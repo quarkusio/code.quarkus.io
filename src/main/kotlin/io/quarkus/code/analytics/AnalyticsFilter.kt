@@ -1,8 +1,6 @@
 package io.quarkus.code.analytics
 
 import io.quarkus.code.services.QuarkusExtensionCatalog
-import java.lang.IllegalStateException
-import java.util.*
 import java.util.logging.Level
 import java.util.logging.Logger
 import javax.inject.Inject
@@ -38,48 +36,44 @@ class AnalyticsFilter : ContainerRequestFilter {
         try {
             val queryParams = context.uriInfo.queryParameters
             val path = info!!.path
-            val clientName = queryParams.getFirst("cn") ?: context.getHeaderString("Client-Name") ?: "unknown"
+            val applicationName = queryParams.getFirst("cn") ?: context.getHeaderString("Client-Name") ?: "unknown"
             var extensions: Set<String>? = null
             var buildTool: String? = null
             val url = info!!.requestUri.toString()
             val userAgent = context.headers.getFirst(HttpHeaders.USER_AGENT)
             val referer = context.headers.getFirst("Referer")
             val remoteAddr = httpRequest!!.remoteAddr
-            val host = context.headers.getFirst(HttpHeaders.HOST)
+            val host = "code.quarkus.io"
             if (path.startsWith("/download")) {
                 try {
                     extensions = extensionCatalog.checkAndMergeExtensions(queryParams["e"]?.toSet(), queryParams.getFirst("s"))
-                    if (!clientName.endsWith("code.quarkus.io")) {
-                        extensions.forEach {
-                            googleAnalyticsService.sendEvent(
-                                    category = "Extension",
-                                    action = "Used",
-                                    label = it,
-                                    clientName = clientName,
-                                    path = path,
-                                    url = url,
-                                    userAgent = userAgent,
-                                    referer = referer,
-                                    host = host,
-                                    remoteAddr = remoteAddr,
-                                    extensions = extensions,
-                                    buildTool = buildTool
-                            )
-                        }
+                    extensions.forEach {
+                        googleAnalyticsService.sendEvent(
+                                category = "Extension",
+                                action = "Download",
+                                label = it,
+                                applicationName = applicationName,
+                                path = path,
+                                url = url,
+                                userAgent = userAgent,
+                                referer = referer,
+                                host = host,
+                                remoteAddr = remoteAddr,
+                                extensions = extensions,
+                                buildTool = buildTool
+                        )
                     }
-
                     buildTool = queryParams.getFirst("b") ?: "MAVEN".toUpperCase()
                 } catch (e: IllegalStateException) {
                     log.log(Level.FINE, e) { "Error while extracting extension list from request" }
                 }
             }
 
-
             googleAnalyticsService.sendEvent(
                     category = "API",
                     action = path,
-                    label = clientName,
-                    clientName = clientName,
+                    label = applicationName,
+                    applicationName = applicationName,
                     path = path,
                     url = url,
                     userAgent = userAgent,
@@ -88,7 +82,6 @@ class AnalyticsFilter : ContainerRequestFilter {
                     remoteAddr = remoteAddr,
                     extensions = extensions,
                     buildTool = buildTool
-
             )
         } catch (e: Exception) {
             log.log(Level.SEVERE, e) { "Error while generating/sending an analytic event" }

@@ -4,10 +4,9 @@ import com.brsanthu.googleanalytics.GoogleAnalytics
 import com.brsanthu.googleanalytics.GoogleAnalyticsConfig
 import io.quarkus.code.services.CodeQuarkusConfigManager
 import io.quarkus.runtime.StartupEvent
-import org.eclipse.microprofile.config.ConfigProvider
 import org.eclipse.microprofile.config.inject.ConfigProperty
-import java.util.*
-import java.util.logging.Level
+import java.util.logging.Level.FINEST
+import java.util.logging.Level.INFO
 import java.util.logging.Logger
 import javax.enterprise.event.Observes
 import javax.inject.Inject
@@ -19,9 +18,10 @@ import javax.inject.Singleton
 open class GoogleAnalyticsService {
 
     companion object {
-        private val log = Logger.getLogger(GoogleAnalyticsService::class.java.name)
-        private val defaultUserAgent = "Java/${System.getProperty("java.version")} (${System.getProperty("os.name")} ${System.getProperty("os.version")}; ${System.getProperty("os.arch")})"
+        private val LOG = Logger.getLogger(GoogleAnalyticsService::class.java.name)
     }
+
+    private lateinit var defaultUserAgent: String
 
     @Inject
     lateinit var config: CodeQuarkusConfigManager
@@ -38,18 +38,25 @@ open class GoogleAnalyticsService {
     @ConfigProperty(name = "io.quarkus.code.ga.extension-quantity-index", defaultValue = "-1")
     internal lateinit var extensionQtyDimensionIndex: Provider<Int>
 
+    @ConfigProperty(name = "io.quarkus.code.ga.batching-enabled", defaultValue = "true")
+    internal lateinit var batchingEnabled: Provider<Boolean>
+
+    @ConfigProperty(name = "io.quarkus.code.ga.batchSize", defaultValue = "30")
+    internal lateinit var batchSize: Provider<Int>
+
     var googleAnalytics: GoogleAnalytics? = null
 
     fun onStart(@Observes e: StartupEvent) {
         val gaTrackingId = config.gaTrackingId.get()
+        defaultUserAgent ="CodeQuarkusBackend/${config.gitCommitId.get().orElse("unknown")} (${System.getProperty("os.name")}; ${System.getProperty("os.version")}; ${System.getProperty("os.arch")}, Java ${System.getProperty("java.version")})"
         if (googleAnalytics == null && gaTrackingId.filter(String::isNotBlank).isPresent) {
             googleAnalytics = GoogleAnalytics.builder()
                     .withTrackingId(gaTrackingId.get())
-                    .withConfig(GoogleAnalyticsConfig().setBatchSize(20).setBatchingEnabled(true))
+                    .withConfig(GoogleAnalyticsConfig().setBatchSize(batchSize.get()).setBatchingEnabled(batchingEnabled.get()))
                     .build()
-            log.info("GoogleAnalytics is enabled, trackingId: ${gaTrackingId.get()}")
+            LOG.info("GoogleAnalytics is enabled, trackingId: ${gaTrackingId.get()}")
         } else {
-            log.info("GoogleAnalytics is disabled")
+            LOG.info("GoogleAnalytics is disabled")
         }
     }
 
@@ -57,7 +64,7 @@ open class GoogleAnalyticsService {
             category: String,
             action: String,
             label: String,
-            clientName: String,
+            applicationName: String,
             path: String,
             url: String,
             userAgent: String?,
@@ -81,22 +88,20 @@ open class GoogleAnalyticsService {
             if (buildTool != null && buildToolDimensionIndex.get() >= 0) {
                 event.customDimension(buildToolDimensionIndex.get(), buildTool)
             }
-            if (category == "API" && action == "/download") {
-                log.log(Level.INFO) {
-                    """
+            LOG.log(FINEST) {
+                """
                     sending analytic event:
                         - userAgent: ${userAgent ?: defaultUserAgent}
                         - documentReferrer: ${referer}
                         - documentHostName: ${host}
                         - userIp: ${remoteAddr != null}
-                        - campaignSource: ${clientName}
+                        - applicationName: ${applicationName}
                         - documentUrl: ${url}
                         - documentPath: ${path}
                         - eventCategory: ${category}
                         - eventAction: ${action}
                         - eventLabel: ${label}
                     """.trimIndent()
-                }
             }
             event
                     .userAgent(userAgent ?: defaultUserAgent)
@@ -105,7 +110,7 @@ open class GoogleAnalyticsService {
                     .userIp(remoteAddr)
                     .dataSource("api")
                     .anonymizeIp(true)
-                    .campaignSource(clientName)
+                    .applicationName(applicationName)
                     .eventCategory(category)
                     .documentUrl(url)
                     .documentPath(path)
@@ -113,7 +118,7 @@ open class GoogleAnalyticsService {
                     .eventLabel(label)
                     .sendAsync()
         } else {
-            log.info("fake-analytics->event(API, $path, $clientName)")
+            LOG.info("fake-analytics->event($category, $action, $label)")
         }
 
     }
