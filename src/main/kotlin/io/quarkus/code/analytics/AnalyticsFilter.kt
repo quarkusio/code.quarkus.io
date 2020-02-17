@@ -37,20 +37,21 @@ class AnalyticsFilter : ContainerRequestFilter {
             val queryParams = context.uriInfo.queryParameters
             val path = info!!.path
             val applicationName = queryParams.getFirst("cn") ?: context.getHeaderString("Client-Name") ?: "unknown"
-            var extensions: Set<String>? = null
-            var buildTool: String? = null
             val url = info!!.requestUri.toString()
             val userAgent = context.headers.getFirst(HttpHeaders.USER_AGENT)
             val referer = context.headers.getFirst("Referer")
             val remoteAddr = httpRequest!!.remoteAddr
             val host = "code.quarkus.io"
+            var extensions: Set<String>?
+            var buildTool: String?
             if (path.startsWith("/download")) {
                 try {
                     extensions = extensionCatalog.checkAndMergeExtensions(queryParams["e"]?.toSet(), queryParams.getFirst("s"))
+                    buildTool = queryParams.getFirst("b") ?: "MAVEN".toUpperCase()
                     extensions.forEach {
                         googleAnalyticsService.sendEvent(
                                 category = "Extension",
-                                action = "Download",
+                                action = "Used",
                                 label = it,
                                 applicationName = applicationName,
                                 path = path,
@@ -63,12 +64,25 @@ class AnalyticsFilter : ContainerRequestFilter {
                                 buildTool = buildTool
                         )
                     }
-                    buildTool = queryParams.getFirst("b") ?: "MAVEN".toUpperCase()
+                    googleAnalyticsService.sendEvent(
+                            category = "App",
+                            action = "Download",
+                            label = applicationName,
+                            applicationName = applicationName,
+                            path = path,
+                            url = url,
+                            userAgent = userAgent,
+                            referer = referer,
+                            host = host,
+                            remoteAddr = remoteAddr,
+                            extensions = extensions,
+                            buildTool = buildTool
+                    )
+
                 } catch (e: IllegalStateException) {
                     log.log(Level.FINE, e) { "Error while extracting extension list from request" }
                 }
             }
-
             googleAnalyticsService.sendEvent(
                     category = "API",
                     action = path,
@@ -80,8 +94,8 @@ class AnalyticsFilter : ContainerRequestFilter {
                     referer = referer,
                     host = host,
                     remoteAddr = remoteAddr,
-                    extensions = extensions,
-                    buildTool = buildTool
+                    extensions = null,
+                    buildTool = null
             )
         } catch (e: Exception) {
             log.log(Level.SEVERE, e) { "Error while generating/sending an analytic event" }

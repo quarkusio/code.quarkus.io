@@ -82,10 +82,6 @@ export function CodeQuarkus(props: LaunchFlowProps) {
     
     generateProject(project).then((result) => {
       setRun((prev) => ({ ...prev, result, status: Status.DOWNLOADED }));
-      const extensionIds = project.extensions.map(e => e.id);
-      analytics && analytics.event('App', 'Generate', props.config.quarkusVersion);
-      analytics && analytics.event('Extension', 'Combination', extensionIds.sort().join(","));
-      analytics && extensionIds.forEach(e => analytics.event('Extension', 'Used', e));
     }).catch(error => {
       setRun((prev) => ({ ...prev, status: Status.ERROR, error }));
     });
