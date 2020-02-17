@@ -106,7 +106,7 @@ parameters:
     required: true
     displayName: Code Quarkus App environment
     description: Code Quarkus App environment. Defaults to dev
-  - name: IO_QUARKUS_CODE_GA_EXTENSIONS_DIMENSION_INDEX
+  - name: IO_QUARKUS_CODE_GA_BATCHING_ENABLED
     value: true
     required: false
     displayName: Code Quarkus Google Analytics enabled batching
