@@ -7,7 +7,7 @@ import { Tooltip } from '@patternfly/react-core';
 type TooltipPosition = 'auto' | 'top' | 'bottom' | 'left' | 'right';
 
 interface CopyToClipboardProps {
-  eventId?: string;
+  event: string[];
   content: string;
   children?: React.ReactNode;
   tooltipPosition?: TooltipPosition;
@@ -34,8 +34,8 @@ export function CopyToClipboard(props: CopyToClipboardProps) {
     e.stopPropagation();
     props.onClick && props.onClick(e)
     copy(props.content);
-    if (props.eventId && !copied) {
-      analytics && analytics.event('Copy-To-Clipboard', props.eventId, props.content);
+    if (props.event && props.event.length === 3 && !copied) {
+      analytics.event(props.event[0], props.event[1], props.event[2]);
     }
     setCopied(true);
     setCopiedText(true);

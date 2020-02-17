@@ -8,7 +8,7 @@ afterEach(cleanup);
 describe('<InfoPicker />', () => {
   it('renders the InfoPicker correctly', () => {
     const onChange = jest.fn();
-    const comp = render(<InfoPicker value={{ groupId: 'org.test', version: '1.0.0', artifactId: 'test' }} isValid={true} onChange={() => { }} />);
+    const comp = render(<InfoPicker value={{ groupId: 'org.test', version: '1.0.0', artifactId: 'test' }} isValid={true} onChange={() => { }} quarkusVersion="1.0.0" />);
     expect(comp.asFragment()).toMatchSnapshot();
     expect(onChange).toBeCalledTimes(0);
   });
@@ -18,7 +18,7 @@ describe('<InfoPicker />', () => {
     const value = { groupId: 'org.test', version: '1.0.0', artifactId: 'test', packageName: 'org.package' };
     let comp: RenderResult;
     act(() => {
-      comp = render(<InfoPicker value={value} isValid={false} onChange={onChangeMock} />);
+      comp = render(<InfoPicker value={value} isValid={false} onChange={onChangeMock} quarkusVersion="1.0.0" />);
     });
     expect(onChangeMock).lastCalledWith(value, true);
   });
@@ -28,13 +28,13 @@ describe('<InfoPicker />', () => {
     const value = { groupId: 'org.test', version: '1.0.0', artifactId: 'test', packageName: 'org.package' };
     let comp: RenderResult;
     act(() => {
-      comp = render(<InfoPicker value={value} isValid={true} onChange={onChangeMock} />);
+      comp = render(<InfoPicker value={value} isValid={true} onChange={onChangeMock} quarkusVersion="1.0.0" />);
     });
     fireEvent.change(comp!.getByLabelText('Edit groupId'), { target: { value: 'com.' } });
     expect(onChangeMock).lastCalledWith({...value, groupId: 'com.'}, false);
     fireEvent.change(comp!.getByLabelText('Edit artifactId'), { target: { value: 'invalid id' } });
     expect(onChangeMock).lastCalledWith({...value, artifactId: 'invalid id'}, false);
-    fireEvent.change(comp!.getByLabelText('Edit version'), { target: { value: '' } });
+    fireEvent.change(comp!.getByLabelText('Edit project version'), { target: { value: '' } });
     expect(onChangeMock).lastCalledWith({...value, version: ''}, false);
     fireEvent.change(comp!.getByLabelText('Edit package name'), { target: { value: 'com.1a' } });
     expect(onChangeMock).lastCalledWith({...value, packageName: 'com.1a'}, false);
@@ -45,11 +45,11 @@ describe('<InfoPicker />', () => {
     const value = { groupId: 'org.test', version: '1.0.0', artifactId: 'test' };
     let comp: RenderResult;
     act(() => {
-      comp = render(<InfoPicker value={value} isValid={true} onChange={onChangeMock} />);
+      comp = render(<InfoPicker value={value} isValid={true} onChange={onChangeMock} quarkusVersion="1.0.0" />);
     });
     fireEvent.change(comp!.getByLabelText('Edit groupId'), { target: { value: 'org.test.copy' } });
     act(() => {
-      comp.rerender(<InfoPicker value={{...value, groupId: 'org.test.copy'}} isValid={true} onChange={onChangeMock} />);
+      comp.rerender(<InfoPicker value={{...value, groupId: 'org.test.copy'}} isValid={true} onChange={onChangeMock} quarkusVersion="1.0.0" />);
     });
     expect(comp!.getByLabelText('Edit package name').getAttribute('value')).toBe('org.test.copy')
 
@@ -61,16 +61,16 @@ describe('<InfoPicker />', () => {
     const invalidValue = { groupId: 'com.1t', version: '', artifactId: 'Te', packageName: 'org.package ' };
     let comp: RenderResult;
     act(() => {
-      comp = render(<InfoPicker value={initialValue} isValid={true} onChange={onChangeMock} />);
+      comp = render(<InfoPicker value={initialValue} isValid={true} onChange={onChangeMock} quarkusVersion="1.0.0" />);
       fireEvent.change(comp.getByLabelText('Edit groupId'), { target: { value: invalidValue.groupId } });
       fireEvent.change(comp.getByLabelText('Edit artifactId'), { target: { value: invalidValue.artifactId } });
-      fireEvent.change(comp.getByLabelText('Edit version'), { target: { value: invalidValue.version } });
+      fireEvent.change(comp.getByLabelText('Edit project version'), { target: { value: invalidValue.version } });
       fireEvent.change(comp.getByLabelText('Edit package name'), { target: { value: invalidValue.packageName } });
-      comp.rerender(<InfoPicker value={invalidValue} isValid={false} onChange={onChangeMock} />);
+      comp.rerender(<InfoPicker value={invalidValue} isValid={false} onChange={onChangeMock} quarkusVersion="1.0.0" />);
     });
     expect(comp!.getByLabelText('Edit groupId').getAttribute('aria-invalid')).toBe('true');
     expect(comp!.getByLabelText('Edit artifactId').getAttribute('aria-invalid')).toBe('true');
-    expect(comp!.getByLabelText('Edit version').getAttribute('aria-invalid')).toBe('true');
+    expect(comp!.getByLabelText('Edit project version').getAttribute('aria-invalid')).toBe('true');
     expect(comp!.getByLabelText('Edit package name').getAttribute('aria-invalid')).toBe('true');
   });
 });

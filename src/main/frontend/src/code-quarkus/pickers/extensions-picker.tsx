@@ -2,13 +2,14 @@ import { Button, Dropdown, DropdownItem, DropdownPosition, FormGroup, KebabToggl
 import { CheckSquareIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon, MapIcon } from "@patternfly/react-icons";
 import classNames from 'classnames';
 import hotkeys from 'hotkeys-js';
-import React, { KeyboardEvent, useState } from "react";
+import React, { KeyboardEvent, useState, useRef, useEffect } from "react";
 import { useHotkeys } from 'react-hotkeys-hook';
 import { InputProps, useAnalytics } from '../../core';
 import { CopyToClipboard } from '../copy-to-clipboard';
 import { QuarkusBlurb } from '../quarkus-blurb';
 import { processEntries } from './extensions-picker-helpers';
 import './extensions-picker.scss';
+import _ from 'lodash';
 
 export interface ExtensionEntry {
   id: string;
@@ -47,6 +48,7 @@ interface ExtensionProps extends ExtensionEntry {
 function Extension(props: ExtensionProps) {
   const [hover, setHover] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
+  const analytics = useAnalytics();
   const onClick = () => {
     if (props.default) {
       return;
@@ -63,6 +65,11 @@ function Extension(props: ExtensionProps) {
   const closeMore = () => {
     setTimeout(() => setIsMoreOpen(false), 1000);
   }
+
+  const openGuide = () => {
+    analytics && analytics.event('Extension', 'Click "Open Extension Guide" link', props.id);
+    closeMore();
+  }
   const description = props.description || '...';
   const descTooltip = <div><b>{props.name}</b><p>{description}</p></div>;
   let tooltip = props.detailed && !props.default ?
@@ -73,19 +80,19 @@ function Extension(props: ExtensionProps) {
   const addGradleExt = `./gradlew addExtension --extensions="${props.id}"`;
   const moreItems = [
     <DropdownItem key="maven" variant="icon">
-      <CopyToClipboard eventId="Add-Extension-Command" content={addMvnExt} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy the command to add it with Maven</CopyToClipboard>
+      <CopyToClipboard event={["Extension", 'Copy the command to add it with Maven', props.id]} content={addMvnExt} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy the command to add it with Maven</CopyToClipboard>
     </DropdownItem>,
     <DropdownItem key="gradle" variant="icon">
-      <CopyToClipboard eventId="Add-Extension-Command" content={addGradleExt} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy the command to add it with Gradle</CopyToClipboard>
+      <CopyToClipboard event={["Extension", 'Copy the command to add it with Gradle', props.id]} content={addGradleExt} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy the command to add it with Gradle</CopyToClipboard>
     </DropdownItem>,
     <DropdownItem key="id" variant="icon">
-      <CopyToClipboard eventId="Extension-GAV" content={props.id} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy the extension GAV</CopyToClipboard>
+      <CopyToClipboard event={["Extension", "Copy the GAV", props.id]} content={props.id} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy the extension GAV</CopyToClipboard>
     </DropdownItem>
   ];
   if (props.guide) {
     moreItems.push(
-      <DropdownItem key="guide" variant="icon" href={props.guide} target="_blank" onClick={closeMore}>
-        <MapIcon /> Open Guide
+      <DropdownItem key="guide" variant="icon" href={props.guide} target="_blank" onClick={openGuide}>
+        <MapIcon /> Open Extension Guide
       </DropdownItem>
     );
   }
@@ -151,9 +158,13 @@ function Extension(props: ExtensionProps) {
 
 export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const [filter, setFilter] = useState('');
-  const [hasSearched, setHasSearched] = useState(false);
   const [keyboardActived, setKeyBoardActived] = useState<number>(-1);
   const analytics = useAnalytics();
+  const debouncedSearchEvent = useRef<(events: string[][]) => void>(_.debounce(
+    (events) => {
+      events.forEach(e => analytics.event(e[0], e[1], e[2]));
+    }, 3000)).current;
+
   const extensions = props.value.extensions || [];
   const entrySet = new Set(extensions.map(e => e.id));
   const entriesById: Map<String, ExtensionEntry> = new Map(props.entries.map(item => [item.id, item]));
@@ -168,20 +179,27 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   };
   const result = processEntries(filter, props.entries);
 
-  const add = (index: number) => {
+  useEffect(() => {
+    if (filter.length > 0) {
+      const topEvents = result.slice(0, 5).map(r => ['Extension', 'Display in search top 5 results', r.id]);
+      debouncedSearchEvent([...topEvents, ['UX', 'Search', filter]]);
+    }
+  }, [filter, result, debouncedSearchEvent]);
+  
+  const add = (index: number, origin: string) => {
     const id = result[index].id
     entrySet.add(id);
     props.onChange({ extensions: Array.from(entrySet).map(e => entriesById.get(e)!) });
-    analytics.event('Picker', 'Add-Extension', id);
+    analytics.event('UX', 'Extension - Select', origin);
     if (keyboardActived >= 0) {
       setKeyBoardActived(index);
     }
   };
 
-  const remove = (id: string) => {
+  const remove = (id: string, origin: string) => {
     entrySet.delete(id);
     props.onChange({ extensions: Array.from(entrySet).map(e => entriesById.get(e)!) });
-    analytics.event('Picker', 'Remove-Extension', id)
+    analytics.event('UX', 'Extension - Unselect', origin)
   };
   const onSearchKeyDown = (e: KeyboardEvent) => {
     if (e.which === 38 || e.which === 40) {
@@ -189,22 +207,18 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     }
   };
   const search = (f: string) => {
-    if (!hasSearched) {
-      analytics.event('Picker', 'Search-Extension')
-    }
-    setHasSearched(true);
     setKeyBoardActived(-1);
     setFilter(f);
   }
 
-  const flip = (index: number) => {
+  const flip = (index: number, origin: string) => {
     if (!result[index] || result[index].default) {
       return;
     }
     if (entrySet.has(result[index].id)) {
-      remove(result[index].id);
+      remove(result[index].id, origin);
     } else {
-      add(index);
+      add(index, origin);
     }
   }
 
@@ -215,7 +229,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   useHotkeys('space', (event) => {
     if (keyboardActived >= 0) {
       event.preventDefault();
-      flip(keyboardActived);
+      flip(keyboardActived, "Keyboard");
     }
   }, [result, keyboardActived]);
 
@@ -255,7 +269,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
                   {...ex}
                   buildTool={props.buildTool}
                   key={i}
-                  onClick={() => remove(ex.id)}
+                  onClick={() => remove(ex.id, "Selection")}
                 />
               ))
             }
@@ -277,7 +291,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
                 keyboardActived={i === keyboardActived}
                 {...ex}
                 key={i}
-                onClick={() => flip(i)}
+                onClick={() => flip(i, "List")}
                 buildTool={props.buildTool}
                 detailed
               />

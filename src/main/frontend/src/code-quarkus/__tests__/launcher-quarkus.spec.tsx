@@ -118,7 +118,7 @@ it('Let user customize an Application and Generate it', async () => {
   fireEvent.change(artifactIdInput, { target: { value: 'custom-test-app' } });
   const toggleMoreOptionsBtn = await comp!.findByLabelText('Toggle panel');
   fireEvent.click(toggleMoreOptionsBtn);
-  const versionInput = await comp!.findByLabelText('Edit version');
+  const versionInput = await comp!.findByLabelText('Edit project version');
   fireEvent.change(versionInput, { target: { value: '1.0.0-TEST' } });
   const packageNameInput = await comp!.findByLabelText('Edit package name');
   fireEvent.change(packageNameInput, { target: { value: 'io.test.pack' } });

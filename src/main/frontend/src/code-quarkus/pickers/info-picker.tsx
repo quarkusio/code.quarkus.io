@@ -1,7 +1,7 @@
-import React, { ChangeEvent, useEffect } from 'react';
-import { ExtendedTextInput, InputPropsWithValidation, optionalBool, TogglePanel } from '../../core';
-import './info-picker.scss';
 import { FormGroup, Tooltip } from "@patternfly/react-core";
+import React, { ChangeEvent, useEffect } from 'react';
+import { ExtendedTextInput, InputProps, InputPropsWithValidation, optionalBool, TogglePanel, useAnalyticsEditionField } from '../../core';
+import './info-picker.scss';
 
 export interface InfoPickerValue {
   groupId?: string;
@@ -28,12 +28,30 @@ const isValidInfo = (value: InfoPickerValue) => {
     && (!value.packageName || isValidGroupId(value.packageName))
 }
 
+const SelectBuildTool= (props: InputProps<string>) => {
+  const onChangeWithDirty = useAnalyticsEditionField('buildTool', props.onChange)[1]
+  const adaptedOnChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    onChangeWithDirty(e.target.value, e);
+  };
+  return (
+    <FormGroup
+      fieldId="buildTool"
+      label="Build Tool"
+      aria-label="Choose build tool">
+      <select id="buildtool" value={props.value || 'MAVEN'} onChange={adaptedOnChange} className={'pf-c-form-control'}>
+        <option value={"MAVEN"}>Maven</option>
+        <option value={"GRADLE"}>Gradle (Preview)</option>
+      </select>
+    </FormGroup>
+  )
+}
+
 export const InfoPicker = (props: InfoPickerProps) => {
   const { value, isValid, onChange } = props;
+
   const onInputChange = (value: InfoPickerValue) => {
     props.onChange(value, isValidInfo(value));
   };
-
   useEffect(() => {
     if (isValid !== isValidInfo(value)) {
       onChange(value, !isValid);
@@ -44,7 +62,7 @@ export const InfoPicker = (props: InfoPickerProps) => {
   const onArtifactIdChange = (newValue: string) => onInputChange({ ...value, artifactId: newValue });
   const onVersionChange = (newValue: string) => onInputChange({ ...value, version: newValue });
   const onPackageNameChange = (newValue: string) => onInputChange({ ...value, packageName: newValue });
-  const onBuildToolChange = (event: ChangeEvent<HTMLSelectElement>) => onInputChange({ ...value, buildTool: event.target.value });
+  const onBuildToolChange = (newValue: string) => onInputChange({ ...value, buildTool: newValue });
   const configFileName = value.buildTool === 'MAVEN' ? 'pom.xml' : 'gradle.properties';
   const packageName = value.packageName === undefined ? value.groupId : value.packageName;
   return (
@@ -76,26 +94,18 @@ export const InfoPicker = (props: InfoPickerProps) => {
           pattern={ARTIFACTID_PATTERN.source}
           isValid={isValidId(value.artifactId)}
         />
-        <FormGroup
-          fieldId="buildTool"
-          label="Build Tool"
-          aria-label="Choose build tool">
-          <select id="buildtool" value={value.buildTool || 'MAVEN'} onChange={onBuildToolChange} className={'pf-c-form-control'}>
-            <option value={"MAVEN"}>Maven</option>
-            <option value={"GRADLE"}>Gradle (Preview)</option>
-          </select>
-        </FormGroup>
+        <SelectBuildTool onChange={onBuildToolChange} value={value.buildTool || 'MAVEN'}/>
       </div>
       {optionalBool(props.showMoreOptions, true) && (
-        <TogglePanel id="info-extended" mode="horizontal" openLabel="Configure more options">
+        <TogglePanel id="info-extended" mode="horizontal" openLabel="Configure more options" event={["UX", "Application Info - Configure More Options"]}>
           <div className="extended-settings pf-c-form">
             <ExtendedTextInput
               label="Version"
               isRequired
               type="text"
-              id="version"
-              name="version"
-              aria-label="Edit version"
+              id="projectVersion"
+              name="projectVersion"
+              aria-label="Edit project version"
               value={value.version || ''}
               autoComplete="off"
               onChange={onVersionChange}
