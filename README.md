@@ -77,7 +77,8 @@ Some custom dimensions are available for those events:
 | Category | Action | Label | Description |
 | --- | --- | --- | --- |
 | UX | Generate application | Click on "Generate your application" button | ... |
-| UX | Post-Generate Popup Action | Start new | ... |
+| | Edit field | *Field name* | ... |
+| | Post-Generate Popup Action | Start new | ... |
 | | | Close | ... |
 | | | Go back | ... |
 | | | Copy "Dev mode" command | ... |
