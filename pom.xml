@@ -21,10 +21,10 @@
         <version.commons-compress>1.19</version.commons-compress>
 
         <!-- Quarkus version is used for bundling Code Quarkus -->
-        <version.quarkus>1.2.0.Final</version.quarkus>
+        <version.quarkus>1.2.1.Final</version.quarkus>
 
         <!-- Quarkus Platform version must be compatible with Quarkus version -->
-        <version.quarkus-platform>1.2.0.Final</version.quarkus-platform>
+        <version.quarkus-platform>1.2.1.Final</version.quarkus-platform>
         <version.google-analytics-java>2.0.0</version.google-analytics-java>
     </properties>
     <dependencyManagement>
