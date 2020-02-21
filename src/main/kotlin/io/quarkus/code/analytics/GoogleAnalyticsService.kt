@@ -5,8 +5,7 @@ import com.brsanthu.googleanalytics.GoogleAnalyticsConfig
 import io.quarkus.code.services.CodeQuarkusConfigManager
 import io.quarkus.runtime.StartupEvent
 import org.eclipse.microprofile.config.inject.ConfigProperty
-import java.util.logging.Level.FINEST
-import java.util.logging.Level.INFO
+import java.util.logging.Level.FINE
 import java.util.logging.Logger
 import javax.enterprise.event.Observes
 import javax.inject.Inject
@@ -48,7 +47,7 @@ open class GoogleAnalyticsService {
 
     fun onStart(@Observes e: StartupEvent) {
         val gaTrackingId = config.gaTrackingId.get()
-        defaultUserAgent ="CodeQuarkusBackend/${config.gitCommitId.get().orElse("unknown")} (${System.getProperty("os.name")}; ${System.getProperty("os.version")}; ${System.getProperty("os.arch")}, Java ${System.getProperty("java.version")})"
+        defaultUserAgent = "CodeQuarkusBackend/${config.gitCommitId.get().orElse("unknown")} (${System.getProperty("os.name")}; ${System.getProperty("os.version")}; ${System.getProperty("os.arch")}, Java ${System.getProperty("java.version")})"
         if (googleAnalytics == null && gaTrackingId.filter(String::isNotBlank).isPresent) {
             googleAnalytics = GoogleAnalytics.builder()
                     .withTrackingId(gaTrackingId.get())
@@ -74,6 +73,7 @@ open class GoogleAnalyticsService {
             extensions: Set<String>?,
             buildTool: String?
     ) {
+        val fixedUserAgent = fixUserAgent(userAgent)
         if (googleAnalytics != null) {
             val event = googleAnalytics!!.event()
             if (extensions != null && extensionsDimensionIndex.get() >= 0) {
@@ -88,10 +88,10 @@ open class GoogleAnalyticsService {
             if (buildTool != null && buildToolDimensionIndex.get() >= 0) {
                 event.customDimension(buildToolDimensionIndex.get(), buildTool)
             }
-            LOG.log(FINEST) {
+            LOG.log(FINE) {
                 """
                     sending analytic event:
-                        - userAgent: ${userAgent ?: defaultUserAgent}
+                        - userAgent: ${fixedUserAgent}
                         - documentReferrer: ${referer}
                         - documentHostName: ${host}
                         - userIp: ${remoteAddr != null}
@@ -104,7 +104,7 @@ open class GoogleAnalyticsService {
                     """.trimIndent()
             }
             event
-                    .userAgent(userAgent ?: defaultUserAgent)
+                    .userAgent(fixedUserAgent)
                     .documentReferrer(referer)
                     .documentHostName(host)
                     .userIp(remoteAddr)
@@ -121,5 +121,12 @@ open class GoogleAnalyticsService {
             LOG.info("fake-analytics->event($category, $action, $label)")
         }
 
+    }
+
+    private fun fixUserAgent(userAgent: String?): String {
+        if (userAgent.isNullOrBlank() || userAgent.startsWith("Java")) {
+            return defaultUserAgent
+        }
+        return userAgent
     }
 }

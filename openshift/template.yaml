@@ -65,6 +65,8 @@ objects:
                   value: ${IO_QUARKUS_CODE_GA_EXTENSION_QUANTITY_INDEX}
                 - name: IO_QUARKUS_CODE_GA_BATCHING_ENABLED
                   value: ${IO_QUARKUS_CODE_GA_BATCHING_ENABLED}
+                - name: IO_QUARKUS_CODE_LOG_LEVEL
+                  value: ${IO_QUARKUS_CODE_LOG_LEVEL}
                 - name: IO_QUARKUS_CODE_SENTRY_DSN
                   valueFrom:
                     secretKeyRef:
@@ -111,6 +113,11 @@ parameters:
     required: true
     displayName: Code Quarkus Google Analytics enabled batching
     description: Code Quarkus Google Analytics enabled batching
+  - name: IO_QUARKUS_CODE_LOG_LEVEL
+    value: "INFO"
+    required: true
+    displayName: Code Quarkus log level
+    description: Code Quarkus log level
   - name: IO_QUARKUS_CODE_GA_EXTENSIONS_DIMENSION_INDEX
     required: false
     displayName: Code Quarkus Google Analytics extensions dimension index
