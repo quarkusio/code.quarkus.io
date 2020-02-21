@@ -2,18 +2,19 @@
 
 # Backend dev
 
-```
-$ ./mvnw compile quarkus:dev
+```bash
+./mvnw compile quarkus:dev
 ```
 
 # Frontend dev
 
-Open `./src/main/frontend` with your favorite IDE and use `yarn`:
-```
-$ yarn && yarn start
-```
+Start web watch mode:
+```bash`
+make dev-web
+``
 
-(the frontend needs the backend to be running on http://localhost:8080)
+Then open `./src/main/frontend` with your favorite IDE to edit:
+
 
 # Staging
 

@@ -2,7 +2,7 @@ dev:
 	./mvnw compile quarkus:dev
 
 start-web:
-	cd src/main/frontend && yarn start
+	cd src/main/frontend && yarn && yarn start
 
 dev-web:
 	make -j2 dev start-web
