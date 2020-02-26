@@ -1,14 +1,100 @@
 
 $background: #000;
 $backgroundSecondary: #0d1c2b;
-$primary: #71aeef;
-$secondary: #ff004a;
 
-$warning: #ff0048a8;
-$readonly: #707070;
-$alert: #74afed;
-$highlight: #4695eb;
-$main: white;
+$primary: #71aeef;
+$secondary: #4695eb;
+
+$warningColor: #ff004a;
+$errorColor: #ff0048a8;
+
+$linkTextColor: $secondary;
+
+$readOnlyTextColor: #bdbcbc;
+$readonlyLabelAndBorderColor: #707070;
+
+// Top container
+$topContainerTextColor: white;
+$topContainerBg: $background;
+$topContainerBgImage: url("/static/media/bg-form.jpg");
+
+$fieldLabelAndBorderColor: $primary; 
+$fieldLabelAndBorderHoverColor: $topContainerTextColor; 
+$fieldTextColor: $topContainerTextColor; 
+$selectOptionsTextColor: black; 
+
+$readOnlyTextColor: #bdbcbc;
+$readonlyLabelAndBorderColor: #707070;
+
+$generateButtonTextColor: white;
+$generateButtonBgColor: $secondary;
+$generateButtonDisabledBgAndBorderColor: rgba(90, 149, 235, 0.342);
+$generateButtonDisabledColor: rgba(255, 255, 255, 0.384);
+
+// Main container
+$mainContainerTextColor: white;
+$mainContainerBg: $background;
 
 $mobileWidth: 900px;
 $tabletWidth: 1200px;
+
+// Next steps Modal
+$nextStepsModalBg: $background;
+$nextStepsModalTextColor: white;
+$nextStepsModalBorderColor: $secondary;
+$nextStepsModalTitleColor: $secondary;
+$nextStepsModalLinkColor: $linkTextColor;
+
+$nextStepsModalCloseButtonBg: $secondary;
+$nextStepsModalCloseButtonBgHover: rgba(70, 149, 235, 0.548);
+
+$nextStepsModalDownloadButtonBg: $secondary;
+$nextStepsModalDownloadButtonTextColor: white;
+
+$nextStepsModalFooterButtonBg: white;
+$nextStepsModalFooterButtonTextColor: $secondary;
+
+$codeBg: #0d1c2b;
+$codeTextColor: white;
+
+// Extensions picker
+$extensionsPickerTextColor: $mainContainerTextColor;
+$extensionsPickerCheckColor: white;
+$extensionsPickerCheckSelectedHoverColor: white;
+$extensionsPickerCheckSelectedColor: $primary;
+$extensionsPickerCheckSelectedByDefaultColor: $readonlyLabelAndBorderColor;
+$extensionsPickerKeyboardActivedTextColor: $secondary;
+$extensionsPickerRemoveButtonColor: $warningColor;
+
+$extensionsPickerDescriptionTextColorOnTablet: #ccc;
+
+$extensionsPickerMoreDropdownBg: $backgroundSecondary;
+$extensionsPickerMoreDropdownTextColor: white;
+
+$extensionsPickerCategoryTextColor: $mainContainerTextColor;
+$extensionsPickerCategoryUnderlineColor: $secondary;
+
+$extensionsPickerSearchTextColor: $mainContainerTextColor;
+$extensionsPickerSearchBorderColorOnFocus: $secondary;
+$extensionsPickerSearchClearColor: $warningColor;
+
+$extensionsPickerFlagDefaultColor: $readonlyLabelAndBorderColor;
+$extensionsPickerFlagPreviewColor: $secondary;
+$extensionsPickerFlagExperimentalColor: $warningColor;
+
+// Header
+$headerBackgroundColor: $background;
+$headerBackgroundImage: url("/static/media/bg-header.jpg");
+$headerTextColor: white;
+
+$headerMenuLinkTextColor: white;
+
+$headerMenuStartCodingButtonTextColor: white;
+$headerMenuStartCodingButtonBorderColor: $secondary;
+$headerMenuStartCodingButtonBg: $secondary;
+
+// Blurb
+$blurbBg: $backgroundSecondary;
+$blurbTextColor: white;
+$blurbLinkTextColor: $linkTextColor;
+$blurbInfoIconColor: $primary;

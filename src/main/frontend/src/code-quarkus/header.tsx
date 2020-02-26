@@ -16,7 +16,7 @@ export function Header() {
             <li><a href="https://quarkus.io/guides/">Guides</a></li>
             <li><a href="https://quarkus.io/community/">Community</a></li>
             <li><a href="https://quarkus.io/blog/">Blog</a></li>
-            <li><a className="active" href="/">Start Coding</a></li>
+            <li><a className="start-coding" href="/">Start Coding</a></li>
           </ul>
         </div>
       </div>

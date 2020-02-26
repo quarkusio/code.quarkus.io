@@ -2,9 +2,11 @@
 
 .header {
   height: 70px;
-  background-image: url("/static/media/bg-header.jpg");
+  background-color: $headerBackgroundColor;
+  background-image: $headerBackgroundImage;
   background-size: 100% 70px;
   background-repeat: repeat-x;
+  color: $headerTextColor;
 
   .header-content {
     grid-column: span 12;
@@ -47,7 +49,7 @@
 
       a {
         display: inline-block;
-        color: $main;
+        color: $headerMenuLinkTextColor;
         padding: 0 10px;
         text-decoration: none;
         line-height: 70px;
@@ -55,22 +57,20 @@
         font-size: 1rem;
       }
       a:hover {
-        border-bottom: 3px solid $main;
+        border-bottom: 3px solid $headerMenuLinkTextColor;
       }
-      a.active {
+      a.start-coding {
         margin-left: 3px;
         text-decoration: none;
-        color: $main;
-        border: 2px solid $main;
-        border: 2px solid $highlight;
+        color: $headerMenuStartCodingButtonTextColor;
         height: 37px;
         line-height: 37px;
         margin-top: 15px;
-        background-color: $highlight;
-        border-bottom: 0;
+        background-color: $headerMenuStartCodingButtonBg;
         transition: background .2s ease-in 0s;
+        border: none;
         &:hover {
-          color: $main;
+          color: $headerMenuStartCodingButtonTextColor;
         }
       }
     }
