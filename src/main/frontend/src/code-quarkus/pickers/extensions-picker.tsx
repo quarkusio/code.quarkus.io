@@ -97,7 +97,7 @@ function Extension(props: ExtensionProps) {
     );
   }
   return (
-    <div {...activationEvents} className={classNames('extension-item', { 'keyboard-actived': props.keyboardActived, hover, selected, readonly: props.default })}>
+    <div {...activationEvents} className={classNames('extension-item', { 'keyboard-actived': props.keyboardActived, hover, selected, 'by-default': props.default })}>
       {props.detailed && (
         <Tooltip position="bottom" content={tooltip} exitDelay={0} zIndex={100}>
           <div

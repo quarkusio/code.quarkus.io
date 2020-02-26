@@ -2,7 +2,7 @@
 
 .extensions-picker {
   display: flex;
-  color: $main;
+  color: $extensionsPickerTextColor;
 
   .extension-item {
     display: flex;
@@ -18,12 +18,20 @@
       pointer-events: none;
     }
 
-    &.selected .extension-selector {
-      color: $alert;
+    .extension-selector {
+      color: $extensionsPickerCheckColor;
     }
 
-    &.hover.selected .extension-selector {
-      color: $main;
+    &.selected .extension-selector {
+      color: $extensionsPickerCheckSelectedColor;
+    }
+
+    &.hover.selected .extension-selector  {
+      color: $extensionsPickerCheckSelectedHoverColor;
+    }
+
+    &.by-default .extension-selector {
+      color: $extensionsPickerCheckSelectedByDefaultColor !important;
     }
 
     div:focus {
@@ -31,7 +39,7 @@
     }
 
     .extension-remove {
-      color: $secondary;
+      color: $extensionsPickerRemoveButtonColor;
       height: 30px;
     }
 
@@ -65,15 +73,15 @@
       height: 20px;
 
       &.preview {
-        border: 1px solid $highlight;
+        border: 1px solid $extensionsPickerFlagPreviewColor;
       }
 
       &.experimental {
-        border: 1px solid $warning;
+        border: 1px solid $extensionsPickerFlagExperimentalColor;
       }
 
       &.default {
-        border: 1px solid $main;
+        border: 1px solid $extensionsPickerFlagDefaultColor;
       }
     }
 
@@ -90,8 +98,7 @@
         overflow: hidden;
       }
       @media screen and (max-width: $tabletWidth) {
-        line-height: 1.2rem;
-        color: #ccc;
+        color: $extensionsPickerDescriptionTextColorOnTablet;
       }
     }
 
@@ -102,31 +109,31 @@
       .pf-c-dropdown {
         border: 0;
         &.pf-m-expanded {
-          background-color: $backgroundSecondary;
+          background-color: $extensionsPickerMoreDropdownBg;
         }
       }
       .pf-c-dropdown__menu {
         right: 0;
         top: 30px;
-        background-color: $backgroundSecondary;
+        background-color: $extensionsPickerMoreDropdownBg;
         padding: 0;
         li {
-          background-color: $backgroundSecondary;
+          background-color: $extensionsPickerMoreDropdownBg;
           a {
-            color: $main;
-            background-color: $backgroundSecondary;
-            border-right: 2px solid $backgroundSecondary;
+            color: $extensionsPickerMoreDropdownTextColor;
+            background-color: $extensionsPickerMoreDropdownBg;
+            border-right: 2px solid $extensionsPickerMoreDropdownBg;
             svg {
               margin-right: 20px;
             }
           }
           a:hover {
-            border-right: 2px solid $main;
+            border-right: 2px solid $extensionsPickerMoreDropdownTextColor;
           }
         }
       }
       button.pf-c-dropdown__toggle {
-        color: $main;
+        color: $extensionsPickerMoreDropdownTextColor;
         min-width: 0;
         height: 30px;
         outline: none;
@@ -139,8 +146,9 @@
 
   .main-container .extension-list-wrapper {
     .extension-category {
-      border-bottom: 1px solid $highlight;
+      border-bottom: 1px solid $extensionsPickerCategoryUnderlineColor;
       font-weight: bold;
+      color: $extensionsPickerCategoryTextColor;
       font-size: 1.1rem;
       margin: 10px 0 5px 0;
       height: 30px;
@@ -151,10 +159,10 @@
     }
 
     .extension-item {
-      color: $main;
+      color: $extensionsPickerTextColor;
 
       &.keyboard-actived {
-        color: $highlight;
+        color: $extensionsPickerKeyboardActivedTextColor;
       }
 
       .extension-selector {
@@ -166,7 +174,7 @@
         order: 4;
         @media screen and (max-width: $tabletWidth) {
           line-height: 1.2rem;
-          color: #ccc;
+         
           flex-basis: 100%;
         }
       }
@@ -219,24 +227,24 @@
     }
 
     input.pf-c-form-control {
-      border: 1px solid $main;
+      border: 1px solid $extensionsPickerSearchTextColor;
       padding-left: 40px;
       margin-left: -40px;
       font-size: 14px;
       width: 100%;
       background: transparent;
-      color: $main;
+      color: $extensionsPickerSearchTextColor;
       font-family: "PT Mono", Regular;
       padding-bottom: 4px;
     }
 
     input.pf-c-form-control:focus {
       outline: none;
-      border: 1px solid $highlight;
+      border: 1px solid $extensionsPickerSearchBorderColorOnFocus;
     }
 
     h4 {
-      border-bottom: 1px solid $readonly;
+      border-bottom: 1px solid $mainContainerTextColor;
       font-weight: bold;
       margin-top: 40px;
       margin-bottom: 20px;
@@ -257,13 +265,13 @@
     }
 
     .extension-search-clear {
-      border-bottom: 1px solid $highlight;
+      border-bottom: 1px solid $extensionsPickerCategoryUnderlineColor;
       font-weight: bold;
       font-size: 1.1rem;
       margin: 0 0 5px 0;
       height: 30px;
       .pf-c-button.pf-m-link {
-        color: $secondary;
+        color: $extensionsPickerSearchClearColor;
         padding: 0 3px;
       }
     }

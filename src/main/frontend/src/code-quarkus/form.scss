@@ -10,7 +10,8 @@
   .form-header-sticky-container {
     position: sticky;
     top: 0;
-    background-image: url("/static/media/bg-form.jpg");
+    background-color: $topContainerBg;
+    background-image: $topContainerBgImage;
     background-size: 100% 220px;
     background-repeat: no-repeat;
     z-index: 110;
@@ -25,7 +26,7 @@
   }
 
   .title h3 {
-    color: $main;
+    color: $topContainerTextColor;
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 20px;
@@ -52,13 +53,13 @@
     }
 
     .pf-c-button {
-      color: $main;
+      color: $topContainerTextColor;
       font-size: 14px;
       text-transform: uppercase;
       text-align: left;
       width: 233px;
       svg {
-        color: $main;
+        color: $topContainerTextColor;
       }
     }
   }
@@ -66,15 +67,17 @@
   .project-extensions {
     margin: 0 auto;
     flex-basis: 100%;
+    background-color: $mainContainerBg;
+    color: $mainContainerTextColor;
 
     & > .title {
+      color: $mainContainerTextColor;
       text-align: center;
       margin-top: 20px;
       @media screen and (min-width: $mobileWidth) {
         display: none;
       }
     }
-
   }
 
   .generate-project {
@@ -86,23 +89,22 @@
     justify-content: flex-end;
 
     button.generate-button {
-      background-color: $highlight;
+      background-color: $generateButtonBgColor;
       border-radius: 0;
-      box-shadow: 0px 2px 2px #00000040;
       width: 280px;
       height: 36px;
       align-self: flex-end;
       text-align: center;
-      border: 1px solid $highlight;
-      color: $main;
+      border: 1px solid $generateButtonBgColor;
+      color: $generateButtonTextColor;
       &:hover {
-        border: 1px solid $main;
+        border: 1px solid $generateButtonTextColor;
       }
 
       &:disabled {
-        background-color: rgba(90, 149, 235, 0.342);
-        border: 1px solid rgba(90, 149, 235, 0.342);
-        color: rgba(255, 255, 255, 0.384);
+        background-color: $generateButtonDisabledBgAndBorderColor;
+        border: 1px solid $generateButtonDisabledBgAndBorderColor;
+        color: $generateButtonDisabledColor;
       }
     }
   }
@@ -112,7 +114,7 @@
       .pf-c-form__label {
         display: inline-block;
         width: 115px;
-        color: $primary;
+        color: $fieldLabelAndBorderColor;
         font-size: 14px;
         font-weight: bold;
         text-transform: capitalize;
@@ -123,11 +125,11 @@
         border: none;
         margin-left: -115px;
         padding-left: 115px;
-        border-bottom: 1px solid $primary;
+        border-bottom: 1px solid $fieldLabelAndBorderColor;
         font-size: 14px;
         width: 100%;
         background-color: transparent;
-        color: $main;
+        color: $fieldTextColor;
         outline: none;
         font-family: "PT Mono", Regular;
         padding-bottom: 4px;
@@ -135,30 +137,29 @@
       }
 
       &.quarkus-version {
-
         .pf-c-form__label {
-          color: $readonly;
+          color: $readonlyLabelAndBorderColor;
         }
         input.pf-c-form-control {
           cursor: not-allowed;
           padding-right: 82px;
           margin-right: -82px;
-          color: #bdbcbc;
-          border-bottom: 1px solid $readonly;
+          color: $readOnlyTextColor;
+          border-bottom: 1px solid $readonlyLabelAndBorderColor;
 
           &:focus {
-            border-bottom: 1px solid $readonly;
+            border-bottom: 1px solid $readonlyLabelAndBorderColor;
           }
         }
         &:after {
           content: "READ-ONLY";
           float: right;
-          color: $readonly;
+          color: $readonlyLabelAndBorderColor;
           font-size: 11px;
           padding: 2px;
           margin-top: 7px;
           margin-right: 5px;
-          border: 1px solid $readonly;
+          border: 1px solid $readonlyLabelAndBorderColor;
         }
       }
 
@@ -168,12 +169,12 @@
       }
 
       select.pf-c-form-control > option {
-        color: $background;
+        color: $selectOptionsTextColor;
       }
 
       input.pf-c-form-control:focus {
         outline: none;
-        border-bottom: 1px solid $highlight;
+        border-bottom: 1px solid $fieldLabelAndBorderHoverColor;
       }
     }
   }
