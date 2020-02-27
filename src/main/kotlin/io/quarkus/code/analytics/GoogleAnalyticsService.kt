@@ -7,6 +7,7 @@ import io.quarkus.runtime.StartupEvent
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import java.util.logging.Level.FINE
 import java.util.logging.Logger
+import java.util.regex.Pattern
 import javax.enterprise.event.Observes
 import javax.inject.Inject
 import javax.inject.Provider
@@ -18,6 +19,7 @@ open class GoogleAnalyticsService {
 
     companion object {
         private val LOG = Logger.getLogger(GoogleAnalyticsService::class.java.name)
+        val USER_AGENT_PATTERN = Pattern.compile("^\\S+/\\S+ (\\S+).*\$")
     }
 
     private lateinit var defaultUserAgent: String
@@ -124,7 +126,7 @@ open class GoogleAnalyticsService {
     }
 
     private fun fixUserAgent(userAgent: String?): String {
-        if (userAgent.isNullOrBlank() || userAgent.startsWith("Java")) {
+        if (userAgent.isNullOrBlank() || !USER_AGENT_PATTERN.matcher(userAgent).matches()) {
             return defaultUserAgent
         }
         return userAgent
