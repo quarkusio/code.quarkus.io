@@ -45,6 +45,9 @@ open class GoogleAnalyticsService {
     @ConfigProperty(name = "io.quarkus.code.ga.batchSize", defaultValue = "30")
     internal lateinit var batchSize: Provider<Int>
 
+    @ConfigProperty(name = "io.quarkus.code.hostname", defaultValue = "code.quarkus.io")
+    internal lateinit var hostname: Provider<String>
+
     var googleAnalytics: GoogleAnalytics? = null
 
     fun onStart(@Observes e: StartupEvent) {
@@ -70,7 +73,6 @@ open class GoogleAnalyticsService {
             url: String,
             userAgent: String?,
             referer: String?,
-            host: String?,
             remoteAddr: String?,
             extensions: Set<String>?,
             buildTool: String?
@@ -95,7 +97,7 @@ open class GoogleAnalyticsService {
                     sending analytic event:
                         - userAgent: ${fixedUserAgent}
                         - documentReferrer: ${referer}
-                        - documentHostName: ${host}
+                        - documentHostName: ${hostname.get()}
                         - userIp: ${remoteAddr != null}
                         - applicationName: ${applicationName}
                         - documentUrl: ${url}
@@ -108,7 +110,7 @@ open class GoogleAnalyticsService {
             event
                     .userAgent(fixedUserAgent)
                     .documentReferrer(referer)
-                    .documentHostName(host)
+                    .documentHostName(hostname.get())
                     .userIp(remoteAddr)
                     .dataSource("api")
                     .anonymizeIp(true)

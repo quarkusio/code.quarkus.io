@@ -41,9 +41,8 @@ class AnalyticsFilter : ContainerRequestFilter {
             val userAgent = context.headers.getFirst(HttpHeaders.USER_AGENT)
             val referer = context.headers.getFirst("Referer")
             val remoteAddr = httpRequest!!.remoteAddr
-            val host = "code.quarkus.io"
-            var extensions: Set<String>?
-            var buildTool: String?
+            val extensions: Set<String>?
+            val buildTool: String?
             if (path.startsWith("/download")) {
                 try {
                     extensions = extensionCatalog.checkAndMergeExtensions(queryParams["e"]?.toSet(), queryParams.getFirst("s"))
@@ -58,7 +57,6 @@ class AnalyticsFilter : ContainerRequestFilter {
                                 url = url,
                                 userAgent = userAgent,
                                 referer = referer,
-                                host = host,
                                 remoteAddr = remoteAddr,
                                 extensions = extensions,
                                 buildTool = buildTool
@@ -73,7 +71,6 @@ class AnalyticsFilter : ContainerRequestFilter {
                             url = url,
                             userAgent = userAgent,
                             referer = referer,
-                            host = host,
                             remoteAddr = remoteAddr,
                             extensions = extensions,
                             buildTool = buildTool
@@ -92,7 +89,6 @@ class AnalyticsFilter : ContainerRequestFilter {
                     url = url,
                     userAgent = userAgent,
                     referer = referer,
-                    host = host,
                     remoteAddr = remoteAddr,
                     extensions = null,
                     buildTool = null
