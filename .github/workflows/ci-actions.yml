@@ -28,8 +28,8 @@ env:
   LANG: en_US.UTF-8
 
 jobs:
-  build:
-    name: "Build"
+  build-test:
+    name: "Build & Test"
     runs-on: ubuntu-latest
     # Skip draft PRs and those with WIP in the subject, rerun as soon as its removed
     if: "github.event_name != 'pull_request' || ( \
