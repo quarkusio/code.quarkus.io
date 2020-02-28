@@ -68,7 +68,7 @@ objects:
                 - name: IO_QUARKUS_CODE_LOG_LEVEL
                   value: ${IO_QUARKUS_CODE_LOG_LEVEL}
                 - name: IO_QUARKUS_CODE_HOSTNAME
-                    value: ${IO_QUARKUS_CODE_HOSTNAME}
+                  value: ${IO_QUARKUS_CODE_HOSTNAME}
                 - name: IO_QUARKUS_CODE_SENTRY_DSN
                   valueFrom:
                     secretKeyRef:
