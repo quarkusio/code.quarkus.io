@@ -14,6 +14,7 @@
     background-image: $topContainerBgImage;
     background-size: 100% 220px;
     background-repeat: no-repeat;
+    color: $topContainerTextColor;
     z-index: 110;
     .form-header {
       display: flex;
@@ -26,7 +27,6 @@
   }
 
   .title h3 {
-    color: $topContainerTextColor;
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 20px;
