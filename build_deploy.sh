@@ -2,7 +2,7 @@
 
 set -exv
 
-IMAGE=${IMAGE-"quay.io/quarkus/code-quarkus-app"}
+IMAGE="quay.io/quarkus/code-quarkus-app"
 IMAGE_TAG=$(git rev-parse --short=7 HEAD)
 
 docker build -f src/main/docker/Dockerfile.native.multistage -t "${IMAGE}:${IMAGE_TAG}" .
