@@ -26,10 +26,10 @@ open class CodeQuarkusConfigManager {
     fun getConfig(): Config {
         return Config(
                 environment.get(),
-                gaTrackingId.get().orElse(null),
-                sentryDSN.get().orElse(null),
+                gaTrackingId.get().filter(String::isNotBlank).orElse(null),
+                sentryDSN.get().filter(String::isNotBlank).orElse(null),
                 quarkusVersion,
-                gitCommitId.get().orElse(null)
+                gitCommitId.get().filter(String::isNotBlank).orElse(null)
         )
     }
 
