@@ -96,7 +96,7 @@ button.pf-c-button {
     text-transform: uppercase;
     width: 200px;
     &:hover {
-      border: 1px solid $nextStepsModalDownloadButtonTextColor;
+      border: 1px solid $nextStepsModalDownloadButtonBorderColorOnHover;
     }
   }
 

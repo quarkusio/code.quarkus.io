@@ -98,9 +98,8 @@
       border: 1px solid $generateButtonBgColor;
       color: $generateButtonTextColor;
       &:hover {
-        border: 1px solid $generateButtonTextColor;
+        border: 1px solid $generateButtonBorderColorOnHover;
       }
-
       &:disabled {
         background-color: $generateButtonDisabledBgAndBorderColor;
         border: 1px solid $generateButtonDisabledBgAndBorderColor;

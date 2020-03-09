@@ -28,6 +28,7 @@ $readonlyLabelAndBorderColor: #707070;
 
 $generateButtonTextColor: white;
 $generateButtonBgColor: $secondary;
+$generateButtonBorderColorOnHover: white;
 $generateButtonDisabledBgAndBorderColor: rgba(90, 149, 235, 0.342);
 $generateButtonDisabledColor: rgba(255, 255, 255, 0.384);
 
@@ -50,6 +51,7 @@ $nextStepsModalCloseButtonBgHover: rgba(70, 149, 235, 0.548);
 
 $nextStepsModalDownloadButtonBg: $secondary;
 $nextStepsModalDownloadButtonTextColor: white;
+$nextStepsModalDownloadButtonBorderColorOnHover: white;
 
 $nextStepsModalFooterButtonBg: white;
 $nextStepsModalFooterButtonTextColor: $secondary;
