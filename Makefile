@@ -7,6 +7,9 @@ start-web:
 dev-web:
 	make -j2 dev start-web
 
+update-web-snapshots:
+	cd src/main/frontend && yarn && yarn test -u
+
 debug:
 	mvn compile quarkus:dev -Ddebug -Dsuspend
 

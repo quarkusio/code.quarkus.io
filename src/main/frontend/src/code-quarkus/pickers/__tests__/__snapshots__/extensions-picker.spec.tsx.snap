@@ -13,7 +13,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
         class="title"
       >
         <h3>
-          Extensions
+          Pick your extensions
         </h3>
       </div>
       <div
@@ -454,7 +454,7 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
         class="title"
       >
         <h3>
-          Extensions
+          Pick your extensions
         </h3>
       </div>
       <div
@@ -736,7 +736,7 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
         class="title"
       >
         <h3>
-          Extensions
+          Pick your extensions
         </h3>
       </div>
       <div
