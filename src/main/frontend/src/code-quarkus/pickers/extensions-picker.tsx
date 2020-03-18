@@ -239,7 +239,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     <div className="extensions-picker" aria-label="Extensions picker">
       <div className="control-container">
         <div className="title">
-          <h3>Extensions</h3>
+          <h3>Pick your extensions</h3>
         </div>
         <Tooltip position="bottom" exitDelay={0} zIndex={100} content={`${Array.from(categories).join(', ')}`}>
           <FormGroup

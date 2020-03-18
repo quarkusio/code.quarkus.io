@@ -27,7 +27,7 @@
   }
 
   .title h3 {
-    font-size: 32px;
+    font-size: 18px;
     font-weight: bold;
     margin-bottom: 20px;
   }
@@ -91,12 +91,15 @@
     button.generate-button {
       background-color: $generateButtonBgColor;
       border-radius: 0;
-      width: 280px;
-      height: 36px;
+      width: 320px;
+      height: 40px;
+      line-height: 40px;
+      padding: 0;
       align-self: flex-end;
       text-align: center;
       border: 1px solid $generateButtonBgColor;
       color: $generateButtonTextColor;
+      font-weight: bold;
       &:hover {
         border: 1px solid $generateButtonBorderColorOnHover;
       }
