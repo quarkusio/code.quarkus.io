@@ -27,7 +27,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
       props.onSave();
     }
   };
-  useHotkeys('alt+enter', save, [isMetadataValid]);
+  useHotkeys('alt+enter', save, [isMetadataValid, props.onSave]);
   const keyName = window.navigator.userAgent.toLowerCase().indexOf('mac') > -1 ? '⌥' : 'alt';
   return (
     <div className="code-quarkus-form">
