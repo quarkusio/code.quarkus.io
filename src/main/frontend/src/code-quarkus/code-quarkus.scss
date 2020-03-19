@@ -1,10 +1,8 @@
-@import url(https://fonts.googleapis.com/css?family=PT+Mono);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
 @import "config.scss";
 
 body {
   background: $background;
-  font-family: "Open Sans", Regular;
+  font-family: $font;
 }
 
 .responsive-container {

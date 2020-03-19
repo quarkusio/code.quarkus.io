@@ -81,7 +81,7 @@
   }
 
   .generate-project {
-    flex: 0 0 280px;
+    flex: 0 0 300px;
     align-self: center;
     height: 200px;
     display: flex;
@@ -91,7 +91,7 @@
     button.generate-button {
       background-color: $generateButtonBgColor;
       border-radius: 0;
-      width: 320px;
+      width: 300px;
       height: 40px;
       line-height: 40px;
       padding: 0;
@@ -112,6 +112,7 @@
   }
   .pf-c-form {
     grid-gap: 5px;
+
     .pf-c-form__group {
       .pf-c-form__label {
         display: inline-block;
@@ -133,7 +134,7 @@
         background-color: transparent;
         color: $fieldTextColor;
         outline: none;
-        font-family: "PT Mono", Regular;
+        font-family: $inputFont;
         padding-bottom: 4px;
         padding-right: 30px;
       }
@@ -177,6 +178,17 @@
       input.pf-c-form-control:focus {
         outline: none;
         border-bottom: 1px solid $fieldLabelAndBorderHoverColor;
+      }
+    }
+
+    &.base-settings .pf-c-form__group {
+      .pf-c-form__label {
+        width: 80px;
+      }
+      input.pf-c-form-control,
+      select.pf-c-form-control {
+        margin-left: -80px;
+        padding-left: 80px;
       }
     }
   }
