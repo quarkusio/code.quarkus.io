@@ -37,6 +37,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
           aria-invalid="false"
           aria-label="Search extensions"
           class="pf-c-form-control search-extensions-input"
+          css=""
           id="extension-search"
           placeholder=""
           type="search"
@@ -227,6 +228,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <span
                 class="extension-name"
+                title="ArC"
               >
                 ArC
               </span>
@@ -236,39 +238,34 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <div
                 class="extension-description"
+                title="Build time CDI dependency injection"
               >
                 Build time CDI dependency injection
               </div>
               <div
                 class="extension-more"
               >
-                <div
-                  class="pf-c-dropdown"
+                <button
+                  aria-expanded="false"
+                  aria-label="Actions"
+                  class="pf-c-dropdown__toggle"
+                  type="button"
                 >
-                  <button
-                    aria-expanded="false"
-                    aria-haspopup="true"
-                    aria-label="Actions"
-                    class="pf-c-dropdown__toggle"
-                    id="pf-toggle-id-0"
-                    type="button"
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    height="1em"
+                    role="img"
+                    style="vertical-align: -0.125em;"
+                    viewBox="0 0 192 512"
+                    width="1em"
                   >
-                    <svg
-                      aria-hidden="true"
-                      fill="currentColor"
-                      height="1em"
-                      role="img"
-                      style="vertical-align: -0.125em;"
-                      viewBox="0 0 192 512"
-                      width="1em"
-                    >
-                      <path
-                        d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-                        transform=""
-                      />
-                    </svg>
-                  </button>
-                </div>
+                    <path
+                      d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                      transform=""
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -308,8 +305,15 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <span
                 class="extension-name"
+                title="A CDI in name test"
               >
                 A CDI in name test
+              </span>
+              <span
+                class="extension-tag experimental"
+                title="Early feedback is requested to mature the idea. There is no guarantee of stability nor long term presence in the platform until the solution matures."
+              >
+                EXPERIMENTAL
               </span>
             </div>
             <div
@@ -317,39 +321,34 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <div
                 class="extension-description"
+                title="Some description"
               >
                 Some description
               </div>
               <div
                 class="extension-more"
               >
-                <div
-                  class="pf-c-dropdown"
+                <button
+                  aria-expanded="false"
+                  aria-label="Actions"
+                  class="pf-c-dropdown__toggle"
+                  type="button"
                 >
-                  <button
-                    aria-expanded="false"
-                    aria-haspopup="true"
-                    aria-label="Actions"
-                    class="pf-c-dropdown__toggle"
-                    id="pf-toggle-id-1"
-                    type="button"
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    height="1em"
+                    role="img"
+                    style="vertical-align: -0.125em;"
+                    viewBox="0 0 192 512"
+                    width="1em"
                   >
-                    <svg
-                      aria-hidden="true"
-                      fill="currentColor"
-                      height="1em"
-                      role="img"
-                      style="vertical-align: -0.125em;"
-                      viewBox="0 0 192 512"
-                      width="1em"
-                    >
-                      <path
-                        d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-                        transform=""
-                      />
-                    </svg>
-                  </button>
-                </div>
+                    <path
+                      d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                      transform=""
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -389,8 +388,15 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <span
                 class="extension-name"
+                title="Camel Netty4 test HTTP"
               >
                 Camel Netty4 test HTTP
+              </span>
+              <span
+                class="extension-tag preview"
+                title="This is work in progress. API or configuration properties might change as the extension matures. Give us your feedback :)"
+              >
+                PREVIEW
               </span>
             </div>
             <div
@@ -398,39 +404,34 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <div
                 class="extension-description"
+                title="Camel support for Netty"
               >
                 Camel support for Netty
               </div>
               <div
                 class="extension-more"
               >
-                <div
-                  class="pf-c-dropdown"
+                <button
+                  aria-expanded="false"
+                  aria-label="Actions"
+                  class="pf-c-dropdown__toggle"
+                  type="button"
                 >
-                  <button
-                    aria-expanded="false"
-                    aria-haspopup="true"
-                    aria-label="Actions"
-                    class="pf-c-dropdown__toggle"
-                    id="pf-toggle-id-2"
-                    type="button"
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    height="1em"
+                    role="img"
+                    style="vertical-align: -0.125em;"
+                    viewBox="0 0 192 512"
+                    width="1em"
                   >
-                    <svg
-                      aria-hidden="true"
-                      fill="currentColor"
-                      height="1em"
-                      role="img"
-                      style="vertical-align: -0.125em;"
-                      viewBox="0 0 192 512"
-                      width="1em"
-                    >
-                      <path
-                        d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-                        transform=""
-                      />
-                    </svg>
-                  </button>
-                </div>
+                    <path
+                      d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                      transform=""
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -478,6 +479,7 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           aria-invalid="false"
           aria-label="Search extensions"
           class="pf-c-form-control search-extensions-input"
+          css=""
           id="extension-search"
           placeholder=""
           type="search"
@@ -638,7 +640,11 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           class="pf-c-button pf-m-link"
           type="button"
         >
-          Clear search
+          <span
+            class="pf-c-button__text"
+          >
+            Clear search
+          </span>
         </button>
         )
       </div>
@@ -672,8 +678,15 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           >
             <span
               class="extension-name"
+              title="Camel Netty4 test HTTP"
             >
               Camel Netty4 test HTTP
+            </span>
+            <span
+              class="extension-tag preview"
+              title="This is work in progress. API or configuration properties might change as the extension matures. Give us your feedback :)"
+            >
+              PREVIEW
             </span>
           </div>
           <div
@@ -681,39 +694,34 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           >
             <div
               class="extension-description"
+              title="Camel support for Netty"
             >
               Camel support for Netty
             </div>
             <div
               class="extension-more"
             >
-              <div
-                class="pf-c-dropdown"
+              <button
+                aria-expanded="false"
+                aria-label="Actions"
+                class="pf-c-dropdown__toggle"
+                type="button"
               >
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  aria-label="Actions"
-                  class="pf-c-dropdown__toggle"
-                  id="pf-toggle-id-11"
-                  type="button"
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 192 512"
+                  width="1em"
                 >
-                  <svg
-                    aria-hidden="true"
-                    fill="currentColor"
-                    height="1em"
-                    role="img"
-                    style="vertical-align: -0.125em;"
-                    viewBox="0 0 192 512"
-                    width="1em"
-                  >
-                    <path
-                      d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-                      transform=""
-                    />
-                  </svg>
-                </button>
-              </div>
+                  <path
+                    d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                    transform=""
+                  />
+                </svg>
+              </button>
             </div>
           </div>
         </div>
@@ -760,6 +768,7 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           aria-invalid="false"
           aria-label="Search extensions"
           class="pf-c-form-control search-extensions-input"
+          css=""
           id="extension-search"
           placeholder=""
           type="search"
@@ -920,7 +929,11 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           class="pf-c-button pf-m-link"
           type="button"
         >
-          Clear search
+          <span
+            class="pf-c-button__text"
+          >
+            Clear search
+          </span>
         </button>
         )
       </div>
@@ -954,6 +967,7 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           >
             <span
               class="extension-name"
+              title="ArC"
             >
               ArC
             </span>
@@ -963,39 +977,34 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           >
             <div
               class="extension-description"
+              title="Build time CDI dependency injection"
             >
               Build time CDI dependency injection
             </div>
             <div
               class="extension-more"
             >
-              <div
-                class="pf-c-dropdown"
+              <button
+                aria-expanded="false"
+                aria-label="Actions"
+                class="pf-c-dropdown__toggle"
+                type="button"
               >
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  aria-label="Actions"
-                  class="pf-c-dropdown__toggle"
-                  id="pf-toggle-id-6"
-                  type="button"
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 192 512"
+                  width="1em"
                 >
-                  <svg
-                    aria-hidden="true"
-                    fill="currentColor"
-                    height="1em"
-                    role="img"
-                    style="vertical-align: -0.125em;"
-                    viewBox="0 0 192 512"
-                    width="1em"
-                  >
-                    <path
-                      d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-                      transform=""
-                    />
-                  </svg>
-                </button>
-              </div>
+                  <path
+                    d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                    transform=""
+                  />
+                </svg>
+              </button>
             </div>
           </div>
         </div>
@@ -1026,8 +1035,15 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           >
             <span
               class="extension-name"
+              title="A CDI in name test"
             >
               A CDI in name test
+            </span>
+            <span
+              class="extension-tag experimental"
+              title="Early feedback is requested to mature the idea. There is no guarantee of stability nor long term presence in the platform until the solution matures."
+            >
+              EXPERIMENTAL
             </span>
           </div>
           <div
@@ -1035,39 +1051,34 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           >
             <div
               class="extension-description"
+              title="Some description"
             >
               Some description
             </div>
             <div
               class="extension-more"
             >
-              <div
-                class="pf-c-dropdown"
+              <button
+                aria-expanded="false"
+                aria-label="Actions"
+                class="pf-c-dropdown__toggle"
+                type="button"
               >
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  aria-label="Actions"
-                  class="pf-c-dropdown__toggle"
-                  id="pf-toggle-id-7"
-                  type="button"
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  height="1em"
+                  role="img"
+                  style="vertical-align: -0.125em;"
+                  viewBox="0 0 192 512"
+                  width="1em"
                 >
-                  <svg
-                    aria-hidden="true"
-                    fill="currentColor"
-                    height="1em"
-                    role="img"
-                    style="vertical-align: -0.125em;"
-                    viewBox="0 0 192 512"
-                    width="1em"
-                  >
-                    <path
-                      d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-                      transform=""
-                    />
-                  </svg>
-                </button>
-              </div>
+                  <path
+                    d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
+                    transform=""
+                  />
+                </svg>
+              </button>
             </div>
           </div>
         </div>

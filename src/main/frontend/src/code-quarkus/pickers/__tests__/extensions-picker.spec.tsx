@@ -11,6 +11,8 @@ const entries: ExtensionEntry[] = [
   {
     "id": "io.quarkus:quarkus-arc",
     "name": "ArC",
+    "shortId": "a",
+    "status": "stable",
     "keywords": [
       "arc",
       "cdi",
@@ -27,6 +29,8 @@ const entries: ExtensionEntry[] = [
   {
     "id": "io.quarkus:quarkus-camel-netty4-http",
     "name": "Camel Netty4 test HTTP",
+    "status": "preview",
+    "shortId": "b",
     "default": false,
     "keywords": [
       "camel-netty4-http",
@@ -38,7 +42,9 @@ const entries: ExtensionEntry[] = [
   },
   {
     "id": "some-id",
+    "shortId": "c",
     "name": "A CDI in name test",
+    "status": "experimental",
     "default": false,
     "keywords": [
       "lambda",
@@ -58,12 +64,12 @@ const entries: ExtensionEntry[] = [
 describe('<ExtensionsPicker />', () => {
 
   it('renders the ExtensionsPicker correctly', () => {
-    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{}} onChange={() => { }} />);
+    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{extensions: []}} onChange={() => { }} buildTool="MAVEN" />);
     expect(comp.asFragment()).toMatchSnapshot();
   });
 
   it('show results for valid search', async () => {
-    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{}} onChange={() => { }} />);
+    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{extensions: []}} onChange={() => { }} buildTool="MAVEN" />);
 
     const searchField = comp.getByLabelText('Search extensions');
     fireEvent.change(searchField, { target: { value: 'CDI' } });
@@ -74,7 +80,7 @@ describe('<ExtensionsPicker />', () => {
 
   it('select values and save', async () => {
     const handleChange = jest.fn();
-    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{}} onChange={handleChange} />);
+    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{extensions: []}} onChange={handleChange} buildTool="MAVEN" />);
 
     const searchField = comp.getByLabelText('Search extensions');
     fireEvent.change(searchField, { target: { value: 'netty' } });

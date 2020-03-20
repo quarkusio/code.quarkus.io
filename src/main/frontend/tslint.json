@@ -3,7 +3,6 @@
   "rules": {
     "max-classes-per-file": false,
     "indent": [true, "spaces", 2],
-    // Custom
     "trailing-comma": [false, {"multiline": "always", "singleline": "never"}],
     "interface-name": [false, "always-prefix"],
     "whitespace": [true, "check-module", "check-rest-spread"],
@@ -28,7 +27,6 @@
         ]
       }
     ],
-    // General
     "no-console": [true,
       "time",
       "timeEnd",
@@ -36,7 +34,7 @@
     ],
     "max-line-length": [
       true,
-      {"limit": 140, "ignore-pattern": "^import"},
+      {"limit": 140, "ignore-pattern": "^import"}
     ],
     "no-string-literal": false,
     "no-use-before-declare": true,

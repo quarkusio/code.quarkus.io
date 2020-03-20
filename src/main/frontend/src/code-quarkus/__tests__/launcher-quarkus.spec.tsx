@@ -1,6 +1,8 @@
-import { act, cleanup, fireEvent, render, RenderResult } from '@testing-library/react';
+import {act, cleanup, fireEvent, render, RenderResult} from '@testing-library/react';
 import * as React from 'react';
-import { CodeQuarkus } from '../code-quarkus';
+import {CodeQuarkus} from '../code-quarkus';
+
+jest.useFakeTimers();
 
 jest.mock('../backend-api', () => ({
   fetchExtensions: () => ([
@@ -72,7 +74,6 @@ jest.mock('../backend-api', () => ({
   fetchConfig: () => { throw new Error("not used"); }
 }));
 
-
 afterEach(() => {
   cleanup();
 });
@@ -132,6 +133,8 @@ it('Let user customize an Application and Generate it', async () => {
 
   const ext3 = await comp!.findByLabelText('Switch io.quarkus:quarkus-resteasy-jackson extension');
   fireEvent.click(ext3);
+
+  act(() => { jest.runAllTimers(); });
 
   // Generate
   const generateBtn = await comp!.findByLabelText('Generate your application');

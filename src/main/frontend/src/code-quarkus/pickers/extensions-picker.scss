@@ -105,6 +105,7 @@
     .extension-more {
       max-width: 150px;
       font-size: 0.8rem;
+      height: 33px;
 
       .pf-c-dropdown {
         border: 0;
@@ -135,8 +136,14 @@
       button.pf-c-dropdown__toggle {
         color: $extensionsPickerTextColor;
         min-width: 0;
-        height: 30px;
         outline: none;
+        padding: 0.5rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        display: flex;
+        font-weight: 400;
+        align-items: center;
+        justify-content: space-between;
       }
       button.pf-c-dropdown__toggle:before {
         border: 0;
@@ -234,7 +241,7 @@
       width: 100%;
       background: transparent;
       color: $extensionsPickerSearchTextColor;
-      font-family: "PT Mono", Regular;
+      font-family: $inputFont;
       padding-bottom: 4px;
     }
 
