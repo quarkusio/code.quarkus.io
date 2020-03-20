@@ -1,15 +1,15 @@
 import { Button, Dropdown, DropdownItem, DropdownPosition, FormGroup, KebabToggle, TextInput, Tooltip } from "@patternfly/react-core";
-import { CheckSquareIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon, MapIcon } from "@patternfly/react-icons";
+import { CheckSquareIcon, EllipsisVIcon, MapIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon } from "@patternfly/react-icons";
 import classNames from 'classnames';
 import hotkeys from 'hotkeys-js';
-import React, { KeyboardEvent, useState, useRef, useEffect } from "react";
+import _ from 'lodash';
+import React, { KeyboardEvent, useEffect, useRef, useState } from "react";
 import { useHotkeys } from 'react-hotkeys-hook';
 import { InputProps, useAnalytics } from '../../core';
 import { CopyToClipboard } from '../copy-to-clipboard';
 import { QuarkusBlurb } from '../quarkus-blurb';
 import { processEntries } from './extensions-picker-helpers';
 import './extensions-picker.scss';
-import _ from 'lodash';
 
 export interface ExtensionEntry {
   id: string;
@@ -46,29 +46,72 @@ interface ExtensionProps extends ExtensionEntry {
 }
 
 function StatusTag(props: { status?: string }) {
-  if(!props.status) {
+  if (!props.status) {
     return <React.Fragment />;
   }
   switch (props.status) {
     case 'stable':
       return <React.Fragment />;
     case 'preview':
-      return <Tooltip position="right" content="This is work in progress. API or configuration properties might change as the extension matures. Give us your feedback :)" exitDelay={0} zIndex={100}><span
-          className="extension-tag preview"
-      >PREVIEW</span></Tooltip>;
+      return <span
+        className="extension-tag preview"
+        title="This is work in progress. API or configuration properties might change as the extension matures. Give us your feedback :)"
+      >PREVIEW</span>;
     case 'experimental':
-      return <Tooltip position="right" content="Early feedback is requested to mature the idea. There is no guarantee of stability nor long term presence in the platform until the solution matures." exitDelay={0} zIndex={100}><span
-          className="extension-tag experimental"
-      >EXPERIMENTAL</span></Tooltip>;
+      return <span
+        className="extension-tag experimental"
+        title="Early feedback is requested to mature the idea. There is no guarantee of stability nor long term presence in the platform until the solution matures."
+      >EXPERIMENTAL</span>;
     default:
       return <React.Fragment />;
   }
 }
 
-function Extension(props: ExtensionProps) {
-  const [hover, setHover] = useState(false);
+function More(props: ExtensionEntry) {
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const analytics = useAnalytics();
+  const addMvnExt = `./mvnw quarkus:add-extension -Dextensions="${props.id}"`;
+  const addGradleExt = `./gradlew addExtension --extensions="${props.id}"`;
+  const closeMore = () => {
+    setTimeout(() => setIsMoreOpen(false), 1000);
+  }
+
+  const openGuide = () => {
+    analytics && analytics.event('Extension', 'Click "Open Extension Guide" link', props.id);
+    closeMore();
+  }
+
+  const moreItems = [
+    <DropdownItem key="maven" variant="icon">
+      <CopyToClipboard event={["Extension", 'Copy the command to add it with Maven', props.id]} content={addMvnExt} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy the command to add it with Maven</CopyToClipboard>
+    </DropdownItem>,
+    <DropdownItem key="gradle" variant="icon">
+      <CopyToClipboard event={["Extension", 'Copy the command to add it with Gradle', props.id]} content={addGradleExt} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy the command to add it with Gradle</CopyToClipboard>
+    </DropdownItem>,
+    <DropdownItem key="id" variant="icon">
+      <CopyToClipboard event={["Extension", "Copy the GAV", props.id]} content={props.id} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy the extension GAV</CopyToClipboard>
+    </DropdownItem>
+  ];
+
+  if (props.guide) {
+    moreItems.push(
+      <DropdownItem key="guide" variant="icon" href={props.guide} target="_blank" onClick={openGuide}>
+        <MapIcon /> Open Extension Guide
+        </DropdownItem>
+    );
+  }
+
+  return <Dropdown
+    isOpen={isMoreOpen}
+    position={DropdownPosition.left}
+    toggle={<KebabToggle onToggle={() => setIsMoreOpen(!isMoreOpen)} />}
+    onClick={(e) => e.stopPropagation()}
+    dropdownItems={moreItems} />
+}
+
+function Extension(props: ExtensionProps) {
+  const [hover, setHover] = useState(false);
+
   const onClick = () => {
     if (props.default) {
       return;
@@ -82,64 +125,33 @@ function Extension(props: ExtensionProps) {
     onMouseEnter: () => setHover(true),
     onMouseLeave: () => setHover(false),
   };
-  const closeMore = () => {
-    setTimeout(() => setIsMoreOpen(false), 1000);
-  }
 
-  const openGuide = () => {
-    analytics && analytics.event('Extension', 'Click "Open Extension Guide" link', props.id);
-    closeMore();
-  }
   const description = props.description || '...';
-  const descTooltip = <div><b>{props.name}</b><p>{description}</p></div>;
-  let tooltip = props.detailed && !props.default ?
-    <div>{props.selected ? 'Remove' : 'Add'} the extension <b>{props.name}</b></div> : descTooltip;
-
-  const addMvnExt = `./mvnw quarkus:add-extension -Dextensions="${props.id}"`;
   const selected = props.selected || props.default;
-  const addGradleExt = `./gradlew addExtension --extensions="${props.id}"`;
-  const moreItems = [
-    <DropdownItem key="maven" variant="icon">
-      <CopyToClipboard event={["Extension", 'Copy the command to add it with Maven', props.id]} content={addMvnExt} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy the command to add it with Maven</CopyToClipboard>
-    </DropdownItem>,
-    <DropdownItem key="gradle" variant="icon">
-      <CopyToClipboard event={["Extension", 'Copy the command to add it with Gradle', props.id]} content={addGradleExt} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy the command to add it with Gradle</CopyToClipboard>
-    </DropdownItem>,
-    <DropdownItem key="id" variant="icon">
-      <CopyToClipboard event={["Extension", "Copy the GAV", props.id]} content={props.id} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy the extension GAV</CopyToClipboard>
-    </DropdownItem>
-  ];
-  if (props.guide) {
-    moreItems.push(
-      <DropdownItem key="guide" variant="icon" href={props.guide} target="_blank" onClick={openGuide}>
-        <MapIcon /> Open Extension Guide
-      </DropdownItem>
-    );
-  }
+
   return (
     <div {...activationEvents} className={classNames('extension-item', { 'keyboard-actived': props.keyboardActived, hover, selected, 'by-default': props.default })}>
       {props.detailed && (
-        <Tooltip position="bottom" content={tooltip} exitDelay={0} zIndex={100}>
-          <div
-            className="extension-selector"
-            aria-label={`Switch ${props.id} extension`}
-          >
-            {!selected && !(hover) && <OutlinedSquareIcon />}
-            {(hover || selected) && <CheckSquareIcon />}
-          </div>
-        </Tooltip>
+        <div
+          className="extension-selector"
+          aria-label={`Switch ${props.id} extension`}
+        >
+          {!selected && !(hover) && <OutlinedSquareIcon />}
+          {(hover || selected) && <CheckSquareIcon />}
+        </div>
       )}
 
       <div className="extension-summary">
-        <Tooltip position="bottom" content={descTooltip} exitDelay={0} zIndex={100}>
-          <span
-            className="extension-name"
-          >{props.name}</span>
-        </Tooltip>
+        <span
+          className="extension-name"
+          title={props.name}
+        >{props.name}</span>
         {props.status && props.status.split(',').map((s, i) => <StatusTag key={i} status={s} />)}
-        {props.default && <Tooltip position="right" content="Applications generated with Code Quarkus are currently demonstrating a Hello World REST endpoint, this extension is therefore included by default to make this use case work." exitDelay={0} zIndex={100}><span
+        {props.default && <span
+          title="Applications generated with Code Quarkus are currently demonstrating a Hello World REST endpoint, this extension is therefore included by default to make this use case work."
           className="extension-tag default"
-        >INCLUDED</span></Tooltip>}
+        >INCLUDED</span>
+        }
       </div>
 
       {!props.detailed && (
@@ -152,18 +164,15 @@ function Extension(props: ExtensionProps) {
 
       {props.detailed && (
         <div className="extension-details">
-          <Tooltip position="bottom" content={descTooltip} exitDelay={0} zIndex={100}>
-            <div
-              className="extension-description"
-            >{description}</div>
-          </Tooltip>
+          <div
+            className="extension-description" title={description}
+          >{description}</div>
           <div className="extension-more">
-            <Dropdown
-              isOpen={isMoreOpen}
-              position={DropdownPosition.left}
-              toggle={<KebabToggle onToggle={() => setIsMoreOpen(!isMoreOpen)} />}
-              onClick={(e) => e.stopPropagation()}
-              dropdownItems={moreItems} />
+            {!hover &&
+              <button aria-label="Actions" className="pf-c-dropdown__toggle" type="button" aria-expanded="false">
+                <EllipsisVIcon />
+              </button>}
+            {hover && <More {...props} />}
           </div>
         </div>
       )}
@@ -200,7 +209,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
       debouncedSearchEvent([...topEvents, ['UX', 'Search', filter]]);
     }
   }, [filter, result, debouncedSearchEvent]);
-  
+
   const add = (index: number, origin: string) => {
     const id = result[index].id
     entrySet.add(id);
@@ -270,6 +279,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
               className="search-extensions-input"
               value={filter}
               onChange={search}
+              css=""
             />
           </FormGroup>
         </Tooltip>

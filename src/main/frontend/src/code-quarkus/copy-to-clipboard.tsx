@@ -19,8 +19,8 @@ export function CopyToClipboard(props: CopyToClipboardProps) {
   const [active, setActive] = useState(false);
   const [copied, setCopied] = useState(false);
   const [copiedText, setCopiedText] = useState(false);
-  const [timeoutRef1, setTimeoutRef1] = useState();
-  const [timeoutRef2, setTimeoutRef2] = useState();
+  const [timeoutRef1, setTimeoutRef1] = useState<number>();
+  const [timeoutRef2, setTimeoutRef2] = useState<number>();
   const analytics = useAnalytics();
   
   useEffect(() => {
@@ -39,8 +39,8 @@ export function CopyToClipboard(props: CopyToClipboardProps) {
     }
     setCopied(true);
     setCopiedText(true);
-    setTimeoutRef1(setTimeout(() => setCopiedText(false), 2000));
-    setTimeoutRef2(setTimeout(() => setCopied(false), 1500));
+    setTimeoutRef1(window.setTimeout(() => setCopiedText(false), 2000));
+    setTimeoutRef2(window.setTimeout(() => setCopied(false), 1500));
   }
   const tooltip = copiedText ? <h3>Successfuly copied to clipboard!</h3> : <span>Copy to clipboard: <br /><code>{props.content}</code></span>;
   return (
