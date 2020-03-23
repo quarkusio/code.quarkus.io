@@ -1,23 +1,24 @@
 import React from 'react';
 import './header.scss';
+import {AngleLeftIcon} from "@patternfly/react-icons";
+import {useAnalytics} from "../core/analytics";
 
 export function Header() {
+  const analytics = useAnalytics();
+  const linkClick = (e: any) => {
+    const link = e.target.getAttribute('href');
+    analytics.event("UX", "Click on header link", link);
+  };
   return (
     <div className="header">
       <div className="header-content responsive-container">
         <div className="brand">
-          <a href="/">
+          <a href="/" onClick={linkClick}>
             <img src="/static/media/quarkus-logo.svg" className="project-logo" title="Quarkus" alt="Quarkus"/>
           </a>
         </div>
         <div className="nav-container">
-          <ul className="nav-list">
-            <li><a href="https://quarkus.io/get-started/">Get Started</a></li>
-            <li><a href="https://quarkus.io/guides/">Guides</a></li>
-            <li><a href="https://quarkus.io/community/">Community</a></li>
-            <li><a href="https://quarkus.io/blog/">Blog</a></li>
-            <li><a className="start-coding" href="/">Start Coding</a></li>
-          </ul>
+          <a href="https://quarkus.io" onClick={linkClick}><AngleLeftIcon /> Back to quarkus.io</a>
         </div>
       </div>
     </div>

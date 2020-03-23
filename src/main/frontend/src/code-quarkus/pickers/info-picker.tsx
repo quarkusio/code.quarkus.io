@@ -59,6 +59,7 @@ export const InfoPicker = (props: InfoPickerProps) => {
     if (props.isValid !== isValidInfo(localValue)) {
       onChange(localValue, !props.isValid);
     }
+    // eslint-disable-next-line
   }, []);
 
   const onGroupIdChange = (newValue: string) => onInputChange({ ...localValue, groupId: newValue });
