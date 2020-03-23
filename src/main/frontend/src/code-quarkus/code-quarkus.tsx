@@ -12,7 +12,7 @@ import { CLIENT_NAME } from './backend-api';
 import { ExtensionEntry } from './pickers/extensions-picker';
 
 enum Status {
-  EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
+  EDITION = 'EDITION', RUNNING = 'RUNNING', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
 }
 
 interface RunState {
@@ -37,7 +37,7 @@ export interface QuarkusProject {
   extensions: ExtensionEntry[];
 }
 
-async function generateProject(project: QuarkusProject): Promise<{ downloadLink: string }> {
+async function generateProject(environment: string, project: QuarkusProject): Promise<{ downloadLink: string }> {
   const packageName = project.metadata.packageName || project.metadata.groupId;
   const params = {
     ...(project.metadata.groupId && { g: project.metadata.groupId }),
@@ -50,7 +50,9 @@ async function generateProject(project: QuarkusProject): Promise<{ downloadLink:
   }
   const backendUrl = process.env.REACT_APP_BACKEND_URL || publicUrl;
   const downloadLink = `${backendUrl}/d?${stringify(params)}`;
-  setTimeout(() => window.open(downloadLink, '_blank'), 1000);
+  if(environment !== 'dev') {
+    setTimeout(() => window.open(downloadLink, '_blank'), 1000);
+  }
   return { downloadLink };
 }
 
@@ -80,7 +82,7 @@ export function CodeQuarkus(props: LaunchFlowProps) {
   const generate = () => {
     setRun({ status: Status.RUNNING });
     analytics.event("UX", "Generate application", 'Click on "Generate your application" button');
-    generateProject(project).then((result) => {
+    generateProject(props.config.environment, project).then((result) => {
       setRun((prev) => ({ ...prev, result, status: Status.DOWNLOADED }));
     }).catch(error => {
       setRun((prev) => ({ ...prev, status: Status.ERROR, error }));
@@ -100,7 +102,7 @@ export function CodeQuarkus(props: LaunchFlowProps) {
         <Header />
         <CodeQuarkusForm project={project} setProject={setProject} onSave={generate} quarkusVersion={props.config.quarkusVersion} />
         {!run.error && run.status === Status.DOWNLOADED
-          && (<NextSteps onClose={closeNextSteps} downloadLink={run.result.downloadLink} buildTool={project.metadata.buildTool} />)}
+          && (<NextSteps onClose={closeNextSteps} downloadLink={run.result.downloadLink} buildTool={project.metadata.buildTool} extensions={project.extensions} />)}
       </div>
     </AnalyticsContext.Provider>
   );

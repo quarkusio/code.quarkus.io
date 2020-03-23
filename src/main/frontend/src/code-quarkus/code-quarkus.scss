@@ -53,6 +53,11 @@ button.pf-c-button {
       padding: 0;
       color: $nextStepsModalLinkColor;
     }
+
+    a {
+      color: $nextStepsModalLinkColor;
+    }
+
   }
   .pf-c-title {
     color: $nextStepsModalTitleColor;
@@ -86,7 +91,7 @@ button.pf-c-button {
     }
   }
 
-  .download-button {
+  a.download-button {
     background-color: $nextStepsModalDownloadButtonBg;
     border: 1px solid $nextStepsModalDownloadButtonBg;
     color: $nextStepsModalDownloadButtonTextColor;
