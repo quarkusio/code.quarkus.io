@@ -2,11 +2,13 @@ import { ExternalLink, useAnalytics } from '../core';
 import { Button, Modal, TextContent } from '@patternfly/react-core';
 import React from 'react';
 import { CopyToClipboard } from './copy-to-clipboard';
+import {ExtensionEntry} from "./pickers/extensions-picker";
 
 interface NextStepsProps {
   downloadLink?: string;
   onClose?(reset?: boolean): void;
   buildTool: string
+  extensions: ExtensionEntry[];
 }
 
 export function NextSteps(props: NextStepsProps) {
@@ -22,6 +24,12 @@ export function NextSteps(props: NextStepsProps) {
   const onClickGuides = () => {
     analytics.event(baseEvent[0], baseEvent[1], 'Click "guides" link')
   };
+
+  const onClickGuide = (id: string) => () => {
+    analytics.event(baseEvent[0], baseEvent[1], 'Click "guide" link');
+    analytics.event('Extensions', 'Click "Open Extension Guide" link', id);
+  };
+  const extensionsWithGuides = props.extensions.filter(e => !!e.guide);
   const devModeEvent = [...baseEvent, 'Copy "Dev mode" command'];
   return (
     <Modal
@@ -54,8 +62,20 @@ export function NextSteps(props: NextStepsProps) {
           {props.buildTool === 'GRADLE' &&
           <code>$ ./gradlew quarkusDev <CopyToClipboard zIndex={5000} tooltipPosition="left" event={devModeEvent} content="./gradlew quarkusDev"/></code>
           }
-          Follow the <ExternalLink href="https://quarkus.io/guides/" aria-label="Start playing with Quarkus" onClick={onClickGuides}>guides</ExternalLink>  for your next steps!
         </div>
+        {extensionsWithGuides.length > 0 && <div>
+          <b>Read the guides we prepared for your application:</b>
+            <ul>
+              {extensionsWithGuides.map((e, i) => <li key={i}>
+                <a href={e.guide!} aria-label="Start playing with Quarkus" onClick={onClickGuide(e.id)} target="_blank" rel="noopener noreferrer">{e.name}</a>
+              </li>)}
+              <li><a href="https://quarkus.io/guides/" aria-label="Other guides" onClick={onClickGuides} target="_blank" rel="noopener noreferrer">...</a></li>
+            </ul>
+          </div>
+        }
+        {extensionsWithGuides.length === 0 && <div>
+          Follow the <ExternalLink href="https://quarkus.io/guides/" aria-label="Start playing with Quarkus" onClick={onClickGuides}>guides</ExternalLink>  for your next steps!
+        </div>}
       </TextContent>
     </Modal>
   );

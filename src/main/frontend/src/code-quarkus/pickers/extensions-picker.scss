@@ -221,6 +221,8 @@
     position: sticky;
     top: 220px;
     height: 800px;
+    display: flex;
+    flex-direction: column;
 
     @media screen and (max-width: $mobileWidth) {
       display: none;
@@ -256,8 +258,14 @@
       margin-top: 40px;
       margin-bottom: 20px;
     }
-    .extension-summary {
+    .selected-extensions {
       flex-grow: 1;
+      overflow: hidden;
+    }
+
+    .extension-list-wrapper {
+      height: calc(100% - 25px);
+      overflow-y: scroll;
     }
   }
 
