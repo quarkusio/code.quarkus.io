@@ -169,10 +169,7 @@ internal class QuarkusProjectCreatorTest {
         )
 
         @JvmStatic
-        val platformVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-platform-version", String::class.java)
-
-        @JvmStatic
-        val pluginVersion = QuarkusJsonPlatformDescriptorResolver.newInstance().resolveFromBom("io.quarkus", "quarkus-universe-bom", platformVersion).getQuarkusVersion()
+        val pluginVersion = QuarkusExtensionCatalog.descriptor.quarkusVersion
     }
 
     @Test

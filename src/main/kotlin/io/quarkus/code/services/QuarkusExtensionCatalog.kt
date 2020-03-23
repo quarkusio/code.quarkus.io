@@ -12,13 +12,19 @@ open class QuarkusExtensionCatalog {
 
     companion object {
         @JvmStatic
+        internal val platformGroupId = ConfigProviderResolver.instance().getConfig().getOptionalValue("io.quarkus.code.quarkus-platform-group-id", String::class.java).orElse("io.quarkus")
+
+        @JvmStatic
+        internal val platformArtifactId = ConfigProviderResolver.instance().getConfig().getOptionalValue("io.quarkus.code.quarkus-platform-artifact-id", String::class.java).orElse("quarkus-universe-bom")
+
+        @JvmStatic
         internal val platformVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-platform-version", String::class.java)
 
         @JvmStatic
         internal val bundledQuarkusVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-version", String::class.java)
 
         @JvmStatic
-        internal val descriptor = QuarkusJsonPlatformDescriptorResolver.newInstance().resolveFromBom("io.quarkus", "quarkus-universe-bom", platformVersion)
+        internal val descriptor = QuarkusJsonPlatformDescriptorResolver.newInstance().resolveFromBom(platformGroupId, platformArtifactId, platformVersion)
 
         @JvmStatic
         internal val processedExtensions = QuarkusExtensionUtils.processExtensions(descriptor)
