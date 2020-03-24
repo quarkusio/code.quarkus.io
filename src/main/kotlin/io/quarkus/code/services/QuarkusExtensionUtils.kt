@@ -84,9 +84,12 @@ object QuarkusExtensionUtils {
             return null
         }
         val keywords = ext.keywords ?: emptyList()
+        val id = "${ext.groupId}:${ext.artifactId}"
+        val shortId = createShortId(id)
         return CodeQuarkusExtension(
-                id ="${ext.groupId}:${ext.artifactId}",
-                shortId = createShortId(ext.artifactId),
+                id = id,
+                shortId = shortId,
+                version = ext.version,
                 name = ext.name,
                 description = ext.description,
                 shortName = getExtensionShortName(ext),
@@ -101,8 +104,8 @@ object QuarkusExtensionUtils {
 
     }
 
-    internal fun createShortId(artifactId: String): String {
-        val normalized = artifactId.replace("^(io.quarkus:)?quarkus-".toRegex(), "")
+    internal fun createShortId(id: String): String {
+        val normalized = id.replace("^(io.quarkus:)?quarkus-".toRegex(), "")
         return shorten(normalized)
     }
 

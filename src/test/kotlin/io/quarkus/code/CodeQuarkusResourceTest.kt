@@ -24,6 +24,7 @@ class CodeQuarkusResourceTest {
         given()
                 .`when`().get("/api/download")
                 .then()
+                .log().ifValidationFails()
                 .statusCode(200)
                 .contentType("application/zip")
                 .header("Content-Disposition", "attachment; filename=\"code-with-quarkus.zip\"")
@@ -37,6 +38,7 @@ class CodeQuarkusResourceTest {
                 .`when`()
                 .get("/api/download?g=org.acme&a=&pv=1.0.0&c=org.acme.TotoResource&s=98e")
                 .then()
+                .log().ifValidationFails()
                 .statusCode(400)
     }
 
@@ -47,6 +49,7 @@ class CodeQuarkusResourceTest {
                 .`when`()
                 .get("/api/download?g=org.acme.&s=98e")
                 .then()
+                .log().ifValidationFails()
                 .statusCode(400)
     }
 
@@ -57,6 +60,7 @@ class CodeQuarkusResourceTest {
                 .`when`()
                 .get("/api/download?a=Art.&s=98e")
                 .then()
+                .log().ifValidationFails()
                 .statusCode(400)
     }
 
@@ -67,6 +71,7 @@ class CodeQuarkusResourceTest {
                 .`when`()
                 .get("/api/download?p=invalid&s=98e")
                 .then()
+                .log().ifValidationFails()
                 .statusCode(400)
     }
 
@@ -77,6 +82,7 @@ class CodeQuarkusResourceTest {
                 .`when`()
                 .get("/api/download?c=com.1e&s=98e")
                 .then()
+                .log().ifValidationFails()
                 .statusCode(400)
     }
 
@@ -87,6 +93,7 @@ class CodeQuarkusResourceTest {
                 .`when`()
                 .get("/api/download?s=inv")
                 .then()
+                .log().ifValidationFails()
                 .statusCode(400)
     }
 
@@ -97,6 +104,7 @@ class CodeQuarkusResourceTest {
                 .`when`()
                 .get("/api/download?e=inv")
                 .then()
+                .log().ifValidationFails()
                 .statusCode(400)
     }
 
@@ -107,6 +115,7 @@ class CodeQuarkusResourceTest {
                 .`when`()
                 .get("/api/download?a=test-app-with-a-few-arg&v=1.0.0&s=D9x.9Ie")
                 .then()
+                .log().ifValidationFails()
                 .statusCode(200)
                 .contentType("application/zip")
                 .header("Content-Disposition", "attachment; filename=\"test-app-with-a-few-arg.zip\"")
@@ -128,6 +137,7 @@ class CodeQuarkusResourceTest {
                 .`when`()
                 .get("/api/download?g=org.acme&a=test-empty-shortids&v=1.0.1&b=MAVEN&c=org.acme.ExampleResource&s=")
                 .then()
+                .log().ifValidationFails()
                 .statusCode(200)
                 .contentType("application/zip")
                 .header("Content-Disposition", "attachment; filename=\"test-empty-shortids.zip\"")
@@ -147,6 +157,7 @@ class CodeQuarkusResourceTest {
                 .`when`()
                 .get("/api/download?g=org.acme&a=test-empty-ext&v=1.0.1&b=MAVEN&c=org.acme.ExampleResource&e=")
                 .then()
+                .log().ifValidationFails()
                 .statusCode(200)
                 .contentType("application/zip")
                 .header("Content-Disposition", "attachment; filename=\"test-empty-ext.zip\"")
@@ -165,8 +176,9 @@ class CodeQuarkusResourceTest {
     fun testWithUrlRewrite() {
         given()
                 .`when`()
-                .get("/d?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=org.toto.TotoResource&s=5Lt.L0j.9Ie")
+                .get("/d?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=org.toto.TotoResource&s=cvj.L0j.9Ie") // camel-quarkus-microprofile-metrics, quarkus-amazon-lambda-http, quarkus-elytron-security-oauth2
                 .then()
+                .log().ifValidationFails()
                 .statusCode(200)
                 .contentType("application/zip")
                 .header("Content-Disposition", "attachment; filename=\"test-app.zip\"")
@@ -178,7 +190,7 @@ class CodeQuarkusResourceTest {
                         version = "1.0.0",
                         className = "org.toto.TotoResource",
                         path = "/toto/titi",
-                        shortExtensions = "5Lt.L0j.9Ie"
+                        shortExtensions = "cvj.L0j.9Ie"
                 )
         )
         )
@@ -189,8 +201,9 @@ class CodeQuarkusResourceTest {
     fun testWithAllParams() {
         given()
                 .`when`()
-                .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=org.toto.TotoResource&s=5Lt.L0j.9Ie")
+                .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=org.toto.TotoResource&s=cvj.L0j.9Ie")
                 .then()
+                .log().ifValidationFails()
                 .statusCode(200)
                 .contentType("application/zip")
                 .header("Content-Disposition", "attachment; filename=\"test-app.zip\"")
@@ -202,7 +215,7 @@ class CodeQuarkusResourceTest {
                         version = "1.0.0",
                         className = "org.toto.TotoResource",
                         path = "/toto/titi",
-                        shortExtensions = "5Lt.L0j.9Ie"
+                        shortExtensions = "cvj.L0j.9Ie"
                 ))
         )
     }
@@ -214,6 +227,7 @@ class CodeQuarkusResourceTest {
                 .`when`()
                 .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=com.toto.TotoResource&e=io.quarkus:quarkus-resteasy&s=9Ie")
                 .then()
+                .log().ifValidationFails()
                 .statusCode(200)
                 .contentType("application/zip")
                 .header("Content-Disposition", "attachment; filename=\"test-app.zip\"")
@@ -238,6 +252,7 @@ class CodeQuarkusResourceTest {
         given()
                 .`when`().get("/api/config")
                 .then()
+                .log().ifValidationFails()
                 .statusCode(200)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body("environment", equalTo("dev"))
@@ -252,6 +267,7 @@ class CodeQuarkusResourceTest {
         given()
                 .`when`().get("/api/extensions")
                 .then()
+                .log().ifValidationFails()
                 .statusCode(200)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body("$.size()", greaterThan(50))
@@ -264,6 +280,7 @@ class CodeQuarkusResourceTest {
                 .`when`()
                 .get("/api/download?b=GRADLE&a=test-app-with-a-few-arg&v=1.0.0&s=pDS.L0j")
                 .then()
+                .log().ifValidationFails()
                 .statusCode(200)
                 .contentType("application/zip")
                 .header("Content-Disposition", "attachment; filename=\"test-app-with-a-few-arg.zip\"")

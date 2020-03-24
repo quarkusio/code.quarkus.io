@@ -11,6 +11,7 @@ const entries: ExtensionEntry[] = [
   {
     "id": "io.quarkus:quarkus-arc",
     "name": "ArC",
+    "version": "test-version",
     "shortId": "a",
     "status": "stable",
     "keywords": [
@@ -28,6 +29,7 @@ const entries: ExtensionEntry[] = [
   },
   {
     "id": "io.quarkus:quarkus-camel-netty4-http",
+    "version": "test-version",
     "name": "Camel Netty4 test HTTP",
     "status": "preview",
     "shortId": "b",
@@ -43,6 +45,7 @@ const entries: ExtensionEntry[] = [
   {
     "id": "some-id",
     "shortId": "c",
+    "version": "test-version",
     "name": "A CDI in name test",
     "status": "experimental",
     "default": false,

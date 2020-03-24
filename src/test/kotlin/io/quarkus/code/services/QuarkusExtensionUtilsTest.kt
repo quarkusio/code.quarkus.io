@@ -34,6 +34,7 @@ internal class QuarkusExtensionUtilsTest {
         assertThat(extensions[0], `is`(CodeQuarkusExtension(
                 "io.quarkus:quarkus-arc",
                 "zmg",
+                "999-SNAPSHOT",
                 "ArC",
                 "Build time CDI dependency injection",
                 "CDI",
@@ -48,6 +49,7 @@ internal class QuarkusExtensionUtilsTest {
         assertThat(extensions[5], `is`(CodeQuarkusExtension(
                 "io.quarkus:quarkus-netty",
                 "rpC",
+                "999-SNAPSHOT",
                 "Netty",
                 "Netty is a non-blocking I/O client-server framework. Used by Quarkus as foundation layer.",
                 null,
@@ -79,7 +81,7 @@ internal class QuarkusExtensionUtilsTest {
     }
 
 
-    internal fun getTestDescriptor(): QuarkusJsonPlatformDescriptor {
+    private fun getTestDescriptor(): QuarkusJsonPlatformDescriptor {
         val qpd = QuarkusJsonPlatformDescriptorLoaderImpl()
 
         val artifactResolver = object : ArtifactResolver {
