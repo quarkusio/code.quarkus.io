@@ -9,6 +9,7 @@ jest.mock('../backend-api', () => ({
     {
       "id": "io.quarkus:quarkus-arc",
       "shortId": "8mc",
+      "version": "test-version",
       "name": "ArC",
       "keywords": [
         "arc",
@@ -24,6 +25,7 @@ jest.mock('../backend-api', () => ({
     {
       "id": "io.quarkus:quarkus-resteasy",
       "shortId": "ogy",
+      "version": "test-version",
       "name": "RESTEasy JAX-RS",
       "keywords": [
         "resteasy",
@@ -39,6 +41,7 @@ jest.mock('../backend-api', () => ({
     {
       "id": "io.quarkus:quarkus-resteasy-jsonb",
       "shortId": "14pb",
+      "version": "test-version",
       "name": "RESTEasy JSON-B",
       "keywords": [
         "resteasy-jsonb",
@@ -56,6 +59,7 @@ jest.mock('../backend-api', () => ({
     {
       "id": "io.quarkus:quarkus-resteasy-jackson",
       "shortId": "1aen",
+      "version": "test-version",
       "name": "RESTEasy Jackson",
       "keywords": [
         "resteasy-jackson",

@@ -1,9 +1,7 @@
 package io.quarkus.code.services
 
 import io.quarkus.code.model.QuarkusProject
-import io.quarkus.platform.descriptor.resolver.json.QuarkusJsonPlatformDescriptorResolver
 import io.quarkus.test.junit.QuarkusTest
-import org.eclipse.microprofile.config.spi.ConfigProviderResolver
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*
 import org.junit.jupiter.api.DisplayName

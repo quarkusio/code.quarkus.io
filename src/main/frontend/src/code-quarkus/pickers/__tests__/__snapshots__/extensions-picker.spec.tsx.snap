@@ -228,7 +228,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <span
                 class="extension-name"
-                title="ArC"
+                title="ArC (test-version)"
               >
                 ArC
               </span>
@@ -305,7 +305,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <span
                 class="extension-name"
-                title="A CDI in name test"
+                title="A CDI in name test (test-version)"
               >
                 A CDI in name test
               </span>
@@ -388,7 +388,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <span
                 class="extension-name"
-                title="Camel Netty4 test HTTP"
+                title="Camel Netty4 test HTTP (test-version)"
               >
                 Camel Netty4 test HTTP
               </span>
@@ -678,7 +678,7 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           >
             <span
               class="extension-name"
-              title="Camel Netty4 test HTTP"
+              title="Camel Netty4 test HTTP (test-version)"
             >
               Camel Netty4 test HTTP
             </span>
@@ -967,7 +967,7 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           >
             <span
               class="extension-name"
-              title="ArC"
+              title="ArC (test-version)"
             >
               ArC
             </span>
@@ -1035,7 +1035,7 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           >
             <span
               class="extension-name"
-              title="A CDI in name test"
+              title="A CDI in name test (test-version)"
             >
               A CDI in name test
             </span>

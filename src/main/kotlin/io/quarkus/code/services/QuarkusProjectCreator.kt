@@ -44,20 +44,20 @@ open class QuarkusProjectCreator {
                 val sourceType = CreateProject.determineSourceType(extensions)
                 val context = mutableMapOf("path" to (project.path as Any))
                 val buildTool = io.quarkus.generators.BuildTool.valueOf(project.buildTool)
-                val success = CreateProject(zipWriter)
+                val success = CreateProject(zipWriter, QuarkusExtensionCatalog.descriptor)
                         .groupId(project.groupId)
                         .artifactId(project.artifactId)
                         .version(project.version)
                         .sourceType(sourceType)
                         .buildTool(buildTool)
                         .className(project.className)
-                        .extensions(extensions)
                         .doCreateProject(context)
                 if (!success) {
                     throw IOException("Error during Quarkus project creation")
                 }
-                AddExtensions(zipWriter, buildTool)
-                        .addExtensions(extensions)
+                AddExtensions(zipWriter, buildTool, QuarkusExtensionCatalog.descriptor)
+                        .extensions(extensions)
+                        .execute()
                 if (buildTool == BuildTool.MAVEN) {
                     addMvnw(zipWriter)
                 } else if (buildTool == BuildTool.GRADLE) {

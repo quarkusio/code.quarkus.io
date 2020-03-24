@@ -15,6 +15,7 @@ export interface ExtensionEntry {
   id: string;
   shortId: string;
   name: string;
+  version: string;
   keywords: string[];
   description?: string;
   shortName?: string;
@@ -70,8 +71,14 @@ function StatusTag(props: { status?: string }) {
 function More(props: ExtensionEntry) {
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const analytics = useAnalytics();
+  const gav = `${props.id}:${props.version}`;
+  const gavArray = gav.split(':');
   const addMvnExt = `./mvnw quarkus:add-extension -Dextensions="${props.id}"`;
   const addGradleExt = `./gradlew addExtension --extensions="${props.id}"`;
+  const xml = `<dependency>
+            <groupId>${gavArray[0]}</groupId>
+            <artifactId>${gavArray[1]}</artifactId>
+        </dependency>`;
   const closeMore = () => {
     setTimeout(() => setIsMoreOpen(false), 1000);
   }
@@ -88,8 +95,11 @@ function More(props: ExtensionEntry) {
     <DropdownItem key="gradle" variant="icon">
       <CopyToClipboard event={["Extension", 'Copy the command to add it with Gradle', props.id]} content={addGradleExt} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy the command to add it with Gradle</CopyToClipboard>
     </DropdownItem>,
+    <DropdownItem key="xml" variant="icon">
+      <CopyToClipboard event={["Extension", "Copy the extension pom.xml snippet", props.id]} content={xml} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy the extension pom.xml snippet</CopyToClipboard>
+    </DropdownItem>,
     <DropdownItem key="id" variant="icon">
-      <CopyToClipboard event={["Extension", "Copy the GAV", props.id]} content={props.id} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy the extension GAV</CopyToClipboard>
+      <CopyToClipboard event={["Extension", "Copy the GAV", props.id]} content={gav} tooltipPosition="left" onClick={closeMore} zIndex={201}>Copy the extension GAV</CopyToClipboard>
     </DropdownItem>
   ];
 
@@ -144,7 +154,7 @@ function Extension(props: ExtensionProps) {
       <div className="extension-summary">
         <span
           className="extension-name"
-          title={props.name}
+          title={`${props.name} (${props.version})`}
         >{props.name}</span>
         {props.status && props.status.split(',').map((s, i) => <StatusTag key={i} status={s} />)}
         {props.default && <span
