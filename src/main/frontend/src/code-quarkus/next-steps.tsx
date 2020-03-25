@@ -63,19 +63,23 @@ export function NextSteps(props: NextStepsProps) {
           <code>$ ./gradlew quarkusDev <CopyToClipboard zIndex={5000} tooltipPosition="left" event={devModeEvent} content="./gradlew quarkusDev"/></code>
           }
         </div>
-        {extensionsWithGuides.length > 0 && <div>
-          <b>Read the guides we prepared for your application:</b>
+        {extensionsWithGuides.length === 1 && <div>
+          <b>Follow the <ExternalLink href={extensionsWithGuides[0].guide!} aria-label={`${extensionsWithGuides[0].name} guide`} onClick={onClickGuide(extensionsWithGuides[0].id)}>{extensionsWithGuides[0].name} guide</ExternalLink> for your next steps!</b>
+        </div>
+        }
+        {extensionsWithGuides.length > 1 && <div>
+          <b>Follow the guides we prepared for your application:</b>
             <ul>
               {extensionsWithGuides.map((e, i) => <li key={i}>
-                <a href={e.guide!} aria-label="Start playing with Quarkus" onClick={onClickGuide(e.id)} target="_blank" rel="noopener noreferrer">{e.name}</a>
+                <ExternalLink href={e.guide!} aria-label="Start playing with Quarkus" onClick={onClickGuide(e.id)}>{e.name}</ExternalLink>
               </li>)}
-              <li><a href="https://quarkus.io/guides/" aria-label="Other guides" onClick={onClickGuides} target="_blank" rel="noopener noreferrer">...</a></li>
             </ul>
           </div>
         }
-        {extensionsWithGuides.length === 0 && <div>
-          Follow the <ExternalLink href="https://quarkus.io/guides/" aria-label="Start playing with Quarkus" onClick={onClickGuides}>guides</ExternalLink>  for your next steps!
-        </div>}
+        <div>
+          <br />
+          For more fun, have a look to our various <ExternalLink href="https://quarkus.io/guides/" aria-label="Start playing with Quarkus" onClick={onClickGuides}>Quarkus guides</ExternalLink>...
+        </div>
       </TextContent>
     </Modal>
   );
