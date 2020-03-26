@@ -50,6 +50,7 @@ class QuarkusProjectCreator {
                         .sourceType(sourceType)
                         .buildTool(buildTool)
                         .className(project.className)
+                        .javaTarget("11")
                         .doCreateProject(context)
                 if (!success) {
                     throw IOException("Error during Quarkus project creation")
