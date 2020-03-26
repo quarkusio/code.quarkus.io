@@ -1,4 +1,3 @@
-
 import { AnalyticsContext, GoogleAnalytics, useAnalytics, Analytics } from '../core';
 import { stringify } from 'querystring';
 import React, { useEffect, useState } from 'react';
@@ -22,7 +21,7 @@ interface RunState {
 }
 
 interface LaunchFlowProps {
-  config: Config
+  config: Config;
 }
 
 export interface QuarkusProject {
@@ -33,7 +32,7 @@ export interface QuarkusProject {
     name?: string;
     packageName?: string;
     buildTool: string;
-  }
+  };
   extensions: ExtensionEntry[];
 }
 
@@ -47,10 +46,10 @@ async function generateProject(environment: string, project: QuarkusProject): Pr
     ...(packageName && { c: `${packageName}.ExampleResource` }),
     ...(project.extensions && { s: project.extensions.map(e => e.shortId).join('.') }),
     cn: CLIENT_NAME,
-  }
+  };
   const backendUrl = process.env.REACT_APP_BACKEND_URL || publicUrl;
   const downloadLink = `${backendUrl}/d?${stringify(params)}`;
-  if(environment !== 'dev') {
+  if (environment !== 'dev') {
     setTimeout(() => window.open(downloadLink, '_blank'), 1000);
   }
   return { downloadLink };
@@ -72,8 +71,8 @@ export function CodeQuarkus(props: LaunchFlowProps) {
   const [analytics, setAnalytics] = useState<Analytics>(useAnalytics());
 
   useEffect(() => {
-    setAnalytics((analytics) => {
-      const newAnalytics = props.config.gaTrackingId ? new GoogleAnalytics(props.config.gaTrackingId) : analytics;
+    setAnalytics((prev) => {
+      const newAnalytics = props.config.gaTrackingId ? new GoogleAnalytics(props.config.gaTrackingId) : prev;
       newAnalytics.init();
       return newAnalytics;
     });
@@ -81,7 +80,7 @@ export function CodeQuarkus(props: LaunchFlowProps) {
 
   const generate = () => {
     setRun({ status: Status.RUNNING });
-    analytics.event("UX", "Generate application", 'Click on "Generate your application" button');
+    analytics.event('UX', 'Generate application', 'Click on "Generate your application" button');
     generateProject(props.config.environment, project).then((result) => {
       setRun((prev) => ({ ...prev, result, status: Status.DOWNLOADED }));
     }).catch(error => {
@@ -99,10 +98,10 @@ export function CodeQuarkus(props: LaunchFlowProps) {
   return (
     <AnalyticsContext.Provider value={analytics}>
       <div className="code-quarkus">
-        <Header />
-        <CodeQuarkusForm project={project} setProject={setProject} onSave={generate} quarkusVersion={props.config.quarkusVersion} />
+        <Header/>
+        <CodeQuarkusForm project={project} setProject={setProject} onSave={generate} quarkusVersion={props.config.quarkusVersion}/>
         {!run.error && run.status === Status.DOWNLOADED
-          && (<NextSteps onClose={closeNextSteps} downloadLink={run.result.downloadLink} buildTool={project.metadata.buildTool} extensions={project.extensions} />)}
+        && (<NextSteps onClose={closeNextSteps} downloadLink={run.result.downloadLink} buildTool={project.metadata.buildTool} extensions={project.extensions}/>)}
       </div>
     </AnalyticsContext.Provider>
   );

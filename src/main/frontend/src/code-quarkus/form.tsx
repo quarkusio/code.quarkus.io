@@ -37,7 +37,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
             <div className="title">
               <h3>Configure your application details</h3>
             </div>
-            <InfoPicker value={props.project.metadata} isValid={isMetadataValid} onChange={setMetadata} quarkusVersion={props.quarkusVersion} />
+            <InfoPicker value={props.project.metadata} isValid={isMetadataValid} onChange={setMetadata} quarkusVersion={props.quarkusVersion}/>
           </div>
           <div className="generate-project">
             <Button aria-label="Generate your application" isDisabled={!isMetadataValid} className="generate-button" onClick={save}>Generate your application ({keyName} + ⏎)</Button>

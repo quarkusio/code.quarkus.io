@@ -10,6 +10,7 @@
     "arrow-parens": false,
     "jsx-no-multiline-js": false,
     "jsx-no-lambda": false,
+    "jsx-alignment": false,
     "prefer-template": true,
     "member-ordering": [
       true,
@@ -34,7 +35,7 @@
     ],
     "max-line-length": [
       true,
-      {"limit": 140, "ignore-pattern": "^import"}
+      {"limit": 300, "ignore-pattern": "^import"}
     ],
     "no-string-literal": false,
     "no-use-before-declare": true,
