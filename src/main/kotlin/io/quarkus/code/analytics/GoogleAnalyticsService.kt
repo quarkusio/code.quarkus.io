@@ -5,6 +5,7 @@ import io.quarkus.code.config.CodeQuarkusConfig
 import io.quarkus.code.config.GoogleAnalyticsConfig
 import io.quarkus.runtime.StartupEvent
 import java.util.logging.Level.FINE
+import java.util.logging.Level.INFO
 import java.util.logging.Logger
 import java.util.regex.Pattern
 import javax.enterprise.event.Observes
@@ -40,7 +41,19 @@ class GoogleAnalyticsService {
                     .withTrackingId(gaTrackingId.get())
                     .withConfig(com.brsanthu.googleanalytics.GoogleAnalyticsConfig().setBatchSize(batchSize).setBatchingEnabled(batching))
                     .build()
-            LOG.info("GoogleAnalytics is enabled, trackingId: ${gaTrackingId.get()}, batchSize: $batchSize, batchingEnabled: ${batching}")
+            LOG.log(INFO) {"""
+                GoogleAnalytics is enabled:
+                    trackingId: ${gaTrackingId.get()}
+                    batchSize: $batchSize
+                    batchingEnabled: $batching
+                    hostname: ${config.hostname}
+                    defaultUseAgent: $defaultUserAgent
+                    extensionsDimensionIndex: ${gaConfig.extensionsDimensionIndex.orElse(-1)}
+                    extensionQtyDimensionIndex: ${gaConfig.extensionQtyDimensionIndex.orElse(-1)}
+                    quarkusVersionDimensionIndex: ${gaConfig.quarkusVersionDimensionIndex.orElse(-1)}
+                    buildToolDimensionIndex: ${gaConfig.buildToolDimensionIndex.orElse(-1)}
+                    extensionsDimensionIndex: ${gaConfig.extensionsDimensionIndex.orElse(-1)}
+            """.trimIndent()}
         } else {
             LOG.info("GoogleAnalytics is disabled")
         }

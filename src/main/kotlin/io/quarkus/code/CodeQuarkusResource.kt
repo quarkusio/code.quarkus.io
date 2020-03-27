@@ -1,5 +1,6 @@
 package io.quarkus.code
 
+import io.quarkus.code.analytics.GoogleAnalyticsService
 import io.quarkus.code.config.CodeQuarkusConfig
 import io.quarkus.code.config.GoogleAnalyticsConfig
 import io.quarkus.code.model.CodeQuarkusExtension
@@ -7,11 +8,14 @@ import io.quarkus.code.model.Config
 import io.quarkus.code.model.QuarkusProject
 import io.quarkus.code.services.QuarkusExtensionCatalog
 import io.quarkus.code.services.QuarkusProjectCreator
+import io.quarkus.runtime.StartupEvent
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
+import java.util.logging.Level
 import java.util.logging.Logger
+import javax.enterprise.event.Observes
 import javax.inject.Inject
 import javax.validation.Valid
 import javax.ws.rs.BeanParam
@@ -27,7 +31,7 @@ import javax.ws.rs.core.Response
 class CodeQuarkusResource {
 
     companion object {
-        private val log = Logger.getLogger(CodeQuarkusResource::class.java.name)
+        private val LOG = Logger.getLogger(CodeQuarkusResource::class.java.name)
     }
 
     @Inject
@@ -41,6 +45,16 @@ class CodeQuarkusResource {
 
     @Inject
     internal lateinit var projectCreator: QuarkusProjectCreator
+
+    fun onStart(@Observes e: StartupEvent) {
+        LOG.log(Level.INFO) {"""
+            Code Quarkus is started with:
+                environment = ${config.environment}
+                sentryDSN = ${config.sentryDSN.filter(String::isNotBlank).orElse(null)}
+                quarkusVersion = config.quarkusVersion,
+                gitCommitId: ${config.gitCommitId}
+        """.trimIndent()}
+    }
 
     @GET
     @Path("/config")
@@ -85,7 +99,7 @@ class CodeQuarkusResource {
                     .header("Content-Disposition", "attachment; filename=\"${project.artifactId}.zip\"")
                     .build()
         } catch (e: IllegalStateException) {
-            log.warning("Bad request: ${e.message}")
+            LOG.warning("Bad request: ${e.message}")
             return Response
                     .status(Response.Status.BAD_REQUEST)
                     .entity(e.message)

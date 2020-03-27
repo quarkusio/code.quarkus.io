@@ -1,6 +1,7 @@
 package io.quarkus.code.services
 
 import com.google.common.base.Preconditions.checkState
+import io.quarkus.code.CodeQuarkusResource
 import io.quarkus.code.config.CodeQuarkusConfig
 import io.quarkus.code.config.ExtensionProcessorConfig
 import io.quarkus.code.config.QuarkusPlatformConfig
@@ -9,6 +10,8 @@ import io.quarkus.platform.descriptor.QuarkusPlatformDescriptor
 import io.quarkus.platform.descriptor.resolver.json.QuarkusJsonPlatformDescriptorResolver
 import io.quarkus.runtime.StartupEvent
 import org.eclipse.microprofile.config.spi.ConfigProviderResolver
+import java.util.logging.Level
+import java.util.logging.Logger
 import java.util.stream.Collectors
 import javax.enterprise.event.Observes
 import javax.inject.Inject
@@ -18,6 +21,8 @@ import javax.inject.Singleton
 class QuarkusExtensionCatalog {
 
     companion object {
+        private val LOG = Logger.getLogger(QuarkusExtensionCatalog::class.java.name)
+
         @JvmStatic
         internal val platformGroupId = ConfigProviderResolver.instance().getConfig().getOptionalValue("io.quarkus.code.quarkus-platform.group-id", String::class.java).orElse("io.quarkus")
 
@@ -65,7 +70,10 @@ class QuarkusExtensionCatalog {
         extensions = QuarkusExtensionUtils.processExtensions(descriptor, extensionProcessorConfig)
         extensionsByShortId = extensions.associateBy { it.shortId }
         extensionsById = extensions.associateBy { it.id }
-        println("onStart")
+        LOG.log(Level.INFO) {"""
+            Extensions Catalog has been processed with ${extensions.size} extensions:
+                tagsFrom: ${extensionProcessorConfig.tagsFrom}
+        """.trimIndent()}
     }
 
 
