@@ -16,8 +16,11 @@ update-web-snapshots:
 debug:
 	mvn compile quarkus:dev -Ddebug -Dsuspend
 
-clean:
+clean-all:
 	mvn clean
+
+clean:
+	rm -rf ./target
 
 native:
 	mvn package -Pnative -DskipTests
