@@ -51,7 +51,7 @@ class CodeQuarkusResource {
             Code Quarkus is started with:
                 environment = ${config.environment}
                 sentryDSN = ${config.sentryDSN.filter(String::isNotBlank).orElse(null)}
-                quarkusVersion = config.quarkusVersion,
+                quarkusVersion = ${config.quarkusVersion},
                 gitCommitId: ${config.gitCommitId}
         """.trimIndent()}
     }
