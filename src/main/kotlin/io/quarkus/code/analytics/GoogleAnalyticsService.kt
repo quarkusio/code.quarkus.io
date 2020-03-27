@@ -33,7 +33,7 @@ class GoogleAnalyticsService {
 
     fun onStart(@Observes e: StartupEvent) {
         val gaTrackingId = gaConfig.trackingId
-        defaultUserAgent = "CodeQuarkusBackend/${gaTrackingId.orElse("unknown")} (${System.getProperty("os.name")}; ${System.getProperty("os.version")}; ${System.getProperty("os.arch")}, Java ${System.getProperty("java.version")})"
+        defaultUserAgent = "CodeQuarkusBackend/${config.gitCommitId} (${System.getProperty("os.name")}; ${System.getProperty("os.version")}; ${System.getProperty("os.arch")}, Java ${System.getProperty("java.version")})"
         if (googleAnalytics == null && gaTrackingId.filter(String::isNotBlank).isPresent) {
             val batching = gaConfig.batchingEnabled
             val batchSize = gaConfig.batchSize
@@ -47,7 +47,7 @@ class GoogleAnalyticsService {
                     batchSize: $batchSize
                     batchingEnabled: $batching
                     hostname: ${config.hostname}
-                    defaultUseAgent: $defaultUserAgent
+                    defaultUserAgent: $defaultUserAgent
                     extensionsDimensionIndex: ${gaConfig.extensionsDimensionIndex.orElse(-1)}
                     extensionQtyDimensionIndex: ${gaConfig.extensionQtyDimensionIndex.orElse(-1)}
                     quarkusVersionDimensionIndex: ${gaConfig.quarkusVersionDimensionIndex.orElse(-1)}
