@@ -10,7 +10,7 @@ interface CodeQuarkusConfig {
     val quarkusVersion: String
 
     @get:ConfigProperty(name = "git-commit-id")
-    val gitCommitId: Optional<String>
+    val gitCommitId: String
 
     @get:ConfigProperty(name = "environment", defaultValue = "dev")
     val environment: String

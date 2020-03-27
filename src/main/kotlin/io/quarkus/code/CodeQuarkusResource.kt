@@ -48,11 +48,11 @@ class CodeQuarkusResource {
     @Operation(summary = "Get the Quarkus Launcher configuration", hidden = true)
     fun config(): Config {
         return Config(
-                config.environment,
-                gaConfig.trackingId.filter(String::isNotBlank).orElse(null),
-                config.sentryDSN.filter(String::isNotBlank).orElse(null),
-                config.quarkusVersion,
-                config.gitCommitId.filter(String::isNotBlank).orElse(null)
+                environment = config.environment,
+                gaTrackingId = gaConfig.trackingId.filter(String::isNotBlank).orElse(null),
+                sentryDSN = config.sentryDSN.filter(String::isNotBlank).orElse(null),
+                quarkusVersion = config.quarkusVersion,
+                gitCommitId = config.gitCommitId
         )
     }
 
