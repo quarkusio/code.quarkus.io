@@ -150,6 +150,14 @@
                     <include>application.properties</include>
                 </includes>
             </resource>
+
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>application.properties</exclude>
+                </excludes>
+            </resource>
         </resources>
         <plugins>
             <plugin>
