@@ -1,21 +1,19 @@
 package io.quarkus.code.analytics
 
 import com.brsanthu.googleanalytics.GoogleAnalytics
-import com.brsanthu.googleanalytics.GoogleAnalyticsConfig
-import io.quarkus.code.services.CodeQuarkusConfigManager
+import io.quarkus.code.config.CodeQuarkusConfig
+import io.quarkus.code.config.GoogleAnalyticsConfig
 import io.quarkus.runtime.StartupEvent
-import org.eclipse.microprofile.config.inject.ConfigProperty
 import java.util.logging.Level.FINE
 import java.util.logging.Logger
 import java.util.regex.Pattern
 import javax.enterprise.event.Observes
 import javax.inject.Inject
-import javax.inject.Provider
 import javax.inject.Singleton
 
 
 @Singleton
-open class GoogleAnalyticsService {
+class GoogleAnalyticsService {
 
     companion object {
         private val LOG = Logger.getLogger(GoogleAnalyticsService::class.java.name)
@@ -25,40 +23,24 @@ open class GoogleAnalyticsService {
     private lateinit var defaultUserAgent: String
 
     @Inject
-    lateinit var config: CodeQuarkusConfigManager
+    lateinit var config: CodeQuarkusConfig
 
-    @ConfigProperty(name = "io.quarkus.code.ga.extensions-dimension-index", defaultValue = "-1")
-    internal lateinit var extensionsDimensionIndex: Provider<Int>
-
-    @ConfigProperty(name = "io.quarkus.code.ga.quarkus-version-dimension-index", defaultValue = "-1")
-    internal lateinit var quarkusVersionDimensionIndex: Provider<Int>
-
-    @ConfigProperty(name = "io.quarkus.code.ga.build-tool-dimension-index", defaultValue = "-1")
-    internal lateinit var buildToolDimensionIndex: Provider<Int>
-
-    @ConfigProperty(name = "io.quarkus.code.ga.extension-quantity-index", defaultValue = "-1")
-    internal lateinit var extensionQtyDimensionIndex: Provider<Int>
-
-    @ConfigProperty(name = "io.quarkus.code.ga.batching-enabled", defaultValue = "true")
-    internal lateinit var batchingEnabled: Provider<Boolean>
-
-    @ConfigProperty(name = "io.quarkus.code.ga.batchSize", defaultValue = "30")
-    internal lateinit var batchSize: Provider<Int>
-
-    @ConfigProperty(name = "io.quarkus.code.hostname", defaultValue = "code.quarkus.io")
-    internal lateinit var hostname: Provider<String>
+    @Inject
+    lateinit var gaConfig: GoogleAnalyticsConfig
 
     var googleAnalytics: GoogleAnalytics? = null
 
     fun onStart(@Observes e: StartupEvent) {
-        val gaTrackingId = config.gaTrackingId.get()
-        defaultUserAgent = "CodeQuarkusBackend/${config.gitCommitId.get().orElse("unknown")} (${System.getProperty("os.name")}; ${System.getProperty("os.version")}; ${System.getProperty("os.arch")}, Java ${System.getProperty("java.version")})"
+        val gaTrackingId = gaConfig.trackingId
+        defaultUserAgent = "CodeQuarkusBackend/${gaTrackingId.orElse("unknown")} (${System.getProperty("os.name")}; ${System.getProperty("os.version")}; ${System.getProperty("os.arch")}, Java ${System.getProperty("java.version")})"
         if (googleAnalytics == null && gaTrackingId.filter(String::isNotBlank).isPresent) {
+            val batching = gaConfig.batchingEnabled
+            val batchSize = gaConfig.batchSize
             googleAnalytics = GoogleAnalytics.builder()
                     .withTrackingId(gaTrackingId.get())
-                    .withConfig(GoogleAnalyticsConfig().setBatchSize(batchSize.get()).setBatchingEnabled(batchingEnabled.get()))
+                    .withConfig(com.brsanthu.googleanalytics.GoogleAnalyticsConfig().setBatchSize(batchSize).setBatchingEnabled(batching))
                     .build()
-            LOG.info("GoogleAnalytics is enabled, trackingId: ${gaTrackingId.get()}")
+            LOG.info("GoogleAnalytics is enabled, trackingId: ${gaTrackingId.get()}, batchSize: $batchSize, batchingEnabled: ${batching}")
         } else {
             LOG.info("GoogleAnalytics is disabled")
         }
@@ -80,24 +62,24 @@ open class GoogleAnalyticsService {
         val fixedUserAgent = fixUserAgent(userAgent)
         if (googleAnalytics != null) {
             val event = googleAnalytics!!.event()
-            if (extensions != null && extensionsDimensionIndex.get() >= 0) {
-                event.customDimension(extensionsDimensionIndex.get(), extensions.sorted().joinToString(","))
+            if (extensions != null && gaConfig.extensionsDimensionIndex.isPresent) {
+                event.customDimension(gaConfig.extensionsDimensionIndex.asInt, extensions.sorted().joinToString(","))
             }
-            if (extensions != null && extensionQtyDimensionIndex.get() >= 0) {
-                event.customDimension(extensionQtyDimensionIndex.get(), extensions.size.toString())
+            if (extensions != null && gaConfig.extensionQtyDimensionIndex.isPresent) {
+                event.customDimension(gaConfig.extensionQtyDimensionIndex.asInt, extensions.size.toString())
             }
-            if (quarkusVersionDimensionIndex.get() >= 0) {
-                event.customDimension(quarkusVersionDimensionIndex.get(), config.quarkusVersion)
+            if (gaConfig.quarkusVersionDimensionIndex.isPresent) {
+                event.customDimension(gaConfig.quarkusVersionDimensionIndex.asInt, config.quarkusVersion)
             }
-            if (buildTool != null && buildToolDimensionIndex.get() >= 0) {
-                event.customDimension(buildToolDimensionIndex.get(), buildTool)
+            if (buildTool != null && gaConfig.buildToolDimensionIndex.isPresent) {
+                event.customDimension(gaConfig.buildToolDimensionIndex.asInt, buildTool)
             }
             LOG.log(FINE) {
                 """
                     sending analytic event:
                         - userAgent: ${fixedUserAgent}
                         - documentReferrer: ${referer}
-                        - documentHostName: ${hostname.get()}
+                        - documentHostName: ${config.hostname}
                         - userIp: ${remoteAddr != null}
                         - applicationName: ${applicationName}
                         - documentUrl: ${url}
@@ -110,7 +92,7 @@ open class GoogleAnalyticsService {
             event
                     .userAgent(fixedUserAgent)
                     .documentReferrer(referer)
-                    .documentHostName(hostname.get())
+                    .documentHostName(config.hostname)
                     .userIp(remoteAddr)
                     .dataSource("api")
                     .anonymizeIp(true)

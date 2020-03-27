@@ -7,12 +7,11 @@ import io.quarkus.code.writer.CommonsZipProjectWriter
 import io.quarkus.generators.BuildTool
 import java.io.ByteArrayOutputStream
 import java.io.IOException
-import java.util.stream.Collectors.toSet
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-open class QuarkusProjectCreator {
+class QuarkusProjectCreator {
     companion object {
         private const val MVNW_RESOURCES_DIR = "/creator/mvnw"
         private const val MVNW_WRAPPER_DIR = ".mvn/wrapper"

@@ -9,12 +9,12 @@ interface Extension {
   version: string;
   name: string;
   keywords: string[];
+  tags: string[];
   description?: string;
   shortName?: string;
   category: string;
   default: boolean;
   order: number;
-  status: string;
   guide?: string;
 }
 

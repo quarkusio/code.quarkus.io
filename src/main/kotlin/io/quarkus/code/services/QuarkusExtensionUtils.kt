@@ -1,13 +1,13 @@
 package io.quarkus.code.services
 
+import com.google.common.collect.ImmutableList
 import com.google.common.collect.Lists
+import io.quarkus.code.config.ExtensionProcessorConfig
 import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.dependencies.Category
 import io.quarkus.dependencies.Extension
 import io.quarkus.platform.descriptor.QuarkusPlatformDescriptor
 import java.util.concurrent.atomic.AtomicInteger
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 import kotlin.math.abs
 import kotlin.math.pow
 
@@ -30,8 +30,7 @@ object QuarkusExtensionUtils {
      * This function will shorten the given string with the defined hashAlphabet and with a defined maximum length
      * Collisions are a possibility since only maxHashCode combination are available
      */
-    fun shorten(input: String): String
-    {
+    fun shorten(input: String): String {
         var res = abs(input.hashCode()) % maxHashCode
         var hash = ""
         do {
@@ -42,7 +41,7 @@ object QuarkusExtensionUtils {
     }
 
     @JvmStatic
-    fun processExtensions(descriptor: QuarkusPlatformDescriptor): List<CodeQuarkusExtension> {
+    fun processExtensions(descriptor: QuarkusPlatformDescriptor, config: ExtensionProcessorConfig): List<CodeQuarkusExtension> {
         val list = Lists.newArrayList<CodeQuarkusExtension>()
 
         val extById = descriptor.extensions.groupBy { toId(it) }
@@ -52,13 +51,12 @@ object QuarkusExtensionUtils {
             val pinnedList = getCategoryPinnedList(cat)
             val pinnedSet = pinnedList.toSet()
             pinnedList.forEach { id ->
-                val codeQExt = toCodeQuarkusExtension(extById[id]?.get(0), cat, order)
+                val codeQExt = toCodeQuarkusExtension(extById[id]?.get(0), cat, order, config)
                 codeQExt?.let { list.add(it) }
-
             }
             extByCategory[cat.id]?.sortedBy { e -> e.name }?.forEach { ext ->
                 if (!pinnedSet.contains(toId(ext))) {
-                    val codeQExt = toCodeQuarkusExtension(ext, cat, order)
+                    val codeQExt = toCodeQuarkusExtension(ext, cat, order, config)
                     codeQExt?.let { list.add(it) }
                 }
             }
@@ -76,7 +74,7 @@ object QuarkusExtensionUtils {
 
 
     @JvmStatic
-    fun toCodeQuarkusExtension(ext: Extension?, cat: Category, order: AtomicInteger): CodeQuarkusExtension? {
+    fun toCodeQuarkusExtension(ext: Extension?, cat: Category, order: AtomicInteger, config: ExtensionProcessorConfig): CodeQuarkusExtension? {
         if (ext == null || ext.name == null) {
             return null
         }
@@ -95,13 +93,13 @@ object QuarkusExtensionUtils {
                 shortName = getExtensionShortName(ext),
                 category = cat.name,
                 status = getExtensionStatus(ext),
+                tags = getExtensionTags(ext, config.tagsFrom),
                 default = ext.artifactId == "quarkus-resteasy",
                 keywords = keywords,
                 order = order.getAndIncrement(),
                 labels = keywords,
                 guide = getExtensionGuide(ext)
         )
-
     }
 
     internal fun createShortId(id: String): String {
@@ -111,6 +109,23 @@ object QuarkusExtensionUtils {
 
     private fun getExtensionStatus(ext: Extension) =
             ext.metadata?.get(Extension.MD_STATUS) as String? ?: "stable"
+
+    private fun getExtensionTags(ext: Extension, tagsFrom: List<String>): List<String> {
+        val b = ImmutableList.builder<String>()
+        return tagsFrom.map {
+            normalizeToList(ext.metadata.get(it))
+        }.flatten()
+    }
+
+    private fun normalizeToList(value: Any?): List<String> {
+        if (value is String) {
+            return listOf(value)
+        } else if (value is List<*>) {
+            @Suppress("UNCHECKED_CAST")
+            return value as List<String>
+        }
+        return listOf()
+    }
 
     private fun getExtensionGuide(ext: Extension) =
             ext.metadata?.get(Extension.MD_GUIDE) as String?

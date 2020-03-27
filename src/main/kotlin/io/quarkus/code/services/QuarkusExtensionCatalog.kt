@@ -1,24 +1,31 @@
 package io.quarkus.code.services
 
 import com.google.common.base.Preconditions.checkState
+import io.quarkus.code.config.CodeQuarkusConfig
+import io.quarkus.code.config.ExtensionProcessorConfig
+import io.quarkus.code.config.QuarkusPlatformConfig
+import io.quarkus.code.model.CodeQuarkusExtension
+import io.quarkus.platform.descriptor.QuarkusPlatformDescriptor
 import io.quarkus.platform.descriptor.resolver.json.QuarkusJsonPlatformDescriptorResolver
-import io.quarkus.platform.tools.config.QuarkusPlatformConfig
+import io.quarkus.runtime.StartupEvent
 import org.eclipse.microprofile.config.spi.ConfigProviderResolver
 import java.util.stream.Collectors
+import javax.enterprise.event.Observes
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-open class QuarkusExtensionCatalog {
+class QuarkusExtensionCatalog {
 
     companion object {
         @JvmStatic
-        internal val platformGroupId = ConfigProviderResolver.instance().getConfig().getOptionalValue("io.quarkus.code.quarkus-platform-group-id", String::class.java).orElse("io.quarkus")
+        internal val platformGroupId = ConfigProviderResolver.instance().getConfig().getOptionalValue("io.quarkus.code.quarkus-platform.group-id", String::class.java).orElse("io.quarkus")
 
         @JvmStatic
-        internal val platformArtifactId = ConfigProviderResolver.instance().getConfig().getOptionalValue("io.quarkus.code.quarkus-platform-artifact-id", String::class.java).orElse("quarkus-universe-bom")
+        internal val platformArtifactId = ConfigProviderResolver.instance().getConfig().getOptionalValue("io.quarkus.code.quarkus-platform.artifact-id", String::class.java).orElse("quarkus-universe-bom")
 
         @JvmStatic
-        internal val platformVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-platform-version", String::class.java)
+        internal val platformVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-platform.version", String::class.java)
 
         @JvmStatic
         internal val bundledQuarkusVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-version", String::class.java)
@@ -26,27 +33,41 @@ open class QuarkusExtensionCatalog {
         @JvmStatic
         internal val descriptor = QuarkusJsonPlatformDescriptorResolver.newInstance().resolveFromBom(platformGroupId, platformArtifactId, platformVersion)
 
-        @JvmStatic
-        internal val processedExtensions = QuarkusExtensionUtils.processExtensions(descriptor)
-
         init {
             checkState(platformVersion.isNotEmpty()) { "io.quarkus.code.quarkus-platform-version must not be null or empty" }
             checkState(bundledQuarkusVersion.isNotEmpty()) { "io.quarkus.code.quarkus-version must not be null or empty" }
             checkState(descriptor.quarkusVersion == bundledQuarkusVersion, "The platform version (%s) must be compatible with the bundled Quarkus version (%s != %s)", descriptor.bomVersion, descriptor.quarkusVersion, bundledQuarkusVersion)
-            if (!QuarkusPlatformConfig.hasGlobalDefault()) {
-                QuarkusPlatformConfig.defaultConfigBuilder().setPlatformDescriptor(descriptor).build()
+            if (!io.quarkus.platform.tools.config.QuarkusPlatformConfig.hasGlobalDefault()) {
+                io.quarkus.platform.tools.config.QuarkusPlatformConfig.defaultConfigBuilder().setPlatformDescriptor(descriptor).build()
             }
         }
 
         fun checkPlatformInitialization() {
-            check(QuarkusPlatformConfig.hasGlobalDefault()) { "Quarkus platform must be initialized" }
+            check(io.quarkus.platform.tools.config.QuarkusPlatformConfig.hasGlobalDefault()) { "Quarkus platform must be initialized" }
         }
     }
 
-    val extensions = processedExtensions
+    @Inject
+    lateinit var config: CodeQuarkusConfig
 
-    val extensionsByShortId = processedExtensions.associateBy { it.shortId }
-    val extensionsById = processedExtensions.associateBy { it.id }
+    @Inject
+    lateinit var platformConfig: QuarkusPlatformConfig
+
+    @Inject
+    lateinit var extensionProcessorConfig: ExtensionProcessorConfig
+
+    lateinit var extensions: List<CodeQuarkusExtension>
+
+    lateinit var extensionsByShortId: Map<String, CodeQuarkusExtension>
+    lateinit var extensionsById: Map<String, CodeQuarkusExtension>
+
+    fun onStart(@Observes e: StartupEvent) {
+        extensions = QuarkusExtensionUtils.processExtensions(descriptor, extensionProcessorConfig)
+        extensionsByShortId = extensions.associateBy { it.shortId }
+        extensionsById = extensions.associateBy { it.id }
+        println("onStart")
+    }
+
 
     fun checkAndMergeExtensions(extensionsIds: Set<String>?, rawShortExtensions: String?): Set<String> {
         val fromId = (extensionsIds ?: setOf())
