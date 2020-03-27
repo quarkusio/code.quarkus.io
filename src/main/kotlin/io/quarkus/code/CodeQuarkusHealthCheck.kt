@@ -1,6 +1,6 @@
 package io.quarkus.code
 
-import io.quarkus.code.services.CodeQuarkusConfigManager
+import io.quarkus.code.config.CodeQuarkusConfig
 import io.quarkus.code.services.QuarkusExtensionCatalog
 import io.quarkus.code.services.QuarkusProjectCreator
 import org.eclipse.microprofile.health.HealthCheck
@@ -12,9 +12,9 @@ import javax.inject.Singleton
 
 @Readiness
 @Singleton
-open class CodeQuarkusHealthCheck : HealthCheck {
+class CodeQuarkusHealthCheck : HealthCheck {
     @Inject
-    internal var configManager: CodeQuarkusConfigManager? = null
+    internal var config: CodeQuarkusConfig? = null
 
     @Inject
     internal var extensionCatalog: QuarkusExtensionCatalog? = null
@@ -24,7 +24,7 @@ open class CodeQuarkusHealthCheck : HealthCheck {
 
     override fun call(): HealthCheckResponse {
         val responseBuilder = HealthCheckResponse.named("Code Quarkus HealthCheck")
-        if(configManager?.getConfig() != null
+        if(config != null
                 && extensionCatalog?.extensions != null
                 && projectCreator != null) {
             responseBuilder.up()

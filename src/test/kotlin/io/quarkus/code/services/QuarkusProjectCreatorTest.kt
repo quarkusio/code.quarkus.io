@@ -1,5 +1,6 @@
 package io.quarkus.code.services
 
+import io.quarkus.code.config.CodeQuarkusConfig
 import io.quarkus.code.model.QuarkusProject
 import io.quarkus.test.junit.QuarkusTest
 import org.hamcrest.MatcherAssert.assertThat
@@ -11,6 +12,7 @@ import java.nio.file.Paths
 import java.util.concurrent.Callable
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
+import javax.inject.Inject
 
 @QuarkusTest
 internal class QuarkusProjectCreatorTest {
@@ -165,17 +167,20 @@ internal class QuarkusProjectCreatorTest {
             "test-app/gradlew.bat",
             "test-app/gradlew"
         )
-
-        @JvmStatic
-        val pluginVersion = QuarkusExtensionCatalog.descriptor.quarkusVersion
     }
+
+    @Inject
+    lateinit var codeQuarkusConfig: CodeQuarkusConfig
+
+    @Inject
+    lateinit var quarkusExtensionCatalog: QuarkusExtensionCatalog
 
     @Test
     @DisplayName("When using default project, then, it should create all the files correctly with the requested content")
     fun testCreateProject() {
         // When
         val creator = QuarkusProjectCreator()
-        creator.extensionCatalog = QuarkusExtensionCatalog()
+        creator.extensionCatalog = quarkusExtensionCatalog
         val proj = creator.create(QuarkusProject())
         val (testDir, zipList) = ProjectTestHelpers.extractProject(proj)
         val fileList = ProjectTestHelpers.readFiles(testDir)
@@ -191,7 +196,7 @@ internal class QuarkusProjectCreatorTest {
         assertThat(pomText, containsString("<groupId>org.acme</groupId>"))
         assertThat(pomText, containsString("<artifactId>code-with-quarkus</artifactId>"))
         assertThat(pomText, containsString("<version>1.0.0-SNAPSHOT</version>"))
-        assertThat(pomText, containsString("<quarkus-plugin.version>${pluginVersion}</quarkus-plugin.version>"))
+        assertThat(pomText, containsString("<quarkus-plugin.version>${codeQuarkusConfig.quarkusVersion}</quarkus-plugin.version>"))
 
         assertThat(resourceText, containsString("@Path(\"/hello\")"))
     }
@@ -201,7 +206,7 @@ internal class QuarkusProjectCreatorTest {
     fun testCreateCustomProject() {
         // When
         val creator = QuarkusProjectCreator()
-        creator.extensionCatalog = QuarkusExtensionCatalog()
+        creator.extensionCatalog = quarkusExtensionCatalog
         val proj = creator.create(
             QuarkusProject(
                 groupId = "com.test",
@@ -227,7 +232,7 @@ internal class QuarkusProjectCreatorTest {
         assertThat(pomText, containsString("<groupId>com.test</groupId>"))
         assertThat(pomText, containsString("<artifactId>test-app</artifactId>"))
         assertThat(pomText, containsString("<version>2.0.0</version>"))
-        assertThat(pomText, containsString("<quarkus-plugin.version>${pluginVersion}</quarkus-plugin.version>"))
+        assertThat(pomText, containsString("<quarkus-plugin.version>${codeQuarkusConfig.quarkusVersion}</quarkus-plugin.version>"))
         assertThat(pomText, containsString("<groupId>io.quarkus</groupId>"))
         assertThat(pomText, containsString("<artifactId>quarkus-resteasy-jsonb</artifactId>"))
         assertThat(pomText, containsString("<artifactId>quarkus-hibernate-validator</artifactId>"))
@@ -241,7 +246,7 @@ internal class QuarkusProjectCreatorTest {
     fun testCreateGradleKotlinProject() {
         // When
         val creator = QuarkusProjectCreator()
-        creator.extensionCatalog = QuarkusExtensionCatalog()
+        creator.extensionCatalog = quarkusExtensionCatalog
         val proj = creator.create(
             QuarkusProject(
                 groupId = "com.test",
@@ -280,7 +285,7 @@ internal class QuarkusProjectCreatorTest {
     fun testCreateGradleScalaProject() {
         // When
         val creator = QuarkusProjectCreator()
-        creator.extensionCatalog = QuarkusExtensionCatalog()
+        creator.extensionCatalog = quarkusExtensionCatalog
         val proj = creator.create(
             QuarkusProject(
                 groupId = "com.test",
@@ -321,7 +326,7 @@ internal class QuarkusProjectCreatorTest {
 
         val latch = CountDownLatch(20)
         val creator = QuarkusProjectCreator()
-        creator.extensionCatalog = QuarkusExtensionCatalog()
+        creator.extensionCatalog = quarkusExtensionCatalog
         val creates = (1..20).map { _ ->
             Callable {
                 val result = creator.create(QuarkusProject())

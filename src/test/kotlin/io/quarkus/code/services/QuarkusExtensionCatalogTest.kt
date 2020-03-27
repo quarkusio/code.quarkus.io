@@ -7,22 +7,26 @@ import org.hamcrest.Matchers.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.util.stream.Collectors
+import javax.inject.Inject
 
 @QuarkusTest
 internal class QuarkusExtensionCatalogTest {
+
+    @Inject
+    lateinit var catalog: QuarkusExtensionCatalog
 
     @Test
     internal fun testFields() {
         assertThat(QuarkusExtensionCatalog.platformVersion, not(emptyOrNullString()))
         assertThat(QuarkusExtensionCatalog.bundledQuarkusVersion, not(emptyOrNullString()))
         assertThat(QuarkusExtensionCatalog.descriptor, notNullValue())
-        assertThat(QuarkusExtensionCatalog.processedExtensions, not(empty<CodeQuarkusExtension>()))
+        assertThat(catalog.extensions, not(empty<CodeQuarkusExtension>()))
     }
 
     @Test
     @DisplayName("Check that our shortIds are unique")
     fun testUniqueShortIds() {
-        val extensions = QuarkusExtensionCatalog.processedExtensions
+        val extensions = catalog.extensions
         val uniqueIds = HashSet(extensions.map {it.id})
         val linkIds = uniqueIds.map { QuarkusExtensionUtils.createShortId(it) }
         val duplicates = findDuplicates(linkIds)

@@ -1,9 +1,10 @@
 package io.quarkus.code
 
+import io.quarkus.code.config.CodeQuarkusConfig
+import io.quarkus.code.config.GoogleAnalyticsConfig
 import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.code.model.Config
 import io.quarkus.code.model.QuarkusProject
-import io.quarkus.code.services.CodeQuarkusConfigManager
 import io.quarkus.code.services.QuarkusExtensionCatalog
 import io.quarkus.code.services.QuarkusProjectCreator
 import org.eclipse.microprofile.openapi.annotations.Operation
@@ -30,7 +31,10 @@ class CodeQuarkusResource {
     }
 
     @Inject
-    internal lateinit var configManager: CodeQuarkusConfigManager
+    internal lateinit var config: CodeQuarkusConfig
+
+    @Inject
+    lateinit var gaConfig: GoogleAnalyticsConfig
 
     @Inject
     internal lateinit var extensionCatalog: QuarkusExtensionCatalog
@@ -43,8 +47,15 @@ class CodeQuarkusResource {
     @Produces(APPLICATION_JSON)
     @Operation(summary = "Get the Quarkus Launcher configuration", hidden = true)
     fun config(): Config {
-        return configManager.getConfig()
+        return Config(
+                config.environment,
+                gaConfig.trackingId.filter(String::isNotBlank).orElse(null),
+                config.sentryDSN.filter(String::isNotBlank).orElse(null),
+                config.quarkusVersion,
+                config.gitCommitId.filter(String::isNotBlank).orElse(null)
+        )
     }
+
 
     @GET
     @Path("/extensions")

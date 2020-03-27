@@ -3,6 +3,7 @@ package io.quarkus.code.analytics
 import io.quarkus.code.services.QuarkusExtensionCatalog
 import java.util.logging.Level
 import java.util.logging.Logger
+import javax.enterprise.inject.Instance
 import javax.inject.Inject
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.container.ContainerRequestContext
@@ -21,10 +22,10 @@ class AnalyticsFilter : ContainerRequestFilter {
     }
 
     @Inject
-    lateinit var googleAnalyticsService: GoogleAnalyticsService
+    lateinit var googleAnalyticsService: Instance<GoogleAnalyticsService>
 
     @Inject
-    lateinit var extensionCatalog: QuarkusExtensionCatalog
+    lateinit var extensionCatalog: Instance<QuarkusExtensionCatalog>
 
     @Context
     internal var info: UriInfo? = null
@@ -45,10 +46,10 @@ class AnalyticsFilter : ContainerRequestFilter {
             val buildTool: String?
             if (path.startsWith("/download")) {
                 try {
-                    extensions = extensionCatalog.checkAndMergeExtensions(queryParams["e"]?.toSet(), queryParams.getFirst("s"))
+                    extensions = extensionCatalog.get().checkAndMergeExtensions(queryParams["e"]?.toSet(), queryParams.getFirst("s"))
                     buildTool = queryParams.getFirst("b") ?: "MAVEN".toUpperCase()
                     extensions.forEach {
-                        googleAnalyticsService.sendEvent(
+                        googleAnalyticsService.get().sendEvent(
                                 category = "Extension",
                                 action = "Used",
                                 label = it,
@@ -62,7 +63,7 @@ class AnalyticsFilter : ContainerRequestFilter {
                                 buildTool = buildTool
                         )
                     }
-                    googleAnalyticsService.sendEvent(
+                    googleAnalyticsService.get().sendEvent(
                             category = "App",
                             action = "Download",
                             label = applicationName,
@@ -80,7 +81,7 @@ class AnalyticsFilter : ContainerRequestFilter {
                     log.log(Level.FINE, e) { "Error while extracting extension list from request" }
                 }
             }
-            googleAnalyticsService.sendEvent(
+            googleAnalyticsService.get().sendEvent(
                     category = "API",
                     action = path,
                     label = applicationName,

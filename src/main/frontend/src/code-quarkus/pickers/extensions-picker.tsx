@@ -17,12 +17,12 @@ export interface ExtensionEntry {
   name: string;
   version: string;
   keywords: string[];
+  tags: string[];
   description?: string;
   shortName?: string;
   category: string;
   order: number;
   default: boolean;
-  status: string;
   guide?: string;
 }
 
@@ -54,8 +54,6 @@ function StatusTag(props: { status?: string }) {
   }
 
   switch (props.status) {
-    case 'stable':
-      return <React.Fragment/>;
     case 'preview':
       const previewTooltip = 'This is work in progress. API or configuration properties might change as the extension matures. Give us your feedback :)';
       return <span className="extension-tag preview" title={previewTooltip}>PREVIEW</span>;
@@ -172,7 +170,7 @@ function Extension(props: ExtensionProps) {
 
       <div className="extension-summary">
         <span className="extension-name" title={`${props.name} (${props.version})`}>{props.name}</span>
-        {props.status && props.status.split(',').map((s, i) => <StatusTag key={i} status={s}/>)}
+        {props.tags && props.tags.map((s, i) => <StatusTag key={i} status={s}/>)}
         {props.default && (
           <span
             title="Applications generated with Code Quarkus are currently demonstrating a Hello World REST endpoint, this extension is therefore included by default to make this use case work."

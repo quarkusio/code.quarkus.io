@@ -1,5 +1,6 @@
 package io.quarkus.code.services
 
+import io.quarkus.code.config.ExtensionProcessorConfig
 import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.code.services.QuarkusExtensionUtils.processExtensions
 import io.quarkus.code.services.QuarkusExtensionUtils.shorten
@@ -19,6 +20,9 @@ import java.nio.file.Path
 import java.util.function.Function
 
 internal class QuarkusExtensionUtilsTest {
+    val config = object : ExtensionProcessorConfig {
+        override val tagsFrom: List<String> = listOf("status")
+    }
 
     @Test
     internal fun testShorten() {
@@ -30,42 +34,45 @@ internal class QuarkusExtensionUtilsTest {
 
     @Test
     internal fun textContent() {
-        val extensions = processExtensions(getTestDescriptor())
+
+        val extensions = processExtensions(descriptor = getTestDescriptor(), config = config)
         assertThat(extensions[0], `is`(CodeQuarkusExtension(
-                "io.quarkus:quarkus-arc",
-                "zmg",
-                "999-SNAPSHOT",
-                "ArC",
-                "Build time CDI dependency injection",
-                "CDI",
-                "Core",
-                "stable",
-                false,
-                listOf("arc", "cdi", "dependency-injection", "di"),
-                "https://quarkus.io/guides/cdi-reference",
-                0,
-                listOf("arc", "cdi", "dependency-injection", "di")))
+                id = "io.quarkus:quarkus-arc",
+                shortId = "zmg",
+                version = "999-SNAPSHOT",
+                name = "ArC",
+                description = "Build time CDI dependency injection",
+                shortName = "CDI",
+                category = "Core",
+                tags = listOf(),
+                default = false,
+                keywords = listOf("arc", "cdi", "dependency-injection", "di"),
+                guide = "https://quarkus.io/guides/cdi-reference",
+                order = 0,
+                status = "stable",
+                labels = listOf("arc", "cdi", "dependency-injection", "di")))
         )
         assertThat(extensions[5], `is`(CodeQuarkusExtension(
-                "io.quarkus:quarkus-netty",
-                "rpC",
-                "999-SNAPSHOT",
-                "Netty",
-                "Netty is a non-blocking I/O client-server framework. Used by Quarkus as foundation layer.",
-                null,
-                "Web",
-                "stable",
-                false,
-                listOf(),
-                null,
-                5,
-                listOf()))
+                id = "io.quarkus:quarkus-netty",
+                shortId = "rpC",
+                version = "999-SNAPSHOT",
+                name = "Netty",
+                description = "Netty is a non-blocking I/O client-server framework. Used by Quarkus as foundation layer.",
+                shortName = null,
+                category = "Web",
+                tags = listOf(),
+                default = false,
+                keywords = listOf(),
+                guide = null,
+                order = 5,
+                status = "stable",
+                labels = listOf()))
         )
     }
 
     @Test
     internal fun testOrder() {
-        val extensions = processExtensions(getTestDescriptor())
+        val extensions = processExtensions(getTestDescriptor(), config)
         assertThat(extensions.map { it.name }.subList(0, 5), contains(
                 "ArC",
                 "RESTEasy JAX-RS",
