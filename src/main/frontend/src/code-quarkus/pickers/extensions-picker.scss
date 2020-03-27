@@ -220,7 +220,7 @@
     padding-top: 20px;
     position: sticky;
     top: 220px;
-    height: 800px;
+    height: 600px;
     display: flex;
     flex-direction: column;
 
@@ -263,9 +263,13 @@
       overflow: hidden;
     }
 
+    .extension-summary {
+      flex-grow: 1;
+    }
+
     .extension-list-wrapper {
       height: calc(100% - 25px);
-      overflow-y: scroll;
+      overflow-y: auto;
     }
   }
 
