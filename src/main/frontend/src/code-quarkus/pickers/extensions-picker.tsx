@@ -55,11 +55,20 @@ function StatusTag(props: { status?: string }) {
 
   switch (props.status) {
     case 'preview':
-      const previewTooltip = 'This is work in progress. API or configuration properties might change as the extension matures. Give us your feedback :)';
-      return <span className="extension-tag preview" title={previewTooltip}>PREVIEW</span>;
+      return <span
+        className="extension-tag preview"
+        title="This is work in progress. API or configuration properties might change as the extension matures. Give us your feedback :)"
+      >PREVIEW</span>;
     case 'experimental':
-      const experimentalTooltip = 'Early feedback is requested to mature the idea. There is no guarantee of stability nor long term presence in the platform until the solution matures.';
-      return <span className="extension-tag experimental" title={experimentalTooltip}>EXPERIMENTAL</span>;
+      return <span
+        className="extension-tag experimental"
+        title="Early feedback is requested to mature the idea. There is no guarantee of stability nor long term presence in the platform until the solution matures."
+      >EXPERIMENTAL</span>;
+    case 'included':
+      return (<span
+        title="Applications generated with Code Quarkus are currently demonstrating a Hello World REST endpoint, this extension is therefore included by default to make this use case work."
+        className="extension-tag default"
+      >INCLUDED</span>);
     default:
       return <React.Fragment/>;
   }
@@ -171,13 +180,6 @@ function Extension(props: ExtensionProps) {
       <div className="extension-summary">
         <span className="extension-name" title={`${props.name} (${props.version})`}>{props.name}</span>
         {props.tags && props.tags.map((s, i) => <StatusTag key={i} status={s}/>)}
-        {props.default && (
-          <span
-            title="Applications generated with Code Quarkus are currently demonstrating a Hello World REST endpoint, this extension is therefore included by default to make this use case work."
-            className="extension-tag default"
-          >INCLUDED</span>
-        )
-        }
       </div>
 
       {!props.detailed && (

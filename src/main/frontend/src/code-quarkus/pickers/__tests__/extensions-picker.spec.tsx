@@ -138,6 +138,11 @@ describe('filterFunction', () => {
     expect(entries.filter(filterFunction('clou')))
       .toEqual([entries[2]]);
   });
+
+  it('when using start of tag, it should return it', () => {
+    expect(entries.filter(filterFunction('prev')))
+      .toEqual([entries[1]]);
+  });
 });
 
 describe('sortFunction', () => {
@@ -171,6 +176,13 @@ describe('sortFunction', () => {
     expect(sortFunction('a')(entries[0], entries[1]))
       .toEqual(-1);
     expect(sortFunction('a')(entries[1], entries[0]))
+      .toEqual(1);
+  });
+
+  it('when using start of the tags of an extension, it should be first', () => {
+    expect(sortFunction('prev')(entries[1], entries[0]))
+      .toEqual(-1);
+    expect(sortFunction('prev')(entries[0], entries[1]))
       .toEqual(1);
   });
 
