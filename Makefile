@@ -4,6 +4,9 @@ dev-backend:
 dev-backend-only:
 	mvn compile quarkus:dev -Pbackend-only
 
+test-backend-only:
+	mvn clean test -Pbackend-only
+
 dev-web:
 	cd src/main/frontend && yarn && yarn start
 
@@ -19,11 +22,11 @@ update-web-snapshots:
 debug:
 	mvn compile quarkus:dev -Ddebug -Dsuspend
 
-clean-all:
+clean:
 	mvn clean
 
-clean:
-	rm -rf ./target
+clean-backend-only:
+	mvn clean -Pbackend-only
 
 native:
 	mvn package -Pnative -DskipTests

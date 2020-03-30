@@ -18,6 +18,9 @@ interface CodeQuarkusConfig {
     @get:ConfigProperty(name = "sentry-dsn")
     val sentryDSN: Optional<String>
 
+    @get:ConfigProperty(name = "features", defaultValue = "none")
+    val features: List<String>
+
     @get:ConfigProperty(name = "hostname", defaultValue = "code.quarkus.io")
     val hostname: String
 }

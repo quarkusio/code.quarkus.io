@@ -52,7 +52,8 @@ class CodeQuarkusResource {
                 environment = ${config.environment}
                 sentryDSN = ${config.sentryDSN.filter(String::isNotBlank).orElse(null)}
                 quarkusVersion = ${config.quarkusVersion},
-                gitCommitId: ${config.gitCommitId}
+                gitCommitId: ${config.gitCommitId},
+                features: ${config.features.filter { it != "none" }}
         """.trimIndent()}
     }
 
@@ -66,7 +67,8 @@ class CodeQuarkusResource {
                 gaTrackingId = gaConfig.trackingId.filter(String::isNotBlank).orElse(null),
                 sentryDSN = config.sentryDSN.filter(String::isNotBlank).orElse(null),
                 quarkusVersion = config.quarkusVersion,
-                gitCommitId = config.gitCommitId
+                gitCommitId = config.gitCommitId,
+                features = config.features.filter { it != "none" }
         )
     }
 
