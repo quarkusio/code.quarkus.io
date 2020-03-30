@@ -80,6 +80,10 @@
         border: 1px solid $extensionsPickerFlagExperimentalColor;
       }
 
+      &.custom {
+        border: 1px solid $extensionsPickerFlagCustomColor;
+      }
+
       &.default {
         border: 1px solid $extensionsPickerFlagDefaultColor;
       }
