@@ -1,6 +1,5 @@
 package io.quarkus.code.services
 
-import com.google.common.collect.ImmutableList
 import com.google.common.collect.Lists
 import io.quarkus.code.config.ExtensionProcessorConfig
 import io.quarkus.code.model.CodeQuarkusExtension
@@ -17,6 +16,7 @@ object QuarkusExtensionUtils {
     private const val hashCharEncodeLength = hashAlphabet.length
     private const val hashMaxLength = 3
     private val maxHashCode: Int
+    private val defaultExtensions = setOf("io.quarkus:quarkus-resteasy")
 
     init {
         var max = 0
@@ -82,7 +82,7 @@ object QuarkusExtensionUtils {
             return null
         }
         val keywords = ext.keywords ?: emptyList()
-        val id = "${ext.groupId}:${ext.artifactId}"
+        val id = toId(ext)
         val shortId = createShortId(id)
         return CodeQuarkusExtension(
                 id = id,
@@ -94,7 +94,7 @@ object QuarkusExtensionUtils {
                 category = cat.name,
                 status = getExtensionStatus(ext),
                 tags = getExtensionTags(ext, config.tagsFrom),
-                default = ext.artifactId == "quarkus-resteasy",
+                default = isDefaultExtension(ext),
                 keywords = keywords,
                 order = order.getAndIncrement(),
                 labels = keywords,
@@ -111,13 +111,20 @@ object QuarkusExtensionUtils {
             ext.metadata?.get(Extension.MD_STATUS) as String? ?: "stable"
 
     private fun getExtensionTags(ext: Extension, tagsFrom: List<String>): List<String> {
-        val b = ImmutableList.builder<String>()
-        return tagsFrom.map {
+        val tags = tagsFrom.map {
                     normalizeToList(ext.metadata[it])
                 }
                 .flatten()
                 .filter { it != "stable" }
                 .map { it.toLowerCase() }
+        if (isDefaultExtension(ext)) {
+           return tags.plus("included")
+        }
+        return tags
+    }
+
+    private fun isDefaultExtension(ext: Extension): Boolean {
+        return defaultExtensions.contains(toId(ext))
     }
 
     private fun normalizeToList(value: Any?): List<String> {
