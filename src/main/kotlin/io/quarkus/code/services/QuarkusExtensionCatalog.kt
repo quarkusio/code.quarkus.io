@@ -72,6 +72,7 @@ class QuarkusExtensionCatalog {
         extensionsById = extensions.associateBy { it.id }
         LOG.log(Level.INFO) {"""
             Extensions Catalog has been processed with ${extensions.size} extensions:
+                Quarkus platform: $platformGroupId:$platformArtifactId:$platformVersion
                 tagsFrom: ${extensionProcessorConfig.tagsFrom}
         """.trimIndent()}
     }
