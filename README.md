@@ -2,15 +2,16 @@
 
 # Backend dev
 
+Start in watch mode:
 ```bash
-./mvnw compile quarkus:dev
+make dev-backend
 ```
 
-# Frontend dev
+# Full stack dev
 
-Start web watch mode:
+Start in watch mode:
 ```bash`
-make dev-web
+make dev
 ``
 
 Then open `./src/main/frontend` with your favorite IDE to edit:
