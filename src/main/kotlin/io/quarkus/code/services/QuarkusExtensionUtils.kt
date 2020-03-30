@@ -113,8 +113,11 @@ object QuarkusExtensionUtils {
     private fun getExtensionTags(ext: Extension, tagsFrom: List<String>): List<String> {
         val b = ImmutableList.builder<String>()
         return tagsFrom.map {
-            normalizeToList(ext.metadata.get(it))
-        }.flatten()
+                    normalizeToList(ext.metadata[it])
+                }
+                .flatten()
+                .filter { it != "stable" }
+                .map { it.toLowerCase() }
     }
 
     private fun normalizeToList(value: Any?): List<String> {
