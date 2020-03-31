@@ -98,7 +98,7 @@ export function CodeQuarkus(props: LaunchFlowProps) {
   return (
     <AnalyticsContext.Provider value={analytics}>
       <div className="code-quarkus">
-        <Header/>
+        <Header supportButton={props.config.features && props.config.features.includes('support-button')}/>
         <CodeQuarkusForm project={project} setProject={setProject} onSave={generate} quarkusVersion={props.config.quarkusVersion}/>
         {!run.error && run.status === Status.DOWNLOADED
         && (<NextSteps onClose={closeNextSteps} downloadLink={run.result.downloadLink} buildTool={project.metadata.buildTool} extensions={project.extensions}/>)}

@@ -260,6 +260,7 @@ class CodeQuarkusResourceTest {
                 .body("gaTrackingId", nullValue())
                 .body("sentryDSN", nullValue())
                 .body("quarkusVersion", notNullValue())
+                .body("features", equalTo(listOf<String>()))
     }
 
     @Test

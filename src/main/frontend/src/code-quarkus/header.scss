@@ -9,42 +9,125 @@
   color: $headerTextColor;
 
   .header-content {
-    grid-column: span 12;
     align-items: center;
     width: 100%;
     margin: 0 auto;
+    display: flex;
+    height: 70px;
 
     .nav-container {
-      max-width: 1000px;
-      margin: 0 auto;
-      float: right;
+      display: flex;
+      height: 55px;
+      line-height: 55px;
 
-      a {
+      & > a {
         display: inline-block;
         color: $headerMenuLinkTextColor;
         padding: 0 10px;
         text-decoration: none;
-        line-height: 70px;
         height: 55px;
         font-size: 1rem;
-
+        margin-right: 30px;
+        white-space: nowrap;
 
         svg {
-          transition: 0.3s ease-in-out;
+          transition: transform 0.3s ease-in-out;
+        }
+
+        &:hover svg {
+          transform: translate(-10px);
         }
       }
 
-      a:hover svg {
-        transform: translate(-10px);
+
+    }
+    .quarkus-brand {
+      flex-grow: 1;
+      line-height: 70px;
+
+      a {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
+        padding: 0;
+        img {
+          vertical-align: middle;
+          height: 40px;
+          width: auto;
+          margin-top: -3px;
+        }
+
+        @media screen and (max-width: $mobileWidth) {
+          margin-left: 20px;
+          img {
+            height: 20px;
+          }
+        }
       }
     }
-    .brand {
-      display: inline-block;
-      margin-top: 1.2rem;
-      width: 13rem;
-      @media screen and (max-width: 900px) {
-        margin-left: 20px;
+
+    .enterprise-support {
+      position: relative;
+
+      button.pf-c-button {
+        background-color: $headerSupportButtonBackgroundColor;
+        border: 1px solid $headerSupportButtonBorderColor;
+        border-radius: 0;
+        color: $headerSupportButtonTextColor;
+      }
+
+      .support-panel {
+        position: absolute;
+        top: 50px;
+        right: 0;
+        z-index: 120;
+        white-space: normal;
+        background-color: $headerSupportPanelBackgroundColor;
+        max-height: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: max-height 0.3s ease-in-out;
+
+        a {
+          color: $headerSupportPanelTextColor;
+          display: block;
+          line-height: 20px;
+          border-right: 2px solid $headerSupportPanelBackgroundColor;
+          white-space: nowrap;
+          padding: 10px 20px;
+          font-weight: bold;
+
+          &.secondary {
+            font-style: italic;
+            font-weight: normal;
+          }
+
+          svg {
+            margin-right: 20px;
+          }
+
+          &:hover {
+            text-decoration: none;
+            border-color: $headerSupportPanelTextColor;
+          }
+        }
+      }
+
+      &.opened {
+        button.pf-c-button {
+        }
+
+        .support-panel {
+          max-height: 100px;
+        }
+      }
+
+
+      @media screen and (max-width: $mobileWidth) {
+        display: none;
       }
     }
+
   }
 }
