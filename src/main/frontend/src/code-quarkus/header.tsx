@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { Button } from '@patternfly/react-core';
 
 function SupportButton(prop: {}) {
-  const [opened, open] = useState(true);
+  const [opened, open] = useState(false);
   const analytics = useAnalytics();
 
   const openPanel = (e: any) => {
