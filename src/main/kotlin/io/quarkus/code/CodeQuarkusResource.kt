@@ -53,7 +53,7 @@ class CodeQuarkusResource {
                 sentryDSN = ${config.sentryDSN.filter(String::isNotBlank).orElse(null)}
                 quarkusVersion = ${config.quarkusVersion},
                 gitCommitId: ${config.gitCommitId},
-                features: ${config.features.filter { it != "none" }}
+                features: ${config.features.filter { it.isNotBlank() && it.toLowerCase() != "none" }}
         """.trimIndent()}
     }
 
@@ -68,7 +68,7 @@ class CodeQuarkusResource {
                 sentryDSN = config.sentryDSN.filter(String::isNotBlank).orElse(null),
                 quarkusVersion = config.quarkusVersion,
                 gitCommitId = config.gitCommitId,
-                features = config.features.filter { it != "none" }
+                features = config.features.filter { it.isNotBlank() && it.toLowerCase() != "none" }
         )
     }
 
