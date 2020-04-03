@@ -24,6 +24,8 @@
         <commons-compress.version>1.19</commons-compress.version>
         <google-analytics-java.version>2.0.0</google-analytics-java.version>
 
+        <git.commit.id>local</git.commit.id>
+
         <!-- Quarkus version is used for bundling Code Quarkus -->
         <quarkus.version>1.3.1.Final</quarkus.version>
 
@@ -233,23 +235,6 @@
                     <yarnVersion>v1.19.1</yarnVersion>
                     <installDirectory>./</installDirectory>
                     <workingDirectory>src/main/frontend</workingDirectory>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-                <version>3.0.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>revision</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <gitDescribe>
-                        <skip>true</skip>
-                    </gitDescribe>
                 </configuration>
             </plugin>
             <plugin>
