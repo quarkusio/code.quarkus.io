@@ -3,9 +3,7 @@ FROM quay.io/quarkus/centos-quarkus-maven:19.3.1-java11 AS build
 ARG MAVEN_EXTRA_ARGS=
 RUN echo "$MAVEN_EXTRA_ARGS"
 COPY src /usr/src/app/src
-COPY pom.xml /usr/src/app
-COPY reflection-config.json /usr/src/app
-COPY resources-config.json /usr/src/app
+COPY pom.xml reflection-config.json resources-config.json maven-settings.xml* /usr/src/app/
 USER root
 RUN chown -R quarkus /usr/src/app
 USER quarkus

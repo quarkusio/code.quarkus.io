@@ -6,4 +6,4 @@
 !target/*-runner
 !target/*-runner.jar
 !target/lib/*
-!.git/*
+!maven-settings.xml
