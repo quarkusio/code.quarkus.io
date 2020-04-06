@@ -69,6 +69,8 @@ objects:
                   value: ${IO_QUARKUS_CODE_LOG_LEVEL}
                 - name: IO_QUARKUS_CODE_HOSTNAME
                   value: ${IO_QUARKUS_CODE_HOSTNAME}
+                - name: IO_QUARKUS_CODE_FEATURES
+                  value: ${IO_QUARKUS_CODE_FEATURES}
                 - name: IO_QUARKUS_CODE_SENTRY_DSN
                   valueFrom:
                     secretKeyRef:
@@ -110,6 +112,11 @@ parameters:
     required: true
     displayName: Code Quarkus App environment
     description: Code Quarkus App environment. Defaults to dev
+  - name: IO_QUARKUS_CODE_FEATURES
+    value: none
+    required: true
+    displayName: Features
+    description: Code Quarkus App enabled features
   - name: IO_QUARKUS_CODE_HOSTNAME
     required: true
     displayName: Code Quarkus Hostname

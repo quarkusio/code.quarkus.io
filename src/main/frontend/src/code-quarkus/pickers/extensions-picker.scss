@@ -71,6 +71,7 @@
       margin: 5px 5px;
       padding: 0 3px;
       height: 20px;
+      text-transform: uppercase;
 
       &.preview {
         border: 1px solid $extensionsPickerFlagPreviewColor;
@@ -78,6 +79,10 @@
 
       &.experimental {
         border: 1px solid $extensionsPickerFlagExperimentalColor;
+      }
+
+      &.custom {
+        border: 1px solid $extensionsPickerFlagCustomColor;
       }
 
       &.default {
@@ -220,7 +225,7 @@
     padding-top: 20px;
     position: sticky;
     top: 220px;
-    height: 800px;
+    height: 600px;
     display: flex;
     flex-direction: column;
 
@@ -263,9 +268,13 @@
       overflow: hidden;
     }
 
+    .extension-summary {
+      flex-grow: 1;
+    }
+
     .extension-list-wrapper {
       height: calc(100% - 25px);
-      overflow-y: scroll;
+      overflow-y: auto;
     }
   }
 

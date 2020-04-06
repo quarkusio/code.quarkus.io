@@ -8,6 +8,7 @@ export interface Config {
   sentryDSN?: string;
   quarkusVersion: string;
   gitCommitId: string;
+  features: string[];
 }
 
 export function ConfigLoader(props: { children: (config: Config) => any }) {

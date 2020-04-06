@@ -1,11 +1,17 @@
-dev:
+dev-backend:
 	mvn compile quarkus:dev
 
-start-web:
-	cd src/main/frontend && yarn && yarn start
+dev-backend-only:
+	mvn compile quarkus:dev -Pbackend-only
+
+test-backend-only:
+	mvn clean test -Pbackend-only
 
 dev-web:
-	make -j2 dev start-web
+	cd src/main/frontend && yarn && yarn start
+
+dev:
+	make -j2 dev-backend-only dev-web
 
 test-web:
 	cd src/main/frontend && yarn && yarn test:i
@@ -18,6 +24,9 @@ debug:
 
 clean:
 	mvn clean
+
+clean-backend-only:
+	mvn clean -Pbackend-only
 
 native:
 	mvn package -Pnative -DskipTests

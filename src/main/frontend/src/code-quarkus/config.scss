@@ -89,6 +89,7 @@ $extensionsPickerSearchClearColor: $warningColor;
 $extensionsPickerFlagDefaultColor: $readonlyLabelAndBorderColor;
 $extensionsPickerFlagPreviewColor: $secondary;
 $extensionsPickerFlagExperimentalColor: $warningColor;
+$extensionsPickerFlagCustomColor: black;
 
 // Header
 $headerBackgroundColor: $background;
@@ -100,6 +101,13 @@ $headerMenuLinkTextColor: white;
 $headerMenuStartCodingButtonTextColor: white;
 $headerMenuStartCodingButtonBorderColor: $secondary;
 $headerMenuStartCodingButtonBg: $secondary;
+
+$headerSupportButtonTextColor: white;
+$headerSupportButtonBorderColor: white;
+$headerSupportButtonBackgroundColor: transparent;
+
+$headerSupportPanelBackgroundColor: black;
+$headerSupportPanelTextColor: white;
 
 // Blurb
 $blurbBg: $backgroundSecondary;

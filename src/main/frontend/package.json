@@ -28,6 +28,8 @@
     "use-persisted-state": "0.3.0"
   },
   "devDependencies": {
+    "tslint-react": "4.2.0",
+    "tslint": "6.1.0",
     "@testing-library/react": "10.0.1",
     "@types/use-persisted-state": "0.3.0",
     "jest-environment-jsdom-sixteen": "1.0.3"

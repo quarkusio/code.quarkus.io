@@ -1,4 +1,4 @@
-import { FormGroup, Tooltip } from "@patternfly/react-core";
+import { FormGroup, Tooltip } from '@patternfly/react-core';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { ExtendedTextInput, InputProps, InputPropsWithValidation, optionalBool, TogglePanel, useAnalyticsEditionField, useDebounce } from '../../core';
 import './info-picker.scss';
@@ -25,11 +25,11 @@ const isValidInfo = (value: InfoPickerValue) => {
   return isValidGroupId(value.groupId)
     && isValidId(value.artifactId)
     && !!value.version
-    && (!value.packageName || isValidGroupId(value.packageName))
-}
+    && (!value.packageName || isValidGroupId(value.packageName));
+};
 
-const SelectBuildTool= (props: InputProps<string>) => {
-  const onChangeWithDirty = useAnalyticsEditionField('buildTool', props.onChange)[1]
+const SelectBuildTool = (props: InputProps<string>) => {
+  const onChangeWithDirty = useAnalyticsEditionField('buildTool', props.onChange)[1];
   const adaptedOnChange = (e: ChangeEvent<HTMLSelectElement>) => {
     onChangeWithDirty(e.target.value, e);
   };
@@ -39,12 +39,12 @@ const SelectBuildTool= (props: InputProps<string>) => {
       label="Build Tool"
       aria-label="Choose build tool">
       <select id="buildtool" value={props.value || 'MAVEN'} onChange={adaptedOnChange} className={'pf-c-form-control'}>
-        <option value={"MAVEN"}>Maven</option>
-        <option value={"GRADLE"}>Gradle (Preview)</option>
+        <option value={'MAVEN'}>Maven</option>
+        <option value={'GRADLE'}>Gradle (Preview)</option>
       </select>
     </FormGroup>
-  )
-}
+  );
+};
 
 export const InfoPicker = (props: InfoPickerProps) => {
   const [localValue, setLocalValue] = useState<InfoPickerValue>(props.value);
@@ -101,7 +101,7 @@ export const InfoPicker = (props: InfoPickerProps) => {
         <SelectBuildTool onChange={onBuildToolChange} value={localValue.buildTool || 'MAVEN'}/>
       </div>
       {optionalBool(props.showMoreOptions, true) && (
-        <TogglePanel id="info-extended" mode="horizontal" openLabel="Configure more options" event={["UX", "Application Info - Configure More Options"]}>
+        <TogglePanel id="info-extended" mode="horizontal" openLabel="Configure more options" event={['UX', 'Application Info - Configure More Options']}>
           <div className="extended-settings pf-c-form">
             <ExtendedTextInput
               label="Version"
@@ -129,7 +129,12 @@ export const InfoPicker = (props: InfoPickerProps) => {
               isValid={isValidGroupId(packageName)}
             />
 
-            <Tooltip position="right" content={`You may change the Quarkus Version after generation in the ${configFileName}. Just be cautious with extension compatibility.`} exitDelay={0} zIndex={200}>
+            <Tooltip
+              position="right"
+              content={`You may change the Quarkus Version after generation in the ${configFileName}. Just be cautious with extension compatibility.`}
+              exitDelay={0}
+              zIndex={200}
+            >
               <ExtendedTextInput
                 label="Quarkus Version"
                 isRequired

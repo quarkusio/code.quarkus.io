@@ -6,15 +6,15 @@ import { fetchExtensions } from './backend-api';
 interface Extension {
   id: string;
   shortId: string;
-  version: string,
+  version: string;
   name: string;
   keywords: string[];
+  tags: string[];
   description?: string;
   shortName?: string;
   category: string;
   default: boolean;
   order: number;
-  status: string;
   guide?: string;
 }
 

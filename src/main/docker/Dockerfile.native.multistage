@@ -1,17 +1,16 @@
 ## Stage 1 : build with maven builder image with native capabilities
-FROM quay.io/quarkus/centos-quarkus-maven:19.3.1-java8 AS build
-COPY .git /usr/src/app/.git
+FROM quay.io/quarkus/centos-quarkus-maven:19.3.1-java11 AS build
+ARG MAVEN_EXTRA_ARGS=
+RUN echo "$MAVEN_EXTRA_ARGS"
 COPY src /usr/src/app/src
-COPY pom.xml /usr/src/app
-COPY reflection-config.json /usr/src/app
-COPY resources-config.json /usr/src/app
+COPY pom.xml reflection-config.json resources-config.json maven-settings.xml* /usr/src/app/
 USER root
 RUN chown -R quarkus /usr/src/app
 USER quarkus
-RUN cd /usr/src/app/ && mvn clean package -Pnative -Dnative-image.xmx=4g
+RUN cd /usr/src/app/ && mvn clean package -Pnative -Dnative-image.xmx=4g $MAVEN_EXTRA_ARGS
 RUN mkdir -p /tmp/ssl-libs/lib \
-  && cp /opt/graalvm/jre/lib/security/cacerts /tmp/ssl-libs \
-  && cp /opt/graalvm/jre/lib/amd64/libsunec.so /tmp/ssl-libs/lib/
+  && cp /opt/graalvm/lib/security/cacerts /tmp/ssl-libs \
+  && cp /opt/graalvm/lib/libsunec.so /tmp/ssl-libs/lib/
 
 ## Stage 2 : create the docker final image
 FROM registry.access.redhat.com/ubi8/ubi-minimal

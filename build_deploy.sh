@@ -2,10 +2,12 @@
 
 set -exv
 
+GIT_REV=$(git rev-parse --short=7 HEAD)
 IMAGE=${IMAGE-"quay.io/quarkus/code-quarkus-app"}
-IMAGE_TAG=$(git rev-parse --short=7 HEAD)
+IMAGE_TAG=${IMAGE_TAG-$GIT_REV}
+MAVEN_EXTRA_ARGS=${MAVEN_EXTRA_ARGS-""}
 
-docker build -f src/main/docker/Dockerfile.native.multistage -t "${IMAGE}:${IMAGE_TAG}" .
+docker build --compress -f src/main/docker/Dockerfile.native.multistage  --build-arg MAVEN_EXTRA_ARGS="${MAVEN_EXTRA_ARGS} -Dgit.commit.id=$GIT_REV" -t "${IMAGE}:${IMAGE_TAG}" .
 
 if [[ -n "$QUAY_USER" && -n "$QUAY_TOKEN" ]]; then
     DOCKER_CONF="$PWD/.docker"
