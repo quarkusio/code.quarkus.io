@@ -25,6 +25,8 @@ objects:
           labels:
             service: code-quarkus
         spec:
+          serviceAccount: ${SERVICE_ACCOUNT}
+          serviceAccountName: ${SERVICE_ACCOUNT}
           containers:
             - image: ${IMAGE}:${IMAGE_TAG}
               imagePullPolicy: Always
@@ -182,3 +184,6 @@ parameters:
     required: true
     name: REPLICAS
     value: '1'
+  - description: Service Account
+    displayName: Service Account
+    name: SERVICE_ACCOUNT
