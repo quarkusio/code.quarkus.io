@@ -1,13 +1,14 @@
 ## Stage 1 : build with maven builder image with native capabilities
 FROM quay.io/quarkus/centos-quarkus-maven:19.3.1-java11 AS build
 ARG MAVEN_EXTRA_ARGS=
+ARG NATIVE_BUILD_MEMORY=4g
 RUN echo "$MAVEN_EXTRA_ARGS"
 COPY src /usr/src/app/src
 COPY pom.xml reflection-config.json resources-config.json maven-settings.xml* /usr/src/app/
 USER root
 RUN chown -R quarkus /usr/src/app
 USER quarkus
-RUN cd /usr/src/app/ && mvn clean package -Pnative -Dnative-image.xmx=4g $MAVEN_EXTRA_ARGS
+RUN cd /usr/src/app/ && mvn clean package -Pnative -Dnative-image.xmx=$NATIVE_BUILD_MEMORY $MAVEN_EXTRA_ARGS
 RUN mkdir -p /tmp/ssl-libs/lib \
   && cp /opt/graalvm/lib/security/cacerts /tmp/ssl-libs \
   && cp /opt/graalvm/lib/libsunec.so /tmp/ssl-libs/lib/
