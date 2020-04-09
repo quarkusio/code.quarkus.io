@@ -7,6 +7,7 @@ import java.util.*
 @ConfigProperties(prefix = "io.quarkus.code.extension-processor")
 interface ExtensionProcessorConfig {
 
-    @get:ConfigProperty(name = "tags-from", defaultValue = "status")
-    val tagsFrom: List<String>
+    // FIXME use Optional<List<String>> when bugfix is released
+    @get:ConfigProperty(name = "tags-from")
+    val tagsFrom: Optional<String>
 }

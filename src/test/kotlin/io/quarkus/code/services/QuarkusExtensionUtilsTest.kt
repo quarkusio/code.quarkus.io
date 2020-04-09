@@ -17,11 +17,12 @@ import org.junit.jupiter.api.Test
 import java.io.IOException
 import java.io.InputStream
 import java.nio.file.Path
+import java.util.*
 import java.util.function.Function
 
 internal class QuarkusExtensionUtilsTest {
     val config = object : ExtensionProcessorConfig {
-        override val tagsFrom: List<String> = listOf("status")
+        override val tagsFrom: Optional<String> = Optional.empty()
     }
 
     @Test

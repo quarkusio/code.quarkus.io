@@ -73,6 +73,8 @@ objects:
                   value: ${IO_QUARKUS_CODE_HOSTNAME}
                 - name: IO_QUARKUS_CODE_FEATURES
                   value: ${IO_QUARKUS_CODE_FEATURES}
+                - name: IO_QUARKUS_CODE_EXTENSION_PROCESSOR_TAGS_FROM
+                  value: ${IO_QUARKUS_CODE_EXTENSION_PROCESSOR_TAGS_FROM}
                 - name: IO_QUARKUS_CODE_SENTRY_DSN
                   valueFrom:
                     secretKeyRef:
@@ -110,80 +112,35 @@ objects:
       type: ClusterIP
 parameters:
   - name: IO_QUARKUS_CODE_ENVIRONMENT
-    value: dev
-    required: true
-    displayName: Code Quarkus App environment
-    description: Code Quarkus App environment. Defaults to dev
   - name: IO_QUARKUS_CODE_FEATURES
-    value: none
-    required: true
-    displayName: Features
-    description: Code Quarkus App enabled features
   - name: IO_QUARKUS_CODE_HOSTNAME
-    required: true
-    displayName: Code Quarkus Hostname
-    description: Code Quarkus Hostname
   - name: IO_QUARKUS_CODE_GA_BATCHING_ENABLED
-    value: "true"
-    required: true
-    displayName: Code Quarkus Google Analytics enabled batching
-    description: Code Quarkus Google Analytics enabled batching
   - name: IO_QUARKUS_CODE_LOG_LEVEL
-    value: "INFO"
-    required: true
-    displayName: Code Quarkus log level
-    description: Code Quarkus log level
+  - name: IO_QUARKUS_CODE_EXTENSION_PROCESSOR_TAGS_FROM
   - name: IO_QUARKUS_CODE_GA_EXTENSIONS_DIMENSION_INDEX
-    required: false
-    displayName: Code Quarkus Google Analytics extensions dimension index
-    description: Code Quarkus Google Analytics extensions dimension index
   - name: IO_QUARKUS_CODE_GA_QUARKUS_VERSION_DIMENSION_INDEX
-    required: false
-    displayName: Code Quarkus Google Analytics Quarkus version dimension index
-    description: Code Quarkus Google Analytics Quarkus version dimension index
   - name: IO_QUARKUS_CODE_GA_BUILD_TOOL_DIMENSION_INDEX
-    required: false
-    displayName: Code Quarkus Google Analytics build tool dimension index
-    description: Code Quarkus Google Analytics build tool dimension index
   - name: IO_QUARKUS_CODE_GA_EXTENSION_QUANTITY_INDEX
-    required: false
-    displayName: Code Quarkus Google Analytics extension qty dimension index
-    description: Code Quarkus Google Analytics extension qty dimension index
   - name: IMAGE
     value: quay.io/quarkus/code-quarkus-app
     required: true
-    displayName: Code Quarkus App image
-    description: Code Quarkus App docker image. Defaults to quay.io/quarkus/code-quarkus-app
   - name: IMAGE_TAG
     value: latest
     required: true
-    displayName: Code Quarkus App version
-    description: Code Quarkus App version which defaults to latest
-  - description: CPU request
-    displayName: CPU request
+  - name: CPU_REQUEST
     required: true
-    name: CPU_REQUEST
     value: 400m
-  - description: CPU limit
-    displayName: CPU limit
+  - name: CPU_LIMIT
     required: true
-    name: CPU_LIMIT
     value: 1000m
-  - description: Memory request
-    displayName: Memory request
+  - name: MEMORY_REQUEST
     required: true
-    name: MEMORY_REQUEST
     value: 768Mi
-  - description: Memory limit
-    displayName: Memory limit
+  - displayName: Memory limit
     required: true
     name: MEMORY_LIMIT
     value: 1Gi
-  - description: Number of deployment replicas
-    displayName: Number of deployment replicas
+  - name: REPLICAS
     required: true
-    name: REPLICAS
     value: '1'
-  - description: Service Account
-    displayName: Service Account
-    name: SERVICE_ACCOUNT
+  - name: SERVICE_ACCOUNT

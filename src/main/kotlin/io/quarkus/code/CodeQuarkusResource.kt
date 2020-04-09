@@ -49,11 +49,11 @@ class CodeQuarkusResource {
     fun onStart(@Observes e: StartupEvent) {
         LOG.log(Level.INFO) {"""
             Code Quarkus is started with:
-                environment = ${config.environment}
-                sentryDSN = ${config.sentryDSN.filter(String::isNotBlank).orElse(null)}
-                quarkusVersion = ${config.quarkusVersion},
-                gitCommitId: ${config.gitCommitId},
-                features: ${config.features.filter { it.isNotBlank() && it.toLowerCase() != "none" }}
+                environment = ${config().environment}
+                sentryDSN = ${config().sentryDSN}
+                quarkusVersion = ${config().quarkusVersion},
+                gitCommitId: ${config().gitCommitId},
+                features: ${config().features}
         """.trimIndent()}
     }
 
@@ -63,12 +63,12 @@ class CodeQuarkusResource {
     @Operation(summary = "Get the Quarkus Launcher configuration", hidden = true)
     fun config(): Config {
         return Config(
-                environment = config.environment,
+                environment = config.environment.orElse("dev"),
                 gaTrackingId = gaConfig.trackingId.filter(String::isNotBlank).orElse(null),
                 sentryDSN = config.sentryDSN.filter(String::isNotBlank).orElse(null),
                 quarkusVersion = config.quarkusVersion,
                 gitCommitId = config.gitCommitId,
-                features = config.features.filter { it.isNotBlank() && it.toLowerCase() != "none" }
+                features = config.features.map { listOf(it) }.orElse(listOf())
         )
     }
 

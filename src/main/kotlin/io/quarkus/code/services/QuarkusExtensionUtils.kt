@@ -93,7 +93,7 @@ object QuarkusExtensionUtils {
                 shortName = getExtensionShortName(ext),
                 category = cat.name,
                 status = getExtensionStatus(ext),
-                tags = getExtensionTags(ext, config.tagsFrom),
+                tags = getExtensionTags(ext, listOf(config.tagsFrom.orElse("status"))),
                 default = isDefaultExtension(ext),
                 keywords = keywords,
                 order = order.getAndIncrement(),

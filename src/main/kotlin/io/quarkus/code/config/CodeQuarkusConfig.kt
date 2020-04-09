@@ -12,15 +12,16 @@ interface CodeQuarkusConfig {
     @get:ConfigProperty(name = "git-commit-id")
     val gitCommitId: String
 
-    @get:ConfigProperty(name = "environment", defaultValue = "dev")
-    val environment: String
+    @get:ConfigProperty(name = "environment")
+    val environment: Optional<String>
 
     @get:ConfigProperty(name = "sentry-dsn")
     val sentryDSN: Optional<String>
 
-    @get:ConfigProperty(name = "features", defaultValue = "none")
-    val features: List<String>
+    // FIXME use Optional<List<String>> when bugfix is released
+    @get:ConfigProperty(name = "features")
+    val features: Optional<String>
 
-    @get:ConfigProperty(name = "hostname", defaultValue = "code.quarkus.io")
-    val hostname: String
+    @get:ConfigProperty(name = "hostname")
+    val hostname: Optional<String>
 }

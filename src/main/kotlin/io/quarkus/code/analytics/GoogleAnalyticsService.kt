@@ -35,8 +35,8 @@ class GoogleAnalyticsService {
         val gaTrackingId = gaConfig.trackingId
         defaultUserAgent = "CodeQuarkusBackend/${config.gitCommitId} (${System.getProperty("os.name")}; ${System.getProperty("os.version")}; ${System.getProperty("os.arch")}, Java ${System.getProperty("java.version")})"
         if (googleAnalytics == null && gaTrackingId.filter(String::isNotBlank).isPresent) {
-            val batching = gaConfig.batchingEnabled
-            val batchSize = gaConfig.batchSize
+            val batching = gaConfig.batchingEnabled.orElse(true)
+            val batchSize = gaConfig.batchSize.orElse(30)
             googleAnalytics = GoogleAnalytics.builder()
                     .withTrackingId(gaTrackingId.get())
                     .withConfig(com.brsanthu.googleanalytics.GoogleAnalyticsConfig().setBatchSize(batchSize).setBatchingEnabled(batching))
@@ -87,25 +87,26 @@ class GoogleAnalyticsService {
             if (buildTool != null && gaConfig.buildToolDimensionIndex.isPresent) {
                 event.customDimension(gaConfig.buildToolDimensionIndex.asInt, buildTool)
             }
+            val hostName = config.hostname.orElse("code.quarkus.io")
             LOG.log(FINE) {
                 """
                     sending analytic event:
-                        - userAgent: ${fixedUserAgent}
-                        - documentReferrer: ${referer}
-                        - documentHostName: ${config.hostname}
+                        - userAgent: $fixedUserAgent
+                        - documentReferrer: $referer
+                        - documentHostName: $hostName
                         - userIp: ${remoteAddr != null}
-                        - applicationName: ${applicationName}
-                        - documentUrl: ${url}
-                        - documentPath: ${path}
-                        - eventCategory: ${category}
-                        - eventAction: ${action}
-                        - eventLabel: ${label}
+                        - applicationName: $applicationName
+                        - documentUrl: $url
+                        - documentPath: $path
+                        - eventCategory: $category
+                        - eventAction: $action
+                        - eventLabel: $label
                     """.trimIndent()
             }
             event
                     .userAgent(fixedUserAgent)
                     .documentReferrer(referer)
-                    .documentHostName(config.hostname)
+                    .documentHostName(hostName)
                     .userIp(remoteAddr)
                     .dataSource("api")
                     .anonymizeIp(true)

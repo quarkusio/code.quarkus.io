@@ -21,9 +21,9 @@ interface GoogleAnalyticsConfig {
     @get:ConfigProperty(name = "extension-quantity-index")
     val extensionQtyDimensionIndex: OptionalInt
 
-    @get:ConfigProperty(name = "batching-enabled", defaultValue = "true")
-    val batchingEnabled: Boolean
+    @get:ConfigProperty(name = "batching-enabled")
+    val batchingEnabled: Optional<Boolean>
 
-    @get:ConfigProperty(name = "batchSize", defaultValue = "30")
-    val batchSize: Int
+    @get:ConfigProperty(name = "batchSize")
+    val batchSize: OptionalInt
 }
