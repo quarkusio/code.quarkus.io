@@ -45,12 +45,12 @@ internal class QuarkusExtensionUtilsTest {
                 description = "Build time CDI dependency injection",
                 shortName = "CDI",
                 category = "Core",
-                tags = listOf(),
+                tags = listOf("test"),
                 default = false,
                 keywords = listOf("arc", "cdi", "dependency-injection", "di"),
                 guide = "https://quarkus.io/guides/cdi-reference",
                 order = 0,
-                status = "stable",
+                status = "test",
                 labels = listOf("arc", "cdi", "dependency-injection", "di")))
         )
         assertThat(extensions[5], `is`(CodeQuarkusExtension(

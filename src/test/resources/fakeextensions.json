@@ -25,6 +25,7 @@
                     "dependency-injection",
                     "di"
                 ],
+                "status": "test",
                 "guide": "https://quarkus.io/guides/cdi-reference",
                 "categories": [
                     "core"
