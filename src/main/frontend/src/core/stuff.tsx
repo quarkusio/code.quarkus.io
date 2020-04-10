@@ -19,7 +19,7 @@ export function Spin(props: { children: React.ReactNode }) {
 
 export function Loader(props: { 'aria-label'?: string; error?: any; }) {
   return (
-    <div className={style.loader} aria-label={props['aria-label']}>
+    <div className={`loader-or-error ${style.loader}`} aria-label={props['aria-label']}>
       {!props || (!props!.error && (<Spin><InProgressIcon/></Spin>))}
       {props && props.error &&
       <AlertError error={props.error}/>

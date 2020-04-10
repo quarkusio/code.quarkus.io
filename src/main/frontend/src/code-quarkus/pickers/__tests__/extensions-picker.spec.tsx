@@ -1,7 +1,7 @@
 import { cleanup, fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import { ExtensionEntry, ExtensionsPicker } from '../extensions-picker';
-import { filterFunction, sortFunction } from '../extensions-picker-helpers';
+import { filterFunction, sortFunction } from '../extensions-picker-utils';
 
 afterEach(() => {
   cleanup();

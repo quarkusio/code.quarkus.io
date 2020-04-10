@@ -1,6 +1,7 @@
-import { FormGroup, TextInput, TextInputProps } from '@patternfly/react-core';
+import { FormGroup, TextInputProps } from '@patternfly/react-core';
 import React, { ChangeEvent, useState } from 'react';
 import { useAnalytics } from './analytics';
+import { DebouncedTextInput } from './debounced-text-input';
 
 export interface ExtendedTextInputProps extends TextInputProps {
   id: string;
@@ -18,12 +19,12 @@ export function useAnalyticsEditionField(id: string, onChange: any): [boolean, (
     if (onChange) {
       onChange(value, event);
     }
-  }
+  };
   return [isDirty, onChangeWithDirty];
 }
 
 export function ExtendedTextInput(props: ExtendedTextInputProps) {
-  const { onChange, isValid, helperTextInvalid, label, className, ...rest } = props;
+  const { value, onChange, isValid, helperTextInvalid, label, className, ...rest } = props;
   const [isDirty, onChangeWithDirty] = useAnalyticsEditionField(props.id, onChange);
   const valid = (!isDirty && !props.value) || isValid;
   return (
@@ -34,10 +35,11 @@ export function ExtendedTextInput(props: ExtendedTextInputProps) {
       helperTextInvalid={helperTextInvalid}
       className={className}
     >
-      <TextInput
+      <DebouncedTextInput
+        {...rest as any}
         onChange={onChangeWithDirty}
         isValid={valid}
-        {...rest as any}
+        value={value}
       />
     </FormGroup>
   );

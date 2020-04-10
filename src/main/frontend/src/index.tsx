@@ -7,7 +7,7 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { SentryBoundary } from './sentry-boundary';
 import { CodeQuarkus } from './code-quarkus/code-quarkus';
-import { ConfigLoader } from './code-quarkus/config-loader';
+import { ConfigLoader } from './code-quarkus/loaders/config-loader';
 
 ReactDOM.render((
   <ConfigLoader>{config => (

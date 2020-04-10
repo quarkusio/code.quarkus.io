@@ -5,3 +5,4 @@ export * from './types';
 export * from './extended-text-input';
 export * from './toggle-panel/toggle-panel';
 export * from './use-debounce';
+export * from './copy-to-clipboard'

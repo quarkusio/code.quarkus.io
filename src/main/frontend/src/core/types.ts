@@ -8,7 +8,7 @@ export interface InputProps<T> {
 export interface InputPropsWithValidation<T> {
   value: T;
   isValid: boolean;
-  onChange: (value: T, isValid: boolean) => void;
+  onChange: (value: T) => void;
 }
 
 export interface FormProps<T> {

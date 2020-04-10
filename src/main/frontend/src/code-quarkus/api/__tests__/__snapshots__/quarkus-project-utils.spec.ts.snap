@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`quarkus-project parseProjectInQuery correctly with github: github 1`] = `
+Object {
+  "extensions": Array [
+    Object {
+      "category": "Core",
+      "default": false,
+      "description": "Build time CDI dependency injection",
+      "id": "io.quarkus:quarkus-arc",
+      "keywords": Array [
+        "arc",
+        "cdi",
+        "dependency-injection",
+        "di",
+        "label",
+      ],
+      "name": "ArC",
+      "order": 0,
+      "shortId": "a",
+      "shortName": "CDI",
+      "tags": Array [],
+      "version": "test-version",
+    },
+  ],
+  "github": Object {
+    "code": "totototo",
+    "state": "djdjdj",
+  },
+  "metadata": Object {
+    "artifactId": "code-test",
+    "buildTool": "GRADLE",
+    "groupId": "org.test",
+    "packageName": "org.toto",
+    "version": "1.0.0-SNAPSHOT",
+  },
+}
+`;
+
+exports[`quarkus-project parseProjectInQuery correctly: no-github 1`] = `
+Object {
+  "extensions": Array [
+    Object {
+      "category": "Core",
+      "default": false,
+      "description": "Build time CDI dependency injection",
+      "id": "io.quarkus:quarkus-arc",
+      "keywords": Array [
+        "arc",
+        "cdi",
+        "dependency-injection",
+        "di",
+        "label",
+      ],
+      "name": "ArC",
+      "order": 0,
+      "shortId": "a",
+      "shortName": "CDI",
+      "tags": Array [],
+      "version": "test-version",
+    },
+  ],
+  "github": undefined,
+  "metadata": Object {
+    "artifactId": "code-test",
+    "buildTool": "MAVEN",
+    "groupId": "org.test",
+    "packageName": "org.toto",
+    "version": "1.0.0-SNAPSHOT",
+  },
+}
+`;
+
+exports[`quarkus-project parseProjectInQuery with some other metadata: v=1.0 1`] = `
+Object {
+  "extensions": Array [],
+  "github": undefined,
+  "metadata": Object {
+    "artifactId": "code-with-quarkus",
+    "buildTool": "MAVEN",
+    "groupId": "org.acme",
+    "packageName": undefined,
+    "version": "1.0",
+  },
+}
+`;

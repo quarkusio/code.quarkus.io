@@ -5,10 +5,9 @@ import hotkeys from 'hotkeys-js';
 import _ from 'lodash';
 import React, { KeyboardEvent, useEffect, useRef, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { InputProps, useAnalytics } from '../../core';
-import { CopyToClipboard } from '../copy-to-clipboard';
-import { QuarkusBlurb } from '../quarkus-blurb';
-import { processEntries } from './extensions-picker-helpers';
+import { InputProps, useAnalytics, CopyToClipboard } from '../../core';
+import { QuarkusBlurb } from '../layout/quarkus-blurb';
+import { processEntries } from './extensions-picker-utils';
 import './extensions-picker.scss';
 
 export interface ExtensionEntry {
@@ -55,15 +54,15 @@ function StatusTag(props: { status?: string }) {
 
   switch (props.status) {
     case 'preview':
-      return <span
+      return (<span
         className="extension-tag preview"
         title="This is work in progress. API or configuration properties might change as the extension matures. Give us your feedback :)"
-      >PREVIEW</span>;
+      >PREVIEW</span>);
     case 'experimental':
-      return <span
+      return (<span
         className="extension-tag experimental"
         title="Early feedback is requested to mature the idea. There is no guarantee of stability nor long term presence in the platform until the solution matures."
-      >EXPERIMENTAL</span>;
+      >EXPERIMENTAL</span>);
     case 'included':
       return (<span
         title="Applications generated with Code Quarkus are currently demonstrating a Hello World REST endpoint, this extension is therefore included by default to make this use case work."
