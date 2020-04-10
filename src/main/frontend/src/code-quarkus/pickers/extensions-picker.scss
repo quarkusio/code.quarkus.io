@@ -2,42 +2,50 @@
 
 .extensions-picker {
   display: flex;
-  color: $main;
+  color: $extensionsPickerTextColor;
 
   .extension-item {
     display: flex;
     width: 100%;
     line-height: 30px;
     cursor: pointer;
+
+    @media screen and (max-width: $tabletWidth) {
+      flex-wrap: wrap;
+    }
+
     svg {
       pointer-events: none;
     }
 
-    &.selected {
-      .extension-selector {
-        color: $alert;
-      }
+    .extension-selector {
+      color: $extensionsPickerCheckColor;
     }
 
-    &.hover.selected {
-      .extension-selector {
-        color: $main;
-      }
+    &.selected .extension-selector {
+      color: $extensionsPickerCheckSelectedColor;
     }
 
-    .extension-remove {
-      color: $secondary;
-      height: 30px;
+    &.hover.selected .extension-selector  {
+      color: $extensionsPickerCheckSelectedHoverColor;
     }
 
-    & div:focus {
+    &.by-default .extension-selector {
+      color: $extensionsPickerCheckSelectedByDefaultColor !important;
+    }
+
+    div:focus {
       outline: none;
     }
 
-    .extension-selector {
-      max-width: 10px;
+    .extension-remove {
+      color: $extensionsPickerRemoveButtonColor;
+      height: 30px;
+    }
 
-      @media screen and (max-width: 900px) {
+    .extension-selector {
+
+      @media screen and (max-width: $mobileWidth) {
         display: none;
       }
     }
@@ -46,6 +54,7 @@
       overflow: hidden;
       display: flex;
     }
+
     .extension-name {
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -61,15 +70,24 @@
       line-height: 20px;
       margin: 5px 5px;
       padding: 0 3px;
+      height: 20px;
+      text-transform: uppercase;
 
       &.preview {
-        border: 1px solid $highlight;
+        border: 1px solid $extensionsPickerFlagPreviewColor;
+      }
+
+      &.experimental {
+        border: 1px solid $extensionsPickerFlagExperimentalColor;
+      }
+
+      &.custom {
+        border: 1px solid $extensionsPickerFlagCustomColor;
       }
 
       &.default {
-        border: 1px solid $main;
+        border: 1px solid $extensionsPickerFlagDefaultColor;
       }
-      
     }
 
     .extension-details {
@@ -77,35 +95,72 @@
     }
 
     .extension-description {
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
       font-size: 0.8rem;
-
-      @media screen and (max-width: 1200px) {
-        display: none;
+      
+      @media screen and (min-width: $tabletWidth) {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      @media screen and (max-width: $tabletWidth) {
+        color: $extensionsPickerDescriptionTextColorOnTablet;
       }
     }
 
-    .extension-gav {
+    .extension-more {
       max-width: 150px;
-      direction: rtl;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-      text-align: right;
       font-size: 0.8rem;
+      height: 33px;
 
-      @media screen and (max-width: 900px) {
-        display: none;
+      .pf-c-dropdown {
+        border: 0;
+        &.pf-m-expanded {
+          background-color: $extensionsPickerMoreDropdownBg;
+        }
+      }
+      .pf-c-dropdown__menu {
+        right: 0;
+        top: 30px;
+        background-color: $extensionsPickerMoreDropdownBg;
+        padding: 0;
+        li {
+          background-color: $extensionsPickerMoreDropdownBg;
+          a {
+            color: $extensionsPickerMoreDropdownTextColor;
+            background-color: $extensionsPickerMoreDropdownBg;
+            border-right: 2px solid $extensionsPickerMoreDropdownBg;
+            svg {
+              margin-right: 20px;
+            }
+          }
+          a:hover {
+            border-right: 2px solid $extensionsPickerMoreDropdownTextColor;
+          }
+        }
+      }
+      button.pf-c-dropdown__toggle {
+        color: $extensionsPickerTextColor;
+        min-width: 0;
+        outline: none;
+        padding: 0.5rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        display: flex;
+        font-weight: 400;
+        align-items: center;
+        justify-content: space-between;
+      }
+      button.pf-c-dropdown__toggle:before {
+        border: 0;
       }
     }
   }
 
-  .list-container {
+  .main-container .extension-list-wrapper {
     .extension-category {
-      border-bottom: 1px solid $highlight;
+      border-bottom: 1px solid $extensionsPickerCategoryUnderlineColor;
       font-weight: bold;
+      color: $extensionsPickerCategoryTextColor;
       font-size: 1.1rem;
       margin: 10px 0 5px 0;
       height: 30px;
@@ -116,35 +171,46 @@
     }
 
     .extension-item {
-      height: 30px;
-      color: $main;
-
-      & > div {
-        margin: 0 10px;
-      }
+      color: $extensionsPickerTextColor;
 
       &.keyboard-actived {
-        color: $highlight;
+        color: $extensionsPickerKeyboardActivedTextColor;
       }
 
       .extension-selector {
         flex-basis: 30px;
+        order: 1;
       }
       .extension-description {
         flex: 1;
+        order: 4;
+        @media screen and (max-width: $tabletWidth) {
+          line-height: 1.2rem;
+         
+          flex-basis: 100%;
+        }
       }
 
       .extension-summary {
         flex-basis: 350px;
-
-        @media screen and (max-width: 1200px) {
+        order: 2;
+       
+        @media screen and (max-width: $tabletWidth) {
           flex-grow: 1;
+          flex-basis: calc(100% - 62px);
+        }
+
+        @media screen and (max-width: $mobileWidth) {
+          flex-basis: calc(100% - 32px);
         }
       }
 
-      .extension-gav {
-        flex-basis: 30px;
-        color: $main;
+      .extension-more {
+        order: 5;
+         @media screen and (max-width: $tabletWidth) {
+          order: 3;
+          flex-basis: 32px;
+        }
       }
 
       &.readonly {
@@ -156,6 +222,16 @@
   .control-container {
     flex: 0 0 350px;
     overflow: hidden;
+    padding-top: 20px;
+    position: sticky;
+    top: 220px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+
+    @media screen and (max-width: $mobileWidth) {
+      display: none;
+    }
 
     .pf-c-form__group {
       svg {
@@ -165,99 +241,110 @@
     }
 
     input.pf-c-form-control {
-      border: 1px solid $main;
+      border: 1px solid $extensionsPickerSearchBorderColor;
       padding-left: 40px;
       margin-left: -40px;
       font-size: 14px;
       width: 100%;
       background: transparent;
-      color: $main;
-      font-family: "PT Mono", Regular;
+      color: $extensionsPickerSearchTextColor;
+      font-family: $inputFont;
       padding-bottom: 4px;
     }
 
     input.pf-c-form-control:focus {
       outline: none;
-      border: 1px solid $highlight;
+      border: 1px solid $extensionsPickerSearchBorderColorOnFocus;
     }
 
     h4 {
-      border-bottom: 1px solid $readonly;
+      border-bottom: 1px solid $mainContainerTextColor;
       font-weight: bold;
       margin-top: 40px;
       margin-bottom: 20px;
     }
+    .selected-extensions {
+      flex-grow: 1;
+      overflow: hidden;
+    }
+
     .extension-summary {
       flex-grow: 1;
     }
+
+    .extension-list-wrapper {
+      height: calc(100% - 25px);
+      overflow-y: auto;
+    }
   }
 
-  .result-container {
+  .main-container {
     margin-left: 30px;
+    margin-top: 20px;
     flex-grow: 1;
     overflow: hidden;
 
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: $mobileWidth) {
       margin: 5px;
     }
 
     .extension-search-clear {
-      border-bottom: 1px solid $highlight;
+      border-bottom: 1px solid $extensionsPickerCategoryUnderlineColor;
       font-weight: bold;
       font-size: 1.1rem;
       margin: 0 0 5px 0;
       height: 30px;
       .pf-c-button.pf-m-link {
-        color: $secondary;
+        color: $extensionsPickerSearchClearColor;
         padding: 0 3px;
       }
     }
   }
-}
 
-@supports (not (display: contents)) {
-  .extensions-picker .extension-item .extension-selector {
-    max-width: 30px;
-  }
+  @supports (not (display: contents)) {
+    .extension-item .extension-selector {
+      max-width: 30px;
+    }
 
-  .extensions-picker .control-container .extension-list {
-    display: table;
-    .extension-item {
-      display: table-row;
+    .control-container .extension-list-wrapper {
+      display: table;
+      .extension-item {
+        display: table-row;
+        .extension-summary {
+          display: table-cell;
+          width: 90%;
+        }
+        .extension-remove {
+          display: table-cell;
+          width: 10%;
+        }
+      }
+    }
+
+    .main-container .extension-list-wrapper {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+      .extension-selector {
+        display: table-cell;
+        width: 30px;
+      }
       .extension-summary {
         display: table-cell;
-        width: 90%;
+        width: 300px;
       }
-      .extension-remove {
-        display: table-cell;
-        width: 10%;
+      .extension-details {
+        width: 100%;
+        .extension-description {
+          display: inline;
+        }
+        .extension-gav {
+          float: right;
+        }
       }
-    }
-  }
-
-  .list-container {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-    .extension-selector {
-      display: table-cell;
-      width: 30px;
-    }
-    .extension-summary {
-      display: table-cell;
-      width: 300px;
-    }
-    .extension-details {
-      width: 100%;
-      .extension-description {
-        display: inline;
+      .extension-item > div {
+        margin: 0;
       }
-      .extension-gav {
-        float: right;
-      }
-    }
-    .extension-item > div {
-      margin: 0;
     }
   }
 }

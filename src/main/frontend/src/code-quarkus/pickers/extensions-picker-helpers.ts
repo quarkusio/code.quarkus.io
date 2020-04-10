@@ -12,8 +12,9 @@ export const filterFunction = (filter: string) => (d: ExtensionEntry) => {
   return d.name.toLowerCase().includes(filterLowerCase)
     || d.keywords.filter(l => l.startsWith(filterLowerCase)).length > 0
     || (d.category && d.category.toLowerCase().startsWith(filterLowerCase))
+    || d.tags.filter(l => l.startsWith(filterLowerCase)).length > 0
     || shortName.startsWith(filterLowerCase);
-}
+};
 
 export const sortFunction = (filter: string) => (a: ExtensionEntry, b: ExtensionEntry) => {
   const filterLowerCase = filter.trim().toLowerCase();
@@ -25,16 +26,21 @@ export const sortFunction = (filter: string) => (a: ExtensionEntry, b: Extension
   if (startWithAShortName !== startWithBShortName) {
     return startWithAShortName ? -1 : 1;
   }
-  const startWithOneOfALabel = a.keywords.filter(l => l.startsWith(filterLowerCase)).length > 0;
-  const startWithOneOfBLabel = b.keywords.filter(l => l.startsWith(filterLowerCase)).length > 0;
-  if (startWithOneOfALabel !== startWithOneOfBLabel) {
-    return startWithOneOfALabel ? -1 : 1;
+  const startWithOneOfAKeywords = a.keywords.filter(l => l.startsWith(filterLowerCase)).length > 0;
+  const startWithOneOfBKeywords = b.keywords.filter(l => l.startsWith(filterLowerCase)).length > 0;
+  if (startWithOneOfAKeywords !== startWithOneOfBKeywords) {
+    return startWithOneOfAKeywords ? -1 : 1;
   }
   if (a.name.toLowerCase().startsWith(filterLowerCase) !== b.name.toLowerCase().startsWith(filterLowerCase)) {
     return a.name.toLowerCase().startsWith(filterLowerCase) ? -1 : 1;
   }
+  const startWithOneOfATags = a.tags.filter(l => l.startsWith(filterLowerCase)).length > 0;
+  const startWithOneOfBTags = b.tags.filter(l => l.startsWith(filterLowerCase)).length > 0;
+  if (startWithOneOfATags !== startWithOneOfBTags) {
+    return startWithOneOfATags ? -1 : 1;
+  }
   return a.order > b.order ? 1 : -1;
-}
+};
 
 export const removeDuplicateIds = (filter: string, entries: ExtensionEntry[]): ExtensionEntry[] => {
   if (!filter) {
@@ -49,8 +55,8 @@ export const removeDuplicateIds = (filter: string, entries: ExtensionEntry[]): E
       ids.add(e.id);
       return true;
     });
-}
+};
 
 export const processEntries = (filter: string, entries: ExtensionEntry[]): ExtensionEntry[] => {
   return removeDuplicateIds(filter, entries.filter(filterFunction(filter)).sort(sortFunction(filter)));
-}
+};

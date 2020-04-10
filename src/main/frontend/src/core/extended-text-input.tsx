@@ -1,5 +1,5 @@
-import React, { useState, FormEvent } from 'react';
-import { TextInput, FormGroup, TextInputProps } from '@patternfly/react-core';
+import { FormGroup, TextInput, TextInputProps } from '@patternfly/react-core';
+import React, { ChangeEvent, useState } from 'react';
 import { useAnalytics } from './analytics';
 
 export interface ExtendedTextInputProps extends TextInputProps {
@@ -7,20 +7,25 @@ export interface ExtendedTextInputProps extends TextInputProps {
   helperTextInvalid?: string;
 }
 
-export function ExtendedTextInput(props: ExtendedTextInputProps) {
+export function useAnalyticsEditionField(id: string, onChange: any): [boolean, (value: string, event: ChangeEvent<any>) => void] {
   const [isDirty, setIsDirty] = useState(false);
-  const { onChange, isValid, helperTextInvalid, label, className, ...rest } = props;
   const analytics = useAnalytics();
-  const valid = (!isDirty && !props.value) || isValid;
-  const onChangeWithDirty = (value: string, event: FormEvent<HTMLInputElement>) => {
+  const onChangeWithDirty = (value: string, event: ChangeEvent<any>) => {
     if (!isDirty) {
-      analytics.event('Input', 'Customized-Value', props.id);
+      analytics.event('UX', 'Edit field', id);
     }
     setIsDirty(true);
     if (onChange) {
       onChange(value, event);
     }
-  };
+  }
+  return [isDirty, onChangeWithDirty];
+}
+
+export function ExtendedTextInput(props: ExtendedTextInputProps) {
+  const { onChange, isValid, helperTextInvalid, label, className, ...rest } = props;
+  const [isDirty, onChangeWithDirty] = useAnalyticsEditionField(props.id, onChange);
+  const valid = (!isDirty && !props.value) || isValid;
   return (
     <FormGroup
       fieldId={props.id}

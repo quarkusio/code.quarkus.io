@@ -1,59 +1,79 @@
-package io.quarkus.code.services
+package io.quarkus.code.extensions
 
+import io.quarkus.code.config.ExtensionProcessorConfig
+import io.quarkus.code.extensions.QuarkusExtensionUtils.processExtensions
+import io.quarkus.code.extensions.QuarkusExtensionUtils.shorten
 import io.quarkus.code.model.CodeQuarkusExtension
-import io.quarkus.code.services.QuarkusExtensionUtils.processExtensions
 import io.quarkus.platform.descriptor.loader.json.ArtifactResolver
 import io.quarkus.platform.descriptor.loader.json.QuarkusJsonPlatformDescriptorLoaderContext
 import io.quarkus.platform.descriptor.loader.json.impl.QuarkusJsonPlatformDescriptor
 import io.quarkus.platform.descriptor.loader.json.impl.QuarkusJsonPlatformDescriptorLoaderImpl
-import io.quarkus.platform.tools.DefaultMessageWriter
-import io.quarkus.platform.tools.MessageWriter
 import org.apache.maven.model.Dependency
-import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.Test
-import java.io.File
-import java.nio.file.Path
-import java.util.ArrayList
-import java.util.function.Function
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.*
+import org.hamcrest.Matchers.`is`
+import org.hamcrest.Matchers.contains
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Test
 import java.io.IOException
 import java.io.InputStream
+import java.nio.file.Path
+import java.util.*
+import java.util.function.Function
 
-internal class QuarkusExtensionCatalogTest {
+internal class QuarkusExtensionUtilsTest {
+    val config = object : ExtensionProcessorConfig {
+        override val tagsFrom: Optional<String> = Optional.empty()
+    }
+
+    @Test
+    internal fun testShorten() {
+        assertThat(shorten("some random long string"), `is`("ODO"))
+        assertThat(shorten(""), `is`("a"))
+        assertThat(shorten("some-id"), `is`("gLa"))
+        assertThat(shorten("io.quarkus:quarkus-arc"), `is`("3eJ"))
+    }
 
     @Test
     internal fun textContent() {
-        val extensions = processExtensions(getTestDescriptor())
+
+        val extensions = processExtensions(descriptor = getTestDescriptor(), config = config)
         assertThat(extensions[0], `is`(CodeQuarkusExtension(
-                "io.quarkus:quarkus-arc",
-                "ArC",
-                "Build time CDI dependency injection",
-                "CDI",
-                "Core",
-                "stable",
-                false,
-                listOf("arc", "cdi", "dependency-injection", "di"),
-                0,
-                listOf("arc", "cdi", "dependency-injection", "di")))
+                id = "io.quarkus:quarkus-arc",
+                shortId = "zmg",
+                version = "999-SNAPSHOT",
+                name = "ArC",
+                description = "Build time CDI dependency injection",
+                shortName = "CDI",
+                category = "Core",
+                tags = listOf("test"),
+                default = false,
+                keywords = listOf("arc", "cdi", "dependency-injection", "di"),
+                guide = "https://quarkus.io/guides/cdi-reference",
+                order = 0,
+                status = "test",
+                labels = listOf("arc", "cdi", "dependency-injection", "di")))
         )
         assertThat(extensions[5], `is`(CodeQuarkusExtension(
-                "io.quarkus:quarkus-netty",
-                "Netty",
-                "Netty is a non-blocking I/O client-server framework. Used by Quarkus as foundation layer.",
-                null,
-                "Web",
-                "stable",
-                false,
-                listOf(),
-                5,
-                listOf()))
+                id = "io.quarkus:quarkus-netty",
+                shortId = "rpC",
+                version = "999-SNAPSHOT",
+                name = "Netty",
+                description = "Netty is a non-blocking I/O client-server framework. Used by Quarkus as foundation layer.",
+                shortName = null,
+                category = "Web",
+                tags = listOf(),
+                default = false,
+                keywords = listOf(),
+                guide = null,
+                order = 5,
+                status = "stable",
+                labels = listOf()))
         )
     }
 
     @Test
     internal fun testOrder() {
-        val extensions = processExtensions(getTestDescriptor())
+        val extensions = processExtensions(getTestDescriptor(), config)
         assertThat(extensions.map { it.name }.subList(0, 5), contains(
                 "ArC",
                 "RESTEasy JAX-RS",
@@ -69,7 +89,7 @@ internal class QuarkusExtensionCatalogTest {
     }
 
 
-    internal fun getTestDescriptor(): QuarkusJsonPlatformDescriptor {
+    private fun getTestDescriptor(): QuarkusJsonPlatformDescriptor {
         val qpd = QuarkusJsonPlatformDescriptorLoaderImpl()
 
         val artifactResolver = object : ArtifactResolver {

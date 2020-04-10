@@ -1,4 +1,3 @@
-
 import { AnalyticsContext, GoogleAnalytics, useAnalytics, Analytics } from '../core';
 import { stringify } from 'querystring';
 import React, { useEffect, useState } from 'react';
@@ -8,9 +7,11 @@ import { CodeQuarkusForm } from './form';
 import { Header } from './header';
 import './code-quarkus.scss';
 import { NextSteps } from './next-steps';
+import { CLIENT_NAME } from './backend-api';
+import { ExtensionEntry } from './pickers/extensions-picker';
 
 enum Status {
-  EDITION = 'EDITION', RUNNING = 'RUNNING', COMPLETED = 'COMPLETED', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
+  EDITION = 'EDITION', RUNNING = 'RUNNING', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
 }
 
 interface RunState {
@@ -20,7 +21,7 @@ interface RunState {
 }
 
 interface LaunchFlowProps {
-  config: Config
+  config: Config;
 }
 
 export interface QuarkusProject {
@@ -31,11 +32,11 @@ export interface QuarkusProject {
     name?: string;
     packageName?: string;
     buildTool: string;
-  }
-  extensions: string[];
+  };
+  extensions: ExtensionEntry[];
 }
 
-async function generateProject(project: QuarkusProject): Promise<{ downloadLink: string }> {
+async function generateProject(environment: string, project: QuarkusProject): Promise<{ downloadLink: string }> {
   const packageName = project.metadata.packageName || project.metadata.groupId;
   const params = {
     ...(project.metadata.groupId && { g: project.metadata.groupId }),
@@ -43,11 +44,14 @@ async function generateProject(project: QuarkusProject): Promise<{ downloadLink:
     ...(project.metadata.version && { v: project.metadata.version }),
     ...(project.metadata.buildTool && { b: project.metadata.buildTool }),
     ...(packageName && { c: `${packageName}.ExampleResource` }),
-    ...(project.extensions && { e: project.extensions }),
-  }
+    ...(project.extensions && { s: project.extensions.map(e => e.shortId).join('.') }),
+    cn: CLIENT_NAME,
+  };
   const backendUrl = process.env.REACT_APP_BACKEND_URL || publicUrl;
-  const downloadLink = `${backendUrl}/api/download?${stringify(params)}`;
-  window.open(downloadLink, '_blank');
+  const downloadLink = `${backendUrl}/d?${stringify(params)}`;
+  if (environment !== 'dev') {
+    setTimeout(() => window.open(downloadLink, '_blank'), 1000);
+  }
   return { downloadLink };
 }
 
@@ -67,8 +71,8 @@ export function CodeQuarkus(props: LaunchFlowProps) {
   const [analytics, setAnalytics] = useState<Analytics>(useAnalytics());
 
   useEffect(() => {
-    setAnalytics((analytics) => {
-      const newAnalytics = props.config.gaTrackingId ? new GoogleAnalytics(props.config.gaTrackingId) : analytics;
+    setAnalytics((prev) => {
+      const newAnalytics = props.config.gaTrackingId ? new GoogleAnalytics(props.config.gaTrackingId) : prev;
       newAnalytics.init();
       return newAnalytics;
     });
@@ -76,11 +80,8 @@ export function CodeQuarkus(props: LaunchFlowProps) {
 
   const generate = () => {
     setRun({ status: Status.RUNNING });
-
-    analytics && analytics.event('App', 'Generate', props.config.quarkusVersion);
-    analytics && project.extensions.forEach(e => analytics.event('Extension', 'Used', e));
-
-    generateProject(project).then((result) => {
+    analytics.event('UX', 'Generate application', 'Click on "Generate your application" button');
+    generateProject(props.config.environment, project).then((result) => {
       setRun((prev) => ({ ...prev, result, status: Status.DOWNLOADED }));
     }).catch(error => {
       setRun((prev) => ({ ...prev, status: Status.ERROR, error }));
@@ -97,10 +98,10 @@ export function CodeQuarkus(props: LaunchFlowProps) {
   return (
     <AnalyticsContext.Provider value={analytics}>
       <div className="code-quarkus">
-        <Header />
-        <CodeQuarkusForm project={project} setProject={setProject} onSave={generate} quarkusVersion={props.config.quarkusVersion} />
+        <Header supportButton={props.config.features && props.config.features.includes('support-button')}/>
+        <CodeQuarkusForm project={project} setProject={setProject} onSave={generate} quarkusVersion={props.config.quarkusVersion}/>
         {!run.error && run.status === Status.DOWNLOADED
-          && (<NextSteps onClose={closeNextSteps} downloadLink={run.result.downloadLink} buildTool={project.metadata.buildTool} />)}
+        && (<NextSteps onClose={closeNextSteps} downloadLink={run.result.downloadLink} buildTool={project.metadata.buildTool} extensions={project.extensions}/>)}
       </div>
     </AnalyticsContext.Provider>
   );

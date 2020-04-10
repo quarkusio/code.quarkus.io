@@ -13,12 +13,11 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
         class="title"
       >
         <h3>
-          Extensions
+          Pick your extensions
         </h3>
       </div>
       <div
         class="pf-c-form__group"
-        tabindex="0"
       >
         <svg
           aria-hidden="true"
@@ -38,6 +37,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
           aria-invalid="false"
           aria-label="Search extensions"
           class="pf-c-form-control search-extensions-input"
+          css=""
           id="extension-search"
           placeholder=""
           type="search"
@@ -51,12 +51,12 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
           Selected Extensions
         </h4>
         <div
-          class="extension-list"
+          class="extension-list-wrapper"
         />
       </div>
     </div>
     <div
-      class="result-container"
+      class="main-container"
     >
       <div
         aria-label="Info Alert"
@@ -101,14 +101,6 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             class="desktop-only"
           >
             Explore the wide breadth of technologies Quarkus applications can be made with. Generate your application!
-          </p>
-          <p
-            class="mobile-only"
-            style="color: rgb(255, 0, 74);"
-          >
-            On mobile devices, you can explore the list of Quarkus extensions.
-            <br />
-             If you wish to generate code, try it with your desktop browser...
           </p>
           <br />
           <p>
@@ -157,7 +149,49 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
         </div>
       </div>
       <div
-        class="list-container"
+        aria-label="Info Alert"
+        class="pf-c-alert pf-m-info mobile-only quarkus-blurb"
+      >
+        <div
+          class="pf-c-alert__icon"
+        >
+          <svg
+            aria-hidden="true"
+            fill="currentColor"
+            height="1em"
+            role="img"
+            style="vertical-align: -0.125em;"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <path
+              d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"
+              transform=""
+            />
+          </svg>
+        </div>
+        <h4
+          class="pf-c-alert__title"
+        >
+          <span
+            class="pf-u-screen-reader"
+          >
+            Info alert:
+          </span>
+          On mobile devices, you can explore the list of Quarkus extensions.
+        </h4>
+        <div
+          class="pf-c-alert__description"
+        >
+          <p
+            style="color: rgb(255, 0, 74);"
+          >
+            If you wish to generate code, try it with your desktop browser...
+          </p>
+        </div>
+      </div>
+      <div
+        class="extension-list-wrapper"
       >
         <div
           style="display: contents;"
@@ -173,7 +207,6 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             <div
               aria-label="Switch io.quarkus:quarkus-arc extension"
               class="extension-selector"
-              tabindex="0"
             >
               <svg
                 aria-hidden="true"
@@ -195,7 +228,7 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <span
                 class="extension-name"
-                tabindex="0"
+                title="ArC (test-version)"
               >
                 ArC
               </span>
@@ -205,17 +238,18 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <div
                 class="extension-description"
-                tabindex="0"
+                title="Build time CDI dependency injection"
               >
                 Build time CDI dependency injection
               </div>
               <div
-                class="extension-gav"
+                class="extension-more"
               >
-                <div
-                  class="copy-to-clipboard"
-                  style="cursor: pointer;"
-                  tabindex="0"
+                <button
+                  aria-expanded="false"
+                  aria-label="Actions"
+                  class="pf-c-dropdown__toggle"
+                  type="button"
                 >
                   <svg
                     aria-hidden="true"
@@ -223,15 +257,15 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
                     height="1em"
                     role="img"
                     style="vertical-align: -0.125em;"
-                    viewBox="0 0 384 512"
+                    viewBox="0 0 192 512"
                     width="1em"
                   >
                     <path
-                      d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                      d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
                       transform=""
                     />
                   </svg>
-                </div>
+                </button>
               </div>
             </div>
           </div>
@@ -250,7 +284,6 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             <div
               aria-label="Switch some-id extension"
               class="extension-selector"
-              tabindex="0"
             >
               <svg
                 aria-hidden="true"
@@ -272,9 +305,15 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <span
                 class="extension-name"
-                tabindex="0"
+                title="A CDI in name test (test-version)"
               >
                 A CDI in name test
+              </span>
+              <span
+                class="extension-tag experimental"
+                title="Early feedback is requested to mature the idea. There is no guarantee of stability nor long term presence in the platform until the solution matures."
+              >
+                EXPERIMENTAL
               </span>
             </div>
             <div
@@ -282,17 +321,18 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <div
                 class="extension-description"
-                tabindex="0"
+                title="Some description"
               >
                 Some description
               </div>
               <div
-                class="extension-gav"
+                class="extension-more"
               >
-                <div
-                  class="copy-to-clipboard"
-                  style="cursor: pointer;"
-                  tabindex="0"
+                <button
+                  aria-expanded="false"
+                  aria-label="Actions"
+                  class="pf-c-dropdown__toggle"
+                  type="button"
                 >
                   <svg
                     aria-hidden="true"
@@ -300,15 +340,15 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
                     height="1em"
                     role="img"
                     style="vertical-align: -0.125em;"
-                    viewBox="0 0 384 512"
+                    viewBox="0 0 192 512"
                     width="1em"
                   >
                     <path
-                      d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                      d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
                       transform=""
                     />
                   </svg>
-                </div>
+                </button>
               </div>
             </div>
           </div>
@@ -327,7 +367,6 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             <div
               aria-label="Switch io.quarkus:quarkus-camel-netty4-http extension"
               class="extension-selector"
-              tabindex="0"
             >
               <svg
                 aria-hidden="true"
@@ -349,9 +388,15 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <span
                 class="extension-name"
-                tabindex="0"
+                title="Camel Netty4 test HTTP (test-version)"
               >
                 Camel Netty4 test HTTP
+              </span>
+              <span
+                class="extension-tag preview"
+                title="This is work in progress. API or configuration properties might change as the extension matures. Give us your feedback :)"
+              >
+                PREVIEW
               </span>
             </div>
             <div
@@ -359,17 +404,18 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               <div
                 class="extension-description"
-                tabindex="0"
+                title="Camel support for Netty"
               >
                 Camel support for Netty
               </div>
               <div
-                class="extension-gav"
+                class="extension-more"
               >
-                <div
-                  class="copy-to-clipboard"
-                  style="cursor: pointer;"
-                  tabindex="0"
+                <button
+                  aria-expanded="false"
+                  aria-label="Actions"
+                  class="pf-c-dropdown__toggle"
+                  type="button"
                 >
                   <svg
                     aria-hidden="true"
@@ -377,15 +423,15 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
                     height="1em"
                     role="img"
                     style="vertical-align: -0.125em;"
-                    viewBox="0 0 384 512"
+                    viewBox="0 0 192 512"
                     width="1em"
                   >
                     <path
-                      d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                      d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
                       transform=""
                     />
                   </svg>
-                </div>
+                </button>
               </div>
             </div>
           </div>
@@ -409,12 +455,11 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
         class="title"
       >
         <h3>
-          Extensions
+          Pick your extensions
         </h3>
       </div>
       <div
         class="pf-c-form__group"
-        tabindex="0"
       >
         <svg
           aria-hidden="true"
@@ -434,6 +479,7 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           aria-invalid="false"
           aria-label="Search extensions"
           class="pf-c-form-control search-extensions-input"
+          css=""
           id="extension-search"
           placeholder=""
           type="search"
@@ -447,12 +493,12 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           Selected Extensions
         </h4>
         <div
-          class="extension-list"
+          class="extension-list-wrapper"
         />
       </div>
     </div>
     <div
-      class="result-container"
+      class="main-container"
     >
       <div
         aria-label="Info Alert"
@@ -497,14 +543,6 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
             class="desktop-only"
           >
             Explore the wide breadth of technologies Quarkus applications can be made with. Generate your application!
-          </p>
-          <p
-            class="mobile-only"
-            style="color: rgb(255, 0, 74);"
-          >
-            On mobile devices, you can explore the list of Quarkus extensions.
-            <br />
-             If you wish to generate code, try it with your desktop browser...
           </p>
           <br />
           <p>
@@ -553,6 +591,48 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
         </div>
       </div>
       <div
+        aria-label="Info Alert"
+        class="pf-c-alert pf-m-info mobile-only quarkus-blurb"
+      >
+        <div
+          class="pf-c-alert__icon"
+        >
+          <svg
+            aria-hidden="true"
+            fill="currentColor"
+            height="1em"
+            role="img"
+            style="vertical-align: -0.125em;"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <path
+              d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"
+              transform=""
+            />
+          </svg>
+        </div>
+        <h4
+          class="pf-c-alert__title"
+        >
+          <span
+            class="pf-u-screen-reader"
+          >
+            Info alert:
+          </span>
+          On mobile devices, you can explore the list of Quarkus extensions.
+        </h4>
+        <div
+          class="pf-c-alert__description"
+        >
+          <p
+            style="color: rgb(255, 0, 74);"
+          >
+            If you wish to generate code, try it with your desktop browser...
+          </p>
+        </div>
+      </div>
+      <div
         class="extension-search-clear"
       >
         Search results (
@@ -560,12 +640,16 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           class="pf-c-button pf-m-link"
           type="button"
         >
-          Clear search
+          <span
+            class="pf-c-button__text"
+          >
+            Clear search
+          </span>
         </button>
         )
       </div>
       <div
-        class="list-container"
+        class="extension-list-wrapper"
       >
         <div
           class="extension-item"
@@ -573,7 +657,6 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           <div
             aria-label="Switch io.quarkus:quarkus-camel-netty4-http extension"
             class="extension-selector"
-            tabindex="0"
           >
             <svg
               aria-hidden="true"
@@ -595,9 +678,15 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           >
             <span
               class="extension-name"
-              tabindex="0"
+              title="Camel Netty4 test HTTP (test-version)"
             >
               Camel Netty4 test HTTP
+            </span>
+            <span
+              class="extension-tag preview"
+              title="This is work in progress. API or configuration properties might change as the extension matures. Give us your feedback :)"
+            >
+              PREVIEW
             </span>
           </div>
           <div
@@ -605,17 +694,18 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           >
             <div
               class="extension-description"
-              tabindex="0"
+              title="Camel support for Netty"
             >
               Camel support for Netty
             </div>
             <div
-              class="extension-gav"
+              class="extension-more"
             >
-              <div
-                class="copy-to-clipboard"
-                style="cursor: pointer;"
-                tabindex="0"
+              <button
+                aria-expanded="false"
+                aria-label="Actions"
+                class="pf-c-dropdown__toggle"
+                type="button"
               >
                 <svg
                   aria-hidden="true"
@@ -623,15 +713,15 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
                   height="1em"
                   role="img"
                   style="vertical-align: -0.125em;"
-                  viewBox="0 0 384 512"
+                  viewBox="0 0 192 512"
                   width="1em"
                 >
                   <path
-                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
                     transform=""
                   />
                 </svg>
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -654,12 +744,11 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
         class="title"
       >
         <h3>
-          Extensions
+          Pick your extensions
         </h3>
       </div>
       <div
         class="pf-c-form__group"
-        tabindex="0"
       >
         <svg
           aria-hidden="true"
@@ -679,6 +768,7 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           aria-invalid="false"
           aria-label="Search extensions"
           class="pf-c-form-control search-extensions-input"
+          css=""
           id="extension-search"
           placeholder=""
           type="search"
@@ -692,12 +782,12 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           Selected Extensions
         </h4>
         <div
-          class="extension-list"
+          class="extension-list-wrapper"
         />
       </div>
     </div>
     <div
-      class="result-container"
+      class="main-container"
     >
       <div
         aria-label="Info Alert"
@@ -742,14 +832,6 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
             class="desktop-only"
           >
             Explore the wide breadth of technologies Quarkus applications can be made with. Generate your application!
-          </p>
-          <p
-            class="mobile-only"
-            style="color: rgb(255, 0, 74);"
-          >
-            On mobile devices, you can explore the list of Quarkus extensions.
-            <br />
-             If you wish to generate code, try it with your desktop browser...
           </p>
           <br />
           <p>
@@ -798,6 +880,48 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
         </div>
       </div>
       <div
+        aria-label="Info Alert"
+        class="pf-c-alert pf-m-info mobile-only quarkus-blurb"
+      >
+        <div
+          class="pf-c-alert__icon"
+        >
+          <svg
+            aria-hidden="true"
+            fill="currentColor"
+            height="1em"
+            role="img"
+            style="vertical-align: -0.125em;"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <path
+              d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"
+              transform=""
+            />
+          </svg>
+        </div>
+        <h4
+          class="pf-c-alert__title"
+        >
+          <span
+            class="pf-u-screen-reader"
+          >
+            Info alert:
+          </span>
+          On mobile devices, you can explore the list of Quarkus extensions.
+        </h4>
+        <div
+          class="pf-c-alert__description"
+        >
+          <p
+            style="color: rgb(255, 0, 74);"
+          >
+            If you wish to generate code, try it with your desktop browser...
+          </p>
+        </div>
+      </div>
+      <div
         class="extension-search-clear"
       >
         Search results (
@@ -805,12 +929,16 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           class="pf-c-button pf-m-link"
           type="button"
         >
-          Clear search
+          <span
+            class="pf-c-button__text"
+          >
+            Clear search
+          </span>
         </button>
         )
       </div>
       <div
-        class="list-container"
+        class="extension-list-wrapper"
       >
         <div
           class="extension-item"
@@ -818,7 +946,6 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           <div
             aria-label="Switch io.quarkus:quarkus-arc extension"
             class="extension-selector"
-            tabindex="0"
           >
             <svg
               aria-hidden="true"
@@ -840,7 +967,7 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           >
             <span
               class="extension-name"
-              tabindex="0"
+              title="ArC (test-version)"
             >
               ArC
             </span>
@@ -850,17 +977,18 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           >
             <div
               class="extension-description"
-              tabindex="0"
+              title="Build time CDI dependency injection"
             >
               Build time CDI dependency injection
             </div>
             <div
-              class="extension-gav"
+              class="extension-more"
             >
-              <div
-                class="copy-to-clipboard"
-                style="cursor: pointer;"
-                tabindex="0"
+              <button
+                aria-expanded="false"
+                aria-label="Actions"
+                class="pf-c-dropdown__toggle"
+                type="button"
               >
                 <svg
                   aria-hidden="true"
@@ -868,15 +996,15 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
                   height="1em"
                   role="img"
                   style="vertical-align: -0.125em;"
-                  viewBox="0 0 384 512"
+                  viewBox="0 0 192 512"
                   width="1em"
                 >
                   <path
-                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
                     transform=""
                   />
                 </svg>
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -886,7 +1014,6 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           <div
             aria-label="Switch some-id extension"
             class="extension-selector"
-            tabindex="0"
           >
             <svg
               aria-hidden="true"
@@ -908,9 +1035,15 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           >
             <span
               class="extension-name"
-              tabindex="0"
+              title="A CDI in name test (test-version)"
             >
               A CDI in name test
+            </span>
+            <span
+              class="extension-tag experimental"
+              title="Early feedback is requested to mature the idea. There is no guarantee of stability nor long term presence in the platform until the solution matures."
+            >
+              EXPERIMENTAL
             </span>
           </div>
           <div
@@ -918,17 +1051,18 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           >
             <div
               class="extension-description"
-              tabindex="0"
+              title="Some description"
             >
               Some description
             </div>
             <div
-              class="extension-gav"
+              class="extension-more"
             >
-              <div
-                class="copy-to-clipboard"
-                style="cursor: pointer;"
-                tabindex="0"
+              <button
+                aria-expanded="false"
+                aria-label="Actions"
+                class="pf-c-dropdown__toggle"
+                type="button"
               >
                 <svg
                   aria-hidden="true"
@@ -936,15 +1070,15 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
                   height="1em"
                   role="img"
                   style="vertical-align: -0.125em;"
-                  viewBox="0 0 384 512"
+                  viewBox="0 0 192 512"
                   width="1em"
                 >
                   <path
-                    d="M384 112v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h80c0-35.29 28.71-64 64-64s64 28.71 64 64h80c26.51 0 48 21.49 48 48zM192 40c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24m96 114v-20a6 6 0 0 0-6-6H102a6 6 0 0 0-6 6v20a6 6 0 0 0 6 6h180a6 6 0 0 0 6-6z"
+                    d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
                     transform=""
                   />
                 </svg>
-              </div>
+              </button>
             </div>
           </div>
         </div>

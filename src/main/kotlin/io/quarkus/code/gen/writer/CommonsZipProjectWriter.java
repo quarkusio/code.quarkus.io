@@ -1,4 +1,4 @@
-package io.quarkus.code.writer;
+package io.quarkus.code.gen.writer;
 
 import io.quarkus.cli.commands.writer.ProjectWriter;
 import org.apache.commons.compress.archivers.ArchiveException;
@@ -53,7 +53,7 @@ public class CommonsZipProjectWriter implements ProjectWriter {
     }
 
     @Override
-    public void write(String path, String content) throws IOException {
+    public void write(String path, String content) {
         byte[] contentBytes = content.getBytes(StandardCharsets.UTF_8);
         this.write(path, contentBytes, false);
     }

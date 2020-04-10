@@ -1,5 +1,5 @@
-import { cleanup, fireEvent, render } from "@testing-library/react";
-import React from "react";
+import { cleanup, fireEvent, render } from '@testing-library/react';
+import React from 'react';
 import { ExtensionEntry, ExtensionsPicker } from '../extensions-picker';
 import { filterFunction, sortFunction } from '../extensions-picker-helpers';
 
@@ -9,61 +9,70 @@ afterEach(() => {
 
 const entries: ExtensionEntry[] = [
   {
-    "id": "io.quarkus:quarkus-arc",
-    "name": "ArC",
-    "keywords": [
-      "arc",
-      "cdi",
-      "dependency-injection",
-      "di",
-      "label"
+    'id': 'io.quarkus:quarkus-arc',
+    'name': 'ArC',
+    'version': 'test-version',
+    'shortId': 'a',
+    'tags': [],
+    'keywords': [
+      'arc',
+      'cdi',
+      'dependency-injection',
+      'di',
+      'label'
     ],
-    "default": false,
-    "description": "Build time CDI dependency injection",
-    "shortName": "CDI",
-    "category": "Core",
-    "order": 0,
+    'default': false,
+    'description': 'Build time CDI dependency injection',
+    'shortName': 'CDI',
+    'category': 'Core',
+    'order': 0,
   },
   {
-    "id": "io.quarkus:quarkus-camel-netty4-http",
-    "name": "Camel Netty4 test HTTP",
-    "default": false,
-    "keywords": [
-      "camel-netty4-http",
-      "camel"
+    'id': 'io.quarkus:quarkus-camel-netty4-http',
+    'version': 'test-version',
+    'name': 'Camel Netty4 test HTTP',
+    'tags': ['preview'],
+    'shortId': 'b',
+    'default': false,
+    'keywords': [
+      'camel-netty4-http',
+      'camel'
     ],
-    "description": "Camel support for Netty",
-    "category": "Integration",
-    "order": 2,
+    'description': 'Camel support for Netty',
+    'category': 'Integration',
+    'order': 2,
   },
   {
-    "id": "some-id",
-    "name": "A CDI in name test",
-    "default": false,
-    "keywords": [
-      "lambda",
-      "amazon-lambda",
-      "aws-lambda",
-      "amazon",
-      "aws",
-      "label"
+    'id': 'some-id',
+    'shortId': 'c',
+    'version': 'test-version',
+    'name': 'A CDI in name test',
+    'tags': ['experimental'],
+    'default': false,
+    'keywords': [
+      'lambda',
+      'amazon-lambda',
+      'aws-lambda',
+      'amazon',
+      'aws',
+      'label'
     ],
-    "shortName": "a shortname",
-    "description": "Some description",
-    "category": "Cloud",
-    "order": 1,
+    'shortName': 'a shortname',
+    'description': 'Some description',
+    'category': 'Cloud',
+    'order': 1,
   },
 ];
 
 describe('<ExtensionsPicker />', () => {
 
   it('renders the ExtensionsPicker correctly', () => {
-    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{}} onChange={() => { }} />);
+    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{extensions: []}} onChange={() => { }} buildTool="MAVEN" />);
     expect(comp.asFragment()).toMatchSnapshot();
   });
 
   it('show results for valid search', async () => {
-    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{}} onChange={() => { }} />);
+    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{extensions: []}} onChange={() => { }} buildTool="MAVEN" />);
 
     const searchField = comp.getByLabelText('Search extensions');
     fireEvent.change(searchField, { target: { value: 'CDI' } });
@@ -74,7 +83,7 @@ describe('<ExtensionsPicker />', () => {
 
   it('select values and save', async () => {
     const handleChange = jest.fn();
-    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{}} onChange={handleChange} />);
+    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{extensions: []}} onChange={handleChange} buildTool="MAVEN" />);
 
     const searchField = comp.getByLabelText('Search extensions');
     fireEvent.change(searchField, { target: { value: 'netty' } });
@@ -129,6 +138,11 @@ describe('filterFunction', () => {
     expect(entries.filter(filterFunction('clou')))
       .toEqual([entries[2]]);
   });
+
+  it('when using start of tag, it should return it', () => {
+    expect(entries.filter(filterFunction('prev')))
+      .toEqual([entries[1]]);
+  });
 });
 
 describe('sortFunction', () => {
@@ -162,6 +176,13 @@ describe('sortFunction', () => {
     expect(sortFunction('a')(entries[0], entries[1]))
       .toEqual(-1);
     expect(sortFunction('a')(entries[1], entries[0]))
+      .toEqual(1);
+  });
+
+  it('when using start of the tags of an extension, it should be first', () => {
+    expect(sortFunction('prev')(entries[1], entries[0]))
+      .toEqual(-1);
+    expect(sortFunction('prev')(entries[0], entries[1]))
       .toEqual(1);
   });
 

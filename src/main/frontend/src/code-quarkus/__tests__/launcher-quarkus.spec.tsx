@@ -1,11 +1,15 @@
-import { act, cleanup, fireEvent, render, RenderResult } from '@testing-library/react';
+import {act, cleanup, fireEvent, render, RenderResult} from '@testing-library/react';
 import * as React from 'react';
-import { CodeQuarkus } from '../code-quarkus';
+import {CodeQuarkus} from '../code-quarkus';
+
+jest.useFakeTimers();
 
 jest.mock('../backend-api', () => ({
   fetchExtensions: () => ([
     {
       "id": "io.quarkus:quarkus-arc",
+      "shortId": "8mc",
+      "version": "test-version",
       "name": "ArC",
       "keywords": [
         "arc",
@@ -20,6 +24,8 @@ jest.mock('../backend-api', () => ({
     },
     {
       "id": "io.quarkus:quarkus-resteasy",
+      "shortId": "ogy",
+      "version": "test-version",
       "name": "RESTEasy JAX-RS",
       "keywords": [
         "resteasy",
@@ -34,6 +40,8 @@ jest.mock('../backend-api', () => ({
     },
     {
       "id": "io.quarkus:quarkus-resteasy-jsonb",
+      "shortId": "14pb",
+      "version": "test-version",
       "name": "RESTEasy JSON-B",
       "keywords": [
         "resteasy-jsonb",
@@ -50,6 +58,8 @@ jest.mock('../backend-api', () => ({
     },
     {
       "id": "io.quarkus:quarkus-resteasy-jackson",
+      "shortId": "1aen",
+      "version": "test-version",
       "name": "RESTEasy Jackson",
       "keywords": [
         "resteasy-jackson",
@@ -67,7 +77,6 @@ jest.mock('../backend-api', () => ({
   ]),
   fetchConfig: () => { throw new Error("not used"); }
 }));
-
 
 afterEach(() => {
   cleanup();
@@ -91,7 +100,7 @@ it('Let user Generate default application', async () => {
     await comp.findByLabelText('Extensions picker');
   });
 
-  // Generate 
+  // Generate
   const generateBtn = await comp!.findByLabelText('Generate your application');
   fireEvent.click(generateBtn);
 
@@ -114,7 +123,7 @@ it('Let user customize an Application and Generate it', async () => {
   fireEvent.change(artifactIdInput, { target: { value: 'custom-test-app' } });
   const toggleMoreOptionsBtn = await comp!.findByLabelText('Toggle panel');
   fireEvent.click(toggleMoreOptionsBtn);
-  const versionInput = await comp!.findByLabelText('Edit version');
+  const versionInput = await comp!.findByLabelText('Edit project version');
   fireEvent.change(versionInput, { target: { value: '1.0.0-TEST' } });
   const packageNameInput = await comp!.findByLabelText('Edit package name');
   fireEvent.change(packageNameInput, { target: { value: 'io.test.pack' } });
@@ -129,7 +138,9 @@ it('Let user customize an Application and Generate it', async () => {
   const ext3 = await comp!.findByLabelText('Switch io.quarkus:quarkus-resteasy-jackson extension');
   fireEvent.click(ext3);
 
-  // Generate 
+  act(() => { jest.runAllTimers(); });
+
+  // Generate
   const generateBtn = await comp!.findByLabelText('Generate your application');
   fireEvent.click(generateBtn);
 

@@ -30,7 +30,8 @@ class QuarkusProject {
                 className: String = DEFAULT_CLASSNAME,
                 path: String = DEFAULT_PATH,
                 buildTool: String = DEFAULT_BUILDTOOL,
-                extensions: Set<String> = setOf()) {
+                extensions: Set<String> = setOf(),
+                shortExtensions: String = "") {
         this.groupId = groupId
         this.artifactId = artifactId
         this.version = version
@@ -38,6 +39,7 @@ class QuarkusProject {
         this.extensions = extensions
         this.path = path
         this.buildTool = buildTool
+        this.shortExtensions = shortExtensions
     }
 
     @DefaultValue(DEFAULT_GROUPID)
@@ -85,10 +87,17 @@ class QuarkusProject {
     @Pattern(regexp = BUILDTOOL_PATTERN)
     @Parameter(name = "b", description = "The build tool to use (MAVEN or GRADLE)", required = false)
     var buildTool: String = DEFAULT_BUILDTOOL
+        private set
 
     @QueryParam("e")
-    @Parameter(name = "e", description = "The set of extension ids that will be included in the generated application", required = false)
+    @Parameter(name = "e", description = "The set of extension that will be included in the generated application", required = false)
     var extensions: Set<String> = setOf()
+        private set
+
+    @QueryParam("s")
+    @DefaultValue("")
+    @Parameter(name = "s", description = "The set of extension shortIds separated by a '.' that will be included in the generated application", required = false)
+    var shortExtensions: String = ""
         private set
 
     override fun equals(other: Any?): Boolean {
@@ -104,6 +113,7 @@ class QuarkusProject {
         if (path != other.path) return false
         if (buildTool != other.buildTool) return false
         if (extensions != other.extensions) return false
+        if (shortExtensions != other.shortExtensions) return false
 
         return true
     }
@@ -116,11 +126,13 @@ class QuarkusProject {
         result = 31 * result + path.hashCode()
         result = 31 * result + buildTool.hashCode()
         result = 31 * result + extensions.hashCode()
+        result = 31 * result + shortExtensions.hashCode()
         return result
     }
 
     override fun toString(): String {
-        return "QuarkusProject(groupId='$groupId', artifactId='$artifactId', version='$version', className='$className', path='$path', buildTool='$buildTool', extensions=$extensions)"
+        return "QuarkusProject(groupId='$groupId', artifactId='$artifactId', version='$version', className='$className', path='$path', buildTool='$buildTool', extensions=$extensions, shortExtensions='$shortExtensions')"
     }
+
 
 }

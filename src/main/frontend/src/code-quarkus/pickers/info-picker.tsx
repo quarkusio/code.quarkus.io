@@ -1,7 +1,7 @@
-import React, { ChangeEvent, useEffect } from 'react';
-import { ExtendedTextInput, InputPropsWithValidation, optionalBool, TogglePanel } from '../../core';
+import { FormGroup, Tooltip } from '@patternfly/react-core';
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import { ExtendedTextInput, InputProps, InputPropsWithValidation, optionalBool, TogglePanel, useAnalyticsEditionField, useDebounce } from '../../core';
 import './info-picker.scss';
-import { FormGroup, Tooltip } from "@patternfly/react-core";
 
 export interface InfoPickerValue {
   groupId?: string;
@@ -25,27 +25,50 @@ const isValidInfo = (value: InfoPickerValue) => {
   return isValidGroupId(value.groupId)
     && isValidId(value.artifactId)
     && !!value.version
-    && (!value.packageName || isValidGroupId(value.packageName))
-}
+    && (!value.packageName || isValidGroupId(value.packageName));
+};
+
+const SelectBuildTool = (props: InputProps<string>) => {
+  const onChangeWithDirty = useAnalyticsEditionField('buildTool', props.onChange)[1];
+  const adaptedOnChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    onChangeWithDirty(e.target.value, e);
+  };
+  return (
+    <FormGroup
+      fieldId="buildTool"
+      label="Build Tool"
+      aria-label="Choose build tool">
+      <select id="buildtool" value={props.value || 'MAVEN'} onChange={adaptedOnChange} className={'pf-c-form-control'}>
+        <option value={'MAVEN'}>Maven</option>
+        <option value={'GRADLE'}>Gradle (Preview)</option>
+      </select>
+    </FormGroup>
+  );
+};
 
 export const InfoPicker = (props: InfoPickerProps) => {
-  const { value, isValid, onChange } = props;
+  const [localValue, setLocalValue] = useState<InfoPickerValue>(props.value);
+  const onChange = useDebounce(props.onChange, 200, { leading: true, trailing: true });
+
   const onInputChange = (value: InfoPickerValue) => {
-    props.onChange(value, isValidInfo(value));
+    setLocalValue(value);
+    onChange(value, isValidInfo(value));
   };
 
   useEffect(() => {
-    if (isValid !== isValidInfo(value)) {
-      onChange(value, !isValid);
+    if (props.isValid !== isValidInfo(localValue)) {
+      onChange(localValue, !props.isValid);
     }
-  }, [value, isValid, onChange])
+    // eslint-disable-next-line
+  }, []);
 
-  const onGroupIdChange = (newValue: string) => onInputChange({ ...value, groupId: newValue });
-  const onArtifactIdChange = (newValue: string) => onInputChange({ ...value, artifactId: newValue });
-  const onVersionChange = (newValue: string) => onInputChange({ ...value, version: newValue });
-  const onPackageNameChange = (newValue: string) => onInputChange({ ...value, packageName: newValue });
-  const onBuildToolChange = (event: ChangeEvent<HTMLSelectElement>) => onInputChange({ ...value, buildTool: event.target.value });
-  const configFileName = value.buildTool === 'MAVEN' ? 'pom.xml' : 'gradle.properties';
+  const onGroupIdChange = (newValue: string) => onInputChange({ ...localValue, groupId: newValue });
+  const onArtifactIdChange = (newValue: string) => onInputChange({ ...localValue, artifactId: newValue });
+  const onVersionChange = (newValue: string) => onInputChange({ ...localValue, version: newValue });
+  const onPackageNameChange = (newValue: string) => onInputChange({ ...localValue, packageName: newValue });
+  const onBuildToolChange = (newValue: string) => onInputChange({ ...localValue, buildTool: newValue });
+  const configFileName = localValue.buildTool === 'MAVEN' ? 'pom.xml' : 'gradle.properties';
+  const packageName = localValue.packageName === undefined ? localValue.groupId : localValue.packageName;
   return (
     <div className={`info-picker horizontal`}>
       <div className="base-settings pf-c-form">
@@ -56,11 +79,11 @@ export const InfoPicker = (props: InfoPickerProps) => {
           id="groupId"
           name="groupId"
           aria-label="Edit groupId"
-          value={value.groupId || ''}
+          value={localValue.groupId || ''}
           autoComplete="off"
           onChange={onGroupIdChange}
           pattern={GROUPID_PATTERN.source}
-          isValid={isValidGroupId(value.groupId)}
+          isValid={isValidGroupId(localValue.groupId)}
         />
         <ExtendedTextInput
           label="Artifact"
@@ -69,36 +92,28 @@ export const InfoPicker = (props: InfoPickerProps) => {
           id="artifactId"
           name="artifactId"
           aria-label="Edit artifactId"
-          value={value.artifactId || ''}
+          value={localValue.artifactId || ''}
           autoComplete="off"
           onChange={onArtifactIdChange}
           pattern={ARTIFACTID_PATTERN.source}
-          isValid={isValidId(value.artifactId)}
+          isValid={isValidId(localValue.artifactId)}
         />
-        <FormGroup
-          fieldId="buildTool"
-          label="Build Tool"
-          aria-label="Choose build tool">
-          <select id="buildtool" value={value.buildTool || 'MAVEN'} onChange={onBuildToolChange} className={'pf-c-form-control'}>
-            <option value={"MAVEN"}>Maven</option>
-            <option value={"GRADLE"}>Gradle (Preview)</option>
-          </select>
-        </FormGroup>
+        <SelectBuildTool onChange={onBuildToolChange} value={localValue.buildTool || 'MAVEN'}/>
       </div>
       {optionalBool(props.showMoreOptions, true) && (
-        <TogglePanel id="info-extended" mode="horizontal" openLabel="Configure more options">
+        <TogglePanel id="info-extended" mode="horizontal" openLabel="Configure more options" event={['UX', 'Application Info - Configure More Options']}>
           <div className="extended-settings pf-c-form">
             <ExtendedTextInput
               label="Version"
               isRequired
               type="text"
-              id="version"
-              name="version"
-              aria-label="Edit version"
-              value={value.version || ''}
+              id="projectVersion"
+              name="projectVersion"
+              aria-label="Edit project version"
+              value={localValue.version || ''}
               autoComplete="off"
               onChange={onVersionChange}
-              isValid={!!value.version}
+              isValid={!!localValue.version}
             />
             <ExtendedTextInput
               label="Package Name"
@@ -107,14 +122,19 @@ export const InfoPicker = (props: InfoPickerProps) => {
               id="packageName"
               name="packageName"
               aria-label="Edit package name"
-              value={value.packageName || value.groupId || ''}
+              value={packageName || ''}
               autoComplete="off"
               onChange={onPackageNameChange}
               pattern={GROUPID_PATTERN.source}
-              isValid={isValidGroupId(value.packageName || value.groupId)}
+              isValid={isValidGroupId(packageName)}
             />
 
-            <Tooltip position="right" content={`You may change the Quarkus Version after generation in the ${configFileName}. Just be cautious with extension compatibility.`} exitDelay={0} zIndex={200}>
+            <Tooltip
+              position="right"
+              content={`You may change the Quarkus Version after generation in the ${configFileName}. Just be cautious with extension compatibility.`}
+              exitDelay={0}
+              zIndex={200}
+            >
               <ExtendedTextInput
                 label="Quarkus Version"
                 isRequired

@@ -3,40 +3,44 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@patternfly/react-core": "3.112.3",
-    "@patternfly/react-icons": "3.14.16",
-    "@sentry/browser": "5.0.8",
-    "@types/classnames": "2.2.7",
-    "@types/jest": "24.0.17",
-    "@types/lodash": "4.14.136",
-    "@types/node": "12.7.1",
+    "@patternfly/react-core": "3.146.0",
+    "@patternfly/react-icons": "3.15.12",
+    "@sentry/browser": "5.14.2",
+    "@types/classnames": "2.2.10",
+    "@types/jest": "25.1.4",
+    "@types/lodash": "4.14.149",
+    "@types/node": "13.9.2",
     "@types/query-string": "6.3.0",
-    "@types/react": "16.9.1",
-    "@types/react-dom": "16.9.0",
+    "@types/react": "16.9.23",
+    "@types/react-dom": "16.9.5",
     "classnames": "2.2.6",
-    "copy-to-clipboard": "3.2.0",
-    "core-js": "3.3.2",
-    "node-sass": "4.12.0",
-    "query-string": "6.7.0",
-    "react": "16.9.0",
-    "react-app-polyfill": "1.0.4",
-    "react-dom": "16.9.0",
-    "react-hotkeys-hook": "1.5.3",
-    "react-scripts": "3.2.0",
-    "typescript": "3.5.2",
+    "copy-to-clipboard": "3.3.1",
+    "core-js": "3.6.4",
+    "node-sass": "4.13.1",
+    "query-string": "6.11.1",
+    "react": "16.13.0",
+    "react-app-polyfill": "1.0.6",
+    "react-dom": "16.13.0",
+    "react-hotkeys-hook": "1.6.0",
+    "react-scripts": "3.4.0",
+    "set-value": "3.0.1",
+    "typescript": "3.8.3",
     "use-persisted-state": "0.3.0"
   },
   "devDependencies": {
-    "@testing-library/react": "9.1.3",
-    "@types/use-persisted-state": "0.3.0"
+    "tslint-react": "4.2.0",
+    "tslint": "6.1.0",
+    "@testing-library/react": "10.0.1",
+    "@types/use-persisted-state": "0.3.0",
+    "jest-environment-jsdom-sixteen": "1.0.3"
   },
   "scripts": {
     "clean": "rm -Rf build",
     "start": "react-scripts start",
     "build": "[ ! -d \"build\" ] && react-scripts build || exit 0",
     "copy-to-resources": "export TARGET_DIR=../../../target/classes/META-INF/resources && mkdir -p ${TARGET_DIR} && cp -R ./build/. ${TARGET_DIR}",
-    "test:i": "react-scripts test",
-    "test": "CI=true react-scripts test",
+    "test:i": "DEBUG_PRINT_LIMIT=200 react-scripts test --env=jest-environment-jsdom-sixteen ",
+    "test": "CI=true react-scripts test --env=jest-environment-jsdom-sixteen",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -53,8 +57,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "resolutions": {
-    "set-value": "2.0.1"
   }
 }

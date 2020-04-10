@@ -25,6 +25,8 @@ objects:
           labels:
             service: code-quarkus
         spec:
+          serviceAccount: ${SERVICE_ACCOUNT}
+          serviceAccountName: ${SERVICE_ACCOUNT}
           containers:
             - image: ${IMAGE}:${IMAGE_TAG}
               imagePullPolicy: Always
@@ -35,14 +37,14 @@ objects:
                 httpGet:
                   path: /health/live
                   port: 8080
-                initialDelaySeconds: 30
+                initialDelaySeconds: 15
                 periodSeconds: 10
                 timeoutSeconds: 3
               readinessProbe:
                 httpGet:
                   path: /health/ready
                   port: 8080
-                initialDelaySeconds: 3
+                initialDelaySeconds: 15
                 periodSeconds: 10
                 timeoutSeconds: 3
               resources:
@@ -53,12 +55,43 @@ objects:
                   cpu: ${CPU_LIMIT}
                   memory: ${MEMORY_LIMIT}
               env:
-                - name: io.quarkus.code.sentry-dsn
-                  value: ${CODE_QUARKUS_SENTRY_DSN}
-                - name: io.quarkus.code.environment
-                  value: ${CODE_QUARKUS_ENV}
-                - name: io.quarkus.code.ga-tracking-id
-                  value: ${CODE_QUARKUS_GA_TRACKING_ID}
+                - name: IO_QUARKUS_CODE_ENVIRONMENT
+                  value: ${IO_QUARKUS_CODE_ENVIRONMENT}
+                - name: IO_QUARKUS_CODE_GA_EXTENSIONS_DIMENSION_INDEX
+                  value: ${IO_QUARKUS_CODE_GA_EXTENSIONS_DIMENSION_INDEX}
+                - name: IO_QUARKUS_CODE_GA_QUARKUS_VERSION_DIMENSION_INDEX
+                  value: ${IO_QUARKUS_CODE_GA_QUARKUS_VERSION_DIMENSION_INDEX}
+                - name: IO_QUARKUS_CODE_GA_BUILD_TOOL_DIMENSION_INDEX
+                  value: ${IO_QUARKUS_CODE_GA_BUILD_TOOL_DIMENSION_INDEX}
+                - name: IO_QUARKUS_CODE_GA_EXTENSION_QUANTITY_INDEX
+                  value: ${IO_QUARKUS_CODE_GA_EXTENSION_QUANTITY_INDEX}
+                - name: IO_QUARKUS_CODE_GA_BATCHING_ENABLED
+                  value: ${IO_QUARKUS_CODE_GA_BATCHING_ENABLED}
+                - name: IO_QUARKUS_CODE_LOG_LEVEL
+                  value: ${IO_QUARKUS_CODE_LOG_LEVEL}
+                - name: IO_QUARKUS_CODE_HOSTNAME
+                  value: ${IO_QUARKUS_CODE_HOSTNAME}
+                - name: IO_QUARKUS_CODE_FEATURES
+                  value: ${IO_QUARKUS_CODE_FEATURES}
+                - name: IO_QUARKUS_CODE_EXTENSION_PROCESSOR_TAGS_FROM
+                  value: ${IO_QUARKUS_CODE_EXTENSION_PROCESSOR_TAGS_FROM}
+                - name: IO_QUARKUS_CODE_SENTRY_DSN
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: sentry-dsn
+                - name: QUARKUS_LOG_SENTRY
+                  value: "true"
+                - name: QUARKUS_LOG_SENTRY_DSN
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: sentry-dsn
+                - name: IO_QUARKUS_CODE_GA_TRACKING_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: ga-tracking-id
       triggers:
         - type: ConfigChange
   - kind: Service
@@ -78,49 +111,36 @@ objects:
       sessionAffinity: None
       type: ClusterIP
 parameters:
-  - name: CODE_QUARKUS_SENTRY_DSN
-    displayName: Code Quarkus App sentry dsn
-    description: Code Quarkus App sentry dsn.
-  - name: CODE_QUARKUS_ENV
-    value: dev
-    required: true
-    displayName: Code Quarkus App environment
-    description: Code Quarkus App environment. Defaults to dev
-  - name: CODE_QUARKUS_GA_TRACKING_ID
-    displayName: Code Quarkus App ga tracking id
-    description: Code Quarkus App google analytics tracking id.
+  - name: IO_QUARKUS_CODE_ENVIRONMENT
+  - name: IO_QUARKUS_CODE_FEATURES
+  - name: IO_QUARKUS_CODE_HOSTNAME
+  - name: IO_QUARKUS_CODE_GA_BATCHING_ENABLED
+  - name: IO_QUARKUS_CODE_LOG_LEVEL
+  - name: IO_QUARKUS_CODE_EXTENSION_PROCESSOR_TAGS_FROM
+  - name: IO_QUARKUS_CODE_GA_EXTENSIONS_DIMENSION_INDEX
+  - name: IO_QUARKUS_CODE_GA_QUARKUS_VERSION_DIMENSION_INDEX
+  - name: IO_QUARKUS_CODE_GA_BUILD_TOOL_DIMENSION_INDEX
+  - name: IO_QUARKUS_CODE_GA_EXTENSION_QUANTITY_INDEX
   - name: IMAGE
     value: quay.io/quarkus/code-quarkus-app
     required: true
-    displayName: Code Quarkus App image
-    description: Code Quarkus App docker image. Defaults to quay.io/quarkus/code-quarkus-app
   - name: IMAGE_TAG
     value: latest
     required: true
-    displayName: Code Quarkus App version
-    description: Code Quarkus App version which defaults to latest
-  - description: CPU request
-    displayName: CPU request
+  - name: CPU_REQUEST
     required: true
-    name: CPU_REQUEST
     value: 400m
-  - description: CPU limit
-    displayName: CPU limit
+  - name: CPU_LIMIT
     required: true
-    name: CPU_LIMIT
     value: 1000m
-  - description: Memory request
-    displayName: Memory request
+  - name: MEMORY_REQUEST
     required: true
-    name: MEMORY_REQUEST
     value: 768Mi
-  - description: Memory limit
-    displayName: Memory limit
+  - displayName: Memory limit
     required: true
     name: MEMORY_LIMIT
     value: 1Gi
-  - description: Number of deployment replicas
-    displayName: Number of deployment replicas
+  - name: REPLICAS
     required: true
-    name: REPLICAS
     value: '1'
+  - name: SERVICE_ACCOUNT

@@ -1,29 +1,38 @@
-#make dev
-.PHONY: dev
+dev-backend:
+	mvn compile quarkus:dev
+
+dev-backend-only:
+	mvn compile quarkus:dev -Pbackend-only
+
+test-backend-only:
+	mvn clean test -Pbackend-only
+
+dev-web:
+	cd src/main/frontend && yarn && yarn start
+
 dev:
-	./mvnw compile quarkus:dev
+	make -j2 dev-backend-only dev-web
 
-#make debug
-.PHONY: debug
+test-web:
+	cd src/main/frontend && yarn && yarn test:i
+
+update-web-snapshots:
+	cd src/main/frontend && yarn && yarn test -u
+
 debug:
-	./mvnw compile quarkus:dev -Ddebug -Dsuspend
+	mvn compile quarkus:dev -Ddebug -Dsuspend
 
-#make clean
-.PHONY: clean
 clean:
-	./mvnw clean
+	mvn clean
 
-#make native
-.PHONY: native
+clean-backend-only:
+	mvn clean -Pbackend-only
+
 native:
-	./mvnw package -Pnative -DskipTests
+	mvn package -Pnative -DskipTests
 
-#make ext-add ID=kotlin
-.PHONY: ext-add
 ext-add:
-	./mvnw quarkus:add-extension -Dextensions="$(ID)"
+	mvn quarkus:add-extension -Dextensions="$(ID)"
 
-#make ext-list
-.PHONY: ext-list
 ext-list:
-	./mvnw quarkus:list-extensions
+	mvn quarkus:list-extensions
