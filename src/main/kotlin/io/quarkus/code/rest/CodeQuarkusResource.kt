@@ -3,11 +3,11 @@ package io.quarkus.code.rest
 import io.quarkus.code.config.CodeQuarkusConfig
 import io.quarkus.code.config.GitHubConfig
 import io.quarkus.code.config.GoogleAnalyticsConfig
-import io.quarkus.code.service.QuarkusExtensionCatalogService
-import io.quarkus.code.service.QuarkusProjectService
 import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.code.model.PublicConfig
 import io.quarkus.code.model.QuarkusProject
+import io.quarkus.code.service.QuarkusExtensionCatalogService
+import io.quarkus.code.service.QuarkusProjectService
 import io.quarkus.runtime.StartupEvent
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content

@@ -1,9 +1,9 @@
 package io.quarkus.code.rest
 
-import io.quarkus.code.service.QuarkusProjectService
-import io.quarkus.code.service.GitHubService
 import io.quarkus.code.model.GitHubCreatedRepository
 import io.quarkus.code.model.QuarkusProject
+import io.quarkus.code.service.GitHubService
+import io.quarkus.code.service.QuarkusProjectService
 import io.quarkus.runtime.StartupEvent
 import org.eclipse.microprofile.openapi.annotations.Operation
 import java.util.logging.Level
