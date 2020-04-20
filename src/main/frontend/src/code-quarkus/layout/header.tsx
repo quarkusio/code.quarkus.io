@@ -26,7 +26,6 @@ function SupportButton(prop: {}) {
       <Button onClick={openPanel} aria-label="enterprise support"><HandsHelpingIcon/> Available with Enterprise Support</Button>
         <div className="support-panel">
           <a href="https://code.quarkus.redhat.com" onClick={linkClick}><RedhatIcon />Code with the Red Hat Build of Quarkus</a>
-          <a href="https://support.quarkus.io" onClick={linkClick} className="secondary"><HandsHelpingIcon />Become a Quarkus Support Provider</a>
         </div>
     </div>
   );
