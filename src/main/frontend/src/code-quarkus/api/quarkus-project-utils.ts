@@ -49,7 +49,7 @@ export const createOnGitHub = (project: QuarkusProject, clientId: string) => {
   const authParams = {
     redirect_uri: `${window.location.href.replace(window.location.search, '')}?${generateProjectQuery(project, true)}`,
     client_id: clientId,
-    scope: 'repo',
+    scope: 'public_repo',
     state: Math.random().toString(36)
   };
   const githubAuthorizeUrl = `https://github.com/login/oauth/authorize?${stringify(authParams)}`;
