@@ -18,6 +18,8 @@ $linkTextColor: $secondary;
 $readOnlyTextColor: #bdbcbc;
 $readonlyLabelAndBorderColor: #707070;
 
+$loaderColor: white;
+
 // Top container
 $topContainerTextColor: white;
 $topContainerBg: $background;
@@ -37,6 +39,9 @@ $generateButtonBorderColorOnHover: white;
 $generateButtonDisabledBgAndBorderColor: rgba(90, 149, 235, 0.342);
 $generateButtonDisabledColor: rgba(255, 255, 255, 0.384);
 
+$generateButtonMoreDropdownTextColor: white;
+$generateButtonMoreDropdownBg: black;
+
 // Main container
 $mainContainerTextColor: white;
 $mainContainerBg: $background;
@@ -45,21 +50,21 @@ $mobileWidth: 900px;
 $tabletWidth: 1200px;
 
 // Next steps Modal
-$nextStepsModalBg: $background;
-$nextStepsModalTextColor: white;
-$nextStepsModalBorderColor: $secondary;
-$nextStepsModalTitleColor: $secondary;
-$nextStepsModalLinkColor: $linkTextColor;
+$modalBg: $background;
+$modalTextColor: white;
+$modalBorderColor: $secondary;
+$modalTitleColor: $secondary;
+$modalLinkColor: $linkTextColor;
 
-$nextStepsModalCloseButtonBg: $secondary;
-$nextStepsModalCloseButtonBgHover: rgba(70, 149, 235, 0.548);
+$modalCloseButtonBg: $secondary;
+$modalCloseButtonBgHover: rgba(70, 149, 235, 0.548);
 
 $nextStepsModalDownloadButtonBg: $secondary;
 $nextStepsModalDownloadButtonTextColor: white;
 $nextStepsModalDownloadButtonBorderColorOnHover: white;
 
-$nextStepsModalFooterButtonBg: black;
-$nextStepsModalFooterButtonTextColor: $secondary;
+$modalFooterButtonBg: black;
+$modalFooterButtonTextColor: $secondary;
 
 $codeBg: black;
 $codeTextColor: white;

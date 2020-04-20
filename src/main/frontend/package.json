@@ -31,6 +31,7 @@
     "tslint-react": "4.2.0",
     "tslint": "6.1.0",
     "@testing-library/react": "10.0.1",
+    "@testing-library/dom": "7.2.1",
     "@types/use-persisted-state": "0.3.0",
     "jest-environment-jsdom-sixteen": "1.0.3"
   },
@@ -39,7 +40,7 @@
     "start": "react-scripts start",
     "build": "[ ! -d \"build\" ] && react-scripts build || exit 0",
     "copy-to-resources": "export TARGET_DIR=../../../target/classes/META-INF/resources && mkdir -p ${TARGET_DIR} && cp -R ./build/. ${TARGET_DIR}",
-    "test:i": "DEBUG_PRINT_LIMIT=200 react-scripts test --env=jest-environment-jsdom-sixteen ",
+    "test:i": "DEBUG_PRINT_LIMIT=100000 react-scripts test --env=jest-environment-jsdom-sixteen ",
     "test": "CI=true react-scripts test --env=jest-environment-jsdom-sixteen",
     "eject": "react-scripts eject"
   },

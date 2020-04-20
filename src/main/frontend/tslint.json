@@ -9,6 +9,7 @@
     "only-arrow-functions": false,
     "arrow-parens": false,
     "jsx-no-multiline-js": false,
+    "jsx-wrap-multiline": false,
     "jsx-no-lambda": false,
     "jsx-alignment": false,
     "prefer-template": true,

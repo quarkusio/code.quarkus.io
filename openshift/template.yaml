@@ -80,6 +80,18 @@ objects:
                     secretKeyRef:
                       name: secrets
                       key: sentry-dsn
+                - name: IO_QUARKUS_CODE_GITHUB_CLIENT_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: github-client-id
+                      optional: true
+                - name: IO_QUARKUS_CODE_GITHUB_CLIENT_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: github-client-secret
+                      optional: true
                 - name: QUARKUS_LOG_SENTRY
                   value: "true"
                 - name: QUARKUS_LOG_SENTRY_DSN
@@ -92,6 +104,7 @@ objects:
                     secretKeyRef:
                       name: secrets
                       key: ga-tracking-id
+                      optional: true
       triggers:
         - type: ConfigChange
   - kind: Service
