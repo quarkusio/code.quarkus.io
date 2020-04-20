@@ -1,14 +1,12 @@
-import { cleanup, fireEvent, render } from '@testing-library/react';
-import React from 'react';
-import { ExtensionEntry, ExtensionsPicker } from '../extensions-picker';
-import { filterFunction, sortFunction } from '../extensions-picker-helper';
+import { cleanup } from '@testing-library/react';
 import { parseProjectInQuery } from '../quarkus-project-utils';
+import { Extension } from '../model';
 
 afterEach(() => {
   cleanup();
 });
 
-const entries: ExtensionEntry[] = [
+const entries: Extension[] = [
   {
     'id': 'io.quarkus:quarkus-arc',
     'name': 'ArC',
