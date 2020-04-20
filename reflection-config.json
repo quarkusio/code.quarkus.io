@@ -9,6 +9,15 @@
     "allPublicFields" : true
   },
   {
+    "name" : "org.kohsuke.github.GHUser",
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredFields" : true,
+    "allPublicFields" : true
+  },
+  {
     "name" : "org.kohsuke.github.GHMyself",
     "allDeclaredConstructors" : true,
     "allPublicConstructors" : true,
