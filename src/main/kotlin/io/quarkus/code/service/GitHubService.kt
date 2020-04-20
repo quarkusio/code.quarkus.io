@@ -6,6 +6,7 @@ import io.quarkus.code.model.GitHubToken
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.errors.GitAPIException
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
+import org.eclipse.microprofile.rest.client.inject.RestClient
 import org.kohsuke.github.GHCreateRepositoryBuilder
 import org.kohsuke.github.GHFileNotFoundException
 import org.kohsuke.github.GHRepository
@@ -19,10 +20,14 @@ import javax.inject.Inject
 
 
 @ApplicationScoped
-class GitHubService(internal val authService: GitHubOAuthService = GitHubOAuthService.newGitHubOAuthService()) {
+class GitHubService {
 
     @Inject
     lateinit var config: GitHubConfig
+
+    @Inject
+    @field: RestClient
+    internal lateinit var authService: GitHubOAuthService
 
     @Throws(UncheckedIOException::class)
     fun repositoryExists(token: String, repositoryName: String): Boolean {

@@ -10,6 +10,7 @@ import io.specto.hoverfly.junit.core.model.Simulation
 import io.specto.hoverfly.junit5.HoverflyExtension
 import io.specto.hoverfly.junit5.api.HoverflyConfig
 import io.specto.hoverfly.junit5.api.HoverflySimulate
+import org.eclipse.microprofile.rest.client.RestClientBuilder
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*
 import org.junit.jupiter.api.BeforeAll
@@ -19,8 +20,10 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.wildfly.common.Assert
 import java.io.File
 import java.io.IOException
+import java.net.URL
 import java.nio.file.Files
 import java.util.*
+import javax.net.ssl.SSLContext
 
 
 /**
@@ -53,11 +56,21 @@ internal class GitHubServiceTest {
         @BeforeAll
         @JvmStatic
         internal fun beforeAll(hoverfly: Hoverfly) {
-            gitHubService = GitHubService(GitHubOAuthService.newGitHubOAuthService(hoverfly.sslConfigurer.sslContext))
+            gitHubService = GitHubService()
+            gitHubService.authService = newGitHubOAuthService(hoverfly.sslConfigurer.sslContext)
             gitHubService.config = GitHubConfigImpl(Optional.of(CLIENT_ID), Optional.of(CLIENT_SECRET))
             token = gitHubService.fetchAccessToken(CODE, STATE)
             assertThat(token, not(nullValue()))
             assertThat(token.accessToken, not(emptyOrNullString()))
+        }
+
+        fun newGitHubOAuthService(sslContext: SSLContext? = null): GitHubOAuthService {
+            val builder = RestClientBuilder.newBuilder()
+                    .baseUrl(URL("https://github.com"))
+            if(sslContext != null) {
+                builder.sslContext(sslContext)
+            }
+            return builder.build(GitHubOAuthService::class.java)
         }
     }
 
