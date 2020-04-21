@@ -10,11 +10,16 @@ import javax.enterprise.context.ApplicationScoped
 @Mock
 @ApplicationScoped
 class GitHubServiceMock: GitHubService() {
-    override fun repositoryExists(token: String, repositoryName: String): Boolean {
+
+    override fun login(token: String): String {
+        return "edewit"
+    }
+
+    override fun repositoryExists(login: String, token: String, repositoryName: String): Boolean {
         return repositoryName == "existing-repo"
     }
 
-    override fun createRepository(token: String, repositoryName: String): GitHubCreatedRepository {
+    override fun createRepository(login: String, token: String, repositoryName: String): GitHubCreatedRepository {
         assert(token == "123")
         return GitHubCreatedRepository("edewit", "https://github.com/edewit/$repositoryName")
     }

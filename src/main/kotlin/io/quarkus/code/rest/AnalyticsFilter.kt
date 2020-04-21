@@ -19,7 +19,7 @@ import javax.ws.rs.ext.Provider
 class AnalyticsFilter : ContainerRequestFilter {
 
     companion object {
-        private val log = Logger.getLogger(AnalyticsFilter::class.java.name)
+        private val LOG = Logger.getLogger(AnalyticsFilter::class.java.name)
     }
 
     @Inject
@@ -84,7 +84,7 @@ class AnalyticsFilter : ContainerRequestFilter {
                     )
 
                 } catch (e: IllegalStateException) {
-                    log.log(Level.FINE, e) { "Error while extracting extension list from request" }
+                    LOG.log(Level.FINE, e) { "Error while extracting extension list from request" }
                 }
             }
             googleAnalyticsService.get().sendEvent(
@@ -101,7 +101,7 @@ class AnalyticsFilter : ContainerRequestFilter {
                     buildTool = null
             )
         } catch (e: Exception) {
-            log.log(Level.SEVERE, e) { "Error while generating/sending an analytic event" }
+            LOG.log(Level.SEVERE, e) { "Error while generating/sending an analytic event" }
         }
 
     }

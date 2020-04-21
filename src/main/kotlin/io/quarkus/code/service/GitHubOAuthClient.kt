@@ -10,7 +10,7 @@ import javax.ws.rs.core.MultivaluedMap
 
 @Path("/login/oauth")
 @RegisterRestClient(baseUri = "https://github.com")
-interface GitHubOAuthService {
+interface GitHubOAuthClient {
 
     @POST
     @Path("/access_token")

@@ -52,11 +52,12 @@ class GitHubResource {
                       @NotEmpty @HeaderParam("GitHub-State") state: String): GitHubCreatedRepository {
         check(gitHubService.isEnabled()) { "GitHub is not enabled" }
         val location = projectCreator.createTmp(project)
-        val token = gitHubService.fetchAccessToken(code, state);
-        if (gitHubService.repositoryExists(token.accessToken, project.artifactId)) {
+        val token = gitHubService.fetchAccessToken(code, state)
+        val login = gitHubService.login(token.accessToken)
+        if (gitHubService.repositoryExists(login, token.accessToken, project.artifactId)) {
             throw WebApplicationException("This repository name ${project.artifactId} already exists", 409)
         }
-        val repo = gitHubService.createRepository(token.accessToken, project.artifactId)
+        val repo = gitHubService.createRepository(login, token.accessToken, project.artifactId)
         gitHubService.push(repo.ownerName, token.accessToken, repo.url, location)
         return repo
     }

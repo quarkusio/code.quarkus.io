@@ -24,7 +24,6 @@
         <commons-compress.version>1.19</commons-compress.version>
         <google-analytics-java.version>2.0.0</google-analytics-java.version>
         <hoverfly-java.version>0.12.3</hoverfly-java.version>
-        <github-api.version>1.110</github-api.version>
 
         <git.commit.id>local</git.commit.id>
 
@@ -113,11 +112,6 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-undertow</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.kohsuke</groupId>
-            <artifactId>github-api</artifactId>
-            <version>${github-api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
