@@ -34,8 +34,17 @@
 
   .project-info {
     flex-basis: 75%;
-    height: 200px;
-    margin-top: 20px;
+    height: 190px;
+    margin-bottom: 10px;
+
+    .title {
+      height: 72px;
+      line-height: 72px;
+    }
+
+    .info-picker {
+      height: 118px;
+    }
     .base-settings {
       flex-basis: 420px;
       margin: 0 20px 0 0;
@@ -84,10 +93,11 @@
   .generate-project {
     flex: 0 0 380px;
     align-self: center;
-    height: 200px;
+    height: 190px;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    margin-bottom: 10px;
 
     .pf-c-dropdown {
       align-self: flex-end;
