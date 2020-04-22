@@ -29,7 +29,7 @@ export function NextStepsModal(props: NextStepsProps) {
   };
   const onClickGuide = (id: string) => () => {
     analytics.event(baseEvent[0], baseEvent[1], 'Click "guide" link');
-    analytics.event('Extensions', 'Click "Open Extension Guide" link', id);
+    analytics.event('Extension', 'Click "Open Extension Guide" link', id);
   };
   const extensionsWithGuides = props.extensions.filter(e => !!e.guide);
   const devModeEvent = [...baseEvent, 'Copy "Dev mode" command'];
