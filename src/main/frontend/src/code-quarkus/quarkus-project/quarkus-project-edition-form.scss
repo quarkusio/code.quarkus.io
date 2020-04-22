@@ -37,6 +37,7 @@
     height: 200px;
     margin-top: 20px;
     .base-settings {
+      flex-basis: 420px;
       margin: 0 20px 0 0;
       padding: 0;
     }
@@ -52,12 +53,12 @@
       }
     }
 
+
     .pf-c-button {
       color: $topContainerTextColor;
       font-size: 14px;
       text-transform: uppercase;
       text-align: left;
-      width: 233px;
       svg {
         color: $topContainerTextColor;
       }
