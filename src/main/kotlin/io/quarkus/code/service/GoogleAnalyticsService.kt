@@ -52,7 +52,6 @@ class GoogleAnalyticsService {
                     extensionQtyDimensionIndex: ${gaConfig.extensionQtyDimensionIndex.orElse(-1)}
                     quarkusVersionDimensionIndex: ${gaConfig.quarkusVersionDimensionIndex.orElse(-1)}
                     buildToolDimensionIndex: ${gaConfig.buildToolDimensionIndex.orElse(-1)}
-                    extensionsDimensionIndex: ${gaConfig.extensionsDimensionIndex.orElse(-1)}
             """.trimIndent()}
         } else {
             LOG.info("GoogleAnalytics is disabled")
