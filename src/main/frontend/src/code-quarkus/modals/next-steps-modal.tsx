@@ -1,12 +1,11 @@
-import { CopyToClipboard, ExternalLink, useAnalytics } from '../../core';
+import { Code, CopyToClipboard, createLinkTracker, ExternalLink, useAnalytics } from '../../core';
 import { Button, Modal, TextContent } from '@patternfly/react-core';
 import React from 'react';
 import { ExtensionEntry } from '../pickers/extensions-picker';
-import { Target } from '../api/quarkus-project-utils';
+import { GenerateResult, Target } from '../api/quarkus-project-utils';
 
 interface NextStepsProps {
-  url: string;
-  target: Target;
+  result: GenerateResult;
   buildTool: string;
   extensions: ExtensionEntry[];
 
@@ -20,23 +19,16 @@ export function NextStepsModal(props: NextStepsProps) {
     analytics.event(baseEvent[0], baseEvent[1], reset ? 'Start new' : 'Close');
     if (props.onClose) props.onClose(reset);
   };
-  const onClickLink = (e: any) => {
-    const label = e.target.getAttribute('aria-label');
-    analytics.event(baseEvent[0], baseEvent[1], `Click "${label}" link`);
-  };
-  const onClickGuides = () => {
-    analytics.event(baseEvent[0], baseEvent[1], 'Click "guides" link');
-  };
-  const onClickGuide = (id: string) => () => {
-    analytics.event(baseEvent[0], baseEvent[1], 'Click "guide" link');
+  const linkTracker = createLinkTracker(analytics, baseEvent[0], baseEvent[1], 'aria-label');
+  const onClickGuide = (id: string) => (e: any) => {
+    linkTracker(e);
     analytics.event('Extension', 'Click "Open Extension Guide" link', id);
   };
   const extensionsWithGuides = props.extensions.filter(e => !!e.guide);
   const devModeEvent = [...baseEvent, 'Copy "Dev mode" command'];
-  const truncatedUrl = `${props.url.substr(0, 30)}...`;
   return (
     <Modal
-      title="Your Quarkus Application is Ready!"
+      title="Your Supersonic Subatomic App is ready!"
       isSmall={true}
       className="next-steps-modal code-quarkus-modal"
       onClose={() => close(false)}
@@ -56,40 +48,48 @@ export function NextStepsModal(props: NextStepsProps) {
       ]}
     >
       <TextContent>
-        {props.target === Target.DOWNLOAD && (
+        {props.result.target === Target.SHARE && (
           <React.Fragment>
-            <p>Your download should start shortly. If it doesn't, please use the direct link:</p>
-            <Button component="a" href={props.url} aria-label="Download the zip" className="download-button"
-                    onClick={onClickLink}>Download the zip</Button>
+            <p>Your can share the link to the zip:</p>
+            <Code event={[...baseEvent, 'Copy the download link']} content={`${props.result.url}`}/>
+            <p>Or the link to this configured application:</p>
+            <Code event={[...baseEvent, 'Copy the share link']} content={`${props.result.shareUrl}`}/>
           </React.Fragment>
         )}
-        {props.target === Target.GITHUB && (
+        {props.result.target === Target.DOWNLOAD && (
           <React.Fragment>
-            <p>Your application is now on <ExternalLink href={props.url} aria-label={`Open GitHub repository`} onClick={onClickLink}>GitHub</ExternalLink> ready to be cloned:</p>
-            <code>$ git clone {truncatedUrl} <CopyToClipboard zIndex={5000} tooltipPosition="left" event={[...baseEvent, 'Copy git clone command']} content={`git clone ${props.url}`}/></code>
+            <p>Your download should start shortly. If it doesn't, please use the direct link:</p>
+            <Button component="a" href={props.result.url} aria-label="Download the zip" className="download-button"
+                    onClick={linkTracker}>Download the zip</Button>
+          </React.Fragment>
+        )}
+        {props.result.target === Target.GITHUB && (
+          <React.Fragment>
+            <p>Your application is now on <ExternalLink href={props.result.url} aria-label={`Open GitHub repository`} onClick={linkTracker}>GitHub</ExternalLink> ready to be cloned:</p>
+            <Code event={[...baseEvent, 'Copy git clone command']} content={`git clone ${props.result.url}`}/>
           </React.Fragment>
         )}
 
         <h1>What's next?</h1>
         <div>
-          {props.target === Target.DOWNLOAD && (
+          {props.result.target === Target.DOWNLOAD && (
             <p>Unzip the project and start playing with Quarkus by running:</p>
           )}
-          {props.target === Target.GITHUB && (
+          {props.result.target === Target.GITHUB && (
             <p>Once your project is cloned locally, start playing with Quarkus by running:</p>
           )}
 
           {props.buildTool === 'MAVEN' && (
-            <code>$ ./mvnw compile quarkus:dev <CopyToClipboard zIndex={5000} tooltipPosition="left" event={devModeEvent} content="./mvnw compile quarkus:dev"/></code>
+            <Code event={devModeEvent} content="./mvnw compile quarkus:dev"/>
           )}
 
           {props.buildTool === 'GRADLE' && (
-            <code>$ ./gradlew quarkusDev <CopyToClipboard zIndex={5000} tooltipPosition="left" event={devModeEvent} content="./gradlew quarkusDev"/></code>
+            <Code event={devModeEvent} content="./gradlew quarkusDev"/>
           )}
         </div>
         {extensionsWithGuides.length === 1 && (
           <div>
-            <b>Follow the <ExternalLink href={extensionsWithGuides[0].guide!} aria-label={`${extensionsWithGuides[0].name} guide`} onClick={onClickGuide(extensionsWithGuides[0].id)}>{extensionsWithGuides[0].name} guide</ExternalLink> for your next steps!</b>
+            <b>Follow the <ExternalLink href={extensionsWithGuides[0].guide!} aria-label={`Open ${extensionsWithGuides[0].name} guide`} onClick={onClickGuide(extensionsWithGuides[0].id)}>{extensionsWithGuides[0].name} guide</ExternalLink> for your next steps!</b>
           </div>
         )}
         {extensionsWithGuides.length > 1 && (
@@ -106,7 +106,7 @@ export function NextStepsModal(props: NextStepsProps) {
         )}
         <div>
           <br/>
-          For more fun, have a look to our various <ExternalLink href="https://quarkus.io/guides/" aria-label="guides" onClick={onClickGuides}>Quarkus guides</ExternalLink>...
+          For more fun, have a look to our various <ExternalLink href="https://quarkus.io/guides/" aria-label="Open guides" onClick={linkTracker}>Quarkus guides</ExternalLink>...
         </div>
       </TextContent>
     </Modal>

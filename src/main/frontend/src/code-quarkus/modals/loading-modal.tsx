@@ -6,11 +6,11 @@ import React from 'react';
 export function LoadingModal(props: {}) {
   return (
     <Modal
-      title="Subatomic processing..."
+      title="Supersonic Subatomic push to GitHub..."
       isSmall={true}
       className="loading-modal code-quarkus-modal"
       isOpen={true}
-      aria-label="Subatomic processing..."
+      aria-label="Supersonic Subatomic push to GitHub..."
     >
       <Loader/>
     </Modal>
