@@ -65,7 +65,7 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
         <LoadingModal/>
       )}
       {!run.error && run.status === Status.DOWNLOADED && (
-        <NextStepsModal onClose={closeModal} target={run.result.target} url={run.result.url} buildTool={project.metadata.buildTool} extensions={project.extensions}/>
+        <NextStepsModal onClose={closeModal} result={run.result} buildTool={project.metadata.buildTool} extensions={project.extensions}/>
       )}
       {run.error && (
         <ErrorModal onClose={() => closeModal(false)} error={run.error}/>

@@ -106,8 +106,9 @@
 
     .pf-c-dropdown__menu {
       right: 0;
-      bottom: 42px;
+      top: 42px;
       top: auto;
+      width: 100%;
       background-color: $extensionsPickerMoreDropdownBg;
       padding: 0;
       li {
@@ -117,35 +118,14 @@
           width: 300px;
           color: $generateButtonMoreDropdownTextColor;
           background-color: $generateButtonMoreDropdownBg;
-          border-right: 2px solid $generateButtonMoreDropdownBg;
+          border-left: 2px solid $generateButtonMoreDropdownBg;
           svg {
             margin-right: 20px;
           }
         }
         a:hover {
-          border-right: 2px solid $generateButtonMoreDropdownTextColor;
+          border-left: 2px solid $generateButtonMoreDropdownTextColor;
         }
-      }
-    }
-
-    button.generate-more {
-      display: block;
-      background-color: $generateButtonBgColor;
-      height: 40px;
-      line-height: 40px;
-      margin-left: 2px;
-      padding: 0;
-      text-align: center;
-      border: 1px solid $generateButtonBgColor;
-      color: $generateButtonTextColor;
-      border-radius: 0;
-
-      &:before {
-        border: 0;
-      }
-
-      &:hover {
-        border: 1px solid $generateButtonBorderColorOnHover;
       }
     }
 

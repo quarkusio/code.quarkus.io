@@ -1,18 +1,17 @@
-import { Button } from '@patternfly/react-core';
 import React, { SetStateAction, useState } from 'react';
-import { useHotkeys } from 'react-hotkeys-hook';
 import './quarkus-project-edition-form.scss';
 import { ExtensionEntry, ExtensionsPicker } from '../pickers/extensions-picker';
 import { InfoPicker, isValidInfo } from '../pickers/info-picker';
-import { GenerateMoreButton } from './generate-more-button';
+import { GenerateButton } from './generate-button';
 import { Config, QuarkusProject } from '../api/model';
+import { Target } from '../api/quarkus-project-utils';
 
 interface CodeQuarkusFormProps {
   project: QuarkusProject;
   extensions: ExtensionEntry[];
   setProject: React.Dispatch<SetStateAction<QuarkusProject>>;
   config: Config;
-  onSave: () => void;
+  onSave: (target?: Target) => void;
 }
 
 
@@ -24,13 +23,11 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
     setProject((prev) => ({ ...prev, metadata }));
   };
   const setExtensions = (value: { extensions: ExtensionEntry[] }) => setProject((prev) => ({ ...prev, extensions: value.extensions }));
-  const save = () => {
+  const save = (target?: Target) => {
     if (isProjectValid) {
-      props.onSave();
+      props.onSave(target);
     }
   };
-  useHotkeys('alt+enter', save, [isProjectValid, props.onSave]);
-  const keyName = window.navigator.userAgent.toLowerCase().indexOf('mac') > -1 ? '⌥' : 'alt';
   return (
     <div className="quarkus-project-edition-form">
       <div className="form-header-sticky-container">
@@ -42,8 +39,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
             <InfoPicker value={props.project.metadata} onChange={setMetadata} quarkusVersion={props.config.quarkusVersion}/>
           </div>
           <div className="generate-project">
-            <Button aria-label="Generate your application" isDisabled={!isProjectValid} className="generate-button" onClick={save}>Generate your application ({keyName} + ⏎)</Button>
-            <GenerateMoreButton project={props.project} githubClientId={props.config.gitHubClientId}/>
+            <GenerateButton project={props.project} generate={save} isProjectValid={isProjectValid} githubClientId={props.config.gitHubClientId}/>
           </div>
         </div>
       </div>

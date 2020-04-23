@@ -14,7 +14,7 @@ export async function createGitHubProject(project: QuarkusProject) {
   if (data.ok)
     return data.json();
   if (data.status === 409) {
-    throw new Error(`There is already a project named '${project.metadata.artifactId}' on your GitHub, please retry with a different name...`);
+    throw new Error(`There is already a project named '${project.metadata.artifactId}' on your GitHub, please retry with a different name (the artifact is the name)...`);
   }
   throw new Error('Failed to create Quarkus project on GitHub');
 }

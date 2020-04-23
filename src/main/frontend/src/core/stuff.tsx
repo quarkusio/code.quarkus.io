@@ -1,17 +1,27 @@
 import { Alert, AlertVariant, Button, ButtonProps, Title } from '@patternfly/react-core';
 import { InProgressIcon, ExternalLinkSquareAltIcon } from '@patternfly/react-icons';
 import * as React from 'react';
-import style from './stuff.module.scss';
+import './stuff.scss';
 import { CSSProperties } from 'react';
+import { CopyToClipboard } from './copy-to-clipboard';
 
 
 export function optionalBool(val: (boolean | undefined), defaultValue: boolean): boolean {
   return val === undefined ? defaultValue : val!;
 }
 
+export function Code(props: { content: string, event: string[]  }) {
+  return (
+    <code className="code">
+      <span className="content">{props.content}</span>
+      <CopyToClipboard zIndex={5000} tooltipPosition="left" event={props.event} content={`${props.content}`}/>
+    </code>
+  );
+}
+
 export function Spin(props: { children: React.ReactNode }) {
   return (
-    <span className={style.spin}>
+    <span className="animate-spin">
       {props.children}
     </span>
   );
@@ -19,38 +29,12 @@ export function Spin(props: { children: React.ReactNode }) {
 
 export function Loader(props: { 'aria-label'?: string; error?: any; }) {
   return (
-    <div className={`loader-or-error ${style.loader}`} aria-label={props['aria-label']}>
+    <div className={`loader-or-error`} aria-label={props['aria-label']}>
       {!props || (!props!.error && (<Spin><InProgressIcon/></Spin>))}
       {props && props.error &&
       <AlertError error={props.error}/>
       }
     </div>
-  );
-}
-
-export function Separator() {
-  return (
-    <hr className={style.separator}/>
-  );
-}
-
-export function ButtonLink(props: ButtonProps) {
-  // @ts-ignore
-  return (<Button component="a" {...props} />);
-}
-
-export function DescriptiveHeader(props: { title?: string, description: string }) {
-  return (
-    <div className={style.descriptiveHeader}>
-      {props.title && (<Title size="lg">{props.title}</Title>)}
-      <p>{props.description}</p>
-    </div>
-  );
-}
-
-export function SpecialValue(props: { children: string }) {
-  return (
-    <span className={style.specialValue}>{props.children}</span>
   );
 }
 
@@ -82,7 +66,7 @@ export function effectSafety(): EffectSafety {
 
 export function ExternalLink(props: {
   'aria-label'?: string;
-  onClick?: React.MouseEventHandler<any>; 
+  onClick?: React.MouseEventHandler<any>;
   children: React.ReactNode;
   href: string;
   style?: CSSProperties;

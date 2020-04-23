@@ -6,7 +6,14 @@ import { BACKEND_URL, CLIENT_NAME } from './env';
 
 export enum Target {
   DOWNLOAD = 'DOWNLOAD',
+  SHARE = 'SHARE',
   GITHUB = 'GITHUB'
+}
+
+export interface GenerateResult {
+  target: Target;
+  url: string;
+  shareUrl?: string;
 }
 
 export function generateProjectQuery(project: QuarkusProject, github: boolean = false): string {
@@ -26,19 +33,27 @@ export function generateProjectQuery(project: QuarkusProject, github: boolean = 
   return stringify(params);
 }
 
+const BASE_LOCATION = window.location.href.replace(window.location.search, '');
+
 export function getProjectDownloadUrl(project: QuarkusProject) {
-  return `${BACKEND_URL}/d?${generateProjectQuery(project)}`;
+  const baseUrl = BACKEND_URL.startsWith('http') ? BACKEND_URL : BASE_LOCATION;
+  return `${baseUrl.replace(/\/$/, '')}/d?${generateProjectQuery(project)}`;
 }
 
+export function getProjectShareUrl(project: QuarkusProject, github = false) {
+  return `${BASE_LOCATION}?${generateProjectQuery(project, github)}`;
+}
 
-export async function generateProject(environment: string, project: QuarkusProject, target: Target): Promise<{ target: Target, url: string }> {
+export async function generateProject(environment: string, project: QuarkusProject, target: Target): Promise<GenerateResult> {
   switch (target) {
     case Target.DOWNLOAD:
+    case Target.SHARE:
       const url = getProjectDownloadUrl(project);
-      if (environment !== 'dev') {
-        setTimeout(() => window.open(url, '_blank'), 1000);
+      const shareUrl = getProjectShareUrl(project);
+      if (target !== Target.SHARE && environment !== 'dev') {
+        setTimeout(() => window.open(url, '_blank'), 500);
       }
-      return { target, url };
+      return { target, url, shareUrl };
     case Target.GITHUB:
       const result = await createGitHubProject(project);
       return { target, url: result.url };
@@ -47,7 +62,7 @@ export async function generateProject(environment: string, project: QuarkusProje
 
 export const createOnGitHub = (project: QuarkusProject, clientId: string) => {
   const authParams = {
-    redirect_uri: `${window.location.href.replace(window.location.search, '')}?${generateProjectQuery(project, true)}`,
+    redirect_uri: getProjectShareUrl(project, true),
     client_id: clientId,
     scope: 'public_repo',
     state: Math.random().toString(36)

@@ -38,7 +38,7 @@ body {
   backdrop-filter: none;
 }
 
-button.pf-c-button, button.pf-c-dropdown__toggle {
+button.pf-c-button, button.pf-c-dropdown__toggle, a.pf-c-dropdown__menu-item {
   outline: none;
 }
 
@@ -91,17 +91,6 @@ button.pf-c-button, button.pf-c-dropdown__toggle {
     }
   }
 
-  code {
-    display: block;
-    margin: 10px 0;
-    padding: 5px;
-
-    .copy-to-clipboard {
-      float: right;
-      margin-right: 10px;
-    }
-  }
-
   a.download-button {
     background-color: $nextStepsModalDownloadButtonBg;
     border: 1px solid $nextStepsModalDownloadButtonBg;
@@ -132,7 +121,7 @@ button.pf-c-button, button.pf-c-dropdown__toggle {
   }
 }
 
-code {
+code.code {
   background-color: $codeBg;
   color: $codeTextColor;
 }
