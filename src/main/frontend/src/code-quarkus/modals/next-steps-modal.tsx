@@ -1,4 +1,4 @@
-import { Code, CopyToClipboard, createLinkTracker, ExternalLink, useAnalytics } from '../../core';
+import { Code, createLinkTracker, ExternalLink, useAnalytics } from '../../core';
 import { Button, Modal, TextContent } from '@patternfly/react-core';
 import React from 'react';
 import { ExtensionEntry } from '../pickers/extensions-picker';

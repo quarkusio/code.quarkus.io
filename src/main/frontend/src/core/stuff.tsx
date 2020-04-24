@@ -1,8 +1,8 @@
-import { Alert, AlertVariant, Button, ButtonProps, Title } from '@patternfly/react-core';
-import { InProgressIcon, ExternalLinkSquareAltIcon } from '@patternfly/react-icons';
+import { Alert, AlertVariant, Button } from '@patternfly/react-core';
+import { ExternalLinkSquareAltIcon, InProgressIcon } from '@patternfly/react-icons';
 import * as React from 'react';
-import './stuff.scss';
 import { CSSProperties } from 'react';
+import './stuff.scss';
 import { CopyToClipboard } from './copy-to-clipboard';
 
 
