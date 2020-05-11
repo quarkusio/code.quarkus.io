@@ -307,7 +307,6 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
               className="search-extensions-input"
               value={filter}
               onChange={search}
-              css=""
             />
           </FormGroup>
         </Tooltip>

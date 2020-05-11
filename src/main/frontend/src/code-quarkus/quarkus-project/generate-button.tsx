@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, {MouseEventHandler, useState} from 'react';
 import { useAnalytics } from '../../core/analytics';
 import { Button, Dropdown, DropdownItem, DropdownPosition } from '@patternfly/react-core';
 import { DownloadIcon, GithubIcon, ShareIcon } from '@patternfly/react-icons';
 import { createOnGitHub, getProjectDownloadUrl, Target } from '../api/quarkus-project-utils';
 import { QuarkusProject } from '../api/model';
 import { useHotkeys } from 'react-hotkeys-hook';
+
+export function GenerateButtonToggle(props: { onClick: MouseEventHandler<any>, isDisabled: boolean }) {
+  const keyName = window.navigator.userAgent.toLowerCase().indexOf('mac') > -1 ? '⌥' : 'alt';
+  return (
+    <Button aria-label="Generate your application" isDisabled={props.isDisabled} className="generate-button" onClick={props.onClick}>Generate your application ({keyName} + ⏎)</Button>
+  );
+}
 
 export function GenerateButton(props: { project: QuarkusProject, isProjectValid: boolean, generate: (target?: Target) => void, githubClientId?: string }) {
   const [isMoreOpen, setIsMoreOpen] = useState(false);
@@ -66,17 +73,16 @@ export function GenerateButton(props: { project: QuarkusProject, isProjectValid:
     </DropdownItem>
   );
   useHotkeys('alt+enter', defaultGenerate, [props.isProjectValid, props.generate]);
-  const keyName = window.navigator.userAgent.toLowerCase().indexOf('mac') > -1 ? '⌥' : 'alt';
-  const generateButton = <Button aria-label="Generate your application" isDisabled={!props.isProjectValid} className="generate-button" onClick={defaultGenerate}>Generate your application ({keyName} + ⏎)</Button>;
+
   return moreItems.length > 1 ? (
     <Dropdown
       isOpen={isMoreOpen}
       position={DropdownPosition.left}
       onMouseLeave={closeMore}
       onMouseEnter={openMore}
-      toggle={generateButton}
+      toggle={(<GenerateButtonToggle onClick={defaultGenerate} isDisabled={!props.isProjectValid} />)}
       onClick={(e) => e.stopPropagation()}
       dropdownItems={moreItems}
     />
-  ) : generateButton;
+  ) : <GenerateButtonToggle onClick={defaultGenerate} isDisabled={!props.isProjectValid} />;
 }
