@@ -1,6 +1,6 @@
 package io.quarkus.code.rest
 
-import io.quarkus.code.model.QuarkusProject
+import io.quarkus.code.model.ProjectDefinition
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
 import org.hamcrest.CoreMatchers.*
@@ -27,7 +27,7 @@ class CodeQuarkusResourceTest {
                 .statusCode(200)
                 .contentType("application/zip")
                 .header("Content-Disposition", "attachment; filename=\"code-with-quarkus.zip\"")
-        assertThat(projectService.createdProjectRef.get(), equalTo(QuarkusProject()))
+        assertThat(projectService.createdProjectRef.get(), equalTo(ProjectDefinition()))
     }
 
     @Test
@@ -120,7 +120,7 @@ class CodeQuarkusResourceTest {
                 .header("Content-Disposition", "attachment; filename=\"test-app-with-a-few-arg.zip\"")
         assertThat(
                 projectService.getCreatedProject(), equalTo(
-                QuarkusProject(
+                ProjectDefinition(
                         artifactId = "test-app-with-a-few-arg",
                         version = "1.0.0",
                         shortExtensions = "D9x.9Ie"
@@ -142,7 +142,7 @@ class CodeQuarkusResourceTest {
                 .header("Content-Disposition", "attachment; filename=\"test-empty-shortids.zip\"")
         assertThat(
                 projectService.getCreatedProject(), equalTo(
-                QuarkusProject(
+                ProjectDefinition(
                         artifactId = "test-empty-shortids",
                         version = "1.0.1"
                 ))
@@ -162,7 +162,7 @@ class CodeQuarkusResourceTest {
                 .header("Content-Disposition", "attachment; filename=\"test-empty-ext.zip\"")
         assertThat(
                 projectService.getCreatedProject(), equalTo(
-                QuarkusProject(
+                ProjectDefinition(
                         artifactId = "test-empty-ext",
                         version = "1.0.1",
                         extensions = setOf("")
@@ -183,7 +183,7 @@ class CodeQuarkusResourceTest {
                 .header("Content-Disposition", "attachment; filename=\"test-app.zip\"")
         assertThat(
                 projectService.getCreatedProject(), equalTo(
-                QuarkusProject(
+                ProjectDefinition(
                         groupId = "com.toto",
                         artifactId = "test-app",
                         version = "1.0.0",
@@ -208,7 +208,7 @@ class CodeQuarkusResourceTest {
                 .header("Content-Disposition", "attachment; filename=\"test-app.zip\"")
         assertThat(
                 projectService.getCreatedProject(), equalTo(
-                QuarkusProject(
+                ProjectDefinition(
                         groupId = "com.toto",
                         artifactId = "test-app",
                         version = "1.0.0",
@@ -232,7 +232,7 @@ class CodeQuarkusResourceTest {
                 .header("Content-Disposition", "attachment; filename=\"test-app.zip\"")
         assertThat(
                 projectService.getCreatedProject(), equalTo(
-                QuarkusProject(
+                ProjectDefinition(
                         groupId = "com.toto",
                         artifactId = "test-app",
                         version = "1.0.0",
@@ -287,7 +287,7 @@ class CodeQuarkusResourceTest {
                 .header("Content-Disposition", "attachment; filename=\"test-app-with-a-few-arg.zip\"")
         assertThat(
                 projectService.getCreatedProject(), equalTo(
-                QuarkusProject(
+                ProjectDefinition(
                         artifactId = "test-app-with-a-few-arg",
                         version = "1.0.0",
                         buildTool = "GRADLE",

@@ -1,7 +1,7 @@
 package io.quarkus.code.rest
 
 import io.quarkus.code.model.GitHubCreatedRepository
-import io.quarkus.code.model.QuarkusProject
+import io.quarkus.code.model.ProjectDefinition
 import io.quarkus.code.service.GitHubService
 import io.quarkus.code.service.QuarkusProjectService
 import io.quarkus.runtime.StartupEvent
@@ -47,17 +47,17 @@ class GitHubResource {
     @Path("/project")
     @Produces(APPLICATION_JSON)
     @Operation(summary = "Create project and push generated code to GitHub")
-    fun createProject(@Valid @BeanParam project: QuarkusProject,
+    fun createProject(@Valid @BeanParam projectDefinition: ProjectDefinition,
                       @NotEmpty @HeaderParam("GitHub-Code") code: String,
                       @NotEmpty @HeaderParam("GitHub-State") state: String): GitHubCreatedRepository {
         check(gitHubService.isEnabled()) { "GitHub is not enabled" }
-        val location = projectCreator.createTmp(project)
+        val location = projectCreator.createTmp(projectDefinition)
         val token = gitHubService.fetchAccessToken(code, state)
         val login = gitHubService.login(token.accessToken)
-        if (gitHubService.repositoryExists(login, token.accessToken, project.artifactId)) {
-            throw WebApplicationException("This repository name ${project.artifactId} already exists", 409)
+        if (gitHubService.repositoryExists(login, token.accessToken, projectDefinition.artifactId)) {
+            throw WebApplicationException("This repository name ${projectDefinition.artifactId} already exists", 409)
         }
-        val repo = gitHubService.createRepository(login, token.accessToken, project.artifactId)
+        val repo = gitHubService.createRepository(login, token.accessToken, projectDefinition.artifactId)
         gitHubService.push(repo.ownerName, token.accessToken, repo.url, location)
         return repo
     }
