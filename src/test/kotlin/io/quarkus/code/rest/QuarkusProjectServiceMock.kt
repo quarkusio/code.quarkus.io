@@ -1,7 +1,7 @@
 package io.quarkus.code.rest
 
 import io.quarkus.code.service.QuarkusProjectService
-import io.quarkus.code.model.QuarkusProject
+import io.quarkus.code.model.ProjectDefinition
 import io.quarkus.test.Mock
 import java.util.concurrent.atomic.AtomicReference
 import javax.inject.Singleton
@@ -10,14 +10,14 @@ import javax.inject.Singleton
 @Singleton
 open class QuarkusProjectServiceMock: QuarkusProjectService() {
 
-    val createdProjectRef : AtomicReference<QuarkusProject> = AtomicReference()
+    val createdProjectRef : AtomicReference<ProjectDefinition> = AtomicReference()
 
-    override fun create(project: QuarkusProject): ByteArray {
-        createdProjectRef.set(project)
-        return super.create(project)
+    override fun create(projectDefinition: ProjectDefinition): ByteArray {
+        createdProjectRef.set(projectDefinition)
+        return super.create(projectDefinition)
     }
 
-    fun getCreatedProject(): QuarkusProject {
+    fun getCreatedProject(): ProjectDefinition {
         return this.createdProjectRef.get()
     }
 
