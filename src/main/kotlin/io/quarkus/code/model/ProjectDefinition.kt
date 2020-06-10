@@ -6,7 +6,7 @@ import javax.validation.constraints.Pattern
 import javax.ws.rs.DefaultValue
 import javax.ws.rs.QueryParam
 
-class QuarkusProject {
+class ProjectDefinition {
 
     companion object {
         const val DEFAULT_GROUPID = "org.acme"
@@ -104,7 +104,7 @@ class QuarkusProject {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as QuarkusProject
+        other as ProjectDefinition
 
         if (groupId != other.groupId) return false
         if (artifactId != other.artifactId) return false

@@ -1,12 +1,11 @@
 package io.quarkus.code.service
 
 import io.quarkus.code.config.CodeQuarkusConfig
-import io.quarkus.code.model.QuarkusProject
+import io.quarkus.code.model.ProjectDefinition
 import io.quarkus.code.service.QuarkusProjectServiceTestUtils.prefixFileList
 import io.quarkus.test.junit.QuarkusTest
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*
-import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Timeout
 import java.nio.file.Paths
@@ -181,7 +180,7 @@ internal class QuarkusProjectServiceTest {
         // When
         val creator = QuarkusProjectService()
         creator.extensionCatalog = quarkusExtensionCatalog
-        val proj = creator.create(QuarkusProject())
+        val proj = creator.create(ProjectDefinition())
         val (testDir, zipList) = QuarkusProjectServiceTestUtils.extractProject(proj)
         val fileList = QuarkusProjectServiceTestUtils.readFiles(testDir)
         val pomText = Paths.get(testDir.path, "code-with-quarkus/pom.xml")
@@ -206,7 +205,7 @@ internal class QuarkusProjectServiceTest {
         // When
         val creator = QuarkusProjectService()
         creator.extensionCatalog = quarkusExtensionCatalog
-        val proj = creator.createTmp(QuarkusProject())
+        val proj = creator.createTmp(ProjectDefinition())
         val fileList = QuarkusProjectServiceTestUtils.readFiles(proj.toFile())
         val pomText = proj.resolve("pom.xml")
                 .toFile().readText(Charsets.UTF_8)
@@ -231,7 +230,7 @@ internal class QuarkusProjectServiceTest {
         val creator = QuarkusProjectService()
         creator.extensionCatalog = quarkusExtensionCatalog
         val proj = creator.create(
-            QuarkusProject(
+            ProjectDefinition(
                 groupId = "com.test",
                 artifactId = "test-app",
                 version = "2.0.0",
@@ -249,7 +248,7 @@ internal class QuarkusProjectServiceTest {
             .toFile().readText(Charsets.UTF_8)
 
         // Then
-        assertThat(zipList, contains(*prefixFileList(EXPECTED_CONTENT_CUSTOM, "test-app/")))
+        assertThat(zipList, containsInAnyOrder(*prefixFileList(EXPECTED_CONTENT_CUSTOM, "test-app/")))
         assertThat(fileList.size, equalTo(34))
 
         assertThat(pomText, containsString("<groupId>com.test</groupId>"))
@@ -270,7 +269,7 @@ internal class QuarkusProjectServiceTest {
         val creator = QuarkusProjectService()
         creator.extensionCatalog = quarkusExtensionCatalog
         val proj = creator.create(
-            QuarkusProject(
+            ProjectDefinition(
                 groupId = "com.test",
                 artifactId = "test-app",
                 version = "2.0.0",
@@ -287,7 +286,7 @@ internal class QuarkusProjectServiceTest {
             .toFile().readText(Charsets.UTF_8)
 
         // Then
-        assertThat(zipList, contains(*prefixFileList(EXPECTED_CONTENT_GRADLE_KOTLIN, "test-app/")))
+        assertThat(zipList, containsInAnyOrder(*prefixFileList(EXPECTED_CONTENT_GRADLE_KOTLIN, "test-app/")))
 
         assertThat(fileList.size, equalTo(39))
 
@@ -308,7 +307,7 @@ internal class QuarkusProjectServiceTest {
         val creator = QuarkusProjectService()
         creator.extensionCatalog = quarkusExtensionCatalog
         val proj = creator.create(
-            QuarkusProject(
+            ProjectDefinition(
                 groupId = "com.test",
                 artifactId = "test-app",
                 version = "2.0.0",
@@ -325,7 +324,7 @@ internal class QuarkusProjectServiceTest {
             .toFile().readText(Charsets.UTF_8)
 
         // Then
-        assertThat(zipList, contains(*prefixFileList(EXPECTED_CONTENT_GRADLE_SCALA, "test-app/")))
+        assertThat(zipList, containsInAnyOrder(*prefixFileList(EXPECTED_CONTENT_GRADLE_SCALA, "test-app/")))
 
         assertThat(fileList.size, equalTo(39))
 
@@ -349,7 +348,7 @@ internal class QuarkusProjectServiceTest {
         creator.extensionCatalog = quarkusExtensionCatalog
         val creates = (1..20).map { _ ->
             Callable {
-                val result = creator.create(QuarkusProject())
+                val result = creator.create(ProjectDefinition())
                 latch.countDown()
                 result
             }

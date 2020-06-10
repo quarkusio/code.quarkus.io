@@ -5,7 +5,7 @@ import io.quarkus.code.config.GitHubConfig
 import io.quarkus.code.config.GoogleAnalyticsConfig
 import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.code.model.PublicConfig
-import io.quarkus.code.model.QuarkusProject
+import io.quarkus.code.model.ProjectDefinition
 import io.quarkus.code.service.QuarkusExtensionCatalogService
 import io.quarkus.code.service.QuarkusProjectService
 import io.quarkus.runtime.StartupEvent
@@ -97,12 +97,12 @@ class CodeQuarkusResource {
     @Path("/download")
     @Produces("application/zip")
     @Operation(summary = "Download a custom Quarkus application with the provided settings")
-    fun download(@Valid @BeanParam project: QuarkusProject): Response {
+    fun download(@Valid @BeanParam projectDefinition: ProjectDefinition): Response {
         try {
             return Response
-                    .ok(projectCreator.create(project))
+                    .ok(projectCreator.create(projectDefinition))
                     .type("application/zip")
-                    .header("Content-Disposition", "attachment; filename=\"${project.artifactId}.zip\"")
+                    .header("Content-Disposition", "attachment; filename=\"${projectDefinition.artifactId}.zip\"")
                     .build()
         } catch (e: IllegalStateException) {
             LOG.warning("Bad request: ${e.message}")
