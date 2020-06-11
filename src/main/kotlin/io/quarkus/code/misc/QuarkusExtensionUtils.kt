@@ -6,7 +6,10 @@ import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.dependencies.Category
 import io.quarkus.dependencies.Extension
 import io.quarkus.platform.descriptor.QuarkusPlatformDescriptor
+import java.util.Locale
+import java.util.TreeSet
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.regex.Pattern
 import kotlin.math.abs
 import kotlin.math.pow
 
@@ -17,6 +20,11 @@ object QuarkusExtensionUtils {
     private const val hashMaxLength = 3
     private val maxHashCode: Int
     private val defaultExtensions = setOf("io.quarkus:quarkus-resteasy")
+    private val stopWords = setOf("the", "and", "you", "that", "was", "for", "are", "with", "his", "they", "one",
+            "have", "this", "from", "had", "not", "but", "what", "can", "out", "other", "were", "all", "there", "when",
+            "your", "how", "each", "she", "which", "their", "will", "way", "about", "many", "then", "them", "would",
+            "these", "her", "him", "has", "over", "than", "who", "may", "down", "been")
+    private val tokenizerPattern = Pattern.compile("\\w+");
 
     init {
         var max = 0
@@ -81,7 +89,6 @@ object QuarkusExtensionUtils {
         if (isExtensionUnlisted(ext)) {
             return null
         }
-        val keywords = ext.keywords ?: emptyList()
         val id = toId(ext)
         val shortId = createShortId(id)
         return CodeQuarkusExtension(
@@ -95,11 +102,24 @@ object QuarkusExtensionUtils {
                 status = getExtensionStatus(ext),
                 tags = getExtensionTags(ext, listOf(config.tagsFrom.orElse("status"))),
                 default = isDefaultExtension(ext),
-                keywords = keywords,
+                keywords = toKeywords(ext.keywords ?: emptyList(), ext.description),
                 order = order.getAndIncrement(),
-                labels = keywords,
+                labels = ext.keywords ?: emptyList(),
                 guide = getExtensionGuide(ext)
         )
+    }
+
+    fun toKeywords(keywords: List<String>, description: String): List<String> {
+        val result = TreeSet<String>()
+        keywords.forEach { result.add(it.toLowerCase(Locale.US)) }
+        val matcher = tokenizerPattern.matcher(description)
+        while (matcher.find()) {
+            val token = matcher.group().toLowerCase(Locale.US)
+            if (token.length >= 3 && !stopWords.contains(token)) {
+                result.add(token)
+            }
+        }
+        return ArrayList<String>(result);
     }
 
     internal fun createShortId(id: String): String {
