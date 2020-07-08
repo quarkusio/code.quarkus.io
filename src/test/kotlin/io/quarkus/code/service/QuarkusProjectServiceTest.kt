@@ -40,6 +40,7 @@ internal class QuarkusProjectServiceTest {
             "src/main/docker/",
             "src/main/docker/Dockerfile.native",
             "src/main/docker/Dockerfile.jvm",
+            "src/main/docker/Dockerfile.fast-jar",
             ".dockerignore",
             "src/main/resources/application.properties",
             "README.md",
@@ -75,6 +76,7 @@ internal class QuarkusProjectServiceTest {
             "src/main/docker/",
             "src/main/docker/Dockerfile.native",
             "src/main/docker/Dockerfile.jvm",
+            "src/main/docker/Dockerfile.fast-jar",
             ".dockerignore",
             "src/main/resources/application.properties",
             "README.md",
@@ -116,6 +118,7 @@ internal class QuarkusProjectServiceTest {
             "src/main/docker/",
             "src/main/docker/Dockerfile.native",
             "src/main/docker/Dockerfile.jvm",
+            "src/main/docker/Dockerfile.fast-jar",
             ".dockerignore",
             "src/main/resources/application.properties",
             "README.md",
@@ -156,6 +159,7 @@ internal class QuarkusProjectServiceTest {
             "src/main/docker/",
             "src/main/docker/Dockerfile.native",
             "src/main/docker/Dockerfile.jvm",
+            "src/main/docker/Dockerfile.fast-jar",
             ".dockerignore",
             "src/main/resources/application.properties",
             "README.md",
@@ -190,7 +194,7 @@ internal class QuarkusProjectServiceTest {
         // Then
         assertThat(zipList, containsInAnyOrder(*prefixFileList(EXPECTED_CONTENT, "code-with-quarkus/")))
 
-        assertThat(fileList.size, equalTo(34))
+        assertThat(fileList.size, equalTo(35))
 
         assertThat(pomText, containsString("<groupId>org.acme</groupId>"))
         assertThat(pomText, containsString("<artifactId>code-with-quarkus</artifactId>"))
@@ -214,7 +218,7 @@ internal class QuarkusProjectServiceTest {
         // Then
         assertThat(fileList, containsInAnyOrder(*EXPECTED_CONTENT))
 
-        assertThat(fileList.size, equalTo(32))
+        assertThat(fileList.size, equalTo(33))
 
         assertThat(pomText, containsString("<groupId>org.acme</groupId>"))
         assertThat(pomText, containsString("<artifactId>code-with-quarkus</artifactId>"))
@@ -249,7 +253,7 @@ internal class QuarkusProjectServiceTest {
 
         // Then
         assertThat(zipList, containsInAnyOrder(*prefixFileList(EXPECTED_CONTENT_CUSTOM, "test-app/")))
-        assertThat(fileList.size, equalTo(34))
+        assertThat(fileList.size, equalTo(35))
 
         assertThat(pomText, containsString("<groupId>com.test</groupId>"))
         assertThat(pomText, containsString("<artifactId>test-app</artifactId>"))
@@ -288,7 +292,7 @@ internal class QuarkusProjectServiceTest {
         // Then
         assertThat(zipList, containsInAnyOrder(*prefixFileList(EXPECTED_CONTENT_GRADLE_KOTLIN, "test-app/")))
 
-        assertThat(fileList.size, equalTo(39))
+        assertThat(fileList.size, equalTo(40))
 
         assertThat(buildGradleText, containsString("id 'org.jetbrains.kotlin.jvm' version "))
         assertThat(buildGradleText, containsString("implementation 'io.quarkus:quarkus-kotlin'"))
@@ -326,7 +330,7 @@ internal class QuarkusProjectServiceTest {
         // Then
         assertThat(zipList, containsInAnyOrder(*prefixFileList(EXPECTED_CONTENT_GRADLE_SCALA, "test-app/")))
 
-        assertThat(fileList.size, equalTo(39))
+        assertThat(fileList.size, equalTo(40))
 
         assertThat(buildGradleText, containsString("id 'scala'"))
         assertThat(buildGradleText, containsString("implementation 'io.quarkus:quarkus-scala'"))
