@@ -23,11 +23,12 @@ Staging is auto-updated with master (it takes 15min to refresh after a merge): h
 
 You can check deployed commit hash on: https://stage.code.quarkus.io/api/config
 
-# Promote to production
+# Promote to production (temporarily only available to Red Hat developers)
 
 1. Check that everything works as expected on [staging](#staging)
-2. Create a PR on https://github.com/quarkusio/code.quarkus.io-release with the commit hash to release
-3. Merging the PR will trigger a deployment on production
+2. (Inside Red Hat private network) Create a PR on this [link](https://gitlab.cee.redhat.com/service/app-interface/-/edit/master/data/services/launcher/cicd/ci-ext/saas.yaml with the commit hash to release) with the commit hash of to release
+3. Comment with `/lgtm` and wait for CI checks
+4. Merging the PR will trigger a deployment to production
 
 # To update the Quarkus version (after a new Quarkus release)
 
@@ -40,7 +41,7 @@ You can check deployed commit hash on: https://stage.code.quarkus.io/api/config
     <version.quarkus-platform>a.b.c</version.quarkus-platform>
 ```
 2. Check that the `centos-quarkus-maven` image is matching the new Quarkus version: https://github.com/quarkusio/code.quarkus.io/blob/master/src/main/docker/Dockerfile.native.multistage#L2
-3. Provide a PR, merge, and [promote to production](#promote-to-production)
+3. [Promote to production](#promote-to-production)
 
 
 # API Documentation
