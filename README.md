@@ -26,7 +26,7 @@ You can check deployed commit hash on: https://stage.code.quarkus.io/api/config
 # Promote to production (temporarily only available to Red Hat developers)
 
 1. Check that everything works as expected on [staging](#staging)
-2. (Inside Red Hat private network) Create a PR on this [link](https://gitlab.cee.redhat.com/service/app-interface/-/edit/master/data/services/launcher/cicd/ci-ext/saas.yaml with the commit hash to release) with the commit hash of to release
+2. (Inside Red Hat private network) Create a PR on this [link](https://gitlab.cee.redhat.com/service/app-interface/-/edit/master/data/services/launcher/cicd/ci-ext/saas.yaml) with the commit hash to release in the `ref: ...` with the commit hash of to release
 3. Comment with `/lgtm` and wait for CI checks
 4. Merging the PR will trigger a deployment to production
 
