@@ -127,8 +127,10 @@ object QuarkusExtensionUtils {
         return shorten(normalized)
     }
 
-    private fun getExtensionStatus(ext: Extension) =
-            ext.metadata?.get(Extension.MD_STATUS) as String? ?: "stable"
+    private fun getExtensionStatus(ext: Extension): String {
+        val list = normalizeToList(ext.metadata?.get(Extension.MD_STATUS))
+        return if(list.isEmpty()) "stable" else list[0]
+    }
 
     private fun getExtensionTags(ext: Extension, tagsFrom: List<String>): List<String> {
         val tags = tagsFrom.map {
