@@ -33,8 +33,8 @@
         <!-- Quarkus Platform version must be compatible with Quarkus version -->
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
+        <quarkus.platform.artifact-id.json>${quarkus.platform.artifact-id}</quarkus.platform.artifact-id.json>
         <quarkus.platform.version>1.7.0.Final</quarkus.platform.version>
-
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -89,7 +89,7 @@
         </dependency>
         <dependency>
             <groupId>${quarkus.platform.group-id}</groupId>
-            <artifactId>${quarkus.platform.artifact-id}</artifactId>
+            <artifactId>${quarkus.platform.artifact-id.json}</artifactId>
             <version>${quarkus.platform.version}</version>
             <type>json</type>
         </dependency>
