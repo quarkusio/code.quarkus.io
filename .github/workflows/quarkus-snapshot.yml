@@ -15,7 +15,7 @@ env:
   # Repo specific setting #
   #########################
 
-  ECOSYSTEM_CI_REPO_PATH: FIXME # TODO: this needs to be set to the directory name added in 'quarkusio/quarkus-ecosystem-ci'
+  ECOSYSTEM_CI_REPO_PATH: code.quarkus.io # TODO: this needs to be set to the directory name added in 'quarkusio/quarkus-ecosystem-ci'
 
 jobs:
   build:
