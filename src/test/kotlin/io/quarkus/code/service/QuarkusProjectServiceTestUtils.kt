@@ -5,8 +5,15 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry
 import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream
 import java.io.File
 import java.nio.file.Files
+import java.util.*
 
 object QuarkusProjectServiceTestUtils {
+
+    private val EXECUTABLES = Collections.unmodifiableList(Arrays.asList(
+            "gradlew",
+            "gradlew.bat",
+            "mvnw",
+            "mvnw.bat"))
 
     fun readFiles(testDir: File): List<String> {
         return testDir.walkTopDown()
@@ -51,6 +58,9 @@ object QuarkusProjectServiceTestUtils {
                         }
                         file.outputStream().use { output ->
                             zip.copyTo(output)
+                        }
+                        if(EXECUTABLES.contains(file.name)) {
+                            file.setExecutable(true)
                         }
                     }
                 } while (true)
