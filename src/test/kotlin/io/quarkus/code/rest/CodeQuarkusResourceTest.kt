@@ -175,7 +175,7 @@ class CodeQuarkusResourceTest {
     fun testWithUrlRewrite() {
         given()
                 .`when`()
-                .get("/d?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=org.toto.TotoResource&s=cvj.L0j.9Ie") // camel-quarkus-microprofile-metrics, quarkus-amazon-lambda-http, quarkus-elytron-security-oauth2
+                .get("/d?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=org.toto.TotoResource&s=7RG.L0j.9Ie") // quarkus-logging-json, quarkus-amazon-lambda-http, quarkus-elytron-security-oauth2
                 .then()
                 .log().ifValidationFails()
                 .statusCode(200)
@@ -189,7 +189,7 @@ class CodeQuarkusResourceTest {
                         version = "1.0.0",
                         className = "org.toto.TotoResource",
                         path = "/toto/titi",
-                        shortExtensions = "cvj.L0j.9Ie"
+                        shortExtensions = "7RG.L0j.9Ie"
                 )
         )
         )
@@ -200,7 +200,7 @@ class CodeQuarkusResourceTest {
     fun testWithAllParams() {
         given()
                 .`when`()
-                .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=org.toto.TotoResource&s=cvj.L0j.9Ie")
+                .get("/api/download?g=com.toto&a=test-app&v=1.0.0&p=/toto/titi&c=org.toto.TotoResource&s=7RG.L0j.9Ie")
                 .then()
                 .log().ifValidationFails()
                 .statusCode(200)
@@ -214,7 +214,7 @@ class CodeQuarkusResourceTest {
                         version = "1.0.0",
                         className = "org.toto.TotoResource",
                         path = "/toto/titi",
-                        shortExtensions = "cvj.L0j.9Ie"
+                        shortExtensions = "7RG.L0j.9Ie"
                 ))
         )
     }
