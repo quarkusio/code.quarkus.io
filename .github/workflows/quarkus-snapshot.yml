@@ -21,7 +21,7 @@ jobs:
   build:
     name: "Build against latest Quarkus snapshot"
     runs-on: ubuntu-latest
-    if: github.actor == 'quarkusbot' || github.actor == 'maxandersen'
+    if: github.actor == 'quarkusbot' || github.actor == 'maxandersen' || github.actor == 'ia3andy'
 
     steps:
       - name: Install yq
