@@ -1,8 +1,6 @@
 *
 !src
 !pom.xml
-!reflection-config.json
-!resources-config.json
 !target/*-runner
 !target/*-runner.jar
 !target/lib/*

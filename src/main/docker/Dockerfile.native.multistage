@@ -4,7 +4,7 @@ ARG MAVEN_EXTRA_ARGS=
 ARG NATIVE_BUILD_MEMORY=4g
 RUN echo "$MAVEN_EXTRA_ARGS"
 COPY src /usr/src/app/src
-COPY pom.xml reflection-config.json resources-config.json maven-settings.xml* /usr/src/app/
+COPY pom.xml maven-settings.xml* /usr/src/app/
 USER root
 RUN chown -R quarkus /usr/src/app
 USER quarkus

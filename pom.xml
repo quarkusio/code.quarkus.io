@@ -348,7 +348,7 @@
                                 <configuration>
                                     <enableHttpUrlHandler>true</enableHttpUrlHandler>
                                     <additionalBuildArgs>
-                                        -H:ResourceConfigurationFiles=${project.basedir}/resources-config.json,-H:ReflectionConfigurationFiles=${project.basedir}/reflection-config.json
+                                        -H:ResourceConfigurationFiles=resources-config.json,-H:ReflectionConfigurationFiles=reflection-config.json
                                     </additionalBuildArgs>
                                 </configuration>
                             </execution>
