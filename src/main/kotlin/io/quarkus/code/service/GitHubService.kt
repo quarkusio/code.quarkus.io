@@ -59,7 +59,7 @@ class GitHubService {
                 return false
             }
             if (wae.response?.status == 301) {
-                return true
+                return false
             }
             LOG.log(Level.SEVERE, "Error while checking if repository already exists", wae)
             throw WebApplicationException("Error while checking if repository already exists")
