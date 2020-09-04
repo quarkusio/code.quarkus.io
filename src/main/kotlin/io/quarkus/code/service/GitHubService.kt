@@ -3,14 +3,12 @@ package io.quarkus.code.service
 import io.quarkus.code.config.GitHubConfig
 import io.quarkus.code.model.GitHubCreatedRepository
 import io.quarkus.code.model.GitHubToken
-import io.quarkus.code.rest.AnalyticsFilter
 import io.quarkus.code.service.GitHubClient.Companion.toAuthorization
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.errors.GitAPIException
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
 import org.eclipse.microprofile.rest.client.inject.RestClient
 import java.io.IOException
-import java.io.UncheckedIOException
 import java.nio.file.Path
 import java.util.Objects.requireNonNull
 import java.util.logging.Level
@@ -22,6 +20,10 @@ import javax.ws.rs.WebApplicationException
 
 @ApplicationScoped
 class GitHubService {
+
+    companion object {
+        private val LOG = Logger.getLogger(GitHubService::class.java.name)
+    }
 
     @Inject
     lateinit var config: GitHubConfig
@@ -35,8 +37,13 @@ class GitHubService {
     internal lateinit var ghClient: GitHubClient
 
     fun login(token: String): String {
-        val me = ghClient.getMe(toAuthorization(token))
-        return me.login
+        try {
+            val me = ghClient.getMe(toAuthorization(token))
+            return me.login
+        } catch (wae: WebApplicationException) {
+            LOG.log(Level.SEVERE, "Error while getting GH user", wae)
+            throw WebApplicationException("Error while getting GH user")
+        }
     }
 
     fun repositoryExists(login: String, token: String, repositoryName: String): Boolean {
@@ -51,7 +58,11 @@ class GitHubService {
             if (wae.response?.status == 404) {
                 return false
             }
-            throw wae
+            if (wae.response?.status == 301) {
+                return true
+            }
+            LOG.log(Level.SEVERE, "Error while checking if repository already exists", wae)
+            throw WebApplicationException("Error while checking if repository already exists")
         }
     }
 
