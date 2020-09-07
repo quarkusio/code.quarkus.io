@@ -24,6 +24,7 @@
         <commons-compress.version>1.19</commons-compress.version>
         <google-analytics-java.version>2.0.0</google-analytics-java.version>
         <hoverfly-java.version>0.12.3</hoverfly-java.version>
+        <assertj.version>3.17.1</assertj.version>
 
         <git.commit.id>local</git.commit.id>
 
@@ -141,6 +142,12 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
