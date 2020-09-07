@@ -2,9 +2,10 @@
 
 set -exv
 
-GIT_REV=$(git rev-parse --short=7 HEAD)
+GIT_REV=$(git rev-parse HEAD)
+GIT_REV_SHORT=$(git rev-parse --short=7 HEAD)
 IMAGE=${IMAGE-"quay.io/quarkus/code-quarkus-app"}
-IMAGE_TAG=${IMAGE_TAG-$GIT_REV}
+IMAGE_TAG=${IMAGE_TAG-$GIT_REV_SHORT}
 MAVEN_EXTRA_ARGS=${MAVEN_EXTRA_ARGS-""}
 NATIVE_BUILD_MEMORY=${NATIVE_BUILD_MEMORY-"4g"}
 
