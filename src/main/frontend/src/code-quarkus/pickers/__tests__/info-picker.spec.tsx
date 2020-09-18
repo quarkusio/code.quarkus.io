@@ -16,6 +16,38 @@ describe('<InfoPicker />', () => {
     expect(onChange).toBeCalledTimes(0);
   });
 
+  it('do not update modified package name when groupId is edited', async () => {
+    const onChangeMock = jest.fn();
+    const value = { groupId: 'org.test', version: '1.0.0', artifactId: 'test', packageName: 'changed' };
+    let comp: RenderResult;
+    act(() => {
+      comp = render(<InfoPicker value={value} onChange={onChangeMock} quarkusVersion="1.0.0"/>);
+    });
+    fireEvent.change(comp!.getByLabelText('Edit groupId'), { target: { value: 'org.test.copy' } });
+    await wait(() => expect(onChangeMock).toHaveBeenCalledTimes(1));
+    expect(onChangeMock).lastCalledWith({ ...value, groupId: 'org.test.copy' });
+    act(() => {
+      comp.rerender(<InfoPicker value={{ ...value, groupId: 'org.test.copy' }} onChange={onChangeMock} quarkusVersion="1.0.0"/>);
+    });
+    expect(comp!.getByLabelText('Edit package name').getAttribute('value')).toBe('changed');
+  });
+
+  it('auto update untouched package name when groupId is edited', async () => {
+    const onChangeMock = jest.fn();
+    const value = { groupId: 'org.test', version: '1.0.0', artifactId: 'test' };
+    let comp: RenderResult;
+    act(() => {
+      comp = render(<InfoPicker value={value} onChange={onChangeMock} quarkusVersion="1.0.0"/>);
+    });
+    fireEvent.change(comp!.getByLabelText('Edit groupId'), { target: { value: 'org.test.copy' } });
+    await wait(() => expect(onChangeMock).toHaveBeenCalledTimes(1));
+    expect(onChangeMock).lastCalledWith({ ...value, groupId: 'org.test.copy' });
+    act(() => {
+      comp.rerender(<InfoPicker value={{ ...value, groupId: 'org.test.copy' }} onChange={onChangeMock} quarkusVersion="1.0.0"/>);
+    });
+    expect(comp!.getByLabelText('Edit package name').getAttribute('value')).toBe('org.test.copy');
+  });
+
   it('display errors when using invalid values', async () => {
     const onChangeMock = jest.fn();
     const initialValue = { groupId: 'com.test', version: 'version', artifactId: 'test', packageName: 'org.package' };
@@ -51,8 +83,17 @@ describe('<InfoPicker />', () => {
       comp.rerender(<InfoPicker value={value} onChange={onChangeMock} quarkusVersion="1.0.0"/>);
     });
 
+    fireEvent.change(comp!.getByLabelText('Edit package name'), { target: { value: invalidValue.packageName } });
+    value =  { ...value, packageName: invalidValue.packageName };
+    expect(onChangeMock).toHaveBeenCalledTimes(4);
+    expect(onChangeMock).lastCalledWith(value);
+    act(() => {
+      comp.rerender(<InfoPicker value={value} onChange={onChangeMock} quarkusVersion="1.0.0"/>);
+    });
+
     expect(comp!.getByLabelText('Edit groupId').getAttribute('aria-invalid')).toBe('true');
     expect(comp!.getByLabelText('Edit artifactId').getAttribute('aria-invalid')).toBe('true');
+    expect(comp!.getByLabelText('Edit package name').getAttribute('aria-invalid')).toBe('true');
     expect(comp!.getByLabelText('Edit project version').getAttribute('aria-invalid')).toBe('true');
   });
 
@@ -66,6 +107,9 @@ describe('<InfoPicker />', () => {
     expect(isValidInfo({ ...defaultMetadata, artifactId: 'comA' })).toBe(false);
     expect(isValidInfo({ ...defaultMetadata, artifactId: 'com$' })).toBe(false);
     expect(isValidInfo({ ...defaultMetadata, artifactId: '' })).toBe(false);
+    expect(isValidInfo({ ...defaultMetadata, packageName: 'com.1a' })).toBe(false);
+    expect(isValidInfo({ ...defaultMetadata, packageName: 'com.1a-' })).toBe(false);
+    expect(isValidInfo({ ...defaultMetadata, packageName: '1com.test' })).toBe(false);
     expect(isValidInfo({ ...defaultMetadata, version: '' })).toBe(false);
   });
 
@@ -73,6 +117,8 @@ describe('<InfoPicker />', () => {
     const defaultMetadata = newDefaultProject().metadata;
     expect(isValidInfo({ ...defaultMetadata, groupId: 'com.test_toto' })).toBe(true);
     expect(isValidInfo({ ...defaultMetadata, artifactId: 'art-t_tt.t12' })).toBe(true);
+    expect(isValidInfo({ ...defaultMetadata, packageName: 'com1' })).toBe(true);
+    expect(isValidInfo({ ...defaultMetadata, packageName: '' })).toBe(true);
     expect(isValidInfo({ ...defaultMetadata, version: 'test version' })).toBe(true);
   });
 

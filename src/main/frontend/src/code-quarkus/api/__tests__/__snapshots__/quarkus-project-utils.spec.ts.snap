@@ -31,7 +31,7 @@ Object {
     "artifactId": "code-test",
     "buildTool": "GRADLE",
     "groupId": "org.test",
-    "noExamples": false,
+    "packageName": "org.toto",
     "version": "1.0.0-SNAPSHOT",
   },
 }
@@ -65,7 +65,7 @@ Object {
     "artifactId": "code-test",
     "buildTool": "MAVEN",
     "groupId": "org.test",
-    "noExamples": false,
+    "packageName": "org.toto",
     "version": "1.0.0-SNAPSHOT",
   },
 }
@@ -79,7 +79,7 @@ Object {
     "artifactId": "code-with-quarkus",
     "buildTool": "MAVEN",
     "groupId": "org.acme",
-    "noExamples": false,
+    "packageName": undefined,
     "version": "1.0",
   },
 }

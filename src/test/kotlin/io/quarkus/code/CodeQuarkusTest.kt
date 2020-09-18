@@ -29,8 +29,7 @@ class CodeQuarkusTest {
                 .extract().asByteArray()
         assertThat(result, notNullValue())
         val dir = QuarkusProjectServiceTestUtils.extractProject(result).first
-        val appDir = dir.toPath().resolve(appName)
-        val run = WrapperRunner.run(appDir, WrapperRunner.Wrapper.MAVEN)
+        val run = WrapperRunner.run(dir.toPath().resolve(appName), WrapperRunner.Wrapper.MAVEN)
         assertThat(run, `is`(0))
     }
 

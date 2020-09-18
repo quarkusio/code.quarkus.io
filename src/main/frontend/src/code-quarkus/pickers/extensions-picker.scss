@@ -30,6 +30,10 @@
       color: $extensionsPickerCheckSelectedHoverColor;
     }
 
+    &.by-default .extension-selector {
+      color: $extensionsPickerCheckSelectedByDefaultColor !important;
+    }
+
     div:focus {
       outline: none;
     }
@@ -81,8 +85,8 @@
         border: 1px solid $extensionsPickerFlagCustomColor;
       }
 
-      &.example {
-        border: none;
+      &.default {
+        border: 1px solid $extensionsPickerFlagDefaultColor;
       }
     }
 

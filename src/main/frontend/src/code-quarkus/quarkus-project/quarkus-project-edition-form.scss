@@ -154,21 +154,7 @@
   .pf-c-form {
     grid-gap: 5px;
 
-
     .pf-c-form__group {
-
-      &.switch-form-group {
-        .pf-c-form__label {
-          color: white;
-        }
-        .pf-c-switch__toggle {
-          border-radius: 0;
-        }
-        .pf-c-switch__input:checked ~ .pf-c-switch__toggle {
-          background-color: $fieldLabelAndBorderColor;
-        }
-      }
-
       .pf-c-form__label {
         display: inline-block;
         width: 115px;

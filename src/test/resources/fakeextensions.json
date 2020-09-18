@@ -27,7 +27,6 @@
                 ],
                 "status": "test",
                 "guide": "https://quarkus.io/guides/cdi-reference",
-                "codestart": "test",
                 "categories": [
                     "core"
                 ]
