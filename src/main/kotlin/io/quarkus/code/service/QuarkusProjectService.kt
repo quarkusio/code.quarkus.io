@@ -2,12 +2,14 @@ package io.quarkus.code.service
 
 import io.quarkus.code.model.ProjectDefinition
 import io.quarkus.devtools.commands.CreateProject
+import io.quarkus.devtools.commands.data.QuarkusCommandException
 import io.quarkus.devtools.project.BuildTool
 import io.quarkus.devtools.project.QuarkusProject
 import io.quarkus.devtools.project.compress.QuarkusProjectCompress
 import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
+import java.nio.file.Paths
 import java.nio.file.attribute.PosixFilePermissions
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -53,61 +55,32 @@ class QuarkusProjectService {
     private fun createProject(projectDefinition: ProjectDefinition, projectFolderPath: Path) {
         val extensions = checkAndMergeExtensions(projectDefinition)
         val sourceType = CreateProject.determineSourceType(extensions)
-        val context = mutableMapOf("path" to (projectDefinition.path as Any))
         val buildTool = BuildTool.valueOf(projectDefinition.buildTool)
-        val success = CreateProject(projectFolderPath, QuarkusExtensionCatalogService.descriptor)
-                .groupId(projectDefinition.groupId)
-                .artifactId(projectDefinition.artifactId)
-                .version(projectDefinition.version)
-                .sourceType(sourceType)
-                .buildTool(buildTool)
-                .className(projectDefinition.className)
-                .javaTarget("11")
-                .extensions(extensions)
-                .doCreateProject(context)
-        if (!success) {
-            throw IOException("Error during Quarkus project creation")
+        try {
+            val result = CreateProject(projectFolderPath, QuarkusExtensionCatalogService.descriptor)
+                    .groupId(projectDefinition.groupId)
+                    .artifactId(projectDefinition.artifactId)
+                    .version(projectDefinition.version)
+                    .sourceType(sourceType)
+                    .codestartsEnabled(true)
+                    .buildTool(buildTool)
+                    .javaTarget("11")
+                    .className(projectDefinition.className)
+                    .extensions(extensions)
+                    .noExamples(projectDefinition.noExamples)
+                    .setValue("path", projectDefinition.path)
+                    .execute()
+            if (!result.isSuccess) {
+                throw IOException("Error during Quarkus project creation")
+            }
+        } catch (e: QuarkusCommandException) {
+            throw IOException("Error during Quarkus project creation", e)
         }
-        if (buildTool == BuildTool.MAVEN) {
-            addMvnw(projectFolderPath)
-        } else if (buildTool == BuildTool.GRADLE) {
-            addGradlew(projectFolderPath)
-        }
+
     }
 
     private fun checkAndMergeExtensions(projectDefinition: ProjectDefinition): Set<String> {
         return extensionCatalog.checkAndMergeExtensions(projectDefinition.extensions, projectDefinition.shortExtensions)
-    }
-
-    private fun addMvnw(projectFolderPath: Path) {
-        Files.createDirectories(projectFolderPath.resolve(MVNW_WRAPPER_DIR))
-        writeResourceFile(projectFolderPath, MVNW_RESOURCES_DIR, MVNW_WRAPPER_JAR)
-        writeResourceFile(projectFolderPath, MVNW_RESOURCES_DIR, MVNW_WRAPPER_PROPS)
-        writeResourceFile(projectFolderPath, MVNW_RESOURCES_DIR, MVNW_WRAPPER_DOWNLOADER)
-        writeResourceFile(projectFolderPath, MVNW_RESOURCES_DIR, MVNW_CMD, true)
-        writeResourceFile(projectFolderPath, MVNW_RESOURCES_DIR, MVNW, true)
-    }
-
-    private fun addGradlew(projectFolderPath: Path) {
-        Files.createDirectories(projectFolderPath.resolve(GRADLEW_WRAPPER_DIR))
-        writeResourceFile(projectFolderPath, GRADLEW_RESOURCES_DIR, GRADLEW_WRAPPER_JAR)
-        writeResourceFile(projectFolderPath, GRADLEW_RESOURCES_DIR, GRADLEW_WRAPPER_PROPS)
-        writeResourceFile(projectFolderPath, GRADLEW_RESOURCES_DIR, GRADLEW_BAT, true)
-        writeResourceFile(projectFolderPath, GRADLEW_RESOURCES_DIR, GRADLEW, true)
-    }
-
-    private fun writeResourceFile(projectFolderPath: Path, resourcesDir: String, filePath: String, allowExec: Boolean = false) {
-        val absoluteFilePath = projectFolderPath.resolve(filePath);
-        if (!absoluteFilePath.toFile().exists()) {
-            val resourcePath = "$resourcesDir/$filePath"
-            val resource = QuarkusProjectService::class.java.getResource(resourcePath)
-                    ?: throw IOException("missing resource $resourcePath")
-            val fileAsBytes = resource.readBytes()
-            Files.write(absoluteFilePath, fileAsBytes)
-            if(allowExec) {
-                Files.setPosixFilePermissions(absoluteFilePath, PosixFilePermissions.fromString("rwxr-xr-x"))
-            }
-        }
     }
 
 }

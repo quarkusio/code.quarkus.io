@@ -26,28 +26,19 @@ internal class QuarkusProjectServiceTest {
             "src/main/java/",
             "src/main/java/org/",
             "src/main/java/org/acme/",
-            "src/main/java/org/acme/ExampleResource.java",
-            "src/test/",
-            "src/test/java/",
-            "src/test/java/org/",
-            "src/test/java/org/acme/",
-            "src/test/java/org/acme/ExampleResourceTest.java",
-            "src/test/java/org/acme/NativeExampleResourceIT.java",
+            "src/main/java/org/acme/commandmode/",
+            "src/main/java/org/acme/commandmode/HelloCommando.java",
             "src/main/resources/",
-            "src/main/resources/META-INF/",
-            "src/main/resources/META-INF/resources/",
-            "src/main/resources/META-INF/resources/index.html",
+            "src/main/resources/application.properties",
             "src/main/docker/",
             "src/main/docker/Dockerfile.native",
             "src/main/docker/Dockerfile.jvm",
             "src/main/docker/Dockerfile.fast-jar",
             ".dockerignore",
-            "src/main/resources/application.properties",
             "README.md",
             ".gitignore",
             ".mvn/",
             ".mvn/wrapper/",
-            ".mvn/wrapper/maven-wrapper.jar",
             ".mvn/wrapper/maven-wrapper.properties",
             ".mvn/wrapper/MavenWrapperDownloader.java",
             "mvnw.cmd",
@@ -83,7 +74,6 @@ internal class QuarkusProjectServiceTest {
             ".gitignore",
             ".mvn/",
             ".mvn/wrapper/",
-            ".mvn/wrapper/maven-wrapper.jar",
             ".mvn/wrapper/maven-wrapper.properties",
             ".mvn/wrapper/MavenWrapperDownloader.java",
             "mvnw.cmd",
@@ -189,19 +179,19 @@ internal class QuarkusProjectServiceTest {
         val fileList = QuarkusProjectServiceTestUtils.readFiles(testDir)
         val pomText = Paths.get(testDir.path, "code-with-quarkus/pom.xml")
             .toFile().readText(Charsets.UTF_8)
-        val resourceText = Paths.get(testDir.path, "code-with-quarkus/src/main/java/org/acme/ExampleResource.java")
+        val resourceText = Paths.get(testDir.path, "code-with-quarkus/src/main/java/org/acme/commandmode/HelloCommando.java")
             .toFile().readText(Charsets.UTF_8)
         // Then
         assertThat(zipList, containsInAnyOrder(*prefixFileList(EXPECTED_CONTENT, "code-with-quarkus/")))
 
-        assertThat(fileList.size, equalTo(35))
+        assertThat(fileList.size, equalTo(26))
 
         assertThat(pomText, containsString("<groupId>org.acme</groupId>"))
         assertThat(pomText, containsString("<artifactId>code-with-quarkus</artifactId>"))
         assertThat(pomText, containsString("<version>1.0.0-SNAPSHOT</version>"))
         assertThat(pomText, containsString("<quarkus-plugin.version>${codeQuarkusConfig.quarkusVersion}</quarkus-plugin.version>"))
 
-        assertThat(resourceText, containsString("@Path(\"/hello\")"))
+        assertThat(resourceText, containsString("public class HelloCommando implements QuarkusApplication"))
     }
 
     @Test
@@ -213,19 +203,19 @@ internal class QuarkusProjectServiceTest {
         val fileList = QuarkusProjectServiceTestUtils.readFiles(proj.toFile())
         val pomText = proj.resolve("pom.xml")
                 .toFile().readText(Charsets.UTF_8)
-        val resourceText = proj.resolve("src/main/java/org/acme/ExampleResource.java")
+        val resourceText = proj.resolve("src/main/java/org/acme/commandmode/HelloCommando.java")
                 .toFile().readText(Charsets.UTF_8)
         // Then
         assertThat(fileList, containsInAnyOrder(*EXPECTED_CONTENT))
 
-        assertThat(fileList.size, equalTo(33))
+        assertThat(fileList.size, equalTo(24))
 
         assertThat(pomText, containsString("<groupId>org.acme</groupId>"))
         assertThat(pomText, containsString("<artifactId>code-with-quarkus</artifactId>"))
         assertThat(pomText, containsString("<version>1.0.0-SNAPSHOT</version>"))
         assertThat(pomText, containsString("<quarkus-plugin.version>${codeQuarkusConfig.quarkusVersion}</quarkus-plugin.version>"))
 
-        assertThat(resourceText, containsString("@Path(\"/hello\")"))
+        assertThat(resourceText, containsString("public class HelloCommando implements QuarkusApplication"))
     }
 
     @Test
@@ -240,7 +230,7 @@ internal class QuarkusProjectServiceTest {
                 version = "2.0.0",
                 className = "com.test.TestResource",
                 path = "/test/it",
-                extensions = setOf("io.quarkus:quarkus-resteasy-jsonb"),
+                extensions = setOf("io.quarkus:quarkus-resteasy", "io.quarkus:quarkus-resteasy-jsonb"),
                 shortExtensions = "YjV.pDS"
             )
         )
@@ -253,7 +243,7 @@ internal class QuarkusProjectServiceTest {
 
         // Then
         assertThat(zipList, containsInAnyOrder(*prefixFileList(EXPECTED_CONTENT_CUSTOM, "test-app/")))
-        assertThat(fileList.size, equalTo(35))
+        assertThat(fileList.size, equalTo(34))
 
         assertThat(pomText, containsString("<groupId>com.test</groupId>"))
         assertThat(pomText, containsString("<artifactId>test-app</artifactId>"))
@@ -279,7 +269,7 @@ internal class QuarkusProjectServiceTest {
                 version = "2.0.0",
                 buildTool = "GRADLE",
                 className = "com.test.TestResource",
-                shortExtensions = "OxX"
+                extensions = setOf("io.quarkus:quarkus-resteasy", "io.quarkus:quarkus-kotlin")
             )
         )
         val (testDir, zipList) = QuarkusProjectServiceTestUtils.extractProject(proj)
@@ -317,7 +307,7 @@ internal class QuarkusProjectServiceTest {
                 version = "2.0.0",
                 buildTool = "GRADLE",
                 className = "com.test.TestResource",
-                shortExtensions = "3e"
+                extensions = setOf("io.quarkus:quarkus-resteasy", "io.quarkus:quarkus-scala")
             )
         )
         val (testDir, zipList) = QuarkusProjectServiceTestUtils.extractProject(proj)

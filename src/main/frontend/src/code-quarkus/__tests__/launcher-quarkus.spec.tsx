@@ -127,8 +127,6 @@ it('Let user customize an Application and Generate it', async () => {
   fireEvent.click(toggleMoreOptionsBtn);
   const versionInput = await comp!.findByLabelText('Edit project version');
   fireEvent.change(versionInput, { target: { value: '1.0.0-TEST' } });
-  const packageNameInput = await comp!.findByLabelText('Edit package name');
-  fireEvent.change(packageNameInput, { target: { value: 'io.test.pack' } });
 
   // Select extensions
   const ext1 = await comp!.findByLabelText('Switch io.quarkus:quarkus-arc extension');
