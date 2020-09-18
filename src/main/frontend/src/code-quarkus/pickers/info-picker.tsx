@@ -7,7 +7,7 @@ export interface InfoPickerValue {
   groupId?: string;
   artifactId?: string;
   version?: string;
-  packageName?: string;
+  noExamples?: boolean;
   buildTool?: string;
 }
 
@@ -24,8 +24,7 @@ const isValidGroupId = (value?: string) => !!value && GROUPID_PATTERN.test(value
 export const isValidInfo = (value: InfoPickerValue) => {
   return isValidGroupId(value.groupId)
     && isValidId(value.artifactId)
-    && !!value.version
-    && (!value.packageName || isValidGroupId(value.packageName));
+    && !!value.version;
 };
 
 const SelectBuildTool = (props: InputProps<string>) => {
@@ -38,11 +37,37 @@ const SelectBuildTool = (props: InputProps<string>) => {
       fieldId="buildTool"
       label="Build Tool"
       aria-label="Choose build tool">
-      <select id="buildtool" value={props.value || 'MAVEN'} onChange={adaptedOnChange} className={'pf-c-form-control'}>
+      <select id="buildtool" value={props.value} onChange={adaptedOnChange} className={'pf-c-form-control'}>
         <option value={'MAVEN'}>Maven</option>
         <option value={'GRADLE'}>Gradle (Preview)</option>
+        <option value={'GRADLE_KOTLIN_DSK'}>Gradle with Kotlin DSL (Preview)</option>
       </select>
     </FormGroup>
+  );
+};
+
+const ExamplesCheckbox = (props: InputProps<boolean>) => {
+  const onChangeWithDirty = useAnalyticsEditionField('no-examples', props.onChange)[1];
+  const adaptedOnChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    onChangeWithDirty(e.target.value === 'true', e);
+  };
+  return (
+    <Tooltip
+      position="right"
+      content={<span>Extensions with the flag <span className="codestart-example-icon" /> can help you get started with example code. You can choose to include the examples or get only a empty project....</span>}
+      exitDelay={0}
+      zIndex={200}
+    >
+      <FormGroup
+        fieldId="no-examples"
+        label="Example code"
+        aria-label="Examples">
+        <select id="no-examples" value={props.value ? 'true' : 'false'} onChange={adaptedOnChange} className={'pf-c-form-control'}>
+          <option value={'false'}>Yes, Please</option>
+          <option value={'true'}>No, Thanks</option>
+        </select>
+      </FormGroup>
+    </Tooltip>
   );
 };
 
@@ -53,10 +78,9 @@ export const InfoPicker = (props: InfoPickerProps) => {
   const onGroupIdChange = (newValue: string) => onInputChange({ ...props.value, groupId: newValue });
   const onArtifactIdChange = (newValue: string) => onInputChange({ ...props.value, artifactId: newValue });
   const onVersionChange = (newValue: string) => onInputChange({ ...props.value, version: newValue });
-  const onPackageNameChange = (newValue: string) => onInputChange({ ...props.value, packageName: newValue });
+  const onNoExampleChange = (newValue: boolean) => onInputChange({ ...props.value, noExamples: newValue });
   const onBuildToolChange = (newValue: string) => onInputChange({ ...props.value, buildTool: newValue });
   const configFileName = props.value.buildTool === 'MAVEN' ? 'pom.xml' : 'gradle.properties';
-  const packageName = props.value.packageName === undefined ? props.value.groupId : props.value.packageName;
   return (
     <div className={`info-picker horizontal`}>
       <div className="base-settings pf-c-form">
@@ -103,20 +127,6 @@ export const InfoPicker = (props: InfoPickerProps) => {
               onChange={onVersionChange}
               isValid={!!props.value.version}
             />
-            <ExtendedTextInput
-              label="Package Name"
-              isRequired
-              type="text"
-              id="packageName"
-              name="packageName"
-              aria-label="Edit package name"
-              value={packageName || ''}
-              autoComplete="off"
-              onChange={onPackageNameChange}
-              pattern={GROUPID_PATTERN.source}
-              isValid={isValidGroupId(packageName)}
-            />
-
             <Tooltip
               position="right"
               content={`You may change the Quarkus Version after generation in the ${configFileName}. Just be cautious with extension compatibility.`}
@@ -135,6 +145,7 @@ export const InfoPicker = (props: InfoPickerProps) => {
                 className="quarkus-version"
               />
             </Tooltip>
+            <ExamplesCheckbox onChange={onNoExampleChange} value={props.value.noExamples || false} />
           </div>
         </TogglePanel>
       )}

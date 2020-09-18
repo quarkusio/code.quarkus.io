@@ -9,7 +9,7 @@ IMAGE_TAG=${IMAGE_TAG-$GIT_REV_SHORT}
 MAVEN_EXTRA_ARGS=${MAVEN_EXTRA_ARGS-""}
 NATIVE_BUILD_MEMORY=${NATIVE_BUILD_MEMORY-"4g"}
 
-docker build --compress -f src/main/docker/Dockerfile.native.multistage --build-arg NATIVE_BUILD_MEMORY="$NATIVE_BUILD_MEMORY" --build-arg MAVEN_EXTRA_ARGS="$MAVEN_EXTRA_ARGS -Dgit.commit.id=$GIT_REV" -t "${IMAGE}:${IMAGE_TAG}" .
+docker build --compress -f src/main/docker/Dockerfile.multistage --build-arg NATIVE_BUILD_MEMORY="$NATIVE_BUILD_MEMORY" --build-arg MAVEN_EXTRA_ARGS="$MAVEN_EXTRA_ARGS -Dgit.commit.id=$GIT_REV" -t "${IMAGE}:${IMAGE_TAG}" .
 
 if [[ -n "$QUAY_USER" && -n "$QUAY_TOKEN" ]]; then
     DOCKER_CONF="$PWD/.docker"
@@ -19,3 +19,4 @@ if [[ -n "$QUAY_USER" && -n "$QUAY_TOKEN" ]]; then
     docker --config="$DOCKER_CONF" push "${IMAGE}:${IMAGE_TAG}"
     docker --config="$DOCKER_CONF" push "${IMAGE}:latest"
 fi
+ZZ

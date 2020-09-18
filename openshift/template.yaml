@@ -86,7 +86,7 @@ objects:
                       name: secrets
                       key: github-client-id
                       optional: true
-                - name: IO_QUARKUS_CODE_GITHUB_CLIENT_SECRET
+                - name: brew i
                   valueFrom:
                     secretKeyRef:
                       name: secrets
