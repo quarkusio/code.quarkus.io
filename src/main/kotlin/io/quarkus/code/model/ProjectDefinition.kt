@@ -12,8 +12,6 @@ class ProjectDefinition {
         const val DEFAULT_GROUPID = "org.acme"
         const val DEFAULT_ARTIFACTID = "code-with-quarkus"
         const val DEFAULT_VERSION = "1.0.0-SNAPSHOT"
-        const val DEFAULT_CLASSNAME = "org.acme.ExampleResource"
-        const val DEFAULT_PATH = "/hello"
         const val DEFAULT_BUILDTOOL = "MAVEN"
 
         const val GROUPID_PATTERN = "^([a-zA-Z_\$][a-zA-Z\\d_\$]*\\.)*[a-zA-Z_\$][a-zA-Z\\d_\$]*\$"
@@ -27,9 +25,10 @@ class ProjectDefinition {
     constructor(groupId: String = DEFAULT_GROUPID,
                 artifactId: String = DEFAULT_ARTIFACTID,
                 version: String = DEFAULT_VERSION,
-                className: String = DEFAULT_CLASSNAME,
-                path: String = DEFAULT_PATH,
+                className: String? = null,
+                path: String? = null,
                 buildTool: String = DEFAULT_BUILDTOOL,
+                noExamples: Boolean = false,
                 extensions: Set<String> = setOf(),
                 shortExtensions: String = "") {
         this.groupId = groupId
@@ -39,6 +38,7 @@ class ProjectDefinition {
         this.extensions = extensions
         this.path = path
         this.buildTool = buildTool
+        this.noExamples = noExamples
         this.shortExtensions = shortExtensions
     }
 
@@ -65,20 +65,22 @@ class ProjectDefinition {
     var version: String = DEFAULT_VERSION
         private set
 
-    @DefaultValue(DEFAULT_CLASSNAME)
-    @NotEmpty
     @QueryParam("c")
     @Pattern(regexp = CLASSNAME_PATTERN)
     @Parameter(name = "c", description = "The class name to use in the generated application", required = false)
-    var className: String = DEFAULT_CLASSNAME
+    var className: String? = null
         private set
 
-    @DefaultValue(DEFAULT_PATH)
-    @NotEmpty
     @QueryParam("p")
     @Pattern(regexp = PATH_PATTERN)
     @Parameter(name = "p", description = "The path of the REST endpoint created in the generated application", required = false)
-    var path: String = DEFAULT_PATH
+    var path: String? = null
+        private set
+
+    @DefaultValue("false")
+    @QueryParam("ne")
+    @Parameter(name = "ne", description = "No code examples", required = false)
+    var noExamples: Boolean = false
         private set
 
     @DefaultValue(DEFAULT_BUILDTOOL)
@@ -111,6 +113,7 @@ class ProjectDefinition {
         if (version != other.version) return false
         if (className != other.className) return false
         if (path != other.path) return false
+        if (noExamples != other.noExamples) return false
         if (buildTool != other.buildTool) return false
         if (extensions != other.extensions) return false
         if (shortExtensions != other.shortExtensions) return false
@@ -125,13 +128,14 @@ class ProjectDefinition {
         result = 31 * result + className.hashCode()
         result = 31 * result + path.hashCode()
         result = 31 * result + buildTool.hashCode()
+        result = 31 * result + noExamples.hashCode()
         result = 31 * result + extensions.hashCode()
         result = 31 * result + shortExtensions.hashCode()
         return result
     }
 
     override fun toString(): String {
-        return "QuarkusProject(groupId='$groupId', artifactId='$artifactId', version='$version', className='$className', path='$path', buildTool='$buildTool', extensions=$extensions, shortExtensions='$shortExtensions')"
+        return "QuarkusProject(groupId='$groupId', artifactId='$artifactId', version='$version', className='$className', path='$path', buildTool='$buildTool', noExamples='$noExamples', extensions=$extensions, shortExtensions='$shortExtensions')"
     }
 
 

@@ -6,4 +6,4 @@ set -e
 mvn --settings .github/quarkus-ecosystem-maven-settings.xml -B clean install \
     -Dquarkus.version=${QUARKUS_VERSION} -Dversion.io.quarkus=${QUARKUS_VERSION} \
     -Dquarkus.platform.artifact-id=quarkus-bom -Dquarkus.platform.version=${QUARKUS_VERSION} \
-    -Dnative -Dquarkus.native.container-build=true -Dquarkus.platform.artifact-id.json=quarkus-bom-descriptor-json
+    -Dquarkus.platform.artifact-id.json=quarkus-bom-descriptor-json

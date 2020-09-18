@@ -88,6 +88,11 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
           >
             Gradle (Preview)
           </option>
+          <option
+            value="GRADLE_KOTLIN_DSK"
+          >
+            Gradle with Kotlin DSL (Preview)
+          </option>
         </select>
       </div>
     </div>
@@ -123,32 +128,6 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
           />
         </div>
         <div
-          class="pf-c-form__group"
-        >
-          <label
-            class="pf-c-form__label"
-            for="packageName"
-          >
-            <span
-              class="pf-c-form__label-text"
-            >
-              Package Name
-            </span>
-          </label>
-          <input
-            aria-invalid="false"
-            aria-label="Edit package name"
-            autocomplete="off"
-            class="pf-c-form-control"
-            id="packageName"
-            name="packageName"
-            pattern="^([a-zA-Z_$][a-zA-Z\\\\d_$]*\\\\.)*[a-zA-Z_$][a-zA-Z\\\\d_$]*$"
-            required=""
-            type="text"
-            value="org.test"
-          />
-        </div>
-        <div
           class="pf-c-form__group quarkus-version"
         >
           <label
@@ -172,6 +151,36 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
             type="text"
             value="1.0.0"
           />
+        </div>
+        <div
+          aria-label="Examples"
+          class="pf-c-form__group"
+        >
+          <label
+            class="pf-c-form__label"
+            for="no-examples"
+          >
+            <span
+              class="pf-c-form__label-text"
+            >
+              Example code
+            </span>
+          </label>
+          <select
+            class="pf-c-form-control"
+            id="no-examples"
+          >
+            <option
+              value="false"
+            >
+              Yes, Please
+            </option>
+            <option
+              value="true"
+            >
+              No, Thanks
+            </option>
+          </select>
         </div>
       </div>
     </div>

@@ -18,8 +18,7 @@ class CodeQuarkusResourceTest {
     lateinit var projectService: QuarkusProjectServiceMock
 
     @Test
-    @DisplayName("Should return a project with default configuration when there is no parameters")
-    fun testNoParams() {
+    fun `Should return a project with default configuration when there is no parameters`() {
         given()
                 .`when`().get("/api/download")
                 .then()
@@ -31,8 +30,7 @@ class CodeQuarkusResourceTest {
     }
 
     @Test
-    @DisplayName("Should fail when a param is specified as empty")
-    fun testWithEmptyParam() {
+    fun `Should fail when artifactId is empty`() {
         given()
                 .`when`()
                 .get("/api/download?g=org.acme&a=&pv=1.0.0&c=org.acme.TotoResource&s=98e")
@@ -134,7 +132,7 @@ class CodeQuarkusResourceTest {
     fun testWithEmptyShortIds() {
         given()
                 .`when`()
-                .get("/api/download?g=org.acme&a=test-empty-shortids&v=1.0.1&b=MAVEN&c=org.acme.ExampleResource&s=")
+                .get("/api/download?g=org.acme&a=test-empty-shortids&v=1.0.1&b=MAVEN&s=")
                 .then()
                 .log().ifValidationFails()
                 .statusCode(200)
@@ -154,7 +152,7 @@ class CodeQuarkusResourceTest {
     fun testWithEmptyExtensions() {
         given()
                 .`when`()
-                .get("/api/download?g=org.acme&a=test-empty-ext&v=1.0.1&b=MAVEN&c=org.acme.ExampleResource&e=")
+                .get("/api/download?g=org.acme&a=test-empty-ext&v=1.0.1&b=MAVEN&c=org.test.ExampleResource&e=")
                 .then()
                 .log().ifValidationFails()
                 .statusCode(200)
@@ -165,6 +163,7 @@ class CodeQuarkusResourceTest {
                 ProjectDefinition(
                         artifactId = "test-empty-ext",
                         version = "1.0.1",
+                        className = "org.test.ExampleResource",
                         extensions = setOf("")
                 ))
         )
