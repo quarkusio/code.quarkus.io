@@ -19,4 +19,3 @@ if [[ -n "$QUAY_USER" && -n "$QUAY_TOKEN" ]]; then
     docker --config="$DOCKER_CONF" push "${IMAGE}:${IMAGE_TAG}"
     docker --config="$DOCKER_CONF" push "${IMAGE}:latest"
 fi
-ZZ
