@@ -1,16 +1,28 @@
-## Stage 1 : build with maven builder image with native capabilities
-FROM quay.io/quarkus/centos-quarkus-maven:20.1.0-java11 AS build
-ARG MAVEN_EXTRA_ARGS=
-RUN echo "$MAVEN_EXTRA_ARGS"
-COPY src /usr/src/app/src
-COPY pom.xml maven-settings.xml* /usr/src/app/
-USER root
-RUN chown -R quarkus /usr/src/app
-USER quarkus
-RUN cd /usr/src/app/ && mvn clean package $MAVEN_EXTRA_ARGS
+####
+# This Dockerfile is used in order to build a container that runs the Quarkus application in JVM mode
+#
+# Before building the container image run:
+#
+# mvn package
+#
+# Then, build the image with:
+#
+# docker build -f src/main/docker/Dockerfile.jvm -t quarkus/code-with-quarkus-jvm .
+#
+# Then run the container using:
+#
+# docker run -i --rm -p 8080:8080 quarkus/code-with-quarkus-jvm
+#
+# If you want to include the debug port into your docker image
+# you will have to expose the debug port (default 5005) like this :  EXPOSE 8080 5050
+# 
+# Then run the container using : 
+#
+# docker run -i --rm -p 8080:8080 -p 5005:5005 -e JAVA_ENABLE_DEBUG="true" quarkus/code-with-quarkus-jvm
+#
+###
+FROM registry.access.redhat.com/ubi8/ubi-minimal:8.1
 
-## Stage 2 : create the docker final image
-FROM registry.access.redhat.com/ubi8/ubi-minimal
 ARG JAVA_PACKAGE=java-11-openjdk-headless
 ARG RUN_JAVA_VERSION=1.3.8
 
@@ -33,8 +45,8 @@ RUN microdnf install curl ca-certificates ${JAVA_PACKAGE} \
 # Configure the JAVA_OPTIONS, you can add -XshowSettings:vm to also display the heap size.
 ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
 
-COPY --from=build --chown=1001 /usr/src/app/target/lib/ /deployments/lib/
-COPY --from=build --chown=1001 /usr/src/app/target/*.jar /deployments/
+COPY target/lib/* /deployments/lib/
+COPY target/*-runner.jar /deployments/app.jar
 
 EXPOSE 8080
 USER 1001
