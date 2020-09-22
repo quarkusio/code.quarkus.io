@@ -1,4 +1,4 @@
-## Stage 1 : build with maven builder image with native capabilities
+## Stage 1 : build with maven builder image
 FROM quay.io/quarkus/centos-quarkus-maven:20.1.0-java11 AS build
 ARG MAVEN_EXTRA_ARGS=
 RUN echo "$MAVEN_EXTRA_ARGS"
