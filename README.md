@@ -93,3 +93,24 @@ Some custom dimensions are available for those events:
 | | Blurb | Click on "Missing a feature?" link | ... |
 | | | Click on "Found a bug?" link | ... |
 | | | Close | ... |
+
+## Infra Managed by Red Hat app-sre team 
+
+All those links have restricted access:
+
+- Staging: https://console-openshift-console.apps.app-sre-stage-0.k3s7.p1.openshiftapps.com/k8s/cluster/projects
+- Production: https://console-openshift-console.apps.app-sre-prod-01.i7w5.p1.openshiftapps.com/k8s/cluster/projects/code-quarkus-production
+- CI/CD: https://ci.ext.devshift.net/view/quarkus/
+- Jira: https://issues.redhat.com/projects/APPSRE/issues/
+- Infra repository: https://gitlab.cee.redhat.com/service/app-interface
+- Sentry: https://sentry.devshift.net/
+- Slack: https://coreos.slack.com (channel sd-app-sre)
+
+## Debug
+
+Start latest quay image locally:
+```bash
+docker run -i --rm -p 8080:8080 quay.io/quarkus/code-quarkus-app:latest
+```
+
+To request access, please contact adamevin@redhat.com
