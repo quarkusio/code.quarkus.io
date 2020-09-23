@@ -10,7 +10,7 @@ USER quarkus
 RUN cd /usr/src/app/ && mvn clean package $MAVEN_EXTRA_ARGS
 
 ## Stage 2 : create the docker final image
-FROM registry.access.redhat.com/ubi8/ubi-minimal
+FROM registry.access.redhat.com/ubi8/ubi-minimal:8.1
 ARG JAVA_PACKAGE=java-11-openjdk-headless
 ARG RUN_JAVA_VERSION=1.3.8
 
@@ -30,14 +30,13 @@ RUN microdnf install curl ca-certificates ${JAVA_PACKAGE} \
     && chmod 540 /deployments/run-java.sh \
     && echo "securerandom.source=file:/dev/urandom" >> /etc/alternatives/jre/lib/security/java.security
 
-
+RUN useradd -m -u 1001 quarkus
 
 # Configure the JAVA_OPTIONS, you can add -XshowSettings:vm to also display the heap size.
 ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
 
 COPY --from=build --chown=1001 /usr/src/app/target/lib/ /deployments/lib/
 COPY --from=build --chown=1001 /usr/src/app/target/*-runner.jar /deployments/app.jar
-RUN useradd -m -u 1001 quarkus
 
 EXPOSE 8080
 USER quarkus

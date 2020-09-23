@@ -42,6 +42,8 @@ RUN microdnf install curl ca-certificates ${JAVA_PACKAGE} \
     && chmod 540 /deployments/run-java.sh \
     && echo "securerandom.source=file:/dev/urandom" >> /etc/alternatives/jre/lib/security/java.security
 
+RUN useradd -m -u 1001 quarkus
+
 # Configure the JAVA_OPTIONS, you can add -XshowSettings:vm to also display the heap size.
 ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
 
@@ -50,7 +52,6 @@ COPY --chown=1001 target/quarkus-app/lib/ /deployments/lib/
 COPY --chown=1001 target/quarkus-app/*.jar /deployments/
 COPY --chown=1001 target/quarkus-app/app/ /deployments/app/
 COPY --chown=1001 target/quarkus-app/quarkus/ /deployments/quarkus/
-RUN useradd -m -u 1001 quarkus
 
 EXPOSE 8080
 USER quarkus
