@@ -14,3 +14,4 @@ language:
           package-uberjar:  ./mvnw package -PuberJar
           package-native: ./mvnw package -Pnative
           package-native-container: ./mvnw package -Pnative -Dquarkus.native.container-build=true
+          build-ci: ./mvnw verify -B

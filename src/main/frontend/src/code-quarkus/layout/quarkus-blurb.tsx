@@ -28,6 +28,7 @@ export function QuarkusBlurb() {
             lifting of providing the right information to GraalVM for your application to compile natively.</p>
           <br/>
           <p className="desktop-only">Explore the wide breadth of technologies Quarkus applications can be made with. Generate your application!</p>
+          <p>Extensions with the flag <span className="codestart-example-icon" /> can help you get started with example code. You can choose to include the examples or get only a empty project....</p>
           <br/>
           <p>[<a href="https://github.com/quarkusio/code.quarkus.io/issues/new?labels=feature&template=feature_request.md" onClick={missingFeatureLinkClick} target="_blank" rel="noopener noreferrer">Missing
             a feature?</a> <a href="https://github.com/quarkusio/code.quarkus.io/issues/new?labels=bug&template=bug_report.md" target="_blank" rel="noopener noreferrer" onClick={foundBugLinkClick}>Found

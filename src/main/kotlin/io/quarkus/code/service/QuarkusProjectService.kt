@@ -1,16 +1,13 @@
 package io.quarkus.code.service
 
+import io.quarkus.code.misc.create.CreateProject
 import io.quarkus.code.model.ProjectDefinition
-import io.quarkus.devtools.commands.CreateProject
 import io.quarkus.devtools.commands.data.QuarkusCommandException
 import io.quarkus.devtools.project.BuildTool
-import io.quarkus.devtools.project.QuarkusProject
 import io.quarkus.devtools.project.compress.QuarkusProjectCompress
 import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
-import java.nio.file.Paths
-import java.nio.file.attribute.PosixFilePermissions
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -46,16 +43,20 @@ class QuarkusProjectService {
         return Files.readAllBytes(zipPath)
     }
 
-    fun createTmp(projectDefinition: ProjectDefinition): Path {
+    fun createTmp(projectDefinition: ProjectDefinition, isGitHub: Boolean = false): Path {
         val location = Files.createTempDirectory("generated-").resolve(projectDefinition.artifactId)
-        createProject(projectDefinition, location)
+        createProject(projectDefinition, location, isGitHub)
         return location;
     }
 
-    private fun createProject(projectDefinition: ProjectDefinition, projectFolderPath: Path) {
+    private fun createProject(projectDefinition: ProjectDefinition, projectFolderPath: Path, gitHub: Boolean) {
         val extensions = checkAndMergeExtensions(projectDefinition)
         val sourceType = CreateProject.determineSourceType(extensions)
         val buildTool = BuildTool.valueOf(projectDefinition.buildTool)
+        val codestarts = HashSet<String>()
+        if(gitHub) {
+            codestarts.add("github-action")
+        }
         try {
             val result = CreateProject(projectFolderPath, QuarkusExtensionCatalogService.descriptor)
                     .groupId(projectDefinition.groupId)
@@ -64,6 +65,7 @@ class QuarkusProjectService {
                     .sourceType(sourceType)
                     .codestartsEnabled(true)
                     .buildTool(buildTool)
+                    .codestarts(codestarts)
                     .javaTarget("11")
                     .className(projectDefinition.className)
                     .extensions(extensions)

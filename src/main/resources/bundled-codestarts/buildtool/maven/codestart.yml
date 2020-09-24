@@ -28,3 +28,4 @@ language:
           package-uberjar:  mvn package -PuberJar
           package-native: mvn package -Pnative
           package-native-container: mvn package -Pnative -Dquarkus.native.container-build=true
+          build-ci: mvn verify -B
