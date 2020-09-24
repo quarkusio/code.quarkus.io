@@ -37,7 +37,7 @@ interface GitHubClient {
 
     class GHRepo {
         lateinit var name: String
-        lateinit var description: String
+        var description: String? = null
 
         @JsonbProperty("clone_url")
         lateinit var cloneUrl: String
