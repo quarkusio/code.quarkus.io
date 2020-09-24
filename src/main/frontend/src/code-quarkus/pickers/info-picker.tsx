@@ -40,7 +40,7 @@ const SelectBuildTool = (props: InputProps<string>) => {
       <select id="buildtool" value={props.value} onChange={adaptedOnChange} className={'pf-c-form-control'}>
         <option value={'MAVEN'}>Maven</option>
         <option value={'GRADLE'}>Gradle (Preview)</option>
-        <option value={'GRADLE_KOTLIN_DSK'}>Gradle with Kotlin DSL (Preview)</option>
+        <option value={'GRADLE_KOTLIN_DSL'}>Gradle with Kotlin DSL (Preview)</option>
       </select>
     </FormGroup>
   );

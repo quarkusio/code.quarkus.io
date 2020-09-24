@@ -18,7 +18,7 @@ class ProjectDefinition {
         const val ARTIFACTID_PATTERN = "^[a-z][a-z0-9-._]*\$"
         const val CLASSNAME_PATTERN = GROUPID_PATTERN
         const val PATH_PATTERN = "^\\/([a-z0-9\\-._~%!\$&'()*+,;=:@]+\\/?)*\$"
-        const val BUILDTOOL_PATTERN = "^(MAVEN)|(GRADLE)\$"
+        const val BUILDTOOL_PATTERN = "^(MAVEN)|(GRADLE)|(GRADLE_KOTLIN_DSL)\$"
     }
 
     constructor()

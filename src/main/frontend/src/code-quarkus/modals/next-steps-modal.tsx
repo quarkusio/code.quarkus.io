@@ -83,7 +83,7 @@ export function NextStepsModal(props: NextStepsProps) {
             <Code event={devModeEvent} content="./mvnw compile quarkus:dev"/>
           )}
 
-          {props.buildTool === 'GRADLE' && (
+          {props.buildTool.startsWith('GRADLE')  && (
             <Code event={devModeEvent} content="./gradlew quarkusDev"/>
           )}
         </div>
