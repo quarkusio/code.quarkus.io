@@ -89,7 +89,7 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
             Gradle (Preview)
           </option>
           <option
-            value="GRADLE_KOTLIN_DSK"
+            value="GRADLE_KOTLIN_DSL"
           >
             Gradle with Kotlin DSL (Preview)
           </option>
