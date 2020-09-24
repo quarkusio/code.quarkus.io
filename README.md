@@ -10,9 +10,9 @@ make dev-backend
 # Full stack dev
 
 Start in watch mode:
-```bash`
+```bash
 make dev
-``
+```
 
 Then open `./src/main/frontend` with your favorite IDE to edit:
 
