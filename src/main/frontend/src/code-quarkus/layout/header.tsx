@@ -27,7 +27,7 @@ function SupportButton(prop: {}) {
   );
 }
 
-export function Header(props: { supportButton: boolean }) {
+export function Header(props: { supportButton: boolean, quarkusVersion: string }) {
   const analytics = useAnalytics();
   const linkTracker = createLinkTracker(analytics,'UX', 'Header');
   return (
@@ -37,6 +37,9 @@ export function Header(props: { supportButton: boolean }) {
           <a href="/" onClick={linkTracker}>
             <img src="/static/media/quarkus-logo.svg" className="project-logo" title="Quarkus" alt="Quarkus"/>
           </a>
+          <div className="quarkus-version">
+              <span>{props.quarkusVersion}</span>
+          </div>
         </div>
         <div className="nav-container">
           <a href="https://quarkus.io" onClick={linkTracker}><AngleLeftIcon/> Back to quarkus.io</a>

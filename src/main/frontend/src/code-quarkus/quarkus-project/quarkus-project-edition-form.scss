@@ -40,6 +40,18 @@
     .title {
       height: 72px;
       line-height: 72px;
+
+      display: flex;
+
+      .quarkus-version {
+        font-size: 1rem;
+        line-height: 20px;
+        margin: 5px 5px;
+        padding: 0 3px;
+        height: 20px;
+        text-transform: uppercase;
+        border: 1px solid white;
+      }
     }
 
     .info-picker {
@@ -171,18 +183,24 @@
 
       .pf-c-form__label {
         display: inline-block;
-        width: 115px;
+        width: 120px;
         color: $fieldLabelAndBorderColor;
         font-size: 14px;
         font-weight: bold;
         text-transform: capitalize;
+
+        .codestart-example-icon {
+          margin-right: 5px;
+          height: 12px;
+          width: 15px;
+        }
       }
 
       input.pf-c-form-control,
       select.pf-c-form-control {
         border: none;
-        margin-left: -115px;
-        padding-left: 115px;
+        margin-left: -120px;
+        padding-left: 120px;
         border-bottom: 1px solid $fieldLabelAndBorderColor;
         font-size: 14px;
         width: 100%;

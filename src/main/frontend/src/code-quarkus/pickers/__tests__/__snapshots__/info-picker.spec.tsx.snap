@@ -128,31 +128,6 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
           />
         </div>
         <div
-          class="pf-c-form__group quarkus-version"
-        >
-          <label
-            class="pf-c-form__label"
-            for="quarkusVersion"
-          >
-            <span
-              class="pf-c-form__label-text"
-            >
-              Quarkus Version
-            </span>
-          </label>
-          <input
-            aria-invalid="false"
-            aria-label="Quarkus Version"
-            class="pf-c-form-control"
-            id="quarkusVersion"
-            name="quarkusVersion"
-            readonly=""
-            required=""
-            type="text"
-            value="1.0.0"
-          />
-        </div>
-        <div
           aria-label="Examples"
           class="pf-c-form__group"
         >
@@ -163,7 +138,12 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
             <span
               class="pf-c-form__label-text"
             >
-              Example code
+              <span>
+                <span
+                  class="codestart-example-icon"
+                />
+                Example code
+              </span>
             </span>
           </label>
           <select

@@ -54,13 +54,13 @@ const ExamplesCheckbox = (props: InputProps<boolean>) => {
   return (
     <Tooltip
       position="right"
-      content={<span>Extensions with the flag <span className="codestart-example-icon" /> can help you get started with example code. You can choose to include the examples or get only a empty project....</span>}
+      content={<span>The flag <span className="codestart-example-icon" /> means the extension helps you get started with example code. You can choose to include all the examples or have an empty project....</span>}
       exitDelay={0}
       zIndex={200}
     >
       <FormGroup
         fieldId="no-examples"
-        label="Example code"
+        label={<span><span className="codestart-example-icon" />Example code</span>}
         aria-label="Examples">
         <select id="no-examples" value={props.value ? 'true' : 'false'} onChange={adaptedOnChange} className={'pf-c-form-control'}>
           <option value={'false'}>Yes, Please</option>
@@ -80,7 +80,7 @@ export const InfoPicker = (props: InfoPickerProps) => {
   const onVersionChange = (newValue: string) => onInputChange({ ...props.value, version: newValue });
   const onNoExampleChange = (newValue: boolean) => onInputChange({ ...props.value, noExamples: newValue });
   const onBuildToolChange = (newValue: string) => onInputChange({ ...props.value, buildTool: newValue });
-  const configFileName = props.value.buildTool === 'MAVEN' ? 'pom.xml' : 'gradle.properties';
+
   return (
     <div className={`info-picker horizontal`}>
       <div className="base-settings pf-c-form">
@@ -127,24 +127,6 @@ export const InfoPicker = (props: InfoPickerProps) => {
               onChange={onVersionChange}
               isValid={!!props.value.version}
             />
-            <Tooltip
-              position="right"
-              content={`You may change the Quarkus Version after generation in the ${configFileName}. Just be cautious with extension compatibility.`}
-              exitDelay={0}
-              zIndex={200}
-            >
-              <ExtendedTextInput
-                label="Quarkus Version"
-                isRequired
-                type="text"
-                id="quarkusVersion"
-                name="quarkusVersion"
-                aria-label="Quarkus Version"
-                value={props.quarkusVersion}
-                isReadOnly={true}
-                className="quarkus-version"
-              />
-            </Tooltip>
             <ExamplesCheckbox onChange={onNoExampleChange} value={props.value.noExamples || false} />
           </div>
         </TogglePanel>

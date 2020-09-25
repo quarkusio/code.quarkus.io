@@ -99,11 +99,11 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
           <p
             class="desktop-only"
           >
-            Explore the wide breadth of technologies Quarkus applications can be made with. Extensions with the flag 
+            Explore the wide breadth of technologies Quarkus applications can be made with. The flag 
             <span
               class="codestart-example-icon"
             />
-             can help you get started with example code. You can choose to include the examples or get only a empty project....
+             means the extension helps you get started with example code.
           </p>
           <br />
           <p>
@@ -548,11 +548,11 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
           <p
             class="desktop-only"
           >
-            Explore the wide breadth of technologies Quarkus applications can be made with. Extensions with the flag 
+            Explore the wide breadth of technologies Quarkus applications can be made with. The flag 
             <span
               class="codestart-example-icon"
             />
-             can help you get started with example code. You can choose to include the examples or get only a empty project....
+             means the extension helps you get started with example code.
           </p>
           <br />
           <p>
@@ -844,11 +844,11 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
           <p
             class="desktop-only"
           >
-            Explore the wide breadth of technologies Quarkus applications can be made with. Extensions with the flag 
+            Explore the wide breadth of technologies Quarkus applications can be made with. The flag 
             <span
               class="codestart-example-icon"
             />
-             can help you get started with example code. You can choose to include the examples or get only a empty project....
+             means the extension helps you get started with example code.
           </p>
           <br />
           <p>

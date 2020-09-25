@@ -28,8 +28,7 @@ export function QuarkusBlurb() {
             lifting of providing the right information to GraalVM for your application to compile natively.</p>
           <br/>
           <p className="desktop-only">Explore the wide breadth of technologies Quarkus applications can be made with.
-            Extensions with the flag <span className="codestart-example-icon" /> can help you get started with example code.
-            You can choose to include the examples or get only a empty project....</p>
+            The flag <span className="codestart-example-icon" /> means the extension helps you get started with example code.</p>
           <br/>
           <p>Generate your application!</p>
           <br/>

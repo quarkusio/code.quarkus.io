@@ -34,7 +34,9 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
         <div className="form-header responsive-container">
           <div className="project-info">
             <div className="title">
-              <h3>Configure your application details</h3>
+              <h3>
+                Configure your application details
+              </h3>
             </div>
             <InfoPicker value={props.project.metadata} onChange={setMetadata} quarkusVersion={props.config.quarkusVersion}/>
           </div>
