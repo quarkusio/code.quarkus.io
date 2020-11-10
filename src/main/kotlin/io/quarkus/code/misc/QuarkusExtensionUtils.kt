@@ -157,6 +157,8 @@ object QuarkusExtensionUtils {
 
     private fun providesExampleCode(ext: Extension): Boolean =
             !(ext.metadata?.get(Extension.MD_CODESTART) as String?).isNullOrBlank()
+                    && "quarkus-kotlin" != ext.artifactId
+                    && "quarkus-scala" != ext.artifactId
 
     private fun getExtensionGuide(ext: Extension) =
             ext.metadata?.get(Extension.MD_GUIDE) as String?
