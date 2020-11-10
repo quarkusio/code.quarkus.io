@@ -100,11 +100,6 @@ internal class QuarkusExtensionUtilsTest {
                                      processor: Function<Path, T>): T {
                 throw UnsupportedOperationException()
             }
-
-            override fun getManagedDependencies(groupId: String, artifactId: String, classifier: String?,
-                                                type: String, version: String): List<Dependency> {
-                return emptyList()
-            }
         }
 
         val context = object : QuarkusJsonPlatformDescriptorLoaderContext(artifactResolver) {
