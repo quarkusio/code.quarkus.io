@@ -23,6 +23,7 @@ export function generateProjectQuery(project: QuarkusProject, github: boolean = 
     ...(project.metadata.version && { v: project.metadata.version }),
     ...(project.metadata.buildTool && { b: project.metadata.buildTool }),
     ...(project.metadata.noExamples && { ne: project.metadata.noExamples }),
+    ...(project.metadata.groupId && { c: `${project.metadata.groupId}.ExampleResource` }),
     ...(project.extensions && { s: project.extensions.map(e => e.shortId).join('.') }),
     cn: CLIENT_NAME
   };
@@ -34,7 +35,7 @@ export function generateProjectQuery(project: QuarkusProject, github: boolean = 
 
 const BASE_LOCATION = window.location.href.replace(window.location.search, '');
 
-export function getProjectDownloadUrl(project: QuarkusProject) {
+export function  getProjectDownloadUrl(project: QuarkusProject) {
   const baseUrl = BACKEND_URL.startsWith('http') ? BACKEND_URL : BASE_LOCATION;
   return `${baseUrl.replace(/\/$/, '')}/d?${generateProjectQuery(project)}`;
 }
