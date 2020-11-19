@@ -29,13 +29,12 @@
         <git.commit.id>local</git.commit.id>
 
         <!-- Quarkus version is used for bundling Code Quarkus -->
-        <quarkus.version>1.10.0.CR1</quarkus.version>
+        <quarkus.version>1.10.0.Final</quarkus.version>
 
         <!-- Quarkus Platform version must be compatible with Quarkus version -->
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.artifact-id.json>${quarkus.platform.artifact-id}</quarkus.platform.artifact-id.json>
-        <quarkus.platform.version>1.10.0.CR1</quarkus.platform.version>
+        <quarkus.platform.version>1.10.0.Final</quarkus.platform.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -87,12 +86,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-platform-descriptor-resolver-json</artifactId>
             <version>${quarkus.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${quarkus.platform.group-id}</groupId>
-            <artifactId>${quarkus.platform.artifact-id.json}</artifactId>
-            <version>${quarkus.platform.version}</version>
-            <type>json</type>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -317,6 +310,19 @@
         </plugins>
     </build>
     <profiles>
+        <profile>
+            <id>quarkus-master</id>
+            <activation>
+                <property>
+                    <name>quarkus-master</name>
+                </property>
+            </activation>
+            <properties>
+                <quarkus.version>999-SNAPSHOT</quarkus.version>
+                <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
+                <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
+            </properties>
+        </profile>
         <profile>
             <id>backend-only</id>
             <activation>

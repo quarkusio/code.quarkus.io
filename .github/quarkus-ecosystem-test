@@ -5,5 +5,5 @@ set -e
 ## find core vs code.quarkus issues.
 mvn --settings .github/quarkus-ecosystem-maven-settings.xml -B clean install \
     -Dquarkus.version=${QUARKUS_VERSION} -Dversion.io.quarkus=${QUARKUS_VERSION} \
-    -Dquarkus.platform.artifact-id=quarkus-bom -Dquarkus.platform.version=${QUARKUS_VERSION} \
-    -Dquarkus.platform.artifact-id.json=quarkus-bom-descriptor-json
+    -Dquarkus.platform.version=${QUARKUS_VERSION} \
+    -Pquarkus-master

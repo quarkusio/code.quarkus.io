@@ -26,15 +26,13 @@ internal class QuarkusProjectServiceTest {
                 "src/main/java/",
                 "src/main/java/org/",
                 "src/main/java/org/acme/",
-                "src/main/java/org/acme/resteasy/",
-                "src/main/java/org/acme/resteasy/ExampleResource.java",
+                "src/main/java/org/acme/GreetingResource.java",
                 "src/test/",
                 "src/test/java/",
                 "src/test/java/org/",
                 "src/test/java/org/acme/",
-                "src/test/java/org/acme/resteasy/",
-                "src/test/java/org/acme/resteasy/ExampleResourceTest.java",
-                "src/test/java/org/acme/resteasy/NativeExampleResourceIT.java",
+                "src/test/java/org/acme/GreetingResourceTest.java",
+                "src/test/java/org/acme/NativeGreetingResourceIT.java",
                 "src/main/resources/",
                 "src/main/resources/META-INF/",
                 "src/main/resources/META-INF/resources/",
@@ -190,12 +188,12 @@ internal class QuarkusProjectServiceTest {
         val fileList = QuarkusProjectServiceTestUtils.readFiles(testDir)
         val pomText = Paths.get(testDir.path, "code-with-quarkus/pom.xml")
                 .toFile().readText(Charsets.UTF_8)
-        val resourceText = Paths.get(testDir.path, "code-with-quarkus/src/main/java/org/acme/resteasy/ExampleResource.java")
+        val resourceText = Paths.get(testDir.path, "code-with-quarkus/src/main/java/org/acme/GreetingResource.java")
                 .toFile().readText(Charsets.UTF_8)
 
         // Then
         assertThat(zipList, containsInAnyOrder(*prefixFileList(EXPECTED_CONTENT, "code-with-quarkus/")))
-        assertThat(fileList.size, equalTo(36))
+        assertThat(fileList.size, equalTo(34))
 
         assertThat(pomText, containsString("<groupId>org.acme</groupId>"))
         assertThat(pomText, containsString("<artifactId>code-with-quarkus</artifactId>"))
@@ -205,7 +203,7 @@ internal class QuarkusProjectServiceTest {
         assertThat(pomText, containsString("<artifactId>quarkus-resteasy</artifactId>"))
         assertThat(pomText, containsString("<artifactId>rest-assured</artifactId>"))
 
-        assertThat(resourceText, containsString("@Path(\"/resteasy/hello\")"))
+        assertThat(resourceText, containsString("@Path(\"/hello-resteasy\")"))
     }
 
     @Test
@@ -218,12 +216,12 @@ internal class QuarkusProjectServiceTest {
         val fileList = QuarkusProjectServiceTestUtils.readFiles(proj.toFile())
         val pomText = proj.resolve("pom.xml")
                 .toFile().readText(Charsets.UTF_8)
-        val resourceText = proj.resolve("src/main/java/org/acme/resteasy/ExampleResource.java")
+        val resourceText = proj.resolve("src/main/java/org/acme/GreetingResource.java")
                 .toFile().readText(Charsets.UTF_8)
         // Then
         assertThat(fileList, containsInAnyOrder(*EXPECTED_CONTENT))
 
-        assertThat(fileList.size, equalTo(34))
+        assertThat(fileList.size, equalTo(32))
 
         assertThat(pomText, containsString("<groupId>org.acme</groupId>"))
         assertThat(pomText, containsString("<artifactId>code-with-quarkus</artifactId>"))
@@ -233,7 +231,7 @@ internal class QuarkusProjectServiceTest {
         assertThat(pomText, containsString("<artifactId>quarkus-resteasy</artifactId>"))
         assertThat(pomText, containsString("<artifactId>rest-assured</artifactId>"))
 
-        assertThat(resourceText, containsString("@Path(\"/resteasy/hello\")"))
+        assertThat(resourceText, containsString("@Path(\"/hello-resteasy\")"))
     }
 
     @Test
@@ -311,7 +309,7 @@ internal class QuarkusProjectServiceTest {
         // Ensure dependency block is not duplicated (issue #5251)
         assertThat(buildGradleText.indexOf("implementation enforcedPlatform"), equalTo(buildGradleText.lastIndexOf("implementation enforcedPlatform")));
 
-        assertThat(resourceText, containsString("fun hello() = \"hello\""))
+        assertThat(resourceText, containsString("fun hello() = \"Hello RESTEasy\""))
     }
 
     @Test
@@ -348,7 +346,7 @@ internal class QuarkusProjectServiceTest {
         // Ensure dependency block is not duplicated (issue #5251)
         assertThat(buildGradleText.indexOf("implementation enforcedPlatform"), equalTo(buildGradleText.lastIndexOf("implementation enforcedPlatform")));
 
-        assertThat(resourceText, containsString("def hello() = \"hello\""))
+        assertThat(resourceText, containsString("def hello() = \"Hello RESTEasy\""))
     }
 
     @Test
