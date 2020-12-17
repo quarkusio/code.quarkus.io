@@ -29,12 +29,12 @@
         <git.commit.id>local</git.commit.id>
 
         <!-- Quarkus version is used for bundling Code Quarkus -->
-        <quarkus.version>1.10.3.Final</quarkus.version>
+        <quarkus.version>1.10.5.Final</quarkus.version>
 
         <!-- Quarkus Platform version must be compatible with Quarkus version -->
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.version>1.10.3.Final</quarkus.platform.version>
+        <quarkus.platform.version>1.10.5.Final</quarkus.platform.version>
     </properties>
     <dependencyManagement>
         <dependencies>
