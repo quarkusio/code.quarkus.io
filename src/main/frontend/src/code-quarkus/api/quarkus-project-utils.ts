@@ -88,8 +88,7 @@ export function resolveInitialProject(extensions: ExtensionEntry[]) {
 }
 
 const defaultCleanHistory = () => {
-  console.log(`remove query from url: ${window.location.search}`);
-  window.history.replaceState({}, document.title, window.location.href.replace(window.location.search, ''));
+  window.history.replaceState({}, document.title);
 };
 
 export function parseProjectInQuery(extensions: ExtensionEntry[],

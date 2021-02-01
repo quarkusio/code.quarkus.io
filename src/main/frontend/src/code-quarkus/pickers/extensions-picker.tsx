@@ -210,6 +210,7 @@ function Extension(props: ExtensionProps) {
 
 export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const [filter, setFilter] = useState('');
+  const queryName = 'extension-search';
   const [keyboardActived, setKeyBoardActived] = useState<number>(-1);
   const analytics = useAnalytics();
   const debouncedSearchEvent = useRef<(events: string[][]) => void>(_.debounce(
@@ -232,12 +233,23 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const result = processEntries(filter, props.entries);
 
   useEffect(() => {
+    addParamToFilter();
+  }, []);
+
+  useEffect(() => {
     if (filter.length > 0) {
       const topEvents = result.slice(0, 5).map(r => ['Extension', 'Display in search top 5 results', r.id]);
       debouncedSearchEvent([...topEvents, ['UX', 'Search', filter]]);
     }
   }, [filter, result, debouncedSearchEvent]);
 
+  const addParamToFilter = (): void => {
+    const extensionSearch = getParams(queryName);
+
+    if (extensionSearch) {
+      setFilter(extensionSearch);
+    }
+  };
   const add = (index: number, origin: string) => {
     const id = result[index].id;
     entrySet.add(id);
@@ -261,6 +273,10 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const search = (f: string) => {
     setKeyBoardActived(-1);
     setFilter(f);
+  };
+  const getParams = (paramName: string): string | null => {
+    const searchParams = new URLSearchParams(window.location.search);
+    return searchParams.get(paramName);
   };
 
   const flip = (index: number, origin: string) => {
