@@ -3,7 +3,7 @@ import { CheckSquareIcon, EllipsisVIcon, MapIcon, OutlinedSquareIcon, SearchIcon
 import classNames from 'classnames';
 import hotkeys from 'hotkeys-js';
 import _ from 'lodash';
-import React, { KeyboardEvent, useEffect, useRef, useState } from 'react';
+import React, { KeyboardEvent, useEffect, useRef, useState, useCallback } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { InputProps, useAnalytics, CopyToClipboard } from '../../core';
 import { QuarkusBlurb } from '../layout/quarkus-blurb';
@@ -33,6 +33,7 @@ interface ExtensionsPickerProps extends InputProps<ExtensionsPickerValue> {
   entries: ExtensionEntry[];
   placeholder: string;
   buildTool: string;
+  filterParam?: string;
 
   filterFunction?(d: ExtensionEntry): boolean;
 }
@@ -210,7 +211,6 @@ function Extension(props: ExtensionProps) {
 
 export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const [filter, setFilter] = useState('');
-  const queryName = 'extension-search';
   const [keyboardActived, setKeyBoardActived] = useState<number>(-1);
   const analytics = useAnalytics();
   const debouncedSearchEvent = useRef<(events: string[][]) => void>(_.debounce(
@@ -232,9 +232,17 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   };
   const result = processEntries(filter, props.entries);
 
+  const addParamToFilter = useCallback(() => {
+    const extensionSearch = props.filterParam;
+
+    if (extensionSearch) {
+      setFilter(extensionSearch);
+    }
+  }, [props.filterParam]);
+
   useEffect(() => {
     addParamToFilter();
-  }, []);
+  }, [addParamToFilter]);
 
   useEffect(() => {
     if (filter.length > 0) {
@@ -243,13 +251,6 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     }
   }, [filter, result, debouncedSearchEvent]);
 
-  const addParamToFilter = (): void => {
-    const extensionSearch = getParams(queryName);
-
-    if (extensionSearch) {
-      setFilter(extensionSearch);
-    }
-  };
   const add = (index: number, origin: string) => {
     const id = result[index].id;
     entrySet.add(id);
@@ -273,10 +274,6 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const search = (f: string) => {
     setKeyBoardActived(-1);
     setFilter(f);
-  };
-  const getParams = (paramName: string): string | null => {
-    const searchParams = new URLSearchParams(window.location.search);
-    return searchParams.get(paramName);
   };
 
   const flip = (index: number, origin: string) => {
