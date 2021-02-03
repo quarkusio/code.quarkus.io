@@ -1,6 +1,7 @@
 import { cleanup } from '@testing-library/react';
 import { parseProjectInQuery } from '../quarkus-project-utils';
 import { Extension } from '../model';
+import {parse} from "querystring";
 
 afterEach(() => {
   cleanup();
@@ -85,17 +86,19 @@ const entries: Extension[] = [
 
 describe('quarkus-project', () => {
   it('parseProjectInQuery correctly', () => {
-    const parsedProject = parseProjectInQuery(entries, 'g=org.test&a=code-test&v=1.0.0-SNAPSHOT&b=MAVEN&c=org.toto&s=a.bG&cn=localhost');
+    const queryParams = parse('g=org.test&a=code-test&v=1.0.0-SNAPSHOT&b=MAVEN&c=org.toto&s=a.bG');
+    const parsedProject = parseProjectInQuery(entries, queryParams);
     expect(parsedProject).toMatchSnapshot('no-github');
   });
 
   it('parseProjectInQuery correctly with github', () => {
-    const parsedProject = parseProjectInQuery(entries, 'g=org.test&a=code-test&v=1.0.0-SNAPSHOT&b=GRADLE&c=org.toto&s=a.bG&cn=localhost&code=totototo&state=djdjdj&github=true');
+    const queryParams = parse('g=org.test&a=code-test&v=1.0.0-SNAPSHOT&b=GRADLE&c=org.toto&s=a.bG&code=totototo&state=djdjdj&github=true');
+    const parsedProject = parseProjectInQuery(entries, queryParams);
     expect(parsedProject).toMatchSnapshot('github');
   });
 
   it('parseProjectInQuery with some other metadata', () => {
-    const parsedProject = parseProjectInQuery(entries, 'v=1.0');
+    const parsedProject = parseProjectInQuery(entries, parse('v=1.0'));
     expect(parsedProject).toMatchSnapshot('v=1.0');
   });
 

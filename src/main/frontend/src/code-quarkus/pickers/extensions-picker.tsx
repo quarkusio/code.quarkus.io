@@ -3,12 +3,14 @@ import { CheckSquareIcon, EllipsisVIcon, MapIcon, OutlinedSquareIcon, SearchIcon
 import classNames from 'classnames';
 import hotkeys from 'hotkeys-js';
 import _ from 'lodash';
-import React, { KeyboardEvent, useEffect, useRef, useState, useCallback } from 'react';
+import React, { SetStateAction, KeyboardEvent, useEffect, useRef, useState, useCallback } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { InputProps, useAnalytics, CopyToClipboard } from '../../core';
 import { QuarkusBlurb } from '../layout/quarkus-blurb';
 import { processEntries } from './extensions-picker-utils';
+import { QuarkusProject } from '../api/model';
 import './extensions-picker.scss';
+import {debouncedSyncParamsQuery} from "../api/quarkus-project-utils";
 
 export interface ExtensionEntry {
   id: string;
@@ -33,7 +35,10 @@ interface ExtensionsPickerProps extends InputProps<ExtensionsPickerValue> {
   entries: ExtensionEntry[];
   placeholder: string;
   buildTool: string;
+  project?: QuarkusProject;
+
   filterParam?: string;
+  setFilterParam?: React.Dispatch<SetStateAction<string>>;
 
   filterFunction?(d: ExtensionEntry): boolean;
 }
@@ -233,12 +238,11 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const result = processEntries(filter, props.entries);
 
   const addParamToFilter = useCallback(() => {
-    const extensionSearch = props.filterParam;
+    const extensionSearch = props.filterParam || '';
 
-    if (extensionSearch) {
-      setFilter(extensionSearch);
-    }
-  }, [props.filterParam]);
+    setFilter(extensionSearch);
+    debouncedSyncParamsQuery(extensionSearch, props.project);
+  }, [props.filterParam, props.project, debouncedSyncParamsQuery]);
 
   useEffect(() => {
     addParamToFilter();
@@ -251,6 +255,11 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     }
   }, [filter, result, debouncedSearchEvent]);
 
+  const setFilterParam = (value: string) => {
+    if (props.setFilterParam) {
+      props.setFilterParam(value);
+    }
+  };
   const add = (index: number, origin: string) => {
     const id = result[index].id;
     entrySet.add(id);
@@ -274,6 +283,11 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const search = (f: string) => {
     setKeyBoardActived(-1);
     setFilter(f);
+    setFilterParam(f);
+  };
+  const clearFilterButton = () => {
+    setFilter('');
+    setFilterParam('');
   };
 
   const flip = (index: number, origin: string) => {
@@ -345,7 +359,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
         <QuarkusBlurb/>
         {!!filter && (
           <div className="extension-search-clear">
-            Search results (<Button variant="link" onClick={() => setFilter('')}>Clear search</Button>)
+            Search results (<Button variant="link" onClick={clearFilterButton}>Clear search</Button>)
           </div>
         )}
         <div className="extension-list-wrapper">

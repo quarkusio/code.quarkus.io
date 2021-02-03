@@ -1,7 +1,8 @@
-import { parse, stringify } from 'querystring';
+import { parse, ParsedUrlQuery, stringify } from 'querystring';
 import { ExtensionEntry } from '../pickers/extensions-picker';
 import { createGitHubProject } from './code-quarkus-github-api';
 import { QuarkusProject } from './model';
+import _ from 'lodash';
 import { BACKEND_URL, CLIENT_NAME } from './env';
 
 export enum Target {
@@ -16,19 +17,24 @@ export interface GenerateResult {
   shareUrl?: string;
 }
 
-export function generateProjectQuery(project: QuarkusProject, github: boolean = false): string {
+export function generateProjectQuery(project: QuarkusProject,
+                                     github: boolean = false,
+                                     showClientName: boolean = true): string {
+  const defaultProject = newDefaultProject();
+
   const params: any = {
-    ...(project.metadata.groupId && { g: project.metadata.groupId }),
-    ...(project.metadata.artifactId && { a: project.metadata.artifactId }),
-    ...(project.metadata.version && { v: project.metadata.version }),
-    ...(project.metadata.buildTool && { b: project.metadata.buildTool }),
-    ...(project.metadata.noExamples && { ne: project.metadata.noExamples }),
-    ...(project.extensions && { s: project.extensions.map(e => e.shortId).join('.') }),
-    cn: CLIENT_NAME
+    ...(project.metadata.groupId &&  project.metadata.groupId !== defaultProject.metadata.groupId) && { g: project.metadata.groupId },
+    ...(project.metadata.artifactId &&  project.metadata.artifactId !== defaultProject.metadata.artifactId) && { a: project.metadata.artifactId },
+    ...(project.metadata.version && project.metadata.version !== defaultProject.metadata.version) && { v: project.metadata.version },
+    ...(project.metadata.buildTool && project.metadata.buildTool !== defaultProject.metadata.buildTool) && { b: project.metadata.buildTool },
+    ...(project.metadata.noExamples && project.metadata.noExamples !== defaultProject.metadata.noExamples) && { ne: project.metadata.noExamples },
+    ...(project.extensions && project.extensions.length !== defaultProject.extensions.length) && { s: project.extensions.map(e => e.shortId).join('.') },
+    ...(showClientName && { cn: CLIENT_NAME })
   };
   if (github) {
     params.github = true;
   }
+
   return stringify(params);
 }
 
@@ -40,7 +46,7 @@ export function getProjectDownloadUrl(project: QuarkusProject) {
 }
 
 export function getProjectShareUrl(project: QuarkusProject, github = false) {
-  return `${BASE_LOCATION}?${generateProjectQuery(project, github)}`;
+  return `${BASE_LOCATION}?${generateProjectQuery(project, github, false)}`;
 }
 
 export async function generateProject(environment: string, project: QuarkusProject, target: Target): Promise<GenerateResult> {
@@ -85,32 +91,75 @@ export function newDefaultProject(): QuarkusProject {
 
 const queryName = 'extension-search';
 
-export function resolveInitialFilterQueryParam(): string {
-  return getParams(queryName) || '';
+export function resolveInitialFilterQueryParam(queryParams?: ParsedUrlQuery): string {
+  if(!queryParams) {
+    return '';
+  }
+
+  return queryParams[queryName].toString() || '';
 }
 
-const getParams = (paramName: string): string | null => {
-  const searchParams = new URLSearchParams(window.location.search);
-  return searchParams.get(paramName);
+
+function syncParamsInQuery(filterParam: string = '', project: QuarkusProject | undefined): void {
+  if (!project) {
+    window.history.replaceState(null, '', `/?${formatParam(queryName, filterParam)}`);
+    return;
+  }
+
+  window.history.replaceState(null, '', `/${generateParamQuery(formatParam(queryName, filterParam), generateProjectQuery(project, false, false))}`);
 }
 
-export function resolveInitialProject(extensions: ExtensionEntry[]) {
-  return parseProjectInQuery(extensions) || newDefaultProject();
-}
+export const debouncedSyncParamsQuery = _.debounce(syncParamsInQuery, 500);
 
 const defaultCleanHistory = () => {
   console.log(`remove query from url: ${window.location.search}`);
   window.history.replaceState({}, document.title, window.location.href.replace(window.location.search, ''));
 };
 
-export function parseProjectInQuery(extensions: ExtensionEntry[],
-                                    search: string = window.location.search.substr(1),
-                                    cleanHistory: () => void = defaultCleanHistory): QuarkusProject | undefined {
+export function resolveQueryParams(search: string = window.location.search.substr(1),
+                                   cleanHistory: () => void = defaultCleanHistory): ParsedUrlQuery | undefined {
   if (search.length === 0) {
     return undefined;
   }
-  const queryObj = parse(search);
-  const shortIds = new Set((typeof queryObj.s === 'string') ? (queryObj.s as string).split('.') : []);
+  const queryParams = parse(search);
+  cleanHistory();
+  return queryParams;
+}
+
+const formatParam = (paramName: string, value: string): string => {
+  if (value) {
+    return `${paramName}=${value}`;
+  }
+
+  return '';
+};
+
+const generateParamQuery = (filter: string, project: string) => {
+  if (filter && project) {
+    return `?${project}&${filter}`;
+  }
+
+  if (project) {
+    return `?${project}`;
+  }
+
+  if (filter) {
+    return `?${filter}`;
+  }
+
+  return '';
+};
+
+export function resolveInitialProject(extensions: ExtensionEntry[], queryParams?: ParsedUrlQuery) {
+  return parseProjectInQuery(extensions, queryParams) || newDefaultProject();
+}
+
+
+export function parseProjectInQuery(extensions: ExtensionEntry[], queryParams?: ParsedUrlQuery): QuarkusProject | undefined {
+  if (!queryParams) {
+    return undefined;
+  }
+  const shortIds = new Set((typeof queryParams.s === 'string') ? (queryParams.s as string).split('.') : []);
   const ids = new Set();
   const selectedExtensions = extensions.filter(e => {
     if (shortIds.has(e.shortId)) {
@@ -123,21 +172,20 @@ export function parseProjectInQuery(extensions: ExtensionEntry[],
   const defaultProj = newDefaultProject();
   const project = {
     metadata: {
-      groupId: queryObj.g || defaultProj.metadata.groupId,
-      artifactId: queryObj.a || defaultProj.metadata.artifactId,
-      version: queryObj.v || defaultProj.metadata.version,
-      buildTool: queryObj.b || defaultProj.metadata.buildTool,
-      noExamples: queryObj.ne || defaultProj.metadata.noExamples
+      groupId: queryParams.g || defaultProj.metadata.groupId,
+      artifactId: queryParams.a || defaultProj.metadata.artifactId,
+      version: queryParams.v || defaultProj.metadata.version,
+      buildTool: queryParams.b || defaultProj.metadata.buildTool,
+      noExamples: queryParams.ne || defaultProj.metadata.noExamples
     },
     extensions: selectedExtensions,
-    github: queryObj.github === 'true' ? {
-      code: queryObj.code,
-      state: queryObj.state
+    github: queryParams.github === 'true' ? {
+      code: queryParams.code,
+      state: queryParams.state
     } : undefined
   } as QuarkusProject;
   if (project.github) {
     console.log('Received GitHub auth');
   }
-  cleanHistory();
   return project;
 }
