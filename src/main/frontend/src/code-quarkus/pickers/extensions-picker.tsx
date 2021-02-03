@@ -3,7 +3,7 @@ import { CheckSquareIcon, EllipsisVIcon, MapIcon, OutlinedSquareIcon, SearchIcon
 import classNames from 'classnames';
 import hotkeys from 'hotkeys-js';
 import _ from 'lodash';
-import React, { KeyboardEvent, useEffect, useRef, useState } from 'react';
+import React, { KeyboardEvent, useEffect, useRef, useState, useCallback } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { InputProps, useAnalytics, CopyToClipboard } from '../../core';
 import { QuarkusBlurb } from '../layout/quarkus-blurb';
@@ -33,6 +33,7 @@ interface ExtensionsPickerProps extends InputProps<ExtensionsPickerValue> {
   entries: ExtensionEntry[];
   placeholder: string;
   buildTool: string;
+  filterParam?: string;
 
   filterFunction?(d: ExtensionEntry): boolean;
 }
@@ -230,6 +231,18 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     return el.id === 'extension-search' || !(tagName === 'INPUT' || tagName === 'SELECT' || tagName === 'TEXTAREA');
   };
   const result = processEntries(filter, props.entries);
+
+  const addParamToFilter = useCallback(() => {
+    const extensionSearch = props.filterParam;
+
+    if (extensionSearch) {
+      setFilter(extensionSearch);
+    }
+  }, [props.filterParam]);
+
+  useEffect(() => {
+    addParamToFilter();
+  }, [addParamToFilter]);
 
   useEffect(() => {
     if (filter.length > 0) {

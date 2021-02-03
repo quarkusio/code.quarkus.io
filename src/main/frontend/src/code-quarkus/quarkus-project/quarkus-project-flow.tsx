@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { generateProject, newDefaultProject, resolveInitialProject, Target } from '../api/quarkus-project-utils';
+import { generateProject, newDefaultProject, resolveInitialProject, resolveInitialFilterQueryParam, Target } from '../api/quarkus-project-utils';
 import { useAnalytics } from '../../core/analytics';
 import { CodeQuarkusForm } from './quarkus-project-edition-form';
 import { LoadingModal } from '../modals/loading-modal';
@@ -24,6 +24,7 @@ interface QuarkusProjectFlowProps extends CodeQuarkusProps {
 }
 
 export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
+  const [filterQuery] = useState<string>(resolveInitialFilterQueryParam());
   const [project, setProject] = useState<QuarkusProject>(resolveInitialProject(props.extensions));
   const [run, setRun] = useState<RunState>({ status: Status.EDITION });
   const analytics = useAnalytics();
@@ -60,7 +61,7 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
 
   return (
     <React.Fragment>
-      <CodeQuarkusForm project={project} setProject={setProject} config={props.config} onSave={generate} extensions={props.extensions}/>
+      <CodeQuarkusForm project={project} setProject={setProject} config={props.config} onSave={generate} extensions={props.extensions} filterParam={filterQuery}/>
       {!run.error && run.status === Status.RUNNING && (
         <LoadingModal/>
       )}

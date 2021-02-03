@@ -83,6 +83,17 @@ export function newDefaultProject(): QuarkusProject {
   });
 }
 
+const queryName = 'extension-search';
+
+export function resolveInitialFilterQueryParam(): string {
+  return getParams(queryName) || '';
+}
+
+const getParams = (paramName: string): string | null => {
+  const searchParams = new URLSearchParams(window.location.search);
+  return searchParams.get(paramName);
+}
+
 export function resolveInitialProject(extensions: ExtensionEntry[]) {
   return parseProjectInQuery(extensions) || newDefaultProject();
 }

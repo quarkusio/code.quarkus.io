@@ -12,6 +12,7 @@ interface CodeQuarkusFormProps {
   setProject: React.Dispatch<SetStateAction<QuarkusProject>>;
   config: Config;
   onSave: (target?: Target) => void;
+  filterParam?: string;
 }
 
 
@@ -55,6 +56,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
           onChange={setExtensions}
           placeholder="RESTEasy, Hibernate ORM, Web..."
           buildTool={props.project.metadata.buildTool}
+          filterParam={props.filterParam}
         />
       </div>
 
