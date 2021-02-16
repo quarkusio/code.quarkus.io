@@ -92,7 +92,7 @@ export function newDefaultProject(): QuarkusProject {
 const queryName = 'extension-search';
 
 export function resolveInitialFilterQueryParam(queryParams?: ParsedUrlQuery): string {
-  if(!queryParams) {
+  if(!queryParams || !queryParams[queryName]) {
     return '';
   }
 
