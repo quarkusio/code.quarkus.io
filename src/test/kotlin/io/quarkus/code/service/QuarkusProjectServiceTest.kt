@@ -370,9 +370,7 @@ internal class QuarkusProjectServiceTest {
 
     private fun getProjectService(): QuarkusProjectService {
         val creator = QuarkusProjectService()
-        creator.config = codeQuarkusConfig
         creator.extensionCatalog = quarkusExtensionCatalog
         return creator
     }
-
 }
