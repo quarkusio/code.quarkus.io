@@ -10,7 +10,7 @@ MAVEN_BUILD_EXTRA_ARGS=${MAVEN_BUILD_EXTRA_ARGS-""}
 MAVEN_EXTRA_ARGS=${MAVEN_EXTRA_ARGS-""}
 NATIVE_BUILD_MEMORY=${NATIVE_BUILD_MEMORY-"4g"}
 
-docker build --compress -f src/main/docker/Dockerfile.multistage --build-arg NATIVE_BUILD_MEMORY="$NATIVE_BUILD_MEMORY" --build-arg MAVEN_BUILD_EXTRA_ARGS="$MAVEN_BUILD_EXTRA_ARGS -Dgit.commit.id=$GIT_REV" --build-arg MAVEN_EXTRA_ARGS=$MAVEN_EXTRA_ARGS -t "${IMAGE}:${IMAGE_TAG}" .
+docker build --compress -f src/main/docker/Dockerfile.multistage --build-arg NATIVE_BUILD_MEMORY="$NATIVE_BUILD_MEMORY" --build-arg MAVEN_BUILD_EXTRA_ARGS="$MAVEN_BUILD_EXTRA_ARGS -Dgit.commit.id=$GIT_REV" --build-arg MAVEN_EXTRA_ARGS="$MAVEN_EXTRA_ARGS" -t "${IMAGE}:${IMAGE_TAG}" .
 
 if [[ -n "$QUAY_USER" && -n "$QUAY_TOKEN" ]]; then
     DOCKER_CONF="$PWD/.docker"
