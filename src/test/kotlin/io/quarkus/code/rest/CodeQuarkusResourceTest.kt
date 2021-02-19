@@ -3,6 +3,7 @@ package io.quarkus.code.rest
 import io.quarkus.code.model.ProjectDefinition
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
+import io.restassured.http.ContentType
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.greaterThan
@@ -16,6 +17,87 @@ class CodeQuarkusResourceTest {
 
     @Inject
     lateinit var projectService: QuarkusProjectServiceMock
+
+    @Test
+    fun `Should fail when too many extensions`() {
+        given()
+            .contentType(ContentType.JSON)
+            .body(ProjectDefinition(extensions = projectService.extensionCatalog.extensionsById.keys))
+            .`when`().post("/api/project")
+            .then()
+            .log().ifValidationFails()
+            .statusCode(400)
+    }
+
+    @Test
+    fun `Download flow should work with an empty project`() {
+        val path = given()
+                .contentType(ContentType.JSON)
+                .`when`().post("/api/project")
+                .then()
+                .log().ifValidationFails()
+                .statusCode(200)
+                .body("path", equalTo("/d"))
+                .extract().path<String>("path")
+        given()
+                .`when`().get(path)
+                .then()
+                .log().ifValidationFails()
+                .statusCode(200)
+                .contentType("application/zip")
+                .header("Content-Disposition", "attachment; filename=\"code-with-quarkus.zip\"")
+        assertThat(projectService.createdProjectRef.get(), equalTo(ProjectDefinition()))
+    }
+
+    @Test
+    fun `Download flow should work with gav`() {
+        val projectDefinition = ProjectDefinition("io.andy", "my-app", "1.0.0")
+        val path = given()
+                .contentType(ContentType.JSON)
+                .body(projectDefinition)
+                .`when`().post("/api/project")
+                .then()
+                .log().ifValidationFails()
+                .statusCode(200)
+                .body("path", equalTo("/d?g=io.andy&a=my-app&v=1.0.0"))
+                .extract().path<String>("path")
+        given()
+                .`when`().get(path)
+                .then()
+                .log().ifValidationFails()
+                .statusCode(200)
+                .contentType("application/zip")
+                .header("Content-Disposition", "attachment; filename=\"my-app.zip\"")
+        assertThat(projectService.createdProjectRef.get(), equalTo(projectDefinition))
+    }
+
+    @Test
+    fun `Download flow should work with all options`() {
+        val projectDefinition = ProjectDefinition(
+                groupId = "io.awesome",
+                artifactId = "my-awesome-app",
+                version = "2.0.0",
+                noExamples = true,
+                extensions = setOf("io.quarkus:quarkus-resteasy", "io.quarkus:quarkus-resteasy-jackson")
+        )
+        val path = given()
+                .contentType(ContentType.JSON)
+                .body(projectDefinition)
+                .`when`().post("/api/project")
+                .then()
+                .log().ifValidationFails()
+                .statusCode(200)
+                .body("path", equalTo("/d?g=io.awesome&a=my-awesome-app&v=2.0.0&ne=true&e=io.quarkus%3Aquarkus-resteasy&e=io.quarkus%3Aquarkus-resteasy-jackson"))
+                .extract().path<String>("path")
+        given()
+                .`when`().urlEncodingEnabled(false).get(path)
+                .then()
+                .log().ifValidationFails()
+                .statusCode(200)
+                .contentType("application/zip")
+                .header("Content-Disposition", "attachment; filename=\"my-awesome-app.zip\"")
+        assertThat(projectService.createdProjectRef.get(), equalTo(projectDefinition))
+    }
 
     @Test
     fun `Should return a project with default configuration when there is no parameters`() {

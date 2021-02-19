@@ -53,8 +53,4 @@ class CodeQuarkusTest {
         val run = WrapperRunner.run(dir.toPath().resolve(appName), WrapperRunner.Wrapper.GRADLE)
         assertThat(run, `is`(0))
     }
-
-
-
-
 }

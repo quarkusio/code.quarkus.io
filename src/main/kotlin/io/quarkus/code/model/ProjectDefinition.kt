@@ -1,11 +1,13 @@
 package io.quarkus.code.model
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.Pattern
 import javax.ws.rs.DefaultValue
 import javax.ws.rs.QueryParam
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 class ProjectDefinition {
 
     companion object {
@@ -13,6 +15,7 @@ class ProjectDefinition {
         const val DEFAULT_ARTIFACTID = "code-with-quarkus"
         const val DEFAULT_VERSION = "1.0.0-SNAPSHOT"
         const val DEFAULT_BUILDTOOL = "MAVEN"
+        const val DEFAULT_NO_EXAMPLES = false
 
         const val GROUPID_PATTERN = "^([a-zA-Z_\$][a-zA-Z\\d_\$]*\\.)*[a-zA-Z_\$][a-zA-Z\\d_\$]*\$"
         const val ARTIFACTID_PATTERN = "^[a-z][a-z0-9-._]*\$"
@@ -77,10 +80,10 @@ class ProjectDefinition {
     var path: String? = null
         private set
 
-    @DefaultValue("false")
+    @DefaultValue(DEFAULT_NO_EXAMPLES.toString())
     @QueryParam("ne")
     @Parameter(name = "ne", description = "No code examples", required = false)
-    var noExamples: Boolean = false
+    var noExamples: Boolean = DEFAULT_NO_EXAMPLES
         private set
 
     @DefaultValue(DEFAULT_BUILDTOOL)
@@ -92,13 +95,14 @@ class ProjectDefinition {
         private set
 
     @QueryParam("e")
-    @Parameter(name = "e", description = "The set of extension that will be included in the generated application", required = false)
+    @Parameter(name = "e", description = "The set of extension ids that will be included in the generated application", required = false)
     var extensions: Set<String> = setOf()
         private set
 
     @QueryParam("s")
     @DefaultValue("")
     @Parameter(name = "s", description = "The set of extension shortIds separated by a '.' that will be included in the generated application", required = false)
+    @Deprecated(message = "see https://github.com/quarkusio/code.quarkus.io/issues/424")
     var shortExtensions: String = ""
         private set
 

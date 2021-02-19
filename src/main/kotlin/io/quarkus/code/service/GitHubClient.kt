@@ -1,7 +1,8 @@
 package io.quarkus.code.service
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonProperty
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient
-import javax.json.bind.annotation.JsonbProperty
 import javax.ws.rs.*
 import javax.ws.rs.core.MediaType
 
@@ -31,15 +32,17 @@ interface GitHubClient {
     fun createRepo(@HeaderParam("Authorization") authorization: String,
                    repo: GHCreateRepo): GHRepo
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     class GHMe {
         lateinit var login: String
     }
 
+    @JsonIgnoreProperties(ignoreUnknown = true)
     class GHRepo {
         lateinit var name: String
         var description: String? = null
 
-        @JsonbProperty("clone_url")
+        @JsonProperty("clone_url")
         lateinit var cloneUrl: String
     }
 
