@@ -50,6 +50,19 @@ class CodeQuarkusResourceTest {
     }
 
     @Test
+    fun `Download as POST should work with an empty project`() {
+        val path = given()
+            .contentType(ContentType.JSON)
+            .`when`().post("/api/download")
+            .then()
+            .log().ifValidationFails()
+            .statusCode(200)
+            .contentType("application/zip")
+            .header("Content-Disposition", "attachment; filename=\"code-with-quarkus.zip\"")
+        assertThat(projectService.createdProjectRef.get(), equalTo(ProjectDefinition()))
+    }
+
+    @Test
     fun `Download flow should work with gav`() {
         val projectDefinition = ProjectDefinition("io.andy", "my-app", "1.0.0")
         val path = given()
@@ -96,6 +109,27 @@ class CodeQuarkusResourceTest {
                 .statusCode(200)
                 .contentType("application/zip")
                 .header("Content-Disposition", "attachment; filename=\"my-awesome-app.zip\"")
+        assertThat(projectService.createdProjectRef.get(), equalTo(projectDefinition))
+    }
+
+    @Test
+    fun `Download as POST should work with all options`() {
+        val projectDefinition = ProjectDefinition(
+            groupId = "io.awesome",
+            artifactId = "my-awesome-app",
+            version = "2.0.0",
+            noExamples = true,
+            extensions = setOf("io.quarkus:quarkus-resteasy", "io.quarkus:quarkus-resteasy-jackson")
+        )
+        given()
+            .contentType(ContentType.JSON)
+            .body(projectDefinition)
+            .`when`().post("/api/download")
+            .then()
+            .log().ifValidationFails()
+            .statusCode(200)
+            .contentType("application/zip")
+            .header("Content-Disposition", "attachment; filename=\"my-awesome-app.zip\"")
         assertThat(projectService.createdProjectRef.get(), equalTo(projectDefinition))
     }
 

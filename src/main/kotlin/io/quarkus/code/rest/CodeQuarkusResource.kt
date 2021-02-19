@@ -100,7 +100,7 @@ class CodeQuarkusResource {
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     @Operation(summary = "Prepare a Quarkus application project to be downloaded")
-    fun prepare(@Valid projectDefinition: ProjectDefinition?): CreatedProject {
+    fun project(@Valid projectDefinition: ProjectDefinition?): CreatedProject {
         val params = ArrayList<NameValuePair>();
         if (projectDefinition != null) {
             if(projectDefinition.groupId != ProjectDefinition.DEFAULT_GROUPID) {
@@ -151,6 +151,29 @@ class CodeQuarkusResource {
                     .entity(e.message)
                     .type(TEXT_PLAIN)
                     .build()
+        }
+    }
+
+    @POST
+    @Path("/download")
+    @Consumes(APPLICATION_JSON)
+    @Produces("application/zip")
+    @Operation(summary = "Download a custom Quarkus application with the provided settings")
+    fun postDownload(@Valid projectDefinition: ProjectDefinition?): Response {
+        try {
+            val project = projectDefinition ?: ProjectDefinition()
+            return Response
+                .ok(projectCreator.create(project))
+                .type("application/zip")
+                .header("Content-Disposition", "attachment; filename=\"${project.artifactId}.zip\"")
+                .build()
+        } catch (e: IllegalStateException) {
+            LOG.warning("Bad request: ${e.message}")
+            return Response
+                .status(Response.Status.BAD_REQUEST)
+                .entity(e.message)
+                .type(TEXT_PLAIN)
+                .build()
         }
     }
 }
