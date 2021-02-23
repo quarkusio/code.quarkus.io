@@ -93,12 +93,13 @@ objects:
                       key: github-client-secret
                       optional: true
                 - name: QUARKUS_LOG_SENTRY
-                  value: "true"
+                  value: ${QUARKUS_LOG_SENTRY}
                 - name: QUARKUS_LOG_SENTRY_DSN
                   valueFrom:
                     secretKeyRef:
                       name: secrets
                       key: sentry-dsn
+                      optional: true
                 - name: IO_QUARKUS_CODE_GA_TRACKING_ID
                   valueFrom:
                     secretKeyRef:
@@ -133,6 +134,8 @@ parameters:
   - name: IO_QUARKUS_CODE_GA_QUARKUS_VERSION_DIMENSION_INDEX
   - name: IO_QUARKUS_CODE_GA_BUILD_TOOL_DIMENSION_INDEX
   - name: IO_QUARKUS_CODE_GA_EXTENSION_QUANTITY_INDEX
+  - name: QUARKUS_LOG_SENTRY
+    value: "true"
   - name: IO_QUARKUS_CODE_LOG_LEVEL
     value: inherit
   - name: IMAGE
