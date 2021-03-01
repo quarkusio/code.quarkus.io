@@ -80,6 +80,7 @@ objects:
                     secretKeyRef:
                       name: secrets
                       key: sentry-dsn
+                      optional: true
                 - name: IO_QUARKUS_CODE_GITHUB_CLIENT_ID
                   valueFrom:
                     secretKeyRef:
