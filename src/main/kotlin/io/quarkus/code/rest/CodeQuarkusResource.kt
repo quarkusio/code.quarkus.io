@@ -17,6 +17,7 @@ import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
+import java.lang.IllegalArgumentException
 import java.nio.charset.StandardCharsets
 import java.util.logging.Level
 import java.util.logging.Logger
@@ -144,13 +145,14 @@ class CodeQuarkusResource {
                     .type("application/zip")
                     .header("Content-Disposition", "attachment; filename=\"${projectDefinition.artifactId}.zip\"")
                     .build()
-        } catch (e: IllegalStateException) {
-            LOG.warning("Bad request: ${e.message}")
+        } catch (e: IllegalArgumentException) {
+            val message = "Bad request: ${e.message}"
+            LOG.warning(message)
             return Response
-                    .status(Response.Status.BAD_REQUEST)
-                    .entity(e.message)
-                    .type(TEXT_PLAIN)
-                    .build()
+                .status(Response.Status.BAD_REQUEST)
+                .entity(message)
+                .type(TEXT_PLAIN)
+                .build()
         }
     }
 
@@ -167,11 +169,12 @@ class CodeQuarkusResource {
                 .type("application/zip")
                 .header("Content-Disposition", "attachment; filename=\"${project.artifactId}.zip\"")
                 .build()
-        } catch (e: IllegalStateException) {
-            LOG.warning("Bad request: ${e.message}")
+        } catch (e: IllegalArgumentException) {
+            val message = "Bad request: ${e.message}"
+            LOG.warning(message)
             return Response
                 .status(Response.Status.BAD_REQUEST)
-                .entity(e.message)
+                .entity(message)
                 .type(TEXT_PLAIN)
                 .build()
         }

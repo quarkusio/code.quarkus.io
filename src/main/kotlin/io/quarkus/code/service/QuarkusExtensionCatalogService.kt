@@ -9,6 +9,7 @@ import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.platform.descriptor.resolver.json.QuarkusJsonPlatformDescriptorResolver
 import io.quarkus.runtime.StartupEvent
 import org.eclipse.microprofile.config.spi.ConfigProviderResolver
+import java.lang.IllegalArgumentException
 import java.util.logging.Level
 import java.util.logging.Logger
 import java.util.stream.Collectors
@@ -81,10 +82,10 @@ class QuarkusExtensionCatalogService {
         val fromId = (extensionsIds ?: setOf())
                 .stream()
                 .filter { !it.isBlank() }
-                .map { (this.extensionsById[it] ?: error("Invalid extension: $it")).id }
+                .map { (this.extensionsById[it] ?: throw IllegalArgumentException("Invalid extension: $it")).id }
                 .collect(Collectors.toSet())
         val fromShortId = parseShortExtensions(rawShortExtensions).stream()
-                .map { (this.extensionsByShortId[it] ?: error("Invalid shortId: $it")).id }
+                .map { (this.extensionsByShortId[it] ?: throw IllegalArgumentException("Invalid shortId: $it")).id }
                 .collect(Collectors.toSet())
         return fromId union fromShortId
     }
