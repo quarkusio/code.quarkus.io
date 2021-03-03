@@ -77,6 +77,10 @@
         border: 1px solid $extensionsPickerFlagExperimentalColor;
       }
 
+      &.deprecated {
+        border: 1px solid $extensionsPickerFlagDeprecatedColor;
+      }
+
       &.custom {
         border: 1px solid $extensionsPickerFlagCustomColor;
       }
