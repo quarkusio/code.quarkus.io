@@ -69,6 +69,11 @@ function StatusTag(props: { status?: string }) {
         className="extension-tag experimental"
         title="Early feedback is requested to mature the idea. There is no guarantee of stability nor long term presence in the platform until the solution matures."
       >EXPERIMENTAL</span>);
+    case 'deprecated':
+      return (<span
+          title="This extension has been deprecated. It is likely to be replaced or removed in a future version of Quarkus...."
+          className="extension-tag deprecated"
+      >DEPRECATED</span>);
     case 'provides-example':
       return (<span
         title="This extension provides example code to help you get started..."
