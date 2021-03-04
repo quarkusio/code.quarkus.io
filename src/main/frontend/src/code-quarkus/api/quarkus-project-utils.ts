@@ -28,7 +28,7 @@ export function generateProjectQuery(project: QuarkusProject,
     ...(project.metadata.version && project.metadata.version !== defaultProject.metadata.version) && { v: project.metadata.version },
     ...(project.metadata.buildTool && project.metadata.buildTool !== defaultProject.metadata.buildTool) && { b: project.metadata.buildTool },
     ...(project.metadata.noExamples && project.metadata.noExamples !== defaultProject.metadata.noExamples) && { ne: project.metadata.noExamples },
-    ...(project.extensions && project.extensions.length !== defaultProject.extensions.length) && { s: project.extensions.map(e => e.shortId).join('.') },
+    ...(project.extensions && project.extensions.length !== defaultProject.extensions.length) && { e: project.extensions.map(e => toShortcut(e.id)) },
     ...(showClientName && { cn: CLIENT_NAME })
   };
   if (github) {
@@ -36,6 +36,10 @@ export function generateProjectQuery(project: QuarkusProject,
   }
 
   return stringify(params);
+}
+
+function toShortcut(id: string) {
+  return id.replace(/^(io.quarkus:quarkus-)|(quarkus-)/, '');
 }
 
 const BASE_LOCATION = window.location.href.replace(window.location.search, '');
@@ -159,15 +163,10 @@ export function parseProjectInQuery(extensions: ExtensionEntry[], queryParams?: 
   if (!queryParams) {
     return undefined;
   }
-  const shortIds = new Set((typeof queryParams.s === 'string') ? (queryParams.s as string).split('.') : []);
-  const ids = new Set();
+  const queryExtensions = new Set(((queryParams?.e || []) as string[]).map(e => toShortcut(e)));
   const selectedExtensions = extensions.filter(e => {
-    if (shortIds.has(e.shortId)) {
-      const already = ids.has(e.id);
-      ids.add(e.id);
-      return !already;
-    }
-    return false;
+    return queryExtensions.has(toShortcut(e.id));
+
   });
   const defaultProj = newDefaultProject();
   const project = {

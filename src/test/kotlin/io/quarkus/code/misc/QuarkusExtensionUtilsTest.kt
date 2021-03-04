@@ -3,6 +3,7 @@ package io.quarkus.code.gen
 import io.quarkus.code.config.ExtensionProcessorConfig
 import io.quarkus.code.misc.QuarkusExtensionUtils.processExtensions
 import io.quarkus.code.misc.QuarkusExtensionUtils.shorten
+import io.quarkus.code.misc.QuarkusExtensionUtils.toShortcut
 import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.platform.descriptor.loader.json.ArtifactResolver
 import io.quarkus.platform.descriptor.loader.json.QuarkusJsonPlatformDescriptorLoaderContext
@@ -31,6 +32,13 @@ internal class QuarkusExtensionUtilsTest {
         assertThat(shorten(""), `is`("a"))
         assertThat(shorten("some-id"), `is`("gLa"))
         assertThat(shorten("io.quarkus:quarkus-arc"), `is`("3eJ"))
+    }
+
+    @Test
+    internal fun testToShortcut() {
+        assertThat(toShortcut("io.quarkus:quarkus-my-ext"), `is`("my-ext"))
+        assertThat(toShortcut("quarkus-my-ext"), `is`("my-ext"))
+        assertThat(toShortcut("io.quarkiverse.myext:quarkus-my-ext"), `is`("my-ext"))
     }
 
     @Test

@@ -10,11 +10,10 @@ import { QuarkusBlurb } from '../layout/quarkus-blurb';
 import { processEntries } from './extensions-picker-utils';
 import { QuarkusProject } from '../api/model';
 import './extensions-picker.scss';
-import {debouncedSyncParamsQuery} from "../api/quarkus-project-utils";
+import { debouncedSyncParamsQuery } from '../api/quarkus-project-utils';
 
 export interface ExtensionEntry {
   id: string;
-  shortId: string;
   name: string;
   version: string;
   keywords: string[];

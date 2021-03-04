@@ -47,6 +47,8 @@ object QuarkusExtensionUtils {
         return hash
     }
 
+    fun toShortcut(id: String): String = id.replace(Regex("^([^:]+:)?(quarkus-)?"), "")
+
     @JvmStatic
     fun processExtensions(descriptor: QuarkusPlatformDescriptor, config: ExtensionProcessorConfig): List<CodeQuarkusExtension> {
         val list = Lists.newArrayList<CodeQuarkusExtension>()
