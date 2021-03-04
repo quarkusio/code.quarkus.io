@@ -42,7 +42,7 @@ class CodeQuarkusTest {
         val languageExt = if(language != "java") "io.quarkus:quarkus-$language" else ""
         val appName = "test-app-maven-$language"
         val result = given()
-                .`when`().get("/api/download?b=GRADLE&a=$appName&v=1.0.0&s=pDS.L0j&e=$languageExt")
+                .`when`().get("/api/download?b=GRADLE&a=$appName&v=1.0.0&e=neo4j&e=amazon-lambda-http&e=$languageExt")
                 .then()
                 .log().ifValidationFails()
                 .statusCode(200)

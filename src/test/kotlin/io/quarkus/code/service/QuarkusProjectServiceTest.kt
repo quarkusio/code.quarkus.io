@@ -86,8 +86,7 @@ internal class QuarkusProjectServiceTest {
                 version = "2.0.0",
                 className = "com.test.TestResource",
                 path = "/test/it",
-                extensions = setOf("io.quarkus:quarkus-resteasy", "io.quarkus:quarkus-resteasy-jsonb"),
-                shortExtensions = "YjV.pDS"
+                extensions = setOf("io.quarkus:quarkus-resteasy", "io.quarkus:quarkus-resteasy-jsonb", "quarkus-neo4j", "hibernate-validator")
             )
         )
         val testDir = QuarkusProjectServiceTestUtils.extractProject(proj)
@@ -125,7 +124,7 @@ internal class QuarkusProjectServiceTest {
                 version = "2.0.0",
                 buildTool = "GRADLE",
                 className = "com.test.TestResource",
-                extensions = setOf("io.quarkus:quarkus-resteasy", "io.quarkus:quarkus-kotlin")
+                extensions = setOf("resteasy", "kotlin")
             )
         )
         val testDir = QuarkusProjectServiceTestUtils.extractProject(proj)
@@ -160,7 +159,7 @@ internal class QuarkusProjectServiceTest {
                 version = "3.0.0",
                 buildTool = "GRADLE",
                 className = "com.test.TestResource",
-                extensions = setOf("io.quarkus:quarkus-resteasy", "io.quarkus:quarkus-scala")
+                extensions = setOf("io.quarkus:quarkus-resteasy", "scala")
             )
         )
         val testDir = QuarkusProjectServiceTestUtils.extractProject(proj)

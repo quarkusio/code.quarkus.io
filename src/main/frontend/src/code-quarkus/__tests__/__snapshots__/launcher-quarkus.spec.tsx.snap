@@ -2,4 +2,4 @@
 
 exports[`Let user Generate default application 1`] = `"http://localhost/d?cn=localhost"`;
 
-exports[`Let user customize an Application and Generate it 1`] = `"http://localhost/d?g=io.test.group&a=custom-test-app&v=1.0.0-TEST&s=8mc.ogy.1aen&cn=localhost"`;
+exports[`Let user customize an Application and Generate it 1`] = `"http://localhost/d?g=io.test.group&a=custom-test-app&v=1.0.0-TEST&e=arc&e=resteasy&e=resteasy-jackson&cn=localhost"`;

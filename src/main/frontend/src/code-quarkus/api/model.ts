@@ -18,7 +18,6 @@ export interface QuarkusProject {
 
 export interface Extension {
   id: string;
-  shortId: string;
   version: string;
   name: string;
   keywords: string[];
