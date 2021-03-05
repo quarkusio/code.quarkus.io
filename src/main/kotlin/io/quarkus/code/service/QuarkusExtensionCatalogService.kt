@@ -7,7 +7,9 @@ import io.quarkus.code.config.QuarkusPlatformConfig
 import io.quarkus.code.misc.QuarkusExtensionUtils
 import io.quarkus.code.misc.QuarkusExtensionUtils.toShortcut
 import io.quarkus.code.model.CodeQuarkusExtension
+import io.quarkus.devtools.project.QuarkusProjectHelper
 import io.quarkus.platform.descriptor.resolver.json.QuarkusJsonPlatformDescriptorResolver
+import io.quarkus.platform.tools.ToolsUtils
 import io.quarkus.runtime.StartupEvent
 import org.eclipse.microprofile.config.spi.ConfigProviderResolver
 import java.lang.IllegalArgumentException
@@ -37,19 +39,11 @@ class QuarkusExtensionCatalogService {
         internal val bundledQuarkusVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-version", String::class.java)
 
         @JvmStatic
-        internal val descriptor = QuarkusJsonPlatformDescriptorResolver.newInstance().resolveFromBom(platformGroupId, platformArtifactId, platformVersion)
+        internal val catalog = ToolsUtils.resolvePlatformDescriptorDirectly(platformGroupId, platformArtifactId, platformVersion, QuarkusProjectHelper.artifactResolver(), QuarkusProjectHelper.messageWriter())
 
         init {
             checkState(platformVersion.isNotEmpty()) { "io.quarkus.code.quarkus-platform-version must not be null or empty" }
             checkState(bundledQuarkusVersion.isNotEmpty()) { "io.quarkus.code.quarkus-version must not be null or empty" }
-            checkState(descriptor.quarkusVersion == bundledQuarkusVersion, "The platform version (%s) must be compatible with the bundled Quarkus version (%s != %s)", descriptor.bomVersion, descriptor.quarkusVersion, bundledQuarkusVersion)
-            if (!io.quarkus.platform.tools.config.QuarkusPlatformConfig.hasGlobalDefault()) {
-                io.quarkus.platform.tools.config.QuarkusPlatformConfig.defaultConfigBuilder().setPlatformDescriptor(descriptor).build()
-            }
-        }
-
-        fun checkPlatformInitialization() {
-            check(io.quarkus.platform.tools.config.QuarkusPlatformConfig.hasGlobalDefault()) { "Quarkus platform must be initialized" }
         }
     }
 
@@ -68,7 +62,7 @@ class QuarkusExtensionCatalogService {
     lateinit var extensionsById: Map<String, CodeQuarkusExtension>
 
     fun onStart(@Observes e: StartupEvent) {
-        extensions = QuarkusExtensionUtils.processExtensions(descriptor, extensionProcessorConfig)
+        extensions = QuarkusExtensionUtils.processExtensions(catalog, extensionProcessorConfig)
         extensionsByShortId = extensions.associateBy { it.shortId }
         extensionsById = extensions.associateBy { it.id }
         LOG.log(Level.INFO) {"""

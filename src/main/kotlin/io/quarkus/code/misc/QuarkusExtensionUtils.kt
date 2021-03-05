@@ -3,9 +3,9 @@ package io.quarkus.code.misc
 import com.google.common.collect.Lists
 import io.quarkus.code.config.ExtensionProcessorConfig
 import io.quarkus.code.model.CodeQuarkusExtension
-import io.quarkus.dependencies.Category
-import io.quarkus.dependencies.Extension
-import io.quarkus.platform.descriptor.QuarkusPlatformDescriptor
+import io.quarkus.registry.catalog.Category
+import io.quarkus.registry.catalog.Extension
+import io.quarkus.registry.catalog.ExtensionCatalog
 import java.util.Locale
 import java.util.TreeSet
 import java.util.concurrent.atomic.AtomicInteger
@@ -14,15 +14,15 @@ import kotlin.math.abs
 import kotlin.math.pow
 
 object QuarkusExtensionUtils {
-
+    private const val MD_PINNED = "pinned"
     private const val hashAlphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
     private const val hashCharEncodeLength = hashAlphabet.length
     private const val hashMaxLength = 3
     private val maxHashCode: Int
     private val stopWords = setOf("the", "and", "you", "that", "was", "for", "are", "with", "his", "they", "one",
             "have", "this", "from", "had", "not", "but", "what", "can", "out", "other", "were", "all", "there", "when",
-            "your", "how", "each", "she", "which", "their", "will", "way", "about", "many", "then", "them", "would",
-            "these", "her", "him", "has", "over", "than", "who", "may", "down", "been")
+            "your", "how", "each", "she", "which", "their", "will", "way", "about", "many", "then", "them", "would", "enable",
+            "these", "her", "him", "has", "over", "than", "who", "may", "down", "been", "more", "implementing", "non", "quarkus")
     private val tokenizerPattern = Pattern.compile("\\w+");
 
     init {
@@ -50,13 +50,13 @@ object QuarkusExtensionUtils {
     fun toShortcut(id: String): String = id.replace(Regex("^([^:]+:)?(quarkus-)?"), "")
 
     @JvmStatic
-    fun processExtensions(descriptor: QuarkusPlatformDescriptor, config: ExtensionProcessorConfig): List<CodeQuarkusExtension> {
+    fun processExtensions(catalog: ExtensionCatalog, config: ExtensionProcessorConfig): List<CodeQuarkusExtension> {
         val list = Lists.newArrayList<CodeQuarkusExtension>()
 
-        val extById = descriptor.extensions.groupBy { toId(it) }
-        val extByCategory = getExtByCategory(descriptor)
+        val extById = catalog.extensions.groupBy { toId(it) }
+        val extByCategory = getExtByCategory(catalog)
         val order = AtomicInteger()
-        descriptor.categories.forEach { cat ->
+        catalog.categories.forEach { cat ->
             val pinnedList = getCategoryPinnedList(cat)
             val pinnedSet = pinnedList.toSet()
             pinnedList.forEach { id ->
@@ -74,7 +74,7 @@ object QuarkusExtensionUtils {
     }
 
     private fun getCategoryPinnedList(cat: Category): List<String> {
-        if (cat.metadata?.get(Category.MD_PINNED) == null || cat.metadata[Category.MD_PINNED] !is List<*>) {
+        if (cat.metadata?.get(MD_PINNED) == null || cat.metadata[MD_PINNED] !is List<*>) {
             return emptyList()
         }
         @Suppress("UNCHECKED_CAST")
@@ -95,7 +95,7 @@ object QuarkusExtensionUtils {
         return CodeQuarkusExtension(
                 id = id,
                 shortId = shortId,
-                version = ext.version,
+                version = ext.artifact.version,
                 name = ext.name,
                 description = ext.description,
                 shortName = getExtensionShortName(ext),
@@ -159,8 +159,8 @@ object QuarkusExtensionUtils {
 
     private fun providesExampleCode(ext: Extension): Boolean =
             !(ext.metadata?.get(Extension.MD_CODESTART) as String?).isNullOrBlank()
-                    && "quarkus-kotlin" != ext.artifactId
-                    && "quarkus-scala" != ext.artifactId
+                    && "quarkus-kotlin" != ext.artifact.artifactId
+                    && "quarkus-scala" != ext.artifact.artifactId
 
     private fun getExtensionGuide(ext: Extension) =
             ext.metadata?.get(Extension.MD_GUIDE) as String?
@@ -181,12 +181,12 @@ object QuarkusExtensionUtils {
     }
 
     @JvmStatic
-    fun toId(e: Extension) = "${e.groupId}:${e.artifactId}"
+    fun toId(e: Extension) = "${e.artifact.groupId}:${e.artifact.artifactId}"
 
     @JvmStatic
-    fun getExtByCategory(descriptor: QuarkusPlatformDescriptor): Map<String, List<Extension>> {
+    fun getExtByCategory(catalog: ExtensionCatalog): Map<String, List<Extension>> {
         val extByCategory = HashMap<String, ArrayList<Extension>>()
-        descriptor.extensions.forEach {
+        catalog.extensions.forEach {
             val categories = it.metadata?.get("categories")
             if (categories is Collection<*>) {
                 categories.forEach { cat ->
