@@ -1,5 +1,9 @@
 package io.quarkus.code.model
 
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonInclude.Include.*
+
+@JsonInclude(NON_NULL)
 data class CodeQuarkusExtension(
         val id: String,
 
