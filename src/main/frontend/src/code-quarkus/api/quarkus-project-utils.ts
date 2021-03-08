@@ -38,8 +38,8 @@ export function generateProjectQuery(project: QuarkusProject,
   return stringify(params);
 }
 
-function toShortcut(id: string) {
-  return id.replace(/^(io.quarkus:quarkus-)|(quarkus-)/, '');
+export function toShortcut(id: string) {
+  return id.replace(/^(io.quarkus:quarkus-)|^(quarkus-)/, '');
 }
 
 const BASE_LOCATION = window.location.href.replace(window.location.search, '');

@@ -1,5 +1,5 @@
 import { cleanup } from '@testing-library/react';
-import { parseProjectInQuery } from '../quarkus-project-utils';
+import { parseProjectInQuery, toShortcut } from '../quarkus-project-utils';
 import { Extension } from '../model';
 import { parse } from 'querystring';
 
@@ -98,4 +98,11 @@ describe('quarkus-project', () => {
     expect(parsedProject).toMatchSnapshot('v=1.0');
   });
 
+  it('toShortcut should work properly', () => {
+    expect(toShortcut('io.quarkus:quarkus-my-ext')).toBe('my-ext');
+    expect(toShortcut('quarkus-my-ext')).toBe('my-ext');
+    expect(toShortcut('my-quarkus-ext')).toBe('my-quarkus-ext');
+    expect(toShortcut('io.quarkiverse.myext:quarkus-my-ext')).toBe('io.quarkiverse.myext:quarkus-my-ext');
+    expect(toShortcut('org.apache.camel.quarkus:camel-quarkus-core')).toBe('org.apache.camel.quarkus:camel-quarkus-core');
+  });
 });

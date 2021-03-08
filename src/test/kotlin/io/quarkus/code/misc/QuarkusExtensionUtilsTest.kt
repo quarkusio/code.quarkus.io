@@ -37,6 +37,8 @@ internal class QuarkusExtensionUtilsTest {
     @Test
     internal fun testToShortcut() {
         assertThat(toShortcut("io.quarkus:quarkus-my-ext"), `is`("my-ext"))
+        assertThat(toShortcut("org.apache.camel.quarkus:camel-quarkus-core"), `is`("camel-quarkus-core"))
+        assertThat(toShortcut("camel-quarkus-core"), `is`("camel-quarkus-core"))
         assertThat(toShortcut("quarkus-my-ext"), `is`("my-ext"))
         assertThat(toShortcut("io.quarkiverse.myext:quarkus-my-ext"), `is`("my-ext"))
     }
