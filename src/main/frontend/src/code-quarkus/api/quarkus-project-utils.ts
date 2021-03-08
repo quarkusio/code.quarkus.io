@@ -158,16 +158,18 @@ export function resolveInitialProject(extensions: ExtensionEntry[], queryParams?
   return parseProjectInQuery(extensions, queryParams) || newDefaultProject();
 }
 
+function normalizeQueryExtensions(queryExtensions: undefined | string | string[]): Set<string> {
+  return new Set((queryExtensions ? Array.isArray(queryExtensions) ? queryExtensions : [queryExtensions] : [])
+      .map(e => toShortcut(e)));
+}
+
 
 export function parseProjectInQuery(extensions: ExtensionEntry[], queryParams?: ParsedUrlQuery): QuarkusProject | undefined {
   if (!queryParams) {
     return undefined;
   }
-  const queryExtensions = new Set(((queryParams?.e || []) as string[]).map(e => toShortcut(e)));
-  const selectedExtensions = extensions.filter(e => {
-    return queryExtensions.has(toShortcut(e.id));
-
-  });
+  const queryExtensions = normalizeQueryExtensions(queryParams?.e);
+  const selectedExtensions = _.uniqBy(extensions.filter(e => queryExtensions.has(toShortcut(e.id))), e => e.id);
   const defaultProj = newDefaultProject();
   const project = {
     metadata: {

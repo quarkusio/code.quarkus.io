@@ -246,7 +246,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
 
     setFilter(extensionSearch);
     debouncedSyncParamsQuery(extensionSearch, props.project);
-  }, [props.filterParam, props.project, debouncedSyncParamsQuery]);
+  }, [props.filterParam, props.project]);
 
   useEffect(() => {
     addParamToFilter();
