@@ -53,13 +53,10 @@ internal class QuarkusExtensionUtilsTest {
                 shortName = "jax-rs",
                 category = "Web",
                 tags = listOf("provides-example"),
-                default = false,
                 providesExampleCode = true,
                 keywords = listOf("endpoint", "framework", "jax", "jaxrs", "rest", "resteasy", "web"),
                 guide = "https://quarkus.io/guides/rest-json",
-                order = 0,
-                status = "stable",
-                labels = listOf("resteasy", "jaxrs", "web", "rest")))
+                order = 0))
         )
         assertThat(extensions[5], `is`(CodeQuarkusExtension(
                 id = "io.quarkus:quarkus-rest-client-mutiny",
@@ -71,12 +68,9 @@ internal class QuarkusExtensionUtilsTest {
                 category = "Web",
                 providesExampleCode = false,
                 tags = listOf("preview"),
-                default = false,
                 keywords = listOf("client", "microprofile-rest-client", "mutiny", "rest", "rest-client", "rest-client-mutiny", "web-client"),
                 guide = null,
-                order = 5,
-                status = "preview",
-                labels = listOf("rest-client-mutiny", "rest-client", "web-client", "microprofile-rest-client", "mutiny")))
+                order = 5))
         )
     }
 
