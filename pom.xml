@@ -31,7 +31,7 @@
         <!-- Quarkus version is used for bundling Code Quarkus -->
         <quarkus.version>999-SNAPSHOT</quarkus.version>
 
-        <!-- Quarkus Platform version must be compatible with Quarkus version -->
+        <!-- Quarkus Platform BOM -->
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
@@ -317,10 +317,10 @@
     </build>
     <profiles>
         <profile>
-            <id>quarkus-master</id>
+            <id>quarkus-main</id>
             <activation>
                 <property>
-                    <name>quarkus-master</name>
+                    <name>quarkus-main</name>
                 </property>
             </activation>
             <properties>
