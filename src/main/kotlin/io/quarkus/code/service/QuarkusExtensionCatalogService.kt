@@ -8,7 +8,6 @@ import io.quarkus.code.misc.QuarkusExtensionUtils
 import io.quarkus.code.misc.QuarkusExtensionUtils.toShortcut
 import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.devtools.project.QuarkusProjectHelper
-import io.quarkus.platform.descriptor.resolver.json.QuarkusJsonPlatformDescriptorResolver
 import io.quarkus.platform.tools.ToolsUtils
 import io.quarkus.runtime.StartupEvent
 import org.eclipse.microprofile.config.spi.ConfigProviderResolver

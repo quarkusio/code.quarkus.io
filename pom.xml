@@ -29,12 +29,12 @@
         <git.commit.id>local</git.commit.id>
 
         <!-- Quarkus version is used for bundling Code Quarkus -->
-        <quarkus.version>999-SNAPSHOT</quarkus.version>
+        <quarkus.version>1.13.0.CR1</quarkus.version>
 
         <!-- Quarkus Platform BOM -->
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
+        <quarkus.platform.version>1.13.0.CR1</quarkus.platform.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -80,11 +80,6 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-platform-descriptor-json</artifactId>
-            <version>${quarkus.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-platform-descriptor-resolver-json</artifactId>
             <version>${quarkus.version}</version>
         </dependency>
         <dependency>

@@ -54,7 +54,7 @@ internal class QuarkusExtensionUtilsTest {
                 category = "Web",
                 tags = listOf("provides-example"),
                 providesExampleCode = true,
-                keywords = listOf("endpoint", "framework", "jax", "jaxrs", "rest", "resteasy", "web"),
+                keywords = listOf("endpoint", "framework", "jax", "jaxrs", "quarkus-resteasy", "rest", "resteasy", "web"),
                 guide = "https://quarkus.io/guides/rest-json",
                 order = 0))
         )
@@ -64,11 +64,11 @@ internal class QuarkusExtensionUtilsTest {
                 version = "999-SNAPSHOT",
                 name = "Mutiny support for REST Client",
                 description = "Enable Mutiny for the REST client",
-                shortName = null,
+                shortName = "Mutiny support for REST Client",
                 category = "Web",
                 providesExampleCode = false,
                 tags = listOf("preview"),
-                keywords = listOf("client", "microprofile-rest-client", "mutiny", "rest", "rest-client", "rest-client-mutiny", "web-client"),
+                keywords = listOf("client", "microprofile-rest-client", "mutiny", "quarkus-rest-client-mutiny", "rest", "rest-client", "rest-client-mutiny", "web-client"),
                 guide = null,
                 order = 5))
         )
