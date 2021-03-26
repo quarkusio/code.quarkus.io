@@ -4,6 +4,7 @@ import { createGitHubProject } from './code-quarkus-github-api';
 import { QuarkusProject } from './model';
 import _ from 'lodash';
 import { BACKEND_URL, CLIENT_NAME } from './env';
+const { generate } = require('project-name-generator');
 
 export enum Target {
   DOWNLOAD = 'DOWNLOAD',
@@ -189,4 +190,8 @@ export function parseProjectInQuery(extensions: ExtensionEntry[], queryParams?: 
     console.log('Received GitHub auth');
   }
   return project;
+}
+
+export const generateArtifactId = () => {
+  return generate().dashed;
 }

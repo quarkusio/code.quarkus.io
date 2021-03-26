@@ -1,7 +1,9 @@
-import { FormGroup, Tooltip } from '@patternfly/react-core';
+import {Button, FormGroup, Tooltip} from '@patternfly/react-core';
 import React, { ChangeEvent } from 'react';
 import { ExtendedTextInput, InputProps, optionalBool, TogglePanel, useAnalyticsEditionField } from '../../core';
 import './info-picker.scss';
+import {Spinner2Icon} from "@patternfly/react-icons";
+import {generateArtifactId} from "../api/quarkus-project-utils";
 
 export interface InfoPickerValue {
   groupId?: string;
@@ -80,6 +82,7 @@ export const InfoPicker = (props: InfoPickerProps) => {
   const onVersionChange = (newValue: string) => onInputChange({ ...props.value, version: newValue });
   const onNoExampleChange = (newValue: boolean) => onInputChange({ ...props.value, noExamples: newValue });
   const onBuildToolChange = (newValue: string) => onInputChange({ ...props.value, buildTool: newValue });
+  const onRegenerateProjectNameChange = () => onInputChange({...props.value, artifactId: generateArtifactId()})
 
   return (
     <div className={`info-picker horizontal`}>
@@ -97,19 +100,27 @@ export const InfoPicker = (props: InfoPickerProps) => {
           pattern={GROUPID_PATTERN.source}
           isValid={isValidGroupId(props.value.groupId)}
         />
-        <ExtendedTextInput
-          label="Artifact"
-          isRequired
-          type="text"
-          id="artifactId"
-          name="artifactId"
-          aria-label="Edit artifactId"
-          value={props.value.artifactId || ''}
-          autoComplete="off"
-          onChange={onArtifactIdChange}
-          pattern={ARTIFACTID_PATTERN.source}
-          isValid={isValidId(props.value.artifactId)}
-        />
+        <FormGroup fieldId="artifactId" isInline={true}>
+          <ExtendedTextInput
+            label="Artifact"
+            isRequired
+            type="text"
+            id="artifactId"
+            name="artifactId"
+            aria-label="Edit artifactId"
+            value={props.value.artifactId || ''}
+            autoComplete="off"
+            onChange={onArtifactIdChange}
+            pattern={ARTIFACTID_PATTERN.source}
+            isValid={isValidId(props.value.artifactId)}
+          />
+          <Button onClick={onRegenerateProjectNameChange}
+                  variant="secondary"
+                  className="pf-m-small"
+                  isInline={true}>
+            <Spinner2Icon/>
+          </Button>
+        </FormGroup>
         <SelectBuildTool onChange={onBuildToolChange} value={props.value.buildTool || 'MAVEN'}/>
       </div>
       {optionalBool(props.showMoreOptions, true) && (
