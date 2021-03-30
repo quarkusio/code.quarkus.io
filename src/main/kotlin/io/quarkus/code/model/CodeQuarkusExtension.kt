@@ -19,14 +19,6 @@ data class CodeQuarkusExtension(
         val keywords: List<String>,
         val providesExampleCode: Boolean,
         val guide: String?,
-        val order: Int,
+        val order: Int
 
-        @Deprecated(message = "no continued")
-        val default: Boolean,
-
-        @Deprecated(message = "has been replaced", replaceWith = ReplaceWith("tags"))
-        val status: String,
-
-        @Deprecated(message = "has been replaced", replaceWith = ReplaceWith("keywords"))
-        val labels: List<String>
 )

@@ -5,6 +5,7 @@ import io.quarkus.devtools.codestarts.CodestartException
 import io.quarkus.devtools.commands.CreateProject
 import io.quarkus.devtools.commands.data.QuarkusCommandException
 import io.quarkus.devtools.project.BuildTool
+import io.quarkus.devtools.project.QuarkusProjectHelper
 import io.quarkus.devtools.project.compress.QuarkusProjectCompress
 import java.io.IOException
 import java.lang.IllegalArgumentException
@@ -39,7 +40,6 @@ class QuarkusProjectService {
     internal lateinit var extensionCatalog: QuarkusExtensionCatalogService
 
     fun create(projectDefinition: ProjectDefinition): ByteArray {
-        QuarkusExtensionCatalogService.checkPlatformInitialization()
         val path = createTmp(projectDefinition)
         val time = System.currentTimeMillis() - 24 * 3600000
         val zipPath = Files.createTempDirectory("zipped-").resolve("project.zip")
@@ -62,13 +62,13 @@ class QuarkusProjectService {
             codestarts.add("github-action")
         }
         try {
-            val result = CreateProject(projectFolderPath, QuarkusExtensionCatalogService.descriptor)
+            val project =
+                QuarkusProjectHelper.getProject(projectFolderPath, QuarkusExtensionCatalogService.catalog, buildTool)
+            val result = CreateProject(project)
                 .groupId(projectDefinition.groupId)
                 .artifactId(projectDefinition.artifactId)
                 .version(projectDefinition.version)
                 .sourceType(sourceType)
-                .codestartsEnabled(true)
-                .buildTool(buildTool)
                 .codestarts(codestarts)
                 .javaTarget("11")
                 .className(projectDefinition.className)

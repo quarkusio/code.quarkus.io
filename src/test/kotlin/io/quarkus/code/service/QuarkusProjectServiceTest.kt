@@ -32,7 +32,7 @@ internal class QuarkusProjectServiceTest {
         creator.extensionCatalog = quarkusExtensionCatalog
         val proj = creator.create(ProjectDefinition())
         val testDir = QuarkusProjectServiceTestUtils.extractProject(proj)
-        val projDir =  Paths.get(testDir.first.path, "code-with-quarkus")
+        val projDir = Paths.get(testDir.first.path, "code-with-quarkus")
 
         // Then
         assertThatDirectoryTreeMatchSnapshots(info, projDir)
@@ -86,11 +86,16 @@ internal class QuarkusProjectServiceTest {
                 version = "2.0.0",
                 className = "com.test.TestResource",
                 path = "/test/it",
-                extensions = setOf("io.quarkus:quarkus-resteasy", "io.quarkus:quarkus-resteasy-jsonb", "quarkus-neo4j", "hibernate-validator")
+                extensions = setOf(
+                    "io.quarkus:quarkus-resteasy",
+                    "io.quarkus:quarkus-resteasy-jsonb",
+                    "quarkus-neo4j",
+                    "hibernate-validator"
+                )
             )
         )
         val testDir = QuarkusProjectServiceTestUtils.extractProject(proj)
-        val projDir =  Paths.get(testDir.first.path, "test-app")
+        val projDir = Paths.get(testDir.first.path, "test-app")
 
         // Then
         assertThatDirectoryTreeMatchSnapshots(info, projDir)
@@ -128,7 +133,7 @@ internal class QuarkusProjectServiceTest {
             )
         )
         val testDir = QuarkusProjectServiceTestUtils.extractProject(proj)
-        val projDir =  Paths.get(testDir.first.path, "test-kotlin-app")
+        val projDir = Paths.get(testDir.first.path, "test-kotlin-app")
 
         // Then
         assertThatDirectoryTreeMatchSnapshots(info, projDir)
@@ -147,39 +152,30 @@ internal class QuarkusProjectServiceTest {
     }
 
     @Test
-    @DisplayName("Create a Gradle project using scala source")
-    fun testGradleScala(info: TestInfo) {
+    @DisplayName("Create a project with RESTEasy-Qute and YAML config")
+    fun testQuteYaml(info: TestInfo) {
         // When
         val creator = getProjectService()
 
         val proj = creator.create(
             ProjectDefinition(
-                groupId = "com.sc",
-                artifactId = "test-scala-app",
-                version = "3.0.0",
-                buildTool = "GRADLE",
-                className = "com.test.TestResource",
-                extensions = setOf("io.quarkus:quarkus-resteasy", "scala")
+                groupId = "my.qute.yaml.app",
+                artifactId = "test-qute-yaml-app",
+                buildTool = "MAVEN",
+                extensions = setOf("resteasy-qute", "config-yaml")
             )
         )
         val testDir = QuarkusProjectServiceTestUtils.extractProject(proj)
-        val projDir =  Paths.get(testDir.first.path, "test-scala-app")
+        val projDir = Paths.get(testDir.first.path, "test-qute-yaml-app")
 
         // Then
         assertThatDirectoryTreeMatchSnapshots(info, projDir)
-        assertThatMatchSnapshot(info, projDir, "settings.gradle")
-            .satisfies(checkContains("rootProject.name='test-scala-app'"))
-        assertThat(projDir.resolve("gradle.properties"))
-            .satisfies(checkContains("quarkusPluginVersion=${codeQuarkusConfig.quarkusVersion}"))
-        assertThat(projDir.resolve("build.gradle"))
-            .satisfies(checkContains("id 'scala'"))
-            .satisfies(checkContains("implementation 'io.quarkus:quarkus-scala'"))
-            .satisfies(checkContains("implementation 'io.quarkus:quarkus-resteasy'"))
-            .satisfies(checkContains("group 'com.sc'"))
-            .satisfies(checkContains("version '3.0.0'"))
-
-        assertThatMatchSnapshot(info, projDir, "src/main/scala/com/test/TestResource.scala")
-            .satisfies(checkContains("def hello() = \"Hello RESTEasy\""))
+            .contains(
+                "src/main/resources/templates/page.qute.html",
+                "src/main/java/my/qute/yaml/app/config/ConfigResource.java",
+                "src/main/resources/application.yml",
+                "src/main/java/my/qute/yaml/app/resteasyqute/QuteResource.java"
+            )
     }
 
     @Test
