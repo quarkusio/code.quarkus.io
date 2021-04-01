@@ -10,6 +10,7 @@ interface NextStepsProps {
   extensions: ExtensionEntry[];
 
   onClose?(reset?: boolean): void;
+  openInIdea?(): void;
 }
 
 export function NextStepsModal(props: NextStepsProps) {
@@ -43,6 +44,11 @@ export function NextStepsModal(props: NextStepsProps) {
         (
           <Button key="start-new" variant="secondary" aria-label="Start a new application" onClick={() => close()}>
             Start a new application
+          </Button>
+        ),
+        (
+          <Button key="open-in-idea" variant="secondary" aria-label="Open in IDEA" onClick={() => props.openInIdea && props.openInIdea()}>
+            Open in IDEA
           </Button>
         )
       ]}

@@ -14,7 +14,9 @@ import { NextStepsModal } from '../modals/next-steps-modal';
 import { ExtensionEntry } from '../pickers/extensions-picker';
 import { CodeQuarkusProps } from '../code-quarkus';
 import { ErrorModal } from '../modals/error-modal';
+import { IdeaModal } from '../modals/idea-modal';
 import { QuarkusProject } from '../api/model';
+import { openIdeaIfSupport } from '../api/code-quarkus-idea-utils';
 
 enum Status {
   EDITION = 'EDITION', RUNNING = 'RUNNING', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
@@ -26,6 +28,11 @@ interface RunState {
   error?: any;
 }
 
+export interface IdeaSupportResult {
+  isSupported: boolean;
+  gitURL: string;
+} 
+
 interface QuarkusProjectFlowProps extends CodeQuarkusProps {
   extensions: ExtensionEntry[];
 }
@@ -36,6 +43,8 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
   const [filterQuery, setFilterQuery] = useState<string>(resolveInitialFilterQueryParam(queryParams));
   const [project, setProject] = useState<QuarkusProject>(resolveInitialProject(props.extensions, queryParams));
   const [run, setRun] = useState<RunState>({ status: Status.EDITION });
+  const [openIdeaModal, setOpenIdeaModal] = useState<boolean>(false);
+  const [ideaSupport, setIdeaSupport] = useState<IdeaSupportResult>({} as IdeaSupportResult);
   const analytics = useAnalytics();
 
   const generate = (target: Target = Target.DOWNLOAD) => {
@@ -54,6 +63,11 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
     });
   };
 
+  const openProjectInIdea = () => {
+    openIdeaIfSupport(run.result.url, setIdeaSupport);
+    toggleIdeaModal();
+  }
+
   useEffect(() => {
     if (project.github) {
       generate(Target.GITHUB);
@@ -68,6 +82,10 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
     }
   };
 
+  const toggleIdeaModal = () => {
+    setOpenIdeaModal(!openIdeaModal);
+  }
+
   return (
     <React.Fragment>
       <CodeQuarkusForm project={project} setProject={setProject} config={props.config} onSave={generate} extensions={props.extensions} filterParam={filterQuery} setFilterParam={setFilterQuery}/>
@@ -75,7 +93,10 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
         <LoadingModal/>
       )}
       {!run.error && run.status === Status.DOWNLOADED && (
-        <NextStepsModal onClose={closeModal} result={run.result} buildTool={project.metadata.buildTool} extensions={project.extensions}/>
+        <NextStepsModal onClose={closeModal} result={run.result} buildTool={project.metadata.buildTool} extensions={project.extensions} openInIdea={openProjectInIdea}/>
+      )}
+      {!run.error && run.status === Status.DOWNLOADED && openIdeaModal && !!ideaSupport && (
+        <IdeaModal ideaSupport={ideaSupport} onClose={toggleIdeaModal} />
       )}
       {run.error && (
         <ErrorModal onClose={() => closeModal(false)} error={run.error}/>
