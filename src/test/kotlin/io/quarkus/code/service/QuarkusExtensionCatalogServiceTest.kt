@@ -20,7 +20,7 @@ internal class QuarkusExtensionCatalogServiceTest {
     internal fun testFields() {
         assertThat(QuarkusExtensionCatalogService.platformVersion, not(emptyOrNullString()))
         assertThat(QuarkusExtensionCatalogService.bundledQuarkusVersion, not(emptyOrNullString()))
-        assertThat(QuarkusExtensionCatalogService.descriptor, notNullValue())
+        assertThat(QuarkusExtensionCatalogService.catalog, notNullValue())
         assertThat(catalog.extensions, not(empty<CodeQuarkusExtension>()))
     }
 

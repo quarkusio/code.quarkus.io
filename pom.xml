@@ -29,12 +29,12 @@
         <git.commit.id>local</git.commit.id>
 
         <!-- Quarkus version is used for bundling Code Quarkus -->
-        <quarkus.version>1.11.1.Final</quarkus.version>
+        <quarkus.version>1.13.0.Final</quarkus.version>
 
-        <!-- Quarkus Platform version must be compatible with Quarkus version -->
+        <!-- Quarkus Platform BOM -->
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.version>1.11.1.Final</quarkus.platform.version>
+        <quarkus.platform.version>1.13.0.Final</quarkus.platform.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -66,7 +66,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-jsonb</artifactId>
+            <artifactId>quarkus-resteasy-jackson</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -80,11 +80,6 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-platform-descriptor-json</artifactId>
-            <version>${quarkus.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-platform-descriptor-resolver-json</artifactId>
             <version>${quarkus.version}</version>
         </dependency>
         <dependency>
@@ -120,6 +115,12 @@
             <groupId>com.brsanthu</groupId>
             <artifactId>google-analytics-java</artifactId>
             <version>${google-analytics-java.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-devtools-testing</artifactId>
+            <version>${quarkus.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.specto</groupId>
@@ -311,10 +312,10 @@
     </build>
     <profiles>
         <profile>
-            <id>quarkus-master</id>
+            <id>quarkus-main</id>
             <activation>
                 <property>
-                    <name>quarkus-master</name>
+                    <name>quarkus-main</name>
                 </property>
             </activation>
             <properties>

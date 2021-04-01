@@ -1,16 +1,20 @@
 package io.quarkus.code.service
 
 import io.quarkus.code.model.ProjectDefinition
+import io.quarkus.devtools.codestarts.CodestartException
 import io.quarkus.devtools.commands.CreateProject
 import io.quarkus.devtools.commands.data.QuarkusCommandException
 import io.quarkus.devtools.project.BuildTool
+import io.quarkus.devtools.project.QuarkusProjectHelper
 import io.quarkus.devtools.project.compress.QuarkusProjectCompress
 import java.io.IOException
+import java.lang.IllegalArgumentException
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
+import javax.ws.rs.WebApplicationException
 
 @Singleton
 class QuarkusProjectService {
@@ -36,7 +40,6 @@ class QuarkusProjectService {
     internal lateinit var extensionCatalog: QuarkusExtensionCatalogService
 
     fun create(projectDefinition: ProjectDefinition): ByteArray {
-        QuarkusExtensionCatalogService.checkPlatformInitialization()
         val path = createTmp(projectDefinition)
         val time = System.currentTimeMillis() - 24 * 3600000
         val zipPath = Files.createTempDirectory("zipped-").resolve("project.zip")
@@ -55,27 +58,29 @@ class QuarkusProjectService {
         val sourceType = CreateProject.determineSourceType(extensions)
         val buildTool = BuildTool.valueOf(projectDefinition.buildTool)
         val codestarts = HashSet<String>()
-        if(gitHub) {
+        if (gitHub) {
             codestarts.add("github-action")
         }
         try {
-            val result = CreateProject(projectFolderPath, QuarkusExtensionCatalogService.descriptor)
-                    .groupId(projectDefinition.groupId)
-                    .artifactId(projectDefinition.artifactId)
-                    .version(projectDefinition.version)
-                    .sourceType(sourceType)
-                    .codestartsEnabled(true)
-                    .buildTool(buildTool)
-                    .codestarts(codestarts)
-                    .javaTarget("11")
-                    .className(projectDefinition.className)
-                    .extensions(extensions)
-                    .noExamples(projectDefinition.noExamples)
-                    .setValue("path", projectDefinition.path)
-                    .execute()
+            val project =
+                QuarkusProjectHelper.getProject(projectFolderPath, QuarkusExtensionCatalogService.catalog, buildTool)
+            val result = CreateProject(project)
+                .groupId(projectDefinition.groupId)
+                .artifactId(projectDefinition.artifactId)
+                .version(projectDefinition.version)
+                .sourceType(sourceType)
+                .codestarts(codestarts)
+                .javaTarget("11")
+                .className(projectDefinition.className)
+                .extensions(extensions)
+                .noExamples(projectDefinition.noExamples)
+                .setValue("path", projectDefinition.path)
+                .execute()
             if (!result.isSuccess) {
                 throw IOException("Error during Quarkus project creation")
             }
+        } catch (e: CodestartException) {
+            throw IllegalArgumentException(e.message)
         } catch (e: QuarkusCommandException) {
             throw IOException("Error during Quarkus project creation", e)
         }

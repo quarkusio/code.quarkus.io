@@ -2,11 +2,12 @@ package io.quarkus.code.service
 
 import io.quarkus.code.config.CodeQuarkusConfig
 import io.quarkus.code.model.ProjectDefinition
-import io.quarkus.code.service.QuarkusProjectServiceTestUtils.prefixFileList
+import io.quarkus.devtools.testing.SnapshotTesting.*
 import io.quarkus.test.junit.QuarkusTest
-import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.*
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInfo
 import org.junit.jupiter.api.Timeout
 import java.nio.file.Paths
 import java.util.concurrent.Callable
@@ -17,160 +18,6 @@ import javax.inject.Inject
 @QuarkusTest
 internal class QuarkusProjectServiceTest {
 
-    companion object {
-        val EXPECTED_CONTENT = arrayOf(
-                "",
-                "pom.xml",
-                "src/",
-                "src/main/",
-                "src/main/java/",
-                "src/main/java/org/",
-                "src/main/java/org/acme/",
-                "src/main/java/org/acme/GreetingResource.java",
-                "src/test/",
-                "src/test/java/",
-                "src/test/java/org/",
-                "src/test/java/org/acme/",
-                "src/test/java/org/acme/GreetingResourceTest.java",
-                "src/test/java/org/acme/NativeGreetingResourceIT.java",
-                "src/main/resources/",
-                "src/main/resources/META-INF/",
-                "src/main/resources/META-INF/resources/",
-                "src/main/resources/META-INF/resources/index.html",
-                "src/main/docker/",
-                "src/main/docker/Dockerfile.native",
-                "src/main/docker/Dockerfile.jvm",
-                "src/main/docker/Dockerfile.fast-jar",
-                ".dockerignore",
-                "src/main/resources/application.properties",
-                "README.md",
-                ".gitignore",
-                ".mvn/",
-                ".mvn/wrapper/",
-                ".mvn/wrapper/maven-wrapper.properties",
-                ".mvn/wrapper/MavenWrapperDownloader.java",
-                "mvnw.cmd",
-                "mvnw"
-        )
-
-        val EXPECTED_CONTENT_CUSTOM = arrayOf(
-                "",
-                "pom.xml",
-                "src/",
-                "src/main/",
-                "src/main/java/",
-                "src/main/java/com/",
-                "src/main/java/com/test/",
-                "src/main/java/com/test/TestResource.java",
-                "src/test/",
-                "src/test/java/",
-                "src/test/java/com/",
-                "src/test/java/com/test/",
-                "src/test/java/com/test/TestResourceTest.java",
-                "src/test/java/com/test/NativeTestResourceIT.java",
-                "src/main/resources/",
-                "src/main/resources/META-INF/",
-                "src/main/resources/META-INF/resources/",
-                "src/main/resources/META-INF/resources/index.html",
-                "src/main/docker/",
-                "src/main/docker/Dockerfile.native",
-                "src/main/docker/Dockerfile.jvm",
-                "src/main/docker/Dockerfile.fast-jar",
-                ".dockerignore",
-                "src/main/resources/application.properties",
-                "README.md",
-                ".gitignore",
-                ".mvn/",
-                ".mvn/wrapper/",
-                ".mvn/wrapper/maven-wrapper.properties",
-                ".mvn/wrapper/MavenWrapperDownloader.java",
-                "mvnw.cmd",
-                "mvnw"
-        )
-
-        val EXPECTED_CONTENT_GRADLE_KOTLIN = arrayOf(
-            "",
-            "build.gradle",
-            "settings.gradle",
-            "gradle.properties",
-            "src/",
-            "src/main/",
-            "src/main/kotlin/",
-            "src/main/kotlin/com/",
-            "src/main/kotlin/com/test/",
-            "src/main/kotlin/com/test/TestResource.kt",
-            "src/test/",
-            "src/test/kotlin/",
-            "src/test/kotlin/com/",
-            "src/test/kotlin/com/test/",
-            "src/test/kotlin/com/test/TestResourceTest.kt",
-            "src/native-test/",
-            "src/native-test/kotlin/",
-            "src/native-test/kotlin/com/",
-            "src/native-test/kotlin/com/test/",
-            "src/native-test/kotlin/com/test/NativeTestResourceIT.kt",
-            "src/main/resources/",
-            "src/main/resources/META-INF/",
-            "src/main/resources/META-INF/resources/",
-            "src/main/resources/META-INF/resources/index.html",
-            "src/main/docker/",
-            "src/main/docker/Dockerfile.native",
-            "src/main/docker/Dockerfile.jvm",
-            "src/main/docker/Dockerfile.fast-jar",
-            ".dockerignore",
-            "src/main/resources/application.properties",
-            "README.md",
-            ".gitignore",
-            "gradle/",
-            "gradle/wrapper/",
-            "gradle/wrapper/gradle-wrapper.jar",
-            "gradle/wrapper/gradle-wrapper.properties",
-            "gradlew.bat",
-            "gradlew"
-        )
-
-        val EXPECTED_CONTENT_GRADLE_SCALA = arrayOf(
-            "",
-            "build.gradle",
-            "settings.gradle",
-            "gradle.properties",
-            "src/",
-            "src/main/",
-            "src/main/scala/",
-            "src/main/scala/com/",
-            "src/main/scala/com/test/",
-            "src/main/scala/com/test/TestResource.scala",
-            "src/test/",
-            "src/test/scala/",
-            "src/test/scala/com/",
-            "src/test/scala/com/test/",
-            "src/test/scala/com/test/TestResourceTest.scala",
-            "src/native-test/",
-            "src/native-test/scala/",
-            "src/native-test/scala/com/",
-            "src/native-test/scala/com/test/",
-            "src/native-test/scala/com/test/NativeTestResourceIT.scala",
-            "src/main/resources/",
-            "src/main/resources/META-INF/",
-            "src/main/resources/META-INF/resources/",
-            "src/main/resources/META-INF/resources/index.html",
-            "src/main/docker/",
-            "src/main/docker/Dockerfile.native",
-            "src/main/docker/Dockerfile.jvm",
-            "src/main/docker/Dockerfile.fast-jar",
-            ".dockerignore",
-            "src/main/resources/application.properties",
-            "README.md",
-            ".gitignore",
-            "gradle/",
-            "gradle/wrapper/",
-            "gradle/wrapper/gradle-wrapper.jar",
-            "gradle/wrapper/gradle-wrapper.properties",
-            "gradlew.bat",
-            "gradlew"
-        )
-    }
-
     @Inject
     lateinit var codeQuarkusConfig: CodeQuarkusConfig
 
@@ -178,67 +25,60 @@ internal class QuarkusProjectServiceTest {
     lateinit var quarkusExtensionCatalog: QuarkusExtensionCatalogService
 
     @Test
-    fun `When using default project, then, it should create the zip with all the files correctly with the requested content`() {
+    @DisplayName("When using default project, then, it should create the zip with all the files correctly with the requested content")
+    fun testDefaultZip(info: TestInfo) {
         // When
-        val creator = QuarkusProjectService()
+        val creator = getProjectService()
         creator.extensionCatalog = quarkusExtensionCatalog
-        // TODO 1.10 remove io.quarkus:quarkus-resteasy as it's the default
-        val proj = creator.create(ProjectDefinition(extensions = setOf("io.quarkus:quarkus-resteasy")))
-        val (testDir, zipList) = QuarkusProjectServiceTestUtils.extractProject(proj)
-        val fileList = QuarkusProjectServiceTestUtils.readFiles(testDir)
-        val pomText = Paths.get(testDir.path, "code-with-quarkus/pom.xml")
-                .toFile().readText(Charsets.UTF_8)
-        val resourceText = Paths.get(testDir.path, "code-with-quarkus/src/main/java/org/acme/GreetingResource.java")
-                .toFile().readText(Charsets.UTF_8)
+        val proj = creator.create(ProjectDefinition())
+        val testDir = QuarkusProjectServiceTestUtils.extractProject(proj)
+        val projDir = Paths.get(testDir.first.path, "code-with-quarkus")
 
         // Then
-        assertThat(zipList, containsInAnyOrder(*prefixFileList(EXPECTED_CONTENT, "code-with-quarkus/")))
-        assertThat(fileList.size, equalTo(34))
+        assertThatDirectoryTreeMatchSnapshots(info, projDir)
 
-        assertThat(pomText, containsString("<groupId>org.acme</groupId>"))
-        assertThat(pomText, containsString("<artifactId>code-with-quarkus</artifactId>"))
-        assertThat(pomText, containsString("<version>1.0.0-SNAPSHOT</version>"))
-        assertThat(pomText, containsString("<quarkus-plugin.version>${codeQuarkusConfig.quarkusVersion}</quarkus-plugin.version>"))
-        assertThat(pomText, containsString("<groupId>io.quarkus</groupId>"))
-        assertThat(pomText, containsString("<artifactId>quarkus-resteasy</artifactId>"))
-        assertThat(pomText, containsString("<artifactId>rest-assured</artifactId>"))
+        assertThat(projDir.resolve("pom.xml"))
+            .satisfies(checkContains("<groupId>org.acme</groupId>"))
+            .satisfies(checkContains("<artifactId>code-with-quarkus</artifactId>"))
+            .satisfies(checkContains("<version>1.0.0-SNAPSHOT</version>"))
+            .satisfies(checkContains("<quarkus-plugin.version>${codeQuarkusConfig.quarkusVersion}</quarkus-plugin.version>"))
+            .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
+            .satisfies(checkContains("<artifactId>quarkus-resteasy</artifactId>"))
+            .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
 
-        assertThat(resourceText, containsString("@Path(\"/hello-resteasy\")"))
+        assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/GreetingResource.java")
+            .satisfies(checkContains("@Path(\"/hello-resteasy\")"))
     }
 
     @Test
-    fun `When using default project, then, it should create all the files correctly with the requested content`() {
+    @DisplayName("When using default project, then, it should create all the files correctly with the requested content")
+    fun testDefault(info: TestInfo) {
         // When
-        val creator = QuarkusProjectService()
+        val creator = getProjectService()
         creator.extensionCatalog = quarkusExtensionCatalog
-        // TODO 1.10 remove io.quarkus:quarkus-resteasy as it's the default
-        val proj = creator.createTmp(ProjectDefinition(extensions = setOf("io.quarkus:quarkus-resteasy")))
-        val fileList = QuarkusProjectServiceTestUtils.readFiles(proj.toFile())
-        val pomText = proj.resolve("pom.xml")
-                .toFile().readText(Charsets.UTF_8)
-        val resourceText = proj.resolve("src/main/java/org/acme/GreetingResource.java")
-                .toFile().readText(Charsets.UTF_8)
+        val projDir = creator.createTmp(ProjectDefinition())
+
         // Then
-        assertThat(fileList, containsInAnyOrder(*EXPECTED_CONTENT))
+        assertThatDirectoryTreeMatchSnapshots(info, projDir)
 
-        assertThat(fileList.size, equalTo(32))
+        assertThat(projDir.resolve("pom.xml"))
+            .satisfies(checkContains("<groupId>org.acme</groupId>"))
+            .satisfies(checkContains("<artifactId>code-with-quarkus</artifactId>"))
+            .satisfies(checkContains("<version>1.0.0-SNAPSHOT</version>"))
+            .satisfies(checkContains("<quarkus-plugin.version>${codeQuarkusConfig.quarkusVersion}</quarkus-plugin.version>"))
+            .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
+            .satisfies(checkContains("<artifactId>quarkus-resteasy</artifactId>"))
+            .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
 
-        assertThat(pomText, containsString("<groupId>org.acme</groupId>"))
-        assertThat(pomText, containsString("<artifactId>code-with-quarkus</artifactId>"))
-        assertThat(pomText, containsString("<version>1.0.0-SNAPSHOT</version>"))
-        assertThat(pomText, containsString("<quarkus-plugin.version>${codeQuarkusConfig.quarkusVersion}</quarkus-plugin.version>"))
-        assertThat(pomText, containsString("<groupId>io.quarkus</groupId>"))
-        assertThat(pomText, containsString("<artifactId>quarkus-resteasy</artifactId>"))
-        assertThat(pomText, containsString("<artifactId>rest-assured</artifactId>"))
-
-        assertThat(resourceText, containsString("@Path(\"/hello-resteasy\")"))
+        assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/GreetingResource.java")
+            .satisfies(checkContains("@Path(\"/hello-resteasy\")"))
     }
 
     @Test
-    fun `When using a custom project, then, it should create all the files correctly with the requested content`() {
+    @DisplayName("When using a custom project, then, it should create all the files correctly with the requested content")
+    fun testCustom(info: TestInfo) {
         // When
-        val creator = QuarkusProjectService()
-        creator.extensionCatalog = quarkusExtensionCatalog
+        val creator = getProjectService()
         val proj = creator.create(
             ProjectDefinition(
                 groupId = "com.test",
@@ -246,107 +86,96 @@ internal class QuarkusProjectServiceTest {
                 version = "2.0.0",
                 className = "com.test.TestResource",
                 path = "/test/it",
-                extensions = setOf("io.quarkus:quarkus-resteasy", "io.quarkus:quarkus-resteasy-jsonb"),
-                shortExtensions = "YjV.pDS"
+                extensions = setOf(
+                    "io.quarkus:quarkus-resteasy",
+                    "io.quarkus:quarkus-resteasy-jsonb",
+                    "quarkus-neo4j",
+                    "hibernate-validator"
+                )
             )
         )
-        val (testDir, zipList) = QuarkusProjectServiceTestUtils.extractProject(proj)
-        val fileList = QuarkusProjectServiceTestUtils.readFiles(testDir)
-        val pomText = Paths.get(testDir.path, "test-app/pom.xml")
-            .toFile().readText(Charsets.UTF_8)
-        val resourceText = Paths.get(testDir.path, "test-app/src/main/java/com/test/TestResource.java")
-            .toFile().readText(Charsets.UTF_8)
+        val testDir = QuarkusProjectServiceTestUtils.extractProject(proj)
+        val projDir = Paths.get(testDir.first.path, "test-app")
 
         // Then
-        assertThat(zipList, containsInAnyOrder(*prefixFileList(EXPECTED_CONTENT_CUSTOM, "test-app/")))
-        assertThat(fileList.size, equalTo(34))
+        assertThatDirectoryTreeMatchSnapshots(info, projDir)
 
-        assertThat(pomText, containsString("<groupId>com.test</groupId>"))
-        assertThat(pomText, containsString("<artifactId>test-app</artifactId>"))
-        assertThat(pomText, containsString("<version>2.0.0</version>"))
-        assertThat(pomText, containsString("<quarkus-plugin.version>${codeQuarkusConfig.quarkusVersion}</quarkus-plugin.version>"))
-        assertThat(pomText, containsString("<groupId>io.quarkus</groupId>"))
-        assertThat(pomText, containsString("<artifactId>quarkus-resteasy</artifactId>"))
-        assertThat(pomText, containsString("<artifactId>quarkus-resteasy-jsonb</artifactId>"))
-        assertThat(pomText, containsString("<artifactId>quarkus-hibernate-validator</artifactId>"))
-        assertThat(pomText, containsString("<artifactId>quarkus-neo4j</artifactId>"))
+        assertThat(projDir.resolve("pom.xml"))
+            .satisfies(checkContains("<groupId>com.test</groupId>"))
+            .satisfies(checkContains("<artifactId>test-app</artifactId>"))
+            .satisfies(checkContains("<version>2.0.0</version>"))
+            .satisfies(checkContains("<quarkus-plugin.version>${codeQuarkusConfig.quarkusVersion}</quarkus-plugin.version>"))
+            .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
+            .satisfies(checkContains("<artifactId>quarkus-resteasy</artifactId>"))
+            .satisfies(checkContains("<artifactId>quarkus-resteasy-jsonb</artifactId>"))
+            .satisfies(checkContains("<artifactId>quarkus-hibernate-validator</artifactId>"))
+            .satisfies(checkContains("<artifactId>quarkus-neo4j</artifactId>"))
+            .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
 
-        assertThat(resourceText, containsString("@Path(\"/test/it\")"))
+        assertThatMatchSnapshot(info, projDir, "src/main/java/com/test/TestResource.java")
+            .satisfies(checkContains("@Path(\"/test/it\")"))
     }
 
     @Test
-    fun `Create a Gradle project using kotlin source`() {
+    @DisplayName("Create a Gradle project using kotlin source")
+    fun testGradleKotlin(info: TestInfo) {
         // When
-        val creator = QuarkusProjectService()
-        creator.extensionCatalog = quarkusExtensionCatalog
+        val creator = getProjectService()
+
         val proj = creator.create(
             ProjectDefinition(
-                groupId = "com.test",
-                artifactId = "test-app",
+                groupId = "com.kot",
+                artifactId = "test-kotlin-app",
                 version = "2.0.0",
                 buildTool = "GRADLE",
                 className = "com.test.TestResource",
-                extensions = setOf("io.quarkus:quarkus-resteasy", "io.quarkus:quarkus-kotlin")
+                extensions = setOf("resteasy", "kotlin")
             )
         )
-        val (testDir, zipList) = QuarkusProjectServiceTestUtils.extractProject(proj)
-        val fileList = QuarkusProjectServiceTestUtils.readFiles(testDir)
-        val buildGradleText = Paths.get(testDir.path, "test-app/build.gradle")
-            .toFile().readText(Charsets.UTF_8)
-        val resourceText = Paths.get(testDir.path, "test-app/src/main/kotlin/com/test/TestResource.kt")
-            .toFile().readText(Charsets.UTF_8)
+        val testDir = QuarkusProjectServiceTestUtils.extractProject(proj)
+        val projDir = Paths.get(testDir.first.path, "test-kotlin-app")
 
         // Then
-        assertThat(zipList, containsInAnyOrder(*prefixFileList(EXPECTED_CONTENT_GRADLE_KOTLIN, "test-app/")))
+        assertThatDirectoryTreeMatchSnapshots(info, projDir)
+        assertThatMatchSnapshot(info, projDir, "settings.gradle")
+            .satisfies(checkContains("rootProject.name='test-kotlin-app'"))
+        assertThat(projDir.resolve("build.gradle"))
+            .satisfies(checkContains("id 'org.jetbrains.kotlin.jvm' version "))
+            .satisfies(checkContains("implementation 'io.quarkus:quarkus-resteasy'"))
+            .satisfies(checkContains("implementation 'io.quarkus:quarkus-kotlin'"))
+            .satisfies(checkContains("implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk"))
+            .satisfies(checkContains("group 'com.kot'"))
+            .satisfies(checkContains("version '2.0.0'"))
 
-        assertThat(fileList.size, equalTo(40))
-
-        assertThat(buildGradleText, containsString("id 'org.jetbrains.kotlin.jvm' version "))
-        assertThat(buildGradleText, containsString("implementation 'io.quarkus:quarkus-kotlin'"))
-        assertThat(buildGradleText, containsString("implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk"))
-        assertThat(buildGradleText, containsString("group 'com.test'"))
-        assertThat(buildGradleText, containsString("version '2.0.0'"))
-        // Ensure dependency block is not duplicated (issue #5251)
-        assertThat(buildGradleText.indexOf("implementation enforcedPlatform"), equalTo(buildGradleText.lastIndexOf("implementation enforcedPlatform")));
-
-        assertThat(resourceText, containsString("fun hello() = \"Hello RESTEasy\""))
+        assertThatMatchSnapshot(info, projDir, "src/main/kotlin/com/test/TestResource.kt")
+            .satisfies(checkContains("fun hello() = \"Hello RESTEasy\""))
     }
 
     @Test
-    fun `Create a Gradle project using scala source`() {
+    @DisplayName("Create a project with RESTEasy-Qute and YAML config")
+    fun testQuteYaml(info: TestInfo) {
         // When
-        val creator = QuarkusProjectService()
-        creator.extensionCatalog = quarkusExtensionCatalog
+        val creator = getProjectService()
+
         val proj = creator.create(
             ProjectDefinition(
-                groupId = "com.test",
-                artifactId = "test-app",
-                version = "2.0.0",
-                buildTool = "GRADLE",
-                className = "com.test.TestResource",
-                extensions = setOf("io.quarkus:quarkus-resteasy", "io.quarkus:quarkus-scala")
+                groupId = "my.qute.yaml.app",
+                artifactId = "test-qute-yaml-app",
+                buildTool = "MAVEN",
+                extensions = setOf("resteasy-qute", "config-yaml")
             )
         )
-        val (testDir, zipList) = QuarkusProjectServiceTestUtils.extractProject(proj)
-        val fileList = QuarkusProjectServiceTestUtils.readFiles(testDir)
-        val buildGradleText = Paths.get(testDir.path, "test-app/build.gradle")
-            .toFile().readText(Charsets.UTF_8)
-        val resourceText = Paths.get(testDir.path, "test-app/src/main/scala/com/test/TestResource.scala")
-            .toFile().readText(Charsets.UTF_8)
+        val testDir = QuarkusProjectServiceTestUtils.extractProject(proj)
+        val projDir = Paths.get(testDir.first.path, "test-qute-yaml-app")
 
         // Then
-        assertThat(zipList, containsInAnyOrder(*prefixFileList(EXPECTED_CONTENT_GRADLE_SCALA, "test-app/")))
-
-        assertThat(fileList.size, equalTo(40))
-
-        assertThat(buildGradleText, containsString("id 'scala'"))
-        assertThat(buildGradleText, containsString("implementation 'io.quarkus:quarkus-scala'"))
-        assertThat(buildGradleText, containsString("group 'com.test'"))
-        assertThat(buildGradleText, containsString("version '2.0.0'"))
-        // Ensure dependency block is not duplicated (issue #5251)
-        assertThat(buildGradleText.indexOf("implementation enforcedPlatform"), equalTo(buildGradleText.lastIndexOf("implementation enforcedPlatform")));
-
-        assertThat(resourceText, containsString("def hello() = \"Hello RESTEasy\""))
+        assertThatDirectoryTreeMatchSnapshots(info, projDir)
+            .contains(
+                "src/main/resources/templates/page.qute.html",
+                "src/main/java/my/qute/yaml/app/config/ConfigResource.java",
+                "src/main/resources/application.yml",
+                "src/main/java/my/qute/yaml/app/resteasyqute/QuteResource.java"
+            )
     }
 
     @Test
@@ -355,8 +184,7 @@ internal class QuarkusProjectServiceTest {
         val executorService = Executors.newFixedThreadPool(4)
 
         val latch = CountDownLatch(20)
-        val creator = QuarkusProjectService()
-        creator.extensionCatalog = quarkusExtensionCatalog
+        val creator = getProjectService()
         val creates = (1..20).map { _ ->
             Callable {
                 val result = creator.create(ProjectDefinition())
@@ -370,4 +198,9 @@ internal class QuarkusProjectServiceTest {
         println("done")
     }
 
+    private fun getProjectService(): QuarkusProjectService {
+        val creator = QuarkusProjectService()
+        creator.extensionCatalog = quarkusExtensionCatalog
+        return creator
+    }
 }

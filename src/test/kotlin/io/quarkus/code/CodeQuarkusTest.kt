@@ -9,6 +9,7 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
+import io.quarkus.devtools.testing.WrapperRunner
 
 @QuarkusTest
 class CodeQuarkusTest {
@@ -41,7 +42,7 @@ class CodeQuarkusTest {
         val languageExt = if(language != "java") "io.quarkus:quarkus-$language" else ""
         val appName = "test-app-maven-$language"
         val result = given()
-                .`when`().get("/api/download?b=GRADLE&a=$appName&v=1.0.0&s=pDS.L0j&e=$languageExt")
+                .`when`().get("/api/download?b=GRADLE&a=$appName&v=1.0.0&e=neo4j&e=amazon-lambda-http&e=$languageExt")
                 .then()
                 .log().ifValidationFails()
                 .statusCode(200)
@@ -53,8 +54,4 @@ class CodeQuarkusTest {
         val run = WrapperRunner.run(dir.toPath().resolve(appName), WrapperRunner.Wrapper.GRADLE)
         assertThat(run, `is`(0))
     }
-
-
-
-
 }

@@ -5,10 +5,13 @@ import io.quarkus.code.config.CodeQuarkusConfig
 import io.quarkus.code.config.ExtensionProcessorConfig
 import io.quarkus.code.config.QuarkusPlatformConfig
 import io.quarkus.code.misc.QuarkusExtensionUtils
+import io.quarkus.code.misc.QuarkusExtensionUtils.toShortcut
 import io.quarkus.code.model.CodeQuarkusExtension
-import io.quarkus.platform.descriptor.resolver.json.QuarkusJsonPlatformDescriptorResolver
+import io.quarkus.devtools.project.QuarkusProjectHelper
+import io.quarkus.platform.tools.ToolsUtils
 import io.quarkus.runtime.StartupEvent
 import org.eclipse.microprofile.config.spi.ConfigProviderResolver
+import java.lang.IllegalArgumentException
 import java.util.logging.Level
 import java.util.logging.Logger
 import java.util.stream.Collectors
@@ -35,19 +38,11 @@ class QuarkusExtensionCatalogService {
         internal val bundledQuarkusVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-version", String::class.java)
 
         @JvmStatic
-        internal val descriptor = QuarkusJsonPlatformDescriptorResolver.newInstance().resolveFromBom(platformGroupId, platformArtifactId, platformVersion)
+        internal val catalog = ToolsUtils.resolvePlatformDescriptorDirectly(platformGroupId, platformArtifactId, platformVersion, QuarkusProjectHelper.artifactResolver(), QuarkusProjectHelper.messageWriter())
 
         init {
             checkState(platformVersion.isNotEmpty()) { "io.quarkus.code.quarkus-platform-version must not be null or empty" }
             checkState(bundledQuarkusVersion.isNotEmpty()) { "io.quarkus.code.quarkus-version must not be null or empty" }
-            checkState(descriptor.quarkusVersion == bundledQuarkusVersion, "The platform version (%s) must be compatible with the bundled Quarkus version (%s != %s)", descriptor.bomVersion, descriptor.quarkusVersion, bundledQuarkusVersion)
-            if (!io.quarkus.platform.tools.config.QuarkusPlatformConfig.hasGlobalDefault()) {
-                io.quarkus.platform.tools.config.QuarkusPlatformConfig.defaultConfigBuilder().setPlatformDescriptor(descriptor).build()
-            }
-        }
-
-        fun checkPlatformInitialization() {
-            check(io.quarkus.platform.tools.config.QuarkusPlatformConfig.hasGlobalDefault()) { "Quarkus platform must be initialized" }
         }
     }
 
@@ -66,7 +61,7 @@ class QuarkusExtensionCatalogService {
     lateinit var extensionsById: Map<String, CodeQuarkusExtension>
 
     fun onStart(@Observes e: StartupEvent) {
-        extensions = QuarkusExtensionUtils.processExtensions(descriptor, extensionProcessorConfig)
+        extensions = QuarkusExtensionUtils.processExtensions(catalog, extensionProcessorConfig)
         extensionsByShortId = extensions.associateBy { it.shortId }
         extensionsById = extensions.associateBy { it.id }
         LOG.log(Level.INFO) {"""
@@ -81,12 +76,24 @@ class QuarkusExtensionCatalogService {
         val fromId = (extensionsIds ?: setOf())
                 .stream()
                 .filter { !it.isBlank() }
-                .map { (this.extensionsById[it] ?: error("Invalid extension: $it")).id }
+                .map { findById(it) }
                 .collect(Collectors.toSet())
         val fromShortId = parseShortExtensions(rawShortExtensions).stream()
-                .map { (this.extensionsByShortId[it] ?: error("Invalid shortId: $it")).id }
+                .map { (this.extensionsByShortId[it] ?: throw IllegalArgumentException("Invalid shortId: $it")).id }
                 .collect(Collectors.toSet())
         return fromId union fromShortId
+    }
+
+    private fun findById(id: String): String {
+        if(this.extensionsById.containsKey(id)) {
+            return this.extensionsById[id]!!.id
+        }
+        val found = extensionsById.entries
+            .filter { toShortcut(it.key) == toShortcut(id) }
+        if (found.size == 1) {
+            return found[0].value.id
+        }
+        throw IllegalArgumentException("Invalid extension: $id")
     }
 
     private fun parseShortExtensions(shortExtension: String?): Set<String> {

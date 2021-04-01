@@ -4,24 +4,27 @@ import io.quarkus.code.config.CodeQuarkusConfig
 import io.quarkus.code.config.GitHubConfig
 import io.quarkus.code.config.GoogleAnalyticsConfig
 import io.quarkus.code.model.CodeQuarkusExtension
+import io.quarkus.code.model.CreatedProject
 import io.quarkus.code.model.PublicConfig
 import io.quarkus.code.model.ProjectDefinition
 import io.quarkus.code.service.QuarkusExtensionCatalogService
 import io.quarkus.code.service.QuarkusProjectService
 import io.quarkus.runtime.StartupEvent
+import org.apache.http.NameValuePair
+import org.apache.http.client.utils.URLEncodedUtils
+import org.apache.http.message.BasicNameValuePair
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
+import java.lang.IllegalArgumentException
+import java.nio.charset.StandardCharsets
 import java.util.logging.Level
 import java.util.logging.Logger
 import javax.enterprise.event.Observes
 import javax.inject.Inject
 import javax.validation.Valid
-import javax.ws.rs.BeanParam
-import javax.ws.rs.GET
-import javax.ws.rs.Path
-import javax.ws.rs.Produces
+import javax.ws.rs.*
 import javax.ws.rs.core.MediaType.APPLICATION_JSON
 import javax.ws.rs.core.MediaType.TEXT_PLAIN
 import javax.ws.rs.core.Response
@@ -93,6 +96,44 @@ class CodeQuarkusResource {
         return extensionCatalog.extensions
     }
 
+    @POST
+    @Path("/project")
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    @Operation(summary = "Prepare a Quarkus application project to be downloaded")
+    fun project(@Valid projectDefinition: ProjectDefinition?): CreatedProject {
+        val params = ArrayList<NameValuePair>();
+        if (projectDefinition != null) {
+            if(projectDefinition.groupId != ProjectDefinition.DEFAULT_GROUPID) {
+                params.add(BasicNameValuePair("g", projectDefinition.groupId))
+            }
+            if(projectDefinition.artifactId != ProjectDefinition.DEFAULT_ARTIFACTID) {
+                params.add(BasicNameValuePair("a", projectDefinition.artifactId))
+            }
+            if(projectDefinition.version != ProjectDefinition.DEFAULT_VERSION) {
+                params.add(BasicNameValuePair("v", projectDefinition.version))
+            }
+            if(projectDefinition.buildTool != ProjectDefinition.DEFAULT_BUILDTOOL) {
+                params.add(BasicNameValuePair("b", projectDefinition.buildTool))
+            }
+            if(projectDefinition.noExamples != ProjectDefinition.DEFAULT_NO_EXAMPLES) {
+                params.add(BasicNameValuePair("ne", projectDefinition.noExamples.toString()))
+            }
+            if(!projectDefinition.extensions.isEmpty()) {
+                projectDefinition.extensions.forEach { params.add(BasicNameValuePair("e", it)) }
+            }
+        }
+        val path = if(params.isEmpty()) "/d" else "/d?${URLEncodedUtils.format(params, StandardCharsets.UTF_8)}"
+       if (path.length > 1900) {
+           throw BadRequestException(Response
+               .status(Response.Status.BAD_REQUEST)
+               .entity("The path is too long. Choose a sensible amount of extensions.")
+               .type(TEXT_PLAIN)
+               .build())
+       }
+        return CreatedProject(path)
+    }
+
     @GET
     @Path("/download")
     @Produces("application/zip")
@@ -104,13 +145,38 @@ class CodeQuarkusResource {
                     .type("application/zip")
                     .header("Content-Disposition", "attachment; filename=\"${projectDefinition.artifactId}.zip\"")
                     .build()
-        } catch (e: IllegalStateException) {
-            LOG.warning("Bad request: ${e.message}")
+        } catch (e: IllegalArgumentException) {
+            val message = "Bad request: ${e.message}"
+            LOG.warning(message)
             return Response
-                    .status(Response.Status.BAD_REQUEST)
-                    .entity(e.message)
-                    .type(TEXT_PLAIN)
-                    .build()
+                .status(Response.Status.BAD_REQUEST)
+                .entity(message)
+                .type(TEXT_PLAIN)
+                .build()
+        }
+    }
+
+    @POST
+    @Path("/download")
+    @Consumes(APPLICATION_JSON)
+    @Produces("application/zip")
+    @Operation(summary = "Download a custom Quarkus application with the provided settings")
+    fun postDownload(@Valid projectDefinition: ProjectDefinition?): Response {
+        try {
+            val project = projectDefinition ?: ProjectDefinition()
+            return Response
+                .ok(projectCreator.create(project))
+                .type("application/zip")
+                .header("Content-Disposition", "attachment; filename=\"${project.artifactId}.zip\"")
+                .build()
+        } catch (e: IllegalArgumentException) {
+            val message = "Bad request: ${e.message}"
+            LOG.warning(message)
+            return Response
+                .status(Response.Status.BAD_REQUEST)
+                .entity(message)
+                .type(TEXT_PLAIN)
+                .build()
         }
     }
 }

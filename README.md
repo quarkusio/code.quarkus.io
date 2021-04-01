@@ -19,30 +19,36 @@ Then open `./src/main/frontend` with your favorite IDE to edit:
 
 # Staging
 
-Staging is auto-updated with master (it takes 15min to refresh after a merge): https://stage.code.quarkus.io
+Staging is auto-updated with main (it takes 15min to refresh after a merge): https://stage.code.quarkus.io
 
 You can check deployed commit hash on: https://stage.code.quarkus.io/api/config
 
 # Promote to production (temporarily only available to Red Hat developers)
 
 1. Check that everything works as expected on [staging](#staging)
-2. (Inside Red Hat private network) Create a PR on this [link](https://gitlab.cee.redhat.com/service/app-interface/-/edit/master/data/services/quarkus/cicd/ci-ext/saas.yaml) with the commit hash to release in the `ref: ...` with the commit hash of to release
+2. (Inside Red Hat private network) Create a PR on this [link](https://gitlab.cee.redhat.com/service/app-interface/-/edit/main/data/services/quarkus/cicd/ci-ext/saas.yaml) with the commit hash to release in the `ref: ...` with the commit hash of to release
 3. Comment with `/lgtm` and wait for CI checks
 4. Merging the PR will trigger a deployment to production
 
+
 # To update the Quarkus version (after a new Quarkus release)
 
-1. Edit the `pom.xml` with the new **Quarkus** & **compatible Quarkus Platform version**: 
+1. Rebase the `next` branch from `main` to make sure it is up to date
+2. Edit the `pom.xml` with the new **Quarkus** version & **Quarkus Platform BOM**: 
 ```
     <!-- Quarkus version is used for bundling Code Quarkus -->
     <version.quarkus>x.y.z</version.quarkus>
 
-    <!-- Quarkus Platform version must be compatible with Quarkus version -->
-    <version.quarkus-platform>a.b.c</version.quarkus-platform>
+    <!-- Quarkus Platform version -->
+    <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
+    <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
+    <quarkus.platform.version>a.b.c</quarkus.platform.version>
+n.quarkus-platform>
 ```
-2. Check that the `centos-quarkus-maven` image is matching the new Quarkus version: https://github.com/quarkusio/code.quarkus.io/blob/master/src/main/docker/Dockerfile.native.multistage#L2
-3. [Promote to production](#promote-to-production)
-
+3. Check that you are using the `quarkus-universe-bom` and not `quarkus-bom` as `quarkus.platform.artifact-id`
+4. Check that the `centos-quarkus-maven` image is up to date: https://github.com/quarkusio/code.quarkus.io/blob/main/src/main/docker/Dockerfile.multistage#L2
+5. Create a PR from your `next` to `main`
+6. [Promote to production](#promote-to-production)
 
 # API Documentation
 
