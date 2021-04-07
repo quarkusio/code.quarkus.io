@@ -23,6 +23,8 @@ class GitHubResource {
 
     companion object {
         private val LOG = Logger.getLogger(GitHubResource::class.java.name)
+        private const val CHECK_CREATED_RETRY = 5
+        private const val CHECK_CREATED_INTERVAL_FACTOR = 250L
     }
 
     @Inject
@@ -64,12 +66,16 @@ class GitHubResource {
         val repo = gitHubService.createRepository(login, token.accessToken, projectDefinition.artifactId)
         var created = false;
         var i = 0;
-        while (!created && i < 5) {
-
+        while (!created && i < CHECK_CREATED_RETRY) {
             created = gitHubService.repositoryExists(login, token.accessToken, projectDefinition.artifactId)
+            try {
+                Thread.sleep(i * CHECK_CREATED_INTERVAL_FACTOR);
+            } catch (e: InterruptedException) {
+                Thread.currentThread().interrupt()
+            }
             ++i;
             if (!created) {
-                LOG.info("Repository not yet created retrying: $i/3")
+                LOG.info("Repository not yet created retrying: $i/$CHECK_CREATED_RETRY")
             }
         }
         if (!created) {
