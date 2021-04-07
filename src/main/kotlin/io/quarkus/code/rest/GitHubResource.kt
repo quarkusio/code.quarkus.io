@@ -23,8 +23,8 @@ class GitHubResource {
 
     companion object {
         private val LOG = Logger.getLogger(GitHubResource::class.java.name)
-        private const val CHECK_CREATED_RETRY = 5
-        private const val CHECK_CREATED_INTERVAL_FACTOR = 250L
+        private const val CHECK_CREATED_RETRY = 10
+        private const val CHECK_CREATED_INTERVAL_FACTOR = 500L
     }
 
     @Inject
