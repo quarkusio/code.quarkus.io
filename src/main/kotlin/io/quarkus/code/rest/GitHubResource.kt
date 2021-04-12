@@ -13,7 +13,9 @@ import javax.inject.Inject
 import javax.validation.Valid
 import javax.validation.constraints.NotEmpty
 import javax.ws.rs.*
+import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.MediaType.APPLICATION_JSON
+import javax.ws.rs.core.Response
 
 
 @Path("/github")
@@ -21,6 +23,8 @@ class GitHubResource {
 
     companion object {
         private val LOG = Logger.getLogger(GitHubResource::class.java.name)
+        private const val CHECK_CREATED_RETRY = 10
+        private const val CHECK_CREATED_INTERVAL_FACTOR = 500L
     }
 
     @Inject
@@ -47,9 +51,11 @@ class GitHubResource {
     @Path("/project")
     @Produces(APPLICATION_JSON)
     @Operation(summary = "Create project and push generated code to GitHub")
-    fun createProject(@Valid @BeanParam projectDefinition: ProjectDefinition,
-                      @NotEmpty @HeaderParam("GitHub-Code") code: String,
-                      @NotEmpty @HeaderParam("GitHub-State") state: String): GitHubCreatedRepository {
+    fun createProject(
+        @Valid @BeanParam projectDefinition: ProjectDefinition,
+        @NotEmpty @HeaderParam("GitHub-Code") code: String,
+        @NotEmpty @HeaderParam("GitHub-State") state: String
+    ): GitHubCreatedRepository {
         check(gitHubService.isEnabled()) { "GitHub is not enabled" }
         val token = gitHubService.fetchAccessToken(code, state)
         val login = gitHubService.login(token.accessToken)
@@ -58,6 +64,29 @@ class GitHubResource {
         }
         val location = projectCreator.createTmp(projectDefinition, true)
         val repo = gitHubService.createRepository(login, token.accessToken, projectDefinition.artifactId)
+        var created = false;
+        var i = 0;
+        while (!created && i < CHECK_CREATED_RETRY) {
+            created = gitHubService.repositoryExists(login, token.accessToken, projectDefinition.artifactId)
+            try {
+                Thread.sleep(i * CHECK_CREATED_INTERVAL_FACTOR);
+            } catch (e: InterruptedException) {
+                Thread.currentThread().interrupt()
+            }
+            ++i;
+            if (!created) {
+                LOG.info("Repository not yet created retrying: $i/$CHECK_CREATED_RETRY")
+            }
+        }
+        if (!created) {
+            throw InternalServerErrorException(
+                Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Error while creating GitHub repository.")
+                    .type(MediaType.TEXT_PLAIN)
+                    .build()
+            )
+        }
         gitHubService.push(repo.ownerName, token.accessToken, repo.url, location)
         return repo
     }
