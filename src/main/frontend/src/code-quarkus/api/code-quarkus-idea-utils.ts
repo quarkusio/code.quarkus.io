@@ -2,8 +2,10 @@ import customProtocolCheck from "custom-protocol-check";
 import { Dispatch, SetStateAction } from "react";
 import { IdeaSupportResult } from "../quarkus-project/quarkus-project-flow";
 
+export const DEFAULT_IDEA = 'idea';
+
 export const openIdeaIfSupport = (cloneUrl: string, setIdeaSupport: Dispatch<SetStateAction<IdeaSupportResult>>) => {
-  const ideaProtocol = getIdeaProtocol('idea', cloneUrl);
+  const ideaProtocol = getIdeaProtocol(DEFAULT_IDEA, cloneUrl);
 
   customProtocolCheck(
     ideaProtocol,

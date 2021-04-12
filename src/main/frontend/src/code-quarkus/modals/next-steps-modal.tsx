@@ -3,6 +3,7 @@ import { Button, Modal, TextContent } from '@patternfly/react-core';
 import React from 'react';
 import { ExtensionEntry } from '../pickers/extensions-picker';
 import { GenerateResult, Target } from '../api/quarkus-project-utils';
+import { IdeaSupportResult } from '../quarkus-project/quarkus-project-flow';
 
 interface NextStepsProps {
   result: GenerateResult;
@@ -10,6 +11,8 @@ interface NextStepsProps {
   extensions: ExtensionEntry[];
 
   onClose?(reset?: boolean): void;
+
+  ideaSupport: IdeaSupportResult;
   openInIdea?(): void;
 }
 
@@ -47,9 +50,13 @@ export function NextStepsModal(props: NextStepsProps) {
           </Button>
         ),
         (
-          <Button key="open-in-idea" variant="secondary" aria-label="Open in IDEA" onClick={() => props.openInIdea && props.openInIdea()}>
-            Open in IDEA
-          </Button>
+          <React.Fragment key="open-in-idea">
+            {props.ideaSupport.isSupported && (
+              <Button variant="tertiary" aria-label="Open in IDEA" onClick={() => props.openInIdea && props.openInIdea()}>
+                Open in IDEA
+              </Button>
+            )}
+          </React.Fragment>
         )
       ]}
     >
@@ -57,22 +64,22 @@ export function NextStepsModal(props: NextStepsProps) {
         {props.result.target === Target.SHARE && (
           <React.Fragment>
             <p>Your can share the link to the zip:</p>
-            <Code event={[...baseEvent, 'Copy the download link']} content={`${props.result.url}`}/>
+            <Code event={[...baseEvent, 'Copy the download link']} content={`${props.result.url}`} />
             <p>Or the link to this configured application:</p>
-            <Code event={[...baseEvent, 'Copy the share link']} content={`${props.result.shareUrl}`}/>
+            <Code event={[...baseEvent, 'Copy the share link']} content={`${props.result.shareUrl}`} />
           </React.Fragment>
         )}
         {props.result.target === Target.DOWNLOAD && (
           <React.Fragment>
             <p>Your download should start shortly. If it doesn't, please use the direct link:</p>
             <Button component="a" href={props.result.url} aria-label="Download the zip" className="download-button"
-                    onClick={linkTracker}>Download the zip</Button>
+              onClick={linkTracker}>Download the zip</Button>
           </React.Fragment>
         )}
         {props.result.target === Target.GITHUB && (
           <React.Fragment>
             <p>Your application is now on <ExternalLink href={props.result.url} aria-label={`Open GitHub repository`} onClick={linkTracker}>GitHub</ExternalLink> ready to be cloned:</p>
-            <Code event={[...baseEvent, 'Copy git clone command']} content={`git clone ${props.result.url}`}/>
+            <Code event={[...baseEvent, 'Copy git clone command']} content={`git clone ${props.result.url}`} />
           </React.Fragment>
         )}
 
@@ -86,11 +93,11 @@ export function NextStepsModal(props: NextStepsProps) {
           )}
 
           {props.buildTool === 'MAVEN' && (
-            <Code event={devModeEvent} content="./mvnw compile quarkus:dev"/>
+            <Code event={devModeEvent} content="./mvnw compile quarkus:dev" />
           )}
 
-          {props.buildTool.startsWith('GRADLE')  && (
-            <Code event={devModeEvent} content="./gradlew quarkusDev"/>
+          {props.buildTool.startsWith('GRADLE') && (
+            <Code event={devModeEvent} content="./gradlew quarkusDev" />
           )}
         </div>
         {extensionsWithGuides.length === 1 && (
@@ -111,7 +118,7 @@ export function NextStepsModal(props: NextStepsProps) {
           </div>
         )}
         <div>
-          <br/>
+          <br />
           For more fun, have a look to our various <ExternalLink href="https://quarkus.io/guides/" aria-label="Open guides" onClick={linkTracker}>Quarkus guides</ExternalLink>...
         </div>
       </TextContent>
