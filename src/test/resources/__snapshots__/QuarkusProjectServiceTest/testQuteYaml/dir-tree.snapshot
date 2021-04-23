@@ -28,8 +28,5 @@ src/main/java/my/
 src/main/java/my/qute/
 src/main/java/my/qute/yaml/
 src/main/java/my/qute/yaml/app/
-src/main/java/my/qute/yaml/app/config/
-src/main/java/my/qute/yaml/app/config/ConfigResource.java
-src/main/java/my/qute/yaml/app/resteasyqute/
-src/main/java/my/qute/yaml/app/resteasyqute/QuteResource.java
-src/main/java/my/qute/yaml/app/resteasyqute/Quark.java
+src/main/java/my/qute/yaml/app/GreetingConfig.java
+src/main/java/my/qute/yaml/app/SomePage.java

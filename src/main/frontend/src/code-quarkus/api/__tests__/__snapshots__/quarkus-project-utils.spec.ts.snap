@@ -67,7 +67,7 @@ Object {
     "artifactId": "code-test",
     "buildTool": "GRADLE",
     "groupId": "org.test",
-    "noExamples": false,
+    "noCode": false,
     "version": "1.0.0-SNAPSHOT",
   },
 }
@@ -137,7 +137,7 @@ Object {
     "artifactId": "code-test",
     "buildTool": "MAVEN",
     "groupId": "org.test",
-    "noExamples": false,
+    "noCode": false,
     "version": "1.0.0-SNAPSHOT",
   },
 }
@@ -151,7 +151,7 @@ Object {
     "artifactId": "code-with-quarkus",
     "buildTool": "MAVEN",
     "groupId": "org.acme",
-    "noExamples": false,
+    "noCode": false,
     "version": "1.0",
   },
 }

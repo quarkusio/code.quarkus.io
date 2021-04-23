@@ -1,9 +1,14 @@
 package io.quarkus.code.rest
 
+import io.quarkus.code.model.ProjectDefinition
 import io.quarkus.code.service.GoogleAnalyticsService
 import io.quarkus.code.service.QuarkusExtensionCatalogService
+import io.vertx.core.json.JsonArray
+import io.vertx.core.json.JsonObject
+import java.io.BufferedReader
 import java.util.logging.Level
 import java.util.logging.Logger
+import java.util.stream.Collectors
 import javax.enterprise.inject.Instance
 import javax.inject.Inject
 import javax.servlet.http.HttpServletRequest
@@ -43,8 +48,6 @@ class AnalyticsFilter : ContainerRequestFilter {
             val userAgent = context.headers.getFirst(HttpHeaders.USER_AGENT)
             val referer = context.headers.getFirst("Referer")
             val remoteAddr = httpRequest!!.remoteAddr
-            val extensions: Set<String>?
-            val buildTool: String?
             val appAction: String? = when {
                 path.startsWith("/download") -> "Download"
                 path.startsWith("/github/project") -> "Push to GitHub"
@@ -52,9 +55,8 @@ class AnalyticsFilter : ContainerRequestFilter {
             }
             if (appAction != null) {
                 try {
-                    extensions = extensionCatalog.get().checkAndMergeExtensions(queryParams["e"]?.toSet(), queryParams.getFirst("s"))
-                    buildTool = queryParams.getFirst("b") ?: "MAVEN".toUpperCase()
-                    extensions.forEach {
+                    val w = readWatchedData(context)
+                    w.extensions.forEach {
                         googleAnalyticsService.get().sendEvent(
                                 category = "Extension",
                                 action = "Used",
@@ -65,8 +67,8 @@ class AnalyticsFilter : ContainerRequestFilter {
                                 userAgent = userAgent,
                                 referer = referer,
                                 remoteAddr = remoteAddr,
-                                extensions = extensions,
-                                buildTool = buildTool
+                                extensions = w.extensions,
+                                buildTool = w.buildTool
                         )
                     }
                     googleAnalyticsService.get().sendEvent(
@@ -79,8 +81,8 @@ class AnalyticsFilter : ContainerRequestFilter {
                             userAgent = userAgent,
                             referer = referer,
                             remoteAddr = remoteAddr,
-                            extensions = extensions,
-                            buildTool = buildTool
+                            extensions = w.extensions,
+                            buildTool = w.buildTool
                     )
 
                 } catch (e: IllegalStateException) {
@@ -105,4 +107,32 @@ class AnalyticsFilter : ContainerRequestFilter {
         }
 
     }
+
+    private fun readWatchedData(context: ContainerRequestContext): WatchedData {
+        val queryParams = context.uriInfo.queryParameters
+        val extensions: Set<String>
+        val buildTool: String
+        if(httpRequest!!.method == "POST") {
+            val text = context.entityStream.bufferedReader().use(BufferedReader::readText)
+            context.entityStream = text.byteInputStream()
+            if(text.isNotBlank()) {
+                val json = JsonObject(text)
+                val rawExtensions = json.getJsonArray("extensions", JsonArray()).stream().map { it.toString() }.collect(Collectors.toSet())
+                extensions = extensionCatalog.get().checkAndMergeExtensions(rawExtensions)
+                buildTool = json.getString("buildTool", ProjectDefinition.DEFAULT_BUILDTOOL)
+            } else {
+                extensions = emptySet()
+                buildTool = ProjectDefinition.DEFAULT_BUILDTOOL
+            }
+        } else {
+            extensions = extensionCatalog.get().checkAndMergeExtensions(queryParams["e"]?.toSet(), queryParams.getFirst("s"))
+            buildTool = queryParams.getFirst("b") ?: ProjectDefinition.DEFAULT_BUILDTOOL
+        }
+        return WatchedData(
+            buildTool = buildTool,
+            extensions = extensions
+        )
+    }
+
+    data class WatchedData(val buildTool: String, val extensions: Set<String>)
 }

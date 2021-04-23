@@ -21,11 +21,11 @@ export function ExtensionTags(props: { status?: string }) {
                 title="This extension has been deprecated. It is likely to be replaced or removed in a future version of Quarkus."
                 className="extension-tag deprecated"
             >DEPRECATED</span>);
-        case 'provides-example':
+        case 'provides-code':
             return (<span
-                title="This extension provides example code to help you get started..."
-                className="extension-tag example"
-            ><span className="codestart-example-icon" /></span>);
+                title="This extension provides starter code..."
+                className="extension-tag provides-code"
+            ><span className="codestart-icon" /></span>);
         default:
             return <React.Fragment/>;
     }

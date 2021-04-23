@@ -47,7 +47,7 @@ internal class QuarkusProjectServiceTest {
             .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
 
         assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/GreetingResource.java")
-            .satisfies(checkContains("@Path(\"/hello-resteasy\")"))
+            .satisfies(checkContains("@Path(\"/hello\")"))
     }
 
     @Test
@@ -71,7 +71,7 @@ internal class QuarkusProjectServiceTest {
             .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
 
         assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/GreetingResource.java")
-            .satisfies(checkContains("@Path(\"/hello-resteasy\")"))
+            .satisfies(checkContains("@Path(\"/hello\")"))
     }
 
     @Test
@@ -172,9 +172,9 @@ internal class QuarkusProjectServiceTest {
         assertThatDirectoryTreeMatchSnapshots(info, projDir)
             .contains(
                 "src/main/resources/templates/page.qute.html",
-                "src/main/java/my/qute/yaml/app/config/ConfigResource.java",
+                "src/main/java/my/qute/yaml/app/GreetingConfig.java",
                 "src/main/resources/application.yml",
-                "src/main/java/my/qute/yaml/app/resteasyqute/QuteResource.java"
+                "src/main/java/my/qute/yaml/app/SomePage.java"
             )
     }
 

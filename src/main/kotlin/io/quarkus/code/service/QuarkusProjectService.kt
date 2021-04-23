@@ -6,6 +6,7 @@ import io.quarkus.devtools.commands.CreateProject
 import io.quarkus.devtools.commands.data.QuarkusCommandException
 import io.quarkus.devtools.project.BuildTool
 import io.quarkus.devtools.project.QuarkusProjectHelper
+import io.quarkus.devtools.project.codegen.CreateProjectHelper
 import io.quarkus.devtools.project.compress.QuarkusProjectCompress
 import java.io.IOException
 import java.lang.IllegalArgumentException
@@ -55,7 +56,7 @@ class QuarkusProjectService {
 
     private fun createProject(projectDefinition: ProjectDefinition, projectFolderPath: Path, gitHub: Boolean) {
         val extensions = checkAndMergeExtensions(projectDefinition)
-        val sourceType = CreateProject.determineSourceType(extensions)
+        val sourceType = CreateProjectHelper.determineSourceType(extensions)
         val buildTool = BuildTool.valueOf(projectDefinition.buildTool)
         val codestarts = HashSet<String>()
         if (gitHub) {
@@ -69,12 +70,12 @@ class QuarkusProjectService {
                 .artifactId(projectDefinition.artifactId)
                 .version(projectDefinition.version)
                 .sourceType(sourceType)
-                .codestarts(codestarts)
+                .resourcePath(projectDefinition.path)
+                .extraCodestarts(codestarts)
                 .javaTarget("11")
                 .className(projectDefinition.className)
                 .extensions(extensions)
-                .noExamples(projectDefinition.noExamples)
-                .setValue("path", projectDefinition.path)
+                .noCode(projectDefinition.noCode || projectDefinition.noExamples)
                 .execute()
             if (!result.isSuccess) {
                 throw IOException("Error during Quarkus project creation")

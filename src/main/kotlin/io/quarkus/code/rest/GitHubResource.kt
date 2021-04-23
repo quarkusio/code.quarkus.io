@@ -49,10 +49,11 @@ class GitHubResource {
 
     @POST
     @Path("/project")
+    @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     @Operation(summary = "Create project and push generated code to GitHub")
     fun createProject(
-        @Valid @BeanParam projectDefinition: ProjectDefinition,
+        @Valid projectDefinition: ProjectDefinition,
         @NotEmpty @HeaderParam("GitHub-Code") code: String,
         @NotEmpty @HeaderParam("GitHub-State") state: String
     ): GitHubCreatedRepository {
@@ -87,7 +88,7 @@ class GitHubResource {
                     .build()
             )
         }
-        gitHubService.push(repo.ownerName, token.accessToken, repo.url, location)
+        gitHubService.push(repo.ownerName, token.accessToken, null, repo.url, location)
         return repo
     }
 }
