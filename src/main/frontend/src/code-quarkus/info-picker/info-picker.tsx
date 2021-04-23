@@ -8,7 +8,7 @@ export interface InfoPickerValue {
   groupId?: string;
   artifactId?: string;
   version?: string;
-  noExamples?: boolean;
+  noCode?: boolean;
   buildTool?: string;
 }
 
@@ -35,7 +35,7 @@ export const InfoPicker = (props: InfoPickerProps) => {
   const onGroupIdChange = (newValue: string) => onInputChange({ ...props.value, groupId: newValue });
   const onArtifactIdChange = (newValue: string) => onInputChange({ ...props.value, artifactId: newValue });
   const onVersionChange = (newValue: string) => onInputChange({ ...props.value, version: newValue });
-  const onNoExampleChange = (newValue: boolean) => onInputChange({ ...props.value, noExamples: newValue });
+  const onNoCodeChange = (newValue: boolean) => onInputChange({ ...props.value, noCode: newValue });
   const onBuildToolChange = (newValue: string) => onInputChange({ ...props.value, buildTool: newValue });
 
   return (
@@ -84,7 +84,7 @@ export const InfoPicker = (props: InfoPickerProps) => {
               onChange={onVersionChange}
               isValid={!!props.value.version}
             />
-            <NoCodeSelect onChange={onNoExampleChange} value={props.value.noExamples || false} />
+            <NoCodeSelect onChange={onNoCodeChange} value={props.value.noCode || false} />
           </div>
         </TogglePanel>
       )}

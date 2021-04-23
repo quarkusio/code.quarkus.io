@@ -12,7 +12,7 @@ import org.junit.jupiter.params.provider.ValueSource
 import io.quarkus.devtools.testing.WrapperRunner
 
 @QuarkusTest
-class CodeQuarkusTest {
+class CodeQuarkusIT {
 
     @ParameterizedTest
     @ValueSource(strings = ["java", "kotlin", "scala"])

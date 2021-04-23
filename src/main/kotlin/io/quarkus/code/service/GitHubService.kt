@@ -6,6 +6,7 @@ import io.quarkus.code.model.GitHubToken
 import io.quarkus.code.service.GitHubClient.Companion.toAuthorization
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.errors.GitAPIException
+import org.eclipse.jgit.transport.URIish
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
 import org.eclipse.microprofile.rest.client.inject.RestClient
 import java.io.IOException
@@ -80,7 +81,7 @@ class GitHubService {
         }
     }
 
-    fun push(ownerName: String, token: String, httpTransportUrl: String, path: Path) {
+    fun push(ownerName: String, token: String, initialBranch: String?, httpTransportUrl: String, path: Path) {
         check(isEnabled()) { "GitHub is not enabled" }
         require(token.isNotEmpty()) { "token must not be empty." }
         require(httpTransportUrl.isNotEmpty()) { "httpTransportUrl must not be empty." }
@@ -88,16 +89,20 @@ class GitHubService {
         requireNonNull(path, "path must not be null.")
 
         try {
-            Git.init().setDirectory(path.toFile()).call().use { repo ->
+            Git.init().setInitialBranch(initialBranch).setDirectory(path.toFile()).call().use { repo ->
                 repo.add().addFilepattern(".").call()
                 repo.commit().setMessage("Initial commit")
                         .setAuthor("quarkusio", "no-reply@quarkus.io")
                         .setCommitter("quarkusio", "no-reply@quarkus.io")
                         .setSign(false)
                         .call()
-
+                val remote  = repo.remoteAdd()
+                remote.setName("origin")
+                remote.setUri(URIish(httpTransportUrl))
+                remote.call()
                 val pushCommand = repo.push()
-                pushCommand.remote = httpTransportUrl
+                pushCommand.add("HEAD")
+                pushCommand.remote = "origin"
                 pushCommand.setCredentialsProvider(UsernamePasswordCredentialsProvider(ownerName, token))
                 pushCommand.call()
             }

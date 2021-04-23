@@ -5,7 +5,7 @@ export interface QuarkusProject {
     artifactId: string;
     version: string;
     name?: string;
-    noExamples?: boolean;
+    noCode?: boolean;
     buildTool: string;
   };
   extensions: Extension[];

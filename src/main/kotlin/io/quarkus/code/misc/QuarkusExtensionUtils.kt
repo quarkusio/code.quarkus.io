@@ -85,7 +85,8 @@ object QuarkusExtensionUtils {
                 tags = extensionProcessor.getTags(config.tagsFrom.orElse(null)),
                 keywords = extensionProcessor.extendedKeywords,
                 order = order.getAndIncrement(),
-                providesExampleCode = extensionProcessor.providesExampleCode(),
+                providesExampleCode = extensionProcessor.providesCode(),
+                providesCode = extensionProcessor.providesCode(),
                 guide = extensionProcessor.guide
         )
     }

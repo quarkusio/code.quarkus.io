@@ -128,37 +128,37 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
           />
         </div>
         <div
-          aria-label="Examples"
+          aria-label="Starter Code"
           class="pf-c-form__group"
         >
           <label
             class="pf-c-form__label"
-            for="no-examples"
+            for="no-code"
           >
             <span
               class="pf-c-form__label-text"
             >
               <span>
                 <span
-                  class="codestart-example-icon"
+                  class="codestart-icon"
                 />
-                Example code
+                Starter Code
               </span>
             </span>
           </label>
           <select
             class="pf-c-form-control"
-            id="no-examples"
+            id="no-code"
           >
             <option
               value="false"
             >
-              Yes, Please
+              Yes
             </option>
             <option
               value="true"
             >
-              No, Thanks
+              No
             </option>
           </select>
         </div>

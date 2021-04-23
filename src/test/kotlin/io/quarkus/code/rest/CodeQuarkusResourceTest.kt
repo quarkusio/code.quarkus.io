@@ -90,7 +90,7 @@ class CodeQuarkusResourceTest {
                 groupId = "io.awesome",
                 artifactId = "my-awesome-app",
                 version = "2.0.0",
-                noExamples = true,
+                noCode = true,
                 extensions = setOf("io.quarkus:quarkus-resteasy", "io.quarkus:quarkus-resteasy-jackson")
         )
         val path = given()
@@ -100,7 +100,7 @@ class CodeQuarkusResourceTest {
                 .then()
                 .log().ifValidationFails()
                 .statusCode(200)
-                .body("path", equalTo("/d?g=io.awesome&a=my-awesome-app&v=2.0.0&ne=true&e=io.quarkus%3Aquarkus-resteasy&e=io.quarkus%3Aquarkus-resteasy-jackson"))
+                .body("path", equalTo("/d?g=io.awesome&a=my-awesome-app&v=2.0.0&nc=true&e=io.quarkus%3Aquarkus-resteasy&e=io.quarkus%3Aquarkus-resteasy-jackson"))
                 .extract().path<String>("path")
         given()
                 .`when`().urlEncodingEnabled(false).get(path)
@@ -118,7 +118,7 @@ class CodeQuarkusResourceTest {
             groupId = "io.awesome",
             artifactId = "my-awesome-app",
             version = "2.0.0",
-            noExamples = true,
+            noCode = true,
             extensions = setOf("io.quarkus:quarkus-resteasy", "io.quarkus:quarkus-resteasy-jackson")
         )
         given()

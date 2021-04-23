@@ -17,7 +17,10 @@ data class CodeQuarkusExtension(
         val category: String,
         val tags: List<String>,
         val keywords: List<String>,
+        @Deprecated(message = "use providesCode instead")
         val providesExampleCode: Boolean,
+
+        val providesCode: Boolean,
         val guide: String?,
         val order: Int
 
