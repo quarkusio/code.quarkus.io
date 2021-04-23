@@ -72,7 +72,7 @@ class QuarkusExtensionCatalogService {
     }
 
 
-    fun checkAndMergeExtensions(extensionsIds: Set<String>?, rawShortExtensions: String?): Set<String> {
+    fun checkAndMergeExtensions(extensionsIds: Set<String>?, rawShortExtensions: String? = null): Set<String> {
         val fromId = (extensionsIds ?: setOf())
                 .stream()
                 .filter { !it.isBlank() }
