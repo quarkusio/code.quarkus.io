@@ -1,4 +1,3 @@
-import { ExtensionEntry } from '../pickers/extensions-picker';
 
 export interface QuarkusProject {
   metadata: {
@@ -9,7 +8,7 @@ export interface QuarkusProject {
     noExamples?: boolean;
     buildTool: string;
   };
-  extensions: ExtensionEntry[];
+  extensions: Extension[];
   github?: {
     code: string;
     state: string;

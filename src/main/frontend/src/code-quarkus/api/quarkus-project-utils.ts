@@ -1,7 +1,6 @@
 import { parse, ParsedUrlQuery, stringify } from 'querystring';
-import { ExtensionEntry } from '../pickers/extensions-picker';
 import { createGitHubProject } from './code-quarkus-github-api';
-import { QuarkusProject } from './model';
+import { Extension, QuarkusProject } from './model';
 import _ from 'lodash';
 import { BACKEND_URL, CLIENT_NAME } from './env';
 
@@ -154,7 +153,7 @@ const generateParamQuery = (filter: string, project: string) => {
   return '';
 };
 
-export function resolveInitialProject(extensions: ExtensionEntry[], queryParams?: ParsedUrlQuery) {
+export function resolveInitialProject(extensions: Extension[], queryParams?: ParsedUrlQuery) {
   return parseProjectInQuery(extensions, queryParams) || newDefaultProject();
 }
 
@@ -164,7 +163,7 @@ function normalizeQueryExtensions(queryExtensions: undefined | string | string[]
 }
 
 
-export function parseProjectInQuery(extensions: ExtensionEntry[], queryParams?: ParsedUrlQuery): QuarkusProject | undefined {
+export function parseProjectInQuery(extensions: Extension[], queryParams?: ParsedUrlQuery): QuarkusProject | undefined {
   if (!queryParams) {
     return undefined;
   }

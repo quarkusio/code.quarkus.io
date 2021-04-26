@@ -1,16 +1,16 @@
-import { Button, Dropdown, DropdownItem, DropdownPosition, FormGroup, KebabToggle, TextInput, Tooltip } from '@patternfly/react-core';
-import { CheckSquareIcon, EllipsisVIcon, MapIcon, OutlinedSquareIcon, SearchIcon, TrashAltIcon } from '@patternfly/react-icons';
-import classNames from 'classnames';
+import { Button, FormGroup, TextInput, Tooltip } from '@patternfly/react-core';
+import { SearchIcon } from '@patternfly/react-icons';
 import hotkeys from 'hotkeys-js';
 import _ from 'lodash';
-import React, { SetStateAction, KeyboardEvent, useEffect, useRef, useState, useCallback } from 'react';
+import React, { KeyboardEvent, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { InputProps, useAnalytics, CopyToClipboard } from '../../core';
+import { InputProps, useAnalytics } from '../../core';
 import { QuarkusBlurb } from '../layout/quarkus-blurb';
 import { processEntries } from './extensions-picker-utils';
 import { QuarkusProject } from '../api/model';
 import './extensions-picker.scss';
 import { debouncedSyncParamsQuery } from '../api/quarkus-project-utils';
+import { ExtensionRow } from './extension-row';
 
 export interface ExtensionEntry {
   id: string;
@@ -40,182 +40,6 @@ interface ExtensionsPickerProps extends InputProps<ExtensionsPickerValue> {
   setFilterParam?: React.Dispatch<SetStateAction<string>>;
 
   filterFunction?(d: ExtensionEntry): boolean;
-}
-
-interface ExtensionProps extends ExtensionEntry {
-  selected: boolean;
-  keyboardActived: boolean;
-  detailed?: boolean;
-  default: boolean;
-  buildTool: string;
-
-  onClick(id: string): void;
-}
-
-function StatusTag(props: { status?: string }) {
-  if (!props.status) {
-    return <React.Fragment/>;
-  }
-
-  switch (props.status) {
-    case 'preview':
-      return (<span
-        className="extension-tag preview"
-        title="This is work in progress. API or configuration properties might change as the extension matures. Give us your feedback :)"
-      >PREVIEW</span>);
-    case 'experimental':
-      return (<span
-        className="extension-tag experimental"
-        title="Early feedback is requested to mature the idea. There is no guarantee of stability nor long term presence in the platform until the solution matures."
-      >EXPERIMENTAL</span>);
-    case 'deprecated':
-      return (<span
-          title="This extension has been deprecated. It is likely to be replaced or removed in a future version of Quarkus."
-          className="extension-tag deprecated"
-      >DEPRECATED</span>);
-    case 'provides-example':
-      return (<span
-        title="This extension provides example code to help you get started..."
-        className="extension-tag example"
-      ><span className="codestart-example-icon" /></span>);
-    default:
-      return <React.Fragment/>;
-  }
-}
-
-function More(props: ExtensionEntry) {
-  const [isMoreOpen, setIsMoreOpen] = useState(false);
-  const analytics = useAnalytics();
-  const gav = `${props.id}:${props.version}`;
-  const gavArray = gav.split(':');
-  const addMvnExt = `./mvnw quarkus:add-extension -Dextensions="${props.id}"`;
-  const addGradleExt = `./gradlew addExtension --extensions="${props.id}"`;
-  const xml = `<dependency>\n            <groupId>${gavArray[0]}</groupId>\n            <artifactId>${gavArray[1]}</artifactId>\n        </dependency>`;
-  const closeMore = () => {
-    setTimeout(() => setIsMoreOpen(false), 1000);
-  };
-
-  const openGuide = () => {
-    analytics.event('Extension', 'Click "Open Extension Guide" link', props.id);
-    closeMore();
-  };
-
-  const moreItems = [
-    (
-      <DropdownItem key="maven" variant="icon">
-        <CopyToClipboard event={['Extension', 'Copy the command to add it with Maven', props.id]} content={addMvnExt}
-                         tooltipPosition="left" onClick={closeMore} zIndex={201}
-        >Copy the command to add it with Maven</CopyToClipboard>
-      </DropdownItem>
-    ),
-    (
-      <DropdownItem key="gradle" variant="icon">
-        <CopyToClipboard event={['Extension', 'Copy the command to add it with Gradle', props.id]}
-                         content={addGradleExt} tooltipPosition="left" onClick={closeMore} zIndex={201}
-        >Copy the command to add it with Gradle</CopyToClipboard>
-      </DropdownItem>
-    ),
-    (
-      <DropdownItem key="xml" variant="icon">
-        <CopyToClipboard event={['Extension', 'Copy the extension pom.xml snippet', props.id]} content={xml}
-                         tooltipPosition="left" onClick={closeMore} zIndex={201}
-        >Copy the extension pom.xml snippet</CopyToClipboard>
-      </DropdownItem>
-    ),
-    (
-      <DropdownItem key="id" variant="icon">
-        <CopyToClipboard event={['Extension', 'Copy the GAV', props.id]} content={gav} tooltipPosition="left"
-                         onClick={closeMore} zIndex={201}>Copy the extension GAV</CopyToClipboard>
-      </DropdownItem>
-    )
-  ];
-
-  if (props.guide) {
-    moreItems.push(
-      <DropdownItem key="guide" variant="icon" href={props.guide} target="_blank" onClick={openGuide}>
-        <MapIcon/> Open Extension Guide
-      </DropdownItem>
-    );
-  }
-
-  return (
-    <Dropdown
-      isOpen={isMoreOpen}
-      position={DropdownPosition.left}
-      toggle={<KebabToggle onToggle={() => setIsMoreOpen(!isMoreOpen)}/>}
-      onClick={(e) => e.stopPropagation()}
-      dropdownItems={moreItems}
-    />
-  );
-}
-
-function Extension(props: ExtensionProps) {
-  const [hover, setHover] = useState(false);
-
-  const onClick = () => {
-    if (props.default) {
-      return;
-    }
-    props.onClick(props.id);
-    setHover(false);
-  };
-
-  const activationEvents = {
-    onClick,
-    onMouseEnter: () => setHover(true),
-    onMouseLeave: () => setHover(false),
-  };
-
-  const description = props.description || '...';
-  const selected = props.selected || props.default;
-
-  return (
-    <div {...activationEvents} className={classNames('extension-item', {
-      'keyboard-actived': props.keyboardActived,
-      hover,
-      selected,
-      'by-default': props.default
-    })}>
-      {props.detailed && (
-        <div
-          className="extension-selector"
-          aria-label={`Switch ${props.id} extension`}
-        >
-          {!selected && !(hover) && <OutlinedSquareIcon/>}
-          {(hover || selected) && <CheckSquareIcon/>}
-        </div>
-      )}
-
-      <div className="extension-summary">
-        <span className="extension-name" title={`${props.name} (${props.version})`}>{props.name}</span>
-        {props.tags && props.tags.map((s, i) => <StatusTag key={i} status={s}/>)}
-      </div>
-
-      {!props.detailed && (
-        <div
-          className="extension-remove"
-        >
-          {hover && props.selected && <TrashAltIcon/>}
-        </div>
-      )}
-
-      {props.detailed && (
-        <div className="extension-details">
-          <div
-            className="extension-description" title={description}
-          >{description}</div>
-          <div className="extension-more">
-            {!hover && (
-              <button aria-label="Actions" className="pf-c-dropdown__toggle" type="button" aria-expanded="false">
-                <EllipsisVIcon/>
-              </button>
-            )}
-            {hover && <More {...props} />}
-          </div>
-        </div>
-      )}
-    </div>
-  );
 }
 
 export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
@@ -346,7 +170,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
           <div className="extension-list-wrapper">
             {
               extensions.map((ex, i) => (
-                <Extension
+                <ExtensionRow
                   selected={entrySet.has(ex.id)}
                   keyboardActived={i === keyboardActived}
                   {...ex}
@@ -369,7 +193,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
         <div className="extension-list-wrapper">
           {result.map((ex, i) => {
             const ext = (
-              <Extension
+              <ExtensionRow
                 selected={entrySet.has(ex.id)}
                 keyboardActived={i === keyboardActived}
                 {...ex}
