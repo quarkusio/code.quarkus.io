@@ -1,7 +1,7 @@
 import React, { SetStateAction, useState } from 'react';
 import './quarkus-project-edition-form.scss';
-import { ExtensionEntry, ExtensionsPicker } from '../pickers/extensions-picker';
-import { InfoPicker, isValidInfo } from '../pickers/info-picker';
+import { ExtensionEntry, ExtensionsPicker } from '../extensions-picker/extensions-picker';
+import { InfoPicker, isValidInfo } from '../info-picker/info-picker';
 import { GenerateButton } from './generate-button';
 import { Config, QuarkusProject } from '../api/model';
 import { Target } from '../api/quarkus-project-utils';

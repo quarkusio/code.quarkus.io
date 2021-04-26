@@ -1,13 +1,13 @@
 import { Code, createLinkTracker, ExternalLink, useAnalytics } from '../../core';
 import { Button, Modal, TextContent } from '@patternfly/react-core';
 import React from 'react';
-import { ExtensionEntry } from '../pickers/extensions-picker';
 import { GenerateResult, Target } from '../api/quarkus-project-utils';
+import { Extension } from '../api/model';
 
 interface NextStepsProps {
   result: GenerateResult;
   buildTool: string;
-  extensions: ExtensionEntry[];
+  extensions: Extension[];
 
   onClose?(reset?: boolean): void;
 }
