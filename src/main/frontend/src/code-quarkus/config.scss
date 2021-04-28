@@ -1,14 +1,16 @@
 @import url(https://fonts.googleapis.com/css?family=PT+Mono);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
-$font: "Open Sans", Regular;
+$font: 'Open Sans', Arial, sans-serif;
 $inputFont: "PT Mono", Regular;
 
 $background: #0d1c2c;
-$backgroundSecondary: black;
+$background2: black;
+$background3: #282A39;
 
 $primary: #71aeef;
 $secondary: #4695eb;
+$tertiary: #be9100;
 
 $warningColor: #ff004a;
 $errorColor: #ff0048a8;
@@ -23,15 +25,18 @@ $loaderColor: white;
 // Top container
 $topContainerTextColor: white;
 $topContainerBg: $background;
-$topContainerBgImage: url("/static/media/bg-form.jpg");
+$topContainerBgImage: url("../../media/bg-form.jpg");
 
 $fieldLabelAndBorderColor: $primary; 
-$fieldLabelAndBorderHoverColor: $topContainerTextColor; 
+$fieldLabelAndBorderHoverColor: $topContainerTextColor;
 $fieldTextColor: $topContainerTextColor; 
 $selectOptionsTextColor: black; 
 
 $readOnlyTextColor: #bdbcbc;
 $readonlyLabelAndBorderColor: #707070;
+
+$extensionsCartButtonTextColor: white;
+$extensionsCartButtonBgColor: $background;
 
 $generateButtonTextColor: white;
 $generateButtonBgColor: $secondary;
@@ -80,8 +85,8 @@ $extensionsPickerRemoveButtonColor: $warningColor;
 
 $extensionsPickerDescriptionTextColorOnTablet: #ccc;
 
-$extensionsPickerMoreDropdownBg: $backgroundSecondary;
-$extensionsPickerMoreDropdownTextColor: white;
+$dropdownMenuBg: $background3;
+$dropdownMenuTextColor: white;
 
 $extensionsPickerCategoryTextColor: $mainContainerTextColor;
 $extensionsPickerCategoryUnderlineColor: $secondary;
@@ -96,10 +101,18 @@ $extensionsPickerFlagPreviewColor: $secondary;
 $extensionsPickerFlagExperimentalColor: $warningColor;
 $extensionsPickerFlagDeprecatedColor: $readonlyLabelAndBorderColor;
 $extensionsPickerFlagCustomColor: black;
+$extensionsPickerFlagProvidesCodeColor: $tertiary;
+
+//Copy to clipboard
+$copyToClipboardBackgroundColor: $background2;
+$copyToClipboardBodyBackgroundColor: #1f1f1f;
+$copyToClipboardHeaderTextColor: white;
+$copyToClipboardBodyTextColor: $tertiary;
+$copyToClipboardBorderColor: $primary;
 
 // Header
 $headerBackgroundColor: $background;
-$headerBackgroundImage: url("/static/media/bg-header.jpg");
+$headerBackgroundImage: url("../../media/bg-header.jpg");
 $headerTextColor: white;
 
 $headerQuarkusVersionTextColor: white;
@@ -115,7 +128,7 @@ $headerSupportButtonTextColor: white;
 $headerSupportButtonBorderColor: white;
 $headerSupportButtonBackgroundColor: transparent;
 
-$headerSupportPanelBackgroundColor: black;
+$headerSupportPanelBackgroundColor: $background3;
 $headerSupportPanelTextColor: white;
 
 // Blurb

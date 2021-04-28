@@ -3,9 +3,8 @@ import {
   generateProject,
   newDefaultProject,
   resolveInitialProject,
-  resolveInitialFilterQueryParam,
   Target,
-  resolveQueryParams
+  getQueryParams
 } from '../api/quarkus-project-utils';
 import { useAnalytics } from '../../core/analytics';
 import { CodeQuarkusForm } from './quarkus-project-edition-form';
@@ -29,12 +28,11 @@ interface QuarkusProjectFlowProps extends CodeQuarkusProps {
   extensions: Extension[];
 }
 
-const queryParams = resolveQueryParams();
+const queryParams = getQueryParams();
 
 export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
-  const [filterQuery, setFilterQuery] = useState<string>(resolveInitialFilterQueryParam(queryParams));
-  const [project, setProject] = useState<QuarkusProject>(resolveInitialProject(props.extensions, queryParams));
-  const [run, setRun] = useState<RunState>({ status: Status.EDITION });
+  const [ project, setProject ] = useState<QuarkusProject>(resolveInitialProject(props.extensions, queryParams));
+  const [ run, setRun ] = useState<RunState>({ status: Status.EDITION });
   const analytics = useAnalytics();
 
   const generate = (target: Target = Target.DOWNLOAD) => {
@@ -42,7 +40,7 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
       console.error(`Trying to generate an application from the wrong status: ${run.status}`);
       return;
     }
-    if (target !== Target.DOWNLOAD) {
+    if (target === Target.GITHUB) {
       setRun({ status: Status.RUNNING });
     }
     analytics.event('UX', 'Generate application', target);
@@ -69,7 +67,7 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
 
   return (
     <React.Fragment>
-      <CodeQuarkusForm project={project} setProject={setProject} config={props.config} onSave={generate} extensions={props.extensions} filterParam={filterQuery} setFilterParam={setFilterQuery}/>
+      <CodeQuarkusForm project={project} setProject={setProject} config={props.config} onSave={generate} extensions={props.extensions}/>
       {!run.error && run.status === Status.RUNNING && (
         <LoadingModal/>
       )}
@@ -77,7 +75,7 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
         <NextStepsModal onClose={closeModal} result={run.result} buildTool={project.metadata.buildTool} extensions={project.extensions}/>
       )}
       {run.error && (
-        <ErrorModal onClose={() => closeModal(false)} error={run.error}/>
+        <ErrorModal onHide={() => closeModal(false)} error={run.error}/>
       )}
     </React.Fragment>
   );

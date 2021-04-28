@@ -1,0 +1,27 @@
+
+.copy-to-clipboard-popover {
+  pre {
+    white-space: pre-wrap;
+    margin: 0;
+  }
+}
+
+.copy-to-clipboard.code {
+  margin: 10px 0;
+  svg {
+    float: right;
+    margin-top: 8px;
+    margin-right: 5px;
+  }
+
+  .copy-to-clipboard-label {
+    display: block;
+  }
+
+  code {
+    display: block;
+    padding: 5px;
+  }
+
+
+}

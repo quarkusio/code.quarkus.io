@@ -1,32 +1,17 @@
 @import "src/code-quarkus/config";
 
-.pf-c-alert.quarkus-blurb {
-  margin-bottom: 20px;
-  box-shadow: none;
-  background-color: $blurbBg;
-  text-align: justify;
-  font-size: 0.9rem;
-
-  .pf-c-alert__icon {
-    background-color: transparent;
-    color: $blurbInfoIconColor;
-  }
-
-  .pf-c-alert__title {
-    font-weight: bold;
-    color: $blurbTextColor;
-  }
-  .pf-c-alert__description {
-    color: $blurbTextColor;
-  }
-
-  .pf-c-alert__action button.pf-c-button {
-    &:hover {
-      color: $blurbTextColor;
-    }
-  }
+.quarkus-blurb {
 
   a {
     color: $blurbLinkTextColor;
+  }
+
+  .blurb-not-again-checkbox{
+    height: 30px;
+    line-height: 30px;
+  }
+
+  .blurb-not-again-checkbox label{
+    margin-left: 5px;
   }
 }

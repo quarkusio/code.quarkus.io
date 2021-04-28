@@ -3,7 +3,10 @@ import { cleanup, fireEvent, render } from '@testing-library/react';
 import { DebouncedTextInput } from '../debounced-text-input';
 import { act } from 'react-dom/test-utils';
 
-jest.useFakeTimers();
+
+beforeEach(() => {
+  jest.useFakeTimers()
+})
 
 afterEach(() => {
   cleanup();
@@ -23,7 +26,7 @@ describe('<DebouncedTextInput />', () => {
     const comp = render(<DebouncedTextInput value="toto" onChange={onChange} aria-label="debounced-input"/>);
     fireEvent.change(comp.getByLabelText('debounced-input'), { target: { value: 'some value' } });
     expect(onChange).toBeCalledTimes(1);
-    expect(onChange).lastCalledWith('some value', expect.anything());
+    expect(onChange).lastCalledWith('some value');
   });
 
   it('Call onChange to be called after a delay for the second immediate change', () => {
@@ -32,10 +35,10 @@ describe('<DebouncedTextInput />', () => {
     fireEvent.change(comp.getByLabelText('debounced-input'), { target: { value: 'some value' } });
     fireEvent.change(comp.getByLabelText('debounced-input'), { target: { value: 'some new value' } });
     expect(onChange).toBeCalledTimes(1);
-    expect(onChange).lastCalledWith('some value', expect.anything());
+    expect(onChange).lastCalledWith('some value');
     act(() => { jest.advanceTimersByTime(200); });
     expect(onChange).toBeCalledTimes(2);
-    expect(onChange).lastCalledWith('some new value', expect.anything());
+    expect(onChange).lastCalledWith('some new value');
   });
 
   it('Call onChange to be called after a delay for the second change', () => {
@@ -43,13 +46,13 @@ describe('<DebouncedTextInput />', () => {
     const comp = render(<DebouncedTextInput value="toto" onChange={onChange} aria-label="debounced-input"/>);
     fireEvent.change(comp.getByLabelText('debounced-input'), { target: { value: 'some value' } });
     expect(onChange).toBeCalledTimes(1);
-    expect(onChange).lastCalledWith('some value', expect.anything());
+    expect(onChange).lastCalledWith('some value');
     act(() => { jest.advanceTimersByTime(50); });
     fireEvent.change(comp.getByLabelText('debounced-input'), { target: { value: 'some new value' } });
     expect(onChange).toBeCalledTimes(1);
     act(() => { jest.advanceTimersByTime(200); });
     expect(onChange).toBeCalledTimes(2);
-    expect(onChange).lastCalledWith('some new value', expect.anything());
+    expect(onChange).lastCalledWith('some new value');
   });
 
   it('Call onChange only with the latest value', () => {
@@ -61,10 +64,10 @@ describe('<DebouncedTextInput />', () => {
     act(() => { jest.advanceTimersByTime(50); });
     fireEvent.change(comp.getByLabelText('debounced-input'), { target: { value: 'some value 3' } });
     expect(onChange).toBeCalledTimes(1);
-    expect(onChange).lastCalledWith('some value', expect.anything());
+    expect(onChange).lastCalledWith('some value');
     act(() => { jest.advanceTimersByTime(200); });
     expect(onChange).toBeCalledTimes(2);
-    expect(onChange).lastCalledWith('some value 3', expect.anything());
+    expect(onChange).lastCalledWith('some value 3');
   });
 
   it('Uses the provided value on rerender', () => {

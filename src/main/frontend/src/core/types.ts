@@ -27,13 +27,13 @@ export interface OverviewProps<T> {
   onClick: () => void;
 }
 
-export interface Hub<V = undefined, O = any> {
+export interface Hub<O = any> {
   id: string;
   title: string;
   Overview: FunctionComponent<O>;
 }
 
-export interface FormHub<V, P extends FormProps<V> = FormProps<V>, O extends OverviewProps<V> = OverviewProps<V>> extends Hub<V, O> {
+export interface FormHub<V, P extends FormProps<V> = FormProps<V>, O extends OverviewProps<V> = OverviewProps<V>> extends Hub<O> {
   Form: FunctionComponent<P>;
   Overview: FunctionComponent<O>;
   checkCompletion(value: V): boolean;

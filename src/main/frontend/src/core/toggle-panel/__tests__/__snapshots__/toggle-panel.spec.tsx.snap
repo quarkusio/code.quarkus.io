@@ -9,37 +9,29 @@ exports[`<TogglePanel /> renders the TogglePanel correctly 1`] = `
       the panel content
     </p>
   </div>
-  <div
-    class="toggle-button"
+  <a
+    aria-label="Toggle panel"
+    class="toggle-button btn btn-primary"
   >
-    <a
-      aria-disabled="false"
-      aria-label="Toggle panel"
-      class="pf-c-button pf-m-link"
+    <svg
+      fill="currentColor"
+      height="1em"
+      stroke="currentColor"
+      stroke-width="0"
+      viewBox="0 0 448 512"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <span
-        class="pf-c-button__text"
-      >
-        <span>
-          <svg
-            aria-hidden="true"
-            fill="currentColor"
-            height="1em"
-            role="img"
-            style="vertical-align: -0.125em;"
-            viewBox="0 0 448 512"
-            width="1em"
-          >
-            <path
-              d="M448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48zM92.5 220.5l123 123c4.7 4.7 12.3 4.7 17 0l123-123c7.6-7.6 2.2-20.5-8.5-20.5H101c-10.7 0-16.1 12.9-8.5 20.5z"
-              transform=""
-            />
-          </svg>
-           Open
-        </span>
-      </span>
-    </a>
-  </div>
+      <path
+        d="M448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48zM92.5 220.5l123 123c4.7 4.7 12.3 4.7 17 0l123-123c7.6-7.6 2.2-20.5-8.5-20.5H101c-10.7 0-16.1 12.9-8.5 20.5z"
+      />
+    </svg>
+    <span
+      class="toggle-label"
+    >
+      Open
+    </span>
+  </a>
 </DocumentFragment>
 `;
 
@@ -54,36 +46,28 @@ exports[`<TogglePanel /> show the edition panel for the clicked hub 1`] = `
       the panel content
     </p>
   </div>
-  <div
-    class="toggle-button"
+  <a
+    aria-label="Toggle panel"
+    class="toggle-button btn btn-primary"
   >
-    <a
-      aria-disabled="false"
-      aria-label="Toggle panel"
-      class="pf-c-button pf-m-link"
+    <svg
+      fill="currentColor"
+      height="1em"
+      stroke="currentColor"
+      stroke-width="0"
+      viewBox="0 0 448 512"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <span
-        class="pf-c-button__text"
-      >
-        <span>
-          <svg
-            aria-hidden="true"
-            fill="currentColor"
-            height="1em"
-            role="img"
-            style="vertical-align: -0.125em;"
-            viewBox="0 0 448 512"
-            width="1em"
-          >
-            <path
-              d="M0 432V80c0-26.51 21.49-48 48-48h352c26.51 0 48 21.49 48 48v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48zm355.515-140.485l-123.03-123.03c-4.686-4.686-12.284-4.686-16.971 0L92.485 291.515c-7.56 7.56-2.206 20.485 8.485 20.485h246.059c10.691 0 16.045-12.926 8.486-20.485z"
-              transform=""
-            />
-          </svg>
-           Close
-        </span>
-      </span>
-    </a>
-  </div>
+      <path
+        d="M0 432V80c0-26.51 21.49-48 48-48h352c26.51 0 48 21.49 48 48v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48zm355.515-140.485l-123.03-123.03c-4.686-4.686-12.284-4.686-16.971 0L92.485 291.515c-7.56 7.56-2.206 20.485 8.485 20.485h246.059c10.691 0 16.045-12.926 8.486-20.485z"
+      />
+    </svg>
+    <span
+      class="toggle-label"
+    >
+      Close
+    </span>
+  </a>
 </DocumentFragment>
 `;

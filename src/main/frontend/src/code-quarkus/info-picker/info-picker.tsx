@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import { ExtendedTextInput, InputProps, optionalBool, TogglePanel } from '../../core';
 import './info-picker.scss';
 import { BuildToolSelect } from './build-tool-select';
@@ -39,48 +39,34 @@ export const InfoPicker = (props: InfoPickerProps) => {
   const onBuildToolChange = (newValue: string) => onInputChange({ ...props.value, buildTool: newValue });
 
   return (
-    <div className={`info-picker horizontal`}>
-      <div className="base-settings pf-c-form">
+    <div className={'info-picker horizontal'}>
+      <div className="base-settings form">
         <ExtendedTextInput
           label="Group"
-          isRequired
-          type="text"
           id="groupId"
-          name="groupId"
           aria-label="Edit groupId"
           value={props.value.groupId || ''}
-          autoComplete="off"
           onChange={onGroupIdChange}
-          pattern={GROUPID_PATTERN.source}
           isValid={isValidGroupId(props.value.groupId)}
         />
         <ExtendedTextInput
           label="Artifact"
-          isRequired
-          type="text"
           id="artifactId"
-          name="artifactId"
           aria-label="Edit artifactId"
           value={props.value.artifactId || ''}
-          autoComplete="off"
           onChange={onArtifactIdChange}
-          pattern={ARTIFACTID_PATTERN.source}
           isValid={isValidId(props.value.artifactId)}
         />
         <BuildToolSelect onChange={onBuildToolChange} value={props.value.buildTool || 'MAVEN'}/>
       </div>
       {optionalBool(props.showMoreOptions, true) && (
-        <TogglePanel id="info-extended" mode="horizontal" openLabel="Configure more options" event={['UX', 'Application Info - Configure More Options']}>
-          <div className="extended-settings pf-c-form">
+        <TogglePanel id="info-extended" mode="horizontal" openLabel="Configure more options" event={[ 'UX', 'Application Info - Configure More Options' ]}>
+          <div className="extended-settings form">
             <ExtendedTextInput
               label="Version"
-              isRequired
-              type="text"
               id="projectVersion"
-              name="projectVersion"
               aria-label="Edit project version"
               value={props.value.version || ''}
-              autoComplete="off"
               onChange={onVersionChange}
               isValid={!!props.value.version}
             />

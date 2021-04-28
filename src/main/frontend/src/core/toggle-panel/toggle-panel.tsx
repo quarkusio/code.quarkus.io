@@ -1,9 +1,9 @@
-import { Button } from '@patternfly/react-core';
-import { CaretSquareDownIcon, CaretSquareUpIcon, CaretSquareRightIcon, CaretSquareLeftIcon } from '@patternfly/react-icons';
 import React, { Fragment, ReactNode } from 'react';
 import createPersistedState from 'use-persisted-state';
 import './toggle-panel.scss';
 import { useAnalytics } from '../analytics/analytics-context';
+import { Button } from 'react-bootstrap';
+import { FaCaretSquareDown, FaCaretSquareLeft, FaCaretSquareRight, FaCaretSquareUp } from 'react-icons/fa';
 
 interface TogglePanelProps {
   id: string;
@@ -17,13 +17,13 @@ interface TogglePanelProps {
 export function TogglePanel(props: TogglePanelProps) {
   const analytics = useAnalytics();
   const useTogglePanelState = createPersistedState(props.id);
-  const [open, setOpen] = useTogglePanelState(false);
+  const [ open, setOpen ] = useTogglePanelState(false);
   const mode = props.mode || 'vertical';
-  const CloseIcon = mode === 'horizontal' ? <CaretSquareLeftIcon /> : <CaretSquareUpIcon />;
-  const OpenIcon = mode === 'horizontal' ? <CaretSquareRightIcon /> : <CaretSquareDownIcon />;
+  const CloseIcon = mode === 'horizontal' ? <FaCaretSquareLeft/> : <FaCaretSquareUp/>;
+  const OpenIcon = mode === 'horizontal' ? <FaCaretSquareRight/> : <FaCaretSquareDown/>;
   const flip = () => {
-    if(props.event && props.event.length === 2) {
-      analytics.event(props.event[0], props.event[1], open ? "Hide" : "Show")
+    if (props.event && props.event.length === 2) {
+      analytics.event(props.event[0], props.event[1], open ? 'Hide' : 'Show')
     }
     setOpen(!open);
   };
@@ -32,17 +32,15 @@ export function TogglePanel(props: TogglePanelProps) {
       <div className={`toggle-panel ${mode} ${(open ? 'open' : '')}`}>
         {props.children}
       </div>
-      <div className="toggle-button">
-        <Button
-          // @ts-ignore
-          component="a"
-          variant="link"
-          aria-label="Toggle panel"
-          onClick={flip}
-        >
-          {open ? (<span>{CloseIcon} {props.closeLabel || 'Close'}</span>) : (<span>{OpenIcon} {props.openLabel || 'Open'}</span>)}
-        </Button>
-      </div>
+      <Button
+        as="a"
+        className="toggle-button"
+        aria-label="Toggle panel"
+        onClick={flip}
+      >
+        {open ? (<React.Fragment>{CloseIcon}<span className="toggle-label">{props.closeLabel || 'Close'}</span></React.Fragment>) : (
+          <React.Fragment>{OpenIcon}<span className="toggle-label">{props.openLabel || 'Open'}</span></React.Fragment>)}
+      </Button>
     </Fragment>
   );
 }
