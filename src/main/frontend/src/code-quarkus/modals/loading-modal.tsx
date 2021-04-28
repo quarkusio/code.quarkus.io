@@ -7,7 +7,7 @@ export function LoadingModal(props: {}) {
   return (
     <Modal
       title="Supersonic Subatomic push to GitHub..."
-      isSmall={true}
+      variant="small"
       className="loading-modal code-quarkus-modal"
       isOpen={true}
       aria-label="Supersonic Subatomic push to GitHub..."

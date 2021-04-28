@@ -3,7 +3,7 @@
 exports[`<DebouncedTextInput /> renders the ExtendedTextInput correctly 1`] = `
 <DocumentFragment>
   <input
-    aria-invalid="false"
+    aria-invalid="true"
     aria-label="debounced-input"
     class="pf-c-form-control"
     type="text"

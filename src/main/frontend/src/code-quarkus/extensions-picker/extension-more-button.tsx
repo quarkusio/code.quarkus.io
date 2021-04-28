@@ -23,28 +23,28 @@ export function ExtensionMoreButton(props: ExtensionEntry) {
 
     const moreItems = [
         (
-            <DropdownItem key="maven" variant="icon">
+            <DropdownItem key="maven">
                 <CopyToClipboard event={['Extension', 'Copy the command to add it with Maven', props.id]} content={addMvnExt}
                                  tooltipPosition="left" onClick={closeMore} zIndex={201}
                 >Copy the command to add it with Maven</CopyToClipboard>
             </DropdownItem>
         ),
         (
-            <DropdownItem key="gradle" variant="icon">
+            <DropdownItem key="gradle">
                 <CopyToClipboard event={['Extension', 'Copy the command to add it with Gradle', props.id]}
                                  content={addGradleExt} tooltipPosition="left" onClick={closeMore} zIndex={201}
                 >Copy the command to add it with Gradle</CopyToClipboard>
             </DropdownItem>
         ),
         (
-            <DropdownItem key="xml" variant="icon">
+            <DropdownItem key="xml">
                 <CopyToClipboard event={['Extension', 'Copy the extension pom.xml snippet', props.id]} content={xml}
                                  tooltipPosition="left" onClick={closeMore} zIndex={201}
                 >Copy the extension pom.xml snippet</CopyToClipboard>
             </DropdownItem>
         ),
         (
-            <DropdownItem key="id" variant="icon">
+            <DropdownItem key="id">
                 <CopyToClipboard event={['Extension', 'Copy the GAV', props.id]} content={gav} tooltipPosition="left"
                                  onClick={closeMore} zIndex={201}>Copy the extension GAV</CopyToClipboard>
             </DropdownItem>
@@ -53,7 +53,7 @@ export function ExtensionMoreButton(props: ExtensionEntry) {
 
     if (props.guide) {
         moreItems.push(
-            <DropdownItem key="guide" variant="icon" href={props.guide} target="_blank" onClick={openGuide}>
+            <DropdownItem key="guide" href={props.guide} target="_blank" onClick={openGuide}>
                 <MapIcon/> Open Extension Guide
             </DropdownItem>
         );

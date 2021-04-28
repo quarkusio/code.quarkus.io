@@ -1,4 +1,4 @@
-import { FormGroup, TextInputProps } from '@patternfly/react-core';
+import { TextInputProps } from '@patternfly/react-core';
 import React, { ChangeEvent, useState } from 'react';
 import { useAnalytics } from './analytics';
 import { DebouncedTextInput } from './debounced-text-input';
@@ -6,6 +6,7 @@ import { DebouncedTextInput } from './debounced-text-input';
 export interface ExtendedTextInputProps extends TextInputProps {
   id: string;
   helperTextInvalid?: string;
+  isValid: boolean;
 }
 
 export function useAnalyticsEditionField(id: string, onChange: any): [boolean, (value: any, event: ChangeEvent<any>) => void] {
@@ -28,19 +29,17 @@ export function ExtendedTextInput(props: ExtendedTextInputProps) {
   const [isDirty, onChangeWithDirty] = useAnalyticsEditionField(props.id, onChange);
   const valid = (!isDirty && !props.value) || isValid;
   return (
-    <FormGroup
-      fieldId={props.id}
-      label={label}
-      isValid={!helperTextInvalid ? undefined : valid}
-      helperTextInvalid={helperTextInvalid}
-      className={className}
-    >
-      <DebouncedTextInput
-        {...rest as any}
-        onChange={onChangeWithDirty}
-        isValid={valid}
-        value={value}
-      />
-    </FormGroup>
+      <div className="form-group">
+        <label className="form-group-label" htmlFor={props.id}><span
+            className="form-group-label-text">{label}</span></label>
+          <DebouncedTextInput
+              className="form-group-control"
+              {...rest as any}
+              onChange={onChangeWithDirty}
+              isValid={valid}
+              value={value}
+          />
+      </div>
+
   );
 }

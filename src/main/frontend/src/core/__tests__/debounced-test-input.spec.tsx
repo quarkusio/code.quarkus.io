@@ -3,7 +3,10 @@ import { cleanup, fireEvent, render } from '@testing-library/react';
 import { DebouncedTextInput } from '../debounced-text-input';
 import { act } from 'react-dom/test-utils';
 
-jest.useFakeTimers();
+
+beforeEach(() => {
+  jest.useFakeTimers()
+})
 
 afterEach(() => {
   cleanup();

@@ -4,10 +4,11 @@ import { useDebounce } from './use-debounce';
 
 export interface DebouncedTextInputProps extends TextInputProps {
   delay?: number;
+  isValid: boolean;
 }
 
 export function DebouncedTextInput(props: DebouncedTextInputProps) {
-  const { value, onChange, ...rest } = props;
+  const { value, onChange, isValid, ...rest } = props;
   const [localValue, setLocalValue] = useState(value);
   const [prevValue, setPrevValue] = useState<string | undefined>(undefined);
   const onChangeWithPrev = onChange ? (newVal: string, e: React.ChangeEvent<any>) => {
@@ -30,6 +31,7 @@ export function DebouncedTextInput(props: DebouncedTextInputProps) {
       {...rest as any}
       onChange={onChangeWithLocal}
       value={onChange ? localValue: value}
+      validated={isValid ? 'default': 'error' }
     />
   );
 }

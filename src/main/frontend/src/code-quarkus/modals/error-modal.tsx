@@ -6,7 +6,7 @@ export function ErrorModal(props: { error: any, onClose: () => void }) {
   return (
     <Modal
       title="Holy Supersonic Atoms!"
-      isSmall={true}
+      variant="small"
       onClose={props.onClose}
       className="error-modal code-quarkus-modal"
       isOpen={true}

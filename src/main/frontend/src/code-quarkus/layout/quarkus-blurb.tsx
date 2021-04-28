@@ -23,7 +23,7 @@ export function QuarkusBlurb() {
     <>
       {visible && (
         <Alert className="quarkus-blurb" variant="info" title="This page will help you bootstrap your Quarkus application and discover its extension ecosystem."
-               action={<AlertActionCloseButton onClose={close}/>}>
+               actionClose={<AlertActionCloseButton onClose={close}/>}>
           <p>Think of Quarkus extensions as your project dependencies. Extensions configure, boot and integrate a framework or technology into your Quarkus application. They also do all of the heavy
             lifting of providing the right information to GraalVM for your application to compile natively.</p>
           <br/>

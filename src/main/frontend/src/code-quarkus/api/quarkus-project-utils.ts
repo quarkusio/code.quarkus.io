@@ -148,7 +148,7 @@ export function resolveInitialFilterQueryParam(queryParams?: ParsedUrlQuery): st
         return '';
     }
 
-    return queryParams[queryName].toString() || '';
+    return queryParams![queryName]!.toString() || '';
 }
 
 

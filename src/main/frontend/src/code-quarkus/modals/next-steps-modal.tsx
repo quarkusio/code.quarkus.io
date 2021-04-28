@@ -29,7 +29,7 @@ export function NextStepsModal(props: NextStepsProps) {
   return (
     <Modal
       title="Your Supersonic Subatomic App is ready!"
-      isSmall={true}
+      variant="small"
       className="next-steps-modal code-quarkus-modal"
       onClose={() => close(false)}
       isOpen={true}

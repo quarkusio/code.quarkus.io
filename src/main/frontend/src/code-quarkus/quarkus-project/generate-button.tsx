@@ -49,7 +49,7 @@ export function GenerateButton(props: { project: QuarkusProject, isProjectValid:
   const downloadUrl = getProjectDownloadUrl(props.project);
   const moreItems = [
     (
-      <DropdownItem key="zip" variant="icon" onClick={downloadZip} href={downloadUrl} target="_blank" rel="noopener noreferrer">
+      <DropdownItem key="zip" onClick={downloadZip} href={downloadUrl} target="_blank" rel="noopener noreferrer">
         <DownloadIcon/> Download as a zip
       </DropdownItem>
     )
@@ -62,13 +62,13 @@ export function GenerateButton(props: { project: QuarkusProject, isProjectValid:
     };
 
     moreItems.push(
-      <DropdownItem key="github" variant="icon" onClick={githubClick}>
+      <DropdownItem key="github" onClick={githubClick}>
         <GithubIcon/> Push to GitHub
       </DropdownItem>
     );
   }
   moreItems.push(
-    <DropdownItem key="share" variant="icon" onClick={() => props.generate(Target.SHARE)}>
+    <DropdownItem key="share" onClick={() => props.generate(Target.SHARE)}>
       <ShareIcon /> Share
     </DropdownItem>
   );
