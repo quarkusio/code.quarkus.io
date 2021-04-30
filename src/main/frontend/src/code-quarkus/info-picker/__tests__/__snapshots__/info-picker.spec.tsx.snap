@@ -6,7 +6,7 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
     class="info-picker horizontal"
   >
     <div
-      class="base-settings pf-c-form"
+      class="base-settings form"
     >
       <div
         class="form-group"
@@ -24,12 +24,8 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
         <input
           aria-invalid="false"
           aria-label="Edit groupId"
-          autocomplete="off"
-          class="pf-c-form-control form-group-control"
+          class="form-group-control form-control"
           id="groupId"
-          name="groupId"
-          pattern="^([a-zA-Z_$][a-zA-Z\\\\d_$]*\\\\.)*[a-zA-Z_$][a-zA-Z\\\\d_$]*$"
-          required=""
           type="text"
           value="org.test"
         />
@@ -50,12 +46,8 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
         <input
           aria-invalid="false"
           aria-label="Edit artifactId"
-          autocomplete="off"
-          class="pf-c-form-control form-group-control"
+          class="form-group-control form-control"
           id="artifactId"
-          name="artifactId"
-          pattern="^[a-z][a-z0-9-._]*$"
-          required=""
           type="text"
           value="test"
         />
@@ -100,7 +92,7 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
       class="toggle-panel horizontal "
     >
       <div
-        class="extended-settings pf-c-form"
+        class="extended-settings form"
       >
         <div
           class="form-group"
@@ -118,11 +110,8 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
           <input
             aria-invalid="false"
             aria-label="Edit project version"
-            autocomplete="off"
-            class="pf-c-form-control form-group-control"
+            class="form-group-control form-control"
             id="projectVersion"
-            name="projectVersion"
-            required=""
             type="text"
             value="1.0.0"
           />
@@ -160,35 +149,29 @@ exports[`<InfoPicker /> renders the InfoPicker correctly 1`] = `
         </div>
       </div>
     </div>
-    <div
-      class="toggle-button"
+    <a
+      aria-label="Toggle panel"
+      class="toggle-button btn btn-primary"
     >
-      <a
-        aria-disabled="false"
-        aria-label="Toggle panel"
-        class="pf-c-button pf-m-link"
-        data-ouia-component-id="OUIA-Generated-Button-link-1"
-        data-ouia-component-type="PF4/Button"
-        data-ouia-safe="true"
+      <svg
+        fill="currentColor"
+        height="1em"
+        stroke="currentColor"
+        stroke-width="0"
+        viewBox="0 0 448 512"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <span>
-          <svg
-            aria-hidden="true"
-            fill="currentColor"
-            height="1em"
-            role="img"
-            style="vertical-align: -0.125em;"
-            viewBox="0 0 448 512"
-            width="1em"
-          >
-            <path
-              d="M48 32h352c26.51 0 48 21.49 48 48v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V80c0-26.51 21.49-48 48-48zm140.485 355.515l123.029-123.029c4.686-4.686 4.686-12.284 0-16.971l-123.029-123.03c-7.56-7.56-20.485-2.206-20.485 8.485v246.059c0 10.691 12.926 16.045 20.485 8.486z"
-            />
-          </svg>
-           Configure more options
-        </span>
-      </a>
-    </div>
+        <path
+          d="M48 32h352c26.51 0 48 21.49 48 48v352c0 26.51-21.49 48-48 48H48c-26.51 0-48-21.49-48-48V80c0-26.51 21.49-48 48-48zm140.485 355.515l123.029-123.029c4.686-4.686 4.686-12.284 0-16.971l-123.029-123.03c-7.56-7.56-20.485-2.206-20.485 8.485v246.059c0 10.691 12.926 16.045 20.485 8.486z"
+        />
+      </svg>
+      <span
+        class="toggle-label"
+      >
+        Configure more options
+      </span>
+    </a>
   </div>
 </DocumentFragment>
 `;

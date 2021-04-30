@@ -1,34 +1,28 @@
-import React, { useState, MouseEvent, useEffect } from 'react';
+import React, { MouseEvent, useEffect, useState } from 'react';
 import copy from 'copy-to-clipboard';
-import { ClipboardCheckIcon, ClipboardIcon } from '@patternfly/react-icons';
 import { useAnalytics } from './index';
-import { Tooltip } from '@patternfly/react-core';
-
-type TooltipPosition = 'auto' | 'top' | 'bottom' | 'left' | 'right';
+import { OverlayTrigger, Popover } from 'react-bootstrap';
+import { Placement } from 'react-bootstrap/Overlay';
+import { FaClipboard, FaClipboardCheck } from 'react-icons/fa';
+import './copy-to-clipboard.scss';
+import classNames from 'classnames';
 
 interface CopyToClipboardProps {
+  id: string;
   event: string[];
   content: string;
   children?: React.ReactNode;
-  tooltipPosition?: TooltipPosition;
+  tooltipPlacement?: Placement;
   zIndex?: number;
+  light?: boolean;
+  className?: string;
   onClick?: (e: MouseEvent) => void;
 }
 
 export function CopyToClipboard(props: CopyToClipboardProps) {
-  const [active, setActive] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const [copiedText, setCopiedText] = useState(false);
-  const [timeoutRef1, setTimeoutRef1] = useState<number>();
-  const [timeoutRef2, setTimeoutRef2] = useState<number>();
+  const [ copied, setCopied ] = useState(false);
+  const [ active, setActive ] = useState(false);
   const analytics = useAnalytics();
-
-  useEffect(() => {
-    return () => {
-      clearTimeout(timeoutRef1);
-      clearTimeout(timeoutRef2);
-    };
-  }, [timeoutRef1, timeoutRef2]);
 
   const copyToClipboard = (e: MouseEvent) => {
     e.stopPropagation();
@@ -38,23 +32,48 @@ export function CopyToClipboard(props: CopyToClipboardProps) {
       analytics.event(props.event[0], props.event[1], props.event[2]);
     }
     setCopied(true);
-    setCopiedText(true);
-    setTimeoutRef1(window.setTimeout(() => setCopiedText(false), 2000));
-    setTimeoutRef2(window.setTimeout(() => setCopied(false), 1500));
   };
-  const tooltip = copiedText ? <h3>Successfuly copied to clipboard!</h3> : <span>Copy to clipboard: <br/><code>{props.content}</code></span>;
+
+  const tooltip = props.light ? (
+    <Popover id={props.id} className="copy-to-clipboard-popover" style={{ zIndex:props.zIndex || 100 }}>
+      <Popover.Title as="h5">{copied ? <FaClipboardCheck/> : <FaClipboard/>}{copied ? 'It\'s in your clipboard!' : 'Copy this snippet to clipboard'}</Popover.Title>
+    </Popover>
+  ) : (
+    <Popover id={props.id} className="copy-to-clipboard-popover" style={{ zIndex:props.zIndex || 100 }}>
+      <Popover.Title as="h3">{copied ? <FaClipboardCheck/> : <FaClipboard/>}{copied ? 'It\'s in your clipboard!' : 'Copy this snippet to clipboard'}</Popover.Title>
+      <Popover.Content>
+        <code><pre>{props.content}</pre></code>
+      </Popover.Content>
+    </Popover>
+  )
+
+  function onEnter() {
+    return setActive(true);
+  }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [ copied ]);
+
+  function onLeave() {
+    return setActive(false);
+  }
+
   return (
-    <Tooltip position={props.tooltipPosition} maxWidth="650px" content={tooltip} entryDelay={0} exitDelay={0} trigger="manual" isVisible={copied || active} zIndex={props.zIndex || 100}>
+    <OverlayTrigger  trigger="hover" placement={props.tooltipPlacement} overlay={tooltip} delay={{ show: 0, hide: 0 }}>
       <div
-        onMouseEnter={() => setActive(true)}
-        onMouseLeave={() => setActive(false)}
         onClick={copyToClipboard}
-        className="copy-to-clipboard"
+        className={classNames('copy-to-clipboard', props.className)}
+        onMouseEnter={onEnter}
+        onMouseLeave={onLeave}
         style={{ cursor: 'pointer' }}
       >
-        {active || copied ? <ClipboardCheckIcon/> : <ClipboardIcon/>}{props.children}
+        {active || copied ? <FaClipboardCheck/> : <FaClipboard/>}
+        <span className="copy-to-clipboard-label">{props.children}</span>
       </div>
-    </Tooltip>
+    </OverlayTrigger>
   );
-
 }

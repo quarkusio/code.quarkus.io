@@ -1,20 +1,19 @@
-import { Modal, TextContent } from '@patternfly/react-core';
 import React from 'react';
+import { Modal } from 'react-bootstrap';
 
 
-export function ErrorModal(props: { error: any, onClose: () => void }) {
+export function ErrorModal(props: { error: any, onHide: () => void }) {
   return (
     <Modal
-      title="Holy Supersonic Atoms!"
-      variant="small"
-      onClose={props.onClose}
+      onHide={props.onHide}
       className="error-modal code-quarkus-modal"
-      isOpen={true}
+      show={true}
       aria-label="Holy Supersonic Atoms..."
     >
-      <TextContent>
+      <Modal.Header>Holy Supersonic Atoms!</Modal.Header>
+      <Modal.Body>
         <h3>{props.error.message || props.error.toString()}</h3>
-      </TextContent>
+      </Modal.Body>
     </Modal>
   );
 }

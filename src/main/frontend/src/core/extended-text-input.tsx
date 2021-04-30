@@ -1,45 +1,44 @@
-import { TextInputProps } from '@patternfly/react-core';
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import { useAnalytics } from './analytics';
-import { DebouncedTextInput } from './debounced-text-input';
+import { DebouncedTextInput, DebouncedTextInputProps } from './debounced-text-input';
+import { FaExclamationTriangle } from 'react-icons/fa';
 
-export interface ExtendedTextInputProps extends TextInputProps {
+export interface ExtendedTextInputProps extends DebouncedTextInputProps {
   id: string;
-  helperTextInvalid?: string;
-  isValid: boolean;
+  label: string;
 }
 
-export function useAnalyticsEditionField(id: string, onChange: any): [boolean, (value: any, event: ChangeEvent<any>) => void] {
-  const [isDirty, setIsDirty] = useState(false);
+export function useAnalyticsEditionField(id: string, onChange: any): [boolean, (event: any) => void] {
+  const [ isDirty, setIsDirty ] = useState(false);
   const analytics = useAnalytics();
-  const onChangeWithDirty = (value: string, event: ChangeEvent<any>) => {
+  const onChangeWithDirty = (event: any) => {
     if (!isDirty) {
       analytics.event('UX', 'Edit field', id);
     }
     setIsDirty(true);
     if (onChange) {
-      onChange(value, event);
+      onChange(event);
     }
   };
-  return [isDirty, onChangeWithDirty];
+  return [ isDirty, onChangeWithDirty ];
 }
 
 export function ExtendedTextInput(props: ExtendedTextInputProps) {
-  const { value, onChange, isValid, helperTextInvalid, label, className, ...rest } = props;
-  const [isDirty, onChangeWithDirty] = useAnalyticsEditionField(props.id, onChange);
+  const { value, onChange, isValid, label, className, ...rest } = props;
+  const [ isDirty, onChangeWithDirty ] = useAnalyticsEditionField(props.id, onChange);
   const valid = (!isDirty && !props.value) || isValid;
   return (
-      <div className="form-group">
-        <label className="form-group-label" htmlFor={props.id}><span
-            className="form-group-label-text">{label}</span></label>
-          <DebouncedTextInput
-              className="form-group-control"
-              {...rest as any}
-              onChange={onChangeWithDirty}
-              isValid={valid}
-              value={value}
-          />
-      </div>
-
+    <div className="form-group">
+      <label className="form-group-label" htmlFor={props.id}><span
+        className="form-group-label-text">{label}</span></label>
+      <DebouncedTextInput
+        className="form-group-control"
+        {...rest as any}
+        onChange={onChangeWithDirty}
+        isValid={valid}
+        value={value}
+      />
+      {!isValid && <FaExclamationTriangle className="is-invalid-icon" />}
+    </div>
   );
 }

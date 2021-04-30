@@ -2,6 +2,8 @@ import { cleanup, fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import { ExtensionEntry, ExtensionsPicker } from '../extensions-picker';
 import { filterFunction, sortFunction } from '../extensions-picker-utils';
+import { act } from 'react-dom/test-utils';
+import { DebouncedTextInput } from '../../../core/debounced-text-input';
 
 afterEach(() => {
   cleanup();
@@ -30,7 +32,7 @@ const entries: ExtensionEntry[] = [
     'id': 'io.quarkus:quarkus-camel-netty4-http',
     'version': 'test-version',
     'name': 'Camel Netty4 test HTTP',
-    'tags': ['preview'],
+    'tags': [ 'preview' ],
     'default': false,
     'keywords': [
       'camel-netty4-http',
@@ -44,7 +46,7 @@ const entries: ExtensionEntry[] = [
     'id': 'some-id',
     'version': 'test-version',
     'name': 'A CDI in name test',
-    'tags': ['experimental'],
+    'tags': [ 'experimental' ],
     'default': false,
     'keywords': [
       'lambda',
@@ -64,26 +66,39 @@ const entries: ExtensionEntry[] = [
 describe('<ExtensionsPicker />', () => {
 
   it('renders the ExtensionsPicker correctly', () => {
-    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{extensions: []}} onChange={() => { }} buildTool="MAVEN" />);
+    const setFilter = jest.fn();
+    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{ extensions: [] }} onChange={() => { }} buildTool="MAVEN" filter="" setFilter={setFilter}  />);
     expect(comp.asFragment()).toMatchSnapshot();
   });
 
   it('show results for valid search', async () => {
-    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{extensions: []}} onChange={() => { }} buildTool="MAVEN" />);
+    const setFilter = jest.fn();
+    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{ extensions: [] }} onChange={() => { }} buildTool="MAVEN" filter="" setFilter={setFilter} />);
 
     const searchField = comp.getByLabelText('Search extensions');
     fireEvent.change(searchField, { target: { value: 'CDI' } });
+    expect(setFilter).toBeCalledTimes(1);
+    expect(setFilter).lastCalledWith('CDI');
+    act(() => {
+      comp.rerender(<ExtensionsPicker placeholder="" entries={entries} value={{ extensions: [] }} onChange={() => { }} buildTool="MAVEN" filter="CDI" setFilter={setFilter} />);
+    });
     const result = await comp.findAllByText(entries[0].description!);
     expect((result as HTMLElement[]).length).toBe(1);
     expect(comp.asFragment()).toMatchSnapshot();
   });
 
   it('select values and save', async () => {
+    const setFilter = jest.fn();
     const handleChange = jest.fn();
-    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{extensions: []}} onChange={handleChange} buildTool="MAVEN" />);
+    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{ extensions: [] }} onChange={handleChange} buildTool="MAVEN" filter="" setFilter={setFilter} />);
 
     const searchField = comp.getByLabelText('Search extensions');
     fireEvent.change(searchField, { target: { value: 'netty' } });
+    expect(setFilter).toBeCalledTimes(1);
+    expect(setFilter).lastCalledWith('netty');
+    act(() => {
+      comp.rerender(<ExtensionsPicker placeholder="" entries={entries} value={{ extensions: [] }} onChange={() => { }} buildTool="MAVEN" filter="netty" setFilter={setFilter} />);
+    });
     const item = await comp.findAllByText(entries[1].description!);
     fireEvent.click(item[0]);
     expect(comp.asFragment()).toMatchSnapshot();
@@ -98,27 +113,27 @@ describe('filterFunction', () => {
 
   it('when using exact shortname, the result should include the other corresponding extensions too', () => {
     expect(entries.filter(filterFunction('cdi')))
-      .toEqual([entries[0], entries[2]]);
+      .toEqual([ entries[0], entries[2] ]);
   });
 
   it('when using start of shortname, the result should include the other corresponding extensions too', () => {
     expect(entries.filter(filterFunction('cd')))
-      .toEqual([entries[0], entries[2]]);
+      .toEqual([ entries[0], entries[2] ]);
   });
 
   it('when using part of name, it should return the corresponding extensions', () => {
     expect(entries.filter(filterFunction('test')))
-      .toEqual([entries[1], entries[2]]);
+      .toEqual([ entries[1], entries[2] ]);
   });
 
   it('when using label, it should return the corresponding extensions', () => {
     expect(entries.filter(filterFunction('label')))
-      .toEqual([entries[0], entries[2]]);
+      .toEqual([ entries[0], entries[2] ]);
   });
 
   it('when using part of label, it should return the corresponding extensions', () => {
     expect(entries.filter(filterFunction('labe')))
-      .toEqual([entries[0], entries[2]]);
+      .toEqual([ entries[0], entries[2] ]);
   });
 
   it('when using part of category (not start), it should not return it', () => {
@@ -128,24 +143,19 @@ describe('filterFunction', () => {
 
   it('when using start of category, it should return it', () => {
     expect(entries.filter(filterFunction('clou')))
-      .toEqual([entries[2]]);
-  });
-
-  it('when using start of category, it should return it', () => {
-    expect(entries.filter(filterFunction('clou')))
-      .toEqual([entries[2]]);
+      .toEqual([ entries[2] ]);
   });
 
   it('when using start of tag, it should return it', () => {
     expect(entries.filter(filterFunction('prev')))
-      .toEqual([entries[1]]);
+      .toEqual([ entries[1] ]);
   });
 });
 
 describe('sortFunction', () => {
   it('when using not filter, it should use the order field', () => {
     const sorted = entries.slice(0).sort(sortFunction(''));
-    expect(sorted).toEqual([entries[0], entries[2], entries[1]]);
+    expect(sorted).toEqual([ entries[0], entries[2], entries[1] ]);
   });
 
   it('when using start of shortname of an extension, it should be first', () => {
@@ -185,7 +195,7 @@ describe('sortFunction', () => {
 
   it('when no match, it should compare the order', () => {
     const sorted = entries.slice(0).sort(sortFunction('anomatch'));
-    expect(sorted).toEqual([entries[0], entries[2], entries[1]]);
+    expect(sorted).toEqual([ entries[0], entries[2], entries[1] ]);
   });
 
 });

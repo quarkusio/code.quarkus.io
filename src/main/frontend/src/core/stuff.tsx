@@ -1,20 +1,20 @@
-import { Alert, AlertVariant, Button } from '@patternfly/react-core';
-import { ExternalLinkSquareAltIcon, InProgressIcon } from '@patternfly/react-icons';
 import * as React from 'react';
 import { CSSProperties } from 'react';
 import './stuff.scss';
 import { CopyToClipboard } from './copy-to-clipboard';
+import { Alert, Button } from 'react-bootstrap';
+import { FaCog, FaExternalLinkAlt } from 'react-icons/fa';
 
 
 export function optionalBool(val: (boolean | undefined), defaultValue: boolean): boolean {
   return val === undefined ? defaultValue : val!;
 }
 
-export function Code(props: { content: string, event: string[]  }) {
+export function Code(props: { id: string, content: string, event: string[]  }) {
   return (
     <code className="code">
       <span className="content">{props.content}</span>
-      <CopyToClipboard zIndex={5000} tooltipPosition="left" event={props.event} content={`${props.content}`}/>
+      <CopyToClipboard id={props.id} zIndex={5000} tooltipPlacement="left" event={props.event} content={`${props.content}`}/>
     </code>
   );
 }
@@ -29,8 +29,8 @@ export function Spin(props: { children: React.ReactNode }) {
 
 export function Loader(props: { 'aria-label'?: string; error?: any; }) {
   return (
-    <div className={`loader-or-error`} aria-label={props['aria-label']}>
-      {!props || (!props!.error && (<Spin><InProgressIcon/></Spin>))}
+    <div className={'loader-or-error'} aria-label={props['aria-label']}>
+      {!props || (!props!.error && (<Spin><FaCog /></Spin>))}
       {props && props.error &&
       <AlertError error={props.error}/>
       }
@@ -40,7 +40,7 @@ export function Loader(props: { 'aria-label'?: string; error?: any; }) {
 
 export function AlertError(props: { error: any }) {
   return (
-    <Alert variant={AlertVariant.danger} title="Something weird happened:" aria-label="error-in-hub-n-spoke" style={{margin: '40px'}}>
+    <Alert variant="danger" title="Something weird happened:" aria-label="error-in-hub-n-spoke" style={{ margin: '40px' }}>
       {props.error.message || props.error.toString()}
     </Alert>
   );
@@ -74,13 +74,13 @@ export function ExternalLink(props: {
   return (
     <Button
       style={props.style}
-      component="a"
+      as="a"
       variant="link"
       href={props.href}
       aria-label={props['aria-label']}
       target={'_blank'}
       onClick={props.onClick}
     >
-        {props.children} <ExternalLinkSquareAltIcon />
+      {props.children} <FaExternalLinkAlt />
     </Button>);
 }

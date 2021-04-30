@@ -1,18 +1,21 @@
 import { Loader } from '../../core';
-import { Modal } from '@patternfly/react-core';
 import React from 'react';
+import { Modal } from 'react-bootstrap';
 
 
 export function LoadingModal(props: {}) {
   return (
     <Modal
-      title="Supersonic Subatomic push to GitHub..."
-      variant="small"
       className="loading-modal code-quarkus-modal"
-      isOpen={true}
+      show={true}
       aria-label="Supersonic Subatomic push to GitHub..."
     >
-      <Loader/>
+      <Modal.Header>
+        Supersonic Subatomic push to GitHub..
+      </Modal.Header>
+      <Modal.Body>
+        <Loader/>
+      </Modal.Body>
     </Modal>
   );
 }

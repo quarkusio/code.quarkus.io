@@ -1,10 +1,12 @@
 import { Analytics, AnalyticsContext, GoogleAnalytics, useAnalytics } from '../core';
 import React, { useEffect, useState } from 'react';
 import { Header } from './layout/header';
+import './bootstrap-base.css';
 import './code-quarkus.scss';
 import { ExtensionsLoader } from './loaders/extensions-loader';
 import { QuarkusProjectFlow } from './quarkus-project/quarkus-project-flow';
 import { Config } from './api/model';
+import { QuarkusBlurb } from './layout/quarkus-blurb';
 
 
 export interface CodeQuarkusProps {
@@ -12,7 +14,7 @@ export interface CodeQuarkusProps {
 }
 
 export function CodeQuarkus(props: CodeQuarkusProps) {
-  const [analytics, setAnalytics] = useState<Analytics>(useAnalytics());
+  const [ analytics, setAnalytics ] = useState<Analytics>(useAnalytics());
 
   useEffect(() => {
     setAnalytics((prev) => {
@@ -20,7 +22,7 @@ export function CodeQuarkus(props: CodeQuarkusProps) {
       newAnalytics.init();
       return newAnalytics;
     });
-  }, [props.config.gaTrackingId]);
+  }, [ props.config.gaTrackingId ]);
 
   return (
     <AnalyticsContext.Provider value={analytics}>
@@ -31,6 +33,7 @@ export function CodeQuarkus(props: CodeQuarkusProps) {
             <QuarkusProjectFlow {...props} extensions={extensions}/>
           )}
         </ExtensionsLoader>
+        <QuarkusBlurb />
       </div>
     </AnalyticsContext.Provider>
   );

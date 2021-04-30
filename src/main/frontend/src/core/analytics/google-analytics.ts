@@ -24,18 +24,18 @@ export class GoogleAnalytics implements Analytics {
     constructor(private readonly trackingId: string){}
 
     init(withPageView = true) {
-        if(!this.initialized) {
-            ga('create', this.trackingId, 'auto');
-            withPageView && ga('send', 'pageview');
-            this.initialized = true;
-        }
+      if(!this.initialized) {
+        ga('create', this.trackingId, 'auto');
+        withPageView && ga('send', 'pageview');
+        this.initialized = true;
+      }
     }
 
     pageview(path: string) {
-        ga('send', 'pageview', path);
+      ga('send', 'pageview', path);
     }
 
     event(category: string, action: string, label?: string, value?: number, params?: object) {
-        _.defer(() => ga('send', 'event', category, action, label, value, params));
+      _.defer(() => ga('send', 'event', category, action, label, value, params));
     }
 }
