@@ -26,16 +26,16 @@ class QuarkusExtensionCatalogService {
         private val LOG = Logger.getLogger(QuarkusExtensionCatalogService::class.java.name)
 
         @JvmStatic
-        internal val platformGroupId = ConfigProviderResolver.instance().getConfig().getOptionalValue("io.quarkus.code.quarkus-platform.group-id", String::class.java).orElse("io.quarkus")
+        internal val platformGroupId = ConfigProviderResolver.instance().config.getOptionalValue("io.quarkus.code.quarkus-platform.group-id", String::class.java).orElse("io.quarkus")
 
         @JvmStatic
-        internal val platformArtifactId = ConfigProviderResolver.instance().getConfig().getOptionalValue("io.quarkus.code.quarkus-platform.artifact-id", String::class.java).orElse("quarkus-universe-bom")
+        internal val platformArtifactId = ConfigProviderResolver.instance().config.getOptionalValue("io.quarkus.code.quarkus-platform.artifact-id", String::class.java).orElse("quarkus-universe-bom")
 
         @JvmStatic
-        internal val platformVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-platform.version", String::class.java)
+        internal val platformVersion = ConfigProviderResolver.instance().config.getValue("io.quarkus.code.quarkus-platform.version", String::class.java)
 
         @JvmStatic
-        internal val bundledQuarkusVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-version", String::class.java)
+        internal val bundledQuarkusVersion = ConfigProviderResolver.instance().config.getValue("io.quarkus.code.quarkus-version", String::class.java)
 
         @JvmStatic
         internal val catalog = ToolsUtils.resolvePlatformDescriptorDirectly(platformGroupId, platformArtifactId, platformVersion, QuarkusProjectHelper.artifactResolver(), QuarkusProjectHelper.messageWriter())
@@ -48,9 +48,6 @@ class QuarkusExtensionCatalogService {
 
     @Inject
     lateinit var config: CodeQuarkusConfig
-
-    @Inject
-    lateinit var platformConfig: QuarkusPlatformConfig
 
     @Inject
     lateinit var extensionProcessorConfig: ExtensionProcessorConfig
@@ -75,7 +72,7 @@ class QuarkusExtensionCatalogService {
     fun checkAndMergeExtensions(extensionsIds: Set<String>?, rawShortExtensions: String?): Set<String> {
         val fromId = (extensionsIds ?: setOf())
                 .stream()
-                .filter { !it.isBlank() }
+                .filter { it.isNotBlank() }
                 .map { findById(it) }
                 .collect(Collectors.toSet())
         val fromShortId = parseShortExtensions(rawShortExtensions).stream()
@@ -100,7 +97,7 @@ class QuarkusExtensionCatalogService {
         return if (shortExtension.isNullOrBlank()) {
             setOf()
         } else {
-            shortExtension.split(".").filter { !it.isBlank() }.toSet()
+            shortExtension.split(".").filter { it.isNotBlank() }.toSet()
         }
     }
 

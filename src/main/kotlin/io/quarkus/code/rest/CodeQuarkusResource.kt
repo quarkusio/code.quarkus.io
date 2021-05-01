@@ -102,7 +102,7 @@ class CodeQuarkusResource {
     @Produces(APPLICATION_JSON)
     @Operation(summary = "Prepare a Quarkus application project to be downloaded")
     fun project(@Valid projectDefinition: ProjectDefinition?): CreatedProject {
-        val params = ArrayList<NameValuePair>();
+        val params = ArrayList<NameValuePair>()
         if (projectDefinition != null) {
             if(projectDefinition.groupId != ProjectDefinition.DEFAULT_GROUPID) {
                 params.add(BasicNameValuePair("g", projectDefinition.groupId))
@@ -119,7 +119,7 @@ class CodeQuarkusResource {
             if(projectDefinition.noExamples != ProjectDefinition.DEFAULT_NO_EXAMPLES) {
                 params.add(BasicNameValuePair("ne", projectDefinition.noExamples.toString()))
             }
-            if(!projectDefinition.extensions.isEmpty()) {
+            if(projectDefinition.extensions.isNotEmpty()) {
                 projectDefinition.extensions.forEach { params.add(BasicNameValuePair("e", it)) }
             }
         }
