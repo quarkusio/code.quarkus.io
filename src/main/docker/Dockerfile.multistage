@@ -10,8 +10,7 @@ USER quarkus
 RUN cd /usr/src/app/ && mvn clean package $MAVEN_BUILD_EXTRA_ARGS
 
 ## Stage 2 : create the docker final image
-FROM registry.access.redhat.com/ubi8/ubi-minimal:8.3
-ARG JAVA_PACKAGE=java-11-openjdk-headless
+FROM registry.access.redhat.com/ubi8/openjdk-11-runtime:1.9
 ARG RUN_JAVA_VERSION=1.3.8
 ARG MAVEN_EXTRA_ARGS=
 RUN echo "$MAVEN_EXTRA_ARGS"
@@ -20,8 +19,7 @@ ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' QUARKUS_LOCAL_REPO=/tmp/.m2
 
 # Install java and the run-java script
 # Also set up permissions for user `1001`
-RUN microdnf install curl ca-certificates ${JAVA_PACKAGE} \
-    && microdnf update \
+RUN microdnf update \
     && microdnf clean all \
     && mkdir /deployments \
     && chown 1001 /deployments \
