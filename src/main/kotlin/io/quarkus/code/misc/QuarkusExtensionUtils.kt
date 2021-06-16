@@ -18,10 +18,7 @@ object QuarkusExtensionUtils {
     private const val hashCharEncodeLength = hashAlphabet.length
     private const val hashMaxLength = 3
     private val maxHashCode: Int
-    private val stopWords = setOf("the", "and", "you", "that", "was", "for", "are", "with", "his", "they", "one",
-            "have", "this", "from", "had", "not", "but", "what", "can", "out", "other", "were", "all", "there", "when",
-            "your", "how", "each", "she", "which", "their", "will", "way", "about", "many", "then", "them", "would", "enable",
-            "these", "her", "him", "has", "over", "than", "who", "may", "down", "been", "more", "implementing", "non", "quarkus")
+
     private val tokenizerPattern = Pattern.compile("\\w+");
 
     init {

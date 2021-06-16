@@ -1,9 +1,7 @@
 package io.quarkus.code.service
 
 import com.google.common.base.Preconditions.checkState
-import io.quarkus.code.config.CodeQuarkusConfig
 import io.quarkus.code.config.ExtensionProcessorConfig
-import io.quarkus.code.config.QuarkusPlatformConfig
 import io.quarkus.code.misc.QuarkusExtensionUtils
 import io.quarkus.code.misc.QuarkusExtensionUtils.toShortcut
 import io.quarkus.code.model.CodeQuarkusExtension
@@ -35,22 +33,12 @@ class QuarkusExtensionCatalogService {
         internal val platformVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-platform.version", String::class.java)
 
         @JvmStatic
-        internal val bundledQuarkusVersion = ConfigProviderResolver.instance().getConfig().getValue("io.quarkus.code.quarkus-version", String::class.java)
-
-        @JvmStatic
         internal val catalog = ToolsUtils.resolvePlatformDescriptorDirectly(platformGroupId, platformArtifactId, platformVersion, QuarkusProjectHelper.artifactResolver(), QuarkusProjectHelper.messageWriter())
 
         init {
             checkState(platformVersion.isNotEmpty()) { "io.quarkus.code.quarkus-platform-version must not be null or empty" }
-            checkState(bundledQuarkusVersion.isNotEmpty()) { "io.quarkus.code.quarkus-version must not be null or empty" }
         }
     }
-
-    @Inject
-    lateinit var config: CodeQuarkusConfig
-
-    @Inject
-    lateinit var platformConfig: QuarkusPlatformConfig
 
     @Inject
     lateinit var extensionProcessorConfig: ExtensionProcessorConfig

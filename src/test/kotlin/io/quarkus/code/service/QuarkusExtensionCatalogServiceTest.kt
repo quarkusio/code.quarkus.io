@@ -19,7 +19,6 @@ internal class QuarkusExtensionCatalogServiceTest {
     @Test
     internal fun testFields() {
         assertThat(QuarkusExtensionCatalogService.platformVersion, not(emptyOrNullString()))
-        assertThat(QuarkusExtensionCatalogService.bundledQuarkusVersion, not(emptyOrNullString()))
         assertThat(QuarkusExtensionCatalogService.catalog, notNullValue())
         assertThat(catalog.extensions, not(empty<CodeQuarkusExtension>()))
     }
