@@ -4,7 +4,6 @@ import io.quarkus.code.config.ExtensionProcessorConfig;
 import io.quarkus.code.misc.QuarkusExtensionUtils;
 import io.quarkus.code.model.CodeQuarkusExtension;
 import io.quarkus.devtools.project.QuarkusProjectHelper;
-import io.quarkus.maven.ArtifactCoords;
 import io.quarkus.registry.ExtensionCatalogResolver;
 import io.quarkus.registry.RegistryResolutionException;
 import io.quarkus.registry.catalog.ExtensionCatalog;
@@ -32,7 +31,6 @@ public class PlatformService {
 
     private final ExtensionCatalogResolver catalogResolver = QuarkusProjectHelper.getCatalogResolver();
     public Map<String,List<CodeQuarkusExtension>> streamCatalogMap = new HashMap<>();
-    public Map<String,String> releaseToStreamMap = new HashMap<>();
     public PlatformCatalog platformCatalog;
     public LocalDateTime lastUpdated;
     public static final String SEPARATOR = ":";
@@ -103,26 +101,13 @@ public class PlatformService {
         return null;
     }
 
-    public List<CodeQuarkusExtension> getExtensionCatalogForRelease(String release){
-        if(releaseToStreamMap.containsKey(release)){
-            String stream = releaseToStreamMap.get(release);
-            return getExtensionCatalogForStream(stream);
-        }
-        return null;
-    }
-
     public Set<String> getStreamKeys(){
         return this.streamCatalogMap.keySet();
-    }
-
-    public Set<String> getReleaseKeys(){
-        return this.releaseToStreamMap.keySet();
     }
 
     private final void populateExtensionCatalogMaps() throws RegistryResolutionException {
 
         this.streamCatalogMap.clear();
-        this.releaseToStreamMap.clear();
         PlatformCatalog platformCatalog = this.getPlatformCatalog();
         Collection<Platform> platforms = platformCatalog.getPlatforms();
 
@@ -136,20 +121,11 @@ public class PlatformService {
                 String streamId = stream.getId();
                 String key = this.createStreamKey(platformKey, streamId);
                 streamCatalogMap.put(key, codeQuarkusExtensions);
-                // Map Release to Stream
-                ArtifactCoords coreBom = recommendedRelease.getMemberBoms().iterator().next();
-                String releaseKey = createReleaseKey(coreBom.getGroupId(), coreBom.getArtifactId(), coreBom.getVersion());
-                releaseToStreamMap.put(releaseKey,key);
             }
-
         }
     }
 
     private final String createStreamKey(String platformKey, String streamId) {
         return platformKey + SEPARATOR + streamId;
-    }
-
-    private final String createReleaseKey(String groupId, String artifactId, String version) {
-        return groupId + SEPARATOR + artifactId + SEPARATOR + version;
     }
 }

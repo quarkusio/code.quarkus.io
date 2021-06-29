@@ -32,14 +32,6 @@ public class OpenAPIFilter implements OASFilter {
                         schema.setEnumeration(new ArrayList<>(getValidStreamValues()));
                     }
                 }
-            }else if (pathItem.getGET().getOperationId().equalsIgnoreCase("extensionsForRelease")) {
-                List<Parameter> parameters = pathItem.getGET().getParameters();
-                for (Parameter parameter : parameters) {
-                    if (parameter.getName().equalsIgnoreCase("release")) {
-                        Schema schema = parameter.getSchema();
-                        schema.setEnumeration(new ArrayList<>(getValidReleaseValues()));
-                    }
-                }
             }
         }
         return pathItem;
@@ -48,10 +40,5 @@ public class OpenAPIFilter implements OASFilter {
     private Set<String> getValidStreamValues(){
         PlatformService platformService = CDI.current().select(PlatformService.class).get();
         return platformService.getStreamKeys();
-    }
-
-    private Set<String> getValidReleaseValues(){
-        PlatformService platformService = CDI.current().select(PlatformService.class).get();
-        return platformService.getReleaseKeys();
     }
 }

@@ -12,7 +12,6 @@ import io.quarkus.code.service.QuarkusExtensionCatalogService
 import io.quarkus.code.service.QuarkusProjectService
 import io.quarkus.registry.catalog.PlatformCatalog
 import io.quarkus.runtime.StartupEvent
-import io.smallrye.mutiny.Uni
 import org.apache.http.NameValuePair
 import org.apache.http.client.utils.URLEncodedUtils
 import org.apache.http.message.BasicNameValuePair
@@ -41,7 +40,7 @@ class CodeQuarkusResource {
 
     companion object {
         private val LOG = Logger.getLogger(CodeQuarkusResource::class.java.name)
-        var formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss")
+        var formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss' GMT'")
         private const val LAST_MODIFIED_HEADER = "Last-Modified"
     }
 
@@ -106,7 +105,7 @@ class CodeQuarkusResource {
     fun platforms(): Response {
         val platformCatalog = platformService.platformCatalog
         val lastUpdated = platformService.lastUpdated
-        return Response.ok(platformCatalog).header(LAST_MODIFIED_HEADER,lastUpdated.format(formatter) + " GMT").build()
+        return Response.ok(platformCatalog).header(LAST_MODIFIED_HEADER,lastUpdated.format(formatter)).build()
     }
 
     @GET
@@ -124,25 +123,7 @@ class CodeQuarkusResource {
     fun streamKeys(): Response {
         val streamKeys = platformService.getStreamKeys()
         val lastUpdated = platformService.lastUpdated
-        return Response.ok(streamKeys).header(LAST_MODIFIED_HEADER,lastUpdated.format(formatter) + " GMT").build()
-    }
-
-    @GET
-    @Path("/keys/release")
-    @Produces(APPLICATION_JSON)
-    @Operation(summary = "Get all available release keys")
-    @Tag(name = "Platform", description = "Platform related endpoints")
-    @APIResponse(
-        responseCode = "200",
-        description = "All available release keys",
-        content = [Content(
-            mediaType = APPLICATION_JSON
-        )]
-    )
-    fun releaseKeys(): Response {
-        val releaseKeys = platformService.getReleaseKeys()
-        val lastUpdated = platformService.lastUpdated
-        return Response.ok(releaseKeys).header(LAST_MODIFIED_HEADER,lastUpdated.format(formatter) + " GMT").build()
+        return Response.ok(streamKeys).header(LAST_MODIFIED_HEADER,lastUpdated.format(formatter)).build()
     }
 
     @GET
@@ -161,7 +142,7 @@ class CodeQuarkusResource {
     fun extensions(): Response {
         val extensions = platformService.getExtensionCatalog()
         val lastUpdated = platformService.lastUpdated
-        return Response.ok(extensions).header(LAST_MODIFIED_HEADER,lastUpdated.format(formatter) + " GMT").build()
+        return Response.ok(extensions).header(LAST_MODIFIED_HEADER,lastUpdated.format(formatter)).build()
     }
 
     @GET
@@ -180,26 +161,7 @@ class CodeQuarkusResource {
     fun extensionsForStream(@PathParam("stream") stream: String): Response {
         val extensions = platformService.getExtensionCatalogForStream(stream)
         val lastUpdated = platformService.lastUpdated
-        return Response.ok(extensions).header(LAST_MODIFIED_HEADER, lastUpdated.format(formatter) + " GMT").build();
-    }
-
-    @GET
-    @Path("/extensions/release/{release}")
-    @Produces(APPLICATION_JSON)
-    @Operation(operationId="extensionsForRelease", summary = "Get the Quarkus Launcher list of Quarkus extensions")
-    @Tag(name = "Extensions", description = "Extension related endpoints")
-    @APIResponse(
-        responseCode = "200",
-        description = "List of Quarkus extensions for a certain release",
-        content = [Content(
-            mediaType = APPLICATION_JSON,
-            schema = Schema(implementation = CodeQuarkusExtension::class, type = SchemaType.ARRAY)
-        )]
-    )
-    fun extensionsForRelease(@PathParam("release") release: String): Response {
-        val extensions = platformService.getExtensionCatalogForRelease(release)
-        val lastUpdated = platformService.lastUpdated
-        return Response.ok(extensions).header(LAST_MODIFIED_HEADER,lastUpdated.format(formatter) + " GMT").build()
+        return Response.ok(extensions).header(LAST_MODIFIED_HEADER, lastUpdated.format(formatter)).build();
     }
 
     @POST
