@@ -1,15 +1,18 @@
 import { QuarkusProject } from './model';
-import { BACKEND_URL, REQUEST_OPTIONS } from './env';
-import { generateProjectQuery } from './quarkus-project-utils';
+import { BACKEND_URL, CLIENT_NAME, REQUEST_OPTIONS } from './env';
+import { generateProjectPayload } from './quarkus-project-utils';
 
 export async function createGitHubProject(project: QuarkusProject) {
-  const data = await fetch(`${BACKEND_URL}/api/github/project?${generateProjectQuery(project)}`, {
+  const body = JSON.stringify(generateProjectPayload(project));
+  const data = await fetch(`${BACKEND_URL}/api/github/project?cn=${CLIENT_NAME}`, {
     headers: {
       ...REQUEST_OPTIONS.headers,
+      'Content-Type': 'application/json',
       'GitHub-Code': project.github!.code,
       'GitHub-State': project.github!.state
     },
-    method: 'POST'
+    method: 'POST',
+    body
   }).catch(() => Promise.reject(new Error('Fail to create the GitHub project')));
   if (data.ok)
     return data.json();

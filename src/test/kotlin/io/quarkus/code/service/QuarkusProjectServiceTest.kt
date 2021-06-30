@@ -41,13 +41,13 @@ internal class QuarkusProjectServiceTest {
             .satisfies(checkContains("<groupId>org.acme</groupId>"))
             .satisfies(checkContains("<artifactId>code-with-quarkus</artifactId>"))
             .satisfies(checkContains("<version>1.0.0-SNAPSHOT</version>"))
-            .satisfies(checkContains("<quarkus-plugin.version>${codeQuarkusConfig.quarkusVersion}</quarkus-plugin.version>"))
+            .satisfies(checkContains("<quarkus.platform.version>${codeQuarkusConfig.quarkusVersion}</quarkus.platform.version>"))
             .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
             .satisfies(checkContains("<artifactId>quarkus-resteasy</artifactId>"))
             .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
 
         assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/GreetingResource.java")
-            .satisfies(checkContains("@Path(\"/hello-resteasy\")"))
+            .satisfies(checkContains("@Path(\"/hello\")"))
     }
 
     @Test
@@ -65,13 +65,13 @@ internal class QuarkusProjectServiceTest {
             .satisfies(checkContains("<groupId>org.acme</groupId>"))
             .satisfies(checkContains("<artifactId>code-with-quarkus</artifactId>"))
             .satisfies(checkContains("<version>1.0.0-SNAPSHOT</version>"))
-            .satisfies(checkContains("<quarkus-plugin.version>${codeQuarkusConfig.quarkusVersion}</quarkus-plugin.version>"))
+            .satisfies(checkContains("<quarkus.platform.version>${codeQuarkusConfig.quarkusVersion}</quarkus.platform.version>"))
             .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
             .satisfies(checkContains("<artifactId>quarkus-resteasy</artifactId>"))
             .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
 
         assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/GreetingResource.java")
-            .satisfies(checkContains("@Path(\"/hello-resteasy\")"))
+            .satisfies(checkContains("@Path(\"/hello\")"))
     }
 
     @Test
@@ -104,7 +104,7 @@ internal class QuarkusProjectServiceTest {
             .satisfies(checkContains("<groupId>com.test</groupId>"))
             .satisfies(checkContains("<artifactId>test-app</artifactId>"))
             .satisfies(checkContains("<version>2.0.0</version>"))
-            .satisfies(checkContains("<quarkus-plugin.version>${codeQuarkusConfig.quarkusVersion}</quarkus-plugin.version>"))
+            .satisfies(checkContains("<quarkus.platform.version>${codeQuarkusConfig.quarkusVersion}</quarkus.platform.version>"))
             .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
             .satisfies(checkContains("<artifactId>quarkus-resteasy</artifactId>"))
             .satisfies(checkContains("<artifactId>quarkus-resteasy-jsonb</artifactId>"))
@@ -172,9 +172,9 @@ internal class QuarkusProjectServiceTest {
         assertThatDirectoryTreeMatchSnapshots(info, projDir)
             .contains(
                 "src/main/resources/templates/page.qute.html",
-                "src/main/java/my/qute/yaml/app/config/ConfigResource.java",
+                "src/main/java/my/qute/yaml/app/GreetingConfig.java",
                 "src/main/resources/application.yml",
-                "src/main/java/my/qute/yaml/app/resteasyqute/QuteResource.java"
+                "src/main/java/my/qute/yaml/app/SomePage.java"
             )
     }
 

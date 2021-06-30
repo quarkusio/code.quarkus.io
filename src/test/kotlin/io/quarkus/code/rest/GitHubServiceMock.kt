@@ -26,7 +26,7 @@ class GitHubServiceMock: GitHubService() {
         return GitHubCreatedRepository("edewit", "https://github.com/edewit/$repositoryName")
     }
 
-    override fun push(ownerName: String, token: String, httpTransportUrl: String, path: Path) {
+    override fun push(ownerName: String, token: String, initialBranch: String?, httpTransportUrl: String, path: Path) {
     }
 
     override fun fetchAccessToken(code: String, state: String): GitHubToken {

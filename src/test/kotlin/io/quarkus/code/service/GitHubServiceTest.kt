@@ -35,7 +35,7 @@ import javax.net.ssl.SSLContext
  * 6. Replace @HoverflyCapture by @HoverflySimulate
  * 7. ----WARNING----- Replace your access_token in the recoding: io_quarkus_code_service_GitHubServiceTest.json
  */
-@HoverflySimulate(config = HoverflyConfig(destination = "github.com", statefulCapture = true, simulationPreprocessor = CustomSimulationPreprocessor::class))
+@HoverflySimulate(config = HoverflyConfig(destination = ["github.com"], statefulCapture = true, simulationPreprocessor = CustomSimulationPreprocessor::class))
 @ExtendWith(HoverflyExtension::class)
 internal class GitHubServiceTest {
 
@@ -45,7 +45,7 @@ internal class GitHubServiceTest {
         const val STATE = "lMqTg6m6A-wbzQsCv2qW8jW-y0Y"
 
         // TO SET FOR CAPTURE (Read instruction at the top)
-        const val CODE = "8ed2b121babb24a13666"
+        const val CODE = "4bda4402b8a1c54771b6"
         const val LOGIN = "ia3andy"
         const val AN_EXISTING_REPO = "code.quarkus.io"
         const val REPO_TO_CREATE_NAME = "code.quarkus.io-testing-repo"
@@ -95,7 +95,7 @@ internal class GitHubServiceTest {
         val result = gitHubService.createRepository(LOGIN, token.accessToken, REPO_TO_CREATE_NAME)
         assertThat(result.url, `is`("https://github.com/$LOGIN/$REPO_TO_CREATE_NAME.git"))
         assertThat(result.ownerName, `is`(LOGIN))
-        gitHubService.push(result.ownerName, token.accessToken, result.url, path)
+        gitHubService.push(result.ownerName, token.accessToken, "main", result.url, path)
     }
 
     @Test

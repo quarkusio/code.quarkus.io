@@ -165,7 +165,6 @@
       "guide" : "https://quarkus.io/guides/config#yaml",
       "codestart" : {
         "name" : "config-yaml",
-        "kind" : "example",
         "languages" : [ "java", "kotlin" ],
         "artifact" : "io.quarkus:quarkus-descriptor-json"
       },
@@ -963,7 +962,6 @@
       "status" : "stable",
       "codestart" : {
         "name" : "resteasy",
-        "kind" : "example",
         "languages" : [ "java", "kotlin", "scala" ],
         "artifact" : "io.quarkus:quarkus-descriptor-json"
       },
@@ -978,12 +976,6 @@
       "keywords" : [ "resteasy-jackson", "jaxrs-json", "resteasy-json", "resteasy", "jaxrs", "json", "jackson" ],
       "categories" : [ "web", "serialization" ],
       "status" : "stable",
-      "codestart" : {
-        "name" : "resteasy-jackson",
-        "kind" : "example",
-        "languages" : [ "java", "kotlin" ],
-        "artifact" : "io.quarkus:quarkus-descriptor-json"
-      },
       "built-with-quarkus-core" : "999-SNAPSHOT"
     },
     "artifact" : "io.quarkus:quarkus-resteasy-jackson::jar:999-SNAPSHOT",
@@ -1292,7 +1284,6 @@
       "status" : "preview",
       "codestart" : {
         "name" : "spring-web",
-        "kind" : "example",
         "languages" : [ "java", "kotlin", "scala" ],
         "artifact" : "io.quarkus:quarkus-descriptor-json"
       },
@@ -1399,7 +1390,7 @@
       "status" : "experimental",
       "codestart" : {
         "name" : "funqy-amazon-lambda",
-        "kind" : "singleton-example",
+        "kind" : "example",
         "languages" : "java",
         "artifact" : "io.quarkus:quarkus-descriptor-json"
       },
@@ -1417,7 +1408,7 @@
       "status" : "experimental",
       "codestart" : {
         "name" : "funqy-google-cloud-functions-example",
-        "kind" : "singleton-example",
+        "kind" : "example",
         "languages" : "java",
         "artifact" : "io.quarkus:quarkus-descriptor-json"
       },
@@ -1435,7 +1426,7 @@
       "status" : "experimental",
       "codestart" : {
         "name" : "funqy-knative-events",
-        "kind" : "singleton-example",
+        "kind" : "example",
         "languages" : "java",
         "artifact" : "io.quarkus:quarkus-descriptor-json"
       },
@@ -1453,7 +1444,6 @@
       "status" : "experimental",
       "codestart" : {
         "name" : "funqy-http",
-        "kind" : "example",
         "languages" : "java",
         "artifact" : "io.quarkus:quarkus-descriptor-json"
       },
@@ -1489,7 +1479,7 @@
       "status" : "preview",
       "codestart" : {
         "name" : "amazon-lambda",
-        "kind" : "singleton-example",
+        "kind" : "example",
         "languages" : "java",
         "artifact" : "io.quarkus:quarkus-descriptor-json"
       },
@@ -1660,7 +1650,6 @@
       "status" : "experimental",
       "codestart" : {
         "name" : "resteasy-reactive",
-        "kind" : "example",
         "languages" : [ "java", "kotlin", "scala" ],
         "artifact" : "io.quarkus:quarkus-descriptor-json"
       },
@@ -1754,7 +1743,7 @@
       "status" : "preview",
       "codestart" : {
         "name" : "azure-functions-http",
-        "kind" : "singleton-example",
+        "kind" : "example",
         "languages" : "java",
         "artifact" : "io.quarkus:quarkus-descriptor-json"
       },
@@ -2044,12 +2033,6 @@
       "categories" : [ "core" ],
       "status" : "preview",
       "guide" : "https://quarkus.io/guides/logging#json-logging",
-      "codestart" : {
-        "name" : "logging-json",
-        "kind" : "example",
-        "languages" : [ "java", "kotlin" ],
-        "artifact" : "io.quarkus:quarkus-descriptor-json"
-      },
       "built-with-quarkus-core" : "999-SNAPSHOT"
     },
     "artifact" : "io.quarkus:quarkus-logging-json::jar:999-SNAPSHOT",
@@ -2100,7 +2083,7 @@
       "status" : "experimental",
       "codestart" : {
         "name" : "google-cloud-functions",
-        "kind" : "singleton-example",
+        "kind" : "example",
         "languages" : "java",
         "artifact" : "io.quarkus:quarkus-descriptor-json"
       },
@@ -2118,7 +2101,7 @@
       "status" : "experimental",
       "codestart" : {
         "name" : "google-cloud-functions-http",
-        "kind" : "singleton-example",
+        "kind" : "example",
         "languages" : "java",
         "artifact" : "io.quarkus:quarkus-descriptor-json"
       },
@@ -2168,7 +2151,6 @@
       "status" : "experimental",
       "codestart" : {
         "name" : "resteasy-qute",
-        "kind" : "example",
         "languages" : [ "java", "kotlin" ],
         "artifact" : "io.quarkus:quarkus-descriptor-json"
       },
@@ -2186,7 +2168,6 @@
       "status" : "experimental",
       "codestart" : {
         "name" : "picocli",
-        "kind" : "example",
         "languages" : [ "java", "kotlin" ],
         "artifact" : "io.quarkus:quarkus-descriptor-json"
       },
