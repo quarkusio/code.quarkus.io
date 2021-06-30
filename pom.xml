@@ -33,7 +33,7 @@
 
         <!-- Quarkus Platform BOM -->
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-        <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
+        <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
         <quarkus.platform.version>2.0.0.Final</quarkus.platform.version>
     </properties>
     <dependencyManagement>
