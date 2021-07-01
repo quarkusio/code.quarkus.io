@@ -6,6 +6,7 @@ import io.quarkus.code.service.GitHubService
 import io.quarkus.code.service.QuarkusProjectService
 import io.quarkus.runtime.StartupEvent
 import org.eclipse.microprofile.openapi.annotations.Operation
+import org.eclipse.microprofile.openapi.annotations.tags.Tag
 import java.util.logging.Level
 import java.util.logging.Logger
 import javax.enterprise.event.Observes
@@ -52,6 +53,7 @@ class GitHubResource {
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     @Operation(summary = "Create project and push generated code to GitHub")
+    @Tag(name = "Project", description = "Project creation endpoints")
     fun createProject(
         @Valid projectDefinition: ProjectDefinition,
         @NotEmpty @HeaderParam("GitHub-Code") code: String,
