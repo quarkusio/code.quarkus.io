@@ -8,7 +8,7 @@ test-backend-only:
 	mvn clean test -Pbackend-only
 
 dev-web:
-	cd src/main/frontend && yarn && yarn start
+	cd src/main/frontend && yarn && yarn dev
 
 dev:
 	make -j2 dev-backend-only dev-web

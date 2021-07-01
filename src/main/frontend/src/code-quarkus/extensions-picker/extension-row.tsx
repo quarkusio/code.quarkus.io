@@ -1,86 +1,90 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
-import { CheckSquareIcon, EllipsisVIcon, OutlinedSquareIcon, TrashAltIcon } from '@patternfly/react-icons';
 import { ExtensionEntry } from './extensions-picker';
 import { ExtensionTags } from './extension-tags';
-import { ExtensionMoreButton } from './extension-more-button';
-
+import { ExtensionMoreDropdown } from './extension-more-dropdown';
+import { FaRegCheckSquare, FaRegSquare, FaTrashAlt } from 'react-icons/fa';
+import './extension-row.scss';
 
 export interface ExtensionRowProps extends ExtensionEntry {
-    selected: boolean;
-    keyboardActived: boolean;
-    detailed?: boolean;
-    default: boolean;
-    buildTool: string;
+    selected?: boolean;
+    keyboardActived?: boolean;
+    pickerLayout?: boolean;
+    buildTool?: string;
 
     onClick(id: string): void;
 }
 
 export function ExtensionRow(props: ExtensionRowProps) {
-    const [hover, setHover] = useState(false);
+  const [ hover, setHover ] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
 
-    const onClick = () => {
-        if (props.default) {
-            return;
-        }
-        props.onClick(props.id);
-        setHover(false);
-    };
+  function scrollIntoView() {
+    if(ref.current) {
+      ref.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+    }
+  }
 
-    const activationEvents = {
-        onClick,
-        onMouseEnter: () => setHover(true),
-        onMouseLeave: () => setHover(false),
-    };
+  const onClick = () => {
+    props.onClick(props.id);
+    setHover(false);
+  };
 
-    const description = props.description || '...';
-    const selected = props.selected || props.default;
+  const activationEvents = {
+    onClick,
+    onMouseEnter: () => setHover(true),
+    onMouseLeave: () => setHover(false),
+  };
 
-    return (
-        <div {...activationEvents} className={classNames('extension-item', {
-            'keyboard-actived': props.keyboardActived,
-            hover,
-            selected,
-            'by-default': props.default
-        })}>
-            {props.detailed && (
-                <div
-                    className="extension-selector"
-                    aria-label={`Switch ${props.id} extension`}
-                >
-                    {!selected && !(hover) && <OutlinedSquareIcon/>}
-                    {(hover || selected) && <CheckSquareIcon/>}
-                </div>
-            )}
+  useEffect(() => {
+    if(props.keyboardActived) {
+      scrollIntoView();
+    }
+  }, [ props.keyboardActived ])
 
-            <div className="extension-summary">
-                <span className="extension-name" title={`${props.name} (${props.version})`}>{props.name}</span>
-                {props.tags && props.tags.map((s, i) => <ExtensionTags key={i} status={s}/>)}
-            </div>
+  const description = props.description || '...';
+  const selected = props.selected || props.default;
 
-            {!props.detailed && (
-                <div
-                    className="extension-remove"
-                >
-                    {hover && props.selected && <TrashAltIcon/>}
-                </div>
-            )}
-
-            {props.detailed && (
-                <div className="extension-details">
-                    <div
-                        className="extension-description" title={description}
-                    >{description}</div>
-                    <div className="extension-more">
-                        {!hover && (
-                            <button aria-label="Actions" className="pf-c-dropdown__toggle" type="button" aria-expanded="false">
-                                <EllipsisVIcon/>
-                            </button>
-                        )}
-                        {hover && <ExtensionMoreButton {...props} />}
-                    </div>
-                </div>
-            )}
+  return (
+    <div {...activationEvents} className={classNames('extension-row', {
+      'keyboard-actived': props.keyboardActived,
+      hover,
+      selected,
+      'by-default': props.default
+    })} ref={ref}>
+      {props.pickerLayout && (
+        <div
+          className="extension-selector"
+          aria-label={`Switch ${props.id} extension`}
+        >
+          {!selected && !(hover) && <FaRegSquare/>}
+          {(hover || selected) && <FaRegCheckSquare/>}
         </div>
-    );
+      )}
+
+      <div className="extension-summary">
+        <span className="extension-name" title={`${props.name} (${props.version})`}>{props.name}</span>
+        {props.tags && props.tags.map((s, i) => <ExtensionTags key={i} status={s}/>)}
+      </div>
+
+      {!props.pickerLayout && (
+        <div
+          className="extension-remove"
+        >
+          {hover && props.selected && <FaTrashAlt/>}
+        </div>
+      )}
+
+      {props.pickerLayout && (
+        <React.Fragment>
+          <div
+            className="extension-description" title={description}
+          >{description}</div>
+          <div className="extension-more">
+            <ExtensionMoreDropdown {...props} active={hover} />
+          </div>
+        </React.Fragment>
+      )}
+    </div>
+  );
 }

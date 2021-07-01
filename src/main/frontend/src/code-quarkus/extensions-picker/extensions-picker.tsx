@@ -1,16 +1,13 @@
-import { Button, FormGroup, TextInput, Tooltip } from '@patternfly/react-core';
-import { SearchIcon } from '@patternfly/react-icons';
-import hotkeys from 'hotkeys-js';
 import _ from 'lodash';
-import React, { KeyboardEvent, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import React, { SetStateAction, useEffect, useRef, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { InputProps, useAnalytics } from '../../core';
-import { QuarkusBlurb } from '../layout/quarkus-blurb';
 import { processEntries } from './extensions-picker-utils';
 import { QuarkusProject } from '../api/model';
 import './extensions-picker.scss';
-import { debouncedSyncParamsQuery } from '../api/quarkus-project-utils';
 import { ExtensionRow } from './extension-row';
+import { Button } from 'react-bootstrap';
+import { ExtensionSearchBar } from './extension-search-bar';
 
 export interface ExtensionEntry {
   id: string;
@@ -36,15 +33,27 @@ interface ExtensionsPickerProps extends InputProps<ExtensionsPickerValue> {
   buildTool: string;
   project?: QuarkusProject;
 
-  filterParam?: string;
-  setFilterParam?: React.Dispatch<SetStateAction<string>>;
+  filter: string;
+  setFilter: React.Dispatch<SetStateAction<string>>;
 
   filterFunction?(d: ExtensionEntry): boolean;
 }
 
+const hotkeysOptions = {
+  filter: (e) => {
+    const el = (e.target) as any | undefined;
+    if (!el) {
+      return true;
+    }
+    const tagName = el && el.tagName;
+    return el.id === 'extensions-search-input' || !(tagName === 'INPUT' || tagName === 'SELECT' || tagName === 'TEXTAREA');
+  },
+  enableOnTags: [ 'INPUT' ] as 'INPUT'[]
+};
+
 export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
-  const [filter, setFilter] = useState('');
-  const [keyboardActived, setKeyBoardActived] = useState<number>(-1);
+  const { filter, setFilter } = props;
+  const [ keyboardActivated, setKeyBoardActivated ] = useState<number>(-1);
   const analytics = useAnalytics();
   const debouncedSearchEvent = useRef<(events: string[][]) => void>(_.debounce(
     (events) => {
@@ -53,48 +62,25 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
 
   const extensions = props.value.extensions || [];
   const entrySet = new Set(extensions.map(e => e.id));
-  const entriesById: Map<string, ExtensionEntry> = new Map(props.entries.map(item => [item.id, item]));
+  const entriesById: Map<string, ExtensionEntry> = new Map(props.entries.map(item => [ item.id, item ]));
 
-  hotkeys.filter = (e) => {
-    const el = (e.target) as any | undefined;
-    if (!el) {
-      return true;
-    }
-    const tagName = el && el.tagName;
-    return el.id === 'extension-search' || !(tagName === 'INPUT' || tagName === 'SELECT' || tagName === 'TEXTAREA');
-  };
   const result = processEntries(filter, props.entries);
-
-  const addParamToFilter = useCallback(() => {
-    const extensionSearch = props.filterParam || '';
-
-    setFilter(extensionSearch);
-    debouncedSyncParamsQuery(extensionSearch, props.project);
-  }, [props.filterParam, props.project]);
-
-  useEffect(() => {
-    addParamToFilter();
-  }, [addParamToFilter]);
 
   useEffect(() => {
     if (filter.length > 0) {
-      const topEvents = result.slice(0, 5).map(r => ['Extension', 'Display in search top 5 results', r.id]);
-      debouncedSearchEvent([...topEvents, ['UX', 'Search', filter]]);
+      const topEvents = result.slice(0, 5).map(r => [ 'Extension', 'Display in search top 5 results', r.id ]);
+      debouncedSearchEvent([ ...topEvents, [ 'UX', 'Search', filter ] ]);
     }
-  }, [filter, result, debouncedSearchEvent]);
+  }, [ filter, result, debouncedSearchEvent ]);
 
-  const setFilterParam = (value: string) => {
-    if (props.setFilterParam) {
-      props.setFilterParam(value);
-    }
-  };
+
   const add = (index: number, origin: string) => {
     const id = result[index].id;
     entrySet.add(id);
     props.onChange({ extensions: Array.from(entrySet).map(e => entriesById.get(e)!) });
     analytics.event('UX', 'Extension - Select', origin);
-    if (keyboardActived >= 0) {
-      setKeyBoardActived(index);
+    if (keyboardActivated >= 0) {
+      setKeyBoardActivated(index);
     }
   };
 
@@ -103,19 +89,9 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     props.onChange({ extensions: Array.from(entrySet).map(e => entriesById.get(e)!) });
     analytics.event('UX', 'Extension - Unselect', origin);
   };
-  const onSearchKeyDown = (e: KeyboardEvent) => {
-    if (e.which === 38 || e.which === 40) {
-      e.preventDefault();
-    }
-  };
-  const search = (f: string) => {
-    setKeyBoardActived(-1);
-    setFilter(f);
-    setFilterParam(f);
-  };
+
   const clearFilterButton = () => {
     setFilter('');
-    setFilterParam('');
   };
 
   const flip = (index: number, origin: string) => {
@@ -130,64 +106,27 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   };
 
 
-  useHotkeys('esc', () => setKeyBoardActived(-1));
-  useHotkeys('up', () => setKeyBoardActived((prev) => Math.max(0, prev - 1)));
-  useHotkeys('down', () => setKeyBoardActived((prev) => Math.min(result.length - 1, prev + 1)), [result]);
+  useHotkeys('esc', () => setKeyBoardActivated(-1), hotkeysOptions);
+  useHotkeys('up', () => setKeyBoardActivated((prev) => Math.max(0, prev - 1)), hotkeysOptions);
+  useHotkeys('down', () => setKeyBoardActivated((prev) => Math.min(result.length - 1, prev + 1)), hotkeysOptions, [ result ]);
   useHotkeys('space', (event) => {
-    if (keyboardActived >= 0) {
+    if (keyboardActivated >= 0) {
       event.preventDefault();
-      flip(keyboardActived, 'Keyboard');
+      flip(keyboardActivated, 'Keyboard');
     }
-  }, [result, keyboardActived]);
+  }, hotkeysOptions, [ result, keyboardActivated ]);
 
-  const categories = new Set(props.entries.map(i => i.category));
   let currentCat: string | undefined;
   return (
     <div className="extensions-picker" aria-label="Extensions picker">
       <div className="control-container">
-        <div className="title">
-          <h3>Pick your extensions</h3>
-        </div>
-        <Tooltip position="bottom" exitDelay={0} zIndex={100} content={`${Array.from(categories).join(', ')}`}>
-          <FormGroup
-            fieldId="search-extensions-input"
-          >
-            <SearchIcon/>
-            <TextInput
-              id="extension-search"
-              type="search"
-              onKeyDown={onSearchKeyDown}
-              aria-label="Search extensions"
-              placeholder={props.placeholder}
-              className="search-extensions-input"
-              value={filter}
-              onChange={search}
-            />
-          </FormGroup>
-        </Tooltip>
-        <div className={`selected-extensions`}>
-          <h4>Selected Extensions</h4>
-          <div className="extension-list-wrapper">
-            {
-              extensions.map((ex, i) => (
-                <ExtensionRow
-                  selected={entrySet.has(ex.id)}
-                  keyboardActived={i === keyboardActived}
-                  {...ex}
-                  buildTool={props.buildTool}
-                  key={i}
-                  onClick={() => remove(ex.id, 'Selection')}
-                />
-              ))
-            }
-          </div>
-        </div>
+        <ExtensionSearchBar placeholder={props.placeholder} filter={filter} project={props.project}
+          setFilter={setFilter} setKeyBoardActivated={setKeyBoardActivated}/>
       </div>
-      <div className="main-container">
-        <QuarkusBlurb/>
+      <div className="main-container responsive-container">
         {!!filter && (
           <div className="extension-search-clear">
-            Search results (<Button variant="link" onClick={clearFilterButton}>Clear search</Button>)
+            Search results (<Button as="a" onClick={clearFilterButton}>Clear search</Button>)
           </div>
         )}
         <div className="extension-list-wrapper">
@@ -195,23 +134,23 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
             const ext = (
               <ExtensionRow
                 selected={entrySet.has(ex.id)}
-                keyboardActived={i === keyboardActived}
+                keyboardActived={i === keyboardActivated}
                 {...ex}
                 key={i}
                 onClick={() => flip(i, 'List')}
                 buildTool={props.buildTool}
-                detailed
+                pickerLayout={true}
               />
             );
             if (!filter && (!currentCat || currentCat !== ex.category)) {
               currentCat = ex.category;
               return (
-                <div style={{ display: 'contents' }} key={i}>
+                <React.Fragment key={i}>
                   <div className="extension-category">
                     {currentCat}
                   </div>
                   {ext}
-                </div>
+                </React.Fragment>
               );
             }
             return ext;
@@ -221,3 +160,4 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     </div>
   );
 };
+

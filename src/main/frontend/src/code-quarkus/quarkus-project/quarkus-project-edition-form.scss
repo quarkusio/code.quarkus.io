@@ -27,8 +27,9 @@
   }
 
   .title h3 {
-    font-size: 22px;
-    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: 100;
     margin-bottom: 20px;
   }
 
@@ -53,37 +54,6 @@
         border: 1px solid white;
       }
     }
-
-    .info-picker {
-      height: 118px;
-    }
-    .base-settings {
-      flex-basis: 420px;
-      margin: 0 20px 0 0;
-      padding: 0;
-    }
-    .extended-settings {
-      margin: 0 0 0 20px;
-      padding: 0;
-    }
-
-    @media screen and (max-width: $tabletWidth) {
-      .extended-settings,
-      .toggle-button {
-        display: none;
-      }
-    }
-
-
-    .pf-c-button {
-      color: $topContainerTextColor;
-      font-size: 14px;
-      text-transform: uppercase;
-      text-align: left;
-      svg {
-        color: $topContainerTextColor;
-      }
-    }
   }
 
   .project-extensions {
@@ -98,170 +68,6 @@
       margin-top: 20px;
       @media screen and (min-width: $mobileWidth) {
         display: none;
-      }
-    }
-  }
-
-  .generate-project {
-    flex: 0 0 380px;
-    align-self: center;
-    height: 190px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    margin-bottom: 10px;
-
-    .pf-c-dropdown {
-      align-self: flex-end;
-      border: 0;
-    }
-
-    .pf-c-dropdown__menu {
-      right: 0;
-      top: 42px;
-      top: auto;
-      width: 100%;
-      background-color: $extensionsPickerMoreDropdownBg;
-      padding: 0;
-      li {
-        background-color: $extensionsPickerMoreDropdownBg;
-        a {
-          font-weight: bold;
-          width: 300px;
-          color: $generateButtonMoreDropdownTextColor;
-          background-color: $generateButtonMoreDropdownBg;
-          border-left: 2px solid $generateButtonMoreDropdownBg;
-          svg {
-            margin-right: 20px;
-          }
-        }
-        a:hover {
-          border-left: 2px solid $generateButtonMoreDropdownTextColor;
-        }
-      }
-    }
-
-    button.generate-button {
-      background-color: $generateButtonBgColor;
-      border-radius: 0;
-      width: 300px;
-      height: 40px;
-      line-height: 40px;
-      padding: 0;
-      align-self: flex-end;
-      text-align: center;
-      border: 1px solid $generateButtonBgColor;
-      color: $generateButtonTextColor;
-      font-weight: bold;
-      &:hover {
-        border: 1px solid $generateButtonBorderColorOnHover;
-      }
-      &:disabled {
-        background-color: $generateButtonDisabledBgAndBorderColor;
-        border: 1px solid $generateButtonDisabledBgAndBorderColor;
-        color: $generateButtonDisabledColor;
-      }
-    }
-  }
-  .pf-c-form {
-    grid-gap: 5px;
-
-
-    .pf-c-form__group {
-
-      &.switch-form-group {
-        .pf-c-form__label {
-          color: white;
-        }
-        .pf-c-switch__toggle {
-          border-radius: 0;
-        }
-        .pf-c-switch__input:checked ~ .pf-c-switch__toggle {
-          background-color: $fieldLabelAndBorderColor;
-        }
-      }
-
-      .pf-c-form__label {
-        display: inline-block;
-        width: 120px;
-        color: $fieldLabelAndBorderColor;
-        font-size: 14px;
-        font-weight: bold;
-        text-transform: capitalize;
-
-        .codestart-icon {
-          margin-right: 5px;
-          height: 12px;
-          width: 15px;
-        }
-      }
-
-      input.pf-c-form-control,
-      select.pf-c-form-control {
-        border: none;
-        margin-left: -120px;
-        padding-left: 120px;
-        border-bottom: 1px solid $fieldLabelAndBorderColor;
-        font-size: 14px;
-        width: 100%;
-        background-color: transparent;
-        color: $fieldTextColor;
-        outline: none;
-        font-family: $inputFont;
-        padding-bottom: 4px;
-        padding-right: 30px;
-      }
-
-      &.quarkus-version {
-        .pf-c-form__label {
-          color: $readonlyLabelAndBorderColor;
-        }
-        input.pf-c-form-control {
-          cursor: not-allowed;
-          padding-right: 82px;
-          margin-right: -82px;
-          color: $readOnlyTextColor;
-          border-bottom: 1px solid $readonlyLabelAndBorderColor;
-
-          &:focus {
-            border-bottom: 1px solid $readonlyLabelAndBorderColor;
-          }
-        }
-        &:after {
-          content: "READ-ONLY";
-          float: right;
-          color: $readonlyLabelAndBorderColor;
-          font-size: 11px;
-          padding: 2px;
-          margin-top: 7px;
-          margin-right: 5px;
-          border: 1px solid $readonlyLabelAndBorderColor;
-        }
-      }
-
-      select.pf-c-form-control {
-        --pf-c-form-control__select--Background: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath fill='%2371aeef' d='M31.3 192h257.3c17.8 0 26.7 21.5 14.1 34.1L174.1 354.8c-7.8 7.8-20.5 7.8-28.3 0L17.2 226.1C4.6 213.5 13.5 192 31.3 192z'/%3E%3C/svg%3E")
-          calc(100% - 0.5rem) center/0.875rem no-repeat;
-      }
-
-      select.pf-c-form-control > option {
-        color: $selectOptionsTextColor;
-      }
-
-      input.pf-c-form-control:focus {
-        outline: none;
-        border-bottom: 1px solid $fieldLabelAndBorderHoverColor;
-      }
-    }
-
-    &.base-settings .pf-c-form__group {
-      .pf-c-form__label {
-        width: 80px;
-      }
-      input.pf-c-form-control,
-      select.pf-c-form-control {
-        margin-left: -80px;
-        padding-left: 80px;
       }
     }
   }

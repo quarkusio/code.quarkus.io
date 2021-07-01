@@ -1,0 +1,77 @@
+@import "../config.scss";
+
+.generate-project {
+  flex: 0 0 390px;
+  margin-left: 30px;
+  align-self: center;
+  height: 40px;
+  margin-top: 150px;
+  display: flex;
+  margin-bottom: 10px;
+
+  .generate-project-button {
+    .dropdown {
+      align-self: flex-end;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    button.generate-button {
+      background-color: $generateButtonBgColor;
+      width: 300px;
+      height: 40px;
+      padding: 0;
+      text-align: center;
+      border: 2px solid $generateButtonBgColor;
+      color: $generateButtonTextColor;
+      font-weight: bold;
+
+      &:hover {
+        border: 2px solid $generateButtonBorderColorOnHover;
+      }
+
+      &:disabled {
+        background-color: $generateButtonDisabledBgAndBorderColor;
+        border: 2px solid $generateButtonDisabledBgAndBorderColor;
+        border-right: none;
+        color: $generateButtonDisabledColor;
+      }
+    }
+
+    button.generate-button-split-more {
+      background-color: $generateButtonBgColor;
+      height: 40px;
+      width: 30px;
+      padding: 0;
+      border: none;
+      color: $generateButtonTextColor;
+
+      svg {
+        vertical-align: middle;
+      }
+
+      &:disabled {
+        background-color: $generateButtonDisabledBgAndBorderColor;
+        color: $generateButtonDisabledColor;
+        border: 2px solid $generateButtonDisabledBgAndBorderColor;
+        border-left: none;
+      }
+    }
+
+    .dropdown-menu {
+      width: 380px;
+
+      button, a {
+        height: 40px;
+        line-height: 40px;
+
+        svg {
+          height: 40px;
+          vertical-align: top;
+        }
+      }
+    }
+  }
+}

@@ -35,7 +35,7 @@ export function useDebounce<T extends (...args: any[]) => any>(
     if(containerRef.current.fn !== callback) {
       containerRef.current.fn = callback;
     }
-  }, [callback, containerRef.current.fn]);
+  }, [ callback, containerRef.current.fn ]);
   // @ts-ignore
   return debounceRef.current;
 }

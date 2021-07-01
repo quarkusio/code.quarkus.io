@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/browser';
 import * as React from 'react';
 import { Component, ErrorInfo } from 'react';
-import { Button } from '@patternfly/react-core';
+import { Button } from 'react-bootstrap';
 
 interface SentryBoundaryProps {
   sentryDSN?: string;
@@ -12,7 +12,7 @@ interface SentryBoundaryProps {
 export class SentryBoundary extends Component<SentryBoundaryProps, { error?: Error }> {
   constructor(props: SentryBoundaryProps) {
     super(props);
-    this.state = {error: undefined};
+    this.state = { error: undefined };
 
     if (props.sentryDSN) {
       console.info('Sentry is enabled');
@@ -27,7 +27,7 @@ export class SentryBoundary extends Component<SentryBoundaryProps, { error?: Err
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     if(this.props.sentryDSN) {
-      this.setState({error});
+      this.setState({ error });
       Sentry.withScope(scope => {
         Object.keys(errorInfo).forEach(key => {
           // @ts-ignore

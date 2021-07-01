@@ -1,0 +1,55 @@
+@import "../config.scss";
+.extensions-cart {
+  .extensions-cart-button {
+    height: 40px;
+    background-color: $extensionsCartButtonBgColor;
+    color: $extensionsCartButtonTextColor;
+    width: 50px;
+    text-align: center;
+    line-height: 40px;
+    font-weight: bold;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+
+    svg {
+      margin-right: 5px;
+      height: 40px;
+      vertical-align: top;
+    }
+  }
+
+  .dropdown-menu {
+    width: 380px;
+    padding: 22px 10px 22px 10px;
+
+    .extension-row {
+      flex-wrap: nowrap;
+      height: 22px;
+      line-height: 22px;
+
+      .extension-name {
+        line-height: 22px;
+        height: 22px;
+      }
+
+      .extension-tag {
+        margin: 0 0 0 5px;
+      }
+    }
+    .extension-summary:before {
+      content: '-';
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+    .extension-summary {
+      flex-grow: 1;
+      text-overflow: ellipsis;
+    }
+
+
+  }
+
+  &.opened-from-change .dropdown-menu {
+  }
+}

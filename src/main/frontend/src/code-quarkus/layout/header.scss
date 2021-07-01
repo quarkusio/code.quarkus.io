@@ -31,6 +31,7 @@
 
         svg {
           transition: transform 0.3s ease-in-out;
+          vertical-align: middle;
         }
 
         &:hover svg {
@@ -82,11 +83,17 @@
     .enterprise-support {
       position: relative;
 
-      button.pf-c-button {
+      button.btn {
         background-color: $headerSupportButtonBackgroundColor;
         border: 1px solid $headerSupportButtonBorderColor;
         border-radius: 0;
         color: $headerSupportButtonTextColor;
+        height: 38px;
+        line-height: 35px;
+
+        svg {
+          vertical-align: middle;
+        }
       }
 
       .support-panel {
@@ -118,6 +125,7 @@
 
           svg {
             margin-right: 20px;
+            color: #D73F22;
           }
 
           &:hover {
