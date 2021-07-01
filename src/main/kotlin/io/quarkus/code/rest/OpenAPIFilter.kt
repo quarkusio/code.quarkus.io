@@ -26,7 +26,7 @@ class OpenAPIFilter : OASFilter {
     }
 
     private val validStreamValues: Set<String>
-        private get() {
+        get() {
             val platformService = CDI.current().select(PlatformService::class.java).get()
             return platformService.streamKeys
         }

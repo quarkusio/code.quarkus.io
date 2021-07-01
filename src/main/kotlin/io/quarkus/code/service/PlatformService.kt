@@ -21,7 +21,7 @@ import javax.inject.Singleton
 @Singleton
 class PlatformService {
     @Inject
-    var extensionProcessorConfig: ExtensionProcessorConfig? = null
+    lateinit var extensionProcessorConfig: ExtensionProcessorConfig
     private val catalogResolver = QuarkusProjectHelper.getCatalogResolver()
     var streamCatalogMap: MutableMap<String, List<CodeQuarkusExtension>> = HashMap()
     var platformCatalog: PlatformCatalog? = null
@@ -73,7 +73,7 @@ class PlatformService {
                 // Stream Map
                 val recommendedRelease = stream.recommendedRelease
                 val extensionCatalog = catalogResolver.resolveExtensionCatalog(recommendedRelease.memberBoms)
-                val codeQuarkusExtensions = processExtensions(extensionCatalog, extensionProcessorConfig!!)
+                val codeQuarkusExtensions = processExtensions(extensionCatalog, extensionProcessorConfig)
                 val platformKey = platform.platformKey
                 val streamId = stream.id
                 val key = createStreamKey(platformKey, streamId)

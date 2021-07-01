@@ -1,16 +1,19 @@
 package io.quarkus.code.config
 
-import io.quarkus.arc.config.ConfigProperties
-import org.eclipse.microprofile.config.inject.ConfigProperty
+import io.smallrye.config.ConfigMapping
+import io.smallrye.config.WithDefault
+import io.smallrye.config.WithName
 
-@ConfigProperties(prefix = "io.quarkus.code.quarkus-platform")
+@ConfigMapping(prefix = "io.quarkus.code.quarkus-platform")
 interface QuarkusPlatformConfig {
-    @get:ConfigProperty(name = "group-id", defaultValue = "io.quarkus")
+    @get:WithName("group-id")
+    @get:WithDefault("io.quarkus")
     val groupId: String
 
-    @get:ConfigProperty(name = "artifact-id", defaultValue = "quarkus-universe-bom")
+    @get:WithName("artifact-id")
+    @get:WithDefault("quarkus-universe-bom")
     val artifactId: String
 
-    @get:ConfigProperty(name = "version")
+    @get:WithName("version")
     val version: String
 }

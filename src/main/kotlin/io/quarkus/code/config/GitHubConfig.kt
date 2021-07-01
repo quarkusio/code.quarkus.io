@@ -1,15 +1,15 @@
 package io.quarkus.code.config
 
-import io.quarkus.arc.config.ConfigProperties
-import org.eclipse.microprofile.config.inject.ConfigProperty
+import io.smallrye.config.ConfigMapping
+import io.smallrye.config.WithName
 import java.util.*
 
-@ConfigProperties(prefix = "io.quarkus.code.github")
+@ConfigMapping(prefix = "io.quarkus.code.github")
 interface GitHubConfig {
 
-    @get:ConfigProperty(name = "client-id")
+    @get:WithName("client-id")
     val clientId:  Optional<String>
 
-    @get:ConfigProperty(name = "client-secret")
+    @get:WithName("client-secret")
     val clientSecret: Optional<String>
 }
