@@ -49,6 +49,12 @@ class PlatformService {
             return getExtensionCatalog(defaultPlatformKey, defaultStreamId)
         }
 
+    fun getDefaultStreamKey(): String {
+        val defaultPlatformKey = platformCatalog!!.recommendedPlatform.platformKey
+        val defaultStreamId = platformCatalog!!.recommendedPlatform.recommendedStream.id
+        return createStreamKey(defaultPlatformKey, defaultStreamId)
+    }
+
     fun getExtensionCatalog(platformKey: String, streamId: String): List<CodeQuarkusExtension>? {
         val key = createStreamKey(platformKey, streamId)
         return getExtensionCatalogForStream(key)

@@ -8,7 +8,6 @@ import io.quarkus.code.model.CreatedProject
 import io.quarkus.code.model.PublicConfig
 import io.quarkus.code.model.ProjectDefinition
 import io.quarkus.code.service.PlatformService
-import io.quarkus.code.service.QuarkusExtensionCatalogService
 import io.quarkus.code.service.QuarkusProjectService
 import io.quarkus.registry.catalog.PlatformCatalog
 import io.quarkus.runtime.StartupEvent
@@ -55,9 +54,6 @@ class CodeQuarkusResource {
 
     @Inject
     internal lateinit var platformService: PlatformService
-
-    @Inject
-    internal lateinit var extensionCatalog: QuarkusExtensionCatalogService
 
     @Inject
     internal lateinit var projectCreator: QuarkusProjectService

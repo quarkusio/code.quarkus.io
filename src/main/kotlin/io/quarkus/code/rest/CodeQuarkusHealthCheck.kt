@@ -1,7 +1,7 @@
 package io.quarkus.code.rest
 
 import io.quarkus.code.config.CodeQuarkusConfig
-import io.quarkus.code.service.QuarkusExtensionCatalogService
+import io.quarkus.code.service.PlatformService
 import io.quarkus.code.service.QuarkusProjectService
 import org.eclipse.microprofile.health.HealthCheck
 import org.eclipse.microprofile.health.HealthCheckResponse
@@ -17,7 +17,7 @@ class CodeQuarkusHealthCheck : HealthCheck {
     internal var config: CodeQuarkusConfig? = null
 
     @Inject
-    internal var extensionCatalog: QuarkusExtensionCatalogService? = null
+    internal lateinit var platformService: PlatformService
 
     @Inject
     internal var projectCreator: QuarkusProjectService? = null
@@ -25,9 +25,12 @@ class CodeQuarkusHealthCheck : HealthCheck {
     override fun call(): HealthCheckResponse {
         val responseBuilder = HealthCheckResponse.named("Code Quarkus HealthCheck")
         if(config != null
-                && extensionCatalog?.extensions != null
+                && !platformService?.extensionCatalog.isNullOrEmpty()
                 && projectCreator != null) {
-            responseBuilder.up()
+                    responseBuilder.withData("last updated", platformService.lastUpdated.toString())
+                        .withData("number of extensions", "" + (platformService?.extensionCatalog?.size ?: 0))
+                        .withData("default stream", platformService.getDefaultStreamKey())
+                        .up()
         } else {
             responseBuilder.down()
         }
