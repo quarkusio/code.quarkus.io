@@ -65,7 +65,7 @@ class PlatformService {
 
     @Throws(RegistryResolutionException::class)
     private fun populateExtensionCatalogMaps() {
-        streamCatalogMap.clear()
+        var updatedStreamCatalogMap: MutableMap<String, List<CodeQuarkusExtension>> = HashMap()
         val platformCatalog = platformCatalog
         val platforms = platformCatalog!!.platforms
         for (platform in platforms) {
@@ -77,8 +77,14 @@ class PlatformService {
                 val platformKey = platform.platformKey
                 val streamId = stream.id
                 val key = createStreamKey(platformKey, streamId)
-                streamCatalogMap[key] = codeQuarkusExtensions
+                updatedStreamCatalogMap[key] = codeQuarkusExtensions
             }
+        }
+
+        // Only replace the existing values if we successfully fetched new values
+        if(updatedStreamCatalogMap.isNotEmpty()){
+            this.streamCatalogMap.clear()
+            this.streamCatalogMap.putAll(updatedStreamCatalogMap)
         }
     }
 
