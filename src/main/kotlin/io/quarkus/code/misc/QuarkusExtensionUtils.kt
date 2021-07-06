@@ -81,7 +81,8 @@ object QuarkusExtensionUtils {
                 order = order.getAndIncrement(),
                 providesExampleCode = extensionProcessor.providesCode(),
                 providesCode = extensionProcessor.providesCode(),
-                guide = extensionProcessor.guide
+                guide = extensionProcessor.guide,
+                platform = ext.hasPlatformOrigin()
         )
     }
 

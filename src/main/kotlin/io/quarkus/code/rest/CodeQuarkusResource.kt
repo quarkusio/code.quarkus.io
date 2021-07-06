@@ -139,8 +139,11 @@ class CodeQuarkusResource {
                     schema = Schema(implementation = CodeQuarkusExtension::class, type = SchemaType.ARRAY)
             )]
     )
-    fun extensions(): Response {
-        val extensions = platformService.extensionCatalog
+    fun extensions(@QueryParam("platformOnly") @DefaultValue("true") platformOnly: Boolean): Response {
+        var extensions = platformService.extensionCatalog
+        if(platformOnly){
+            extensions = extensions?.filter { it.platform }
+        }
         val lastUpdated = platformService.lastUpdated
         return Response.ok(extensions).header(LAST_MODIFIED_HEADER,lastUpdated?.format(formatter)).build()
     }
@@ -158,8 +161,11 @@ class CodeQuarkusResource {
             schema = Schema(implementation = CodeQuarkusExtension::class, type = SchemaType.ARRAY)
         )]
     )
-    fun extensionsForStream(@PathParam("stream") stream: String): Response {
-        val extensions = platformService.getExtensionCatalogForStream(stream)
+    fun extensionsForStream(@PathParam("stream") stream: String, @QueryParam("platformOnly") @DefaultValue("true") platformOnly: Boolean): Response {
+        var extensions = platformService.getExtensionCatalogForStream(stream)
+        if(platformOnly){
+            extensions = extensions?.filter { it.platform }
+        }
         val lastUpdated = platformService.lastUpdated
         return Response.ok(extensions).header(LAST_MODIFIED_HEADER, lastUpdated?.format(formatter)).build();
     }
