@@ -7,10 +7,10 @@
     <artifactId>code.quarkus.io</artifactId>
     <version>1.0.0</version>
     <properties>
-        <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
+        <kotlin.compiler.jvmTarget>11</kotlin.compiler.jvmTarget>
         <maven.compiler.parameters>true</maven.compiler.parameters>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <rest-assured.version>4.3.2</rest-assured.version>
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
 
@@ -29,12 +29,12 @@
         <git.commit.id>local</git.commit.id>
 
         <!-- Quarkus version is used for bundling Code Quarkus -->
-        <quarkus.version>2.0.1.Final</quarkus.version>
+        <quarkus.version>2.0.2.Final</quarkus.version>
 
         <!-- Quarkus Platform BOM -->
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.version>2.0.1.Final</quarkus.platform.version>
+        <quarkus.platform.version>2.0.2.Final</quarkus.platform.version>
     </properties>
     <dependencyManagement>
         <dependencies>
