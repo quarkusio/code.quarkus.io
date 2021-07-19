@@ -22,14 +22,14 @@ internal class QuarkusProjectServiceTest {
     lateinit var codeQuarkusConfig: CodeQuarkusConfig
 
     @Inject
-    lateinit var quarkusExtensionCatalog: QuarkusExtensionCatalogService
+    lateinit var platformService: PlatformService
 
     @Test
     @DisplayName("When using default project, then, it should create the zip with all the files correctly with the requested content")
     fun testDefaultZip(info: TestInfo) {
         // When
         val creator = getProjectService()
-        creator.extensionCatalog = quarkusExtensionCatalog
+        creator.platformService = platformService
         val proj = creator.create(ProjectDefinition())
         val testDir = QuarkusProjectServiceTestUtils.extractProject(proj)
         val projDir = Paths.get(testDir.first.path, "code-with-quarkus")
@@ -55,7 +55,7 @@ internal class QuarkusProjectServiceTest {
     fun testDefault(info: TestInfo) {
         // When
         val creator = getProjectService()
-        creator.extensionCatalog = quarkusExtensionCatalog
+        creator.platformService = platformService
         val projDir = creator.createTmp(ProjectDefinition())
 
         // Then
@@ -200,7 +200,7 @@ internal class QuarkusProjectServiceTest {
 
     private fun getProjectService(): QuarkusProjectService {
         val creator = QuarkusProjectService()
-        creator.extensionCatalog = quarkusExtensionCatalog
+        creator.platformService = platformService
         return creator
     }
 }

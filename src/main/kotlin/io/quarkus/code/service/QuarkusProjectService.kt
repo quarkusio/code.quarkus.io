@@ -15,7 +15,6 @@ import java.nio.file.Path
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
-import javax.ws.rs.WebApplicationException
 
 @Singleton
 class QuarkusProjectService {
@@ -38,7 +37,7 @@ class QuarkusProjectService {
     }
 
     @Inject
-    internal lateinit var extensionCatalog: QuarkusExtensionCatalogService
+    internal lateinit var platformService: PlatformService
 
     fun create(projectDefinition: ProjectDefinition): ByteArray {
         val path = createTmp(projectDefinition)
@@ -64,7 +63,7 @@ class QuarkusProjectService {
         }
         try {
             val project =
-                QuarkusProjectHelper.getProject(projectFolderPath, QuarkusExtensionCatalogService.catalog, buildTool)
+                QuarkusProjectHelper.getProject(projectFolderPath, platformService.platformInfo!!.extensionCatalog, buildTool)
             val result = CreateProject(project)
                 .groupId(projectDefinition.groupId)
                 .artifactId(projectDefinition.artifactId)
@@ -89,7 +88,7 @@ class QuarkusProjectService {
     }
 
     private fun checkAndMergeExtensions(projectDefinition: ProjectDefinition): Set<String> {
-        return extensionCatalog.checkAndMergeExtensions(projectDefinition.extensions, projectDefinition.shortExtensions)
+        return platformService.platformInfo!!.checkAndMergeExtensions(projectDefinition.extensions, projectDefinition.shortExtensions)
     }
 
 }

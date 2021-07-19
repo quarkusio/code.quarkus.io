@@ -2,6 +2,7 @@ package io.quarkus.code.service
 
 import io.quarkus.code.misc.QuarkusExtensionUtils.processExtensions
 import io.quarkus.code.config.ExtensionProcessorConfig
+import io.quarkus.code.misc.QuarkusExtensionUtils
 import io.quarkus.devtools.project.QuarkusProjectHelper
 import io.quarkus.code.model.CodeQuarkusExtension
 import java.util.HashMap
@@ -13,18 +14,22 @@ import io.quarkus.scheduler.Scheduled
 import java.time.ZoneOffset
 import java.time.ZoneId
 import io.quarkus.registry.RegistryResolutionException
+import java.util.concurrent.atomic.AtomicReference
 import kotlin.Throws
 import java.util.logging.Logger
+import java.util.stream.Collectors
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class PlatformService {
+
     @Inject
     lateinit var extensionProcessorConfig: ExtensionProcessorConfig
+
     private val catalogResolver = QuarkusProjectHelper.getCatalogResolver()
-    var streamCatalogMap: MutableMap<String, List<CodeQuarkusExtension>> = HashMap()
-    var platformCatalog: PlatformCatalog? = null
+    var streamCatalogMap: MutableMap<String, PlatformInfo> = HashMap()
+    var platformCatalog: AtomicReference<PlatformCatalog>? = null
     var lastUpdated: LocalDateTime? = null
 
     fun onStart(@Observes e: StartupEvent?) {
@@ -34,7 +39,7 @@ class PlatformService {
     @Scheduled(cron = "{reload.catalogs.cron.expr}")
     fun reloadCatalogs() {
         try {
-            platformCatalog = catalogResolver.resolvePlatformCatalog()
+            platformCatalog = AtomicReference(catalogResolver.resolvePlatformCatalog())
             populateExtensionCatalogMaps()
             lastUpdated = LocalDateTime.now(ZoneOffset.UTC as ZoneId)
         } catch (e: RegistryResolutionException) {
@@ -42,16 +47,26 @@ class PlatformService {
         }
     }
 
+    val platformInfo: PlatformInfo?
+        get() {
+            val pc = platformCatalog?.get()
+            val defaultPlatformKey = pc!!.recommendedPlatform.platformKey
+            val defaultStreamId = pc!!.recommendedPlatform.recommendedStream.id
+            return getPlatformInfo(defaultPlatformKey, defaultStreamId)
+        }
+
     val extensionCatalog: List<CodeQuarkusExtension>?
         get() {
-            val defaultPlatformKey = platformCatalog!!.recommendedPlatform.platformKey
-            val defaultStreamId = platformCatalog!!.recommendedPlatform.recommendedStream.id
+            val pc = platformCatalog?.get()
+            val defaultPlatformKey = pc!!.recommendedPlatform.platformKey
+            val defaultStreamId = pc!!.recommendedPlatform.recommendedStream.id
             return getExtensionCatalog(defaultPlatformKey, defaultStreamId)
         }
 
     fun getDefaultStreamKey(): String {
-        val defaultPlatformKey = platformCatalog!!.recommendedPlatform.platformKey
-        val defaultStreamId = platformCatalog!!.recommendedPlatform.recommendedStream.id
+        val pc = platformCatalog?.get()
+        val defaultPlatformKey = pc!!.recommendedPlatform.platformKey
+        val defaultStreamId = pc!!.recommendedPlatform.recommendedStream.id
         return createStreamKey(defaultPlatformKey, defaultStreamId)
     }
 
@@ -60,7 +75,18 @@ class PlatformService {
         return getExtensionCatalogForStream(key)
     }
 
+    fun getPlatformInfo(platformKey: String, streamId: String): PlatformInfo? {
+        val key = createStreamKey(platformKey, streamId)
+        return getPlatformInfoForStream(key)
+    }
+
     fun getExtensionCatalogForStream(stream: String): List<CodeQuarkusExtension>? {
+        return if (streamCatalogMap.containsKey(stream)) {
+            streamCatalogMap[stream]?.codeQuarkusExtensions
+        } else null
+    }
+
+    fun getPlatformInfoForStream(stream: String): PlatformInfo? {
         return if (streamCatalogMap.containsKey(stream)) {
             streamCatalogMap[stream]
         } else null
@@ -71,19 +97,18 @@ class PlatformService {
 
     @Throws(RegistryResolutionException::class)
     private fun populateExtensionCatalogMaps() {
-        var updatedStreamCatalogMap: MutableMap<String, List<CodeQuarkusExtension>> = HashMap()
-        val platformCatalog = platformCatalog
-        val platforms = platformCatalog!!.platforms
+        var updatedStreamCatalogMap: MutableMap<String, PlatformInfo> = HashMap()
+        val platforms = platformCatalog?.get()!!.platforms
         for (platform in platforms) {
             for (stream in platform.streams) {
                 // Stream Map
                 val recommendedRelease = stream.recommendedRelease
                 val extensionCatalog = catalogResolver.resolveExtensionCatalog(recommendedRelease.memberBoms)
-                val codeQuarkusExtensions = processExtensions(extensionCatalog, extensionProcessorConfig)
+                val codeQuarkusExtensions:List<CodeQuarkusExtension> = processExtensions(extensionCatalog, extensionProcessorConfig)
                 val platformKey = platform.platformKey
                 val streamId = stream.id
                 val key = createStreamKey(platformKey, streamId)
-                updatedStreamCatalogMap[key] = codeQuarkusExtensions
+                updatedStreamCatalogMap[key] = PlatformInfo(key,codeQuarkusExtensions,extensionCatalog)
             }
         }
 

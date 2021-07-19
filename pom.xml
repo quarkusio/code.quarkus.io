@@ -291,6 +291,7 @@
                     <systemProperties>
                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                         <maven.home>${maven.home}</maven.home>
+                        <quarkusRegistryClient>true</quarkusRegistryClient>
                     </systemProperties>
                 </configuration>
             </plugin>
