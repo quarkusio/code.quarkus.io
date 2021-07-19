@@ -1,27 +1,30 @@
 package io.quarkus.code.config
 
-import io.quarkus.arc.config.ConfigProperties
-import org.eclipse.microprofile.config.inject.ConfigProperty
+import io.smallrye.config.ConfigMapping
+import io.smallrye.config.WithName
 import java.util.*
 
-@ConfigProperties(prefix = "io.quarkus.code")
+@ConfigMapping(prefix = "io.quarkus.code")
 interface CodeQuarkusConfig {
-    @get:ConfigProperty(name = "quarkus-version")
+    @get:WithName("quarkus-version")
     val quarkusVersion: String
 
-    @get:ConfigProperty(name = "git-commit-id")
+    @get:WithName("git-commit-id")
     val gitCommitId: String
 
-    @get:ConfigProperty(name = "environment")
+    @get:WithName("environment")
     val environment: Optional<String>
 
-    @get:ConfigProperty(name = "sentry-dsn")
+    @get:WithName("sentry-dsn")
     val sentryDSN: Optional<String>
 
     // FIXME use Optional<List<String>> when bugfix is released
-    @get:ConfigProperty(name = "features")
+    @get:WithName("features")
     val features: Optional<String>
 
-    @get:ConfigProperty(name = "hostname")
+    @get:WithName("hostname")
     val hostname: Optional<String>
+
+    @get:WithName("reload-cron-expr")
+    val reloadCronExpr: Optional<String>
 }

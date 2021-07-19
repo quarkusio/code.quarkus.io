@@ -2,7 +2,7 @@ package io.quarkus.code.rest
 
 import io.quarkus.code.model.ProjectDefinition
 import io.quarkus.code.service.GoogleAnalyticsService
-import io.quarkus.code.service.QuarkusExtensionCatalogService
+import io.quarkus.code.service.PlatformService
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import java.io.BufferedReader
@@ -31,7 +31,7 @@ class AnalyticsFilter : ContainerRequestFilter {
     lateinit var googleAnalyticsService: Instance<GoogleAnalyticsService>
 
     @Inject
-    lateinit var extensionCatalog: Instance<QuarkusExtensionCatalogService>
+    lateinit var platformService: Instance<PlatformService>
 
     @Context
     internal var info: UriInfo? = null
@@ -118,14 +118,14 @@ class AnalyticsFilter : ContainerRequestFilter {
             if(text.isNotBlank()) {
                 val json = JsonObject(text)
                 val rawExtensions = json.getJsonArray("extensions", JsonArray()).stream().map { it.toString() }.collect(Collectors.toSet())
-                extensions = extensionCatalog.get().checkAndMergeExtensions(rawExtensions)
+                extensions = platformService.get().platformInfo!!.checkAndMergeExtensions(rawExtensions)
                 buildTool = json.getString("buildTool", ProjectDefinition.DEFAULT_BUILDTOOL)
             } else {
                 extensions = emptySet()
                 buildTool = ProjectDefinition.DEFAULT_BUILDTOOL
             }
         } else {
-            extensions = extensionCatalog.get().checkAndMergeExtensions(queryParams["e"]?.toSet(), queryParams.getFirst("s"))
+            extensions = platformService.get().platformInfo!!.checkAndMergeExtensions(queryParams["e"]?.toSet(), queryParams.getFirst("s"))
             buildTool = queryParams.getFirst("b") ?: ProjectDefinition.DEFAULT_BUILDTOOL
         }
         return WatchedData(

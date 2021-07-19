@@ -7,18 +7,22 @@ import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.code.model.CreatedProject
 import io.quarkus.code.model.PublicConfig
 import io.quarkus.code.model.ProjectDefinition
-import io.quarkus.code.service.QuarkusExtensionCatalogService
+import io.quarkus.code.service.PlatformService
 import io.quarkus.code.service.QuarkusProjectService
+import io.quarkus.registry.catalog.PlatformCatalog
 import io.quarkus.runtime.StartupEvent
 import org.apache.http.NameValuePair
 import org.apache.http.client.utils.URLEncodedUtils
 import org.apache.http.message.BasicNameValuePair
 import org.eclipse.microprofile.openapi.annotations.Operation
+import org.eclipse.microprofile.openapi.annotations.enums.SchemaType
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
+import org.eclipse.microprofile.openapi.annotations.tags.Tag
 import java.lang.IllegalArgumentException
 import java.nio.charset.StandardCharsets
+import java.time.format.DateTimeFormatter
 import java.util.logging.Level
 import java.util.logging.Logger
 import javax.enterprise.event.Observes
@@ -35,6 +39,8 @@ class CodeQuarkusResource {
 
     companion object {
         private val LOG = Logger.getLogger(CodeQuarkusResource::class.java.name)
+        var formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss' GMT'")
+        private const val LAST_MODIFIED_HEADER = "Last-Modified"
     }
 
     @Inject
@@ -47,7 +53,7 @@ class CodeQuarkusResource {
     lateinit var gitHubConfig: GitHubConfig
 
     @Inject
-    internal lateinit var extensionCatalog: QuarkusExtensionCatalogService
+    internal lateinit var platformService: PlatformService
 
     @Inject
     internal lateinit var projectCreator: QuarkusProjectService
@@ -79,21 +85,85 @@ class CodeQuarkusResource {
         )
     }
 
+    @GET
+    @Path("/platforms")
+    @Produces(APPLICATION_JSON)
+    @Operation(summary = "Get all available platforms")
+    @Tag(name = "Platform", description = "Platform related endpoints")
+    @APIResponse(
+        responseCode = "200",
+        description = "All available platforms",
+        content = [Content(
+            mediaType = APPLICATION_JSON,
+            schema = Schema(implementation = PlatformCatalog::class)
+        )]
+    )
+    fun platforms(): Response {
+        val platformCatalog = platformService.platformCatalog
+        val lastUpdated = platformService.lastUpdated
+        return Response.ok(platformCatalog).header(LAST_MODIFIED_HEADER,lastUpdated?.format(formatter)).build()
+    }
+
+    @GET
+    @Path("/keys/stream")
+    @Produces(APPLICATION_JSON)
+    @Operation(summary = "Get all available stream keys")
+    @Tag(name = "Platform", description = "Platform related endpoints")
+    @APIResponse(
+        responseCode = "200",
+        description = "All available stream keys",
+        content = [Content(
+            mediaType = APPLICATION_JSON
+        )]
+    )
+    fun streamKeys(): Response {
+        val streamKeys = platformService.streamKeys
+        val lastUpdated = platformService.lastUpdated
+        return Response.ok(streamKeys).header(LAST_MODIFIED_HEADER,lastUpdated?.format(formatter)).build()
+    }
 
     @GET
     @Path("/extensions")
     @Produces(APPLICATION_JSON)
-    @Operation(summary = "Get the Quarkus Launcher list of Quarkus extensions")
+    @Operation(operationId="extensions", summary = "Get the Quarkus Launcher list of Quarkus extensions")
+    @Tag(name = "Extensions", description = "Extension related endpoints")
     @APIResponse(
             responseCode = "200",
             description = "List of Quarkus extensions",
             content = [Content(
                     mediaType = APPLICATION_JSON,
-                    schema = Schema(implementation = CodeQuarkusExtension::class)
+                    schema = Schema(implementation = CodeQuarkusExtension::class, type = SchemaType.ARRAY)
             )]
     )
-    fun extensions(): List<CodeQuarkusExtension> {
-        return extensionCatalog.extensions
+    fun extensions(@QueryParam("platformOnly") @DefaultValue("true") platformOnly: Boolean): Response {
+        var extensions = platformService.extensionCatalog
+        if(platformOnly){
+            extensions = extensions?.filter { it.platform }
+        }
+        val lastUpdated = platformService.lastUpdated
+        return Response.ok(extensions).header(LAST_MODIFIED_HEADER,lastUpdated?.format(formatter)).build()
+    }
+
+    @GET
+    @Path("/extensions/stream/{stream}")
+    @Produces(APPLICATION_JSON)
+    @Operation(operationId="extensionsForStream", summary = "Get the Quarkus Launcher list of Quarkus extensions")
+    @Tag(name = "Extensions", description = "Extension related endpoints")
+    @APIResponse(
+        responseCode = "200",
+        description = "List of Quarkus extensions for a certain stream",
+        content = [Content(
+            mediaType = APPLICATION_JSON,
+            schema = Schema(implementation = CodeQuarkusExtension::class, type = SchemaType.ARRAY)
+        )]
+    )
+    fun extensionsForStream(@PathParam("stream") stream: String, @QueryParam("platformOnly") @DefaultValue("true") platformOnly: Boolean): Response {
+        var extensions = platformService.getExtensionCatalogForStream(stream)
+        if(platformOnly){
+            extensions = extensions?.filter { it.platform }
+        }
+        val lastUpdated = platformService.lastUpdated
+        return Response.ok(extensions).header(LAST_MODIFIED_HEADER, lastUpdated?.format(formatter)).build();
     }
 
     @POST
@@ -101,6 +171,7 @@ class CodeQuarkusResource {
     @Consumes(APPLICATION_JSON)
     @Produces(APPLICATION_JSON)
     @Operation(summary = "Prepare a Quarkus application project to be downloaded")
+    @Tag(name = "Project", description = "Project creation endpoints")
     fun project(@Valid projectDefinition: ProjectDefinition?): CreatedProject {
         val params = ArrayList<NameValuePair>()
         if (projectDefinition != null) {
@@ -138,6 +209,7 @@ class CodeQuarkusResource {
     @Path("/download")
     @Produces("application/zip")
     @Operation(summary = "Download a custom Quarkus application with the provided settings")
+    @Tag(name = "Download", description = "Download endpoints")
     fun download(@Valid @BeanParam projectDefinition: ProjectDefinition): Response {
         try {
             return Response
@@ -161,6 +233,7 @@ class CodeQuarkusResource {
     @Consumes(APPLICATION_JSON)
     @Produces("application/zip")
     @Operation(summary = "Download a custom Quarkus application with the provided settings")
+    @Tag(name = "Download", description = "Download endpoints")
     fun postDownload(@Valid projectDefinition: ProjectDefinition?): Response {
         try {
             val project = projectDefinition ?: ProjectDefinition()

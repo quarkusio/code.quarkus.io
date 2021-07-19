@@ -22,7 +22,7 @@ class CodeQuarkusResourceTest {
     fun `Should fail when too many extensions`() {
         given()
             .contentType(ContentType.JSON)
-            .body(ProjectDefinition(extensions = projectService.extensionCatalog.extensionsById.keys))
+            .body(ProjectDefinition(extensions = projectService.platformService.platformInfo!!.extensionsById.keys))
             .`when`().post("/api/project")
             .then()
             .log().ifValidationFails()

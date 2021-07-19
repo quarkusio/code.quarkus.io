@@ -52,7 +52,7 @@ n.quarkus-platform>
 
 # API Documentation
 
-- [OpenApi](http://editor.swagger.io/?url=https://code.quarkus.io/openapi)
+- [OpenApi](https://code.quarkus.io/q/swagger-ui)
 
 # Analytics events
 
