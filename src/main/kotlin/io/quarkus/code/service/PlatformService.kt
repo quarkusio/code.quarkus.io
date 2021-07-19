@@ -27,7 +27,7 @@ class PlatformService {
     @Inject
     lateinit var extensionProcessorConfig: ExtensionProcessorConfig
     private val catalogResolver = QuarkusProjectHelper.getCatalogResolver()
-    private var platformServiceCache: AtomicReference<PlatformServiceCache> = AtomicReference()
+    private val platformServiceCache: AtomicReference<PlatformServiceCache> = AtomicReference()
 
     fun onStart(@Observes e: StartupEvent?) {
         reloadCatalogs()
