@@ -26,11 +26,8 @@ class PlatformService {
 
     @Inject
     lateinit var extensionProcessorConfig: ExtensionProcessorConfig
-
     private val catalogResolver = QuarkusProjectHelper.getCatalogResolver()
-    var streamCatalogMap: MutableMap<String, PlatformInfo> = HashMap()
-    var platformCatalog: AtomicReference<PlatformCatalog> = AtomicReference()
-    var lastUpdated: LocalDateTime? = null
+    private var platformServiceCache: AtomicReference<PlatformServiceCache> = AtomicReference()
 
     fun onStart(@Observes e: StartupEvent?) {
         reloadCatalogs()
@@ -39,9 +36,7 @@ class PlatformService {
     @Scheduled(cron = "{io.quarkus.code.reload-cron-expr}")
     fun reloadCatalogs() {
         try {
-            platformCatalog.set(catalogResolver.resolvePlatformCatalog())
-            populateExtensionCatalogMaps()
-            lastUpdated = LocalDateTime.now(ZoneOffset.UTC as ZoneId)
+            reloadPlatformServiceCache()
         } catch (e: RegistryResolutionException) {
             LOG.warning("Could not reload catalogs [" + e.message + "]")
         }
@@ -49,22 +44,32 @@ class PlatformService {
 
     val platformInfo: PlatformInfo?
         get() {
-            val pc = platformCatalog.get()
+            val pc = platformServiceCache.get().platformCatalog
             val defaultPlatformKey = pc!!.recommendedPlatform.platformKey
             val defaultStreamId = pc!!.recommendedPlatform.recommendedStream.id
             return getPlatformInfo(defaultPlatformKey, defaultStreamId)
         }
 
+    val lastUpdated: LocalDateTime?
+        get(){
+            return platformServiceCache.get().lastUpdated
+        }
+
+    val platformCatalog: PlatformCatalog?
+        get(){
+            return platformServiceCache.get().platformCatalog
+        }
+
     val extensionCatalog: List<CodeQuarkusExtension>?
         get() {
-            val pc = platformCatalog.get()
+            val pc = platformServiceCache.get().platformCatalog
             val defaultPlatformKey = pc!!.recommendedPlatform.platformKey
             val defaultStreamId = pc!!.recommendedPlatform.recommendedStream.id
             return getExtensionCatalog(defaultPlatformKey, defaultStreamId)
         }
 
     fun getDefaultStreamKey(): String {
-        val pc = platformCatalog.get()
+        val pc = platformServiceCache.get().platformCatalog
         val defaultPlatformKey = pc!!.recommendedPlatform.platformKey
         val defaultStreamId = pc!!.recommendedPlatform.recommendedStream.id
         return createStreamKey(defaultPlatformKey, defaultStreamId)
@@ -81,24 +86,25 @@ class PlatformService {
     }
 
     fun getExtensionCatalogForStream(stream: String): List<CodeQuarkusExtension>? {
-        return if (streamCatalogMap.containsKey(stream)) {
-            streamCatalogMap[stream]?.codeQuarkusExtensions
+        return if (platformServiceCache.get().streamCatalogMap.containsKey(stream)) {
+            platformServiceCache.get().streamCatalogMap[stream]?.codeQuarkusExtensions
         } else null
     }
 
     fun getPlatformInfoForStream(stream: String): PlatformInfo? {
-        return if (streamCatalogMap.containsKey(stream)) {
-            streamCatalogMap[stream]
+        return if (platformServiceCache.get().streamCatalogMap.containsKey(stream)) {
+            platformServiceCache.get().streamCatalogMap[stream]
         } else null
     }
 
     val streamKeys: Set<String>
-        get() = streamCatalogMap.keys
+        get() = platformServiceCache.get().streamCatalogMap.keys
 
     @Throws(RegistryResolutionException::class)
-    private fun populateExtensionCatalogMaps() {
+    private fun reloadPlatformServiceCache() {
+        var platformCatalog = catalogResolver.resolvePlatformCatalog()
         var updatedStreamCatalogMap: MutableMap<String, PlatformInfo> = HashMap()
-        val platforms = platformCatalog.get()!!.platforms
+        val platforms = platformCatalog.platforms
         for (platform in platforms) {
             for (stream in platform.streams) {
                 // Stream Map
@@ -114,8 +120,7 @@ class PlatformService {
 
         // Only replace the existing values if we successfully fetched new values
         if(updatedStreamCatalogMap.isNotEmpty()){
-            this.streamCatalogMap.clear()
-            this.streamCatalogMap.putAll(updatedStreamCatalogMap)
+            platformServiceCache.set(PlatformServiceCache(platformCatalog,updatedStreamCatalogMap,LocalDateTime.now(ZoneOffset.UTC as ZoneId)))
         }
     }
 
