@@ -76,7 +76,8 @@ object QuarkusExtensionUtils {
                 description = ext.description,
                 shortName = extensionProcessor.shortName,
                 category = cat.name,
-                tags = extensionProcessor.getTags(config.tagsFrom.orElse(null)),
+                tags = extensionProcessor.getTags(config.tagsFrom.orElse(null))
+                    .map { if (it == "provides-code") "code" else it },
                 keywords = extensionProcessor.extendedKeywords,
                 order = order.getAndIncrement(),
                 providesExampleCode = extensionProcessor.providesCode(),

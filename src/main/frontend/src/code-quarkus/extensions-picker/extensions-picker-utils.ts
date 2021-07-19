@@ -26,6 +26,11 @@ export const sortFunction = (filter: string) => (a: ExtensionEntry, b: Extension
   if (startWithAShortName !== startWithBShortName) {
     return startWithAShortName ? -1 : 1;
   }
+  const startWithOneOfATags = a.tags.filter(l => l.startsWith(filterLowerCase)).length > 0;
+  const startWithOneOfBTags = b.tags.filter(l => l.startsWith(filterLowerCase)).length > 0;
+  if (startWithOneOfATags !== startWithOneOfBTags) {
+    return startWithOneOfATags ? -1 : 1;
+  }
   const startWithOneOfAKeywords = a.keywords.filter(l => l.startsWith(filterLowerCase)).length > 0;
   const startWithOneOfBKeywords = b.keywords.filter(l => l.startsWith(filterLowerCase)).length > 0;
   if (startWithOneOfAKeywords !== startWithOneOfBKeywords) {
@@ -33,11 +38,6 @@ export const sortFunction = (filter: string) => (a: ExtensionEntry, b: Extension
   }
   if (a.name.toLowerCase().startsWith(filterLowerCase) !== b.name.toLowerCase().startsWith(filterLowerCase)) {
     return a.name.toLowerCase().startsWith(filterLowerCase) ? -1 : 1;
-  }
-  const startWithOneOfATags = a.tags.filter(l => l.startsWith(filterLowerCase)).length > 0;
-  const startWithOneOfBTags = b.tags.filter(l => l.startsWith(filterLowerCase)).length > 0;
-  if (startWithOneOfATags !== startWithOneOfBTags) {
-    return startWithOneOfATags ? -1 : 1;
   }
   return a.order > b.order ? 1 : -1;
 };
