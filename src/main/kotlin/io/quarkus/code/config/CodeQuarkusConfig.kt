@@ -24,4 +24,7 @@ interface CodeQuarkusConfig {
 
     @get:WithName("hostname")
     val hostname: Optional<String>
+
+    @get:WithName("reload-cron-expr")
+    val reloadCronExpr: Optional<String>
 }

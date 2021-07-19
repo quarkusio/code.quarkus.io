@@ -36,7 +36,7 @@ class PlatformService {
         reloadCatalogs()
     }
 
-    @Scheduled(cron = "{reload.catalogs.cron.expr}")
+    @Scheduled(cron = "{io.quarkus.code.reload-cron-expr}")
     fun reloadCatalogs() {
         try {
             platformCatalog.set(catalogResolver.resolvePlatformCatalog())
