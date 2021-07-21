@@ -31,10 +31,10 @@
         <!-- Quarkus platform used for the code.quarkus app-->
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.version>2.0.2.Final</quarkus.platform.version>
+        <quarkus.platform.version>2.0.3.Final</quarkus.platform.version>
 
         <!-- Quarkus devtools version -->
-        <quarkus.devtools.version>2.0.2.Final</quarkus.devtools.version>
+        <quarkus.devtools.version>2.0.3.Final</quarkus.devtools.version>
 
     </properties>
     <dependencyManagement>
