@@ -29,7 +29,6 @@ internal class QuarkusProjectServiceTest {
     fun testDefaultZip(info: TestInfo) {
         // When
         val creator = getProjectService()
-        creator.platformService = platformService
         val proj = creator.create(ProjectDefinition())
         val testDir = QuarkusProjectServiceTestUtils.extractProject(proj)
         val projDir = Paths.get(testDir.first.path, "code-with-quarkus")
@@ -41,7 +40,9 @@ internal class QuarkusProjectServiceTest {
             .satisfies(checkContains("<groupId>org.acme</groupId>"))
             .satisfies(checkContains("<artifactId>code-with-quarkus</artifactId>"))
             .satisfies(checkContains("<version>1.0.0-SNAPSHOT</version>"))
-            .satisfies(checkContains("<quarkus.platform.version>${codeQuarkusConfig.quarkusVersion}</quarkus.platform.version>"))
+            .satisfies(checkContains("<quarkus.platform.group-id>${platformService.recommendedPlatformInfo.extensionCatalog.bom.groupId}</quarkus.platform.group-id>"))
+            .satisfies(checkContains("<quarkus.platform.artifact-id>${platformService.recommendedPlatformInfo.extensionCatalog.bom.artifactId}</quarkus.platform.artifact-id>"))
+            .satisfies(checkContains("<quarkus.platform.version>${platformService.recommendedPlatformInfo.extensionCatalog.bom.version}</quarkus.platform.version>")).satisfies(checkContains("<groupId>io.quarkus</groupId>"))
             .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
             .satisfies(checkContains("<artifactId>quarkus-resteasy</artifactId>"))
             .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
@@ -55,7 +56,6 @@ internal class QuarkusProjectServiceTest {
     fun testDefault(info: TestInfo) {
         // When
         val creator = getProjectService()
-        creator.platformService = platformService
         val projDir = creator.createTmp(ProjectDefinition())
 
         // Then
@@ -65,8 +65,9 @@ internal class QuarkusProjectServiceTest {
             .satisfies(checkContains("<groupId>org.acme</groupId>"))
             .satisfies(checkContains("<artifactId>code-with-quarkus</artifactId>"))
             .satisfies(checkContains("<version>1.0.0-SNAPSHOT</version>"))
-            .satisfies(checkContains("<quarkus.platform.version>${codeQuarkusConfig.quarkusVersion}</quarkus.platform.version>"))
-            .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
+            .satisfies(checkContains("<quarkus.platform.group-id>${platformService.recommendedPlatformInfo.extensionCatalog.bom.groupId}</quarkus.platform.group-id>"))
+            .satisfies(checkContains("<quarkus.platform.artifact-id>${platformService.recommendedPlatformInfo.extensionCatalog.bom.artifactId}</quarkus.platform.artifact-id>"))
+            .satisfies(checkContains("<quarkus.platform.version>${platformService.recommendedPlatformInfo.extensionCatalog.bom.version}</quarkus.platform.version>")).satisfies(checkContains("<groupId>io.quarkus</groupId>"))
             .satisfies(checkContains("<artifactId>quarkus-resteasy</artifactId>"))
             .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
 
@@ -104,7 +105,9 @@ internal class QuarkusProjectServiceTest {
             .satisfies(checkContains("<groupId>com.test</groupId>"))
             .satisfies(checkContains("<artifactId>test-app</artifactId>"))
             .satisfies(checkContains("<version>2.0.0</version>"))
-            .satisfies(checkContains("<quarkus.platform.version>${codeQuarkusConfig.quarkusVersion}</quarkus.platform.version>"))
+            .satisfies(checkContains("<quarkus.platform.group-id>${platformService.recommendedPlatformInfo.extensionCatalog.bom.groupId}</quarkus.platform.group-id>"))
+            .satisfies(checkContains("<quarkus.platform.artifact-id>${platformService.recommendedPlatformInfo.extensionCatalog.bom.artifactId}</quarkus.platform.artifact-id>"))
+            .satisfies(checkContains("<quarkus.platform.version>${platformService.recommendedPlatformInfo.extensionCatalog.bom.version}</quarkus.platform.version>"))
             .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
             .satisfies(checkContains("<artifactId>quarkus-resteasy</artifactId>"))
             .satisfies(checkContains("<artifactId>quarkus-resteasy-jsonb</artifactId>"))

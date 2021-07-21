@@ -2,7 +2,6 @@ package io.quarkus.code.service
 
 import io.quarkus.code.misc.QuarkusExtensionUtils.processExtensions
 import io.quarkus.code.config.ExtensionProcessorConfig
-import io.quarkus.code.misc.QuarkusExtensionUtils
 import io.quarkus.devtools.project.QuarkusProjectHelper
 import io.quarkus.code.model.CodeQuarkusExtension
 import java.util.HashMap
@@ -17,7 +16,6 @@ import io.quarkus.registry.RegistryResolutionException
 import java.util.concurrent.atomic.AtomicReference
 import kotlin.Throws
 import java.util.logging.Logger
-import java.util.stream.Collectors
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -27,57 +25,71 @@ class PlatformService {
     @Inject
     lateinit var extensionProcessorConfig: ExtensionProcessorConfig
     private val catalogResolver = QuarkusProjectHelper.getCatalogResolver()
-    private val platformServiceCache: AtomicReference<PlatformServiceCache> = AtomicReference()
+    private val platformServiceCacheRef: AtomicReference<PlatformServiceCache> = AtomicReference()
 
     fun onStart(@Observes e: StartupEvent?) {
-        reloadCatalogs()
+        reload()
     }
 
-    @Scheduled(cron = "{io.quarkus.code.reload-cron-expr}")
-    fun reloadCatalogs() {
+    @Scheduled(cron = "{io.quarkus.code.quarkus-platforms.reload-cron-expr}")
+    fun reload() {
         try {
             reloadPlatformServiceCache()
         } catch (e: RegistryResolutionException) {
+            LOG.warning("Could not resolve catalogs [" + e.message + "]")
+        } catch (e: Exception) {
             LOG.warning("Could not reload catalogs [" + e.message + "]")
         }
     }
 
-    val platformInfo: PlatformInfo?
+    val isLoaded: Boolean
+        get() = platformServiceCacheRef.get() != null && !recommendedCodeQuarkusExtensions.isNullOrEmpty()
+
+    val platformsCache: PlatformServiceCache
+        get() = platformServiceCacheRef.get() ?: error("Platforms cache must not be used if not loaded")
+
+    val recommendedPlatformInfo: PlatformInfo
         get() {
-            val pc = platformServiceCache.get().platformCatalog
-            val defaultPlatformKey = pc!!.recommendedPlatform.platformKey
-            val defaultStreamId = pc!!.recommendedPlatform.recommendedStream.id
+            val pc = platformCatalog
+            val defaultPlatformKey = pc.recommendedPlatform.platformKey
+            val defaultStreamId = pc.recommendedPlatform.recommendedStream.id
             return getPlatformInfo(defaultPlatformKey, defaultStreamId)
+                ?: error("Recommended platform should not be null")
         }
 
-    val lastUpdated: LocalDateTime?
-        get(){
-            return platformServiceCache.get().lastUpdated
-        }
-
-    val platformCatalog: PlatformCatalog?
-        get(){
-            return platformServiceCache.get().platformCatalog
-        }
-
-    val extensionCatalog: List<CodeQuarkusExtension>?
+    val lastUpdated: LocalDateTime
         get() {
-            val pc = platformServiceCache.get().platformCatalog
-            val defaultPlatformKey = pc!!.recommendedPlatform.platformKey
-            val defaultStreamId = pc!!.recommendedPlatform.recommendedStream.id
-            return getExtensionCatalog(defaultPlatformKey, defaultStreamId)
+            return platformsCache.lastUpdated
         }
 
-    fun getDefaultStreamKey(): String {
-        val pc = platformServiceCache.get().platformCatalog
-        val defaultPlatformKey = pc!!.recommendedPlatform.platformKey
-        val defaultStreamId = pc!!.recommendedPlatform.recommendedStream.id
-        return createStreamKey(defaultPlatformKey, defaultStreamId)
-    }
+    val platformCatalog: PlatformCatalog
+        get() {
+            return platformsCache.platformCatalog
+        }
 
-    fun getExtensionCatalog(platformKey: String, streamId: String): List<CodeQuarkusExtension>? {
+    val recommendedCodeQuarkusExtensions: List<CodeQuarkusExtension>
+        get() {
+            val pc = platformCatalog
+            val defaultPlatformKey = pc.recommendedPlatform.platformKey
+            val defaultStreamId = pc.recommendedPlatform.recommendedStream.id
+            return getCodeQuarkusExtensions(defaultPlatformKey, defaultStreamId)
+                ?: error("Recommended extensions should not be null")
+        }
+
+    val recommendedStreamKey: String
+        get() {
+            val pc = platformCatalog
+            val defaultPlatformKey = pc.recommendedPlatform.platformKey
+            val defaultStreamId = pc.recommendedPlatform.recommendedStream.id
+            return createStreamKey(defaultPlatformKey, defaultStreamId)
+        }
+
+    val streamKeys: Set<String>
+        get() = platformServiceCacheRef.get().streamCatalogMap.keys
+
+    fun getCodeQuarkusExtensions(platformKey: String, streamId: String): List<CodeQuarkusExtension>? {
         val key = createStreamKey(platformKey, streamId)
-        return getExtensionCatalogForStream(key)
+        return getCodeQuarkusExtensionsForStream(key)
     }
 
     fun getPlatformInfo(platformKey: String, streamId: String): PlatformInfo? {
@@ -85,43 +97,58 @@ class PlatformService {
         return getPlatformInfoForStream(key)
     }
 
-    fun getExtensionCatalogForStream(stream: String): List<CodeQuarkusExtension>? {
-        return if (platformServiceCache.get().streamCatalogMap.containsKey(stream)) {
-            platformServiceCache.get().streamCatalogMap[stream]?.codeQuarkusExtensions
-        } else null
+    fun getCodeQuarkusExtensionsForStream(stream: String): List<CodeQuarkusExtension>? {
+        return getPlatformInfoForStream(stream)?.codeQuarkusExtensions
     }
 
     fun getPlatformInfoForStream(stream: String): PlatformInfo? {
-        return if (platformServiceCache.get().streamCatalogMap.containsKey(stream)) {
-            platformServiceCache.get().streamCatalogMap[stream]
+        return if (platformServiceCacheRef.get().streamCatalogMap.containsKey(stream)) {
+            platformServiceCacheRef.get().streamCatalogMap[stream]
         } else null
     }
 
-    val streamKeys: Set<String>
-        get() = platformServiceCache.get().streamCatalogMap.keys
-
     @Throws(RegistryResolutionException::class)
     private fun reloadPlatformServiceCache() {
-        var platformCatalog = catalogResolver.resolvePlatformCatalog()
-        var updatedStreamCatalogMap: MutableMap<String, PlatformInfo> = HashMap()
+        val platformCatalog = catalogResolver.resolvePlatformCatalog()
+        val updatedStreamCatalogMap: MutableMap<String, PlatformInfo> = HashMap()
         val platforms = platformCatalog.platforms
         for (platform in platforms) {
             for (stream in platform.streams) {
                 // Stream Map
                 val recommendedRelease = stream.recommendedRelease
                 val extensionCatalog = catalogResolver.resolveExtensionCatalog(recommendedRelease.memberBoms)
-                val codeQuarkusExtensions:List<CodeQuarkusExtension> = processExtensions(extensionCatalog, extensionProcessorConfig)
+                val codeQuarkusExtensions: List<CodeQuarkusExtension> =
+                    processExtensions(extensionCatalog, extensionProcessorConfig)
                 val platformKey = platform.platformKey
                 val streamId = stream.id
                 val key = createStreamKey(platformKey, streamId)
-                updatedStreamCatalogMap[key] = PlatformInfo(key,codeQuarkusExtensions,extensionCatalog)
+                updatedStreamCatalogMap[key] = PlatformInfo(key, codeQuarkusExtensions, extensionCatalog)
             }
         }
 
         // Only replace the existing values if we successfully fetched new values
-        if(updatedStreamCatalogMap.isNotEmpty()){
-            platformServiceCache.set(PlatformServiceCache(platformCatalog,updatedStreamCatalogMap,LocalDateTime.now(ZoneOffset.UTC as ZoneId)))
+        if (updatedStreamCatalogMap.isEmpty()) {
+            return
         }
+
+        // Check if the recommended catalog is loaded
+        val defaultPlatformKey = platformCatalog.recommendedPlatform.platformKey
+        val defaultStreamId = platformCatalog.recommendedPlatform.recommendedStream.id
+        val recommendedPlatform = updatedStreamCatalogMap[createStreamKey(defaultPlatformKey, defaultStreamId)]
+
+        if (recommendedPlatform?.codeQuarkusExtensions.isNullOrEmpty()) {
+            return
+        }
+
+        platformServiceCacheRef.set(
+            PlatformServiceCache(
+                platformCatalog,
+                updatedStreamCatalogMap,
+                LocalDateTime.now(ZoneOffset.UTC as ZoneId)
+            )
+        )
+
+        LOG.info("PlatformService cache has been reloaded successfully")
     }
 
     private fun createStreamKey(platformKey: String, streamId: String): String {

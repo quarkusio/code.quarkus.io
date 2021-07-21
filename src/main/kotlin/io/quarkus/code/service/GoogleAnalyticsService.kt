@@ -81,7 +81,7 @@ class GoogleAnalyticsService {
                 event.customDimension(gaConfig.extensionQtyDimensionIndex.asInt, extensions.size.toString())
             }
             if (gaConfig.quarkusVersionDimensionIndex.isPresent) {
-                event.customDimension(gaConfig.quarkusVersionDimensionIndex.asInt, config.quarkusVersion)
+                event.customDimension(gaConfig.quarkusVersionDimensionIndex.asInt, config.quarkusPlatformVersion)
             }
             if (buildTool != null && gaConfig.buildToolDimensionIndex.isPresent) {
                 event.customDimension(gaConfig.buildToolDimensionIndex.asInt, buildTool)
