@@ -1,5 +1,5 @@
 import { act, cleanup, fireEvent, render, RenderResult } from '@testing-library/react';
-import { wait } from '@testing-library/dom';
+import { wait } from '@testing-library/react';
 import * as React from 'react';
 import { CodeQuarkus } from '../code-quarkus';
 import { Config } from '../api/model';
@@ -84,7 +84,7 @@ afterEach(() => {
   cleanup();
 });
 
-const config = { environment: 'test', quarkusVersion: 'test-version', gitCommitId: 'test-commitid' } as Config;
+const config = { environment: 'test', quarkusPlatformVersion: 'test-version', gitCommitId: 'test-commitid' } as Config;
 
 it('Render CodeQuarkus', async () => {
   let comp: RenderResult;

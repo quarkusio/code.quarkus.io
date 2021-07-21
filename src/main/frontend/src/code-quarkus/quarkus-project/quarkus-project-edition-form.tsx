@@ -43,7 +43,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
                 Configure your application
               </h3>
             </div>
-            <InfoPicker value={props.project.metadata} onChange={setMetadata} quarkusVersion={props.config.quarkusVersion}/>
+            <InfoPicker value={props.project.metadata} onChange={setMetadata} quarkusVersion={props.config.quarkusPlatformVersion}/>
           </div>
           <div className="generate-project">
             <ExtensionsCart  value={{ extensions: props.project.extensions }} onChange={setExtensions} />
