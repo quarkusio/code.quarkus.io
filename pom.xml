@@ -28,19 +28,18 @@
 
         <git.commit.id>local</git.commit.id>
 
-        <!-- Quarkus version is used for bundling Code Quarkus -->
-        <quarkus.version>2.0.2.Final</quarkus.version>
-
-        <!-- Quarkus Platform BOM -->
-        <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-        <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
+        <!-- Quarkus platform used for the code.quarkus app-->
         <quarkus.platform.version>2.0.2.Final</quarkus.platform.version>
+
+        <!-- Quarkus devtools version -->
+        <quarkus.devtools.version>2.0.2.Final</quarkus.devtools.version>
+
     </properties>
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>${quarkus.platform.group-id}</groupId>
-                <artifactId>${quarkus.platform.artifact-id}</artifactId>
+                <groupId>io.quarkus.platform</groupId>
+                <artifactId>quarkus-bom</artifactId>
                 <version>${quarkus.platform.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -85,7 +84,7 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-devtools-common</artifactId>
-            <version>${quarkus.version}</version>
+            <version>${quarkus.devtools.version}</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -128,7 +127,7 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-devtools-testing</artifactId>
-            <version>${quarkus.version}</version>
+            <version>${quarkus.devtools.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -253,7 +252,7 @@
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
-                <version>${quarkus.version}</version>
+                <version>${quarkus.platform.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -404,7 +403,7 @@
                     <plugin>
                         <groupId>io.quarkus</groupId>
                         <artifactId>quarkus-maven-plugin</artifactId>
-                        <version>${quarkus.version}</version>
+                        <version>${quarkus.platform.version}</version>
                         <executions>
                             <execution>
                                 <goals>

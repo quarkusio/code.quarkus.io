@@ -63,7 +63,8 @@ class CodeQuarkusResource {
             Code Quarkus is started with:
                 environment = ${config().environment}
                 sentryDSN = ${config().sentryDSN}
-                quarkusVersion = ${config().quarkusVersion},
+                quarkusPlatformVersion = ${config().quarkusPlatformVersion},
+                quarkusDevtoolsVersion = ${config().quarkusDevtoolsVersion}                ,
                 gitCommitId: ${config().gitCommitId},
                 features: ${config().features}
         """.trimIndent()}
@@ -78,7 +79,8 @@ class CodeQuarkusResource {
                 environment = config.environment.orElse("dev"),
                 gaTrackingId = gaConfig.trackingId.filter(String::isNotBlank).orElse(null),
                 sentryDSN = config.sentryDSN.filter(String::isNotBlank).orElse(null),
-                quarkusVersion = config.quarkusVersion,
+                quarkusPlatformVersion = config.quarkusPlatformVersion,
+                quarkusDevtoolsVersion = config.quarkusDevtoolsVersion,
                 gitCommitId = config.gitCommitId,
                 gitHubClientId = gitHubConfig.clientId.filter(String::isNotBlank).orElse(null),
                 features = config.features.map { listOf(it) }.orElse(listOf())
@@ -136,7 +138,7 @@ class CodeQuarkusResource {
             )]
     )
     fun extensions(@QueryParam("platformOnly") @DefaultValue("true") platformOnly: Boolean): Response {
-        var extensions = platformService.extensionCatalog
+        var extensions = platformService.recommendedCodeQuarkusExtensions
         if(platformOnly){
             extensions = extensions?.filter { it.platform }
         }
@@ -158,7 +160,7 @@ class CodeQuarkusResource {
         )]
     )
     fun extensionsForStream(@PathParam("stream") stream: String, @QueryParam("platformOnly") @DefaultValue("true") platformOnly: Boolean): Response {
-        var extensions = platformService.getExtensionCatalogForStream(stream)
+        var extensions = platformService.getCodeQuarkusExtensionsForStream(stream)
         if(platformOnly){
             extensions = extensions?.filter { it.platform }
         }

@@ -75,6 +75,8 @@ objects:
                   value: ${IO_QUARKUS_CODE_FEATURES}
                 - name: IO_QUARKUS_CODE_EXTENSION_PROCESSOR_TAGS_FROM
                   value: ${IO_QUARKUS_CODE_EXTENSION_PROCESSOR_TAGS_FROM}
+                - name: IO_QUARKUS_CODE_QUARKUS_PLATFORMS_RELOAD_CRON_EXPR
+                  value: ${IO_QUARKUS_CODE_QUARKUS_PLATFORMS_RELOAD_CRON_EXPR}
                 - name: IO_QUARKUS_CODE_SENTRY_DSN
                   valueFrom:
                     secretKeyRef:
@@ -135,6 +137,8 @@ parameters:
   - name: IO_QUARKUS_CODE_GA_QUARKUS_VERSION_DIMENSION_INDEX
   - name: IO_QUARKUS_CODE_GA_BUILD_TOOL_DIMENSION_INDEX
   - name: IO_QUARKUS_CODE_GA_EXTENSION_QUANTITY_INDEX
+  - name: IO_QUARKUS_CODE_QUARKUS_PLATFORMS_RELOAD_CRON_EXPR
+    value: "0 0 0 31 2 ? 2099"
   - name: QUARKUS_LOG_SENTRY
     value: "true"
   - name: IO_QUARKUS_CODE_LOG_LEVEL

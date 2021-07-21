@@ -25,11 +25,12 @@ class CodeQuarkusHealthCheck : HealthCheck {
     override fun call(): HealthCheckResponse {
         val responseBuilder = HealthCheckResponse.named("Code Quarkus HealthCheck")
         if(config != null
-                && !platformService?.extensionCatalog.isNullOrEmpty()
+                && platformService.isLoaded
                 && projectCreator != null) {
                     responseBuilder.withData("last updated", platformService.lastUpdated.toString())
-                        .withData("number of extensions", "" + (platformService?.extensionCatalog?.size ?: 0))
-                        .withData("default stream", platformService.getDefaultStreamKey())
+                        .withData("number of extensions", "" + (platformService.recommendedCodeQuarkusExtensions.size))
+                        .withData("default stream", platformService.recommendedStreamKey)
+                        .withData("reload cron expr", config!!.quarkusPlatformReloadCronExpr)
                         .up()
         } else {
             responseBuilder.down()

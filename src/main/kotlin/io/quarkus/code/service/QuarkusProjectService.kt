@@ -63,7 +63,7 @@ class QuarkusProjectService {
         }
         try {
             val project =
-                QuarkusProjectHelper.getProject(projectFolderPath, platformService.platformInfo!!.extensionCatalog, buildTool)
+                QuarkusProjectHelper.getProject(projectFolderPath, platformService.recommendedPlatformInfo.extensionCatalog, buildTool)
             val result = CreateProject(project)
                 .groupId(projectDefinition.groupId)
                 .artifactId(projectDefinition.artifactId)
@@ -88,7 +88,7 @@ class QuarkusProjectService {
     }
 
     private fun checkAndMergeExtensions(projectDefinition: ProjectDefinition): Set<String> {
-        return platformService.platformInfo!!.checkAndMergeExtensions(projectDefinition.extensions, projectDefinition.shortExtensions)
+        return platformService.recommendedPlatformInfo.checkAndMergeExtensions(projectDefinition.extensions, projectDefinition.shortExtensions)
     }
 
 }

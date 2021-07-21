@@ -22,7 +22,7 @@ class CodeQuarkusResourceTest {
     fun `Should fail when too many extensions`() {
         given()
             .contentType(ContentType.JSON)
-            .body(ProjectDefinition(extensions = projectService.platformService.platformInfo!!.extensionsById.keys))
+            .body(ProjectDefinition(extensions = projectService.platformService.recommendedPlatformInfo!!.extensionsById.keys))
             .`when`().post("/api/project")
             .then()
             .log().ifValidationFails()
@@ -372,7 +372,8 @@ class CodeQuarkusResourceTest {
                 .body("gitCommitId", notNullValue())
                 .body("gaTrackingId", nullValue())
                 .body("sentryDSN", nullValue())
-                .body("quarkusVersion", notNullValue())
+                .body("quarkusPlatformVersion", notNullValue())
+                .body("quarkusDevtoolsVersion", notNullValue())
                 .body("features", equalTo(listOf<String>()))
     }
 
