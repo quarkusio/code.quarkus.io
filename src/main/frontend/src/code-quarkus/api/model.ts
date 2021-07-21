@@ -33,7 +33,7 @@ export interface Config {
   environment: string;
   gaTrackingId?: string;
   sentryDSN?: string;
-  quarkusVersion: string;
+  quarkusPlatformVersion: string;
   gitCommitId: string;
   gitHubClientId?: string;
   features: string[];

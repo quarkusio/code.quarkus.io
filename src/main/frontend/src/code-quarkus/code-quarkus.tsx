@@ -27,7 +27,7 @@ export function CodeQuarkus(props: CodeQuarkusProps) {
   return (
     <AnalyticsContext.Provider value={analytics}>
       <div className="code-quarkus">
-        <Header quarkusVersion={props.config.quarkusVersion} supportButton={props.config.features && props.config.features.includes('support-button')}/>
+        <Header quarkusVersion={props.config.quarkusPlatformVersion} supportButton={props.config.features && props.config.features.includes('support-button')}/>
         <ExtensionsLoader name="extensions">
           {extensions => (
             <QuarkusProjectFlow {...props} extensions={extensions}/>
