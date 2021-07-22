@@ -7,7 +7,13 @@ import io.quarkus.registry.catalog.ExtensionCatalog
 import java.util.stream.Collectors
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-class PlatformInfo(val key: String, val codeQuarkusExtensions: List<CodeQuarkusExtension>, val extensionCatalog: ExtensionCatalog) {
+class PlatformInfo(
+    val key: String,
+    val quarkusCoreVersion: String,
+    val recommended: Boolean,
+    val codeQuarkusExtensions: List<CodeQuarkusExtension>,
+    val extensionCatalog: ExtensionCatalog
+) {
 
     val extensionsByShortId: Map<String, CodeQuarkusExtension>
         get() {
@@ -40,7 +46,7 @@ class PlatformInfo(val key: String, val codeQuarkusExtensions: List<CodeQuarkusE
     }
 
     private fun findById(id: String): String {
-        if(this.extensionsById.containsKey(id)) {
+        if (this.extensionsById.containsKey(id)) {
             return this.extensionsById[id]!!.id
         }
         val found = this.extensionsById.entries

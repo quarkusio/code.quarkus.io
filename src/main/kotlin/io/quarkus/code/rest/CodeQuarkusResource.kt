@@ -3,10 +3,7 @@ package io.quarkus.code.rest
 import io.quarkus.code.config.CodeQuarkusConfig
 import io.quarkus.code.config.GitHubConfig
 import io.quarkus.code.config.GoogleAnalyticsConfig
-import io.quarkus.code.model.CodeQuarkusExtension
-import io.quarkus.code.model.CreatedProject
-import io.quarkus.code.model.PublicConfig
-import io.quarkus.code.model.ProjectDefinition
+import io.quarkus.code.model.*
 import io.quarkus.code.service.PlatformService
 import io.quarkus.code.service.QuarkusProjectService
 import io.quarkus.registry.catalog.PlatformCatalog
@@ -107,19 +104,20 @@ class CodeQuarkusResource {
     }
 
     @GET
-    @Path("/keys/stream")
+    @Path("/streams")
     @Produces(APPLICATION_JSON)
-    @Operation(summary = "Get all available stream keys")
+    @Operation(summary = "Get all available streams")
     @Tag(name = "Platform", description = "Platform related endpoints")
     @APIResponse(
         responseCode = "200",
-        description = "All available stream keys",
+        description = "All available streams",
         content = [Content(
-            mediaType = APPLICATION_JSON
+            mediaType = APPLICATION_JSON,
+            schema = Schema(implementation = Stream::class, type = SchemaType.ARRAY)
         )]
     )
-    fun streamKeys(): Response {
-        val streamKeys = platformService.streamKeys
+    fun streams(): Response {
+        val streamKeys = platformService.streams
         val lastUpdated = platformService.lastUpdated
         return Response.ok(streamKeys).header(LAST_MODIFIED_HEADER,lastUpdated?.format(formatter)).build()
     }
