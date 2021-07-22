@@ -5,6 +5,7 @@ import io.quarkus.code.config.ExtensionProcessorConfig
 import io.quarkus.devtools.project.QuarkusProjectHelper
 import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.code.model.Stream
+import io.quarkus.platform.tools.ToolsUtils
 import java.util.HashMap
 import io.quarkus.registry.catalog.PlatformCatalog
 import java.time.LocalDateTime
@@ -15,6 +16,7 @@ import java.time.ZoneOffset
 import java.time.ZoneId
 import io.quarkus.registry.RegistryResolutionException
 import java.util.concurrent.atomic.AtomicReference
+import java.util.logging.Level
 import kotlin.Throws
 import java.util.logging.Logger
 import javax.inject.Inject
@@ -37,9 +39,9 @@ class PlatformService {
         try {
             reloadPlatformServiceCache()
         } catch (e: RegistryResolutionException) {
-            LOG.warning("Could not resolve catalogs [" + e.message + "]")
+            LOG.log(Level.SEVERE, "Could not resolve catalogs [" + e.message + "]", e)
         } catch (e: Exception) {
-            LOG.warning("Could not reload catalogs [" + e.message + "]")
+            LOG.log(Level.SEVERE, "Could not reload catalogs [" + e.message + "]", e)
         }
     }
 
@@ -126,7 +128,12 @@ class PlatformService {
             for (stream in platform.streams) {
                 // Stream Map
                 val recommendedRelease = stream.recommendedRelease
-                val extensionCatalog = catalogResolver.resolveExtensionCatalog(recommendedRelease.memberBoms)
+                // This is a temporary workaround for 2.0.3
+                // val extensionCatalog = catalogResolver.resolveExtensionCatalog(recommendedRelease.memberBoms)
+                val extensionCatalog = ToolsUtils.resolvePlatformDescriptorDirectly(
+                    "io.quarkus", "quarkus-universe-bom", recommendedRelease.quarkusCoreVersion,
+                    QuarkusProjectHelper.artifactResolver(), QuarkusProjectHelper.messageWriter()
+                )
                 val codeQuarkusExtensions: List<CodeQuarkusExtension> =
                     processExtensions(extensionCatalog, extensionProcessorConfig)
                 val platformKey = platform.platformKey
