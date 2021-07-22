@@ -1,21 +1,33 @@
-import { Config, Extension } from './model';
+import { Config, Platform } from './model';
 import { BACKEND_URL, REQUEST_OPTIONS } from './env';
 
-let extensions: Extension[] | undefined;
+let platform: Platform | undefined;
 let config: Config | undefined;
 
-export async function fetchExtensions() {
-  if (extensions) {
-    return extensions!;
+export async function fetchPlatform() {
+  if (platform) {
+    return platform!;
   }
-  const data = await fetch(`${BACKEND_URL}/api/extensions`, REQUEST_OPTIONS)
-    .catch(() => Promise.reject(new Error('Fail to fetch the Quarkus extensions list')));
-  if (!data.ok) {
+  const data = await Promise.all([
+    fetch(`${BACKEND_URL}/api/extensions`, REQUEST_OPTIONS)
+      .catch(() => Promise.reject(new Error('Fail to fetch the Quarkus extensions list'))),
+    fetch(`${BACKEND_URL}/api/streams`, REQUEST_OPTIONS)
+      .catch(() => Promise.reject(new Error('Fail to fetch the Quarkus stream list')))
+  ]);
+  if (!data[0].ok) {
     throw new Error('Failed to load the Quarkus extension list');
   }
-  extensions = await data.json();
-  return extensions!;
+  if (!data[1].ok) {
+    throw new Error('Failed to load the Quarkus stream list');
+  }
+  const json = await Promise.all(data.map(d => d.json()));
+
+  return {
+    extensions: json[0],
+    streams: json[1]
+  };
 }
+
 
 export async function fetchConfig() {
   if (config) {

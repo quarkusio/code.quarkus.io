@@ -4,6 +4,7 @@ import { createLinkTracker, useAnalytics } from '../../core';
 import classNames from 'classnames';
 import { Button } from 'react-bootstrap';
 import { FaAngleLeft, FaHandsHelping, FaRedhat } from 'react-icons/fa';
+import { Platform, Stream } from '../api/model';
 
 function SupportButton(prop: {}) {
   const [ opened, open ] = useState(false);
@@ -27,9 +28,13 @@ function SupportButton(prop: {}) {
   );
 }
 
-export function Header(props: { supportButton: boolean, quarkusVersion: string }) {
+const ERROR_STREAM: Stream = { key: 'recommended.not.found:stream', quarkusCoreVersion: 'error', recommended: true }
+
+export function Header(props: { supportButton: boolean, platform: Platform }) {
   const analytics = useAnalytics();
   const linkTracker = createLinkTracker(analytics,'UX', 'Header');
+  const recommendedStream = props.platform.streams.find(s => s.recommended) || ERROR_STREAM;
+  const recommendedStreamKeys = recommendedStream.key.split(':')
   return (
     <div className="header">
       <div className="header-content responsive-container">
@@ -37,8 +42,9 @@ export function Header(props: { supportButton: boolean, quarkusVersion: string }
           <a href="/" onClick={linkTracker}>
             <img src="/static/media/quarkus-logo.svg" className="project-logo" title="Quarkus" alt="Quarkus"/>
           </a>
-          <div className="quarkus-version">
-            <span>{props.quarkusVersion}</span>
+          <div className="current-quarkus-stream" title={`Quarkus core version: ${recommendedStream.quarkusCoreVersion}`}>
+            <span className="platform-key">{recommendedStreamKeys[0]}</span>
+            <span className="stream-id">{recommendedStreamKeys[1]}</span>
           </div>
         </div>
         <div className="nav-container">

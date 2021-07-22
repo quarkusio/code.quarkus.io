@@ -65,18 +65,36 @@
           }
         }
       }
-      .quarkus-version {
+      .current-quarkus-stream {
         @media screen and (max-width: $mobileWidth) {
           display: none;
         }
       }
-      .quarkus-version span {
+      .current-quarkus-stream {
+        display: flex;
+        flex-direction: column;
         margin-left: 20px;
         color: $headerQuarkusVersionTextColor;
         font-size: 1.2rem;
-        padding: 5px;
-        vertical-align: middle;
-        border: 1px solid $headerQuarkusVersionBorderColor;
+        border-left: 1px solid $headerQuarkusVersionBorderColor;
+        text-align: left;
+        padding-left: 5px;
+        height: 40px;
+        margin-top: 15px;
+        .platform-key {
+          line-height: 15px;
+          order: 1;
+          font-size: 0.8rem;
+          color: $headerQuarkusVersionBorderColor;
+        }
+
+        .stream-id {
+          order: 0;
+          line-height: 25px;
+          font-size: 1.2rem;
+          font-weight: bold;
+
+        }
       }
     }
 

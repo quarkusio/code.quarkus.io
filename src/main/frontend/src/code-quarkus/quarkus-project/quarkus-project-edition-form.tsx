@@ -3,13 +3,13 @@ import './quarkus-project-edition-form.scss';
 import { ExtensionEntry, ExtensionsPicker } from '../extensions-picker/extensions-picker';
 import { InfoPicker, isValidInfo } from '../info-picker/info-picker';
 import { GenerateButton } from '../generate-project/generate-button';
-import { Config, QuarkusProject } from '../api/model';
+import { Config, Platform, QuarkusProject } from '../api/model';
 import { debouncedSyncParamsQuery, resolveInitialFilterQueryParam, Target } from '../api/quarkus-project-utils';
 import { ExtensionsCart } from '../generate-project/extensions-cart';
 
 interface CodeQuarkusFormProps {
   project: QuarkusProject;
-  extensions: ExtensionEntry[];
+  platform: Platform;
   setProject: React.Dispatch<SetStateAction<QuarkusProject>>;
   config: Config;
   onSave: (target?: Target) => void;
@@ -43,7 +43,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
                 Configure your application
               </h3>
             </div>
-            <InfoPicker value={props.project.metadata} onChange={setMetadata} quarkusVersion={props.config.quarkusPlatformVersion}/>
+            <InfoPicker value={props.project.metadata} onChange={setMetadata} />
           </div>
           <div className="generate-project">
             <ExtensionsCart  value={{ extensions: props.project.extensions }} onChange={setExtensions} />
@@ -56,7 +56,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
           <h3>Extensions</h3>
         </div>
         <ExtensionsPicker
-          entries={props.extensions as ExtensionEntry[]}
+          entries={props.platform.extensions as ExtensionEntry[]}
           value={{ extensions: props.project.extensions }}
           onChange={setExtensions}
           placeholder="Search & Pick extensions: RESTEasy, Hibernate ORM, Web..."

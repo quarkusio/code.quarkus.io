@@ -14,7 +14,6 @@ export interface InfoPickerValue {
 
 interface InfoPickerProps extends InputProps<InfoPickerValue> {
   showMoreOptions?: boolean;
-  quarkusVersion: string;
 }
 
 const ARTIFACTID_PATTERN = /^[a-z][a-z0-9-._]*$/;
