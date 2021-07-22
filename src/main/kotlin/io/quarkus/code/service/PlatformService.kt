@@ -4,6 +4,7 @@ import io.quarkus.code.misc.QuarkusExtensionUtils.processExtensions
 import io.quarkus.code.config.ExtensionProcessorConfig
 import io.quarkus.devtools.project.QuarkusProjectHelper
 import io.quarkus.code.model.CodeQuarkusExtension
+import io.quarkus.code.model.Stream
 import java.util.HashMap
 import io.quarkus.registry.catalog.PlatformCatalog
 import java.time.LocalDateTime
@@ -84,6 +85,15 @@ class PlatformService {
             return createStreamKey(defaultPlatformKey, defaultStreamId)
         }
 
+    val streams: List<Stream>
+        get() = platformServiceCacheRef.get().streamCatalogMap.map {
+            Stream(
+                key = it.key,
+                quarkusCoreVersion = it.value.quarkusCoreVersion,
+                recommended = it.value.recommended
+            )
+        }
+
     val streamKeys: Set<String>
         get() = platformServiceCacheRef.get().streamCatalogMap.keys
 
@@ -122,7 +132,13 @@ class PlatformService {
                 val platformKey = platform.platformKey
                 val streamId = stream.id
                 val key = createStreamKey(platformKey, streamId)
-                updatedStreamCatalogMap[key] = PlatformInfo(key, codeQuarkusExtensions, extensionCatalog)
+                updatedStreamCatalogMap[key] = PlatformInfo(
+                    key = key,
+                    quarkusCoreVersion = stream.recommendedRelease.quarkusCoreVersion,
+                    recommended = (stream.id == platform.recommendedStream.id),
+                    codeQuarkusExtensions = codeQuarkusExtensions,
+                    extensionCatalog = extensionCatalog
+                )
             }
         }
 

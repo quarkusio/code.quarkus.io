@@ -12,7 +12,7 @@ import { LoadingModal } from '../modals/loading-modal';
 import { NextStepsModal } from '../modals/next-steps-modal';
 import { CodeQuarkusProps } from '../code-quarkus';
 import { ErrorModal } from '../modals/error-modal';
-import { Extension, QuarkusProject } from '../api/model';
+import { Extension, Platform, QuarkusProject } from '../api/model';
 
 enum Status {
   EDITION = 'EDITION', RUNNING = 'RUNNING', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
@@ -25,13 +25,13 @@ interface RunState {
 }
 
 interface QuarkusProjectFlowProps extends CodeQuarkusProps {
-  extensions: Extension[];
+  platform: Platform;
 }
 
 const queryParams = getQueryParams();
 
 export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
-  const [ project, setProject ] = useState<QuarkusProject>(resolveInitialProject(props.extensions, queryParams));
+  const [ project, setProject ] = useState<QuarkusProject>(resolveInitialProject(props.platform.extensions, queryParams));
   const [ run, setRun ] = useState<RunState>({ status: Status.EDITION });
   const analytics = useAnalytics();
 
@@ -67,7 +67,7 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
 
   return (
     <React.Fragment>
-      <CodeQuarkusForm project={project} setProject={setProject} config={props.config} onSave={generate} extensions={props.extensions}/>
+      <CodeQuarkusForm project={project} setProject={setProject} config={props.config} onSave={generate} platform={props.platform}/>
       {!run.error && run.status === Status.RUNNING && (
         <LoadingModal/>
       )}

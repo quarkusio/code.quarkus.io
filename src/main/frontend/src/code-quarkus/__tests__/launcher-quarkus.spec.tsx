@@ -5,76 +5,85 @@ import { CodeQuarkus } from '../code-quarkus';
 import { Config } from '../api/model';
 
 jest.mock('../api/code-quarkus-api', () => ({
-  fetchExtensions: async () => ([
+  fetchPlatform: async () => (
     {
-      'id': 'io.quarkus:quarkus-arc',
-      'shortId': '8mc',
-      'version': 'test-version',
-      'name': 'ArC',
-      'keywords': [
-        'arc',
-        'cdi',
-        'dependency-injection',
-        'di'
+      'streams': [
+        {
+          'key': 'io.quarkus.platform:2.0',
+          'recommended': true,
+          'quarkusCoreVersion': '2.0.0.Final'
+        }
       ],
-      'description': 'Build time CDI dependency injection',
-      'shortName': 'CDI',
-      'category': 'Core',
-      'order': 2
-    },
-    {
-      'id': 'io.quarkus:quarkus-resteasy',
-      'shortId': 'ogy',
-      'version': 'test-version',
-      'name': 'RESTEasy JAX-RS',
-      'keywords': [
-        'resteasy',
-        'jaxrs',
-        'web',
-        'rest'
-      ],
-      'description': 'REST framework implementing JAX-RS and more',
-      'shortName': 'jax-rs',
-      'category': 'Web',
-      'order': 4
-    },
-    {
-      'id': 'io.quarkus:quarkus-resteasy-jsonb',
-      'shortId': '14pb',
-      'version': 'test-version',
-      'name': 'RESTEasy JSON-B',
-      'keywords': [
-        'resteasy-jsonb',
-        'jaxrs-json',
-        'resteasy-json',
-        'resteasy',
-        'jaxrs',
-        'json',
-        'jsonb'
-      ],
-      'description': 'JSON-B serialization support for RESTEasy',
-      'category': 'Web',
-      'order': 5
-    },
-    {
-      'id': 'io.quarkus:quarkus-resteasy-jackson',
-      'shortId': '1aen',
-      'version': 'test-version',
-      'name': 'RESTEasy Jackson',
-      'keywords': [
-        'resteasy-jackson',
-        'jaxrs-json',
-        'resteasy-json',
-        'resteasy',
-        'jaxrs',
-        'json',
-        'jackson'
-      ],
-      'description': 'Jackson serialization support for RESTEasy',
-      'category': 'Web',
-      'order': 6
-    },
-  ]),
+      'extensions': [
+        {
+          'id': 'io.quarkus:quarkus-arc',
+          'shortId': '8mc',
+          'version': 'test-version',
+          'name': 'ArC',
+          'keywords': [
+            'arc',
+            'cdi',
+            'dependency-injection',
+            'di'
+          ],
+          'description': 'Build time CDI dependency injection',
+          'shortName': 'CDI',
+          'category': 'Core',
+          'order': 2
+        },
+        {
+          'id': 'io.quarkus:quarkus-resteasy',
+          'shortId': 'ogy',
+          'version': 'test-version',
+          'name': 'RESTEasy JAX-RS',
+          'keywords': [
+            'resteasy',
+            'jaxrs',
+            'web',
+            'rest'
+          ],
+          'description': 'REST framework implementing JAX-RS and more',
+          'shortName': 'jax-rs',
+          'category': 'Web',
+          'order': 4
+        },
+        {
+          'id': 'io.quarkus:quarkus-resteasy-jsonb',
+          'shortId': '14pb',
+          'version': 'test-version',
+          'name': 'RESTEasy JSON-B',
+          'keywords': [
+            'resteasy-jsonb',
+            'jaxrs-json',
+            'resteasy-json',
+            'resteasy',
+            'jaxrs',
+            'json',
+            'jsonb'
+          ],
+          'description': 'JSON-B serialization support for RESTEasy',
+          'category': 'Web',
+          'order': 5
+        },
+        {
+          'id': 'io.quarkus:quarkus-resteasy-jackson',
+          'shortId': '1aen',
+          'version': 'test-version',
+          'name': 'RESTEasy Jackson',
+          'keywords': [
+            'resteasy-jackson',
+            'jaxrs-json',
+            'resteasy-json',
+            'resteasy',
+            'jaxrs',
+            'json',
+            'jackson'
+          ],
+          'description': 'Jackson serialization support for RESTEasy',
+          'category': 'Web',
+          'order': 6
+        }
+      ] }),
   fetchConfig: async () => {
     throw new Error('not used');
   }

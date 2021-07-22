@@ -29,6 +29,17 @@ export interface Extension {
   guide?: string;
 }
 
+export interface Platform {
+  extensions: Extension[];
+  streams: Stream[];
+}
+
+export interface Stream {
+  key: string;
+  quarkusCoreVersion: string;
+  recommended: boolean;
+}
+
 export interface Config {
   environment: string;
   gaTrackingId?: string;
