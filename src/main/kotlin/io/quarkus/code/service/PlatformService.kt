@@ -128,12 +128,7 @@ class PlatformService {
             for (stream in platform.streams) {
                 // Stream Map
                 val recommendedRelease = stream.recommendedRelease
-                // This is a temporary workaround for 2.0.3
-                // val extensionCatalog = catalogResolver.resolveExtensionCatalog(recommendedRelease.memberBoms)
-                val extensionCatalog = ToolsUtils.resolvePlatformDescriptorDirectly(
-                    "io.quarkus", "quarkus-universe-bom", recommendedRelease.quarkusCoreVersion,
-                    QuarkusProjectHelper.artifactResolver(), QuarkusProjectHelper.messageWriter()
-                )
+                val extensionCatalog = catalogResolver.resolveExtensionCatalog(recommendedRelease.memberBoms)
                 val codeQuarkusExtensions: List<CodeQuarkusExtension> =
                     processExtensions(extensionCatalog, extensionProcessorConfig)
                 val platformKey = platform.platformKey
