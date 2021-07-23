@@ -15,6 +15,7 @@ export function ExtensionMoreDropdown(props: ExtensionMoreDropdownProps) {
   const gav = `${props.id}:${props.version}`;
   const gavArray = gav.split(':');
   const addMvnExt = `./mvnw quarkus:add-extension -Dextensions="${props.id}"`;
+  const addCliExt = `quarkus ext add ${props.id}`;
   const addGradleExt = `./gradlew addExtension --extensions="${props.id}"`;
   const xml = `        <dependency>\n            <groupId>${gavArray[0]}</groupId>\n            <artifactId>${gavArray[1]}</artifactId>\n        </dependency>`;
 
@@ -38,32 +39,39 @@ export function ExtensionMoreDropdown(props: ExtensionMoreDropdownProps) {
           align="right"
           onClick={(e) => e.stopPropagation()}
         >
+          <DropdownItem key="cli" as={Button}>
+            <CopyToClipboard id="more-copy-cli"
+              event={[ 'Extension', 'Copy the Quarkus CLI add extension command', props.id ]}
+              content={addCliExt}
+              tooltipPlacement="left" zIndex={201}
+            >Add it to your project with the Quarkus CLI</CopyToClipboard>
+          </DropdownItem>
           <DropdownItem key="maven" as={Button}>
             <CopyToClipboard id="more-copy-maven"
-              event={[ 'Extension', 'Maven quarkus:add-extension command', props.id ]}
+              event={[ 'Extension', 'Copy the Maven add extension command', props.id ]}
               content={addMvnExt}
               tooltipPlacement="left" zIndex={201}
-            >Maven quarkus:add-extension command</CopyToClipboard>
+            >Add it to your project with Maven</CopyToClipboard>
           </DropdownItem>
           <DropdownItem key="gradle" as={Button}>
             <CopyToClipboard id="more-copy-gradle"
-              event={[ 'Extension', 'Gradle addExtension command', props.id ]}
+              event={[ 'Extension', 'Copy the Gradle add extension command', props.id ]}
               content={addGradleExt} tooltipPlacement="left" zIndex={201}
-            >Gradle addExtension command</CopyToClipboard>
+            >Add it to your project with Gradle</CopyToClipboard>
           </DropdownItem>
           <DropdownItem key="xml" as={Button}>
-            <CopyToClipboard id="more-copy-pom" event={[ 'Extension', 'Copy the extension pom.xml snippet', props.id ]}
+            <CopyToClipboard id="more-copy-pom" event={[ 'Extension', 'Copy the Maven pom.xml dependency snippet', props.id ]}
               content={xml}
               tooltipPlacement="left" zIndex={201}
-            >pom.xml snippet</CopyToClipboard>
+            >Get the Maven pom.xml dependency snippet</CopyToClipboard>
           </DropdownItem>
           <DropdownItem key="id" as={Button}>
-            <CopyToClipboard id="more-copy-gav" event={[ 'Extension', 'Copy the GAV', props.id ]} content={gav}
+            <CopyToClipboard id="more-copy-gav" event={[ 'Extension', 'Copy the extension GAV', props.id ]} content={gav}
               tooltipPlacement="left"
-              zIndex={201}>GAV</CopyToClipboard>
+              zIndex={201}>Get the groupId:artifactId:version</CopyToClipboard>
           </DropdownItem>
           {props.guide && (<DropdownItem key="guide" href={props.guide} target="_blank" onClick={openGuide}>
-            <FaMap/> Open Extension Guide
+            <FaMap/> See the extension guide
           </DropdownItem>)}
         </Dropdown.Menu>)
       }

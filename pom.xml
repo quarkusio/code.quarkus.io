@@ -17,7 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <kotlin.version>1.4.32</kotlin.version>
+        <kotlin.version>1.5.21</kotlin.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <gatling.version>3.2.0</gatling.version>
         <frontend-maven-plugin.version>1.7.6</frontend-maven-plugin.version>
