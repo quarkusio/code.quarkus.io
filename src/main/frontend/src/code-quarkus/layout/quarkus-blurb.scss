@@ -1,9 +1,7 @@
-@import "src/code-quarkus/config";
-
 .quarkus-blurb {
 
   a {
-    color: $blurbLinkTextColor;
+    color: var(--blurbLinkTextColor);
   }
 
   .blurb-not-again-checkbox{

@@ -1,9 +1,8 @@
-@import "../config.scss";
 .extensions-cart {
   .extensions-cart-button {
     height: 40px;
-    background-color: $extensionsCartButtonBgColor;
-    color: $extensionsCartButtonTextColor;
+    background-color: var(--extensionsCartButtonBgColor);
+    color: var(--extensionsCartButtonTextColor);
     width: 50px;
     text-align: center;
     line-height: 40px;

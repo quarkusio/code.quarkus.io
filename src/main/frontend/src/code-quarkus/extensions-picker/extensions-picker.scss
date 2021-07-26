@@ -1,13 +1,11 @@
-@import "../config.scss";
-
 .extensions-picker {
-  color: $extensionsPickerTextColor;
+  color: var(--extensionsPickerTextColor);
 
   .main-container .extension-list-wrapper {
     .extension-category {
-      border-bottom: 1px solid $extensionsPickerCategoryUnderlineColor;
+      border-bottom: 1px solid var(--extensionsPickerCategoryUnderlineColor);
       font-weight: bold;
-      color: $extensionsPickerCategoryTextColor;
+      color: var(--extensionsPickerCategoryTextColor);
       font-size: 1.1rem;
       margin: 10px 0 5px 0;
       height: 30px;
@@ -18,10 +16,10 @@
     }
 
     .extension-row {
-      color: $extensionsPickerTextColor;
+      color: var(--extensionsPickerTextColor);
 
       &.keyboard-actived {
-        color: $extensionsPickerKeyboardActivedTextColor;
+        color: var(--extensionsPickerKeyboardActivedTextColor);
       }
 
       .extension-selector {
@@ -46,7 +44,7 @@
         flex-grow: 1;
         flex-basis: calc(100% - 62px);
 
-        @media screen and (max-width: $mobileWidth) {
+        @media screen and (max-width: var(--mobileWidth)) {
           flex-basis: calc(100% - 32px);
         }
       }
@@ -67,7 +65,7 @@
     position: sticky;
     top: 200px;
     display: flex;
-    background-color: $mainContainerBg;
+    background-color: var(--mainContainerBg);
     z-index: 99;
     padding-top: 20px;
 
@@ -76,7 +74,7 @@
       width: 100%
     }
 
-    @media screen and (max-width: $mobileWidth) {
+    @media screen and (max-width: var(--mobileWidth)) {
       display: none;
     }
 
@@ -89,7 +87,7 @@
     }
 
     input.form-control {
-      border: 1px solid $extensionsPickerSearchBorderColor;
+      border: 1px solid var(--extensionsPickerSearchBorderColor);
       padding-left: 40px;
       margin-left: -40px;
       font-size: 14px;
@@ -97,18 +95,18 @@
       line-height: 40px;
       width: 100%;
       background: transparent;
-      color: $extensionsPickerSearchTextColor;
-      font-family: $inputFont;
+      color: var(--extensionsPickerSearchTextColor);
+      font-family: var(--inputFont);
       padding-bottom: 4px;
     }
 
     input.form-control:focus {
       outline: none;
-      border: 1px solid $extensionsPickerSearchBorderColorOnFocus;
+      border: 1px solid var(--extensionsPickerSearchBorderColorOnFocus);
     }
 
     h4 {
-      border-bottom: 1px solid $mainContainerTextColor;
+      border-bottom: 1px solid var(--mainContainerTextColor);
       font-weight: bold;
       margin-top: 40px;
       margin-bottom: 20px;
@@ -136,13 +134,13 @@
     flex-grow: 1;
     overflow: hidden;
 
-    @media screen and (max-width: $mobileWidth) {
+    @media screen and (max-width: var(--mobileWidth)) {
       margin: 5px;
       padding: 0px 0px 200px;
     }
 
     .extension-search-clear {
-      border-bottom: 1px solid $extensionsPickerCategoryUnderlineColor;
+      border-bottom: 1px solid var(--extensionsPickerCategoryUnderlineColor);
       font-weight: bold;
       font-size: 1.1rem;
       margin: 0 0 5px 0;
@@ -150,7 +148,7 @@
 
       a.btn {
         cursor: pointer;
-        color: $extensionsPickerSearchClearColor;
+        color: var(--extensionsPickerSearchClearColor);
         padding: 0 3px;
       }
     }
