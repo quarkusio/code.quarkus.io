@@ -58,7 +58,12 @@ object QuarkusExtensionUtils {
 
 
     @JvmStatic
-    fun toCodeQuarkusExtension(ext: Extension?, cat: Category, order: AtomicInteger, config: ExtensionProcessorConfig): CodeQuarkusExtension? {
+    fun toCodeQuarkusExtension(
+        ext: Extension?,
+        cat: Category,
+        order: AtomicInteger,
+        config: ExtensionProcessorConfig
+    ): CodeQuarkusExtension? {
         if (ext == null || ext.name == null) {
             return null
         }
@@ -69,21 +74,22 @@ object QuarkusExtensionUtils {
         val id = ext.managementKey()
         val shortId = createShortId(id)
         return CodeQuarkusExtension(
-                id = id,
-                shortId = shortId,
-                version = ext.artifact.version,
-                name = ext.name,
-                description = ext.description,
-                shortName = extensionProcessor.shortName,
-                category = cat.name,
-                tags = extensionProcessor.getTags(config.tagsFrom.orElse(null))
-                    .map { if (it == "provides-code") "code" else it },
-                keywords = extensionProcessor.extendedKeywords,
-                order = order.getAndIncrement(),
-                providesExampleCode = extensionProcessor.providesCode(),
-                providesCode = extensionProcessor.providesCode(),
-                guide = extensionProcessor.guide,
-                platform = ext.hasPlatformOrigin()
+            id = id,
+            shortId = shortId,
+            version = ext.artifact.version,
+            name = ext.name,
+            description = ext.description,
+            shortName = extensionProcessor.shortName,
+            category = cat.name,
+            tags = extensionProcessor.getTags(config.tagsFrom.orElse(null))
+                .map { if (it == "provides-code") "code" else it },
+            keywords = extensionProcessor.extendedKeywords,
+            order = order.getAndIncrement(),
+            providesExampleCode = extensionProcessor.providesCode(),
+            providesCode = extensionProcessor.providesCode(),
+            guide = extensionProcessor.guide,
+            platform = ext.hasPlatformOrigin(),
+            bom = ExtensionProcessor.getBom(ext).map { "${it.groupId}:${it.artifactId}:${it.version}"  }.orElse(null)
         )
     }
 

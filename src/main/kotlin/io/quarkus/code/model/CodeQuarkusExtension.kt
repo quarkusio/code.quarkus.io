@@ -23,6 +23,7 @@ data class CodeQuarkusExtension(
         val providesCode: Boolean,
         val guide: String?,
         val order: Int,
-        val platform: Boolean
+        val platform: Boolean,
+        val bom: String?
 
 )
