@@ -29,12 +29,12 @@
         <git.commit.id>local</git.commit.id>
 
         <!-- Quarkus platform used for the code.quarkus app-->
-        <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
+        <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.version>2.0.3.Final</quarkus.platform.version>
+        <quarkus.platform.version>2.1.0.Final</quarkus.platform.version>
 
         <!-- Quarkus devtools version -->
-        <quarkus.devtools.version>2.0.3.Final</quarkus.devtools.version>
+        <quarkus.devtools.version>2.1.0.Final</quarkus.devtools.version>
 
     </properties>
     <dependencyManagement>
@@ -347,22 +347,28 @@
                     </pluginOptions>
                 </configuration>
             </plugin>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${surefire-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                        <configuration>
+                            <systemProperties>
+                                <java.util.logging.manager>org.jboss.logmanager.LogManager
+                                </java.util.logging.manager>
+                                <maven.home>${maven.home}</maven.home>
+                            </systemProperties>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <profiles>
-        <profile>
-            <id>quarkus-main</id>
-            <activation>
-                <property>
-                    <name>quarkus-main</name>
-                </property>
-            </activation>
-            <properties>
-                <quarkus.version>999-SNAPSHOT</quarkus.version>
-                <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-                <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
-            </properties>
-        </profile>
         <profile>
             <id>backend-only</id>
             <activation>
@@ -383,57 +389,6 @@
                 </plugins>
             </build>
         </profile>
-        <profile>
-            <id>native</id>
-            <activation>
-                <property>
-                    <name>native</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>io.quarkus</groupId>
-                        <artifactId>quarkus-maven-plugin</artifactId>
-                        <version>${quarkus.platform.version}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>native-image</goal>
-                                </goals>
-                                <configuration>
-                                    <enableHttpUrlHandler>true</enableHttpUrlHandler>
-                                    <additionalBuildArgs>
-                                        -H:ResourceConfigurationFiles=resources-config.json,-H:ReflectionConfigurationFiles=reflection-config.json
-                                    </additionalBuildArgs>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>${surefire-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                                <configuration>
-                                    <systemProperties>
-                                        <native.image.path>
-                                            ${project.build.directory}/${project.build.finalName}-runner
-                                        </native.image.path>
-                                        <java.util.logging.manager>org.jboss.logmanager.LogManager
-                                        </java.util.logging.manager>
-                                        <maven.home>${maven.home}</maven.home>
-                                    </systemProperties>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
     </profiles>
 </project>
+

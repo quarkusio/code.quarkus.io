@@ -71,7 +71,7 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Build
         run: |
-          ./mvnw -e -B -DskipTests=true clean install
+          ./mvnw -e -B -DskipTests=true clean verify
       - name: Test
         run: |
           ./mvnw -e -B test

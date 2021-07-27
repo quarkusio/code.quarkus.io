@@ -60,7 +60,7 @@ internal class QuarkusExtensionUtilsTest {
                 order = 0,
                 platform = true))
         )
-        assertThat(extensions[5], `is`(CodeQuarkusExtension(
+        assertThat(extensions[6], `is`(CodeQuarkusExtension(
                 id = "io.quarkus:quarkus-rest-client-mutiny",
                 shortId = "Ph0",
                 version = "999-SNAPSHOT",
@@ -73,7 +73,7 @@ internal class QuarkusExtensionUtilsTest {
                 tags = listOf("preview"),
                 keywords = listOf("client", "microprofile-rest-client", "mutiny", "quarkus-rest-client-mutiny", "rest", "rest-client", "rest-client-mutiny", "web-client"),
                 guide = null,
-                order = 5,
+                order = 6,
                 platform = true))
         )
     }
@@ -86,7 +86,7 @@ internal class QuarkusExtensionUtilsTest {
                 "RESTEasy Jackson",
                 "RESTEasy JSON-B",
                 "Eclipse Vert.x GraphQL",
-                "Hibernate Validator"))
+                "gRPC"))
         assertThat(extensions.map { it.name }.subList(extensions.size - 5, extensions.size), contains(
                 "Quarkus Extension for Spring Scheduled",
                 "Quarkus Extension for Spring Security API",

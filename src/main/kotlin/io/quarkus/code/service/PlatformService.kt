@@ -5,7 +5,7 @@ import io.quarkus.code.config.ExtensionProcessorConfig
 import io.quarkus.devtools.project.QuarkusProjectHelper
 import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.code.model.Stream
-import io.quarkus.platform.tools.ToolsUtils
+import io.quarkus.code.rest.CodeQuarkusResource
 import java.util.HashMap
 import io.quarkus.registry.catalog.PlatformCatalog
 import java.time.LocalDateTime
@@ -165,8 +165,12 @@ class PlatformService {
                 LocalDateTime.now(ZoneOffset.UTC as ZoneId)
             )
         )
-
-        LOG.info("PlatformService cache has been reloaded successfully")
+        LOG.log(Level.INFO) {"""
+            PlatformService cache has been reloaded successfully:
+                recommendedStreamKey: ${recommendedStreamKey} (core: ${ recommendedPlatformInfo.quarkusCoreVersion})
+                number of extensions: ${recommendedCodeQuarkusExtensions.size}
+        """.trimIndent()}
+        LOG.info("PlatformService cache has been reloaded successfully:")
     }
 
     private fun createStreamKey(platformKey: String, streamId: String): String {
