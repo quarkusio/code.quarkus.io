@@ -3,11 +3,13 @@ package io.quarkus.code.misc
 import com.google.common.collect.Lists
 import io.quarkus.code.config.ExtensionProcessorConfig
 import io.quarkus.code.model.CodeQuarkusExtension
+import io.quarkus.maven.ArtifactCoords
 import io.quarkus.platform.catalog.processor.CatalogProcessor.getProcessedCategoriesInOrder
 import io.quarkus.platform.catalog.processor.ExtensionProcessor
 import io.quarkus.registry.catalog.Category
 import io.quarkus.registry.catalog.Extension
 import io.quarkus.registry.catalog.ExtensionCatalog
+import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.math.abs
 import kotlin.math.pow
@@ -89,8 +91,14 @@ object QuarkusExtensionUtils {
             providesCode = extensionProcessor.providesCode(),
             guide = extensionProcessor.guide,
             platform = ext.hasPlatformOrigin(),
-            bom = ExtensionProcessor.getBom(ext).map { "${it.groupId}:${it.artifactId}:${it.version}"  }.orElse(null)
+            bom = getBom(ext)?.let { "${it.groupId}:${it.artifactId}:${it.version}"  }
         )
+    }
+
+    private fun getBom(extension: Extension): ArtifactCoords? {
+        return if (extension.origins == null || extension.origins.isEmpty()) {
+           null
+        } else extension.origins[0].bom
     }
 
     internal fun createShortId(id: String): String {
