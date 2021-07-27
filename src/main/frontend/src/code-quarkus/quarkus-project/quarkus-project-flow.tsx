@@ -12,7 +12,7 @@ import { LoadingModal } from '../modals/loading-modal';
 import { NextStepsModal } from '../modals/next-steps-modal';
 import { CodeQuarkusProps } from '../code-quarkus';
 import { ErrorModal } from '../modals/error-modal';
-import { Extension, Platform, QuarkusProject } from '../api/model';
+import { Platform, QuarkusProject } from '../api/model';
 
 enum Status {
   EDITION = 'EDITION', RUNNING = 'RUNNING', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'

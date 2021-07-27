@@ -59,12 +59,19 @@ export function NextStepsModal(props: NextStepsProps) {
         <h3>What's next?</h3>
         <div>
           {zip && (
-            <p>Unzip the project and start playing with Quarkus by running:</p>
+            <p>Unzip the project and start playing with Quarkus :)</p>
           )}
           {props.result.target === Target.GITHUB && (
-            <p>Once your project is cloned locally, start playing with Quarkus by running:</p>
+            <p>Once your project is cloned locally, start playing with Quarkus :)</p>
           )}
 
+          <p>Use the <ExternalLink href="https://quarkus.io/guides/cli-tooling" aria-label={'Open Quarkus CLI guide'} onClick={linkTracker}>Quarkus CLI</ExternalLink>:</p>
+
+          <CopyToClipboard className="code" id="copy-cli-cmd-code" light={true}  event={devModeEvent} content=".quarkusDev" zIndex={1100} tooltipPlacement="top">
+            <code className="code">quarkus dev</code>
+          </CopyToClipboard>
+
+          <p>Use your favorite build tool:</p>
           {props.buildTool === 'MAVEN' && (
             <CopyToClipboard className="code" id="copy-mvn-cmd-code" light={true} event={devModeEvent} content="./mvnw compile quarkus:dev" zIndex={1100} tooltipPlacement="top">
               <code className="code">./mvnw compile quarkus:dev</code>
@@ -72,8 +79,11 @@ export function NextStepsModal(props: NextStepsProps) {
           )}
 
           {props.buildTool.startsWith('GRADLE')  && (
-            <CopyToClipboard className="code" id="copy-gradle-cmd-code" event={devModeEvent} content="./gradlew quarkusDev" zIndex={1100}/>
+            <CopyToClipboard className="code" id="copy-gradle-cmd-code" light={true}  event={devModeEvent} content="./gradlew quarkusDev" zIndex={1100} tooltipPlacement="top">
+              <code className="code">./gradlew quarkusDev</code>
+            </CopyToClipboard>
           )}
+
         </div>
         {extensionsWithGuides.length === 1 && (
           <div>

@@ -58,7 +58,8 @@ internal class QuarkusExtensionUtilsTest {
                 keywords = listOf("endpoint", "framework", "jax", "jaxrs", "quarkus-resteasy", "rest", "resteasy", "web"),
                 guide = "https://quarkus.io/guides/rest-json",
                 order = 0,
-                platform = true))
+                platform = true,
+                bom = "io.quarkus:quarkus-bom:999-SNAPSHOT"))
         )
         assertThat(extensions[6], `is`(CodeQuarkusExtension(
                 id = "io.quarkus:quarkus-rest-client-mutiny",
@@ -74,7 +75,8 @@ internal class QuarkusExtensionUtilsTest {
                 keywords = listOf("client", "microprofile-rest-client", "mutiny", "quarkus-rest-client-mutiny", "rest", "rest-client", "rest-client-mutiny", "web-client"),
                 guide = null,
                 order = 6,
-                platform = true))
+                platform = true,
+                bom = "io.quarkus:quarkus-bom:999-SNAPSHOT"))
         )
     }
 
