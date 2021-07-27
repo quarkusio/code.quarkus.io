@@ -67,7 +67,7 @@ export function NextStepsModal(props: NextStepsProps) {
 
           <p>Use the <ExternalLink href="https://quarkus.io/guides/cli-tooling" aria-label={'Open Quarkus CLI guide'} onClick={linkTracker}>Quarkus CLI</ExternalLink>:</p>
 
-          <CopyToClipboard className="code" id="copy-cli-cmd-code" light={true}  event={devModeEvent} content=".quarkusDev" zIndex={1100} tooltipPlacement="top">
+          <CopyToClipboard className="code" id="copy-cli-cmd-code" light={true}  event={devModeEvent} content="quarkus dev" zIndex={1100} tooltipPlacement="top">
             <code className="code">quarkus dev</code>
           </CopyToClipboard>
 
