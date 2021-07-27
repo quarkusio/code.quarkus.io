@@ -21,6 +21,7 @@ export interface ExtensionEntry {
   order: number;
   default: boolean;
   guide?: string;
+  bom?: string
 }
 
 export interface ExtensionsPickerValue {

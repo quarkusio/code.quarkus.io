@@ -27,6 +27,7 @@ export interface Extension {
   default: boolean;
   order: number;
   guide?: string;
+  bom?: string;
 }
 
 export interface Platform {

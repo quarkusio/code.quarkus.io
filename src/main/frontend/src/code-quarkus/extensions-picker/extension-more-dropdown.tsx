@@ -14,10 +14,12 @@ export function ExtensionMoreDropdown(props: ExtensionMoreDropdownProps) {
   const analytics = useAnalytics();
   const gav = `${props.id}:${props.version}`;
   const gavArray = gav.split(':');
+  const bomArray = props.bom && props.bom.split(':');
   const addMvnExt = `./mvnw quarkus:add-extension -Dextensions="${props.id}"`;
   const addCliExt = `quarkus ext add ${props.id}`;
   const addGradleExt = `./gradlew addExtension --extensions="${props.id}"`;
-  const xml = `        <dependency>\n            <groupId>${gavArray[0]}</groupId>\n            <artifactId>${gavArray[1]}</artifactId>\n        </dependency>`;
+  const pomDepXml = `        <dependency>\n            <groupId>${gavArray[0]}</groupId>\n            <artifactId>${gavArray[1]}</artifactId>\n        </dependency>`;
+  const pomBomXml = bomArray && `        <dependency>\n            <groupId>${bomArray[0]}</groupId>\n            <artifactId>${bomArray[1]}</artifactId>\n            <version>${bomArray[2]}</version>\n            <type>pom</type>\n            <scope>import</scope>\n        </dependency>`;
 
   const openGuide = () => {
     analytics.event('Extension', 'Click "Open Extension Guide" link', props.id);
@@ -61,10 +63,18 @@ export function ExtensionMoreDropdown(props: ExtensionMoreDropdownProps) {
           </DropdownItem>
           <DropdownItem key="xml" as={Button}>
             <CopyToClipboard id="more-copy-pom" event={[ 'Extension', 'Copy the Maven pom.xml dependency snippet', props.id ]}
-              content={xml}
+              content={pomDepXml}
               tooltipPlacement="left" zIndex={201}
             >Get the Maven pom.xml dependency snippet</CopyToClipboard>
           </DropdownItem>
+          {pomBomXml && (
+            <DropdownItem key="xml" as={Button}>
+              <CopyToClipboard id="more-copy-pom" event={[ 'Extension', 'Copy the Maven pom.xml bom snippet', props.id ]}
+                content={pomBomXml}
+                tooltipPlacement="left" zIndex={201}
+              >Get the Maven pom.xml bom snippet</CopyToClipboard>
+            </DropdownItem>
+          )}          
           <DropdownItem key="id" as={Button}>
             <CopyToClipboard id="more-copy-gav" event={[ 'Extension', 'Copy the extension GAV', props.id ]} content={gav}
               tooltipPlacement="left"
