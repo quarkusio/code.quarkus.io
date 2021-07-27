@@ -90,7 +90,7 @@ class GitHubResource {
                     .build()
             )
         }
-        gitHubService.push(repo.ownerName, token.accessToken, null, repo.url, location)
+        gitHubService.push(repo.ownerName, token.accessToken, repo.defaultBranch, repo.url, location)
         return repo
     }
 }

@@ -44,9 +44,12 @@ interface GitHubClient {
 
         @JsonProperty("clone_url")
         lateinit var cloneUrl: String
+
+        @JsonProperty("default_branch")
+        lateinit var defaultBranch: String
     }
 
-    data class GHCreateRepo(val name: String, val description: String)
+    data class GHCreateRepo(val name: String, val description: String, )
 
 }
 
