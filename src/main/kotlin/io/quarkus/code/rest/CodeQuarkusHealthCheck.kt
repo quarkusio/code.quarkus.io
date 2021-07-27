@@ -30,6 +30,7 @@ class CodeQuarkusHealthCheck : HealthCheck {
                     responseBuilder.withData("last updated", platformService.lastUpdated.toString())
                         .withData("number of extensions", "" + (platformService.recommendedCodeQuarkusExtensions.size))
                         .withData("recommended stream", platformService.recommendedStreamKey)
+                        .withData("recommended stream quarkus core", platformService.recommendedPlatformInfo.quarkusCoreVersion)
                         .withData("reload cron expr", config!!.quarkusPlatformReloadCronExpr)
                         .up()
         } else {

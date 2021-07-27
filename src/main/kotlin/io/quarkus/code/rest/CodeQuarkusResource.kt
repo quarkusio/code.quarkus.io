@@ -61,7 +61,7 @@ class CodeQuarkusResource {
                 environment = ${config().environment}
                 sentryDSN = ${config().sentryDSN}
                 quarkusPlatformVersion = ${config().quarkusPlatformVersion},
-                quarkusDevtoolsVersion = ${config().quarkusDevtoolsVersion}                ,
+                quarkusDevtoolsVersion = ${config().quarkusDevtoolsVersion},
                 gitCommitId: ${config().gitCommitId},
                 features: ${config().features}
         """.trimIndent()}
