@@ -56,7 +56,8 @@ class CodeQuarkusResource {
     internal lateinit var projectCreator: QuarkusProjectService
 
     fun onStart(@Observes e: StartupEvent) {
-        LOG.log(Level.INFO) {"""
+        LOG.log(Level.INFO) {
+            """
             Code Quarkus is started with:
                 environment = ${config().environment}
                 sentryDSN = ${config().sentryDSN}
@@ -64,7 +65,8 @@ class CodeQuarkusResource {
                 quarkusDevtoolsVersion = ${config().quarkusDevtoolsVersion},
                 gitCommitId: ${config().gitCommitId},
                 features: ${config().features}
-        """.trimIndent()}
+        """.trimIndent()
+        }
     }
 
     @GET
@@ -73,14 +75,14 @@ class CodeQuarkusResource {
     @Operation(summary = "Get the Quarkus Launcher configuration", hidden = true)
     fun config(): PublicConfig {
         return PublicConfig(
-                environment = config.environment.orElse("dev"),
-                gaTrackingId = gaConfig.trackingId.filter(String::isNotBlank).orElse(null),
-                sentryDSN = config.sentryDSN.filter(String::isNotBlank).orElse(null),
-                quarkusPlatformVersion = config.quarkusPlatformVersion,
-                quarkusDevtoolsVersion = config.quarkusDevtoolsVersion,
-                gitCommitId = config.gitCommitId,
-                gitHubClientId = gitHubConfig.clientId.filter(String::isNotBlank).orElse(null),
-                features = config.features.map { listOf(it) }.orElse(listOf())
+            environment = config.environment.orElse("dev"),
+            gaTrackingId = gaConfig.trackingId.filter(String::isNotBlank).orElse(null),
+            sentryDSN = config.sentryDSN.filter(String::isNotBlank).orElse(null),
+            quarkusPlatformVersion = config.quarkusPlatformVersion,
+            quarkusDevtoolsVersion = config.quarkusDevtoolsVersion,
+            gitCommitId = config.gitCommitId,
+            gitHubClientId = gitHubConfig.clientId.filter(String::isNotBlank).orElse(null),
+            features = config.features.map { listOf(it) }.orElse(listOf())
         )
     }
 
@@ -100,7 +102,7 @@ class CodeQuarkusResource {
     fun platforms(): Response {
         val platformCatalog = platformService.platformCatalog
         val lastUpdated = platformService.lastUpdated
-        return Response.ok(platformCatalog).header(LAST_MODIFIED_HEADER,lastUpdated?.format(formatter)).build()
+        return Response.ok(platformCatalog).header(LAST_MODIFIED_HEADER, lastUpdated.format(formatter)).build()
     }
 
     @GET
@@ -119,35 +121,35 @@ class CodeQuarkusResource {
     fun streams(): Response {
         val streamKeys = platformService.streams
         val lastUpdated = platformService.lastUpdated
-        return Response.ok(streamKeys).header(LAST_MODIFIED_HEADER,lastUpdated?.format(formatter)).build()
+        return Response.ok(streamKeys).header(LAST_MODIFIED_HEADER, lastUpdated.format(formatter)).build()
     }
 
     @GET
     @Path("/extensions")
     @Produces(APPLICATION_JSON)
-    @Operation(operationId="extensions", summary = "Get the Quarkus Launcher list of Quarkus extensions")
+    @Operation(operationId = "extensions", summary = "Get the Quarkus Launcher list of Quarkus extensions")
     @Tag(name = "Extensions", description = "Extension related endpoints")
     @APIResponse(
-            responseCode = "200",
-            description = "List of Quarkus extensions",
-            content = [Content(
-                    mediaType = APPLICATION_JSON,
-                    schema = Schema(implementation = CodeQuarkusExtension::class, type = SchemaType.ARRAY)
-            )]
+        responseCode = "200",
+        description = "List of Quarkus extensions",
+        content = [Content(
+            mediaType = APPLICATION_JSON,
+            schema = Schema(implementation = CodeQuarkusExtension::class, type = SchemaType.ARRAY)
+        )]
     )
     fun extensions(@QueryParam("platformOnly") @DefaultValue("true") platformOnly: Boolean): Response {
         var extensions = platformService.recommendedCodeQuarkusExtensions
-        if(platformOnly){
-            extensions = extensions?.filter { it.platform }
+        if (platformOnly) {
+            extensions = extensions.filter { it.platform }
         }
         val lastUpdated = platformService.lastUpdated
-        return Response.ok(extensions).header(LAST_MODIFIED_HEADER,lastUpdated?.format(formatter)).build()
+        return Response.ok(extensions).header(LAST_MODIFIED_HEADER, lastUpdated.format(formatter)).build()
     }
 
     @GET
-    @Path("/extensions/stream/{stream}")
+    @Path("/extensions/stream/{streamKey}")
     @Produces(APPLICATION_JSON)
-    @Operation(operationId="extensionsForStream", summary = "Get the Quarkus Launcher list of Quarkus extensions")
+    @Operation(operationId = "extensionsForStream", summary = "Get the Quarkus Launcher list of Quarkus extensions")
     @Tag(name = "Extensions", description = "Extension related endpoints")
     @APIResponse(
         responseCode = "200",
@@ -157,13 +159,16 @@ class CodeQuarkusResource {
             schema = Schema(implementation = CodeQuarkusExtension::class, type = SchemaType.ARRAY)
         )]
     )
-    fun extensionsForStream(@PathParam("stream") stream: String, @QueryParam("platformOnly") @DefaultValue("true") platformOnly: Boolean): Response {
-        var extensions = platformService.getCodeQuarkusExtensionsForStream(stream)
-        if(platformOnly){
+    fun extensionsForStream(
+        @PathParam("streamKey") streamKey: String,
+        @QueryParam("platformOnly") @DefaultValue("true") platformOnly: Boolean
+    ): Response {
+        var extensions = platformService.getCodeQuarkusExtensions(streamKey)
+        if (platformOnly) {
             extensions = extensions?.filter { it.platform }
         }
         val lastUpdated = platformService.lastUpdated
-        return Response.ok(extensions).header(LAST_MODIFIED_HEADER, lastUpdated?.format(formatter)).build();
+        return Response.ok(extensions).header(LAST_MODIFIED_HEADER, lastUpdated.format(formatter)).build()
     }
 
     @POST
@@ -175,33 +180,44 @@ class CodeQuarkusResource {
     fun project(@Valid projectDefinition: ProjectDefinition?): CreatedProject {
         val params = ArrayList<NameValuePair>()
         if (projectDefinition != null) {
-            if(projectDefinition.groupId != ProjectDefinition.DEFAULT_GROUPID) {
+            if (projectDefinition.streamKey != null) {
+                params.add(BasicNameValuePair("k", projectDefinition.streamKey))
+            }
+            if (projectDefinition.groupId != ProjectDefinition.DEFAULT_GROUPID) {
                 params.add(BasicNameValuePair("g", projectDefinition.groupId))
             }
-            if(projectDefinition.artifactId != ProjectDefinition.DEFAULT_ARTIFACTID) {
+            if (projectDefinition.artifactId != ProjectDefinition.DEFAULT_ARTIFACTID) {
                 params.add(BasicNameValuePair("a", projectDefinition.artifactId))
             }
-            if(projectDefinition.version != ProjectDefinition.DEFAULT_VERSION) {
+            if (projectDefinition.version != ProjectDefinition.DEFAULT_VERSION) {
                 params.add(BasicNameValuePair("v", projectDefinition.version))
             }
-            if(projectDefinition.buildTool != ProjectDefinition.DEFAULT_BUILDTOOL) {
+            if (projectDefinition.buildTool != ProjectDefinition.DEFAULT_BUILDTOOL) {
                 params.add(BasicNameValuePair("b", projectDefinition.buildTool))
             }
-            if(projectDefinition.noCode != ProjectDefinition.DEFAULT_NO_CODE || projectDefinition.noExamples != ProjectDefinition.DEFAULT_NO_CODE) {
+            if (projectDefinition.noCode != ProjectDefinition.DEFAULT_NO_CODE || projectDefinition.noExamples != ProjectDefinition.DEFAULT_NO_CODE) {
                 params.add(BasicNameValuePair("nc", projectDefinition.noCode.toString()))
             }
-            if(projectDefinition.extensions.isNotEmpty()) {
+            if (projectDefinition.extensions.isNotEmpty()) {
                 projectDefinition.extensions.forEach { params.add(BasicNameValuePair("e", it)) }
             }
+            if (projectDefinition.path != null) {
+                params.add(BasicNameValuePair("p", projectDefinition.path))
+            }
+            if (projectDefinition.className != null) {
+                params.add(BasicNameValuePair("c", projectDefinition.className))
+            }
         }
-        val path = if(params.isEmpty()) "/d" else "/d?${URLEncodedUtils.format(params, StandardCharsets.UTF_8)}"
-       if (path.length > 1900) {
-           throw BadRequestException(Response
-               .status(Response.Status.BAD_REQUEST)
-               .entity("The path is too long. Choose a sensible amount of extensions.")
-               .type(TEXT_PLAIN)
-               .build())
-       }
+        val path = if (params.isEmpty()) "/d" else "/d?${URLEncodedUtils.format(params, StandardCharsets.UTF_8)}"
+        if (path.length > 1900) {
+            throw BadRequestException(
+                Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .entity("The path is too long. Choose a sensible amount of extensions.")
+                    .type(TEXT_PLAIN)
+                    .build()
+            )
+        }
         return CreatedProject(path)
     }
 
@@ -211,16 +227,17 @@ class CodeQuarkusResource {
     @Operation(summary = "Download a custom Quarkus application with the provided settings")
     @Tag(name = "Download", description = "Download endpoints")
     fun download(@Valid @BeanParam projectDefinition: ProjectDefinition): Response {
-        try {
-            return Response
-                    .ok(projectCreator.create(projectDefinition))
-                    .type("application/zip")
-                    .header("Content-Disposition", "attachment; filename=\"${projectDefinition.artifactId}.zip\"")
-                    .build()
+        return try {
+            val platformInfo = platformService.getPlatformInfo(projectDefinition.streamKey)
+            Response
+                .ok(projectCreator.create(platformInfo, projectDefinition))
+                .type("application/zip")
+                .header("Content-Disposition", "attachment; filename=\"${projectDefinition.artifactId}.zip\"")
+                .build()
         } catch (e: IllegalArgumentException) {
             val message = "Bad request: ${e.message}"
             LOG.warning(message)
-            return Response
+            Response
                 .status(Response.Status.BAD_REQUEST)
                 .entity(message)
                 .type(TEXT_PLAIN)
@@ -237,8 +254,9 @@ class CodeQuarkusResource {
     fun postDownload(@Valid projectDefinition: ProjectDefinition?): Response {
         try {
             val project = projectDefinition ?: ProjectDefinition()
+            val platformInfo = platformService.getPlatformInfo(project.streamKey)
             return Response
-                .ok(projectCreator.create(project))
+                .ok(projectCreator.create(platformInfo, project))
                 .type("application/zip")
                 .header("Content-Disposition", "attachment; filename=\"${project.artifactId}.zip\"")
                 .build()

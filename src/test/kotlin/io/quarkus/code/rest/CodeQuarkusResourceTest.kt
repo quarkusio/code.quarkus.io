@@ -1,6 +1,7 @@
 package io.quarkus.code.rest
 
 import io.quarkus.code.model.ProjectDefinition
+import io.quarkus.code.service.PlatformService
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
@@ -18,11 +19,14 @@ class CodeQuarkusResourceTest {
     @Inject
     lateinit var projectService: QuarkusProjectServiceMock
 
+    @Inject
+    lateinit var platformService: PlatformService
+
     @Test
     fun `Should fail when too many extensions`() {
         given()
             .contentType(ContentType.JSON)
-            .body(ProjectDefinition(extensions = projectService.platformService.recommendedPlatformInfo!!.extensionsById.keys))
+            .body(ProjectDefinition(extensions = platformService.recommendedPlatformInfo.extensionsById.keys))
             .`when`().post("/api/project")
             .then()
             .log().ifValidationFails()
@@ -51,7 +55,7 @@ class CodeQuarkusResourceTest {
 
     @Test
     fun `Download as POST should work with an empty project`() {
-        val path = given()
+        given()
             .contentType(ContentType.JSON)
             .`when`().post("/api/download")
             .then()
@@ -64,7 +68,7 @@ class CodeQuarkusResourceTest {
 
     @Test
     fun `Download flow should work with gav`() {
-        val projectDefinition = ProjectDefinition("io.andy", "my-app", "1.0.0")
+        val projectDefinition = ProjectDefinition(groupId = "io.andy", artifactId = "my-app", version = "1.0.0")
         val path = given()
                 .contentType(ContentType.JSON)
                 .body(projectDefinition)
