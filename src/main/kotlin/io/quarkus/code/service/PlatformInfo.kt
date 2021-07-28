@@ -8,11 +8,12 @@ import java.util.stream.Collectors
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 class PlatformInfo(
-    val key: String,
+    val platformKey: String,
+    val streamKey: String,
     val quarkusCoreVersion: String,
     val recommended: Boolean,
     val codeQuarkusExtensions: List<CodeQuarkusExtension>,
-    val extensionCatalog: ExtensionCatalog
+    val extensionCatalog: ExtensionCatalog,
 ) {
 
     val extensionsByShortId: Map<String, CodeQuarkusExtension>

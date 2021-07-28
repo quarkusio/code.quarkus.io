@@ -3,6 +3,7 @@ package io.quarkus.code.rest
 import io.quarkus.code.model.GitHubCreatedRepository
 import io.quarkus.code.model.ProjectDefinition
 import io.quarkus.code.service.GitHubService
+import io.quarkus.code.service.PlatformService
 import io.quarkus.code.service.QuarkusProjectService
 import io.quarkus.runtime.StartupEvent
 import org.eclipse.microprofile.openapi.annotations.Operation
@@ -30,6 +31,9 @@ class GitHubResource {
 
     @Inject
     internal lateinit var projectCreator: QuarkusProjectService
+
+    @Inject
+    internal lateinit var platformService: PlatformService
 
     @Inject
     lateinit var gitHubService: GitHubService
@@ -65,18 +69,19 @@ class GitHubResource {
         if (gitHubService.repositoryExists(login, token.accessToken, projectDefinition.artifactId)) {
             throw WebApplicationException("This repository name ${projectDefinition.artifactId} already exists", 409)
         }
-        val location = projectCreator.createTmp(projectDefinition, true)
+        val platformInfo = platformService.getPlatformInfo(projectDefinition.streamKey)
+        val location = projectCreator.createTmp(platformInfo, projectDefinition, true)
         val repo = gitHubService.createRepository(login, token.accessToken, projectDefinition.artifactId)
-        var created = false;
-        var i = 0;
+        var created = false
+        var i = 0
         while (!created && i < CHECK_CREATED_RETRY) {
             created = gitHubService.repositoryExists(login, token.accessToken, projectDefinition.artifactId)
             try {
-                Thread.sleep(i * CHECK_CREATED_INTERVAL_FACTOR);
+                Thread.sleep(i * CHECK_CREATED_INTERVAL_FACTOR)
             } catch (e: InterruptedException) {
                 Thread.currentThread().interrupt()
             }
-            ++i;
+            ++i
             if (!created) {
                 LOG.info("Repository not yet created retrying: $i/$CHECK_CREATED_RETRY")
             }

@@ -29,7 +29,7 @@ internal class QuarkusProjectServiceTest {
     fun testDefaultZip(info: TestInfo) {
         // When
         val creator = getProjectService()
-        val proj = creator.create(ProjectDefinition())
+        val proj = creator.create(platformService.recommendedPlatformInfo, ProjectDefinition())
         val testDir = QuarkusProjectServiceTestUtils.extractProject(proj)
         val projDir = Paths.get(testDir.first.path, "code-with-quarkus")
 
@@ -56,7 +56,7 @@ internal class QuarkusProjectServiceTest {
     fun testDefault(info: TestInfo) {
         // When
         val creator = getProjectService()
-        val projDir = creator.createTmp(ProjectDefinition())
+        val projDir = creator.createTmp(platformService.recommendedPlatformInfo, ProjectDefinition())
 
         // Then
         assertThatDirectoryTreeMatchSnapshots(info, projDir)
@@ -81,6 +81,7 @@ internal class QuarkusProjectServiceTest {
         // When
         val creator = getProjectService()
         val proj = creator.create(
+            platformService.recommendedPlatformInfo,
             ProjectDefinition(
                 groupId = "com.test",
                 artifactId = "test-app",
@@ -126,6 +127,7 @@ internal class QuarkusProjectServiceTest {
         val creator = getProjectService()
 
         val proj = creator.create(
+            platformService.recommendedPlatformInfo,
             ProjectDefinition(
                 groupId = "com.kot",
                 artifactId = "test-kotlin-app",
@@ -161,6 +163,7 @@ internal class QuarkusProjectServiceTest {
         val creator = getProjectService()
 
         val proj = creator.create(
+            platformService.recommendedPlatformInfo,
             ProjectDefinition(
                 groupId = "my.qute.yaml.app",
                 artifactId = "test-qute-yaml-app",
@@ -190,7 +193,7 @@ internal class QuarkusProjectServiceTest {
         val creator = getProjectService()
         val creates = (1..20).map { _ ->
             Callable {
-                val result = creator.create(ProjectDefinition())
+                val result = creator.create(platformService.recommendedPlatformInfo, ProjectDefinition())
                 latch.countDown()
                 result
             }
@@ -202,8 +205,6 @@ internal class QuarkusProjectServiceTest {
     }
 
     private fun getProjectService(): QuarkusProjectService {
-        val creator = QuarkusProjectService()
-        creator.platformService = platformService
-        return creator
+        return QuarkusProjectService()
     }
 }

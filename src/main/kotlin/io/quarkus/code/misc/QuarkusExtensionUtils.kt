@@ -9,7 +9,6 @@ import io.quarkus.platform.catalog.processor.ExtensionProcessor
 import io.quarkus.registry.catalog.Category
 import io.quarkus.registry.catalog.Extension
 import io.quarkus.registry.catalog.ExtensionCatalog
-import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.math.abs
 import kotlin.math.pow

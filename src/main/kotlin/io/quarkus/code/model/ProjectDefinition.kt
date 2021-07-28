@@ -25,7 +25,8 @@ class ProjectDefinition {
     }
 
     constructor()
-    constructor(groupId: String = DEFAULT_GROUPID,
+    constructor(streamKey: String? = null,
+                groupId: String = DEFAULT_GROUPID,
                 artifactId: String = DEFAULT_ARTIFACTID,
                 version: String = DEFAULT_VERSION,
                 className: String? = null,
@@ -35,6 +36,7 @@ class ProjectDefinition {
                 noCode: Boolean = false,
                 extensions: Set<String> = setOf(),
                 shortExtensions: String = "") {
+        this.streamKey = streamKey
         this.groupId = groupId
         this.artifactId = artifactId
         this.version = version
@@ -46,6 +48,11 @@ class ProjectDefinition {
         this.noExamples = noExamples
         this.shortExtensions = shortExtensions
     }
+
+    @QueryParam("k")
+    @Parameter(name = "k", description = "The platform stream to use to create this project ('platformKey:streamId' or 'streamId')", required = false)
+    var streamKey: String? = null
+        private set
 
     @DefaultValue(DEFAULT_GROUPID)
     @NotEmpty
@@ -84,8 +91,8 @@ class ProjectDefinition {
 
     @DefaultValue(DEFAULT_NO_CODE.toString())
     @QueryParam("ne")
-    @Parameter(name = "ne", description = "No code examples", required = false)
-    @Deprecated(message = "Use noCode instead")
+    @Parameter(name = "ne", description = "No code examples (Deprecated: use noCode (nc) instead)", required = false)
+    @Deprecated(message = "Use noCode (nc) instead")
     var noExamples: Boolean = DEFAULT_NO_CODE
         private set
 
@@ -110,10 +117,14 @@ class ProjectDefinition {
 
     @QueryParam("s")
     @DefaultValue("")
-    @Parameter(name = "s", description = "The set of extension shortIds separated by a '.' that will be included in the generated application", required = false)
+    @Parameter(name = "s", description = "The set of extension shortIds separated by a '.' that will be included in the generated application (Deprecated: see https://github.com/quarkusio/code.quarkus.io/issues/424)", required = false)
     @Deprecated(message = "see https://github.com/quarkusio/code.quarkus.io/issues/424")
     var shortExtensions: String = ""
         private set
+
+    override fun toString(): String {
+        return "QuarkusProject(streamKey='$streamKey', groupId='$groupId', artifactId='$artifactId', version='$version', className='$className', path='$path', buildTool='$buildTool', noCode='$noCode', extensions=$extensions')"
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -121,33 +132,33 @@ class ProjectDefinition {
 
         other as ProjectDefinition
 
+        if (streamKey != other.streamKey) return false
         if (groupId != other.groupId) return false
         if (artifactId != other.artifactId) return false
         if (version != other.version) return false
         if (className != other.className) return false
         if (path != other.path) return false
+        if (noExamples != other.noExamples) return false
         if (noCode != other.noCode) return false
         if (buildTool != other.buildTool) return false
         if (extensions != other.extensions) return false
+        if (shortExtensions != other.shortExtensions) return false
 
         return true
     }
 
     override fun hashCode(): Int {
-        var result = groupId.hashCode()
+        var result = streamKey?.hashCode() ?: 0
+        result = 31 * result + groupId.hashCode()
         result = 31 * result + artifactId.hashCode()
         result = 31 * result + version.hashCode()
-        result = 31 * result + className.hashCode()
-        result = 31 * result + path.hashCode()
-        result = 31 * result + buildTool.hashCode()
+        result = 31 * result + (className?.hashCode() ?: 0)
+        result = 31 * result + (path?.hashCode() ?: 0)
+        result = 31 * result + noExamples.hashCode()
         result = 31 * result + noCode.hashCode()
+        result = 31 * result + buildTool.hashCode()
         result = 31 * result + extensions.hashCode()
+        result = 31 * result + shortExtensions.hashCode()
         return result
     }
-
-    override fun toString(): String {
-        return "QuarkusProject(groupId='$groupId', artifactId='$artifactId', version='$version', className='$className', path='$path', buildTool='$buildTool', noCode='$noCode', extensions=$extensions')"
-    }
-
-
 }
