@@ -181,7 +181,7 @@ class CodeQuarkusResource {
         val params = ArrayList<NameValuePair>()
         if (projectDefinition != null) {
             if (projectDefinition.streamKey != null) {
-                params.add(BasicNameValuePair("ps", projectDefinition.streamKey))
+                params.add(BasicNameValuePair("S", projectDefinition.streamKey))
             }
             if (projectDefinition.groupId != ProjectDefinition.DEFAULT_GROUPID) {
                 params.add(BasicNameValuePair("g", projectDefinition.groupId))

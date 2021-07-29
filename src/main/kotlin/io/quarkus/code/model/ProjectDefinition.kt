@@ -49,8 +49,8 @@ class ProjectDefinition {
         this.shortExtensions = shortExtensions
     }
 
-    @QueryParam("ps")
-    @Parameter(name = "ps", description = "The platform stream to use to create this project ('platformKey:streamId' or 'streamId')", required = false)
+    @QueryParam("S")
+    @Parameter(name = "S", description = "The platform stream to use to create this project ('platformKey:streamId' or 'streamId')", required = false)
     var streamKey: String? = null
         private set
 
