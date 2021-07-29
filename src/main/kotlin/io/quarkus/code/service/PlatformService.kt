@@ -56,33 +56,19 @@ class PlatformService {
         get() = platformServiceCacheRef.get() ?: error("Platforms cache must not be used if not loaded")
 
     val recommendedPlatformInfo: PlatformInfo
-        get() {
-            val pc = platformCatalog
-            val defaultPlatformKey = pc.recommendedPlatform.platformKey
-            val defaultStreamId = pc.recommendedPlatform.recommendedStream.id
-            return getPlatformInfo(defaultPlatformKey, defaultStreamId)
-                ?: error("Recommended platform should not be null")
-        }
+        get() = getPlatformInfo()
 
     val lastUpdated: LocalDateTime
-        get() {
-            return platformsCache.lastUpdated
-        }
+        get() = platformsCache.lastUpdated
 
     val platformCatalog: PlatformCatalog
-        get() {
-            return platformsCache.platformCatalog
-        }
+        get() = platformsCache.platformCatalog
 
     val recommendedCodeQuarkusExtensions: List<CodeQuarkusExtension>
-        get() {
-            return getCodeQuarkusExtensions(recommendedStreamKey)
-        }
+        get() = getCodeQuarkusExtensions(recommendedStreamKey)
 
     val recommendedStreamKey: String
-        get() {
-            return recommendedPlatformInfo.streamKey
-        }
+        get() = platformsCache.recommendedStreamKey
 
     val streams: List<Stream>
         get() = platformServiceCacheRef.get().streamCatalogMap.map {
@@ -105,13 +91,12 @@ class PlatformService {
         return getPlatformInfo(streamKey).codeQuarkusExtensions
     }
 
-
     fun getPlatformInfo(platformKey: String, streamId: String): PlatformInfo? {
         val key = createStreamKey(platformKey, streamId)
         return getPlatformInfo(key)
     }
 
-    fun getPlatformInfo(streamKey: String?): PlatformInfo {
+    fun getPlatformInfo(streamKey: String? = null): PlatformInfo {
         val normalizedStreamKey = normalizeStreamKey(streamKey)
         return if (platformServiceCacheRef.get().streamCatalogMap.containsKey(normalizedStreamKey)) {
             platformServiceCacheRef.get().streamCatalogMap[normalizedStreamKey]!!
