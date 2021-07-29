@@ -18,8 +18,8 @@ interface CodeQuarkusConfig {
     @get:WithName("environment")
     val environment: Optional<String>
 
-    @get:WithName("sentry-dsn")
-    val sentryDSN: Optional<String>
+    @get:WithName("sentry-frontend-dsn")
+    val sentryFrontendDSN: Optional<String>
 
     // FIXME use Optional<List<String>> when bugfix is released
     @get:WithName("features")

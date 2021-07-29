@@ -14,6 +14,7 @@ import java.io.OutputStream
 import java.io.PrintStream
 import java.nio.file.Files
 import java.nio.file.Path
+import java.util.logging.Logger
 import javax.inject.Singleton
 
 @Singleton
@@ -53,6 +54,9 @@ class QuarkusProjectService {
         if (gitHub) {
             codestarts.add("github-action")
         }
+        if (projectDefinition.noExamples) {
+            LOG.warning("Use of @Deprecated ProjectDefinition.noExamples (ne)")
+        }
         val messageWriter =
             if (silent) MessageWriter.info(PrintStream(OutputStream.nullOutputStream())) else MessageWriter.info()
         try {
@@ -83,5 +87,9 @@ class QuarkusProjectService {
         } catch (e: QuarkusCommandException) {
             throw IOException("Error during Quarkus project creation", e)
         }
+    }
+
+    companion object {
+        private val LOG = Logger.getLogger(QuarkusProjectService::class.java.name)
     }
 }

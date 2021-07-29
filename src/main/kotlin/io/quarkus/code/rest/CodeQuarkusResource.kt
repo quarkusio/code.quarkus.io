@@ -77,7 +77,7 @@ class CodeQuarkusResource {
         return PublicConfig(
             environment = config.environment.orElse("dev"),
             gaTrackingId = gaConfig.trackingId.filter(String::isNotBlank).orElse(null),
-            sentryDSN = config.sentryDSN.filter(String::isNotBlank).orElse(null),
+            sentryDSN = config.sentryFrontendDSN.filter(String::isNotBlank).orElse(null),
             quarkusPlatformVersion = config.quarkusPlatformVersion,
             quarkusDevtoolsVersion = config.quarkusDevtoolsVersion,
             gitCommitId = config.gitCommitId,
@@ -181,7 +181,7 @@ class CodeQuarkusResource {
         val params = ArrayList<NameValuePair>()
         if (projectDefinition != null) {
             if (projectDefinition.streamKey != null) {
-                params.add(BasicNameValuePair("ps", projectDefinition.streamKey))
+                params.add(BasicNameValuePair("S", projectDefinition.streamKey))
             }
             if (projectDefinition.groupId != ProjectDefinition.DEFAULT_GROUPID) {
                 params.add(BasicNameValuePair("g", projectDefinition.groupId))
