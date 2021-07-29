@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import io.quarkus.code.misc.QuarkusExtensionUtils
 import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.registry.catalog.ExtensionCatalog
+import java.util.logging.Logger
 import java.util.stream.Collectors
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -35,6 +36,9 @@ class PlatformInfo(
         val fromShortId = parseShortExtensions(rawShortExtensions).stream()
             .map { (this.extensionsByShortId[it] ?: throw IllegalArgumentException("Invalid shortId: $it")).id }
             .collect(Collectors.toSet())
+        if (fromShortId.isNotEmpty()) {
+            LOG.warning("Use of @Deprecated ProjectDefinition.shortExtensions (s)")
+        }
         return fromId union fromShortId
     }
 
@@ -56,5 +60,9 @@ class PlatformInfo(
             return found[0].value.id
         }
         throw IllegalArgumentException("Invalid extension: $id")
+    }
+
+    companion object {
+        private val LOG = Logger.getLogger(PlatformInfo::class.java.name)
     }
 }

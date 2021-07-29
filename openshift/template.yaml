@@ -77,11 +77,11 @@ objects:
                   value: ${IO_QUARKUS_CODE_EXTENSION_PROCESSOR_TAGS_FROM}
                 - name: IO_QUARKUS_CODE_QUARKUS_PLATFORMS_RELOAD_CRON_EXPR
                   value: ${IO_QUARKUS_CODE_QUARKUS_PLATFORMS_RELOAD_CRON_EXPR}
-                - name: IO_QUARKUS_CODE_SENTRY_DSN
+                - name: IO_QUARKUS_CODE_SENTRY_FRONTEND_DSN
                   valueFrom:
                     secretKeyRef:
                       name: secrets
-                      key: sentry-dsn
+                      key: sentry-frontend-dsn
                       optional: true
                 - name: IO_QUARKUS_CODE_GITHUB_CLIENT_ID
                   valueFrom:
@@ -97,6 +97,8 @@ objects:
                       optional: true
                 - name: QUARKUS_LOG_SENTRY
                   value: ${QUARKUS_LOG_SENTRY}
+                - name: QUARKUS_LOG_SENTRY_ENVIRONMENT
+                  value: ${IO_QUARKUS_CODE_ENVIRONMENT}
                 - name: QUARKUS_LOG_SENTRY_DSN
                   valueFrom:
                     secretKeyRef:

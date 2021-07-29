@@ -77,7 +77,7 @@ class CodeQuarkusResource {
         return PublicConfig(
             environment = config.environment.orElse("dev"),
             gaTrackingId = gaConfig.trackingId.filter(String::isNotBlank).orElse(null),
-            sentryDSN = config.sentryDSN.filter(String::isNotBlank).orElse(null),
+            sentryDSN = config.sentryFrontendDSN.filter(String::isNotBlank).orElse(null),
             quarkusPlatformVersion = config.quarkusPlatformVersion,
             quarkusDevtoolsVersion = config.quarkusDevtoolsVersion,
             gitCommitId = config.gitCommitId,
