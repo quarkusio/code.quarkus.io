@@ -163,7 +163,6 @@ class PlatformService {
                 number of extensions: ${recommendedCodeQuarkusExtensions.size}
         """.trimIndent()
         }
-        LOG.info("PlatformService cache has been reloaded successfully:")
     }
 
     private fun checkNewCache(newCache: PlatformServiceCache) {
