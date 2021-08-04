@@ -21,7 +21,7 @@
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <gatling.version>3.2.0</gatling.version>
         <frontend-maven-plugin.version>1.7.6</frontend-maven-plugin.version>
-        <commons-compress.version>1.19</commons-compress.version>
+        <commons-compress.version>1.21</commons-compress.version>
         <google-analytics-java.version>2.0.0</google-analytics-java.version>
         <hoverfly-java.version>0.14.0</hoverfly-java.version>
         <assertj.version>3.17.1</assertj.version>
