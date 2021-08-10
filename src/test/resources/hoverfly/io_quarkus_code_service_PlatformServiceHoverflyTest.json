@@ -1,0 +1,696 @@
+{
+  "data" : {
+    "pairs" : [ {
+      "request" : {
+        "path" : [ {
+          "matcher" : "exact",
+          "value" : "/maven/io/quarkus/registry/quarkus-registry-descriptor/1.0-SNAPSHOT/maven-metadata.xml"
+        } ],
+        "method" : [ {
+          "matcher" : "exact",
+          "value" : "GET"
+        } ],
+        "destination" : [ {
+          "matcher" : "exact",
+          "value" : "registry.quarkus.io"
+        } ],
+        "scheme" : [ {
+          "matcher" : "exact",
+          "value" : "https"
+        } ],
+        "body" : [ {
+          "matcher" : "exact",
+          "value" : ""
+        } ]
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<metadata>\n  <groupId>io.quarkus.registry</groupId>\n  <artifactId>quarkus-registry-descriptor</artifactId>\n  <versioning>\n    <snapshot>\n      <timestamp>20210809.161820</timestamp>\n      <buildNumber>1</buildNumber>\n    </snapshot>\n    <lastUpdated>20210809161820</lastUpdated>\n    <snapshotVersions>\n      <snapshotVersion>\n        <extension>pom</extension>\n        <value>1.0-20210809.161820-1</value>\n        <updated>20210809161820</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <extension>json</extension>\n        <value>1.0-20210809.161820-1</value>\n        <updated>20210809161820</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <classifier>2.0.1.Final</classifier>\n        <extension>json</extension>\n        <value>1.0-20210809.161820-1</value>\n        <updated>20210809161820</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <classifier>2.0.2.Final</classifier>\n        <extension>json</extension>\n        <value>1.0-20210809.161820-1</value>\n        <updated>20210809161820</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <classifier>2.0.3.Final</classifier>\n        <extension>json</extension>\n        <value>1.0-20210809.161820-1</value>\n        <updated>20210809161820</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <classifier>2.1.0.CR1</classifier>\n        <extension>json</extension>\n        <value>1.0-20210809.161820-1</value>\n        <updated>20210809161820</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <classifier>2.1.0.Final</classifier>\n        <extension>json</extension>\n        <value>1.0-20210809.161820-1</value>\n        <updated>20210809161820</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <classifier>2.1.1.Final</classifier>\n        <extension>json</extension>\n        <value>1.0-20210809.161820-1</value>\n        <updated>20210809161820</updated>\n      </snapshotVersion>\n    </snapshotVersions>\n  </versioning>\n</metadata>\n",
+        "encodedBody" : false,
+        "templated" : false,
+        "headers" : {
+          "Cache-Control" : [ "no-cache" ],
+          "Content-Length" : [ "2036" ],
+          "Content-Type" : [ "application/xml;charset=UTF-8" ],
+          "Etag" : [ "4a188fbf-e64a-38f5-b042-1134a2c69e57" ],
+          "Hoverfly" : [ "Was-Here" ],
+          "Last-Modified" : [ "Mon, 09 Aug 2021 16:18:20 GMT" ],
+          "Set-Cookie" : [ "b1cd5fdf80ae66847c7b28c6def00b60=7d425532d9b349a17e9c78f0b322b319; path=/; HttpOnly; Secure; SameSite=None" ],
+          "Via" : [ "registry.quarkus.io maven-cache" ]
+        }
+      }
+    }, {
+      "request" : {
+        "path" : [ {
+          "matcher" : "exact",
+          "value" : "/maven/io/quarkus/registry/quarkus-registry-descriptor/1.0-SNAPSHOT/maven-metadata.xml.sha1"
+        } ],
+        "method" : [ {
+          "matcher" : "exact",
+          "value" : "GET"
+        } ],
+        "destination" : [ {
+          "matcher" : "exact",
+          "value" : "registry.quarkus.io"
+        } ],
+        "scheme" : [ {
+          "matcher" : "exact",
+          "value" : "https"
+        } ],
+        "body" : [ {
+          "matcher" : "exact",
+          "value" : ""
+        } ]
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "b6740344bdb2492d6a6076aa8b29655e94283e13",
+        "encodedBody" : false,
+        "templated" : false,
+        "headers" : {
+          "Cache-Control" : [ "no-cache" ],
+          "Content-Length" : [ "40" ],
+          "Content-Type" : [ "text/plain;charset=UTF-8" ],
+          "Etag" : [ "fba6a335-b32e-30c2-8f7a-717ad2616d15" ],
+          "Hoverfly" : [ "Was-Here" ],
+          "Last-Modified" : [ "Mon, 09 Aug 2021 16:18:20 GMT" ],
+          "Via" : [ "registry.quarkus.io maven-cache" ]
+        }
+      }
+    }, {
+      "request" : {
+        "path" : [ {
+          "matcher" : "exact",
+          "value" : "/maven/io/quarkus/registry/quarkus-registry-descriptor/1.0-SNAPSHOT/quarkus-registry-descriptor-1.0-20210809.161820-1.json"
+        } ],
+        "method" : [ {
+          "matcher" : "exact",
+          "value" : "GET"
+        } ],
+        "destination" : [ {
+          "matcher" : "exact",
+          "value" : "registry.quarkus.io"
+        } ],
+        "scheme" : [ {
+          "matcher" : "exact",
+          "value" : "https"
+        } ],
+        "body" : [ {
+          "matcher" : "exact",
+          "value" : ""
+        } ]
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "{\n  \"descriptor\" : {\n    \"artifact\" : \"io.quarkus.registry:quarkus-registry-descriptor::json:1.0-SNAPSHOT\"\n  },\n  \"platforms\" : {\n    \"artifact\" : \"io.quarkus.registry:quarkus-platforms::json:1.0-SNAPSHOT\"\n  },\n  \"non-platform-extensions\" : {\n    \"artifact\" : \"io.quarkus.registry:quarkus-non-platform-extensions::json:1.0-SNAPSHOT\"\n  },\n  \"maven\" : {\n    \"repository\" : {\n      \"id\" : \"registry.quarkus.io\",\n      \"url\" : \"https://registry.quarkus.io/maven\"\n    }\n  }\n}",
+        "encodedBody" : false,
+        "templated" : false,
+        "headers" : {
+          "Cache-Control" : [ "no-cache" ],
+          "Content-Length" : [ "470" ],
+          "Content-Type" : [ "application/json" ],
+          "Etag" : [ "a47b8fbd-1d31-3e92-8cc1-e80ac635bed3" ],
+          "Hoverfly" : [ "Was-Here" ],
+          "Last-Modified" : [ "Mon, 09 Aug 2021 16:18:20 GMT" ],
+          "Via" : [ "registry.quarkus.io maven-cache" ]
+        }
+      }
+    }, {
+      "request" : {
+        "path" : [ {
+          "matcher" : "exact",
+          "value" : "/maven/io/quarkus/registry/quarkus-registry-descriptor/1.0-SNAPSHOT/quarkus-registry-descriptor-1.0-20210809.161820-1.json.sha1"
+        } ],
+        "method" : [ {
+          "matcher" : "exact",
+          "value" : "GET"
+        } ],
+        "destination" : [ {
+          "matcher" : "exact",
+          "value" : "registry.quarkus.io"
+        } ],
+        "scheme" : [ {
+          "matcher" : "exact",
+          "value" : "https"
+        } ],
+        "body" : [ {
+          "matcher" : "exact",
+          "value" : ""
+        } ]
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "0298b794e6a14bbe14eaa21cb3d7b43eaf2e1204",
+        "encodedBody" : false,
+        "templated" : false,
+        "headers" : {
+          "Cache-Control" : [ "no-cache" ],
+          "Content-Length" : [ "40" ],
+          "Content-Type" : [ "text/plain;charset=UTF-8" ],
+          "Etag" : [ "980a0e7c-64b3-3a4f-9df4-245ea3efe51c" ],
+          "Hoverfly" : [ "Was-Here" ],
+          "Last-Modified" : [ "Mon, 09 Aug 2021 16:18:21 GMT" ],
+          "Via" : [ "registry.quarkus.io maven-cache" ]
+        }
+      }
+    }, {
+      "request" : {
+        "path" : [ {
+          "matcher" : "exact",
+          "value" : "/maven/io/quarkus/registry/quarkus-platforms/1.0-SNAPSHOT/maven-metadata.xml"
+        } ],
+        "method" : [ {
+          "matcher" : "exact",
+          "value" : "GET"
+        } ],
+        "destination" : [ {
+          "matcher" : "exact",
+          "value" : "registry.quarkus.io"
+        } ],
+        "scheme" : [ {
+          "matcher" : "exact",
+          "value" : "https"
+        } ],
+        "body" : [ {
+          "matcher" : "exact",
+          "value" : ""
+        } ]
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<metadata>\n  <groupId>io.quarkus.registry</groupId>\n  <artifactId>quarkus-platforms</artifactId>\n  <versioning>\n    <snapshot>\n      <timestamp>20210809.161821</timestamp>\n      <buildNumber>1</buildNumber>\n    </snapshot>\n    <lastUpdated>20210809161821</lastUpdated>\n    <snapshotVersions>\n      <snapshotVersion>\n        <extension>pom</extension>\n        <value>1.0-20210809.161821-1</value>\n        <updated>20210809161821</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <extension>json</extension>\n        <value>1.0-20210809.161821-1</value>\n        <updated>20210809161821</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <classifier>2.0.1.Final</classifier>\n        <extension>json</extension>\n        <value>1.0-20210809.161821-1</value>\n        <updated>20210809161821</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <classifier>2.0.2.Final</classifier>\n        <extension>json</extension>\n        <value>1.0-20210809.161821-1</value>\n        <updated>20210809161821</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <classifier>2.0.3.Final</classifier>\n        <extension>json</extension>\n        <value>1.0-20210809.161821-1</value>\n        <updated>20210809161821</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <classifier>2.1.0.CR1</classifier>\n        <extension>json</extension>\n        <value>1.0-20210809.161821-1</value>\n        <updated>20210809161821</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <classifier>2.1.0.Final</classifier>\n        <extension>json</extension>\n        <value>1.0-20210809.161821-1</value>\n        <updated>20210809161821</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <classifier>2.1.1.Final</classifier>\n        <extension>json</extension>\n        <value>1.0-20210809.161821-1</value>\n        <updated>20210809161821</updated>\n      </snapshotVersion>\n    </snapshotVersions>\n  </versioning>\n</metadata>\n",
+        "encodedBody" : false,
+        "templated" : false,
+        "headers" : {
+          "Cache-Control" : [ "no-cache" ],
+          "Content-Length" : [ "2026" ],
+          "Content-Type" : [ "application/xml;charset=UTF-8" ],
+          "Etag" : [ "80d4f3e6-0d2d-382a-8b38-101fb55039e8" ],
+          "Hoverfly" : [ "Was-Here" ],
+          "Last-Modified" : [ "Mon, 09 Aug 2021 16:18:21 GMT" ],
+          "Via" : [ "registry.quarkus.io maven-cache" ]
+        }
+      }
+    }, {
+      "request" : {
+        "path" : [ {
+          "matcher" : "exact",
+          "value" : "/maven/io/quarkus/registry/quarkus-platforms/1.0-SNAPSHOT/maven-metadata.xml.sha1"
+        } ],
+        "method" : [ {
+          "matcher" : "exact",
+          "value" : "GET"
+        } ],
+        "destination" : [ {
+          "matcher" : "exact",
+          "value" : "registry.quarkus.io"
+        } ],
+        "scheme" : [ {
+          "matcher" : "exact",
+          "value" : "https"
+        } ],
+        "body" : [ {
+          "matcher" : "exact",
+          "value" : ""
+        } ]
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "04ecbccbbe11f966313d0c36605484f4a723968d",
+        "encodedBody" : false,
+        "templated" : false,
+        "headers" : {
+          "Cache-Control" : [ "no-cache" ],
+          "Content-Length" : [ "40" ],
+          "Content-Type" : [ "text/plain;charset=UTF-8" ],
+          "Etag" : [ "03114977-0717-314f-8124-5dc2ef61c6b8" ],
+          "Hoverfly" : [ "Was-Here" ],
+          "Last-Modified" : [ "Mon, 09 Aug 2021 16:18:21 GMT" ],
+          "Via" : [ "registry.quarkus.io maven-cache" ]
+        }
+      }
+    }, {
+      "request" : {
+        "path" : [ {
+          "matcher" : "exact",
+          "value" : "/maven/io/quarkus/registry/quarkus-platforms/1.0-SNAPSHOT/quarkus-platforms-1.0-20210809.161821-1.json"
+        } ],
+        "method" : [ {
+          "matcher" : "exact",
+          "value" : "GET"
+        } ],
+        "destination" : [ {
+          "matcher" : "exact",
+          "value" : "registry.quarkus.io"
+        } ],
+        "scheme" : [ {
+          "matcher" : "exact",
+          "value" : "https"
+        } ],
+        "body" : [ {
+          "matcher" : "exact",
+          "value" : ""
+        } ]
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "{\n  \"platforms\" : [ {\n    \"platform-key\" : \"io.quarkus.platform\",\n    \"name\" : \"Quarkus Community Platform\",\n    \"streams\" : [ {\n      \"id\" : \"2.1\",\n      \"releases\" : [ {\n        \"version\" : \"2.1.1.Final\",\n        \"member-boms\" : [ \"io.quarkus.platform:quarkus-bom::pom:2.1.1.Final\", \"io.quarkus.platform:quarkus-optaplanner-bom::pom:2.1.1.Final\", \"io.quarkus.platform:quarkus-kogito-bom::pom:2.1.1.Final\", \"io.quarkus.platform:quarkus-qpid-jms-bom::pom:2.1.1.Final\", \"io.quarkus.platform:quarkus-cassandra-bom::pom:2.1.1.Final\", \"io.quarkus.platform:quarkus-camel-bom::pom:2.1.1.Final\", \"io.quarkus.platform:quarkus-hazelcast-client::pom:2.1.1.Final\", \"io.quarkus.platform:quarkus-debezium-bom::pom:2.1.1.Final\", \"io.quarkus.platform:quarkus-blaze-persistence-bom::pom:2.1.1.Final\", \"io.quarkus.platform:quarkus-google-cloud-services-bom::pom:2.1.1.Final\" ],\n        \"quarkus-core-version\" : \"2.1.1.Final\"\n      } ]\n    }, {\n      \"id\" : \"2.0\",\n      \"releases\" : [ {\n        \"version\" : \"2.0.3.Final\",\n        \"member-boms\" : [ \"io.quarkus:quarkus-universe-bom-quarkus-platform-descriptor:2.0.3.Final:json:2.0.3.Final\" ],\n        \"quarkus-core-version\" : \"2.0.3.Final\"\n      } ]\n    } ]\n  } ]\n}",
+        "encodedBody" : false,
+        "templated" : false,
+        "headers" : {
+          "Cache-Control" : [ "no-cache" ],
+          "Content-Length" : [ "1197" ],
+          "Content-Type" : [ "application/json" ],
+          "Etag" : [ "69d086c3-79b0-3215-9613-b4aa1fd21670" ],
+          "Hoverfly" : [ "Was-Here" ],
+          "Last-Modified" : [ "Mon, 09 Aug 2021 16:18:22 GMT" ],
+          "Via" : [ "registry.quarkus.io maven-cache" ]
+        }
+      }
+    }, {
+      "request" : {
+        "path" : [ {
+          "matcher" : "exact",
+          "value" : "/maven/io/quarkus/registry/quarkus-platforms/1.0-SNAPSHOT/quarkus-platforms-1.0-20210809.161821-1.json.sha1"
+        } ],
+        "method" : [ {
+          "matcher" : "exact",
+          "value" : "GET"
+        } ],
+        "destination" : [ {
+          "matcher" : "exact",
+          "value" : "registry.quarkus.io"
+        } ],
+        "scheme" : [ {
+          "matcher" : "exact",
+          "value" : "https"
+        } ],
+        "body" : [ {
+          "matcher" : "exact",
+          "value" : ""
+        } ]
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "5198651528d7618bfb283aeb307137ce9134a2a8",
+        "encodedBody" : false,
+        "templated" : false,
+        "headers" : {
+          "Cache-Control" : [ "no-cache" ],
+          "Content-Length" : [ "40" ],
+          "Content-Type" : [ "text/plain;charset=UTF-8" ],
+          "Etag" : [ "decbbcd5-1d3e-3c8e-9976-be836ab339b8" ],
+          "Hoverfly" : [ "Was-Here" ],
+          "Last-Modified" : [ "Mon, 09 Aug 2021 16:18:22 GMT" ],
+          "Via" : [ "registry.quarkus.io maven-cache" ]
+        }
+      }
+    }, {
+      "request" : {
+        "path" : [ {
+          "matcher" : "exact",
+          "value" : "/maven/io/quarkus/registry/quarkus-platforms/1.0-SNAPSHOT/quarkus-platforms-1.0-20210809.161821-1-2.1.1.Final.json"
+        } ],
+        "method" : [ {
+          "matcher" : "exact",
+          "value" : "GET"
+        } ],
+        "destination" : [ {
+          "matcher" : "exact",
+          "value" : "registry.quarkus.io"
+        } ],
+        "scheme" : [ {
+          "matcher" : "exact",
+          "value" : "https"
+        } ],
+        "body" : [ {
+          "matcher" : "exact",
+          "value" : ""
+        } ]
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "{\n  \"platforms\" : [ {\n    \"platform-key\" : \"io.quarkus.platform\",\n    \"name\" : \"Quarkus Community Platform\",\n    \"streams\" : [ {\n      \"id\" : \"2.1\",\n      \"releases\" : [ {\n        \"version\" : \"2.1.1.Final\",\n        \"member-boms\" : [ \"io.quarkus.platform:quarkus-bom::pom:2.1.1.Final\", \"io.quarkus.platform:quarkus-optaplanner-bom::pom:2.1.1.Final\", \"io.quarkus.platform:quarkus-kogito-bom::pom:2.1.1.Final\", \"io.quarkus.platform:quarkus-qpid-jms-bom::pom:2.1.1.Final\", \"io.quarkus.platform:quarkus-cassandra-bom::pom:2.1.1.Final\", \"io.quarkus.platform:quarkus-camel-bom::pom:2.1.1.Final\", \"io.quarkus.platform:quarkus-hazelcast-client::pom:2.1.1.Final\", \"io.quarkus.platform:quarkus-debezium-bom::pom:2.1.1.Final\", \"io.quarkus.platform:quarkus-blaze-persistence-bom::pom:2.1.1.Final\", \"io.quarkus.platform:quarkus-google-cloud-services-bom::pom:2.1.1.Final\" ],\n        \"quarkus-core-version\" : \"2.1.1.Final\"\n      } ]\n    } ]\n  } ]\n}",
+        "encodedBody" : false,
+        "templated" : false,
+        "headers" : {
+          "Cache-Control" : [ "no-cache" ],
+          "Content-Length" : [ "933" ],
+          "Content-Type" : [ "application/json" ],
+          "Etag" : [ "837c96ad-fcc6-3e28-858e-e1bf270386a9" ],
+          "Hoverfly" : [ "Was-Here" ],
+          "Last-Modified" : [ "Mon, 09 Aug 2021 16:23:19 GMT" ],
+          "Via" : [ "registry.quarkus.io maven-cache" ]
+        }
+      }
+    }, {
+      "request" : {
+        "path" : [ {
+          "matcher" : "exact",
+          "value" : "/maven/io/quarkus/registry/quarkus-platforms/1.0-SNAPSHOT/quarkus-platforms-1.0-20210809.161821-1-2.1.1.Final.json.sha1"
+        } ],
+        "method" : [ {
+          "matcher" : "exact",
+          "value" : "GET"
+        } ],
+        "destination" : [ {
+          "matcher" : "exact",
+          "value" : "registry.quarkus.io"
+        } ],
+        "scheme" : [ {
+          "matcher" : "exact",
+          "value" : "https"
+        } ],
+        "body" : [ {
+          "matcher" : "exact",
+          "value" : ""
+        } ]
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "3dd7bd12e318de00dfdbd6867ff163a153a9bddd",
+        "encodedBody" : false,
+        "templated" : false,
+        "headers" : {
+          "Cache-Control" : [ "no-cache" ],
+          "Content-Length" : [ "40" ],
+          "Content-Type" : [ "text/plain;charset=UTF-8" ],
+          "Etag" : [ "c8404dd2-5ed8-3285-ad51-056b41505910" ],
+          "Hoverfly" : [ "Was-Here" ],
+          "Last-Modified" : [ "Mon, 09 Aug 2021 16:23:19 GMT" ],
+          "Via" : [ "registry.quarkus.io maven-cache" ]
+        }
+      }
+    }, {
+      "request" : {
+        "path" : [ {
+          "matcher" : "exact",
+          "value" : "/maven/io/quarkus/registry/quarkus-non-platform-extensions/1.0-SNAPSHOT/maven-metadata.xml"
+        } ],
+        "method" : [ {
+          "matcher" : "exact",
+          "value" : "GET"
+        } ],
+        "destination" : [ {
+          "matcher" : "exact",
+          "value" : "registry.quarkus.io"
+        } ],
+        "scheme" : [ {
+          "matcher" : "exact",
+          "value" : "https"
+        } ],
+        "body" : [ {
+          "matcher" : "exact",
+          "value" : ""
+        } ]
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<metadata>\n  <groupId>io.quarkus.registry</groupId>\n  <artifactId>quarkus-non-platform-extensions</artifactId>\n  <versioning>\n    <snapshot>\n      <timestamp>20210809.161825</timestamp>\n      <buildNumber>1</buildNumber>\n    </snapshot>\n    <lastUpdated>20210809161825</lastUpdated>\n    <snapshotVersions>\n      <snapshotVersion>\n        <extension>pom</extension>\n        <value>1.0-20210809.161825-1</value>\n        <updated>20210809161825</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <extension>json</extension>\n        <value>1.0-20210809.161825-1</value>\n        <updated>20210809161825</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <classifier>2.0.1.Final</classifier>\n        <extension>json</extension>\n        <value>1.0-20210809.161825-1</value>\n        <updated>20210809161825</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <classifier>2.0.2.Final</classifier>\n        <extension>json</extension>\n        <value>1.0-20210809.161825-1</value>\n        <updated>20210809161825</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <classifier>2.0.3.Final</classifier>\n        <extension>json</extension>\n        <value>1.0-20210809.161825-1</value>\n        <updated>20210809161825</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <classifier>2.1.0.CR1</classifier>\n        <extension>json</extension>\n        <value>1.0-20210809.161825-1</value>\n        <updated>20210809161825</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <classifier>2.1.0.Final</classifier>\n        <extension>json</extension>\n        <value>1.0-20210809.161825-1</value>\n        <updated>20210809161825</updated>\n      </snapshotVersion>\n      <snapshotVersion>\n        <classifier>2.1.1.Final</classifier>\n        <extension>json</extension>\n        <value>1.0-20210809.161825-1</value>\n        <updated>20210809161825</updated>\n      </snapshotVersion>\n    </snapshotVersions>\n  </versioning>\n</metadata>\n",
+        "encodedBody" : false,
+        "templated" : false,
+        "headers" : {
+          "Cache-Control" : [ "no-cache" ],
+          "Content-Length" : [ "2040" ],
+          "Content-Type" : [ "application/xml;charset=UTF-8" ],
+          "Etag" : [ "3ec8eb7c-9f81-3080-b7f3-3a0d318f3b1b" ],
+          "Hoverfly" : [ "Was-Here" ],
+          "Last-Modified" : [ "Mon, 09 Aug 2021 16:18:25 GMT" ],
+          "Via" : [ "registry.quarkus.io maven-cache" ]
+        }
+      }
+    }, {
+      "request" : {
+        "path" : [ {
+          "matcher" : "exact",
+          "value" : "/maven/io/quarkus/registry/quarkus-non-platform-extensions/1.0-SNAPSHOT/maven-metadata.xml.sha1"
+        } ],
+        "method" : [ {
+          "matcher" : "exact",
+          "value" : "GET"
+        } ],
+        "destination" : [ {
+          "matcher" : "exact",
+          "value" : "registry.quarkus.io"
+        } ],
+        "scheme" : [ {
+          "matcher" : "exact",
+          "value" : "https"
+        } ],
+        "body" : [ {
+          "matcher" : "exact",
+          "value" : ""
+        } ]
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "62ab577314c54b721faf0237d6c2941458afeeba",
+        "encodedBody" : false,
+        "templated" : false,
+        "headers" : {
+          "Cache-Control" : [ "no-cache" ],
+          "Content-Length" : [ "40" ],
+          "Content-Type" : [ "text/plain;charset=UTF-8" ],
+          "Etag" : [ "470dc152-a5eb-3c72-97ad-6ccb7783ce40" ],
+          "Hoverfly" : [ "Was-Here" ],
+          "Last-Modified" : [ "Mon, 09 Aug 2021 16:18:26 GMT" ],
+          "Via" : [ "registry.quarkus.io maven-cache" ]
+        }
+      }
+    }, {
+      "request" : {
+        "path" : [ {
+          "matcher" : "exact",
+          "value" : "/maven/io/quarkus/registry/quarkus-non-platform-extensions/1.0-SNAPSHOT/quarkus-non-platform-extensions-1.0-20210809.161825-1-2.1.1.Final.json"
+        } ],
+        "method" : [ {
+          "matcher" : "exact",
+          "value" : "GET"
+        } ],
+        "destination" : [ {
+          "matcher" : "exact",
+          "value" : "registry.quarkus.io"
+        } ],
+        "scheme" : [ {
+          "matcher" : "exact",
+          "value" : "https"
+        } ],
+        "body" : [ {
+          "matcher" : "exact",
+          "value" : ""
+        } ]
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "{\n  \"id\" : \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\",\n  \"bom\" : \"io.quarkus.platform:quarkus-bom::pom:2.1.1.Final\",\n  \"extensions\" : [ {\n    \"name\" : \"Minio Client extension\",\n    \"description\" : \"Integrates MinIO Java SDK for Amazon S3 Compatible Cloud Storage\",\n    \"metadata\" : {\n      \"keywords\" : [ \"minio\", \"storage\", \"kubernetes\" ],\n      \"guide\" : \"https://quarkus.io/guides/datasource\",\n      \"categories\" : [ \"kubernetes\", \"data\" ],\n      \"status\" : \"experimental\",\n      \"description\" : \"Integrates MinIO Java SDK for Amazon S3 Compatible Cloud Storage\",\n      \"built-with-quarkus-core\" : \"2.0.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-arc::jar\", \"io.quarkus:quarkus-core::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.minio:quarkus-minio::jar:2.0.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Logging JSON Jackson\",\n    \"description\" : \"Logging in json with support for custom fields\",\n    \"metadata\" : {\n      \"keywords\" : [ \"logging\", \"json\", \"formatter\" ],\n      \"categories\" : [ \"core\" ],\n      \"status\" : \"preview\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.loggingjson:quarkiverse-logging-json::jar:0.2.3\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus GitHub API\",\n    \"description\" : \"Connect to the GitHub API\",\n    \"metadata\" : {\n      \"keywords\" : [ \"github\", \"github-api\", \"github api\" ],\n      \"guide\" : \"https://github-api.kohsuke.org/\",\n      \"categories\" : [ \"business-automation\" ],\n      \"status\" : \"stable\",\n      \"built-with-quarkus-core\" : \"2.0.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-core::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.githubapi:quarkus-github-api::jar:1.131.1\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus - Rsocket\",\n    \"description\" : \"RSocket Support for native image\",\n    \"metadata\" : {\n      \"built-with-quarkus-core\" : \"io.quarkus:quarkus-core:1.11.3.Final\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.rsocket:quarkus-rsocket::jar:0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"MyFaces\",\n    \"description\" : \"Apache MyFaces Core runtime extension for Quarkus.\",\n    \"metadata\" : {\n      \"keywords\" : [ \"JSF\", \"Faces\", \"Java Server Faces\" ],\n      \"guide\" : \"https://github.com/apache/myfaces\",\n      \"categories\" : [ \"web\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"1.13.0.Final\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"org.apache.myfaces.core.extensions.quarkus:myfaces-quarkus::jar:2.3-next-M6\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Apicurio Registry client\",\n    \"description\" : \"Allow applications to use Apicurio Registry client\",\n    \"metadata\" : {\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.apicurio:quarkiverse-apicurio-registry-client::jar:0.0.2\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus - Maven Resolver - Runtime\",\n    \"description\" : \"Parent POM for Quarkiverse projects that includes the default release and artifact publishing related\\n    configuration\",\n    \"metadata\" : {\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.mavenresolver:quarkus-maven-resolver::jar:0.0.2\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus JJWT Jackson\",\n    \"description\" : \"Create JWT tokens\",\n    \"metadata\" : {\n      \"keywords\" : [ \"jwt\", \"jjwt\", \"token\", \"jackson\" ],\n      \"categories\" : [ \"security\" ],\n      \"status\" : \"stable\",\n      \"unlisted\" : true,\n      \"built-with-quarkus-core\" : \"2.0.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-core::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.jjwtjackson:quarkus-jjwt-jackson::jar:1.0.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Lucene\",\n    \"description\" : \"Add full-text search capabilities to your application with Apache Lucene.\",\n    \"metadata\" : {\n      \"keywords\" : [ \"search\", \"query\", \"index\", \"full-text\" ],\n      \"guide\" : \"https://github.com/quarkiverse/quarkus-lucene\",\n      \"categories\" : [ \"search\" ],\n      \"status\" : \"preview\",\n      \"built-with-quarkus-core\" : \"io.quarkus:quarkus-core:1.12.0.Final\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.lucene:quarkus-lucene::jar:0.2\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"PrettyTime\",\n    \"description\" : \"PrettyTime is an OpenSource time formatting library.\",\n    \"metadata\" : {\n      \"keywords\" : [ \"prettytime\" ],\n      \"categories\" : [ \"miscellaneous\" ],\n      \"status\" : \"stable\",\n      \"built-with-quarkus-core\" : \"2.0.1.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-arc::jar\", \"io.quarkus:quarkus-core::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.prettytime:quarkus-prettytime::jar:0.1.1\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Doma - Database access framework\",\n    \"description\" : \"Simplify your database accesses with compile-time code generation\",\n    \"metadata\" : {\n      \"keywords\" : [ \"doma\", \"orm\", \"sql\" ],\n      \"guide\" : \"https://github.com/quarkiverse/quarkus-doma\",\n      \"categories\" : [ \"data\" ],\n      \"status\" : \"preview\",\n      \"built-with-quarkus-core\" : \"2.0.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-core::jar\", \"io.quarkus:quarkus-arc::jar\", \"io.quarkus:quarkus-agroal::jar\", \"io.quarkus:quarkus-datasource::jar\", \"io.quarkus:quarkus-narayana-jta::jar\", \"io.quarkus:quarkus-mutiny::jar\", \"io.quarkus:quarkus-smallrye-context-propagation::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.doma:quarkus-doma::jar:0.0.5\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus CXF\",\n    \"description\" : \"Enables you to develop web services using Apache CXF\",\n    \"metadata\" : {\n      \"built-with-quarkus-core\" : \"2.0.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-arc::jar\", \"io.quarkus:quarkus-core::jar\", \"io.quarkus:quarkus-jaxb::jar\", \"io.quarkus:quarkus-jaxp::jar\", \"io.quarkus:quarkus-jackson::jar\", \"io.quarkus:quarkus-vertx-http::jar\", \"io.quarkus:quarkus-mutiny::jar\", \"io.quarkus:quarkus-smallrye-context-propagation::jar\", \"io.quarkus:quarkus-vertx-core::jar\", \"io.quarkus:quarkus-netty::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.cxf:quarkus-cxf::jar:0.9\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus - OpenCV\",\n    \"description\" : \"Build computer vision and AI applications with OpenCV\",\n    \"metadata\" : {\n      \"keywords\" : [ \"opencv\", \"ai\", \"computer vision\" ],\n      \"categories\" : [ \"business-automation\" ],\n      \"built-with-quarkus-core\" : \"2.0.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-arc::jar\", \"io.quarkus:quarkus-core::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.opencv:quarkus-opencv::jar:1.0.4\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"MyBatis SQL Mapper\",\n    \"description\" : \"MyBatis SQL mapper framework for Java\",\n    \"metadata\" : {\n      \"keywords\" : [ \"mybatis\" ],\n      \"guide\" : \"https://quarkus.io/guides/mybatis\",\n      \"categories\" : [ \"data\" ],\n      \"status\" : \"preview\",\n      \"built-with-quarkus-core\" : \"2.0.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-arc::jar\", \"io.quarkus:quarkus-core::jar\", \"io.quarkus:quarkus-agroal::jar\", \"io.quarkus:quarkus-datasource::jar\", \"io.quarkus:quarkus-narayana-jta::jar\", \"io.quarkus:quarkus-mutiny::jar\", \"io.quarkus:quarkus-smallrye-context-propagation::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.mybatis:quarkus-mybatis::jar:0.0.9\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"JGraphT\",\n    \"description\" : \"JGraphT - a Java library of graph theory data structures and algorithms\",\n    \"metadata\" : {\n      \"keywords\" : [ \"jgrapht\", \"graphs\" ],\n      \"guide\" : \"https://jgrapht.org/guide/UserOverview\",\n      \"categories\" : [ \"miscellaneous\" ],\n      \"status\" : \"preview\",\n      \"built-with-quarkus-core\" : \"1.13.4.Final\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.jgrapht:quarkus-jgrapht::jar:1.2.1\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Logging Cloudwatch\",\n    \"description\" : \"Parent POM for Quarkiverse projects that includes the default release and artifact publishing related\\n    configuration\",\n    \"metadata\" : {\n      \"built-with-quarkus-core\" : \"1.13.7.Final\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.logging.cloudwatch:quarkus-logging-cloudwatch::jar:3.0.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus - Unleash - Runtime\",\n    \"description\" : \"Unleash is a feature toggle system\",\n    \"metadata\" : {\n      \"built-with-quarkus-core\" : \"io.quarkus:quarkus-core:1.11.1.Final\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.unleash:quarkus-unleash::jar:0.1.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus - Hibernate Types - Runtime\",\n    \"description\" : \"Hibernate Types\",\n    \"metadata\" : {\n      \"built-with-quarkus-core\" : \"io.quarkus:quarkus-core:1.11.1.Final\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.hibernatetypes:quarkus-hibernate-types::jar:0.1.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkiverse - Tekton Client - Runtime\",\n    \"description\" : \"Parent POM for Quarkiverse projects that includes the default release and artifact publishing related\\n    configuration\",\n    \"metadata\" : {\n      \"built-with-quarkus-core\" : \"1.13.1.Final\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.tektonclient:quarkus-tekton-client::jar:0.4.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus Freemarker\",\n    \"description\" : \"Freemarker support\",\n    \"metadata\" : {\n      \"keywords\" : [ \"freemarker\", \"template\" ],\n      \"guide\" : \"https://quarkus.io/guides/freemarker\",\n      \"categories\" : [ \"miscellaneous\" ],\n      \"status\" : \"preview\",\n      \"built-with-quarkus-core\" : \"2.0.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-arc::jar\", \"io.quarkus:quarkus-core::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.freemarker:quarkus-freemarker::jar:0.3.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Elasticsearch Reactive\",\n    \"description\" : \"Elasticsearch Reactive client based on Vert.x and Mutiny\",\n    \"metadata\" : {\n      \"keywords\" : [ \"elasticsearch\", \"reactive\" ],\n      \"categories\" : [ \"data\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.0.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-elasticsearch-rest-high-level-client::jar\", \"io.quarkus:quarkus-core::jar\", \"io.quarkus:quarkus-elasticsearch-rest-client-common::jar\", \"io.quarkus:quarkus-apache-httpclient::jar\", \"io.quarkus:quarkus-elasticsearch-rest-client::jar\", \"io.quarkus:quarkus-arc::jar\", \"io.quarkus:quarkus-vertx::jar\", \"io.quarkus:quarkus-netty::jar\", \"io.quarkus:quarkus-jackson::jar\", \"io.quarkus:quarkus-vertx-core::jar\", \"io.quarkus:quarkus-mutiny::jar\", \"io.quarkus:quarkus-smallrye-context-propagation::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.quarkus-elasticsearch-reactive:quarkus-elasticsearch-reactive::jar:0.1.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Datadog Opentracing\",\n    \"description\" : \"Parent POM for Quarkiverse projects that includes the default release and artifact publishing related\\n    configuration\",\n    \"metadata\" : {\n      \"keywords\" : [ \"datadog-opentracing\", \"monitoring\", \"distributed-tracing\" ],\n      \"categories\" : [ \"observability\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.0.1.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-arc::jar\", \"io.quarkus:quarkus-core::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.opentracing.datadog:quarkus-datadog-opentracing::jar:1.0.2\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus GitHub App\",\n    \"description\" : \"Automate GitHub tasks with a GitHub App\",\n    \"metadata\" : {\n      \"keywords\" : [ \"github\", \"github-app\", \"github app\", \"bot\" ],\n      \"guide\" : \"https://quarkiverse.github.io/quarkiverse-docs/quarkus-github-app/dev/index.html\",\n      \"categories\" : [ \"business-automation\" ],\n      \"status\" : \"stable\",\n      \"built-with-quarkus-core\" : \"2.0.1.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-core::jar\", \"io.quarkus:quarkus-arc::jar\", \"io.quarkus:quarkus-vertx-web::jar\", \"io.quarkus:quarkus-vertx::jar\", \"io.quarkus:quarkus-netty::jar\", \"io.quarkus:quarkus-vertx-core::jar\", \"io.quarkus:quarkus-mutiny::jar\", \"io.quarkus:quarkus-smallrye-context-propagation::jar\", \"io.quarkus:quarkus-vertx-http::jar\", \"io.quarkus:quarkus-jackson::jar\", \"io.quarkus:quarkus-caffeine::jar\", \"io.quarkiverse.githubapi:quarkus-github-api::jar\", \"io.quarkiverse.jjwtjackson:quarkus-jjwt-jackson::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.githubapp:quarkus-github-app::jar:1.1.3\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Splunk logging extension - Runtime\",\n    \"description\" : \"Parent POM for Quarkiverse projects that includes the default release and artifact publishing related\\n    configuration\",\n    \"metadata\" : {\n      \"built-with-quarkus-core\" : \"1.13.2.Final\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.logging.splunk:quarkus-logging-splunk::jar:2.0.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Micrometer registry - SignalFX\",\n    \"description\" : \"Send metrics to Splunk using SignalFX\",\n    \"metadata\" : {\n      \"keywords\" : [ \"micrometer\", \"metrics\", \"metric\", \"prometheus\", \"monitoring\" ],\n      \"guide\" : \"https://quarkus.io/guides/micrometer-metrics\",\n      \"categories\" : [ \"observability\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-micrometer\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-vertx-http\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-netty\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-signalfx::jar:2.1.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Google Cloud Spanner\",\n    \"description\" : \"Use Google Cloud Spanner RDBMS database service\",\n    \"metadata\" : {\n      \"keywords\" : [ \"spanner\", \"google cloud\", \"gcloud\", \"gcp\" ],\n      \"categories\" : [ \"cloud\", \"data\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-common\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-grpc-common\", \"io.quarkus:quarkus-vertx\", \"io.quarkus:quarkus-netty\", \"io.quarkus:quarkus-jackson\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-spanner::jar:0.9.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Google Cloud Secret Manager\",\n    \"description\" : \"Use Google Cloud Secret Manager service\",\n    \"metadata\" : {\n      \"keywords\" : [ \"secretmanager\", \"google cloud\", \"gcloud\", \"gcp\" ],\n      \"categories\" : [ \"cloud\", \"security\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-common\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-grpc-common\", \"io.quarkus:quarkus-vertx\", \"io.quarkus:quarkus-netty\", \"io.quarkus:quarkus-jackson\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-secret-manager::jar:0.9.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Micrometer registry - JMX\",\n    \"description\" : \"View metrics data using JMX\",\n    \"metadata\" : {\n      \"keywords\" : [ \"micrometer\", \"metrics\", \"metric\", \"prometheus\", \"monitoring\" ],\n      \"guide\" : \"https://quarkus.io/guides/micrometer-metrics\",\n      \"categories\" : [ \"observability\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-micrometer\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-vertx-http\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-netty\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-jmx::jar:2.1.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Univocity Parsers\",\n    \"description\" : \"Univocity Parsers Extension, which allowing to use univocity dependency in the Quarkus' Eco-System. Example for\\n      parsing csv or tsv files, with a really fast, flexible and reliable Java parsers thank to its data binding, consistent interface,\\n      a solid framework and a parallel input buffering\",\n    \"metadata\" : {\n      \"keywords\" : [ \"univocity-parsers\", \"csv\", \"tsv\", \"parsers\" ],\n      \"categories\" : [ \"miscellaneous\" ],\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-core\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.univocityparsers:quarkus-univocity-parsers::jar:0.0.1\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Google Cloud Firestore\",\n    \"description\" : \"Use Google Cloud Firestore NOSQL database service\",\n    \"metadata\" : {\n      \"keywords\" : [ \"firestore\", \"google cloud\", \"gcloud\", \"gcp\" ],\n      \"categories\" : [ \"cloud\", \"data\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-common\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-grpc-common\", \"io.quarkus:quarkus-vertx\", \"io.quarkus:quarkus-netty\", \"io.quarkus:quarkus-jackson\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-firestore::jar:0.9.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Google Cloud Bigquery\",\n    \"description\" : \"Use Google Cloud BigQuery analytics database service\",\n    \"metadata\" : {\n      \"keywords\" : [ \"bigquery\", \"google cloud\", \"gcloud\", \"gcp\" ],\n      \"categories\" : [ \"cloud\", \"data\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-common\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-bigquery::jar:0.9.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Micrometer registry - Azure Monitor\",\n    \"description\" : \"Send data gathered by Micrometer to Azure Monitor\",\n    \"metadata\" : {\n      \"keywords\" : [ \"micrometer\", \"metrics\", \"metric\", \"prometheus\", \"monitoring\" ],\n      \"guide\" : \"https://quarkus.io/guides/micrometer-metrics\",\n      \"categories\" : [ \"observability\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-micrometer\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-vertx-http\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-netty\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-azure-monitor::jar:2.1.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Google Cloud Pubsub\",\n    \"description\" : \"Use Google Cloud PubSub messaging broker service\",\n    \"metadata\" : {\n      \"keywords\" : [ \"pubsub\", \"google cloud\", \"gcloud\", \"gcp\" ],\n      \"categories\" : [ \"cloud\", \"messaging\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-common\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-grpc-common\", \"io.quarkus:quarkus-vertx\", \"io.quarkus:quarkus-netty\", \"io.quarkus:quarkus-jackson\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-pubsub::jar:0.9.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Micrometer registry - Datadog\",\n    \"description\" : \"Send metrics to Datadog using the Datadog API\",\n    \"metadata\" : {\n      \"keywords\" : [ \"micrometer\", \"metrics\", \"metric\", \"prometheus\", \"monitoring\" ],\n      \"guide\" : \"https://quarkus.io/guides/micrometer-metrics\",\n      \"categories\" : [ \"observability\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-micrometer\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-vertx-http\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-netty\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-datadog::jar:2.1.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Google Cloud Storage\",\n    \"description\" : \"Use Google Cloud Storage object storage service\",\n    \"metadata\" : {\n      \"keywords\" : [ \"storage\", \"google cloud\", \"gcloud\", \"gcp\" ],\n      \"categories\" : [ \"cloud\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-common\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-storage::jar:0.9.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Google Cloud Bigtable\",\n    \"description\" : \"Use Google Cloud Bigtable key/value database service\",\n    \"metadata\" : {\n      \"keywords\" : [ \"bigtable\", \"google cloud\", \"gcloud\", \"gcp\" ],\n      \"categories\" : [ \"cloud\", \"data\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-common\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-grpc-common\", \"io.quarkus:quarkus-vertx\", \"io.quarkus:quarkus-netty\", \"io.quarkus:quarkus-jackson\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-bigtable::jar:0.9.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus jOOQ - Runtime\",\n    \"description\" : \"Enables you to develop type safe SQL queries using jOOQ\",\n    \"metadata\" : {\n      \"built-with-quarkus-core\" : \"1.13.7.Final\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.jooq:quarkus-jooq::jar:0.2.2\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Micrometer registry - Stackdriver\",\n    \"description\" : \"Send metrics to Google Cloud Operations using Stackdriver\",\n    \"metadata\" : {\n      \"keywords\" : [ \"micrometer\", \"metrics\", \"metric\", \"prometheus\", \"monitoring\" ],\n      \"guide\" : \"https://quarkus.io/guides/micrometer-metrics\",\n      \"categories\" : [ \"observability\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-micrometer\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-vertx-http\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-netty\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-stackdriver::jar:2.1.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Micrometer registry - StatsD\",\n    \"description\" : \"Send metrics to a StatsD sidecar agent\",\n    \"metadata\" : {\n      \"keywords\" : [ \"micrometer\", \"metrics\", \"metric\", \"prometheus\", \"monitoring\" ],\n      \"guide\" : \"https://quarkus.io/guides/micrometer-metrics\",\n      \"categories\" : [ \"observability\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-micrometer\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-vertx-http\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-netty\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-statsd::jar:2.1.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Logging manager\",\n    \"description\" : \"Provides you endpoints to visualize and manage the log level of your loggers\",\n    \"metadata\" : {\n      \"short-name\" : \"logging manager\",\n      \"keywords\" : [ \"logging\", \"logging manager\", \"log\", \"logging levels\", \"log level\", \"log file\" ],\n      \"categories\" : [ \"core\" ],\n      \"status\" : \"stable\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-vertx-http\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-netty\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.loggingmanager:quarkus-logging-manager::jar:2.0.1\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"RabbitMQ Client\",\n    \"description\" : \"Parent POM for Quarkiverse projects that includes the default release and artifact publishing related\\n    configuration\",\n    \"metadata\" : {\n      \"keywords\" : [ \"rabbitmq-client\", \"rabbitmq\" ],\n      \"categories\" : [ \"messaging\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-smallrye-context-propagation\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.rabbitmqclient:quarkus-rabbitmq-client::jar:0.4.0.Final\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus - Operator SDK\",\n    \"description\" : \"Quarkus extension for the Java Operator SDK (https://javaoperatorsdk.io)\",\n    \"metadata\" : {\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-openshift-client\", \"io.quarkus:quarkus-kubernetes-client\", \"io.quarkus:quarkus-jackson\", \"io.quarkus:quarkus-kubernetes\", \"io.quarkus:quarkus-kubernetes-client-internal\", \"io.quarkus:quarkus-container-image\", \"io.quarkus:quarkus-container-image-jib\", \"io.quarkus:quarkus-smallrye-health\", \"io.quarkus:quarkus-vertx-http\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-netty\", \"io.quarkus:quarkus-jsonp\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.operatorsdk:quarkus-operator-sdk::jar:2.0.0.Beta3\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"JBeret - Batch Processing\",\n    \"description\" : \"Parent POM for Quarkiverse projects that includes the default release and artifact publishing related\\n    configuration\",\n    \"metadata\" : {\n      \"keywords\" : [ \"batch\", \"jberet\", \"jsr352\" ],\n      \"guide\" : \"https://quarkus.io/guides/jberet\",\n      \"categories\" : [ \"data\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-narayana-jta\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\", \"io.quarkus:quarkus-agroal\", \"io.quarkus:quarkus-datasource\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.jberet:quarkus-jberet::jar:1.0.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"JBeret - REST\",\n    \"description\" : \"Parent POM for Quarkiverse projects that includes the default release and artifact publishing related\\n    configuration\",\n    \"metadata\" : {\n      \"keywords\" : [ \"jberet-rest\" ],\n      \"categories\" : [ \"rest\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkiverse.jberet:quarkus-jberet\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-narayana-jta\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\", \"io.quarkus:quarkus-agroal\", \"io.quarkus:quarkus-datasource\", \"io.quarkus:quarkus-resteasy\", \"io.quarkus:quarkus-vertx-http\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-netty\", \"io.quarkus:quarkus-resteasy-server-common\", \"io.quarkus:quarkus-resteasy-jsonb\", \"io.quarkus:quarkus-jsonb\", \"io.quarkus:quarkus-jsonp\", \"io.quarkus:quarkus-rest-client\", \"io.quarkus:quarkus-resteasy-common\", \"io.quarkus:quarkus-apache-httpclient\", \"io.quarkus:quarkus-rest-client-jsonb\", \"io.quarkus:quarkus-jackson\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.jberet:quarkus-jberet-rest::jar:1.0.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Logging Logback\",\n    \"description\" : \"logback.xml support for logback appenders\",\n    \"metadata\" : {\n      \"keywords\" : [ \"logging\", \"logback\" ],\n      \"categories\" : [ \"logging\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.1.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-core\" ],\n      \"quarkus-core-compatibility\" : \"COMPATIBLE\"\n    },\n    \"artifact\" : \"io.quarkiverse.logging.logback:quarkus-logging-logback::jar:0.3.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Cucumber\",\n    \"description\" : \"Cucumber allows you to run tests using Cucumber.\",\n    \"metadata\" : {\n      \"keywords\" : [ \"cucumber\", \"test\", \"testing\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.1.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-jsonp\" ],\n      \"quarkus-core-compatibility\" : \"COMPATIBLE\"\n    },\n    \"artifact\" : \"io.quarkiverse.cucumber:quarkus-cucumber::jar:0.1.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.1.1.Final:json:1.0-SNAPSHOT\" ]\n  } ],\n  \"categories\" : [ {\n    \"id\" : \"core\",\n    \"name\" : \"Core\",\n    \"description\" : \"Essential Quarkus components. Provided automatically\"\n  }, {\n    \"id\" : \"web\",\n    \"name\" : \"Web\",\n    \"description\" : \"Everything you need for REST endpoints, HTTP and web formats like JSON\"\n  }, {\n    \"id\" : \"data\",\n    \"name\" : \"Data\",\n    \"description\" : \"Accessing and managing your data (RDBMS, NoSQL, caching, transaction management, etc)\"\n  }, {\n    \"id\" : \"messaging\",\n    \"name\" : \"Messaging\",\n    \"description\" : \"Send and receives message to various messaging systems (AMQP, Kafka etc)\"\n  }, {\n    \"id\" : \"reactive\",\n    \"name\" : \"Reactive\",\n    \"description\" : \"Non blocking stack and connectors\"\n  }, {\n    \"id\" : \"cloud\",\n    \"name\" : \"Cloud\",\n    \"description\" : \"Useful for Cloud Native deployments platforms like Kubernetes and cloud providers\"\n  }, {\n    \"id\" : \"observability\",\n    \"name\" : \"Observability\",\n    \"description\" : \"Metrics, tracing, etc\"\n  }, {\n    \"id\" : \"security\",\n    \"name\" : \"Security\",\n    \"description\" : \"Everything you need to secure your application\"\n  }, {\n    \"id\" : \"integration\",\n    \"name\" : \"Integration\",\n    \"description\" : \"Connectors to read to write from a skew of systems (file, S#, Twitter, etc)\"\n  }, {\n    \"id\" : \"grpc\",\n    \"name\" : \"gRPC\",\n    \"description\" : \"gRPC integration\"\n  }, {\n    \"id\" : \"business-automation\",\n    \"name\" : \"Business Automation\",\n    \"description\" : \"Rules engine, BPM, etc\"\n  }, {\n    \"id\" : \"serialization\",\n    \"name\" : \"Serialization\",\n    \"description\" : \"Serializing and deserializing various formats\"\n  }, {\n    \"id\" : \"miscellaneous\",\n    \"name\" : \"Miscellaneous\",\n    \"description\" : \"Mixed bag of good stuff\"\n  }, {\n    \"id\" : \"compatibility\",\n    \"name\" : \"Compatibility\",\n    \"description\" : \"Support for alternative programming models on Quarkus\"\n  }, {\n    \"id\" : \"alternative-languages\",\n    \"name\" : \"Alternative languages\",\n    \"description\" : \"Support for other JVM based languages\"\n  } ]\n}",
+        "encodedBody" : false,
+        "templated" : false,
+        "headers" : {
+          "Cache-Control" : [ "no-cache" ],
+          "Content-Type" : [ "application/json" ],
+          "Etag" : [ "bbebecae-a0ce-3f8b-8621-69c015b6cb5c" ],
+          "Hoverfly" : [ "Was-Here" ],
+          "Last-Modified" : [ "Mon, 09 Aug 2021 16:18:26 GMT" ],
+          "Via" : [ "registry.quarkus.io maven-cache" ]
+        }
+      }
+    }, {
+      "request" : {
+        "path" : [ {
+          "matcher" : "exact",
+          "value" : "/maven/io/quarkus/registry/quarkus-non-platform-extensions/1.0-SNAPSHOT/quarkus-non-platform-extensions-1.0-20210809.161825-1-2.1.1.Final.json.sha1"
+        } ],
+        "method" : [ {
+          "matcher" : "exact",
+          "value" : "GET"
+        } ],
+        "destination" : [ {
+          "matcher" : "exact",
+          "value" : "registry.quarkus.io"
+        } ],
+        "scheme" : [ {
+          "matcher" : "exact",
+          "value" : "https"
+        } ],
+        "body" : [ {
+          "matcher" : "exact",
+          "value" : ""
+        } ]
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "d47abce791673409116547d2af250ef15508e0ac",
+        "encodedBody" : false,
+        "templated" : false,
+        "headers" : {
+          "Cache-Control" : [ "no-cache" ],
+          "Content-Length" : [ "40" ],
+          "Content-Type" : [ "text/plain;charset=UTF-8" ],
+          "Etag" : [ "9e42f245-e2cf-3dba-b5cc-0b5744542aff" ],
+          "Hoverfly" : [ "Was-Here" ],
+          "Last-Modified" : [ "Mon, 09 Aug 2021 16:18:26 GMT" ],
+          "Via" : [ "registry.quarkus.io maven-cache" ]
+        }
+      }
+    }, {
+      "request" : {
+        "path" : [ {
+          "matcher" : "exact",
+          "value" : "/maven/io/quarkus/registry/quarkus-platforms/1.0-SNAPSHOT/quarkus-platforms-1.0-20210809.161821-1-2.0.3.Final.json"
+        } ],
+        "method" : [ {
+          "matcher" : "exact",
+          "value" : "GET"
+        } ],
+        "destination" : [ {
+          "matcher" : "exact",
+          "value" : "registry.quarkus.io"
+        } ],
+        "scheme" : [ {
+          "matcher" : "exact",
+          "value" : "https"
+        } ],
+        "body" : [ {
+          "matcher" : "exact",
+          "value" : ""
+        } ]
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "{\n  \"platforms\" : [ {\n    \"platform-key\" : \"io.quarkus.platform\",\n    \"name\" : \"Quarkus Community Platform\",\n    \"streams\" : [ {\n      \"id\" : \"2.0\",\n      \"releases\" : [ {\n        \"version\" : \"2.0.3.Final\",\n        \"member-boms\" : [ \"io.quarkus:quarkus-universe-bom-quarkus-platform-descriptor:2.0.3.Final:json:2.0.3.Final\" ],\n        \"quarkus-core-version\" : \"2.0.3.Final\"\n      } ]\n    } ]\n  } ]\n}",
+        "encodedBody" : false,
+        "templated" : false,
+        "headers" : {
+          "Cache-Control" : [ "no-cache" ],
+          "Content-Length" : [ "399" ],
+          "Content-Type" : [ "application/json" ],
+          "Etag" : [ "544f2c90-1c67-3a32-b5e8-8495a495ab43" ],
+          "Hoverfly" : [ "Was-Here" ],
+          "Last-Modified" : [ "Tue, 10 Aug 2021 05:22:00 GMT" ],
+          "Via" : [ "registry.quarkus.io maven-cache" ]
+        }
+      }
+    }, {
+      "request" : {
+        "path" : [ {
+          "matcher" : "exact",
+          "value" : "/maven/io/quarkus/registry/quarkus-platforms/1.0-SNAPSHOT/quarkus-platforms-1.0-20210809.161821-1-2.0.3.Final.json.sha1"
+        } ],
+        "method" : [ {
+          "matcher" : "exact",
+          "value" : "GET"
+        } ],
+        "destination" : [ {
+          "matcher" : "exact",
+          "value" : "registry.quarkus.io"
+        } ],
+        "scheme" : [ {
+          "matcher" : "exact",
+          "value" : "https"
+        } ],
+        "body" : [ {
+          "matcher" : "exact",
+          "value" : ""
+        } ]
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "af7df07de3a3665834045a9ee9b4a8d615648794",
+        "encodedBody" : false,
+        "templated" : false,
+        "headers" : {
+          "Cache-Control" : [ "no-cache" ],
+          "Content-Length" : [ "40" ],
+          "Content-Type" : [ "text/plain;charset=UTF-8" ],
+          "Etag" : [ "394fc8ce-d782-3436-9833-d354bb2c5a72" ],
+          "Hoverfly" : [ "Was-Here" ],
+          "Last-Modified" : [ "Tue, 10 Aug 2021 05:22:00 GMT" ],
+          "Via" : [ "registry.quarkus.io maven-cache" ]
+        }
+      }
+    }, {
+      "request" : {
+        "path" : [ {
+          "matcher" : "exact",
+          "value" : "/maven/io/quarkus/registry/quarkus-non-platform-extensions/1.0-SNAPSHOT/quarkus-non-platform-extensions-1.0-20210809.161825-1-2.0.3.Final.json"
+        } ],
+        "method" : [ {
+          "matcher" : "exact",
+          "value" : "GET"
+        } ],
+        "destination" : [ {
+          "matcher" : "exact",
+          "value" : "registry.quarkus.io"
+        } ],
+        "scheme" : [ {
+          "matcher" : "exact",
+          "value" : "https"
+        } ],
+        "body" : [ {
+          "matcher" : "exact",
+          "value" : ""
+        } ]
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "{\n  \"id\" : \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\",\n  \"bom\" : \"io.quarkus.platform:quarkus-bom::pom:2.0.3.Final\",\n  \"extensions\" : [ {\n    \"name\" : \"Minio Client extension\",\n    \"description\" : \"Integrates MinIO Java SDK for Amazon S3 Compatible Cloud Storage\",\n    \"metadata\" : {\n      \"keywords\" : [ \"minio\", \"storage\", \"kubernetes\" ],\n      \"guide\" : \"https://quarkus.io/guides/datasource\",\n      \"categories\" : [ \"kubernetes\", \"data\" ],\n      \"status\" : \"experimental\",\n      \"description\" : \"Integrates MinIO Java SDK for Amazon S3 Compatible Cloud Storage\",\n      \"built-with-quarkus-core\" : \"2.0.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-arc::jar\", \"io.quarkus:quarkus-core::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.minio:quarkus-minio::jar:2.0.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Logging JSON Jackson\",\n    \"description\" : \"Logging in json with support for custom fields\",\n    \"metadata\" : {\n      \"keywords\" : [ \"logging\", \"json\", \"formatter\" ],\n      \"categories\" : [ \"core\" ],\n      \"status\" : \"preview\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.loggingjson:quarkiverse-logging-json::jar:0.2.3\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus GitHub API\",\n    \"description\" : \"Connect to the GitHub API\",\n    \"metadata\" : {\n      \"keywords\" : [ \"github\", \"github-api\", \"github api\" ],\n      \"guide\" : \"https://github-api.kohsuke.org/\",\n      \"categories\" : [ \"business-automation\" ],\n      \"status\" : \"stable\",\n      \"built-with-quarkus-core\" : \"2.0.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-core::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.githubapi:quarkus-github-api::jar:1.131.1\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus - Rsocket\",\n    \"description\" : \"RSocket Support for native image\",\n    \"metadata\" : {\n      \"built-with-quarkus-core\" : \"io.quarkus:quarkus-core:1.11.3.Final\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.rsocket:quarkus-rsocket::jar:0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"MyFaces\",\n    \"description\" : \"Apache MyFaces Core runtime extension for Quarkus.\",\n    \"metadata\" : {\n      \"keywords\" : [ \"JSF\", \"Faces\", \"Java Server Faces\" ],\n      \"guide\" : \"https://github.com/apache/myfaces\",\n      \"categories\" : [ \"web\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"1.13.0.Final\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"org.apache.myfaces.core.extensions.quarkus:myfaces-quarkus::jar:2.3-next-M6\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Apicurio Registry client\",\n    \"description\" : \"Allow applications to use Apicurio Registry client\",\n    \"metadata\" : {\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.apicurio:quarkiverse-apicurio-registry-client::jar:0.0.2\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus - Maven Resolver - Runtime\",\n    \"description\" : \"Parent POM for Quarkiverse projects that includes the default release and artifact publishing related\\n    configuration\",\n    \"metadata\" : {\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.mavenresolver:quarkus-maven-resolver::jar:0.0.2\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus JJWT Jackson\",\n    \"description\" : \"Create JWT tokens\",\n    \"metadata\" : {\n      \"keywords\" : [ \"jwt\", \"jjwt\", \"token\", \"jackson\" ],\n      \"categories\" : [ \"security\" ],\n      \"status\" : \"stable\",\n      \"unlisted\" : true,\n      \"built-with-quarkus-core\" : \"2.0.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-core::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.jjwtjackson:quarkus-jjwt-jackson::jar:1.0.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Lucene\",\n    \"description\" : \"Add full-text search capabilities to your application with Apache Lucene.\",\n    \"metadata\" : {\n      \"keywords\" : [ \"search\", \"query\", \"index\", \"full-text\" ],\n      \"guide\" : \"https://github.com/quarkiverse/quarkus-lucene\",\n      \"categories\" : [ \"search\" ],\n      \"status\" : \"preview\",\n      \"built-with-quarkus-core\" : \"io.quarkus:quarkus-core:1.12.0.Final\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.lucene:quarkus-lucene::jar:0.2\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"PrettyTime\",\n    \"description\" : \"PrettyTime is an OpenSource time formatting library.\",\n    \"metadata\" : {\n      \"keywords\" : [ \"prettytime\" ],\n      \"categories\" : [ \"miscellaneous\" ],\n      \"status\" : \"stable\",\n      \"built-with-quarkus-core\" : \"2.0.1.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-arc::jar\", \"io.quarkus:quarkus-core::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.prettytime:quarkus-prettytime::jar:0.1.1\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Doma - Database access framework\",\n    \"description\" : \"Simplify your database accesses with compile-time code generation\",\n    \"metadata\" : {\n      \"keywords\" : [ \"doma\", \"orm\", \"sql\" ],\n      \"guide\" : \"https://github.com/quarkiverse/quarkus-doma\",\n      \"categories\" : [ \"data\" ],\n      \"status\" : \"preview\",\n      \"built-with-quarkus-core\" : \"2.0.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-core::jar\", \"io.quarkus:quarkus-arc::jar\", \"io.quarkus:quarkus-agroal::jar\", \"io.quarkus:quarkus-datasource::jar\", \"io.quarkus:quarkus-narayana-jta::jar\", \"io.quarkus:quarkus-mutiny::jar\", \"io.quarkus:quarkus-smallrye-context-propagation::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.doma:quarkus-doma::jar:0.0.5\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus CXF\",\n    \"description\" : \"Enables you to develop web services using Apache CXF\",\n    \"metadata\" : {\n      \"built-with-quarkus-core\" : \"2.0.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-arc::jar\", \"io.quarkus:quarkus-core::jar\", \"io.quarkus:quarkus-jaxb::jar\", \"io.quarkus:quarkus-jaxp::jar\", \"io.quarkus:quarkus-jackson::jar\", \"io.quarkus:quarkus-vertx-http::jar\", \"io.quarkus:quarkus-mutiny::jar\", \"io.quarkus:quarkus-smallrye-context-propagation::jar\", \"io.quarkus:quarkus-vertx-core::jar\", \"io.quarkus:quarkus-netty::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.cxf:quarkus-cxf::jar:0.9\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus - OpenCV\",\n    \"description\" : \"Build computer vision and AI applications with OpenCV\",\n    \"metadata\" : {\n      \"keywords\" : [ \"opencv\", \"ai\", \"computer vision\" ],\n      \"categories\" : [ \"business-automation\" ],\n      \"built-with-quarkus-core\" : \"2.0.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-arc::jar\", \"io.quarkus:quarkus-core::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.opencv:quarkus-opencv::jar:1.0.4\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"MyBatis SQL Mapper\",\n    \"description\" : \"MyBatis SQL mapper framework for Java\",\n    \"metadata\" : {\n      \"keywords\" : [ \"mybatis\" ],\n      \"guide\" : \"https://quarkus.io/guides/mybatis\",\n      \"categories\" : [ \"data\" ],\n      \"status\" : \"preview\",\n      \"built-with-quarkus-core\" : \"2.0.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-arc::jar\", \"io.quarkus:quarkus-core::jar\", \"io.quarkus:quarkus-agroal::jar\", \"io.quarkus:quarkus-datasource::jar\", \"io.quarkus:quarkus-narayana-jta::jar\", \"io.quarkus:quarkus-mutiny::jar\", \"io.quarkus:quarkus-smallrye-context-propagation::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.mybatis:quarkus-mybatis::jar:0.0.9\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"JGraphT\",\n    \"description\" : \"JGraphT - a Java library of graph theory data structures and algorithms\",\n    \"metadata\" : {\n      \"keywords\" : [ \"jgrapht\", \"graphs\" ],\n      \"guide\" : \"https://jgrapht.org/guide/UserOverview\",\n      \"categories\" : [ \"miscellaneous\" ],\n      \"status\" : \"preview\",\n      \"built-with-quarkus-core\" : \"1.13.4.Final\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.jgrapht:quarkus-jgrapht::jar:1.2.1\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Logging Cloudwatch\",\n    \"description\" : \"Parent POM for Quarkiverse projects that includes the default release and artifact publishing related\\n    configuration\",\n    \"metadata\" : {\n      \"built-with-quarkus-core\" : \"1.13.7.Final\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.logging.cloudwatch:quarkus-logging-cloudwatch::jar:3.0.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus - Unleash - Runtime\",\n    \"description\" : \"Unleash is a feature toggle system\",\n    \"metadata\" : {\n      \"built-with-quarkus-core\" : \"io.quarkus:quarkus-core:1.11.1.Final\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.unleash:quarkus-unleash::jar:0.1.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus - Hibernate Types - Runtime\",\n    \"description\" : \"Hibernate Types\",\n    \"metadata\" : {\n      \"built-with-quarkus-core\" : \"io.quarkus:quarkus-core:1.11.1.Final\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.hibernatetypes:quarkus-hibernate-types::jar:0.1.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkiverse - Tekton Client - Runtime\",\n    \"description\" : \"Parent POM for Quarkiverse projects that includes the default release and artifact publishing related\\n    configuration\",\n    \"metadata\" : {\n      \"built-with-quarkus-core\" : \"1.13.1.Final\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.tektonclient:quarkus-tekton-client::jar:0.4.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus Freemarker\",\n    \"description\" : \"Freemarker support\",\n    \"metadata\" : {\n      \"keywords\" : [ \"freemarker\", \"template\" ],\n      \"guide\" : \"https://quarkus.io/guides/freemarker\",\n      \"categories\" : [ \"miscellaneous\" ],\n      \"status\" : \"preview\",\n      \"built-with-quarkus-core\" : \"2.0.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-arc::jar\", \"io.quarkus:quarkus-core::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.freemarker:quarkus-freemarker::jar:0.3.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Elasticsearch Reactive\",\n    \"description\" : \"Elasticsearch Reactive client based on Vert.x and Mutiny\",\n    \"metadata\" : {\n      \"keywords\" : [ \"elasticsearch\", \"reactive\" ],\n      \"categories\" : [ \"data\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.0.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-elasticsearch-rest-high-level-client::jar\", \"io.quarkus:quarkus-core::jar\", \"io.quarkus:quarkus-elasticsearch-rest-client-common::jar\", \"io.quarkus:quarkus-apache-httpclient::jar\", \"io.quarkus:quarkus-elasticsearch-rest-client::jar\", \"io.quarkus:quarkus-arc::jar\", \"io.quarkus:quarkus-vertx::jar\", \"io.quarkus:quarkus-netty::jar\", \"io.quarkus:quarkus-jackson::jar\", \"io.quarkus:quarkus-vertx-core::jar\", \"io.quarkus:quarkus-mutiny::jar\", \"io.quarkus:quarkus-smallrye-context-propagation::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.quarkus-elasticsearch-reactive:quarkus-elasticsearch-reactive::jar:0.1.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Datadog Opentracing\",\n    \"description\" : \"Parent POM for Quarkiverse projects that includes the default release and artifact publishing related\\n    configuration\",\n    \"metadata\" : {\n      \"keywords\" : [ \"datadog-opentracing\", \"monitoring\", \"distributed-tracing\" ],\n      \"categories\" : [ \"observability\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.0.1.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-arc::jar\", \"io.quarkus:quarkus-core::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.opentracing.datadog:quarkus-datadog-opentracing::jar:1.0.2\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus GitHub App\",\n    \"description\" : \"Automate GitHub tasks with a GitHub App\",\n    \"metadata\" : {\n      \"keywords\" : [ \"github\", \"github-app\", \"github app\", \"bot\" ],\n      \"guide\" : \"https://quarkiverse.github.io/quarkiverse-docs/quarkus-github-app/dev/index.html\",\n      \"categories\" : [ \"business-automation\" ],\n      \"status\" : \"stable\",\n      \"built-with-quarkus-core\" : \"2.0.1.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-core::jar\", \"io.quarkus:quarkus-arc::jar\", \"io.quarkus:quarkus-vertx-web::jar\", \"io.quarkus:quarkus-vertx::jar\", \"io.quarkus:quarkus-netty::jar\", \"io.quarkus:quarkus-vertx-core::jar\", \"io.quarkus:quarkus-mutiny::jar\", \"io.quarkus:quarkus-smallrye-context-propagation::jar\", \"io.quarkus:quarkus-vertx-http::jar\", \"io.quarkus:quarkus-jackson::jar\", \"io.quarkus:quarkus-caffeine::jar\", \"io.quarkiverse.githubapi:quarkus-github-api::jar\", \"io.quarkiverse.jjwtjackson:quarkus-jjwt-jackson::jar\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.githubapp:quarkus-github-app::jar:1.1.3\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Splunk logging extension - Runtime\",\n    \"description\" : \"Parent POM for Quarkiverse projects that includes the default release and artifact publishing related\\n    configuration\",\n    \"metadata\" : {\n      \"built-with-quarkus-core\" : \"1.13.2.Final\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.logging.splunk:quarkus-logging-splunk::jar:2.0.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Micrometer registry - SignalFX\",\n    \"description\" : \"Send metrics to Splunk using SignalFX\",\n    \"metadata\" : {\n      \"keywords\" : [ \"micrometer\", \"metrics\", \"metric\", \"prometheus\", \"monitoring\" ],\n      \"guide\" : \"https://quarkus.io/guides/micrometer-metrics\",\n      \"categories\" : [ \"observability\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-micrometer\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-vertx-http\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-netty\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-signalfx::jar:2.1.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Google Cloud Spanner\",\n    \"description\" : \"Use Google Cloud Spanner RDBMS database service\",\n    \"metadata\" : {\n      \"keywords\" : [ \"spanner\", \"google cloud\", \"gcloud\", \"gcp\" ],\n      \"categories\" : [ \"cloud\", \"data\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-common\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-grpc-common\", \"io.quarkus:quarkus-vertx\", \"io.quarkus:quarkus-netty\", \"io.quarkus:quarkus-jackson\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-spanner::jar:0.9.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Google Cloud Secret Manager\",\n    \"description\" : \"Use Google Cloud Secret Manager service\",\n    \"metadata\" : {\n      \"keywords\" : [ \"secretmanager\", \"google cloud\", \"gcloud\", \"gcp\" ],\n      \"categories\" : [ \"cloud\", \"security\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-common\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-grpc-common\", \"io.quarkus:quarkus-vertx\", \"io.quarkus:quarkus-netty\", \"io.quarkus:quarkus-jackson\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-secret-manager::jar:0.9.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Micrometer registry - JMX\",\n    \"description\" : \"View metrics data using JMX\",\n    \"metadata\" : {\n      \"keywords\" : [ \"micrometer\", \"metrics\", \"metric\", \"prometheus\", \"monitoring\" ],\n      \"guide\" : \"https://quarkus.io/guides/micrometer-metrics\",\n      \"categories\" : [ \"observability\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-micrometer\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-vertx-http\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-netty\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-jmx::jar:2.1.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Univocity Parsers\",\n    \"description\" : \"Univocity Parsers Extension, which allowing to use univocity dependency in the Quarkus' Eco-System. Example for\\n      parsing csv or tsv files, with a really fast, flexible and reliable Java parsers thank to its data binding, consistent interface,\\n      a solid framework and a parallel input buffering\",\n    \"metadata\" : {\n      \"keywords\" : [ \"univocity-parsers\", \"csv\", \"tsv\", \"parsers\" ],\n      \"categories\" : [ \"miscellaneous\" ],\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-core\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.univocityparsers:quarkus-univocity-parsers::jar:0.0.1\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Google Cloud Firestore\",\n    \"description\" : \"Use Google Cloud Firestore NOSQL database service\",\n    \"metadata\" : {\n      \"keywords\" : [ \"firestore\", \"google cloud\", \"gcloud\", \"gcp\" ],\n      \"categories\" : [ \"cloud\", \"data\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-common\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-grpc-common\", \"io.quarkus:quarkus-vertx\", \"io.quarkus:quarkus-netty\", \"io.quarkus:quarkus-jackson\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-firestore::jar:0.9.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Google Cloud Bigquery\",\n    \"description\" : \"Use Google Cloud BigQuery analytics database service\",\n    \"metadata\" : {\n      \"keywords\" : [ \"bigquery\", \"google cloud\", \"gcloud\", \"gcp\" ],\n      \"categories\" : [ \"cloud\", \"data\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-common\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-bigquery::jar:0.9.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Micrometer registry - Azure Monitor\",\n    \"description\" : \"Send data gathered by Micrometer to Azure Monitor\",\n    \"metadata\" : {\n      \"keywords\" : [ \"micrometer\", \"metrics\", \"metric\", \"prometheus\", \"monitoring\" ],\n      \"guide\" : \"https://quarkus.io/guides/micrometer-metrics\",\n      \"categories\" : [ \"observability\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-micrometer\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-vertx-http\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-netty\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-azure-monitor::jar:2.1.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Google Cloud Pubsub\",\n    \"description\" : \"Use Google Cloud PubSub messaging broker service\",\n    \"metadata\" : {\n      \"keywords\" : [ \"pubsub\", \"google cloud\", \"gcloud\", \"gcp\" ],\n      \"categories\" : [ \"cloud\", \"messaging\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-common\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-grpc-common\", \"io.quarkus:quarkus-vertx\", \"io.quarkus:quarkus-netty\", \"io.quarkus:quarkus-jackson\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-pubsub::jar:0.9.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Micrometer registry - Datadog\",\n    \"description\" : \"Send metrics to Datadog using the Datadog API\",\n    \"metadata\" : {\n      \"keywords\" : [ \"micrometer\", \"metrics\", \"metric\", \"prometheus\", \"monitoring\" ],\n      \"guide\" : \"https://quarkus.io/guides/micrometer-metrics\",\n      \"categories\" : [ \"observability\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-micrometer\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-vertx-http\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-netty\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-datadog::jar:2.1.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Google Cloud Storage\",\n    \"description\" : \"Use Google Cloud Storage object storage service\",\n    \"metadata\" : {\n      \"keywords\" : [ \"storage\", \"google cloud\", \"gcloud\", \"gcp\" ],\n      \"categories\" : [ \"cloud\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-common\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-storage::jar:0.9.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Google Cloud Bigtable\",\n    \"description\" : \"Use Google Cloud Bigtable key/value database service\",\n    \"metadata\" : {\n      \"keywords\" : [ \"bigtable\", \"google cloud\", \"gcloud\", \"gcp\" ],\n      \"categories\" : [ \"cloud\", \"data\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-common\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-grpc-common\", \"io.quarkus:quarkus-vertx\", \"io.quarkus:quarkus-netty\", \"io.quarkus:quarkus-jackson\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.googlecloudservices:quarkus-google-cloud-bigtable::jar:0.9.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus jOOQ - Runtime\",\n    \"description\" : \"Enables you to develop type safe SQL queries using jOOQ\",\n    \"metadata\" : {\n      \"built-with-quarkus-core\" : \"1.13.7.Final\",\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.jooq:quarkus-jooq::jar:0.2.2\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Micrometer registry - Stackdriver\",\n    \"description\" : \"Send metrics to Google Cloud Operations using Stackdriver\",\n    \"metadata\" : {\n      \"keywords\" : [ \"micrometer\", \"metrics\", \"metric\", \"prometheus\", \"monitoring\" ],\n      \"guide\" : \"https://quarkus.io/guides/micrometer-metrics\",\n      \"categories\" : [ \"observability\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-micrometer\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-vertx-http\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-netty\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-stackdriver::jar:2.1.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Micrometer registry - StatsD\",\n    \"description\" : \"Send metrics to a StatsD sidecar agent\",\n    \"metadata\" : {\n      \"keywords\" : [ \"micrometer\", \"metrics\", \"metric\", \"prometheus\", \"monitoring\" ],\n      \"guide\" : \"https://quarkus.io/guides/micrometer-metrics\",\n      \"categories\" : [ \"observability\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-micrometer\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-vertx-http\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-netty\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.micrometer.registry:quarkus-micrometer-registry-statsd::jar:2.1.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Logging manager\",\n    \"description\" : \"Provides you endpoints to visualize and manage the log level of your loggers\",\n    \"metadata\" : {\n      \"short-name\" : \"logging manager\",\n      \"keywords\" : [ \"logging\", \"logging manager\", \"log\", \"logging levels\", \"log level\", \"log file\" ],\n      \"categories\" : [ \"core\" ],\n      \"status\" : \"stable\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-vertx-http\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-netty\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.loggingmanager:quarkus-logging-manager::jar:2.0.1\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"RabbitMQ Client\",\n    \"description\" : \"Parent POM for Quarkiverse projects that includes the default release and artifact publishing related\\n    configuration\",\n    \"metadata\" : {\n      \"keywords\" : [ \"rabbitmq-client\", \"rabbitmq\" ],\n      \"categories\" : [ \"messaging\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-smallrye-context-propagation\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.rabbitmqclient:quarkus-rabbitmq-client::jar:0.4.0.Final\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Quarkus - Operator SDK\",\n    \"description\" : \"Quarkus extension for the Java Operator SDK (https://javaoperatorsdk.io)\",\n    \"metadata\" : {\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-openshift-client\", \"io.quarkus:quarkus-kubernetes-client\", \"io.quarkus:quarkus-jackson\", \"io.quarkus:quarkus-kubernetes\", \"io.quarkus:quarkus-kubernetes-client-internal\", \"io.quarkus:quarkus-container-image\", \"io.quarkus:quarkus-container-image-jib\", \"io.quarkus:quarkus-smallrye-health\", \"io.quarkus:quarkus-vertx-http\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-netty\", \"io.quarkus:quarkus-jsonp\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.operatorsdk:quarkus-operator-sdk::jar:2.0.0.Beta3\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"JBeret - Batch Processing\",\n    \"description\" : \"Parent POM for Quarkiverse projects that includes the default release and artifact publishing related\\n    configuration\",\n    \"metadata\" : {\n      \"keywords\" : [ \"batch\", \"jberet\", \"jsr352\" ],\n      \"guide\" : \"https://quarkus.io/guides/jberet\",\n      \"categories\" : [ \"data\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-narayana-jta\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\", \"io.quarkus:quarkus-agroal\", \"io.quarkus:quarkus-datasource\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.jberet:quarkus-jberet::jar:1.0.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"JBeret - REST\",\n    \"description\" : \"Parent POM for Quarkiverse projects that includes the default release and artifact publishing related\\n    configuration\",\n    \"metadata\" : {\n      \"keywords\" : [ \"jberet-rest\" ],\n      \"categories\" : [ \"rest\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.0.Final\",\n      \"extension-dependencies\" : [ \"io.quarkiverse.jberet:quarkus-jberet\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-narayana-jta\", \"io.quarkus:quarkus-mutiny\", \"io.quarkus:quarkus-smallrye-context-propagation\", \"io.quarkus:quarkus-agroal\", \"io.quarkus:quarkus-datasource\", \"io.quarkus:quarkus-resteasy\", \"io.quarkus:quarkus-vertx-http\", \"io.quarkus:quarkus-vertx-core\", \"io.quarkus:quarkus-netty\", \"io.quarkus:quarkus-resteasy-server-common\", \"io.quarkus:quarkus-resteasy-jsonb\", \"io.quarkus:quarkus-jsonb\", \"io.quarkus:quarkus-jsonp\", \"io.quarkus:quarkus-rest-client\", \"io.quarkus:quarkus-resteasy-common\", \"io.quarkus:quarkus-apache-httpclient\", \"io.quarkus:quarkus-rest-client-jsonb\", \"io.quarkus:quarkus-jackson\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.jberet:quarkus-jberet-rest::jar:1.0.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Logging Logback\",\n    \"description\" : \"logback.xml support for logback appenders\",\n    \"metadata\" : {\n      \"keywords\" : [ \"logging\", \"logback\" ],\n      \"categories\" : [ \"logging\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.1.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-core\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.logging.logback:quarkus-logging-logback::jar:0.3.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  }, {\n    \"name\" : \"Cucumber\",\n    \"description\" : \"Cucumber allows you to run tests using Cucumber.\",\n    \"metadata\" : {\n      \"keywords\" : [ \"cucumber\", \"test\", \"testing\" ],\n      \"status\" : \"experimental\",\n      \"built-with-quarkus-core\" : \"2.1.1.Final\",\n      \"extension-dependencies\" : [ \"io.quarkus:quarkus-arc\", \"io.quarkus:quarkus-core\", \"io.quarkus:quarkus-jsonp\" ],\n      \"quarkus-core-compatibility\" : \"UNKNOWN\"\n    },\n    \"artifact\" : \"io.quarkiverse.cucumber:quarkus-cucumber::jar:0.1.0\",\n    \"origins\" : [ \"io.quarkus.registry:quarkus-non-platform-extensions:2.0.3.Final:json:1.0-SNAPSHOT\" ]\n  } ],\n  \"categories\" : [ {\n    \"id\" : \"core\",\n    \"name\" : \"Core\",\n    \"description\" : \"Essential Quarkus components. Provided automatically\"\n  }, {\n    \"id\" : \"web\",\n    \"name\" : \"Web\",\n    \"description\" : \"Everything you need for REST endpoints, HTTP and web formats like JSON\"\n  }, {\n    \"id\" : \"data\",\n    \"name\" : \"Data\",\n    \"description\" : \"Accessing and managing your data (RDBMS, NoSQL, caching, transaction management, etc)\"\n  }, {\n    \"id\" : \"messaging\",\n    \"name\" : \"Messaging\",\n    \"description\" : \"Send and receives message to various messaging systems (AMQP, Kafka etc)\"\n  }, {\n    \"id\" : \"reactive\",\n    \"name\" : \"Reactive\",\n    \"description\" : \"Non blocking stack and connectors\"\n  }, {\n    \"id\" : \"cloud\",\n    \"name\" : \"Cloud\",\n    \"description\" : \"Useful for Cloud Native deployments platforms like Kubernetes and cloud providers\"\n  }, {\n    \"id\" : \"observability\",\n    \"name\" : \"Observability\",\n    \"description\" : \"Metrics, tracing, etc\"\n  }, {\n    \"id\" : \"security\",\n    \"name\" : \"Security\",\n    \"description\" : \"Everything you need to secure your application\"\n  }, {\n    \"id\" : \"integration\",\n    \"name\" : \"Integration\",\n    \"description\" : \"Connectors to read to write from a skew of systems (file, S#, Twitter, etc)\"\n  }, {\n    \"id\" : \"grpc\",\n    \"name\" : \"gRPC\",\n    \"description\" : \"gRPC integration\"\n  }, {\n    \"id\" : \"business-automation\",\n    \"name\" : \"Business Automation\",\n    \"description\" : \"Rules engine, BPM, etc\"\n  }, {\n    \"id\" : \"serialization\",\n    \"name\" : \"Serialization\",\n    \"description\" : \"Serializing and deserializing various formats\"\n  }, {\n    \"id\" : \"miscellaneous\",\n    \"name\" : \"Miscellaneous\",\n    \"description\" : \"Mixed bag of good stuff\"\n  }, {\n    \"id\" : \"compatibility\",\n    \"name\" : \"Compatibility\",\n    \"description\" : \"Support for alternative programming models on Quarkus\"\n  }, {\n    \"id\" : \"alternative-languages\",\n    \"name\" : \"Alternative languages\",\n    \"description\" : \"Support for other JVM based languages\"\n  } ]\n}",
+        "encodedBody" : false,
+        "templated" : false,
+        "headers" : {
+          "Cache-Control" : [ "no-cache" ],
+          "Content-Type" : [ "application/json" ],
+          "Etag" : [ "bc02569f-c4be-36f4-98d7-223576fcc712" ],
+          "Hoverfly" : [ "Was-Here" ],
+          "Last-Modified" : [ "Mon, 09 Aug 2021 16:18:27 GMT" ],
+          "Via" : [ "registry.quarkus.io maven-cache" ]
+        }
+      }
+    }, {
+      "request" : {
+        "path" : [ {
+          "matcher" : "exact",
+          "value" : "/maven/io/quarkus/registry/quarkus-non-platform-extensions/1.0-SNAPSHOT/quarkus-non-platform-extensions-1.0-20210809.161825-1-2.0.3.Final.json.sha1"
+        } ],
+        "method" : [ {
+          "matcher" : "exact",
+          "value" : "GET"
+        } ],
+        "destination" : [ {
+          "matcher" : "exact",
+          "value" : "registry.quarkus.io"
+        } ],
+        "scheme" : [ {
+          "matcher" : "exact",
+          "value" : "https"
+        } ],
+        "body" : [ {
+          "matcher" : "exact",
+          "value" : ""
+        } ]
+      },
+      "response" : {
+        "status" : 200,
+        "body" : "e5945163ebc910537a5d897d509cc316966e576a",
+        "encodedBody" : false,
+        "templated" : false,
+        "headers" : {
+          "Cache-Control" : [ "no-cache" ],
+          "Content-Length" : [ "40" ],
+          "Content-Type" : [ "text/plain;charset=UTF-8" ],
+          "Etag" : [ "e2b50569-244e-35dc-88fe-ba27e768dddf" ],
+          "Hoverfly" : [ "Was-Here" ],
+          "Last-Modified" : [ "Mon, 09 Aug 2021 16:18:27 GMT" ],
+          "Via" : [ "registry.quarkus.io maven-cache" ]
+        }
+      }
+    } ],
+    "globalActions" : {
+      "delays" : [ ]
+    }
+  },
+  "meta" : {
+    "schemaVersion" : "v5.1",
+    "hoverflyVersion" : "v1.3.1",
+    "timeExported" : "2021-08-10T10:31:21+02:00"
+  }
+}
