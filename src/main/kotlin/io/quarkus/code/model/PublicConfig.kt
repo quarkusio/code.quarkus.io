@@ -6,6 +6,8 @@ data class PublicConfig(
     val sentryDSN: String?,
     val quarkusPlatformVersion: String,
     val quarkusDevtoolsVersion: String,
+    @Deprecated(message = "quarkusVersion is deprecated in favor of quarkusDevtoolsVersion")
+    val quarkusVersion: String,
     val gitHubClientId: String?,
     val features: List<String>,
     val gitCommitId: String?
