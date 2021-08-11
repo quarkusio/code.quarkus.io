@@ -2,7 +2,7 @@ package io.quarkus.code.service
 
 import io.quarkus.code.config.GitHubConfig
 import io.quarkus.code.model.GitHubToken
-import io.quarkus.code.service.GitHubServiceTest.CustomSimulationPreprocessor
+import io.quarkus.code.service.GitHubServiceHoverflyTest.CustomSimulationPreprocessor
 import io.specto.hoverfly.junit.core.Hoverfly
 import io.specto.hoverfly.junit.core.SimulationPreprocessor
 import io.specto.hoverfly.junit.core.model.RequestFieldMatcher
@@ -37,7 +37,7 @@ import javax.net.ssl.SSLContext
  */
 @HoverflySimulate(config = HoverflyConfig(destination = ["github.com"], statefulCapture = true, simulationPreprocessor = CustomSimulationPreprocessor::class))
 @ExtendWith(HoverflyExtension::class)
-internal class GitHubServiceTest {
+internal class GitHubServiceHoverflyTest {
 
     companion object {
         const val CLIENT_ID = "e1177a88a6d9eec4bd16"
@@ -89,7 +89,7 @@ internal class GitHubServiceTest {
     fun createAndPushRepository() {
         //given
         val path = Files.createTempDirectory("github-service-test")
-        Files.copy(GitHubServiceTest::class.java.getResourceAsStream("/fakeextensions.json"), File(path.toString(), "test.json").toPath())
+        Files.copy(GitHubServiceHoverflyTest::class.java.getResourceAsStream("/fakeextensions.json"), File(path.toString(), "test.json").toPath())
 
         //when
         val result = gitHubService.createRepository(LOGIN, token.accessToken, REPO_TO_CREATE_NAME)

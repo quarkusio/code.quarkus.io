@@ -41,6 +41,7 @@
 
 
     }
+
     .quarkus-brand {
       flex-grow: 1;
       line-height: 70px;
@@ -51,6 +52,7 @@
         vertical-align: middle;
         margin: 0;
         padding: 0;
+
         img {
           vertical-align: middle;
           height: 40px;
@@ -65,11 +67,7 @@
           }
         }
       }
-      .current-quarkus-stream {
-        @media screen and (max-width: $mobileWidth) {
-          display: none;
-        }
-      }
+
       .current-quarkus-stream {
         display: flex;
         flex-direction: column;
@@ -81,6 +79,7 @@
         padding-left: 5px;
         height: 40px;
         margin-top: 15px;
+
         .platform-key {
           line-height: 15px;
           order: 1;
@@ -94,6 +93,12 @@
           font-size: 1.2rem;
           font-weight: bold;
 
+        }
+      }
+
+      @media screen and (max-width: $mobileWidth) {
+        .current-quarkus-stream {
+          display: none;
         }
       }
     }

@@ -105,6 +105,7 @@ class PlatformService {
 
     @Throws(RegistryResolutionException::class)
     private fun reloadPlatformServiceCache() {
+        catalogResolver.clearRegistryCache()
         val platformCatalog = catalogResolver.resolvePlatformCatalog()
         val updatedStreamCatalogMap: MutableMap<String, PlatformInfo> = HashMap()
         val platforms = platformCatalog.platforms
