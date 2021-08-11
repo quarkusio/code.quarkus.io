@@ -80,6 +80,7 @@ class CodeQuarkusResource {
             sentryDSN = config.sentryFrontendDSN.filter(String::isNotBlank).orElse(null),
             quarkusPlatformVersion = config.quarkusPlatformVersion,
             quarkusDevtoolsVersion = config.quarkusDevtoolsVersion,
+            quarkusVersion= config.quarkusPlatformVersion,
             gitCommitId = config.gitCommitId,
             gitHubClientId = gitHubConfig.clientId.filter(String::isNotBlank).orElse(null),
             features = config.features.map { listOf(it) }.orElse(listOf())
