@@ -1,6 +1,7 @@
 package io.quarkus.code.model
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.Pattern
@@ -106,7 +107,7 @@ class ProjectDefinition {
     @NotEmpty
     @QueryParam("b")
     @Pattern(regexp = BUILDTOOL_PATTERN)
-    @Parameter(name = "b", description = "The build tool to use (MAVEN or GRADLE)", required = false)
+    @Parameter(name = "b", description = "The build tool to use (MAVEN, GRADLE or GRADLE_KOTLIN_DSL)", required = false, schema = Schema(enumeration = ["MAVEN", "GRADLE", "GRADLE_KOTLIN_DSL"]))
     var buildTool: String = DEFAULT_BUILDTOOL
         private set
 
