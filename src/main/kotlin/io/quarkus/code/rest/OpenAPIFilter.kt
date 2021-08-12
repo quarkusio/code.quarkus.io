@@ -3,6 +3,8 @@ package io.quarkus.code.rest
 import org.eclipse.microprofile.openapi.OASFilter
 import org.eclipse.microprofile.openapi.models.PathItem
 import io.quarkus.code.service.PlatformService
+import org.eclipse.microprofile.openapi.models.OpenAPI
+import org.eclipse.microprofile.openapi.models.media.Schema
 import java.util.ArrayList
 import javax.enterprise.inject.spi.CDI
 
@@ -31,6 +33,18 @@ class OpenAPIFilter : OASFilter {
             }
         }
         return pathItem
+    }
+
+    override fun filterOpenAPI(openAPI: OpenAPI){
+        val projectDef: Schema? = openAPI.components.schemas["ProjectDefinition"]
+
+        if (projectDef != null) {
+            val streamKey: Schema? = projectDef.properties["streamKey"]
+            if (streamKey != null) {
+                streamKey.enumeration = ArrayList<Any>(validStreamValues)
+            }
+        }
+
     }
 
     private val validStreamValues: Set<String>
