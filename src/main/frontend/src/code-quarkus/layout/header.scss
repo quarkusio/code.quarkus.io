@@ -1,12 +1,10 @@
-@import "src/code-quarkus/config";
-
 .header {
   height: 70px;
-  background-color: $headerBackgroundColor;
-  background-image: $headerBackgroundImage;
+  background-color: var(--headerBackgroundColor);
+  background-image: var(--headerBackgroundImage);
   background-size: 100% 70px;
   background-repeat: repeat-x;
-  color: $headerTextColor;
+  color: var(--headerTextColor);
 
   .header-content {
     align-items: center;
@@ -22,7 +20,7 @@
 
       & > a {
         display: inline-block;
-        color: $headerMenuLinkTextColor;
+        color: var(--headerMenuLinkTextColor);
         padding: 0 10px;
         text-decoration: none;
         height: 55px;
@@ -60,7 +58,7 @@
           margin-top: -3px;
         }
 
-        @media screen and (max-width: $mobileWidth) {
+        @media screen and (max-width: var(--mobileWidth)) {
           margin-left: 20px;
           img {
             height: 20px;
@@ -72,9 +70,9 @@
         display: flex;
         flex-direction: column;
         margin-left: 20px;
-        color: $headerQuarkusVersionTextColor;
+        color: var(--headerQuarkusVersionTextColor);
         font-size: 1.2rem;
-        border-left: 1px solid $headerQuarkusVersionBorderColor;
+        border-left: 1px solid var(--headerQuarkusVersionBorderColor);
         text-align: left;
         padding-left: 5px;
         height: 40px;
@@ -84,7 +82,7 @@
           line-height: 15px;
           order: 1;
           font-size: 0.8rem;
-          color: $headerQuarkusVersionBorderColor;
+          color: var(--headerQuarkusVersionBorderColor);
         }
 
         .stream-id {
@@ -96,7 +94,7 @@
         }
       }
 
-      @media screen and (max-width: $mobileWidth) {
+      @media screen and (max-width: var(--mobileWidth)) {
         .current-quarkus-stream {
           display: none;
         }
@@ -107,10 +105,10 @@
       position: relative;
 
       button.btn {
-        background-color: $headerSupportButtonBackgroundColor;
-        border: 1px solid $headerSupportButtonBorderColor;
+        background-color: var(--headerSupportButtonBackgroundColor);
+        border: 1px solid var(--headerSupportButtonBorderColor);
         border-radius: 0;
-        color: $headerSupportButtonTextColor;
+        color: var(--headerSupportButtonTextColor);
         height: 38px;
         line-height: 35px;
 
@@ -125,7 +123,7 @@
         right: 0;
         z-index: 120;
         white-space: normal;
-        background-color: $headerSupportPanelBackgroundColor;
+        background-color: var(--headerSupportPanelBackgroundColor);
         max-height: 0;
         overflow: hidden;
         display: flex;
@@ -133,10 +131,10 @@
         transition: max-height 0.3s ease-in-out;
 
         a {
-          color: $headerSupportPanelTextColor;
+          color: var(--headerSupportPanelTextColor);
           display: block;
           line-height: 20px;
-          border-right: 2px solid $headerSupportPanelBackgroundColor;
+          border-right: 2px solid var(--headerSupportPanelBackgroundColor);
           white-space: nowrap;
           padding: 10px 20px;
           font-weight: bold;
@@ -153,7 +151,7 @@
 
           &:hover {
             text-decoration: none;
-            border-color: $headerSupportPanelTextColor;
+            border-color: var(--headerSupportPanelTextColor);
           }
         }
       }
@@ -168,7 +166,7 @@
       }
 
 
-      @media screen and (max-width: $mobileWidth) {
+      @media screen and (max-width: var(--mobileWidth)) {
         display: none;
       }
     }

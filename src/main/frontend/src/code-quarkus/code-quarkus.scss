@@ -1,30 +1,30 @@
-@import "config.scss";
+@import "theme.scss";
 
 body {
-  background: $background;
-  font-family: $font;
+  background: var(--background);
+  font-family: var(--font);
 }
 
 .responsive-container {
   max-width: 1200px;
 
-  @media screen and (max-width: $tabletWidth) {
+  @media screen and (max-width: var(--tabletWidth)) {
     max-width: 900px;
   }
 
-  @media screen and (max-width: $mobileWidth) {
+  @media screen and (max-width: var(--mobileWidth)) {
     max-width: 100%;
   }
 }
 
 .mobile-only {
-  @media screen and (min-width: $mobileWidth) {
+  @media screen and (min-width: var(--mobileWidth)) {
     display: none;
   }
 }
 
 .desktop-only {
-  @media screen and (max-width: $mobileWidth) {
+  @media screen and (max-width: var(--mobileWidth)) {
     display: none;
   }
 }
@@ -45,7 +45,7 @@ button.btn, a.btn {
 
 .loader-or-error {
   svg {
-    color: $loaderColor;
+    color: var(--loaderColor);
   }
 }
 
@@ -59,23 +59,23 @@ button.btn, a.btn {
 
   .modal-dialog {
     margin: 150px auto;
-    border: 3px solid $modalBorderColor;
+    border: 3px solid var(--modalBorderColor);
   }
 
   .modal-content {
-    background-color: $modalBg;
-    color: $modalTextColor;
+    background-color: var(--modalBg);
+    color: var(--modalTextColor);
   }
 
   &.error-modal .modal-dialog {
-    border-color: $warningColor;
+    border-color: var(--warningColor);
   }
 
   .modal-body {
-    color: $modalTextColor;
+    color: var(--modalTextColor);
 
     a {
-      color: $modalLinkColor;
+      color: var(--modalLinkColor);
     }
 
     h3 {
@@ -85,15 +85,15 @@ button.btn, a.btn {
   }
 
   .modal-header {
-    color: $modalTitleColor;
+    color: var(--modalTitleColor);
     font-weight: bold;
     border: none;
   }
 
   a.download-button {
-    background-color: $nextStepsModalDownloadButtonBg;
-    border: 1px solid $nextStepsModalDownloadButtonBg;
-    color: $nextStepsModalDownloadButtonTextColor;
+    background-color: var(--nextStepsModalDownloadButtonBg);
+    border: 1px solid var(--nextStepsModalDownloadButtonBg);
+    color: var(--nextStepsModalDownloadButtonTextColor);
     border-radius: 0;
     text-transform: uppercase;
     width: 200px;
@@ -101,7 +101,7 @@ button.btn, a.btn {
     text-decoration: none;
 
     &:hover {
-      border: 1px solid $nextStepsModalDownloadButtonBorderColorOnHover;
+      border: 1px solid var(--nextStepsModalDownloadButtonBorderColorOnHover);
     }
   }
 
@@ -109,13 +109,13 @@ button.btn, a.btn {
     border: none;
     button.btn {
       cursor: pointer;
-      background-color: $modalFooterButtonBg;
-      color: $modalFooterButtonTextColor;
+      background-color: var(--modalFooterButtonBg);
+      color: var(--modalFooterButtonTextColor);
       border-radius: 0;
-      border: 1px solid $modalFooterButtonBg;
+      border: 1px solid var(--modalFooterButtonBg);
 
       &:hover {
-        border: 1px solid $modalFooterButtonTextColor;
+        border: 1px solid var(--modalFooterButtonTextColor);
       }
 
       &::after {
@@ -126,12 +126,12 @@ button.btn, a.btn {
 }
 
 code.code {
-  background-color: $codeBg;
-  color: $codeTextColor;
+  background-color: var(--codeBg);
+  color: var(--codeTextColor);
 }
 
 .dropdown-menu {
-  background-color: $dropdownMenuBg;
+  background-color: var(--dropdownMenuBg);
   padding: 0;
 
   button, a {
@@ -142,9 +142,9 @@ code.code {
     font-weight: bold;
     width: 300px;
     padding: 0;
-    color: $dropdownMenuTextColor;
-    background-color: $dropdownMenuBg;
-    border-left: 3px solid $dropdownMenuBg;
+    color: var(--dropdownMenuTextColor);
+    background-color: var(--dropdownMenuBg);
+    border-left: 3px solid var(--dropdownMenuBg);
 
     svg {
       height: 30px;
@@ -155,26 +155,26 @@ code.code {
 
   button:hover, a:hover {
     text-decoration: none;
-    border-left: 3px solid $dropdownMenuTextColor;
+    border-left: 3px solid var(--dropdownMenuTextColor);
   }
 }
 
 .popover.copy-to-clipboard-popover {
   width: 600px;
   max-width: none;
-  color: $dropdownMenuTextColor;
-  background-color: $copyToClipboardBackgroundColor;
+  color: var(--dropdownMenuTextColor);
+  background-color: var(--copyToClipboardBackgroundColor);
   margin-right: 10px;
-  border: 1px solid $copyToClipboardBorderColor;
+  border: 1px solid var(--copyToClipboardBorderColor);
 
   .popover-header {
     font-size: 1rem;
     padding: 10px;
     margin-bottom: 0;
     font-weight: 100;
-    background-color: $copyToClipboardBackgroundColor;
+    background-color: var(--copyToClipboardBackgroundColor);
     border: none;
-    color: $copyToClipboardHeaderTextColor;
+    color: var(--copyToClipboardHeaderTextColor);
 
     svg {
       margin-right: 10px;
@@ -188,7 +188,7 @@ code.code {
     margin-top: -6px;
     border-top: 6px solid transparent;
     border-bottom: 6px solid transparent;
-    border-left: 6px solid $copyToClipboardBorderColor;
+    border-left: 6px solid var(--copyToClipboardBorderColor);
     width: 0;
     height: 0;
   }
@@ -201,19 +201,19 @@ code.code {
     border-right: 6px solid transparent;
     border-left: 6px solid transparent;
     border-bottom: 6px solid transparent;
-    border-top: 6px solid $copyToClipboardBorderColor;
+    border-top: 6px solid var(--copyToClipboardBorderColor);
     width: 0;
     height: 0;
   }
 
   .popover-body {
-    background-color: $copyToClipboardBodyBackgroundColor;
-    border-left: 3px solid $copyToClipboardBodyTextColor;
+    background-color: var(--copyToClipboardBodyBackgroundColor);
+    border-left: 3px solid var(--copyToClipboardBodyTextColor);
     padding: 10px;
     margin: 10px;
     text-align: left;
     font-size: 0.8rem;
-    color: $copyToClipboardBodyTextColor;
+    color: var(--copyToClipboardBodyTextColor);
   }
 }
 

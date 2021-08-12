@@ -52,9 +52,6 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
         </div>
       </div>
       <div className="project-extensions">
-        <div className="title responsive-container" >
-          <h3>Extensions</h3>
-        </div>
         <ExtensionsPicker
           entries={props.platform.extensions as ExtensionEntry[]}
           value={{ extensions: props.project.extensions }}

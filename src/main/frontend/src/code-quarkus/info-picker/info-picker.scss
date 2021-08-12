@@ -1,4 +1,3 @@
-@import "src/code-quarkus/config";
 
 .info-picker {
   height: 118px;
@@ -14,7 +13,7 @@
     padding: 0;
   }
 
-  @media screen and (max-width: $tabletWidth) {
+  @media screen and (max-width: var(--tabletWidth)) {
     .extended-settings,
     .toggle-button {
       display: none;
@@ -23,14 +22,14 @@
 
   a.toggle-button {
     cursor: pointer;
-    color: $topContainerTextColor;
+    color: var(--topContainerTextColor);
     font-size: 14px;
     text-transform: uppercase;
     text-align: left;
     white-space: nowrap;
     svg {
       margin-right: 5px;
-      color: $topContainerTextColor;
+      color: var(--topContainerTextColor);
     }
   }
 
@@ -44,7 +43,7 @@
       .form-group-label {
         display: inline-block;
         width: 120px;
-        color: $fieldLabelAndBorderColor;
+        color: var(--fieldLabelAndBorderColor);
         font-size: 14px;
         font-weight: 600;
         padding-bottom: 8px;
@@ -62,7 +61,7 @@
         position: absolute;
         right: 5px;
         top: 8px;
-        color: $warningColor;
+        color: var(--warningColor);
       }
 
       input.form-group-control,
@@ -71,35 +70,35 @@
         border: none;
         margin-left: -120px;
         padding-left: 120px;
-        border-bottom: 1px solid $fieldLabelAndBorderColor;
+        border-bottom: 1px solid var(--fieldLabelAndBorderColor);
         font-size: 14px;
         width: 100%;
         height: 30px;
         line-height: 21px;
         background-color: transparent;
-        color: $fieldTextColor;
+        color: var(--fieldTextColor);
         outline: none;
-        font-family: $inputFont;
+        font-family: var(--inputFont);
         padding-bottom: 4px;
         padding-right: 30px;
       }
 
       select.form-group-control > option {
-        color: $selectOptionsTextColor;
+        color: var(--selectOptionsTextColor);
       }
 
       input.form-group-control:focus {
         outline: none;
-        border-bottom: 1px solid $fieldLabelAndBorderHoverColor;
+        border-bottom: 1px solid var(--fieldLabelAndBorderHoverColor);
       }
 
       input.form-group-control.is-invalid {
-        border-bottom: 1px solid $warningColor;
+        border-bottom: 1px solid var(--warningColor);
       }
     }
 
     .form-group.code-switch {
-      border-bottom: 1px solid $fieldLabelAndBorderColor;
+      border-bottom: 1px solid var(--fieldLabelAndBorderColor);
 
       input {
         z-index: -1;
@@ -119,8 +118,8 @@
       .code-switch-label:after {
         content: 'No';
         display: inline-block;
-        color: $fieldTextColor;
-        font-family: $inputFont;
+        color: var(--fieldTextColor);
+        font-family: var(--inputFont);
         font-weight: 400;
       }
 

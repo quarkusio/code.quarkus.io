@@ -1,20 +1,18 @@
-@import "src/code-quarkus/config";
-
 .quarkus-project-edition-form {
   padding-bottom: 30px;
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: var(--mobileWidth)) {
     margin: 0 10px;
   }
 
   .form-header-sticky-container {
     position: sticky;
     top: 0;
-    background-color: $topContainerBg;
-    background-image: $topContainerBgImage;
+    background-color: var(--topContainerBg);
+    background-image: var(--topContainerBgImage);
     background-size: 100% 220px;
     background-repeat: no-repeat;
-    color: $topContainerTextColor;
+    color: var(--topContainerTextColor);
     z-index: 110;
     .form-header {
       display: flex;
@@ -59,14 +57,14 @@
   .project-extensions {
     margin: 0 auto;
     flex-basis: 100%;
-    background-color: $mainContainerBg;
-    color: $mainContainerTextColor;
+    background-color: var(--mainContainerBg);
+    color: var(--mainContainerTextColor);
 
     & > .title {
-      color: $mainContainerTextColor;
+      color: var(--mainContainerTextColor);
       text-align: center;
       margin-top: 20px;
-      @media screen and (min-width: $mobileWidth) {
+      @media screen and (min-width: var(--mobileWidth)) {
         display: none;
       }
     }
