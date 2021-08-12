@@ -1,5 +1,3 @@
-@import "../config.scss";
-
 .extension-row {
   display: flex;
   width: 100%;
@@ -12,15 +10,15 @@
   }
 
   .extension-selector {
-    color: $extensionsPickerCheckColor;
+    color: var(--extensionsPickerCheckColor);
   }
 
   &.selected .extension-selector {
-    color: $extensionsPickerCheckSelectedColor;
+    color: var(--extensionsPickerCheckSelectedColor);
   }
 
   &.hover.selected .extension-selector {
-    color: $extensionsPickerCheckSelectedHoverColor;
+    color: var(--extensionsPickerCheckSelectedHoverColor);
   }
 
   div:focus {
@@ -28,13 +26,13 @@
   }
 
   .extension-remove {
-    color: $extensionsPickerRemoveButtonColor;
+    color: var(--extensionsPickerRemoveButtonColor);
     height: 30px;
   }
 
   .extension-selector {
 
-    @media screen and (max-width: $mobileWidth) {
+    @media screen and (max-width: var(--mobileWidth)) {
       display: none;
     }
   }
@@ -64,23 +62,23 @@
     text-transform: uppercase;
 
     &.preview {
-      border: 1px solid $extensionsPickerFlagPreviewColor;
+      border: 1px solid var(--extensionsPickerFlagPreviewColor);
     }
 
     &.experimental {
-      border: 1px solid $extensionsPickerFlagExperimentalColor;
+      border: 1px solid var(--extensionsPickerFlagExperimentalColor);
     }
 
     &.deprecated {
-      border: 1px solid $extensionsPickerFlagDeprecatedColor;
+      border: 1px solid var(--extensionsPickerFlagDeprecatedColor);
     }
 
     &.custom {
-      border: 1px solid $extensionsPickerFlagCustomColor;
+      border: 1px solid var(--extensionsPickerFlagCustomColor);
     }
 
     &.code {
-      border: 1px solid $extensionsPickerFlagCodeColor;
+      border: 1px solid var(--extensionsPickerFlagCodeColor);
     }
   }
 
@@ -88,7 +86,7 @@
     padding-left: 30px;
     padding-right: 30px;
     font-size: 0.8rem;
-    color: $extensionsPickerDescriptionTextColorOnTablet;
+    color: var(--extensionsPickerDescriptionTextColorOnTablet);
   }
 
   .extension-more {
@@ -99,7 +97,7 @@
     .extension-more-button {
       background-color: transparent;
       border: none;
-      color: $extensionsPickerTextColor;
+      color: var(--extensionsPickerTextColor);
       outline: none;
       padding: 0.5rem;
       font-size: 1rem;
