@@ -225,7 +225,7 @@ class CodeQuarkusResource {
     @GET
     @Path("/download")
     @Produces("application/zip")
-    @Operation(summary = "Download a custom Quarkus application with the provided settings")
+    @Operation(operationId = "downloadForStream", summary = "Download a custom Quarkus application with the provided settings")
     @Tag(name = "Download", description = "Download endpoints")
     fun download(@Valid @BeanParam projectDefinition: ProjectDefinition): Response {
         return try {

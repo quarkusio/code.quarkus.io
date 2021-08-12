@@ -15,7 +15,15 @@ class OpenAPIFilter : OASFilter {
             if (pathItem.get.operationId.equals("extensionsForStream", ignoreCase = true)) {
                 val parameters = pathItem.get.parameters
                 for (parameter in parameters) {
-                    if (parameter.name.equals("stream", ignoreCase = true)) {
+                    if (parameter.name.equals("streamKey", ignoreCase = true)) {
+                        val schema = parameter.schema
+                        schema.enumeration = ArrayList<Any>(validStreamValues)
+                    }
+                }
+            } else if (pathItem.get.operationId.equals("downloadForStream", ignoreCase = true)) {
+                val parameters = pathItem.get.parameters
+                for (parameter in parameters) {
+                    if (parameter.name.equals("S", ignoreCase = false)) {
                         val schema = parameter.schema
                         schema.enumeration = ArrayList<Any>(validStreamValues)
                     }
