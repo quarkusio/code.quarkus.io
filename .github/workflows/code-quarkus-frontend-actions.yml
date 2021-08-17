@@ -1,0 +1,43 @@
+name: Code Quarkus Frontend CI
+on:
+  push:
+    paths:
+      - 'frontend/**'
+  pull_request:
+    types: [assigned, opened, synchronize, reopened, ready_for_review, edited]
+    paths:
+      - 'frontend/**'
+
+env:
+  # Workaround testsuite locale issue
+  LANG: en_US.UTF-8
+
+jobs:
+  build-test:
+    name: "Build & Test"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: n1hility/cancel-previous-runs@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Cache Yarn Packages
+        id: yarn-cache
+        uses: actions/cache@v1
+        with:
+          path: /.cache/yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('frontend/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install
+        working-directory: frontend
+        run: |
+          yarn
+      - name: Build
+        working-directory: frontend
+        run: |
+          yarn build
+      - name: Test
+        working-directory: frontend
+        run: |
+          yarn test

@@ -1,0 +1,91 @@
+---
+apiVersion: v1
+kind: Template
+metadata:
+  name: code-quarkus-frontend
+objects:
+  - apiVersion: v1
+    kind: DeploymentConfig
+    metadata:
+      name: code-quarkus-frontend
+    spec:
+      replicas: ${{REPLICAS}}
+      selector:
+        service: code-quarkus-frontend
+      strategy:
+        rollingParams:
+          intervalSeconds: 1
+          maxSurge: 25%
+          maxUnavailable: 25%
+          timeoutSeconds: 600
+          updatePeriodSeconds: 1
+        type: Rolling
+      template:
+        metadata:
+          labels:
+            service: code-quarkus-frontend
+        spec:
+          serviceAccount: ${SERVICE_ACCOUNT}
+          serviceAccountName: ${SERVICE_ACCOUNT}
+          containers:
+            - image: ${IMAGE}:${IMAGE_TAG}
+              imagePullPolicy: Always
+              name: code-quarkus-frontend
+              ports:
+                - containerPort: 8082
+              livenessProbe:
+                httpGet:
+                  path: /nginx/health
+                  port: 8082
+                initialDelaySeconds: 15
+                periodSeconds: 10
+                timeoutSeconds: 3
+              resources:
+                requests:
+                  cpu: ${CPU_REQUEST}
+                  memory: ${MEMORY_REQUEST}
+                limits:
+                  cpu: ${CPU_LIMIT}
+                  memory: ${MEMORY_LIMIT}
+      triggers:
+        - type: ConfigChange
+  - kind: Service
+    apiVersion: v1
+    metadata:
+      labels:
+        service: code-quarkus-frontend
+      name: code-quarkus-frontend
+    spec:
+      ports:
+        - name: '8082'
+          port: 8082
+          protocol: TCP
+          targetPort: 8082
+      selector:
+        service: code-quarkus-frontend
+      sessionAffinity: None
+      type: ClusterIP
+parameters:
+  - name: IMAGE
+    value: quay.io/quarkus/code-quarkus-frontend
+    required: true
+  - name: IMAGE_TAG
+    value: latest
+    required: true
+  - name: CPU_REQUEST
+    required: true
+    value: 200m
+  - name: CPU_LIMIT
+    required: true
+    value: 500m
+  - name: MEMORY_REQUEST
+    required: true
+    value: 256Mi
+  - displayName: Memory limit
+    required: true
+    name: MEMORY_LIMIT
+    value: 1Gi
+  - name: REPLICAS
+    required: true
+    value: '1'
+  - name: SERVICE_ACCOUNT

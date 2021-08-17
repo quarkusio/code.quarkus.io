@@ -1,38 +1,53 @@
-dev-backend:
-	mvn compile quarkus:dev
+dev-api:
+	cd api && mvn compile quarkus:dev
 
-dev-backend-only:
-	mvn compile quarkus:dev -Pbackend-only
+test-api:
+	cd api && mvn clean test -DskipITs
 
-test-backend-only:
-	mvn clean test -Pbackend-only
+start-api:
+	java -jar api/target/quarkus-app/quarkus-run.jar
 
-dev-web:
-	cd src/main/frontend && yarn && yarn dev
+it-api:
+	cd api && mvn clean verify
+
+build-api:
+	cd api && mvn clean install -DskipTests
+
+docker-build-api:
+	cd api && docker build -f src/main/docker/Dockerfile.multistage -t quay.io/quarkus/code-quarkus-api .
+
+dev-frontend:
+	cd frontend && yarn && yarn dev
+
+test-frontend:
+	cd frontend && yarn && yarn test:i
+
+build-frontend:
+	cd frontend && yarn && yarn build
+
+start-frontend:
+	cd frontend && yarn && yarn start
+
+docker-build-frontend:
+	cd frontend && docker build -f docker/Dockerfile.multistage -t quay.io/quarkus/code-quarkus-frontend .
+
+update-frontend-snapshots:
+	cd frontend && yarn && yarn test -u
 
 dev:
-	make -j2 dev-backend-only dev-web
+	make -j2 dev-api dev-frontend
 
-test-web:
-	cd src/main/frontend && yarn && yarn test:i
+build:
+	make -j2 build-api build-frontend
 
-update-web-snapshots:
-	cd src/main/frontend && yarn && yarn test -u
+start:
+	make -j2 start-api start-frontend
 
-debug:
-	mvn compile quarkus:dev -Ddebug -Dsuspend
+compose:
+	docker-compose up
 
-clean:
-	mvn clean
+deploy-openshift:
+	cd openshift && ./deploy.sh;
 
-clean-backend-only:
-	mvn clean -Pbackend-only
 
-native:
-	mvn package -Pnative -DskipTests
 
-ext-add:
-	mvn quarkus:add-extension -Dextensions="$(ID)"
-
-ext-list:
-	mvn quarkus:list-extensions
