@@ -1,5 +1,7 @@
 # Code Quarkus App
 
+ [![Code Quarkus API CI](https://github.com/quarkusio/code.quarkus.io/actions/workflows/code-quarkus-api-actions.yml/badge.svg)](https://github.com/quarkusio/code.quarkus.io/actions/workflows/code-quarkus-api-actions.yml) [![Code Quarkus Frontend CI](https://github.com/quarkusio/code.quarkus.io/actions/workflows/code-quarkus-frontend-actions.yml/badge.svg)](https://github.com/quarkusio/code.quarkus.io/actions/workflows/code-quarkus-frontend-actions.yml)
+
 # Development
 
 Have a look to the Makefile to find the most used dev commands.
