@@ -1,0 +1,44 @@
+name: Code Quarkus API CI
+on:
+  push:
+    paths:
+      - 'api/**'
+  pull_request:
+    types: [assigned, opened, synchronize, reopened, ready_for_review, edited]
+    paths:
+      - 'api/**'
+
+env:
+  # Workaround testsuite locale issue
+  LANG: en_US.UTF-8
+
+jobs:
+  build-test:
+    name: "Build & Test"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: n1hility/cancel-previous-runs@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up JDK 11
+        # Uses sha for added security since tags can be updated
+        uses: joschi/setup-jdk@e87a7cec853d2dd7066adf837fe12bf0f3d45e52
+        with:
+          java-version: openjdk11
+      - name: Cache Maven Repository
+        id: cache-maven
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('api/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Build
+        working-directory: api
+        run: |
+          ./mvnw -e -B -DskipTests=true clean package
+      - name: Test
+        working-directory: api
+        run: |
+          ./mvnw -e -B verify
