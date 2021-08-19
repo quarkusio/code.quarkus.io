@@ -1,6 +1,7 @@
 ## Stage 1 : build with maven builder image
-FROM node:14-alpine AS build
+FROM registry.access.redhat.com/ubi8/nodejs-14 AS build
 WORKDIR /usr/src/app
+RUN npm install --global yarn
 COPY package.json yarn.lock .
 RUN yarn --frozen-lockfile
 COPY public ./public
