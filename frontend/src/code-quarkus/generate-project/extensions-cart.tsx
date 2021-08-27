@@ -15,7 +15,7 @@ const SelectedExtensions = (props: any) => {
       <h4>Selected Extensions</h4>
       {props.extensions.length === 0 && (
         <Alert variant="warning" >
-          You don't have any extension selected yet for your Quarkus app. Have look at the list below and click to make your selection..
+          You haven't selected any extension for your Quarkus application. Browse and select from the list below.
         </Alert>
       )}
       {props.extensions.length > 0 && (
