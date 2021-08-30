@@ -1,5 +1,5 @@
 import './extensions-cart.scss';
-import { FaRocket } from 'react-icons/fa';
+import { FaExclamation, FaRocket } from 'react-icons/fa';
 import { Alert, Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
 import { ExtensionRow } from '../extensions-picker/extension-row';
@@ -15,7 +15,7 @@ const SelectedExtensions = (props: any) => {
       <h4>Selected Extensions</h4>
       {props.extensions.length === 0 && (
         <Alert variant="warning" >
-          You haven't selected any extension for your Quarkus application. Browse and select from the list below.
+          <FaExclamation />&nbsp;You haven't selected any extension for your Quarkus application. Browse and select from the list below.
         </Alert>
       )}
       {props.extensions.length > 0 && (

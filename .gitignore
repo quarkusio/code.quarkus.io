@@ -4,6 +4,7 @@
 .factorypath
 .settings/
 bin/
+node_modules
 
 # IntelliJ
 .idea

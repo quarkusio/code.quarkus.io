@@ -1,4 +1,10 @@
 .extensions-cart {
+  .selected-extensions .alert-warning {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+  }
+
   .extensions-cart-button {
     height: 40px;
     background-color: var(--extensionsCartButtonBgColor);
