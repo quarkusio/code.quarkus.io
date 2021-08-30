@@ -1,12 +1,10 @@
 ## Stage 1 : build with maven builder image
 FROM registry.access.redhat.com/ubi8/nodejs-14 AS build
-RUN npm install --global yarn
-COPY package.json yarn.lock ./
-RUN yarn --frozen-lockfile
+COPY package.json package-lock.json ./
+RUN npm ci
 COPY public ./public
-COPY tsconfig.json ./
 COPY src ./src
-RUN yarn build --frozen-lockfile
+RUN npm run build
 
 ## Stage 2 : create the docker final image
 FROM registry.access.redhat.com/ubi8/nginx-118

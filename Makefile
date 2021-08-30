@@ -17,25 +17,26 @@ docker-build-api:
 	cd api && docker build -f src/main/docker/Dockerfile.multistage -t quay.io/quarkus/code-quarkus-api .
 
 dev-frontend:
-	cd frontend && yarn && yarn dev
+	cd frontend && npm install && npm start
+
+dev-lib:
+	cd frontend && npm run link-library;
+	cd library && npm run watch;
 
 test-frontend:
-	cd frontend && yarn && yarn test:i
+	cd frontend && npm install && npm test
 
 build-frontend:
 	cd frontend && yarn && yarn build
 
 start-frontend:
-	cd frontend && yarn && yarn start
+	cd frontend && npm run run
 
 docker-build-frontend:
 	cd frontend && docker build -f docker/Dockerfile.multistage -t quay.io/quarkus/code-quarkus-frontend .
 
-update-frontend-snapshots:
-	cd frontend && yarn && yarn test -u
-
 dev:
-	make -j2 dev-api dev-frontend
+	make -j3 dev-api dev-lib dev-frontend
 
 build:
 	make -j2 build-api build-frontend

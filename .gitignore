@@ -6,6 +6,8 @@
 bin/
 node_modules
 
+node_modules
+
 # IntelliJ
 .idea
 *.ipr

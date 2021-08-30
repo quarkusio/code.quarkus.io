@@ -1,0 +1,66 @@
+/**
+ * this is the main configuration file of your bit workspace.
+ * for full documentation, please see: https://harmony-docs.bit.dev/workspace/configurations
+ **/{
+  "$schema": "https://static.bit.dev/teambit/schemas/schema.json",
+  /**
+   * main configuration of the Bit workspace.
+   **/
+  "teambit.workspace/workspace": {
+    /**
+     * the name of the component workspace. used for development purposes.
+     **/
+    "name": "code-quarkus-components",
+    /**
+     * set the icon to be shown on the Bit server.
+     **/
+    "icon": "https://static.bit.dev/bit-logo.svg",
+    /**
+     * default directory to place a component during `bit import` and `bit create`.
+     * the following placeholders are available:
+     * name - component name includes namespace, e.g. 'ui/button'.
+     * scopeId - full scope-id includes the owner, e.g. 'teambit.compilation'.
+     * scope - scope name only, e.g. 'compilation'.
+     * owner - owner name in bit.dev, e.g. 'teambit'.
+     **/
+    "defaultDirectory": "library/{name}",
+    /**
+     * default scope for all components in workspace.
+     **/
+    "defaultScope": "quarkusio.code-quarkus"
+  },
+  /**
+   * main configuration for component dependency resolution.
+   **/
+  "teambit.dependencies/dependency-resolver": {
+    "packageManager": "teambit.dependencies/pnpm",
+    "packageManagerArgs": [],
+    "devFilePatterns": [
+      "**/*.spec.ts",
+      "**/*.spec.tsx",
+      "**/*.spec.tsx.snap",
+      "**/*.spec.ts.snap"
+    ],
+    "strictPeerDependencies": true,
+    "installFromBitDevRegistry": true,
+    "savePrefix": ""
+  },
+  "teambit.workspace/variants": {
+    "*": {
+      "teambit.react/react": {},
+      "teambit.pkg/pkg": {
+        "packageManagerPublishArgs": [
+          "--access public"
+        ],
+        "packageJson": {
+          "private": false,
+          "publishConfig": {
+            "name": "@{scope}.{name}",
+            "scope": "@quarkusio/code-quarkus",
+            "registry": "https://registry.npmjs.org/"
+          }
+        }
+      }
+    }
+  }
+}

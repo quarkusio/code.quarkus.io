@@ -1,0 +1,59 @@
+name: Code Quarkus NPM Library CI
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'library/**'
+
+env:
+  # Workaround testsuite locale issue
+  LANG: en_US.UTF-8
+
+jobs:
+  build-test:
+    name: "Release @quarkusio/code-quarkus library to npm"
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[npm-release]')"
+    steps:
+      - uses: actions/checkout@v2
+      - uses: n1hility/cancel-previous-runs@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - uses: actions/cache@v2
+        with:
+          path: ~/.bvm
+          key: ${{ runner.os }}-bvm-bit
+          restore-keys: |
+            ${{ runner.os }}-bvm-bit
+      - name: Install library packages
+        working-directory: library
+        run: npm install
+      - name: Test library
+        working-directory: library
+        run: npm test
+      - name: Tag Library
+        working-directory: library
+        run: npm run tag:release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Check for .bitmap changes
+        run: |
+          if git diff --exit-code ./library/.bitmap; then
+            echo "BITMAP_CHANGED=false" >> $GITHUB_ENV
+          else
+            echo "BITMAP_CHANGED=true" >> $GITHUB_ENV
+          fi
+      - name: Commit changes made to .bitmap
+        if: ${{ env.BITMAP_CHANGED == 'true' }}
+        run: |
+          git config --global user.name '${{ github.actor }}'
+          git config --global user.email '${{ github.actor }}@users.noreply.github.com'
+          git add library/.bitmap
+          git commit -m "[npm-release] Automated release @quarkusio/code-quarkus library to npm"
+          git push
