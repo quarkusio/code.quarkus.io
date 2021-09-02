@@ -2,8 +2,12 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name: code-quarkus
+  name: code-quarkus-api
 objects:
+  - kind: ConfigMap
+    apiVersion: v1
+    metadata:
+      name: code-quarkus-api-registry
   - apiVersion: v1
     kind: DeploymentConfig
     metadata:
@@ -73,8 +77,6 @@ objects:
                   value: ${IO_QUARKUS_CODE_HOSTNAME}
                 - name: IO_QUARKUS_CODE_FEATURES
                   value: ${IO_QUARKUS_CODE_FEATURES}
-                - name: IO_QUARKUS_CODE_EXTENSION_PROCESSOR_TAGS_FROM
-                  value: ${IO_QUARKUS_CODE_EXTENSION_PROCESSOR_TAGS_FROM}
                 - name: IO_QUARKUS_CODE_QUARKUS_PLATFORMS_RELOAD_CRON_EXPR
                   value: ${IO_QUARKUS_CODE_QUARKUS_PLATFORMS_RELOAD_CRON_EXPR}
                 - name: IO_QUARKUS_CODE_SENTRY_FRONTEND_DSN
@@ -111,6 +113,9 @@ objects:
                       name: secrets
                       key: ga-tracking-id
                       optional: true
+              envFrom:
+                - configMapRef:
+                    name: code-quarkus-api-registry
       triggers:
         - type: ConfigChange
   - kind: Service
@@ -134,13 +139,12 @@ parameters:
   - name: IO_QUARKUS_CODE_FEATURES
   - name: IO_QUARKUS_CODE_HOSTNAME
   - name: IO_QUARKUS_CODE_GA_BATCHING_ENABLED
-  - name: IO_QUARKUS_CODE_EXTENSION_PROCESSOR_TAGS_FROM
   - name: IO_QUARKUS_CODE_GA_EXTENSIONS_DIMENSION_INDEX
   - name: IO_QUARKUS_CODE_GA_QUARKUS_VERSION_DIMENSION_INDEX
   - name: IO_QUARKUS_CODE_GA_BUILD_TOOL_DIMENSION_INDEX
   - name: IO_QUARKUS_CODE_GA_EXTENSION_QUANTITY_INDEX
   - name: IO_QUARKUS_CODE_QUARKUS_PLATFORMS_RELOAD_CRON_EXPR
-    value: "0 0 0 31 2 ? 2099"
+    value: "0 */5 * * * ?"
   - name: QUARKUS_LOG_SENTRY
     value: "false"
   - name: IO_QUARKUS_CODE_LOG_LEVEL
