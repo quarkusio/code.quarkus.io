@@ -3,7 +3,7 @@
 set -exv
 
 oc process -f code-quarkus-frontend.yaml  | oc apply -f -;
-oc process -f code-quarkus-api.yaml  | oc apply -f -;
+oc process -f code-quarkus-api.yaml | oc apply -f -;
 oc expose svc/code-quarkus-frontend;
 HOST=$(oc get route code-quarkus-frontend -o json | jq -r '.spec.host');
 oc expose svc/code-quarkus-api --hostname=$HOST --path='/api';

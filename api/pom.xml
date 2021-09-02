@@ -4,7 +4,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.quarkus</groupId>
-    <artifactId>code.quarkus.io</artifactId>
+    <artifactId>code-quarkus-api</artifactId>
     <version>1.0.0</version>
     <properties>
         <kotlin.compiler.jvmTarget>11</kotlin.compiler.jvmTarget>
