@@ -102,7 +102,7 @@ class CodeQuarkusResource {
     )
     fun platforms(): Response {
         val platformCatalog = platformService.platformCatalog
-        val lastUpdated = platformService.lastUpdated
+        val lastUpdated = platformService.cacheLastUpdated
         return Response.ok(platformCatalog).header(LAST_MODIFIED_HEADER, lastUpdated.format(formatter)).build()
     }
 
@@ -121,7 +121,7 @@ class CodeQuarkusResource {
     )
     fun streams(): Response {
         val streamKeys = platformService.streams
-        val lastUpdated = platformService.lastUpdated
+        val lastUpdated = platformService.cacheLastUpdated
         return Response.ok(streamKeys).header(LAST_MODIFIED_HEADER, lastUpdated.format(formatter)).build()
     }
 
@@ -143,7 +143,7 @@ class CodeQuarkusResource {
         if (platformOnly) {
             extensions = extensions.filter { it.platform }
         }
-        val lastUpdated = platformService.lastUpdated
+        val lastUpdated = platformService.cacheLastUpdated
         return Response.ok(extensions).header(LAST_MODIFIED_HEADER, lastUpdated.format(formatter)).build()
     }
 
@@ -168,7 +168,7 @@ class CodeQuarkusResource {
         if (platformOnly) {
             extensions = extensions?.filter { it.platform }
         }
-        val lastUpdated = platformService.lastUpdated
+        val lastUpdated = platformService.cacheLastUpdated
         return Response.ok(extensions).header(LAST_MODIFIED_HEADER, lastUpdated.format(formatter)).build()
     }
 

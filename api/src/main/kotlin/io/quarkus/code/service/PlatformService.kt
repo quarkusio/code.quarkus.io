@@ -2,10 +2,12 @@ package io.quarkus.code.service
 
 import io.quarkus.code.misc.QuarkusExtensionUtils.processExtensions
 import io.quarkus.code.config.ExtensionProcessorConfig
+import io.quarkus.code.config.PlatformConfig
 import io.quarkus.devtools.project.QuarkusProjectHelper
 import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.code.model.ProjectDefinition
 import io.quarkus.code.model.Stream
+import io.quarkus.registry.Constants
 import java.util.HashMap
 import io.quarkus.registry.catalog.PlatformCatalog
 import java.time.LocalDateTime
@@ -27,6 +29,9 @@ class PlatformService {
 
     @Inject
     lateinit var extensionProcessorConfig: ExtensionProcessorConfig
+
+    @Inject
+    lateinit var platformConfig: PlatformConfig
 
     @Inject
     lateinit var projectService: QuarkusProjectService
@@ -58,8 +63,8 @@ class PlatformService {
     val recommendedPlatformInfo: PlatformInfo
         get() = getPlatformInfo()
 
-    val lastUpdated: LocalDateTime
-        get() = platformsCache.lastUpdated
+    val cacheLastUpdated: LocalDateTime
+        get() = platformsCache.cacheLastUpdated
 
     val platformCatalog: PlatformCatalog
         get() = platformsCache.platformCatalog
@@ -106,8 +111,14 @@ class PlatformService {
     @Throws(RegistryResolutionException::class)
     private fun reloadPlatformServiceCache() {
         catalogResolver.clearRegistryCache()
-        val platformCatalog = catalogResolver.resolvePlatformCatalog()
+        val platformCatalog = if(platformConfig.registryId.isEmpty) catalogResolver.resolvePlatformCatalog()
+            else catalogResolver.resolvePlatformCatalogFromRegistry(platformConfig.registryId.get())
         val updatedStreamCatalogMap: MutableMap<String, PlatformInfo> = HashMap()
+        val platformTimestamp = platformCatalog.metadata[Constants.LAST_UPDATED] as String
+        if (platformServiceCacheRef.get()?.platformTimestamp == platformTimestamp) {
+           LOG.log(Level.INFO, "The platform cache is up to date with the registry")
+           return
+        }
         val platforms = platformCatalog.platforms
         for (platform in platforms) {
             for (stream in platform.streams) {
@@ -130,13 +141,14 @@ class PlatformService {
             }
         }
         val newCache = PlatformServiceCache(
-            createStreamKey(
+            recommendedStreamKey = createStreamKey(
                 platformCatalog.recommendedPlatform.platformKey,
                 platformCatalog.recommendedPlatform.recommendedStream.id
             ),
-            platformCatalog,
-            updatedStreamCatalogMap,
-            LocalDateTime.now(ZoneOffset.UTC as ZoneId)
+            platformCatalog = platformCatalog,
+            streamCatalogMap = updatedStreamCatalogMap,
+            cacheLastUpdated = LocalDateTime.now(ZoneOffset.UTC as ZoneId),
+            platformTimestamp = platformTimestamp
         )
 
         checkNewCache(newCache)
@@ -145,8 +157,10 @@ class PlatformService {
         LOG.log(Level.INFO) {
             """
             PlatformService cache has been reloaded successfully:
-                recommendedStreamKey: $recommendedStreamKey (core: ${recommendedPlatformInfo.quarkusCoreVersion})
-                number of extensions: ${recommendedCodeQuarkusExtensions.size}
+                platform timestamp: $platformTimestamp
+                recommended stream key: $recommendedStreamKey (core: ${recommendedPlatformInfo.quarkusCoreVersion})
+                recommended stream extensions: ${recommendedCodeQuarkusExtensions.size}
+                available streams: ${updatedStreamCatalogMap.keys.joinToString(", ")}
         """.trimIndent()
         }
     }
@@ -217,6 +231,7 @@ class PlatformService {
         val recommendedStreamKey: String,
         val platformCatalog: PlatformCatalog,
         val streamCatalogMap: MutableMap<String, PlatformInfo>,
-        val lastUpdated: LocalDateTime
+        val cacheLastUpdated: LocalDateTime,
+        val platformTimestamp: String
     )
 }

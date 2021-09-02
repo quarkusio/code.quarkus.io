@@ -27,7 +27,4 @@ interface CodeQuarkusConfig {
 
     @get:WithName("hostname")
     val hostname: Optional<String>
-
-    @get:WithName("quarkus-platforms.reload-cron-expr")
-    val quarkusPlatformReloadCronExpr: String
 }

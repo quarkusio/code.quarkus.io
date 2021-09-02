@@ -12,6 +12,10 @@ node_modules
 *.iml
 *.iws
 
+node_modules
+.yarn
+.bit
+
 target/
 
 # NetBeans
