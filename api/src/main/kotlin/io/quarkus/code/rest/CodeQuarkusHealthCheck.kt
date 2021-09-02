@@ -1,6 +1,6 @@
 package io.quarkus.code.rest
 
-import io.quarkus.code.config.CodeQuarkusConfig
+import io.quarkus.code.config.PlatformConfig
 import io.quarkus.code.service.PlatformService
 import io.quarkus.code.service.QuarkusProjectService
 import org.eclipse.microprofile.health.HealthCheck
@@ -14,7 +14,7 @@ import javax.inject.Singleton
 @Singleton
 class CodeQuarkusHealthCheck : HealthCheck {
     @Inject
-    internal var config: CodeQuarkusConfig? = null
+    internal lateinit var platformConfig: PlatformConfig
 
     @Inject
     internal lateinit var platformService: PlatformService
@@ -24,14 +24,17 @@ class CodeQuarkusHealthCheck : HealthCheck {
 
     override fun call(): HealthCheckResponse {
         val responseBuilder = HealthCheckResponse.named("Code Quarkus HealthCheck")
-        if(config != null
-                && platformService.isLoaded
-                && projectCreator != null) {
-                    responseBuilder.withData("last updated", platformService.lastUpdated.toString())
-                        .withData("number of extensions", "" + (platformService.recommendedCodeQuarkusExtensions.size))
+        if(platformService.isLoaded
+            && projectCreator != null) {
+                    responseBuilder
+                        .withData("cache last updated", platformService.cacheLastUpdated.toString())
+                        .withData("registry timestamp", platformService.platformsCache.platformTimestamp)
                         .withData("recommended stream", platformService.recommendedStreamKey)
                         .withData("recommended stream quarkus core", platformService.recommendedPlatformInfo.quarkusCoreVersion)
-                        .withData("reload cron expr", config!!.quarkusPlatformReloadCronExpr)
+                        .withData("recommended stream extensions",  platformService.recommendedCodeQuarkusExtensions.size.toString())
+                        .withData("available streams", platformService.streamKeys.joinToString(", "))
+                        .withData("reload cron expr", platformConfig.reloadCronExpr)
+                        .withData("registryId", platformConfig.registryId.orElse("empty"))
                         .up()
         } else {
             responseBuilder.down()
