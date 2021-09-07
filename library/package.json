@@ -2,14 +2,14 @@
   "name": "code-quarkus-library",
   "version": "0.1.0",
   "scripts": {
-    "build": "~/bin/bit link && ~/bin/bit compile",
-    "test": "~/bin/bit link && ~/bin/bit test",
-    "test:watch": "~/bin/bit link && ~/bin/bit test -w",
-    "tag:pr": "~/bin/bit tag --all --soft",
+    "build": "~/bin/bit compile",
+    "test": "~/bin/bit test",
+    "test:watch": "~/bin/bit test -w",
+    "tag:pr": " ~/bin/bit tag --all --soft",
     "tag:release": "~/bin/bit tag --persist",
     "watch": "~/bin/bit watch",
     "ci-config": "~/bin/bit config set analytics_reporting false && ~/bin/bit config set anonymous_reporting false",
-    "postinstall": "bvm install"
+    "postinstall": "bvm install && ~/bin/bit link"
   },
   "dependencies": {
     "react": "17.0.2",
