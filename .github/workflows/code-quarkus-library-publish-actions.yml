@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'library/**'
+      - '.github/**'
 
 env:
   # Workaround testsuite locale issue
