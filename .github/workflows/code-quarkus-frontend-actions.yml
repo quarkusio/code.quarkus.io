@@ -3,10 +3,12 @@ on:
   push:
     paths:
       - 'frontend/**'
+      - 'library/**'
   pull_request:
     types: [assigned, opened, synchronize, reopened, ready_for_review, edited]
     paths:
       - 'frontend/**'
+      - 'library/**'
 
 env:
   # Workaround testsuite locale issue
