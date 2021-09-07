@@ -6,7 +6,7 @@
     "test": "~/bin/bit link && ~/bin/bit test",
     "test:watch": "~/bin/bit link && ~/bin/bit test -w",
     "tag:pr": "~/bin/bit tag --all --soft",
-    "tag:release": "~/bin/bit tag --all --persist",
+    "tag:release": "~/bin/bit tag --persist",
     "watch": "~/bin/bit watch",
     "ci-config": "~/bin/bit config set analytics_reporting false && ~/bin/bit config set anonymous_reporting false",
     "postinstall": "bvm install"
