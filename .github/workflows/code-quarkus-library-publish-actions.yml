@@ -39,7 +39,9 @@ jobs:
         run: npm test
       - name: Tag Library
         working-directory: library
-        run: npm run tag:release
+        run: |
+          npm run tag:pr
+          npm run tag:release
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Check for .bitmap changes
