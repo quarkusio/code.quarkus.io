@@ -65,7 +65,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
           tags={props.platform.tags}
           value={{ extensions: selectedExtensions }}
           onChange={setExtensions}
-          placeholder="Search & Pick extensions: RESTEasy, Hibernate ORM, Web..."
+          placeholder="Search & Pick extensions: jaxrs, hibernate, reactive, web, data..."
           buildTool={props.project.metadata.buildTool}
           project={props.project}
           filter={filter}
