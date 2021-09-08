@@ -5,10 +5,10 @@
     "build": "~/bin/bit compile",
     "test": "~/bin/bit test",
     "test:watch": "~/bin/bit test -w",
-    "tag:pr": " ~/bin/bit tag --all --soft",
-    "tag:release": "npm run build && ~/bin/bit tag --persist",
+    "tag": " ~/bin/bit tag --all --soft",
+    "publish": "~/bin/bit tag --persist && bit export",
     "watch": "~/bin/bit watch",
-    "ci-config": "~/bin/bit config set analytics_reporting false && ~/bin/bit config set anonymous_reporting false",
+    "ci-config": "~/bin/bit config set analytics_reporting false && ~/bin/bit config set anonymous_reporting false && ~/bin/bit config set user.token $BIT_TOKEN",
     "postinstall": "bvm install && ~/bin/bit link"
   },
   "dependencies": {

@@ -1,4 +1,4 @@
-name: Code Quarkus NPM Library CI
+name: Code Quarkus Publish NPM Library CI
 on:
   push:
     branches: [main]
@@ -9,9 +9,10 @@ on:
 env:
   # Workaround testsuite locale issue
   LANG: en_US.UTF-8
+  BIT_TOKEN: ${{ secrets.BIT_TOKEN }}
 
 jobs:
-  build-test:
+  publish:
     name: "Release @quarkusio/code-quarkus library to npm"
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[npm-release]')"
@@ -35,9 +36,11 @@ jobs:
       - name: Install library packages
         working-directory: library
         run: npm install
-      - name: Tag Library
+      - name: Publish Library
         working-directory: library
-        run: npm run tag:release
+        run: |
+          npm run ci-config
+          npm run publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Check for .bitmap changes
