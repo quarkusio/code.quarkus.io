@@ -9,7 +9,7 @@
     "publish": "~/bin/bit tag --persist && bit export",
     "watch": "~/bin/bit watch",
     "ci-config": "~/bin/bit config set analytics_reporting false && ~/bin/bit config set anonymous_reporting false && ~/bin/bit config set user.token $BIT_TOKEN",
-    "postinstall": "bvm install && ~/bin/bit link"
+    "postinstall": "bvm install && ~/bin/bit import && ~/bin/bit link"
   },
   "dependencies": {
     "react": "17.0.2",
