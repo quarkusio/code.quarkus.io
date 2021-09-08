@@ -11,7 +11,7 @@ import { LoadingModal } from '../modals/loading-modal';
 import { NextStepsModal } from '../modals/next-steps-modal';
 import { ConfiguredCodeQuarkusProps } from '../code-quarkus';
 import { ErrorModal } from '../modals/error-modal';
-import { Platform, QuarkusProject } from '../api/model';
+import { Platform, QuarkusProject, Tag } from '../api/model';
 import { Api } from '../api/code-quarkus-api';
 
 enum Status {

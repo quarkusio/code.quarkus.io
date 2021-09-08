@@ -4,17 +4,22 @@ import './bootstrap-reboot.css';
 import './bootstrap-base.css';
 import './code-quarkus.scss';
 import { QuarkusProjectFlow } from './quarkus-project/quarkus-project-flow';
-import { Config, QuarkusProject, Tag } from './api/model';
+import {Config, Platform, QuarkusProject, Tag} from './api/model';
 import { QuarkusBlurb } from './layout/quarkus-blurb';
 import { Api, ConfigApi, PlatformApi } from './api/code-quarkus-api';
 import { DataLoader, SentryBoundary } from '@quarkusio/code-quarkus.core.components';
 import { getQueryParams, resolveInitialProject } from './api/quarkus-project-utils';
 import { CodeQuarkusIoHeader } from './header/code-quarkus-io-header';
 
+export interface HeaderProps {
+  platform: Platform;
+  project: QuarkusProject;
+}
+
 export interface ConfiguredCodeQuarkusProps {
   config: Config;
   platformApi: PlatformApi;
-  header?: React.Component;
+  header?: React.FC<HeaderProps>;
   api: Api;
 }
 
@@ -31,7 +36,7 @@ export function ConfiguredCodeQuarkus(props: ConfiguredCodeQuarkusProps) {
       return newAnalytics;
     });
   }, [ props.config.gaTrackingId ]);
-  const Header = props.header || CodeQuarkusIoHeader;
+  const Header: React.FC<HeaderProps> = props.header || CodeQuarkusIoHeader;
   const platformLoader = () => props.platformApi(props.api, project.streamKey);
   return (
     <AnalyticsContext.Provider value={analytics}>
@@ -54,8 +59,7 @@ export interface CodeQuarkusProps {
   configApi: ConfigApi;
   platformApi: PlatformApi;
   api: Api;
-  header?: React.Component;
-  tags: Tag[];
+  header?: React.FC<HeaderProps>;
 }
 
 export function CodeQuarkus(props: CodeQuarkusProps) {

@@ -7,6 +7,7 @@ import { FaAngleLeft, FaHandsHelping, FaRedhat } from 'react-icons/fa';
 import { Platform, QuarkusProject, Stream } from '../api/model';
 import { normalizeStreamKey } from '../api/quarkus-project-utils';
 import logo from '../media/quarkus-logo.svg';
+import { HeaderProps } from '../code-quarkus';
 
 function SupportButton(prop: {}) {
   const [ opened, open ] = useState(false);
@@ -46,7 +47,7 @@ function getProjectStream(platform: Platform, project: QuarkusProject) {
   return platform.streams.find(s => s.key == normalizedStreamKey);
 }
 
-export function CodeQuarkusIoHeader(props: { platform: Platform, project: QuarkusProject, supportButton: boolean }) {
+export function CodeQuarkusIoHeader(props: HeaderProps) {
   const analytics = useAnalytics();
   const linkTracker = createLinkTracker(analytics,'UX', 'Header');
   const recommendedStream = getRecommendedStream(props.platform);
