@@ -10,11 +10,8 @@ import { Api, ConfigApi, PlatformApi } from './api/code-quarkus-api';
 import { DataLoader, SentryBoundary } from '@quarkusio/code-quarkus.core.components';
 import { getQueryParams, resolveInitialProject } from './api/quarkus-project-utils';
 import { CodeQuarkusIoHeader } from './header/code-quarkus-io-header';
+import { HeaderProps } from './header/header-props';
 
-export interface HeaderProps {
-  platform: Platform;
-  project: QuarkusProject;
-}
 
 export interface ConfiguredCodeQuarkusProps {
   config: Config;
