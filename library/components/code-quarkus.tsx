@@ -4,7 +4,7 @@ import './bootstrap-reboot.css';
 import './bootstrap-base.css';
 import './code-quarkus.scss';
 import { QuarkusProjectFlow } from './quarkus-project/quarkus-project-flow';
-import {Config, Platform, QuarkusProject, Tag} from './api/model';
+import { Config, QuarkusProject } from './api/model';
 import { QuarkusBlurb } from './layout/quarkus-blurb';
 import { Api, ConfigApi, PlatformApi } from './api/code-quarkus-api';
 import { DataLoader, SentryBoundary } from '@quarkusio/code-quarkus.core.components';
