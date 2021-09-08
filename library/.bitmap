@@ -10,7 +10,7 @@
 
 {
     "components": {
-        "scope": "",
+        "scope": "quarkusio.code-quarkus",
         "version": "0.0.2",
         "mainFile": "index.ts",
         "rootDir": "components",
@@ -22,19 +22,19 @@
         }
     },
     "core/analytics": {
-        "scope": "",
+        "scope": "quarkusio.code-quarkus",
         "version": "0.0.1",
         "mainFile": "index.ts",
         "rootDir": "core/analytics"
     },
     "core/components": {
-        "scope": "",
+        "scope": "quarkusio.code-quarkus",
         "version": "0.0.1",
         "mainFile": "index.ts",
         "rootDir": "core/components"
     },
     "core/types": {
-        "scope": "",
+        "scope": "quarkusio.code-quarkus",
         "version": "0.0.1",
         "mainFile": "index.ts",
         "rootDir": "core/types"
