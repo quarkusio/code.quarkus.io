@@ -11,7 +11,7 @@
     "run": "http-server build/ --port 3000 --proxy http://0.0.0.0:8080"
   },
   "dependencies": {
-    "@quarkusio/code-quarkus.components": "0.0.5",
+    "@quarkusio/code-quarkus.components": "0.0.6",
     "@testing-library/jest-dom": "5.14.1",
     "@testing-library/react": "11.2.7",
     "@testing-library/user-event": "12.8.3",
