@@ -4,7 +4,7 @@ import { FaExclamation, FaRocket } from 'react-icons/fa';
 import { Alert, Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import { ExtensionRow } from '../extensions-picker/extension-row';
 import DropdownToggle from 'react-bootstrap/DropdownToggle';
-import { ExtensionEntry } from '../extensions-picker/extensions-picker';
+import { ExtensionEntry, TagEntry } from '../extensions-picker/extensions-picker';
 import { useAnalytics } from '@quarkusio/code-quarkus.core.analytics';
 import { InputProps } from '@quarkusio/code-quarkus.core.types';
 import _ from 'lodash';
@@ -29,6 +29,7 @@ const SelectedExtensions = (props: any) => {
                 selected={true}
                 onClick={() => props.remove(ex.id, 'Selection')}
                 pickerLayout={false}
+                tagsDef={props.tagsDef}
               />
             ))
           }
@@ -44,6 +45,7 @@ export interface ExtensionsCartValue {
 }
 
 export interface ExtensionsCartProps extends InputProps<ExtensionsCartValue> {
+  tagsDef: TagEntry[];
 }
 
 
@@ -93,7 +95,7 @@ export function ExtensionsCart(props: ExtensionsCartProps) {
       </DropdownToggle>
 
       <Dropdown.Menu onMouseEnter={onMouseEnterFn} align="left">
-        <SelectedExtensions extensions={props.value.extensions} remove={onRemove}/>
+        <SelectedExtensions extensions={props.value.extensions} remove={onRemove} tagsDef={props.tagsDef}/>
       </Dropdown.Menu>
     </Dropdown>
   );

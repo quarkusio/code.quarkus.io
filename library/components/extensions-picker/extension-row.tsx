@@ -65,7 +65,7 @@ export function ExtensionRow(props: ExtensionRowProps) {
 
       <div className="extension-summary">
         <span className="extension-name" title={`${props.name} (${props.version})`}>{props.name}</span>
-        {props.tags && props.tags.map((s, i) => <ExtensionTags key={i} tags={props.tagsDef} name={s}/>)}
+        {props.tags && props.tags.map((s, i) => <ExtensionTags key={i} tagsDef={props.tagsDef} name={s}/>)}
       </div>
 
       {!props.pickerLayout && (

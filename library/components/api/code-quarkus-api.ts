@@ -1,12 +1,12 @@
-import {Config, Platform, Tag} from './model';
+import { Config, Platform, Tag } from './model';
 
-let platform: Platform | undefined;
+let platformCache: Map<string, Platform> = new Map<string, Platform>();
 let config: Config | undefined;
 
 export interface Api {
   backendUrl: string;
   clientName: string;
-  tags?: Tag[];
+  tagsDef?: Tag[];
   requestOptions: RequestInit;
 }
 
@@ -37,8 +37,9 @@ export const DEFAULT_TAGS: Tag[] = [
 ];
 
 export async function fetchPlatform(api: Api, streamKey?: string) {
-  if (platform) {
-    return platform!;
+  const cacheKey = streamKey || 'recommended';
+  if (platformCache.has(cacheKey)) {
+    return platformCache.get(cacheKey);
   }
   const path = streamKey ? `/api/extensions/stream/${streamKey}` : '/api/extensions';
   const data = await Promise.all([
@@ -55,11 +56,13 @@ export async function fetchPlatform(api: Api, streamKey?: string) {
   }
   const json = await Promise.all(data.map(d => d.json()));
 
-  return {
+  let platform = {
     extensions: json[0],
     streams: json[1],
-    tags: api.tags || DEFAULT_TAGS
+    tagsDef: api.tagsDef || DEFAULT_TAGS
   };
+  platformCache.set(cacheKey, platform);
+  return platform;
 }
 
 export async function fetchConfig(api: Api) {

@@ -67,20 +67,20 @@ describe('<ExtensionsPicker />', () => {
 
   it('renders the ExtensionsPicker correctly', () => {
     const setFilter = jest.fn();
-    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{ extensions: [] }} onChange={() => { }} buildTool="MAVEN" filter="" setFilter={setFilter} tags={DEFAULT_TAGS} />);
+    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{ extensions: [] }} onChange={() => { }} buildTool="MAVEN" filter="" setFilter={setFilter} tagsDef={DEFAULT_TAGS} />);
     expect(comp.asFragment()).toMatchSnapshot();
   });
 
   it('show results for valid search', async () => {
     const setFilter = jest.fn();
-    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{ extensions: [] }} onChange={() => { }} buildTool="MAVEN" filter="" setFilter={setFilter} tags={DEFAULT_TAGS} />);
+    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{ extensions: [] }} onChange={() => { }} buildTool="MAVEN" filter="" setFilter={setFilter} tagsDef={DEFAULT_TAGS} />);
 
     const searchField = comp.getByLabelText('Search extensions');
     fireEvent.change(searchField, { target: { value: 'CDI' } });
     expect(setFilter).toBeCalledTimes(1);
     expect(setFilter).lastCalledWith('CDI');
     act(() => {
-      comp.rerender(<ExtensionsPicker placeholder="" entries={entries} value={{ extensions: [] }} onChange={() => { }} buildTool="MAVEN" filter="CDI" setFilter={setFilter} tags={DEFAULT_TAGS} />);
+      comp.rerender(<ExtensionsPicker placeholder="" entries={entries} value={{ extensions: [] }} onChange={() => { }} buildTool="MAVEN" filter="CDI" setFilter={setFilter} tagsDef={DEFAULT_TAGS} />);
     });
     const result = await comp.findAllByText(entries[0].description!);
     expect((result as HTMLElement[]).length).toBe(1);
@@ -90,14 +90,14 @@ describe('<ExtensionsPicker />', () => {
   it('select values and save', async () => {
     const setFilter = jest.fn();
     const handleChange = jest.fn();
-    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{ extensions: [] }} onChange={handleChange} buildTool="MAVEN" filter="" setFilter={setFilter} tags={DEFAULT_TAGS} />);
+    const comp = render(<ExtensionsPicker placeholder="" entries={entries} value={{ extensions: [] }} onChange={handleChange} buildTool="MAVEN" filter="" setFilter={setFilter} tagsDef={DEFAULT_TAGS} />);
 
     const searchField = comp.getByLabelText('Search extensions');
     fireEvent.change(searchField, { target: { value: 'netty' } });
     expect(setFilter).toBeCalledTimes(1);
     expect(setFilter).lastCalledWith('netty');
     act(() => {
-      comp.rerender(<ExtensionsPicker placeholder="" entries={entries} value={{ extensions: [] }} onChange={() => { }} buildTool="MAVEN" filter="netty" setFilter={setFilter} tags={DEFAULT_TAGS} />);
+      comp.rerender(<ExtensionsPicker placeholder="" entries={entries} value={{ extensions: [] }} onChange={() => { }} buildTool="MAVEN" filter="netty" setFilter={setFilter} tagsDef={DEFAULT_TAGS} />);
     });
     const item = await comp.findAllByText(entries[1].description!);
     fireEvent.click(item[0]);
