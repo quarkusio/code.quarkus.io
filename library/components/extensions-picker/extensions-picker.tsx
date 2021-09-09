@@ -38,7 +38,7 @@ export interface ExtensionsPickerValue {
 
 interface ExtensionsPickerProps extends InputProps<ExtensionsPickerValue> {
   entries: ExtensionEntry[];
-  tags: TagEntry[];
+  tagsDef: TagEntry[];
   placeholder: string;
   buildTool: string;
   project?: QuarkusProject;
@@ -147,7 +147,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
                 keyboardActived={i === keyboardActivated}
                 {...ex}
                 key={i}
-                tagsDef={props.tags}
+                tagsDef={props.tagsDef}
                 onClick={() => flip(i, 'List')}
                 buildTool={props.buildTool}
                 pickerLayout={true}

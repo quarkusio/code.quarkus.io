@@ -41,7 +41,7 @@ export interface Extension {
 export interface Platform {
   extensions: Extension[];
   streams: Stream[];
-  tags: Tag[];
+  tagsDef: Tag[];
 }
 
 export interface Stream {

@@ -54,7 +54,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
             <InfoPicker value={props.project.metadata} onChange={setMetadata} />
           </div>
           <div className="generate-project">
-            <ExtensionsCart  value={{ extensions: selectedExtensions }} onChange={setExtensions} />
+            <ExtensionsCart  value={{ extensions: selectedExtensions }} onChange={setExtensions} tagsDef={props.platform.tagsDef}/>
             <GenerateButton api={props.api} project={props.project} generate={save} isProjectValid={isProjectValid} githubClientId={props.config.gitHubClientId}/>
           </div>
         </div>
@@ -62,7 +62,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
       <div className="project-extensions">
         <ExtensionsPicker
           entries={props.platform.extensions as ExtensionEntry[]}
-          tags={props.platform.tags}
+          tagsDef={props.platform.tagsDef}
           value={{ extensions: selectedExtensions }}
           onChange={setExtensions}
           placeholder="Search & Pick extensions: jaxrs, hibernate, reactive, web, data..."
