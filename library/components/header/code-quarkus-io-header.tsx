@@ -4,10 +4,7 @@ import { createLinkTracker, useAnalytics } from '@quarkusio/code-quarkus.core.an
 import classNames from 'classnames';
 import { Button } from 'react-bootstrap';
 import { FaAngleLeft, FaHandsHelping, FaRedhat } from 'react-icons/fa';
-import { Platform, QuarkusProject, Stream } from '../api/model';
-import { normalizeStreamKey } from '../api/quarkus-project-utils';
-import logo from '../media/quarkus-logo.svg';
-import { HeaderProps } from './header-props';
+import { Header, HeaderProps } from './header';
 
 function SupportButton(prop: {}) {
   const [ opened, open ] = useState(false);
@@ -31,45 +28,15 @@ function SupportButton(prop: {}) {
   );
 }
 
-
-const ERROR_STREAM: Stream = { key: 'recommended.not.found:stream', quarkusCoreVersion: 'error', recommended: true }
-
-function getRecommendedStream(platform: Platform) {
-  return platform.streams.find(s => s.recommended) || ERROR_STREAM;
-}
-
-function getProjectStream(platform: Platform, project: QuarkusProject) {
-  if (!project.streamKey) {
-    return null;
-  }
-  const recommendedStream = getRecommendedStream(platform);
-  const normalizedStreamKey = normalizeStreamKey(recommendedStream.key.split(':')[0], project.streamKey);
-  return platform.streams.find(s => s.key == normalizedStreamKey);
-}
-
 export function CodeQuarkusIoHeader(props: HeaderProps) {
   const analytics = useAnalytics();
   const linkTracker = createLinkTracker(analytics,'UX', 'Header');
-  const recommendedStream = getRecommendedStream(props.platform);
-  const stream = getProjectStream(props.platform, props.project) || recommendedStream;
-  const streamKeys = stream.key.split(':');
   return (
-    <div className="header">
-      <div className="header-content responsive-container">
-        <div className="quarkus-brand">
-          <a href="/" onClick={linkTracker}>
-            <img src={logo} className="project-logo" title="Quarkus" alt="Quarkus"/>
-          </a>
-          <div className="current-quarkus-stream" title={`Quarkus core version: ${stream.quarkusCoreVersion}`}>
-            <span className="platform-key">{streamKeys[0]}</span>
-            <span className="stream-id">{streamKeys[1]}</span>
-          </div>
-        </div>
-        <div className="nav-container">
-          <a href="https://quarkus.io" onClick={linkTracker}><FaAngleLeft/> Back to quarkus.io</a>
-          <SupportButton/>
-        </div>
-      </div>
-    </div>
+    <Header {...props}>
+      <>
+        <a href="https://quarkus.io" onClick={linkTracker}><FaAngleLeft/> Back to quarkus.io</a>
+        <SupportButton/>
+      </>
+    </Header>
   );
 }

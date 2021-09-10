@@ -1,177 +1,73 @@
 @import "../config.scss";
 
 .header {
-  height: 70px;
-  background-color: var(--headerBackgroundColor);
-  background-image: var(--headerBackgroundImage);
-  background-size: 100% 70px;
-  background-repeat: repeat-x;
-  color: var(--headerTextColor);
+  .enterprise-support {
+    position: relative;
 
-  .header-content {
-    align-items: center;
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    height: 70px;
+    button.btn {
+      background-color: var(--headerSupportButtonBackgroundColor);
+      border: 1px solid var(--headerSupportButtonBorderColor);
+      border-radius: 0;
+      color: var(--headerSupportButtonTextColor);
+      height: 38px;
+      line-height: 35px;
 
-    .nav-container {
-      display: flex;
-      height: 55px;
-      line-height: 55px;
-
-      & > a {
-        display: inline-block;
-        color: var(--headerMenuLinkTextColor);
-        padding: 0 10px;
-        text-decoration: none;
-        height: 55px;
-        font-size: 1rem;
-        white-space: nowrap;
-
-        svg {
-          transition: transform 0.3s ease-in-out;
-          vertical-align: middle;
-        }
-
-        &:hover svg {
-          transform: translate(-10px);
-        }
+      svg {
+        vertical-align: middle;
       }
-
-
     }
 
-    .quarkus-brand {
-      flex-grow: 1;
-      line-height: 70px;
+    .support-panel {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      z-index: 120;
+      white-space: normal;
+      background-color: var(--headerSupportPanelBackgroundColor);
+      max-height: 0;
+      overflow: hidden;
       display: flex;
+      flex-direction: column;
+      transition: max-height 0.3s ease-in-out;
 
       a {
-        display: inline-block;
-        vertical-align: middle;
-        margin: 0;
-        padding: 0;
+        color: var(--headerSupportPanelTextColor);
+        display: block;
+        line-height: 20px;
+        border-right: 2px solid var(--headerSupportPanelBackgroundColor);
+        white-space: nowrap;
+        padding: 10px 20px;
+        font-weight: bold;
 
-        img {
-          vertical-align: middle;
-          height: 40px;
-          width: auto;
-          margin-top: -3px;
+        &.secondary {
+          font-style: italic;
+          font-weight: normal;
         }
 
-        @media screen and (max-width: $mobileWidth) {
-          margin-left: 20px;
-          img {
-            height: 20px;
-          }
-        }
-      }
-
-      .current-quarkus-stream {
-        display: flex;
-        flex-direction: column;
-        margin-left: 20px;
-        color: var(--headerQuarkusVersionTextColor);
-        font-size: 1.2rem;
-        border-left: 1px solid var(--headerQuarkusVersionBorderColor);
-        text-align: left;
-        padding-left: 5px;
-        height: 40px;
-        margin-top: 15px;
-
-        .platform-key {
-          line-height: 15px;
-          order: 1;
-          font-size: 0.8rem;
-          color: var(--headerQuarkusVersionBorderColor);
+        svg {
+          margin-right: 20px;
+          color: #D73F22;
         }
 
-        .stream-id {
-          order: 0;
-          line-height: 25px;
-          font-size: 1.2rem;
-          font-weight: bold;
-
-        }
-      }
-
-      @media screen and (max-width: $mobileWidth) {
-        .current-quarkus-stream {
-          display: none;
+        &:hover {
+          text-decoration: none;
+          border-color: var(--headerSupportPanelTextColor);
         }
       }
     }
 
-    .enterprise-support {
-      position: relative;
-
-      button.btn {
-        background-color: var(--headerSupportButtonBackgroundColor);
-        border: 1px solid var(--headerSupportButtonBorderColor);
-        border-radius: 0;
-        color: var(--headerSupportButtonTextColor);
-        height: 38px;
-        line-height: 35px;
-
-        svg {
-          vertical-align: middle;
-        }
+    &.opened {
+      button.pf-c-button {
       }
 
       .support-panel {
-        position: absolute;
-        top: 50px;
-        right: 0;
-        z-index: 120;
-        white-space: normal;
-        background-color: var(--headerSupportPanelBackgroundColor);
-        max-height: 0;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        transition: max-height 0.3s ease-in-out;
-
-        a {
-          color: var(--headerSupportPanelTextColor);
-          display: block;
-          line-height: 20px;
-          border-right: 2px solid var(--headerSupportPanelBackgroundColor);
-          white-space: nowrap;
-          padding: 10px 20px;
-          font-weight: bold;
-
-          &.secondary {
-            font-style: italic;
-            font-weight: normal;
-          }
-
-          svg {
-            margin-right: 20px;
-            color: #D73F22;
-          }
-
-          &:hover {
-            text-decoration: none;
-            border-color: var(--headerSupportPanelTextColor);
-          }
-        }
-      }
-
-      &.opened {
-        button.pf-c-button {
-        }
-
-        .support-panel {
-          max-height: 100px;
-        }
-      }
-
-
-      @media screen and (max-width: $mobileWidth) {
-        display: none;
+        max-height: 100px;
       }
     }
 
+
+    @media screen and (max-width: $mobileWidth) {
+      display: none;
+    }
   }
 }
