@@ -158,7 +158,7 @@ code.code {
   background-color: var(--dropdownMenuBg);
   padding: 0;
 
-  button, a {
+  .dropdown-item {
     display: flex;
     height: 30px;
     border: none;
@@ -177,7 +177,7 @@ code.code {
     }
   }
 
-  button:hover, a:hover {
+  .dropdown-item:hover {
     text-decoration: none;
     border-left: 3px solid var(--dropdownMenuTextColor);
   }

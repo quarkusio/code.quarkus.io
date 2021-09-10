@@ -40,9 +40,6 @@ jobs:
       - name: Install library packages
         working-directory: library
         run: npm ci
-      - name: Test library
-        working-directory: library
-        run: npm test
       - name: Build Library
         working-directory: library
         run: npm run build

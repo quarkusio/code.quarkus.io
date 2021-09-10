@@ -28,7 +28,7 @@ test-frontend:
 	cd frontend && npm install && npm test
 
 build-frontend:
-	cd frontend && yarn && yarn build
+	cd frontend && npm install && npm run build
 
 start-frontend:
 	cd frontend && npm run run

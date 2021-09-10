@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "build": "~/bin/bit compile",
-    "test": "~/bin/bit test",
+    "test": "~/bin/bit build",
     "test:watch": "~/bin/bit test -w",
     "tag": " ~/bin/bit tag --all --soft",
     "publish": "~/bin/bit tag --persist && ~/bin/bit export",
