@@ -1,6 +1,7 @@
 .extensions-cart {
   .selected-extensions .alert-warning {
     background-color: transparent;
+    color: var(--dropdownMenuTextColor);
     border: none;
     padding: 0;
   }

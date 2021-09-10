@@ -4,10 +4,22 @@
     white-space: pre-wrap;
     margin: 0;
   }
+
+  p.popover-header.indication {
+    font-style: italic;
+    padding: 5px;
+    width: 290px;
+  }
+}
+
+.copy-to-clipboard-popover.with-content {
+  p.popover-header.indication {
+    width: auto;
+  }
 }
 
 .copy-to-clipboard.code {
-  margin: 10px 0;
+  margin: 0;
   svg {
     float: right;
     margin-top: 8px;
@@ -22,6 +34,4 @@
     display: block;
     padding: 5px;
   }
-
-
 }
