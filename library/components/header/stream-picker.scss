@@ -1,0 +1,38 @@
+@import "../config.scss";
+
+.header {
+  .current-quarkus-stream {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    color: var(--headerQuarkusVersionTextColor);
+    font-size: 1.2rem;
+    border-left: 1px solid var(--headerQuarkusVersionBorderColor);
+    text-align: left;
+    padding-left: 5px;
+    height: 40px;
+    margin-top: 15px;
+
+    .platform-key {
+      line-height: 15px;
+      order: 1;
+      font-size: 0.8rem;
+      color: var(--headerQuarkusVersionBorderColor);
+    }
+
+    .stream-id {
+      order: 0;
+      line-height: 25px;
+      font-size: 1.2rem;
+      font-weight: bold;
+
+    }
+  }
+
+  @media screen and (max-width: $mobileWidth) {
+    .current-quarkus-stream {
+      display: none;
+    }
+  }
+}
+

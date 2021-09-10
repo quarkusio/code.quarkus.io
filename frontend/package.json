@@ -7,7 +7,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "link-library": "npm link ../library/node_modules/@quarkusio/code-quarkus.components && npm link @quarkusio/code-quarkus.components && npm link ../library/node_modules/react && npm link react && npm link ../library/node_modules/react-dom && npm link react-dom",
+    "link-library": "npm link @quarkusio/code-quarkus.components && npm link react && npm link react-dom",
     "run": "http-server build/ --port 3000 --proxy http://0.0.0.0:8080"
   },
   "dependencies": {

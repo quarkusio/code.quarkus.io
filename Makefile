@@ -20,6 +20,7 @@ dev-frontend:
 	cd frontend && npm install && npm start
 
 dev-lib:
+	cd library && npm run link;
 	cd frontend && npm run link-library;
 	cd library && npm run watch;
 

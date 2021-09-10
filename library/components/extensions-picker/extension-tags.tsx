@@ -9,6 +9,10 @@ export function ExtensionTags(props: { name?: string; tagsDef: TagEntry[] }) {
     name: props.name,
     color: "black"
   }
+  if(!!tagDef.href) {
+    return <a href={tagDef.href} target="_blank" rel="noopener noreferrer"  className={`extension-tag ${props.name.toLowerCase()}`} title={tagDef.description}
+              style={{borderColor: tagDef.color}}>{props.name.toUpperCase()}</a>
+  }
   return (<span
     className={`extension-tag ${props.name.toLowerCase()}`}
     title={tagDef.description}
