@@ -93,11 +93,10 @@
   --extensionsPickerSearchClearColor: var(--warningColor);
 
   //Copy to clipboard
-  --copyToClipboardBackgroundColor: var(--background2);
+  --copyToClipboardBackgroundColor: #e0e0e0;
   --copyToClipboardBodyBackgroundColor: #1f1f1f;
-  --copyToClipboardHeaderTextColor: white;
+  --copyToClipboardHeaderTextColor: #5e5e5e;
   --copyToClipboardBodyTextColor: var(--tertiary);
-  --copyToClipboardBorderColor: var(--primary);
 
   // Header
   --headerBackgroundColor: var(--background);

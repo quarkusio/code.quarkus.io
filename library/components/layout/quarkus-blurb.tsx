@@ -60,7 +60,7 @@ export function QuarkusBlurb() {
               id="blurb-not-again-checkbox"
             />
             <Button key="close" variant="secondary" aria-label="Close this popup" onClick={() => close(notAgainCheckboxValue)}>
-              Next
+              Let's start coding!
             </Button>
           </Modal.Footer>
         </Modal>

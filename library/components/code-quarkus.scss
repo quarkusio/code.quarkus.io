@@ -184,35 +184,65 @@ code.code {
 }
 
 .popover.copy-to-clipboard-popover {
-  width: 600px;
+  width: auto;
   max-width: none;
   color: var(--dropdownMenuTextColor);
   background-color: var(--copyToClipboardBackgroundColor);
-  margin-right: 10px;
-  border: 1px solid var(--copyToClipboardBorderColor);
-
+  margin: 9px;
+  border: none;
+  border-radius: 6px;
+  outline: none;
+  .arrow {
+    outline: none;
+  }
   .popover-header {
     font-size: 1rem;
     padding: 10px;
     margin-bottom: 0;
     font-weight: 100;
-    background-color: var(--copyToClipboardBackgroundColor);
+    background-color: transparent;
     border: none;
     color: var(--copyToClipboardHeaderTextColor);
 
     svg {
-      margin-right: 10px;
+      margin-right: 5px;
     }
   }
 
   &.bs-popover-left .arrow {
     position: absolute;
     top: 50%;
-    right: -6px;
+    right: -5px;
     margin-top: -6px;
     border-top: 6px solid transparent;
     border-bottom: 6px solid transparent;
-    border-left: 6px solid var(--copyToClipboardBorderColor);
+    border-left: 6px solid var(--copyToClipboardBackgroundColor);
+    width: 0;
+    height: 0;
+    box-shadow: none;
+  }
+
+  &.bs-popover-right .arrow {
+    position: absolute;
+    top: 50%;
+    left: -5px;
+    margin-top: -6px;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-right: 6px solid var(--copyToClipboardBackgroundColor);
+    width: 0;
+    height: 0;
+  }
+
+  &.bs-popover-bottom .arrow {
+    position: absolute;
+    left: 50%;
+    top: -11px;
+    margin-top: -6px;
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid var(--copyToClipboardBackgroundColor);
     width: 0;
     height: 0;
   }
@@ -220,12 +250,12 @@ code.code {
   &.bs-popover-top .arrow {
     position: absolute;
     left: 50%;
-    bottom: -6px;
+    bottom: -11px;
     margin-bottom: -6px;
     border-right: 6px solid transparent;
     border-left: 6px solid transparent;
     border-bottom: 6px solid transparent;
-    border-top: 6px solid var(--copyToClipboardBorderColor);
+    border-top: 6px solid var(--copyToClipboardBackgroundColor);
     width: 0;
     height: 0;
   }
@@ -235,9 +265,14 @@ code.code {
     border-left: 3px solid var(--copyToClipboardBodyTextColor);
     padding: 10px;
     margin: 10px;
+    margin-top: 0;
     text-align: left;
     font-size: 0.8rem;
     color: var(--copyToClipboardBodyTextColor);
   }
+}
+
+.popover.copy-to-clipboard-popover.with-content {
+  width: 600px;
 }
 
