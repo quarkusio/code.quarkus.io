@@ -4,7 +4,7 @@ import { createLinkTracker, useAnalytics } from '@quarkusio/code-quarkus.core.an
 import classNames from 'classnames';
 import { Button } from 'react-bootstrap';
 import { FaAngleLeft, FaHandsHelping, FaRedhat } from 'react-icons/fa';
-import { Header, HeaderProps } from './header';
+import { CompanyHeader, CodeQuarkusHeaderProps } from './code-quarkus-header';
 
 function SupportButton(prop: {}) {
   const [ opened, open ] = useState(false);
@@ -28,15 +28,15 @@ function SupportButton(prop: {}) {
   );
 }
 
-export function CodeQuarkusIoHeader(props: HeaderProps) {
+export function CodeQuarkusIoHeader(props: CodeQuarkusHeaderProps) {
   const analytics = useAnalytics();
   const linkTracker = createLinkTracker(analytics,'UX', 'Header');
   return (
-    <Header {...props}>
+    <CompanyHeader {...props}>
       <>
         <a href="https://quarkus.io" onClick={linkTracker}><FaAngleLeft/> Back to quarkus.io</a>
         <SupportButton/>
       </>
-    </Header>
+    </CompanyHeader>
   );
 }
