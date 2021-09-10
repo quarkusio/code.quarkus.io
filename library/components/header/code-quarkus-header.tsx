@@ -1,15 +1,18 @@
 import React from 'react';
-import './header.scss';
+import './code-quarkus-header.scss';
 import { createLinkTracker, useAnalytics } from '@quarkusio/code-quarkus.core.analytics';
 import logo from '../media/quarkus-logo.svg';
 import { StreamPicker, StreamPickerProps } from './stream-picker';
 
-export interface HeaderProps {
+export interface CodeQuarkusHeaderProps {
   streamProps: StreamPickerProps;
+}
+
+export interface CompanyHeaderProps extends CodeQuarkusHeaderProps{
   children: JSX.Element;
 }
 
-export function Header(props: HeaderProps) {
+export function CompanyHeader(props: CompanyHeaderProps) {
   const analytics = useAnalytics();
   const linkTracker = createLinkTracker(analytics,'UX', 'Header');
   return (
