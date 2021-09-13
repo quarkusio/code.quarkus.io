@@ -64,7 +64,9 @@
     text-transform: uppercase;
     border: 1px solid black;
   }
-
+  .extension-tag-dropdown .dropdown-menu {
+    padding: 5px;
+  }
   a.extension-tag {
     cursor: pointer;
   }

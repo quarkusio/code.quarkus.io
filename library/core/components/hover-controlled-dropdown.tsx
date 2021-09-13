@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
 
-export default function HoverControlledDropdown(props: any) {
+export function HoverControlledDropdown(props: any) {
   const [ isHovered, setIsHovered ] = useState(false);
   const { onMouseEnter, onMouseLeave, onToggle, ...rest } = props;
   function onMouseEnterFn(e) {
@@ -34,6 +34,4 @@ export default function HoverControlledDropdown(props: any) {
       show={isHovered}
     />
   );
-
-
 }
