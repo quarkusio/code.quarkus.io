@@ -42,7 +42,7 @@ jobs:
         run: npm ci
       - name: Build Library
         working-directory: library
-        run: npm run build
+        run: npm run test
       - name: Link Library
         working-directory: frontend
         run: npm run link-library

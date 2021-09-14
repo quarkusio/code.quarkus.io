@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import './stream-picker.scss';
 import { Platform, Stream } from '../api/model';
 import { normalizeStreamKey } from '../api/quarkus-project-utils';
-import { Alert, Button, Dropdown, Form, Modal, Overlay } from 'react-bootstrap';
-import { FaAngleDown, FaAngleRight, FaCheck, FaStar } from 'react-icons/fa';
-import { HoverControlledDropdown } from '@quarkusio/code-quarkus.core.components';
-import classNames from 'classnames';
+import { Alert, Button, Dropdown, Modal } from 'react-bootstrap';
+import { FaAngleDown, FaCheck } from 'react-icons/fa';
 
 
 const ERROR_STREAM: Stream = { key: 'recommended.not.found:stream', quarkusCoreVersion: 'error', recommended: true }
@@ -72,10 +70,7 @@ export function StreamPicker(props: StreamPickerProps) {
           <Button key="close" variant="primary" aria-label="No" onClick={() => confirmSwitch()}>Yes</Button>
         </Modal.Footer>
       </Modal>}
-      <Dropdown
-        overlay={Overlay}
-        delay={{ show: 200, hide: 0 }}
-        className="stream-picker">
+      <Dropdown className="stream-picker">
         <Dropdown.Toggle className="current-stream" as="div">
           <StreamItem streamKey={stream.key} quarkusCoreVersion={stream.quarkusCoreVersion} recommended={false}/>
           { props.platform.streams.length > 1 && <FaAngleDown />}
