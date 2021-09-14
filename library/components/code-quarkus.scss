@@ -154,7 +154,7 @@ code.code {
   color: white;
 }
 
-.dropdown-menu {
+.quarkus-project-edition-form .dropdown-menu {
   background-color: var(--dropdownMenuBg);
   padding: 0;
 
@@ -168,7 +168,7 @@ code.code {
     padding: 0;
     color: var(--dropdownMenuTextColor);
     background-color: var(--dropdownMenuBg);
-    border-left: 3px solid var(--dropdownMenuBg);
+    border-left: 1px solid var(--dropdownMenuBg);
 
     svg {
       height: 30px;
@@ -179,7 +179,7 @@ code.code {
 
   .dropdown-item:hover {
     text-decoration: none;
-    border-left: 3px solid var(--dropdownMenuTextColor);
+    border-left: 1px solid var(--dropdownMenuTextColor);
   }
 }
 

@@ -34,13 +34,16 @@ export function ConfiguredCodeQuarkus(props: ConfiguredCodeQuarkusProps) {
   }, [ props.config.gaTrackingId ]);
   const Header: React.FC<CodeQuarkusHeaderProps> = props.header || CodeQuarkusIoHeader;
   const platformLoader = () => props.platformApi(props.api, project.streamKey);
+  function setStreamKey(streamKey: string) {
+    setProject({ ...project, streamKey });
+  }
   return (
     <AnalyticsContext.Provider value={analytics}>
       <div className="code-quarkus">
         <DataLoader loader={platformLoader} deps={[ project.streamKey ]}>
           {platform => (
             <>
-              <Header streamProps={{platform:platform, streamKey:project.streamKey, setStreamKey: ()=>{}}} />
+              <Header streamProps={{ platform:platform, streamKey:project.streamKey, setStreamKey, hasSelectedExtension: project.extensions.length > 0 }} />
               <QuarkusProjectFlow {...props} platform={platform} project={project} setProject={setProject} />
             </>
           )}

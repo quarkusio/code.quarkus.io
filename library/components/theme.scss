@@ -103,9 +103,6 @@
   --headerBackgroundImage: url("./media/bg-header.jpg");
   --headerTextColor: white;
 
-  --headerQuarkusVersionTextColor: white;
-  --headerQuarkusVersionBorderColor: var(--primary);
-
   --headerMenuLinkTextColor: white;
 
   --headerMenuStartCodingButtonTextColor: white;
@@ -118,6 +115,15 @@
 
   --headerSupportPanelBackgroundColor: var(--background3);
   --headerSupportPanelTextColor: white;
+
+  // StreamPicker
+  --streamPickerStreamIdTextColor: white;
+  --streamPickerPlatformKeyTextColor: var(--primary);
+  --streamPickerBorderColor: var(--streamPickerPlatformKeyTextColor);
+  --streamPickerDropdownStreamIdTextColor: var(--streamPickerStreamIdTextColor);
+  --streamPickerDropdownPlatformKeyTextColor: var(--streamPickerPlatformKeyTextColor);
+  --streamPickerDropdownBackgroundColor: var(--headerBackgroundColor);
+  --quarkusStreamPickerDropdownBackgroundImage: var(--headerBackgroundImage);
 
   // Blurb
   --blurbBg: #193E62;
