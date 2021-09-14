@@ -74,16 +74,17 @@
     .stream-id {
       color: var(--streamPickerDropdownStreamIdTextColor);
       font-weight: bold;
-      margin-left: 10px;
+      margin-left: 5px;
       line-height: 20px;
-      margin-right: 10px;
+      margin-right: 5px;
       order: 1;
     }
 
     .recommended {
-      color: var(--streamPickerDropdownPlatformKeyTextColor);
-      margin-left: 10px;
+      margin-left: 5px;
+      font-size: 0.8rem;
       order: 3;
+      color: var(--streamPickerDropdownStreamIdTextColor);
     }
   }
 
