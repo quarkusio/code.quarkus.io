@@ -73,7 +73,6 @@ export function StreamPicker(props: StreamPickerProps) {
         </Modal.Footer>
       </Modal>}
       <Dropdown
-        placement="right"
         overlay={Overlay}
         delay={{ show: 200, hide: 0 }}
         className="stream-picker">
