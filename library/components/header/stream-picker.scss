@@ -1,13 +1,23 @@
 @import "../config.scss";
 
-.header {
-  .current-quarkus-stream {
+.stream-picker {
+  z-index: 1500;
+  margin-left: 20px;
+  cursor: pointer;
+  .dropdown-toggle {
+    display: flex;
+
+    svg {
+      margin-top: 28px;
+      margin-left: 10px;
+    }
+  }
+  .current-stream .quarkus-stream {
     display: flex;
     flex-direction: column;
-    margin-left: 20px;
-    color: var(--headerQuarkusVersionTextColor);
+
     font-size: 1.2rem;
-    border-left: 1px solid var(--headerQuarkusVersionBorderColor);
+    border-left: 1px solid var(--streamPickerBorderColor);
     text-align: left;
     padding-left: 5px;
     height: 40px;
@@ -17,7 +27,7 @@
       line-height: 15px;
       order: 1;
       font-size: 0.8rem;
-      color: var(--headerQuarkusVersionBorderColor);
+      color: var(--streamPickerPlatformKeyTextColor);
     }
 
     .stream-id {
@@ -25,14 +35,60 @@
       line-height: 25px;
       font-size: 1.2rem;
       font-weight: bold;
+      color: var(--streamPickerStreamIdTextColor);
+    }
+  }
 
+  .dropdown-menu {
+    margin-top: 5px;
+    background-color: var(--streamPickerDropdownBackgroundColor);
+    background-image: var(--streamPickerDropdownBackgroundImage);
+  }
+  .dropdown-item {
+    line-height: 20px;
+    width: auto;
+    border-left: 3px solid transparent;
+
+    &:hover {
+      border-left: 3px solid var(--streamPickerBorderColor);
+    }
+  }
+
+  .dropdown-item .quarkus-stream {
+    display: flex;
+    padding: 5px 10px;
+
+    .selected svg {
+      font-size: 10px;
+      color: var(--streamPickerDropdownStreamIdTextColor);
+    }
+
+    .platform-key {
+      font-size: 0.8rem;
+      color: var(--streamPickerDropdownPlatformKeyTextColor);
+
+      line-height: 20px;
+      order: 2;
+    }
+
+    .stream-id {
+      color: var(--streamPickerDropdownStreamIdTextColor);
+      font-weight: bold;
+      margin-left: 10px;
+      line-height: 20px;
+      margin-right: 10px;
+      order: 1;
+    }
+
+    .recommended {
+      color: var(--streamPickerDropdownPlatformKeyTextColor);
+      margin-left: 10px;
+      order: 3;
     }
   }
 
   @media screen and (max-width: $mobileWidth) {
-    .current-quarkus-stream {
-      display: none;
-    }
+    display: none;
   }
 }
 

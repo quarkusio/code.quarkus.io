@@ -152,13 +152,22 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               A CDI in name test
             </span>
-            <span
-              class="extension-tag experimental"
-              style="border-color: #ff004a;"
-              title="Early feedback is requested to mature the idea. There is no guarantee of stability nor long term presence in the platform until the solution matures."
+            <div
+              class="extension-tag-dropdown dropdown"
+              delay="[object Object]"
+              placement="right"
             >
-              EXPERIMENTAL
-            </span>
+              <div
+                aria-expanded="false"
+                aria-haspopup="true"
+                class="extension-tag experimental dropdown-toggle"
+                style="border-color: #ff004a;"
+              >
+                <span>
+                  EXPERIMENTAL
+                </span>
+              </div>
+            </div>
           </div>
           <div
             class="extension-description"
@@ -230,13 +239,22 @@ exports[`<ExtensionsPicker /> renders the ExtensionsPicker correctly 1`] = `
             >
               Camel Netty4 test HTTP
             </span>
-            <span
-              class="extension-tag preview"
-              style="border-color: #4695eb;"
-              title="This is work in progress. API or configuration properties might change as the extension matures. Give us your feedback :)"
+            <div
+              class="extension-tag-dropdown dropdown"
+              delay="[object Object]"
+              placement="right"
             >
-              PREVIEW
-            </span>
+              <div
+                aria-expanded="false"
+                aria-haspopup="true"
+                class="extension-tag preview dropdown-toggle"
+                style="border-color: #4695eb;"
+              >
+                <span>
+                  PREVIEW
+                </span>
+              </div>
+            </div>
           </div>
           <div
             class="extension-description"
@@ -366,13 +384,22 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
             >
               Camel Netty4 test HTTP
             </span>
-            <span
-              class="extension-tag preview"
-              style="border-color: #4695eb;"
-              title="This is work in progress. API or configuration properties might change as the extension matures. Give us your feedback :)"
+            <div
+              class="extension-tag-dropdown dropdown"
+              delay="[object Object]"
+              placement="right"
             >
-              PREVIEW
-            </span>
+              <div
+                aria-expanded="false"
+                aria-haspopup="true"
+                class="extension-tag preview dropdown-toggle"
+                style="border-color: #4695eb;"
+              >
+                <span>
+                  PREVIEW
+                </span>
+              </div>
+            </div>
           </div>
           <div
             class="extension-description"
@@ -568,13 +595,22 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
             >
               A CDI in name test
             </span>
-            <span
-              class="extension-tag experimental"
-              style="border-color: #ff004a;"
-              title="Early feedback is requested to mature the idea. There is no guarantee of stability nor long term presence in the platform until the solution matures."
+            <div
+              class="extension-tag-dropdown dropdown"
+              delay="[object Object]"
+              placement="right"
             >
-              EXPERIMENTAL
-            </span>
+              <div
+                aria-expanded="false"
+                aria-haspopup="true"
+                class="extension-tag experimental dropdown-toggle"
+                style="border-color: #ff004a;"
+              >
+                <span>
+                  EXPERIMENTAL
+                </span>
+              </div>
+            </div>
           </div>
           <div
             class="extension-description"

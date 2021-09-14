@@ -1,19 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
-import {ExtensionEntry, TagEntry} from './extensions-picker';
+import { ExtensionEntry, TagEntry } from './extensions-picker';
 import { ExtensionTags } from './extension-tags';
 import { ExtensionMoreDropdown } from './extension-more-dropdown';
 import { FaRegCheckSquare, FaRegSquare, FaTrashAlt } from 'react-icons/fa';
 import './extension-row.scss';
 
 export interface ExtensionRowProps extends ExtensionEntry {
-    selected?: boolean;
-    keyboardActived?: boolean;
-    pickerLayout?: boolean;
-    buildTool?: string;
-    tagsDef: TagEntry[];
+  selected?: boolean;
+  keyboardActived?: boolean;
+  pickerLayout?: boolean;
+  buildTool?: string;
+  tagsDef: TagEntry[];
 
-    onClick(id: string): void;
+  onClick(id: string): void;
 }
 
 export function ExtensionRow(props: ExtensionRowProps) {
@@ -21,7 +21,7 @@ export function ExtensionRow(props: ExtensionRowProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   function scrollIntoView() {
-    if(ref.current) {
+    if (ref.current) {
       ref.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
     }
   }
@@ -38,7 +38,7 @@ export function ExtensionRow(props: ExtensionRowProps) {
   };
 
   useEffect(() => {
-    if(props.keyboardActived) {
+    if (props.keyboardActived) {
       scrollIntoView();
     }
   }, [ props.keyboardActived ])
@@ -65,7 +65,7 @@ export function ExtensionRow(props: ExtensionRowProps) {
 
       <div className="extension-summary">
         <span className="extension-name" title={`${props.name} (${props.version})`}>{props.name}</span>
-        {props.tags && props.tags.map((s, i) => <ExtensionTags key={i} tagsDef={props.tagsDef} name={s}/>)}
+        {props.tags && props.tags.map((s, i) => <ExtensionTags key={i} tagsDef={props.tagsDef} name={s} hover={hover}/>)}
       </div>
 
       {!props.pickerLayout && (
@@ -82,7 +82,7 @@ export function ExtensionRow(props: ExtensionRowProps) {
             className="extension-description" title={description}
           >{description}</div>
           <div className="extension-more">
-            <ExtensionMoreDropdown {...props} active={hover} />
+            <ExtensionMoreDropdown {...props} active={hover}/>
           </div>
         </React.Fragment>
       )}
