@@ -3,10 +3,9 @@ import './quarkus-project-edition-form.scss';
 import { ExtensionEntry, ExtensionsPicker } from '../extensions-picker/extensions-picker';
 import { InfoPicker, isValidInfo } from '../info-picker/info-picker';
 import { GenerateButton } from '../generate-project/generate-button';
-import { Config, Platform, QuarkusProject } from '../api/model';
+import { Config, Extension, Platform, QuarkusProject } from '../api/model';
 import {
   debouncedSyncParamsQuery,
-  mapExtensions,
   resolveInitialFilterQueryParam,
   Target
 } from '../api/quarkus-project-utils';
@@ -15,6 +14,7 @@ import { Api } from '../api/code-quarkus-api';
 
 interface CodeQuarkusFormProps {
   project: QuarkusProject;
+  selectedExtensions: Extension[];
   platform: Platform;
   setProject: React.Dispatch<SetStateAction<QuarkusProject>>;
   config: Config;
@@ -27,7 +27,6 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
   const [ filter, setFilter ] = useState(resolveInitialFilterQueryParam());
   const setProject = props.setProject;
 
-  const selectedExtensions = mapExtensions(props.platform.extensions, props.project.extensions);
   const setMetadata = (metadata: any) => {
     setIsProjectValid(isValidInfo(metadata));
     setProject((prev) => ({ ...prev, metadata }));
@@ -54,7 +53,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
             <InfoPicker value={props.project.metadata} onChange={setMetadata} />
           </div>
           <div className="generate-project">
-            <ExtensionsCart  value={{ extensions: selectedExtensions }} onChange={setExtensions} tagsDef={props.platform.tagsDef}/>
+            <ExtensionsCart  value={{ extensions: props.selectedExtensions }} onChange={setExtensions} tagsDef={props.platform.tagsDef}/>
             <GenerateButton api={props.api} project={props.project} generate={save} isProjectValid={isProjectValid} githubClientId={props.config.gitHubClientId}/>
           </div>
         </div>
@@ -63,7 +62,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
         <ExtensionsPicker
           entries={props.platform.extensions as ExtensionEntry[]}
           tagsDef={props.platform.tagsDef}
-          value={{ extensions: selectedExtensions }}
+          value={{ extensions: props.selectedExtensions }}
           onChange={setExtensions}
           placeholder="Search & Pick extensions: jaxrs, hibernate, reactive, web, data..."
           buildTool={props.project.metadata.buildTool}

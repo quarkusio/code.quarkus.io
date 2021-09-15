@@ -13,6 +13,8 @@ import { ConfiguredCodeQuarkusProps } from '../code-quarkus';
 import { ErrorModal } from '../modals/error-modal';
 import { Platform, QuarkusProject, Tag } from '../api/model';
 import { Api } from '../api/code-quarkus-api';
+import { Alert, Button, Modal } from 'react-bootstrap';
+import { MissingExtensionWarningModal } from '../layout/missing-extension-warning-modal';
 
 enum Status {
   EDITION = 'EDITION', RUNNING = 'RUNNING', ERROR = 'ERROR', DOWNLOADED = 'DOWNLOADED'
@@ -33,6 +35,7 @@ interface QuarkusProjectFlowProps extends ConfiguredCodeQuarkusProps {
 
 export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
   const [ run, setRun ] = useState<RunState>({ status: Status.EDITION });
+  const [ mappingWarning, setMappingWarning ] = useState<boolean | undefined>(undefined);
   const analytics = useAnalytics();
 
   const generate = (target: Target = Target.DOWNLOAD) => {
@@ -65,18 +68,28 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
     }
   };
 
+  const mappedExtensions = mapExtensions(props.platform.extensions, props.project.extensions);
+  
+  useEffect(() => {
+    if(mappingWarning === undefined && mappedExtensions.missing.length > 0) {
+      setMappingWarning(true);
+      props.setProject((prev) => ({ ...prev, extensions: mappedExtensions.mapped.map(e => e.id) }));
+    }
+  }, [ mappingWarning, mappedExtensions.missing ]);
+  
   return (
     <>
-      <CodeQuarkusForm api={props.api} project={props.project} setProject={props.setProject} config={props.config} onSave={generate} platform={props.platform}/>
+      <CodeQuarkusForm api={props.api} project={props.project} setProject={props.setProject} config={props.config} onSave={generate} platform={props.platform} selectedExtensions={mappedExtensions.mapped}/>
       {!run.error && run.status === Status.RUNNING && (
         <LoadingModal/>
       )}
       {!run.error && run.status === Status.DOWNLOADED && (
-        <NextStepsModal onClose={closeModal} result={run.result} buildTool={props.project.metadata.buildTool} extensions={mapExtensions(props.platform.extensions, props.project.extensions)}/>
+        <NextStepsModal onClose={closeModal} result={run.result} buildTool={props.project.metadata.buildTool} extensions={mappedExtensions.mapped}/>
       )}
       {run.error && (
         <ErrorModal onHide={() => closeModal(false)} error={run.error}/>
       )}
+      {!!mappingWarning && <MissingExtensionWarningModal mappedExtensions={mappedExtensions} platform={props.platform} setMappingWarning={setMappingWarning} project={props.project} />}
     </>
   );
 

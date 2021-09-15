@@ -43,7 +43,7 @@ export function ConfiguredCodeQuarkus(props: ConfiguredCodeQuarkusProps) {
         <DataLoader loader={platformLoader} deps={[ project.streamKey ]}>
           {platform => (
             <>
-              <Header streamProps={{ platform:platform, streamKey:project.streamKey, setStreamKey, hasSelectedExtension: project.extensions.length > 0 }} />
+              <Header streamProps={{ platform:platform, streamKey:project.streamKey, setStreamKey }} />
               <QuarkusProjectFlow {...props} platform={platform} project={project} setProject={setProject} />
             </>
           )}

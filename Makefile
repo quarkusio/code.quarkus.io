@@ -23,7 +23,7 @@ test-lib:
 	cd library && yarn test
 
 tag-lib:
-	cd library && yarn tag
+	cd library && yarn run tag
 
 link-lib:
 	cd library && yarn run link;

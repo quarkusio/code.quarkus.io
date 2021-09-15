@@ -38,6 +38,11 @@ export interface Extension {
   bom?: string;
 }
 
+export interface PlatformMappedExtensions {
+  mapped: Extension[];
+  missing: string[];
+}
+
 export interface Platform {
   extensions: Extension[];
   streams: Stream[];
