@@ -53,7 +53,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Update library in frontend
         working-directory: frontend
-        run: npm install @quarkusio/code-quarkus.components@latest
+        run: yarn upgrade @quarkusio/code-quarkus.components --latest
       - name: Check for .bitmap changes
         run: |
           if git diff --exit-code ./library/.bitmap; then
