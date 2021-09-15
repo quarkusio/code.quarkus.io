@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject",
-    "link-library": "npm link @quarkusio/code-quarkus.components && npm link react && npm link react-dom",
+    "link-library": "yarn link @quarkusio/code-quarkus.components && yarn link react && yarn link react-dom",
+    "unlink-library": "yarn unlink @quarkusio/code-quarkus.components && yarn unlink react && yarn unlink react-dom && yarn --check-files",
     "run": "http-server build/ --port 3000 --proxy http://0.0.0.0:8080"
   },
   "dependencies": {
@@ -39,5 +40,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-app-rewired": "2.1.8"
   }
 }

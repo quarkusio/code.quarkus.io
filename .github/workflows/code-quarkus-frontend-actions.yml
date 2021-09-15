@@ -25,12 +25,14 @@ jobs:
       - uses: n1hility/cancel-previous-runs@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/cache@v2
+      - name: Cache Yarn Packages
+        id: yarn-cache
+        uses: actions/cache@v1
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: /.cache/yarn
+          key: ${{ runner.os }}-yarn-${{ hashFiles('frontend/yarn.lock', 'lib/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-yarn-
       - uses: actions/cache@v2
         with:
           path: ~/.bvm
@@ -39,16 +41,19 @@ jobs:
             ${{ runner.os }}-bvm-bit
       - name: Install library packages
         working-directory: library
-        run: npm ci
+        run: yarn install --frozen-lockfile
       - name: Build Library
         working-directory: library
-        run: npm run test
+        run: |
+          yarn test
+          yarn build
+          yarn run link
       - name: Link Library
         working-directory: frontend
-        run: npm run link-library
+        run: yarn run link-library
       - name: Install frontend
         working-directory: frontend
-        run: npm ci
+        run: yarn install --frozen-lockfile
       - name: Build frontend
         working-directory: frontend
-        run: npm run build
+        run: yarn build
