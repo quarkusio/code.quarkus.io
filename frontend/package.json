@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "link-library": "yarn link @quarkusio/code-quarkus.components && yarn link react && yarn link react-dom",
     "unlink-library": "yarn unlink @quarkusio/code-quarkus.components && yarn unlink react && yarn unlink react-dom && yarn --check-files",
