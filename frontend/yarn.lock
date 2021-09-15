@@ -1537,13 +1537,13 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.10.1.tgz#728ecd95ab207aab8a9a4e421f0422db329232be"
   integrity sha512-HnUhk1Sy9IuKrxEMdIRCxpIqPw6BFsbYSEUO9p/hNw5sMld/+3OLMWQP80F8/db9qsv3qUjs7ZR5bS/R+iinXw==
 
-"@quarkusio/code-quarkus.components@0.0.12":
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/@quarkusio/code-quarkus.components/-/code-quarkus.components-0.0.12.tgz#22f30fc44a73202869000fb402f18e129fb03cbe"
-  integrity sha512-qJAS67njjs+NDt9o1q+AauDd9msoUYjqZxOY8EFYhtM7eDuXTtUsrHmxbKnK4SxE7NtkiMAoorkf8wm1r1Urzw==
+"@quarkusio/code-quarkus.components@0.0.13":
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/@quarkusio/code-quarkus.components/-/code-quarkus.components-0.0.13.tgz#4a7484c8622a4cb962f6705a50fadecf76aaa919"
+  integrity sha512-+ZSFixbk7EpcA4KW3sdGbbTWvCM2fg5oBn3rCWUPoO/1OoobgG1Fu/AHu7MXjFAtH7fOZf/TJmoCQcYZFr/lEw==
   dependencies:
     "@quarkusio/code-quarkus.core.analytics" "0.0.1"
-    "@quarkusio/code-quarkus.core.components" "0.0.3"
+    "@quarkusio/code-quarkus.core.components" "0.0.4"
     "@quarkusio/code-quarkus.core.types" "0.0.1"
     classnames "2.3.1"
     core-js "^3.0.0"
@@ -1561,10 +1561,10 @@
     core-js "^3.0.0"
     lodash "4.17.21"
 
-"@quarkusio/code-quarkus.core.components@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@quarkusio/code-quarkus.core.components/-/code-quarkus.core.components-0.0.3.tgz#2f8159196aa721111206d2d22a8e27c1cb78660f"
-  integrity sha512-UXQzf6yCpyomXHiKdfISYx/+lrLfjzG6y4yRCLR73pwB+5dLh2xTVD2AgujnjRioExTeBtM9k0JFhWXEAozF3A==
+"@quarkusio/code-quarkus.core.components@0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@quarkusio/code-quarkus.core.components/-/code-quarkus.core.components-0.0.4.tgz#bacb2f984b69e3181ac4f3ab91c31bbd12129cca"
+  integrity sha512-xQJqeK0Zr2DHN4Valg7KIFkc876hI/11iz/2vQ5+FspN3T6jRMF0dhtwvCN/bOzjUUC/nfsv2rdYEcs1/5Mjzw==
   dependencies:
     "@quarkusio/code-quarkus.core.analytics" "0.0.1"
     "@sentry/browser" "6.11.0"
