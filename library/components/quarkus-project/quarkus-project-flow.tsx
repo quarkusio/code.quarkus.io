@@ -52,6 +52,9 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
     }).catch((error: any) => {
       setRun((prev) => ({ status: Status.ERROR, error }));
     });
+    if (target === Target.GITHUB) {
+      props.setProject(prev => ({ ...prev, github: undefined }));
+    }
   };
 
   useEffect(() => {
