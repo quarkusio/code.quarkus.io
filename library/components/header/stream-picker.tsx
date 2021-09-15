@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './stream-picker.scss';
 import { Platform, Stream } from '../api/model';
 import { normalizeStreamKey } from '../api/quarkus-project-utils';
-import { Alert, Button, Dropdown, Modal } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import { FaAngleDown, FaCheck } from 'react-icons/fa';
+import { useAnalytics } from '@quarkusio/code-quarkus.core.analytics';
 
 
 const ERROR_STREAM: Stream = { key: 'recommended.not.found:stream', quarkusCoreVersion: 'error', recommended: true }
@@ -25,7 +26,6 @@ export interface StreamPickerProps {
   platform: Platform;
   streamKey?: string;
   setStreamKey: (string?) => void;
-  hasSelectedExtension: boolean;
 }
 
 function StreamItem(props: { streamKey: string; quarkusCoreVersion: string; recommended: boolean; selected?: boolean; }) {
@@ -41,35 +41,15 @@ function StreamItem(props: { streamKey: string; quarkusCoreVersion: string; reco
 }
 
 export function StreamPicker(props: StreamPickerProps) {
-  const [ switchStream, setSwitchStream ] = useState<Stream | undefined>();
+  const analytics = useAnalytics();
   const recommendedStream = getRecommendedStream(props.platform);
   const stream = getProjectStream(props.platform, props.streamKey) || recommendedStream;
-  function showWarning(s: Stream) {
-    if(props.hasSelectedExtension) {
-      setSwitchStream(s);
-    } else {
-      props.setStreamKey(s.key);
-    }
-  }
-  function confirmSwitch() {
-    if(switchStream) {
-      props.setStreamKey(switchStream!.key);
-      setSwitchStream(undefined);
-    }
+  function setStreamKey(s: Stream) {
+    props.setStreamKey(s.key);
+    analytics.event('UX', 'Stream Picker', s.key);
   }
   return (
     <>
-      {!!switchStream && <Modal className="code-quarkus-modal"
-        show={true}>
-        <Modal.Header>Do you want to change the Quarkus Stream</Modal.Header>
-        <Modal.Body>
-          <Alert variant="info">When changing stream, the list of extension could change, some extension might get unselected.</Alert>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button key="close" variant="secondary" aria-label="Close this popup" onClick={() => setSwitchStream(undefined)}>No</Button>
-          <Button key="close" variant="primary" aria-label="No" onClick={() => confirmSwitch()}>Yes</Button>
-        </Modal.Footer>
-      </Modal>}
       <Dropdown className="stream-picker">
         <Dropdown.Toggle className="current-stream" as="div">
           <StreamItem streamKey={stream.key} quarkusCoreVersion={stream.quarkusCoreVersion} recommended={false}/>
@@ -77,7 +57,7 @@ export function StreamPicker(props: StreamPickerProps) {
         </Dropdown.Toggle>
         <Dropdown.Menu>
           {props.platform.streams.map((s, i) => (
-            <Dropdown.Item as="div" key={i} onClick={() => s !== stream && showWarning(s)}>
+            <Dropdown.Item as="div" key={i} onClick={() => s !== stream && setStreamKey(s)}>
               <StreamItem streamKey={s.key} quarkusCoreVersion={s.quarkusCoreVersion} recommended={s.recommended} selected={s === stream}/>
             </Dropdown.Item>
           ))}

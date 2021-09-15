@@ -1,42 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`quarkus-project map extensions: mappedExtensions 1`] = `
-Array [
-  Object {
-    "category": "Core",
-    "default": false,
-    "description": "Build time CDI dependency injection",
-    "id": "io.quarkus:quarkus-arc",
-    "keywords": Array [
-      "arc",
-      "cdi",
-      "dependency-injection",
-      "di",
-      "label",
-    ],
-    "name": "ArC",
-    "order": 0,
-    "shortName": "CDI",
-    "tags": Array [],
-    "version": "test-version",
-  },
-  Object {
-    "category": "Integration",
-    "default": false,
-    "description": "Camel support for Netty",
-    "id": "io.quarkus:quarkus-camel-netty4-http",
-    "keywords": Array [
-      "camel-netty4-http",
-      "camel",
-    ],
-    "name": "Camel Netty4 test HTTP",
-    "order": 2,
-    "tags": Array [
-      "preview",
-    ],
-    "version": "test-version",
-  },
-]
+Object {
+  "mapped": Array [
+    Object {
+      "category": "Core",
+      "default": false,
+      "description": "Build time CDI dependency injection",
+      "id": "io.quarkus:quarkus-arc",
+      "keywords": Array [
+        "arc",
+        "cdi",
+        "dependency-injection",
+        "di",
+        "label",
+      ],
+      "name": "ArC",
+      "order": 0,
+      "shortName": "CDI",
+      "tags": Array [],
+      "version": "test-version",
+    },
+    Object {
+      "category": "Integration",
+      "default": false,
+      "description": "Camel support for Netty",
+      "id": "io.quarkus:quarkus-camel-netty4-http",
+      "keywords": Array [
+        "camel-netty4-http",
+        "camel",
+      ],
+      "name": "Camel Netty4 test HTTP",
+      "order": 2,
+      "tags": Array [
+        "preview",
+      ],
+      "version": "test-version",
+    },
+  ],
+  "missing": Array [],
+}
 `;
 
 exports[`quarkus-project parseProjectInQuery correctly with github: github 1`] = `

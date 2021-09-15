@@ -1,6 +1,6 @@
 import { parse, ParsedUrlQuery, stringify } from 'querystring';
 import { createGitHubProject } from './code-quarkus-github-api';
-import { Extension, QuarkusProject } from './model';
+import { Extension, PlatformMappedExtensions, QuarkusProject } from './model';
 import _ from 'lodash';
 import { Api } from './code-quarkus-api';
 
@@ -232,9 +232,15 @@ function normalizeQueryExtensions(queryExtensions: undefined | string | string[]
     .map(e => toShortcut(e)));
 }
 
-export function mapExtensions(catalog: Extension[], extensions: string[]): Extension[] {
-  const eSet = new Set(extensions.map(e => toShortcut(e)));
-  return  _.uniqBy(catalog.filter(e => eSet.has(toShortcut(e.id))), e => e.id);
+export function mapExtensions(catalog: Extension[], extensions: string[]): PlatformMappedExtensions {
+  const selected = extensions.map(e => toShortcut(e));
+  const catalogMap = new Map(catalog.map(e => [ toShortcut(e.id), e ]));
+  const missing = extensions.filter(id => !catalogMap.has(toShortcut(id)))
+  let mapped = selected.filter(id => catalogMap.has(id)).map(id => catalogMap.get(id));
+  return  {
+    mapped,
+    missing
+  };
 }
 
 export function parseProjectInQuery(queryParams?: ParsedUrlQuery): QuarkusProject | undefined {

@@ -37,7 +37,14 @@
   .form {
     display: grid;
     grid-gap: 10px;
-
+    .form-group-select {
+      cursor: pointer;
+      svg {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+      }
+    }
     .form-group {
       position: relative;
       font-family: overpass,open sans,-apple-system,blinkmacsystemfont,Segoe UI,roboto,Helvetica Neue,arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
@@ -82,6 +89,7 @@
         font-family: var(--inputFont);
         padding-bottom: 4px;
         padding-right: 30px;
+        -webkit-appearance:none;
       }
 
       select.form-group-control > option {
