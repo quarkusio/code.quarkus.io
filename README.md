@@ -33,10 +33,11 @@ make unlink-lib
 
 ## @quarkusio/code-quarkus library NPM packages
 
-https://www.npmjs.com/package/@quarkusio/code-quarkus.components
-https://www.npmjs.com/package/@quarkusio/code-quarkus.core.analytics
-https://www.npmjs.com/package/@quarkusio/code-quarkus.core.components
-https://www.npmjs.com/package/@quarkusio/code-quarkus.core.types
+- https://www.npmjs.com/package/@quarkusio/code-quarkus.components
+- https://www.npmjs.com/package/@quarkusio/code-quarkus.core.analytics
+- https://www.npmjs.com/package/@quarkusio/code-quarkus.core.components
+- https://www.npmjs.com/package/@quarkusio/code-quarkus.core.types
+
 
 
 On your PR which contains the changes, run (before committing):
