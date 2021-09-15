@@ -16,13 +16,32 @@ build-api:
 docker-build-api:
 	cd api && docker build -f src/main/docker/Dockerfile.multistage -t quay.io/quarkus/code-quarkus-api .
 
+build-lib:
+	cd library && yarn && yarn build
+
+test-lib:
+	cd library && yarn test
+
+tag-lib:
+	cd library && yarn tag
+
+link-lib:
+	cd library && yarn run link;
+	cd frontend && yarn run link-library;
+
+unlink-lib:
+	cd library && yarn && yarn run unlink;
+	cd frontend && yarn && yarn run unlink-library;
+
 dev-frontend:
 	cd frontend && yarn && yarn start
 
-dev-lib:
-	cd library && yarn && yarn run link;
-	cd frontend && yarn && yarn run link-library;
+watch-lib:
+	make build-lib
 	cd library && yarn run watch;
+
+dev-lib:
+	make -j2 watch-lib dev-frontend
 
 test-frontend:
 	cd frontend && yarn && yarn test
@@ -35,15 +54,6 @@ start-frontend:
 
 docker-build-frontend:
 	cd frontend && docker build -f docker/Dockerfile.multistage -t quay.io/quarkus/code-quarkus-frontend .
-
-dev:
-	make -j3 dev-api dev-lib dev-frontend
-
-build:
-	make -j2 build-api build-frontend
-
-start:
-	make -j2 start-api start-frontend
 
 compose:
 	docker-compose up

@@ -33,7 +33,7 @@ function StreamItem(props: { streamKey: string; quarkusCoreVersion: string; reco
   return (
     <div className="quarkus-stream" title={`Quarkus core version: ${props.quarkusCoreVersion}`}>
       {props.selected && <span className="selected"><FaCheck /></span>}
-      <span className="platform-key">tutu</span>
+      <span className="platform-key">{streamKeys[0]}</span>
       <span className="stream-id">{streamKeys[1]}</span>
       {props.recommended && <span className="recommended">(recommended)</span>}
     </div>

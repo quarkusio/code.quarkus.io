@@ -7,16 +7,44 @@
 
 Have a look to the Makefile to find the most used dev commands.
 
-Use this command to start frontend and api together in dev mode (on: http://0.0.0.0:3000).
+In one terminal tab, use this command to start backend in dev mode (on: http://0.0.0.0:8080).
 ```
-make dev
+make dev-api
 ```
 
-Use this command to start frontend and api together in packaged mode (on: http://0.0.0.0:3000).
+Or use those command to start the api in packaged mode (on: http://0.0.0.0:8080).
 ```
-make build
-make start
+make build-api
+make start-api
 ```
+
+In the another terminal tab, use those commands to link the library and then start frontend in dev mode also watching for changes in the lib (on: http://0.0.0.0:3000).
+```
+make link-lib
+make dev-lib
+```
+
+If you want to unlink the local library and use the npm package library in the frontend:
+```
+make unlink-lib
+```
+
+# Publishing a change in the library to npm
+
+## @quarkusio/code-quarkus library NPM packages
+
+https://www.npmjs.com/package/@quarkusio/code-quarkus.components
+https://www.npmjs.com/package/@quarkusio/code-quarkus.core.analytics
+https://www.npmjs.com/package/@quarkusio/code-quarkus.core.components
+https://www.npmjs.com/package/@quarkusio/code-quarkus.core.types
+
+
+On your PR which contains the changes, run (before committing):
+```
+make tag-lib
+```
+
+It will automatically change the `.bitmap` file, which will trigger a GH action when the PR gets merged to publish a new version in npm.
 
 # Staging
 
