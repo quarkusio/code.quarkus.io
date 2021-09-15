@@ -11,15 +11,9 @@
 {
     "components": {
         "scope": "quarkusio.code-quarkus",
-        "version": "0.0.12",
+        "version": "0.0.13",
         "mainFile": "index.ts",
         "rootDir": "components",
-        "nextVersion": {
-            "version": "patch",
-            "message": "",
-            "username": "Andy Damevin",
-            "email": "ia3andy@gmail.com"
-        }
     },
     "core/analytics": {
         "scope": "quarkusio.code-quarkus",
@@ -29,15 +23,9 @@
     },
     "core/components": {
         "scope": "quarkusio.code-quarkus",
-        "version": "0.0.3",
+        "version": "0.0.4",
         "mainFile": "index.ts",
         "rootDir": "core/components",
-        "nextVersion": {
-            "version": "patch",
-            "message": "",
-            "username": "Andy Damevin",
-            "email": "ia3andy@gmail.com"
-        }
     },
     "core/types": {
         "scope": "quarkusio.code-quarkus",

@@ -43,12 +43,12 @@ jobs:
             ${{ runner.os }}-bvm-bit
       - name: Install library packages
         working-directory: library
-        run: npm install
+        run: yarn --frozen-lockfile
       - name: Publish Library
         working-directory: library
         run: |
-          npm run ci-config
-          npm run publish
+          yarn ci-config
+          yarn run publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Update library in frontend
@@ -67,7 +67,7 @@ jobs:
           git config --global user.name '${{ github.actor }}'
           git config --global user.email '${{ github.actor }}@users.noreply.github.com'
           git add frontend/package.json
-          git add frontend/package-lock.json
+          git add frontend/yarn.lock
           git add library/.bitmap
           git commit -m "[npm-release] Automated release @quarkusio/code-quarkus library to npm"
           git push
