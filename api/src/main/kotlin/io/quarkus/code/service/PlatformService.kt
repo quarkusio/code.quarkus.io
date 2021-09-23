@@ -7,6 +7,7 @@ import io.quarkus.devtools.project.QuarkusProjectHelper
 import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.code.model.ProjectDefinition
 import io.quarkus.code.model.Stream
+import io.quarkus.code.model.StreamStatus
 import io.quarkus.registry.Constants
 import java.util.HashMap
 import io.quarkus.registry.catalog.PlatformCatalog
@@ -76,13 +77,7 @@ class PlatformService {
         get() = platformsCache.recommendedStreamKey
 
     val streams: List<Stream>
-        get() = platformServiceCacheRef.get().streamCatalogMap.map {
-            Stream(
-                key = it.key,
-                quarkusCoreVersion = it.value.quarkusCoreVersion,
-                recommended = it.value.recommended
-            )
-        }
+        get() = platformServiceCacheRef.get().streams
 
     val streamKeys: Set<String>
         get() = platformServiceCacheRef.get().streamCatalogMap.keys
@@ -120,6 +115,7 @@ class PlatformService {
            return
         }
         val platforms = platformCatalog.platforms
+        val streams = arrayListOf<Stream>()
         for (platform in platforms) {
             for (stream in platform.streams) {
                 // Stream Map
@@ -130,7 +126,7 @@ class PlatformService {
                 val platformKey = platform.platformKey
                 val streamId = stream.id
                 val streamKey = createStreamKey(platformKey, streamId)
-                updatedStreamCatalogMap[streamKey] = PlatformInfo(
+                val platformInfo = PlatformInfo(
                     platformKey = platformKey,
                     streamKey = streamKey,
                     quarkusCoreVersion = stream.recommendedRelease.quarkusCoreVersion,
@@ -138,6 +134,13 @@ class PlatformService {
                     codeQuarkusExtensions = codeQuarkusExtensions,
                     extensionCatalog = extensionCatalog
                 )
+                streams.add(Stream(
+                    key = streamKey,
+                    quarkusCoreVersion = platformInfo.quarkusCoreVersion,
+                    recommended = platformInfo.recommended,
+                    status = getStreamStatus(platformInfo)
+                ))
+                updatedStreamCatalogMap[streamKey] = platformInfo
             }
         }
         val newCache = PlatformServiceCache(
@@ -148,7 +151,8 @@ class PlatformService {
             platformCatalog = platformCatalog,
             streamCatalogMap = updatedStreamCatalogMap,
             cacheLastUpdated = LocalDateTime.now(ZoneOffset.UTC as ZoneId),
-            platformTimestamp = platformTimestamp
+            platformTimestamp = platformTimestamp,
+            streams = streams.sortedBy { it.key }
         )
 
         checkNewCache(newCache)
@@ -208,6 +212,14 @@ class PlatformService {
 
     }
 
+    private fun getStreamStatus(platformInfo: PlatformInfo): StreamStatus {
+        return if(platformInfo.quarkusCoreVersion.contains("final", true)) {
+            StreamStatus.FINAL
+        } else {
+            StreamStatus.CR
+        }
+    }
+
     private fun createStreamKey(platformKey: String, streamId: String): String {
         return platformKey + SEPARATOR + streamId
     }
@@ -229,6 +241,7 @@ class PlatformService {
 
     data class PlatformServiceCache(
         val recommendedStreamKey: String,
+        val streams: List<Stream>,
         val platformCatalog: PlatformCatalog,
         val streamCatalogMap: MutableMap<String, PlatformInfo>,
         val cacheLastUpdated: LocalDateTime,

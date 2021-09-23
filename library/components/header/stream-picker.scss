@@ -58,7 +58,13 @@
     display: flex;
     padding: 5px 10px;
 
+    .unselected {
+      display: inline-block;
+      width: 10px;
+    }
+
     .selected svg {
+      width: 10px;
       font-size: 10px;
       color: var(--streamPickerDropdownStreamIdTextColor);
     }
@@ -79,12 +85,22 @@
       margin-right: 5px;
       order: 1;
     }
-
-    .recommended {
+    .tag {
       margin-left: 5px;
       font-size: 0.8rem;
       order: 3;
+      padding: 0 2px;
+      height: 20px;
+      line-height: 20px;
+      white-space: nowrap;
       color: var(--streamPickerDropdownStreamIdTextColor);
+      text-transform: uppercase;
+    }
+
+    &.cr {
+      .tag, .stream-id, .platform-key {
+        color: var(--streamPickerDropdownCRTextColor);
+      }
     }
   }
 

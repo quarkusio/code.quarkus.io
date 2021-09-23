@@ -10,7 +10,8 @@ const fetchPlatform = async (api: Api, streamKey?: string) => (
       {
         'key': 'io.quarkus.platform:2.0',
         'recommended': true,
-        'quarkusCoreVersion': '2.0.0.Final'
+        'quarkusCoreVersion': '2.0.0.Final',
+        'status': 'FINAL'
       }
     ],
     'extensions': [
