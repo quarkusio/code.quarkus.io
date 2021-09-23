@@ -53,6 +53,7 @@ export interface Stream {
   key: string;
   quarkusCoreVersion: string;
   recommended: boolean;
+  status: string;
 }
 
 export interface Config {
