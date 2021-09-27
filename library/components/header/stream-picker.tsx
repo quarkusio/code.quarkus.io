@@ -29,15 +29,19 @@ export interface StreamPickerProps {
   setStreamKey: (string?) => void;
 }
 
-function StreamItem(props: { streamKey: string; quarkusCoreVersion: string; recommended: boolean; selected?: boolean; status: string }) {
+function StreamItem(props: { streamKey: string; quarkusCoreVersion?: string; recommended: boolean; selected?: boolean; status?: string }) {
   const streamKeys = props.streamKey.split(':');
+  let status = props.status?.toLowerCase();
+  if(!status) {
+    status = props.quarkusCoreVersion?.toLowerCase().indexOf('final') >= 0  ? 'final' : 'cr';
+  }
   return (
-    <div className={classNames('quarkus-stream', props.status.toLowerCase())} title={`Quarkus core version: ${props.quarkusCoreVersion}`}>
+    <div className={classNames('quarkus-stream', status)} title={`Quarkus core version: ${props.quarkusCoreVersion}`}>
       {props.selected ? <span className="selected"><FaCheck /></span> : <span className="unselected"/>}
       <span className="platform-key">{streamKeys[0]}</span>
       <span className="stream-id">{streamKeys[1]}</span>
       {props.recommended && <span className="tag recommended">(recommended)</span>}
-      {props.status !== 'FINAL'  && <span className="tag status">({props.status})</span>}
+      {status !== 'final'  && <span className="tag status">({status})</span>}
     </div>
   );
 }
