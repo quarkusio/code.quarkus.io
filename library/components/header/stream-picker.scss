@@ -37,6 +37,10 @@
       font-weight: bold;
       color: var(--streamPickerStreamIdTextColor);
     }
+
+    .tag {
+      display: none;
+    }
   }
 
   .dropdown-menu {
