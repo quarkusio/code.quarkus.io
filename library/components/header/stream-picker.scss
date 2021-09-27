@@ -42,7 +42,7 @@
   .dropdown-menu {
     margin-top: 5px;
     background-color: var(--streamPickerDropdownBackgroundColor);
-    background-image: var(--streamPickerDropdownBackgroundImage);
+    backdrop-filter: var(--streamPickerDropdownBackdropFilter);
   }
   .dropdown-item {
     line-height: 20px;
