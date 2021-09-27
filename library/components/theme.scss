@@ -122,8 +122,7 @@
   --streamPickerBorderColor: var(--streamPickerPlatformKeyTextColor);
   --streamPickerDropdownStreamIdTextColor: var(--streamPickerStreamIdTextColor);
   --streamPickerDropdownPlatformKeyTextColor: var(--streamPickerPlatformKeyTextColor);
-  --streamPickerDropdownBackgroundColor: rgba(13, 28, 44, 0.50);
-  --streamPickerDropdownBackdropFilter: blur(6px);
+  --streamPickerDropdownBackgroundColor: var(--dropdownMenuBg);
   --streamPickerDropdownCRTextColor: #c4c3c3;
 
   // Blurb
