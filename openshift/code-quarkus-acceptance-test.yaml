@@ -18,7 +18,7 @@ objects:
               imagePullPolicy: Always
               name: code-quarkus-acceptance-test
               env:
-                - name: GITHUB_MIRROR_URL
+                - name: TEST_CONFIG_URL
                   value: ${CODE_QUARKUS_STAGING_URL}
 parameters:
   - name: IMAGE
