@@ -1,0 +1,31 @@
+---
+apiVersion: v1
+kind: Template
+metadata:
+  name: code-quarkus-acceptance-test
+objects:
+  - apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: code-quarkus-acceptance-test-${IMAGE_TAG}
+    spec:
+      backoffLimit: 5
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - image: ${IMAGE}:${IMAGE_TAG}
+              imagePullPolicy: Always
+              name: code-quarkus-acceptance-test
+              env:
+                - name: GITHUB_MIRROR_URL
+                  value: ${CODE_QUARKUS_STAGING_URL}
+parameters:
+  - name: IMAGE
+    value: quay.io/quarkus/code-quarkus-acceptance-test
+  - name: IMAGE_TAG
+    value: ''
+    required: true
+  - name: CODE_QUARKUS_STAGING_URL
+    value: 'https://stage.code.quarkus.io'
+    optional: true
