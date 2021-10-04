@@ -1,11 +1,18 @@
-version: 1
-update_configs:
-  - package_manager: "javascript"
+version: 2
+updates:
+  - package-ecosystem: "npm"
     directory: "/library"
-    update_schedule: "live"
-  - package_manager: "javascript"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "npm"
     directory: "/frontend"
-    update_schedule: "live"
-  - package_manager: "java:maven"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "maven"
     directory: "/api"
-    update_schedule: "daily"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "maven"
+    directory: "/acceptance-test"
+    schedule:
+      interval: "daily"
