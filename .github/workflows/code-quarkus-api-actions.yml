@@ -39,8 +39,8 @@ jobs:
       - name: Build
         working-directory: api
         run: |
-          ./mvnw -e -B -DskipTests=true clean package
+          mvn -e -B -DskipTests=true clean package
       - name: Test
         working-directory: api
         run: |
-          ./mvnw -e -B verify
+          mvn -e -B verify
