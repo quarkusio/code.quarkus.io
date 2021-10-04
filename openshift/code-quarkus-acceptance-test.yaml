@@ -9,7 +9,7 @@ objects:
     metadata:
       name: code-quarkus-acceptance-test-${IMAGE_TAG}
     spec:
-      backoffLimit: 5
+      backoffLimit: 2
       template:
         spec:
           restartPolicy: Never

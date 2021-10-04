@@ -109,7 +109,11 @@ class PlatformService {
         val platformCatalog = if(platformConfig.registryId.isEmpty) catalogResolver.resolvePlatformCatalog()
             else catalogResolver.resolvePlatformCatalogFromRegistry(platformConfig.registryId.get())
         val updatedStreamCatalogMap: MutableMap<String, PlatformInfo> = HashMap()
-        val platformTimestamp = platformCatalog.metadata?.get(Constants.LAST_UPDATED) as String?
+        if(platformCatalog?.metadata == null) {
+            throw error("Platform catalog not found");
+        }
+
+        val platformTimestamp = platformCatalog?.metadata?.get(Constants.LAST_UPDATED) as String?
         if(platformTimestamp.isNullOrBlank()) {
             throw error("Platform last updated date is empty");
         }
