@@ -4,9 +4,12 @@
   height: 70px;
   background-color: var(--headerBackgroundColor);
   background-image: var(--headerBackgroundImage);
-  background-size: 100% 70px;
   background-repeat: repeat-x;
   color: var(--headerTextColor);
+
+  @media screen and (min-width: 1920px) {
+    background-image: var(--headerBackgroundImageWide);
+  }
 
   .header-content {
     align-items: center;
