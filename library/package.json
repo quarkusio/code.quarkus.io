@@ -16,7 +16,7 @@
   "dependencies": {
     "@sentry/browser": "6.11.0",
     "@teambit/bvm": "0.0.26",
-    "@testing-library/dom": "8.2.0",
+    "@testing-library/dom": "8.7.2",
     "@testing-library/react": "12.0.0",
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.31.0",
