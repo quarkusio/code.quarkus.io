@@ -27,10 +27,11 @@
   // Top container
   --topContainerTextColor: white;
   --topContainerBg: var(--background);
-  --topContainerBgImage: url("./media/bg-form.jpg");
+  --topContainerBgImage: url("./media/bg-form-1920.jpeg");
+  --topContainerBgImageWide: url("./media/bg-form-3000.jpeg");
 
-  --fieldLabelAndBorderColor: var(--primary);
-  --fieldLabelAndBorderHoverColor: var(--topContainerTextColor);
+  --fieldLabelAndBorderColor: var(--topContainerTextColor);
+  --fieldLabelAndBorderHoverColor: var(--primary);
   --fieldTextColor: var(--topContainerTextColor);
   --selectOptionsTextColor: black;
 
@@ -100,7 +101,8 @@
 
   // Header
   --headerBackgroundColor: var(--background);
-  --headerBackgroundImage: url("./media/bg-header.jpg");
+  --headerBackgroundImage: url("./media/bg-header-1920.jpeg");
+  --headerBackgroundImageWide: url("./media/bg-header-3000.jpeg");
   --headerTextColor: white;
 
   --headerMenuLinkTextColor: white;
