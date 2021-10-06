@@ -30,8 +30,9 @@ link-lib:
 	cd frontend && yarn run link-library;
 
 unlink-lib:
-	cd library && yarn && yarn run unlink;
 	cd frontend && yarn && yarn run unlink-library;
+	cd library && yarn && yarn run unlink;
+
 
 dev-frontend:
 	cd frontend && yarn && yarn start
