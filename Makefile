@@ -26,7 +26,7 @@ tag-lib:
 	cd library && yarn run tag
 
 link-lib:
-	cd library && yarn && yarn buil && yarn run link;
+	cd library && yarn && yarn build && yarn run link;
 	cd frontend && yarn run link-library;
 
 unlink-lib:
