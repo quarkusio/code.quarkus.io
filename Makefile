@@ -38,10 +38,10 @@ dev-frontend:
 	cd frontend && yarn && yarn start
 
 watch-lib:
-	make build-lib
 	cd library && yarn run watch;
 
 dev-lib:
+	make build-lib
 	make -j2 watch-lib dev-frontend
 
 test-frontend:
