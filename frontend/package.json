@@ -8,7 +8,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "link-library": "yarn link @quarkusio/code-quarkus.components && yarn link react && yarn link react-dom",
-    "unlink-library": "yarn unlink @quarkusio/code-quarkus.components && yarn unlink react && yarn unlink react-dom && yarn --check-files",
+    "unlink-library": "(yarn unlink @quarkusio/code-quarkus.components || true) && (yarn unlink react || true) && (yarn unlink react-dom || true) && yarn --check-files",
     "run": "http-server build/ --port 3000 --proxy http://0.0.0.0:8080"
   },
   "dependencies": {
