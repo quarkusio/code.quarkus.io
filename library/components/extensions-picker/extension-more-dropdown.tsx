@@ -8,6 +8,7 @@ import { Button, Dropdown } from 'react-bootstrap';
 
 interface ExtensionMoreDropdownProps extends ExtensionEntry {
   active: boolean;
+  buildTool?: string;
 }
 
 export function ExtensionMoreDropdown(props: ExtensionMoreDropdownProps) {
@@ -19,9 +20,14 @@ export function ExtensionMoreDropdown(props: ExtensionMoreDropdownProps) {
   const addMvnExt = `./mvnw quarkus:add-extension -Dextensions="${props.id}"`;
   const addCliExt = `quarkus ext add ${props.id}`;
   const addGradleExt = `./gradlew addExtension --extensions="${props.id}"`;
+  const gradleDep = `implementation "${props.id}"`;
+  const gradleBom = `implementation enforcedPlatform("${gav}")`;
+  const gradleDepKot = `implementation("${props.id}")`;
+  const gradleBomKot = `implementation(enforcedPlatform("${gav}"))`;
   const pomDepXml = `        <dependency>\n            <groupId>${gavArray[0]}</groupId>\n            <artifactId>${gavArray[1]}</artifactId>\n        </dependency>`;
   const pomBomXml = bomArray && `        <dependency>\n            <groupId>${bomArray[0]}</groupId>\n            <artifactId>${bomArray[1]}</artifactId>\n            <version>${bomArray[2]}</version>\n            <type>pom</type>\n            <scope>import</scope>\n        </dependency>`;
-
+  const buildTool = props.buildTool;
+  
   const openGuide = () => {
     analytics.event('Extension', 'Click "Open Extension Guide" link', props.id);
   };
@@ -47,35 +53,68 @@ export function ExtensionMoreDropdown(props: ExtensionMoreDropdownProps) {
               event={[ 'Extension', 'Copy the Quarkus CLI add extension command', props.id ]}
               content={addCliExt}
               tooltipPlacement="left" zIndex={201}
-            >Add it to your project with the Quarkus CLI</CopyToClipboard>
+            >Copy the CLI add extension command</CopyToClipboard>
           </DropdownItem>
+          {buildTool==="MAVEN" && (
           <DropdownItem key="maven" as={Button}>
             <CopyToClipboard id="more-copy-maven"
-              event={[ 'Extension', 'Copy the Maven add extension command', props.id ]}
+              event={[ 'Extension', 'Copy the add extension command', props.id ]}
               content={addMvnExt}
               tooltipPlacement="left" zIndex={201}
-            >Add it to your project with Maven</CopyToClipboard>
-          </DropdownItem>
+            >Copy the add extension command</CopyToClipboard>
+          </DropdownItem> )}
+          {buildTool==="GRADLE" && (
           <DropdownItem key="gradle" as={Button}>
             <CopyToClipboard id="more-copy-gradle"
-              event={[ 'Extension', 'Copy the Gradle add extension command', props.id ]}
+              event={[ 'Extension', 'Copy the add extension command', props.id ]}
               content={addGradleExt} tooltipPlacement="left" zIndex={201}
-            >Add it to your project with Gradle</CopyToClipboard>
-          </DropdownItem>
-          <DropdownItem key="xml" as={Button}>
-            <CopyToClipboard id="more-copy-pom" event={[ 'Extension', 'Copy the Maven pom.xml dependency snippet', props.id ]}
+            >Copy the add extension command</CopyToClipboard>
+          </DropdownItem>)}
+          {buildTool==="MAVEN" && (
+          <DropdownItem key="mavenDep" as={Button}>
+            <CopyToClipboard id="more-copy-maven-dep" event={[ 'Extension', 'Get the pom.xml dependency snippet', props.id ]}
               content={pomDepXml}
               tooltipPlacement="left" zIndex={201}
-            >Get the Maven pom.xml dependency snippet</CopyToClipboard>
-          </DropdownItem>
-          {pomBomXml && (
-            <DropdownItem key="xml" as={Button}>
-              <CopyToClipboard id="more-copy-pom" event={[ 'Extension', 'Copy the Maven pom.xml bom snippet', props.id ]}
+            >Get the pom.xml dependency snippet</CopyToClipboard>
+          </DropdownItem>)}
+          {buildTool==="GRADLE" && (
+          <DropdownItem key="gradleDep" as={Button}>
+            <CopyToClipboard id="more-copy-gradle-dep" event={[ 'Extension', 'Get the build.gradle dependency snippet', props.id ]}
+              content={gradleDep}
+              tooltipPlacement="left" zIndex={201}
+            >Get the build.gradle dependency snippet</CopyToClipboard>
+          </DropdownItem>)}
+          {buildTool==="GRADLE_KOTLIN_DSL" && (
+            <DropdownItem key="gradleDepKot" as={Button}>
+              <CopyToClipboard id="more-copy-gradle-dep-kot" event={[ 'Extension', 'Get the dependency build.gradle.kts snippet', props.id ]}
+                content={gradleDepKot}
+                tooltipPlacement="left" zIndex={201}
+              >Get the dependency build.gradle.kts snippet</CopyToClipboard>
+            </DropdownItem>
+          )}
+          {pomBomXml && buildTool==="MAVEN" && (
+            <DropdownItem key="mavenBom" as={Button}>
+              <CopyToClipboard id="more-copy-maven-bom" event={[ 'Extension', 'Get the pom.xml bom snippet', props.id ]}
                 content={pomBomXml}
                 tooltipPlacement="left" zIndex={201}
-              >Get the Maven pom.xml bom snippet</CopyToClipboard>
+              >Get the pom.xml bom snippet</CopyToClipboard>
             </DropdownItem>
-          )}          
+          )}
+          {gradleBom && buildTool==="GRADLE" && (
+            <DropdownItem key="gradleBom" as={Button}>
+              <CopyToClipboard id="more-copy-gradle-bom" event={[ 'Extension', 'Get the build.gradle bom snippet', props.id ]}
+                content={gradleBom}
+                tooltipPlacement="left" zIndex={201}
+              >Get the build.gradle bom snippet</CopyToClipboard>
+            </DropdownItem>
+          )}
+          {gradleBomKot && buildTool==="GRADLE_KOTLIN_DSL" && (
+          <DropdownItem key="gradleBomKot" as={Button}>
+            <CopyToClipboard id="more-copy-gradle-bom-kot" event={[ 'Extension', 'Get the bom build.gradle.kts snippet', props.id ]}
+              content={gradleBomKot}
+              tooltipPlacement="left" zIndex={201}
+            >Get the bom build.gradle.kts snippet</CopyToClipboard>
+          </DropdownItem>)}
           <DropdownItem key="id" as={Button}>
             <CopyToClipboard id="more-copy-gav" event={[ 'Extension', 'Copy the extension GAV', props.id ]} content={gav}
               tooltipPlacement="left"
