@@ -11,15 +11,9 @@
 {
     "components": {
         "scope": "quarkusio.code-quarkus",
-        "version": "0.0.20",
+        "version": "0.0.21",
         "mainFile": "index.ts",
-        "rootDir": "components",
-        "nextVersion": {
-            "version": "patch",
-            "message": "",
-            "username": "Phillip Kruger",
-            "email": "phillip.kruger@gmail.com"
-        }
+        "rootDir": "components"
     },
     "core/analytics": {
         "scope": "quarkusio.code-quarkus",
@@ -29,15 +23,9 @@
     },
     "core/components": {
         "scope": "quarkusio.code-quarkus",
-        "version": "0.0.4",
+        "version": "0.0.5",
         "mainFile": "index.ts",
-        "rootDir": "core/components",
-        "nextVersion": {
-            "version": "patch",
-            "message": "",
-            "username": "Phillip Kruger",
-            "email": "phillip.kruger@gmail.com"
-        }
+        "rootDir": "core/components"
     },
     "core/types": {
         "scope": "quarkusio.code-quarkus",
