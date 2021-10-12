@@ -11,15 +11,9 @@
 {
     "components": {
         "scope": "quarkusio.code-quarkus",
-        "version": "0.0.21",
+        "version": "0.0.22",
         "mainFile": "index.ts",
-        "rootDir": "components",
-        "nextVersion": {
-            "version": "patch",
-            "message": "",
-            "username": "Nathan Erwin",
-            "email": "nathan.d.erwin@gmail.com"
-        }
+        "rootDir": "components"
     },
     "core/analytics": {
         "scope": "quarkusio.code-quarkus",
