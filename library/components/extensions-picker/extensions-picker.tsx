@@ -134,9 +134,14 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
           setFilter={setFilter} setKeyBoardActivated={setKeyBoardActivated}/>
       </div>
       <div className="main-container responsive-container">
-        {!!filter && (
+        {!!filter && result.length > 0 && (
           <div className="extension-search-clear">
-            Search results (<Button as="a" onClick={clearFilterButton}>Clear search</Button>)
+            Search results ({result.length} found, <Button as="a" onClick={clearFilterButton}>Clear search</Button>)
+          </div>
+        )}
+        {!!filter && result.length === 0 && (
+          <div className="extension-search-clear">
+            No results found (<Button as="a" onClick={clearFilterButton}>Clear search</Button>)
           </div>
         )}
         <div className="extension-list-wrapper">
