@@ -175,77 +175,77 @@
     "@sentry/types" "6.13.3"
     tslib "^1.9.3"
 
-"@teambit/bvm.commands.config@0.0.22":
-  version "0.0.22"
-  resolved "https://registry.yarnpkg.com/@teambit/bvm.commands.config/-/bvm.commands.config-0.0.22.tgz#b41d8628883d9b0c7030ce5098cb3569ab27e3ae"
-  integrity sha512-cpTpsC//aRxhH8CGnHH2idrqYLNEdQRC5VIoUMlHsYXgMqqNmVPx9Om5f6/CQrRKud9coZqUInxrG4DpJhemeg==
+"@teambit/bvm.commands.config@0.0.23":
+  version "0.0.23"
+  resolved "https://registry.yarnpkg.com/@teambit/bvm.commands.config/-/bvm.commands.config-0.0.23.tgz#1564ddbd8b7ac92513ad82f84050609fb7d149a9"
+  integrity sha512-Ge2H37zwMkje3ZatYrEiZP+hhkLx0WKasCHYKyYRvWkDDqJi4OVycqfxQgXwj1phQzrJaE2u5nuhTJLvVnBtzg==
   dependencies:
-    "@teambit/bvm.config" "0.0.22"
-    "@teambit/bvm.error" "0.0.3"
+    "@teambit/bvm.config" "0.0.23"
+    "@teambit/bvm.error" "0.0.4"
     yargs "17.0.1"
 
-"@teambit/bvm.commands.install@0.0.25":
-  version "0.0.25"
-  resolved "https://registry.yarnpkg.com/@teambit/bvm.commands.install/-/bvm.commands.install-0.0.25.tgz#d79b8a2fcdf2907df7b90f5a39868f59f9837a18"
-  integrity sha512-FOhwPkj0kvc5J3zq5s8fyOd9ckzYktm2hFEtd3XBxZR3hLZNehaGcxww3cC/RFs5/eHxzXZ9Ki9dRPmYazHdvA==
+"@teambit/bvm.commands.install@0.0.26":
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/@teambit/bvm.commands.install/-/bvm.commands.install-0.0.26.tgz#4138552705dab81bd72a34a34defd5404644774e"
+  integrity sha512-Z71/BLWlEjGBgo5t5rNxOktTIPcOkBpC0QMVQWL/eD5fnGdtLme9qeRRbCehgzWqsS0ors+tEO7ZoAoC/AJlhA==
   dependencies:
-    "@teambit/bvm.install" "0.0.25"
+    "@teambit/bvm.install" "0.0.26"
     "@teambit/time.time-format" "0.0.298"
     chalk "4.1.0"
     yargs "17.0.1"
 
-"@teambit/bvm.commands.link@0.0.25":
-  version "0.0.25"
-  resolved "https://registry.yarnpkg.com/@teambit/bvm.commands.link/-/bvm.commands.link-0.0.25.tgz#2edd5e942e157501e99ea333063a919ac3d8abe7"
-  integrity sha512-KbQy/tv64ROgXWzd7+aMBFNVfIu95sT13v5Xq8eyAd73B8z4Y009Uicx+QYLNe84iZy8xa3heUMJLaA1WgG23A==
+"@teambit/bvm.commands.link@0.0.26":
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/@teambit/bvm.commands.link/-/bvm.commands.link-0.0.26.tgz#9e5b0cd9902ec0e60288b7d74f0fa2e39c22ff93"
+  integrity sha512-lJNNx4mUeZWO32vbdd/tRgQwpyfjG1MKiroJNK/yKlKmFhqlb5EgVB+yN4rRjR64eN8LcKIv23UEblmBxji+TQ==
   dependencies:
-    "@teambit/bvm.link" "0.0.25"
+    "@teambit/bvm.link" "0.0.26"
     chalk "4.1.0"
     yargs "17.0.1"
 
-"@teambit/bvm.commands.list@0.0.23":
-  version "0.0.23"
-  resolved "https://registry.yarnpkg.com/@teambit/bvm.commands.list/-/bvm.commands.list-0.0.23.tgz#f7686590a747d2d5178fddf633e0adeb7207a8a7"
-  integrity sha512-z8U2Nn+JrSh2I5H+6ClwpD+/vWznMB4mmTU09HcZbuaM48YNFXnVDFDLo1u1dX52aPdsZLcNteP3A20xhCG8dQ==
+"@teambit/bvm.commands.list@0.0.24":
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/@teambit/bvm.commands.list/-/bvm.commands.list-0.0.24.tgz#7b8b8d7b9ac55c63ec0e3572d47d777ff4360390"
+  integrity sha512-4K41A3viBVrLfI4qO8PVECIALIAx3vMOosQLyuvqvAPDeLD3qvekRW4BmKitemfqTQryeg2nthybCeU/D6CtCA==
   dependencies:
-    "@teambit/bvm.list" "0.0.23"
+    "@teambit/bvm.list" "0.0.24"
     yargs "17.0.1"
 
-"@teambit/bvm.commands.remove@0.0.23":
-  version "0.0.23"
-  resolved "https://registry.yarnpkg.com/@teambit/bvm.commands.remove/-/bvm.commands.remove-0.0.23.tgz#70bb0232e92a1ea3181f59b58453221fa3e7eed8"
-  integrity sha512-kmlQlfUHvQ41cg+9Jhy4iFk9aiyM+z/Fo6WjTJ0PkL7/v2ClMZjaOD2nYH/ZUnWbYgGcVMKGSUqs4lukGQEeQw==
+"@teambit/bvm.commands.remove@0.0.24":
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/@teambit/bvm.commands.remove/-/bvm.commands.remove-0.0.24.tgz#1926614a8b80b7721292cf5ea07554d899ef824a"
+  integrity sha512-tlBGzC6167wNjzRZ6RmshOpLYmIvalCInZUF6xloYbZqYpijBA3cukv2yONpeJaCdFpcC8fUZzQizFL9CudbGQ==
   dependencies:
-    "@teambit/bvm.error" "0.0.3"
-    "@teambit/bvm.remove" "0.0.23"
+    "@teambit/bvm.error" "0.0.4"
+    "@teambit/bvm.remove" "0.0.24"
     chalk "4.1.0"
     ora "5.3.0"
     yargs "17.0.1"
 
-"@teambit/bvm.commands.upgrade@0.0.25":
-  version "0.0.25"
-  resolved "https://registry.yarnpkg.com/@teambit/bvm.commands.upgrade/-/bvm.commands.upgrade-0.0.25.tgz#ffe9b396611b1541a859914c6bcc6baa2c1dda1f"
-  integrity sha512-tHsrBMFWNveE/qFAEDA1TUVRDksho6modkVtDDwaJ9ghK0HlnhINIUhfURVRScvCDWgceKGlPE1gGY9n03AnkA==
+"@teambit/bvm.commands.upgrade@0.0.26":
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/@teambit/bvm.commands.upgrade/-/bvm.commands.upgrade-0.0.26.tgz#e7e6ba41a83a9249709137f3d9c048b7610cee15"
+  integrity sha512-5yelhAJWd/7Lun45Ml+O+ZNtZ9G6wFDsrddZDSp9pSWHPzOUwzzIl0m5Vvixjg/9lu70c84/3vJZEKrl4sdWYg==
   dependencies:
-    "@teambit/bvm.install" "0.0.25"
+    "@teambit/bvm.install" "0.0.26"
     chalk "4.1.0"
     yargs "17.0.1"
 
-"@teambit/bvm.commands.version@0.0.25":
-  version "0.0.25"
-  resolved "https://registry.yarnpkg.com/@teambit/bvm.commands.version/-/bvm.commands.version-0.0.25.tgz#89c0c1d718c46c6cf3024329bdc0fcdfc558d9dd"
-  integrity sha512-Ixi5kFNpZSMP4p82uxsJFjUBgqF0uYa0fLtIgfxCbcTto2ksV5LC4bFaa9TPR4run5WsQgnGXssx3SIPz72ESw==
+"@teambit/bvm.commands.version@0.0.26":
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/@teambit/bvm.commands.version/-/bvm.commands.version-0.0.26.tgz#3acf08422b478dd1416f60ad4fa93db136bb5f7b"
+  integrity sha512-kChGlxHJg34uN4xf8K3IobGgLVng8KBbBnz0eIQPvfH8XvgCOXbSZsDXRj8XlFOrwnVYLGds2ppOdZV+jOXlhg==
   dependencies:
-    "@teambit/bvm.config" "0.0.22"
-    "@teambit/bvm.list" "0.0.23"
+    "@teambit/bvm.config" "0.0.23"
+    "@teambit/bvm.list" "0.0.24"
     chalk "4.1.0"
     semver "7.3.4"
     yargs "17.0.1"
 
-"@teambit/bvm.config@0.0.22":
-  version "0.0.22"
-  resolved "https://registry.yarnpkg.com/@teambit/bvm.config/-/bvm.config-0.0.22.tgz#755e2c4c983e56a0fc138e0d88a42bfb5b1bf9cb"
-  integrity sha512-IYSvNar1P3ij186y8VqCVWlE4ocm+Au1SzyPPov4Q9Qx4yaZy1zv1yruWqie3nQVxlbXp0CDPSh2+tP7O3hV6Q==
+"@teambit/bvm.config@0.0.23":
+  version "0.0.23"
+  resolved "https://registry.yarnpkg.com/@teambit/bvm.config/-/bvm.config-0.0.23.tgz#6184857e1a61ac5de66b8441babb7815e32ab017"
+  integrity sha512-GcS3cmchJlWsuxy4Cs+kHIFRBJXhQ5+73dJ8uSbN0sj3HbuYvfvPOsfEYzQdECU9klUpIzruIrgB95Rp2UFWhw==
   dependencies:
     chalk "4.1.0"
     fs-extra "9.1.0"
@@ -254,92 +254,92 @@
     semver "7.3.4"
     user-home "2.0.0"
 
-"@teambit/bvm.error@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@teambit/bvm.error/-/bvm.error-0.0.3.tgz#fcfd07eba6980580c1d64070c14b4c092a5258ce"
-  integrity sha512-rmO14uFJ8p3EVESci9oAQ0+KhwaLHyv/Ed/pd8KDsAW/T48fg/FpJf1G0JG/K7M1bKFYbRDv1D29Dzz7OCOurw==
+"@teambit/bvm.error@0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@teambit/bvm.error/-/bvm.error-0.0.4.tgz#c6b68e73fa8ea3be2f188dd67f9a328f60080be4"
+  integrity sha512-PuBJhi7ldr7qf58W4qB2hWbDNv+YX2S6JYecSaIcaUJF4qJnjy2jGWcrhhsDTiUISAxpTI7A3eBI7zmow4LUuQ==
 
-"@teambit/bvm.fetch@0.0.24":
-  version "0.0.24"
-  resolved "https://registry.yarnpkg.com/@teambit/bvm.fetch/-/bvm.fetch-0.0.24.tgz#c2ff0bb905aed630c5a5d5fc65ba9c4cb1d8e89a"
-  integrity sha512-wjpimf464+Vic3ub97qqnHywzEcAZNkdcMJ5mUuFWvwINJP4YFU7Q+jrZncUJZhu8BS9gUZZoLvYPYLpDns+tw==
+"@teambit/bvm.fetch@0.0.25":
+  version "0.0.25"
+  resolved "https://registry.yarnpkg.com/@teambit/bvm.fetch/-/bvm.fetch-0.0.25.tgz#3f1e548c6b072f65cba1574ad2e51aed2e5f6ce0"
+  integrity sha512-QLsLZonXdjKSvmXdNdiu3+G1Slxnt7J7NQDqx8tPk2KCVn6wyjD3l1d1GA1Q2M/4eGUa8xmhNP+Z1DPrraRWEg==
   dependencies:
-    "@teambit/bvm.config" "0.0.22"
-    "@teambit/bvm.error" "0.0.3"
-    "@teambit/bvm.list" "0.0.23"
+    "@teambit/bvm.config" "0.0.23"
+    "@teambit/bvm.error" "0.0.4"
+    "@teambit/bvm.list" "0.0.24"
     "@teambit/time.time-format" "0.0.298"
-    "@teambit/toolbox.network.progress-bar-file-downloader" "0.0.20"
+    "@teambit/toolbox.network.progress-bar-file-downloader" "0.0.21"
     fs-extra "9.1.0"
     ora "5.3.0"
 
-"@teambit/bvm.install@0.0.25":
-  version "0.0.25"
-  resolved "https://registry.yarnpkg.com/@teambit/bvm.install/-/bvm.install-0.0.25.tgz#1bbbdb03b5e2e6f39a6ee7ce483af009b51d8e2b"
-  integrity sha512-zcfJ6h9Ok+KFmpLxWs8qFyzEpsr0qlA5rc5i2vMq/3kcMCYIqMgBZzupaG+akx+RLJI+yxVJthquVkUZnVjVnQ==
+"@teambit/bvm.install@0.0.26":
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/@teambit/bvm.install/-/bvm.install-0.0.26.tgz#6170b774ac80ada695b1eee3b61a144718108df2"
+  integrity sha512-i1Hr9y/B7CpfszOW9Pej8benbB/+eOHLEHohFouSboTejsqo2V7Flm3G/FFQHv1BWgdxwVl24ykFwlda8xJkHw==
   dependencies:
-    "@teambit/bvm.config" "0.0.22"
-    "@teambit/bvm.fetch" "0.0.24"
-    "@teambit/bvm.link" "0.0.25"
-    "@teambit/bvm.list" "0.0.23"
+    "@teambit/bvm.config" "0.0.23"
+    "@teambit/bvm.fetch" "0.0.25"
+    "@teambit/bvm.link" "0.0.26"
+    "@teambit/bvm.list" "0.0.24"
     "@teambit/time.time-format" "0.0.298"
-    "@teambit/toolbox.fs.progress-bar-file-extractor" "0.0.3"
+    "@teambit/toolbox.fs.progress-bar-file-extractor" "0.0.4"
     fs-extra "9.1.0"
     ora "5.3.0"
 
-"@teambit/bvm.link@0.0.25":
-  version "0.0.25"
-  resolved "https://registry.yarnpkg.com/@teambit/bvm.link/-/bvm.link-0.0.25.tgz#d3a9647968ab7362f5acc4b1b1d4c35665493cfa"
-  integrity sha512-xOSRkfycRl3NsJHbWm1XMnk/NSWqlVmcl5WnYSHiN8cwdfUkkFcWrWQKSXjI7gA6K7htpyws9UGvU3uHpJd46g==
+"@teambit/bvm.link@0.0.26":
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/@teambit/bvm.link/-/bvm.link-0.0.26.tgz#82c79d875c06c958c4d081042d30239181e40886"
+  integrity sha512-Q2denixCLju5npnR1fVI9MrTSJ8WHVVzjvCC+r75vo+1LsTgvz+EFvMqzQgUl/Gt4JXErivU3TN4cJmLaWKBMg==
   dependencies:
-    "@teambit/bvm.config" "0.0.22"
-    "@teambit/bvm.error" "0.0.3"
-    "@teambit/bvm.list" "0.0.23"
+    "@teambit/bvm.config" "0.0.23"
+    "@teambit/bvm.error" "0.0.4"
+    "@teambit/bvm.list" "0.0.24"
     bin-links "2.2.1"
     chalk "4.1.0"
     fs-extra "9.1.0"
 
-"@teambit/bvm.list@0.0.23":
-  version "0.0.23"
-  resolved "https://registry.yarnpkg.com/@teambit/bvm.list/-/bvm.list-0.0.23.tgz#7e4eb576ebd73424a4188c83a447b4d3cfe0cbda"
-  integrity sha512-XclnGpCEx+7eJViJOvVQXeEkHdYZ3ntv0HIpEOR9nA1e33G/4f6DD6g5SdouVHFrJPe2/PXww0ZxdIO/ZG/qrw==
+"@teambit/bvm.list@0.0.24":
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/@teambit/bvm.list/-/bvm.list-0.0.24.tgz#5e7ede9718f2b9a43afc257b63d9db2ac25ed6dd"
+  integrity sha512-nAFamA6PjPhJuJmxCZGhxfvsjp+WvjAgkJsaTD9MG2aFvC73RZ3iMlMRh0yY0UbMpREmr4q87G5LzZx2xIIRUA==
   dependencies:
-    "@teambit/bvm.config" "0.0.22"
-    "@teambit/gcp.storage" "0.0.19"
+    "@teambit/bvm.config" "0.0.23"
+    "@teambit/gcp.storage" "0.0.20"
     fs-extra "9.1.0"
     semver "7.3.4"
     semver-sort "0.0.4"
 
-"@teambit/bvm.remove@0.0.23":
-  version "0.0.23"
-  resolved "https://registry.yarnpkg.com/@teambit/bvm.remove/-/bvm.remove-0.0.23.tgz#89e8a0cf14b444b7083b4f30381ea4c9cea4af3b"
-  integrity sha512-itZgVGwnuIjP+fRNcCNlb+gIeSGkEKxOLCjKEV01fGrEh/LuH2z5NR2bE0HdM0AxW11buHL8wBxerq92jsrU0w==
+"@teambit/bvm.remove@0.0.24":
+  version "0.0.24"
+  resolved "https://registry.yarnpkg.com/@teambit/bvm.remove/-/bvm.remove-0.0.24.tgz#f9d51defa51181a47723837e82668ab670200ea3"
+  integrity sha512-bWlUDNBW3kBlkxgk8oNxXA63LLAa1QgsvgMCeW6ziFfHnQN1UeR/2AOxQn7eRbh8uVUgkIlIywxvo64f6LMCVA==
   dependencies:
-    "@teambit/bvm.config" "0.0.22"
-    "@teambit/bvm.list" "0.0.23"
+    "@teambit/bvm.config" "0.0.23"
+    "@teambit/bvm.list" "0.0.24"
     fs-extra "9.1.0"
     lodash.difference "4.5.0"
     lodash.intersection "4.4.0"
     semver-sort "0.0.4"
 
-"@teambit/bvm@0.0.26":
-  version "0.0.26"
-  resolved "https://registry.yarnpkg.com/@teambit/bvm/-/bvm-0.0.26.tgz#ca123c687800d224d082d0e04fef741ab1ad5c69"
-  integrity sha512-EcPu2XzqALQEQ3jdR+B5oy3QyPN16aA1OeVXjnM0UMHdi4nQpVkgN9QfL8ylPGmh0bpjkSFI19e0vD2RUWlgCg==
+"@teambit/bvm@0.0.27":
+  version "0.0.27"
+  resolved "https://registry.yarnpkg.com/@teambit/bvm/-/bvm-0.0.27.tgz#01dfe09a08479354ae23d437d3a84a5300544a51"
+  integrity sha512-3EUp8I92f3dh8ofA38ltvA/V4xozTFepMgDETXq4ocRz4CPjmobd9nHE5qgmjALLkox3JHtBLhhRYFlNSCfL9Q==
   dependencies:
-    "@teambit/bvm.commands.config" "0.0.22"
-    "@teambit/bvm.commands.install" "0.0.25"
-    "@teambit/bvm.commands.link" "0.0.25"
-    "@teambit/bvm.commands.list" "0.0.23"
-    "@teambit/bvm.commands.remove" "0.0.23"
-    "@teambit/bvm.commands.upgrade" "0.0.25"
-    "@teambit/bvm.commands.version" "0.0.25"
+    "@teambit/bvm.commands.config" "0.0.23"
+    "@teambit/bvm.commands.install" "0.0.26"
+    "@teambit/bvm.commands.link" "0.0.26"
+    "@teambit/bvm.commands.list" "0.0.24"
+    "@teambit/bvm.commands.remove" "0.0.24"
+    "@teambit/bvm.commands.upgrade" "0.0.26"
+    "@teambit/bvm.commands.version" "0.0.26"
     chalk "4.1.0"
     yargs "17.0.1"
 
-"@teambit/gcp.storage@0.0.19":
-  version "0.0.19"
-  resolved "https://registry.yarnpkg.com/@teambit/gcp.storage/-/gcp.storage-0.0.19.tgz#94b6316935f30913698cd87ed4f37451ccc46072"
-  integrity sha512-ZMupEW+BPuvXRGbiNN9xq3YEyzOClMZKAgF643hfViY/7F/93nc90b4uSFCU3Md3gAP4qBjlI7HpHCDKe3QPBA==
+"@teambit/gcp.storage@0.0.20":
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/@teambit/gcp.storage/-/gcp.storage-0.0.20.tgz#3ace261e786d90d3e8cef1b3f12c8ab3d12d2ffc"
+  integrity sha512-2Rc9F9KvPHJ0MHJHoyoDN0iEEgc/o1NSo4kvgzq3EqIaGeiajfWE2z3ojw5W+z0qUAKQQuE4h2UuCvsl+IYGZA==
   dependencies:
     "@teambit/network.agent" "0.0.90"
     node-fetch "2.6.1"
@@ -370,10 +370,10 @@
     core-js "3.8.3"
     humanize-duration "3.23.1"
 
-"@teambit/toolbox.fs.progress-bar-file-extractor@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@teambit/toolbox.fs.progress-bar-file-extractor/-/toolbox.fs.progress-bar-file-extractor-0.0.3.tgz#b2a6ca56c665d741a49c0c141ac1814bc0c0ff47"
-  integrity sha512-aVejt3f3JR95n/k+DOX0bJ5sHFAWM7MtULbo3YXv546J/+cc6u2cRRahymDiTq/lHG/9ouhSY1Sy6cTmllNojw==
+"@teambit/toolbox.fs.progress-bar-file-extractor@0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@teambit/toolbox.fs.progress-bar-file-extractor/-/toolbox.fs.progress-bar-file-extractor-0.0.4.tgz#213d487576c6a168c2db65d666ce29f791afffdc"
+  integrity sha512-KJZ5k+4TIvzP17Ko9e0ltpOpV2px0AwypLCrr0ZWIBbosWHV4ZhJALTJ9iDg8CHOy59mE5xD1taLC4lE74rLWQ==
   dependencies:
     cli-progress "3.9.0"
     date-fns "2.19.0"
@@ -381,10 +381,10 @@
     pretty-bytes "5.6.0"
     tar "6.1.0"
 
-"@teambit/toolbox.network.progress-bar-file-downloader@0.0.20":
-  version "0.0.20"
-  resolved "https://registry.yarnpkg.com/@teambit/toolbox.network.progress-bar-file-downloader/-/toolbox.network.progress-bar-file-downloader-0.0.20.tgz#08e6553560dd561e819478eee47d35569f0937c6"
-  integrity sha512-oPAG2QIpkQ6LgjtbJMfpXk9fCA8eEzeJCQ3jOMm8iuewIcGkvaSo68cRIUQpzpLya0zX77ZF9PFjL/78J/7S1A==
+"@teambit/toolbox.network.progress-bar-file-downloader@0.0.21":
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/@teambit/toolbox.network.progress-bar-file-downloader/-/toolbox.network.progress-bar-file-downloader-0.0.21.tgz#40349dc27ba94a507ea00cef3daba02611b19301"
+  integrity sha512-PqKK3jY/ziSArx+cuZaMM+uILyxeQAKkxgiZCNkXsvxoWQYnTYq0uRORNa/oPCKnyX1tw8184t9C1v9apZfy/Q==
   dependencies:
     "@teambit/network.agent" "0.0.90"
     cli-progress "3.9.0"
