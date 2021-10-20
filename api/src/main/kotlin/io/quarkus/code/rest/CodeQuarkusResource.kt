@@ -138,10 +138,16 @@ class CodeQuarkusResource {
             schema = Schema(implementation = CodeQuarkusExtension::class, type = SchemaType.ARRAY)
         )]
     )
-    fun extensions(@QueryParam("platformOnly") @DefaultValue("true") platformOnly: Boolean): Response {
+    fun extensions(
+        @QueryParam("platformOnly") @DefaultValue("true") platformOnly: Boolean,
+        @QueryParam("id") extensionId: String?
+    ): Response {
         var extensions = platformService.recommendedCodeQuarkusExtensions
         if (platformOnly) {
             extensions = extensions.filter { it.platform }
+        }
+        if (extensionId != null) {
+            extensions = extensions.filter { it.id == extensionId }
         }
         val lastUpdated = platformService.cacheLastUpdated
         return Response.ok(extensions).header(LAST_MODIFIED_HEADER, lastUpdated.format(formatter)).build()
@@ -162,11 +168,15 @@ class CodeQuarkusResource {
     )
     fun extensionsForStream(
         @PathParam("streamKey") streamKey: String,
-        @QueryParam("platformOnly") @DefaultValue("true") platformOnly: Boolean
+        @QueryParam("platformOnly") @DefaultValue("true") platformOnly: Boolean,
+        @QueryParam("id") extensionId: String?
     ): Response {
         var extensions = platformService.getCodeQuarkusExtensions(streamKey)
         if (platformOnly) {
             extensions = extensions?.filter { it.platform }
+        }
+        if (extensionId != null) {
+            extensions = extensions.filter { it.id == extensionId }
         }
         val lastUpdated = platformService.cacheLastUpdated
         return Response.ok(extensions).header(LAST_MODIFIED_HEADER, lastUpdated.format(formatter)).build()
