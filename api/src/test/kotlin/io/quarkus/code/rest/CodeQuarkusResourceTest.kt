@@ -394,6 +394,19 @@ class CodeQuarkusResourceTest {
     }
 
     @Test
+    @DisplayName("Should return the requested extension")
+    fun testExtensionById() {
+        given()
+                .`when`().get("/api/extensions?id=io.quarkus:quarkus-resteasy")
+                .then()
+                .log().ifValidationFails()
+                .statusCode(200)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("$.size()", equalTo(1))
+                .body("[0].id", equalTo("io.quarkus:quarkus-resteasy"))
+    }
+
+    @Test
     @DisplayName("Should generate a gradle project")
     fun testGradle() {
         given()
