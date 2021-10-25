@@ -7,14 +7,14 @@ objects:
   - apiVersion: batch/v1
     kind: Job
     metadata:
-      name: code-quarkus-acceptance-${TEST_NAME}-${IMAGE_TAG}
+      name: code-quarkus-acceptance-test-${IMAGE_TAG}
     spec:
       backoffLimit: 2
       template:
         spec:
           restartPolicy: Never
           containers:
-            - image: quay.io/quarkus/code-quarkus-acceptance-test:3005d6f
+            - image: quay.io/quarkus/code-quarkus-acceptance-test:latest
               imagePullPolicy: Always
               name: code-quarkus-acceptance-test
               env:
