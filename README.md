@@ -5,7 +5,7 @@
 
 # Development
 
-Have a look to the Makefile to find the most used dev commands.
+> Have a look at the Makefile to find the most used dev commands.
 
 In one terminal tab, use this command to start backend in dev mode (on: http://0.0.0.0:8080).
 ```
@@ -37,7 +37,6 @@ make unlink-lib
 - https://www.npmjs.com/package/@quarkusio/code-quarkus.core.analytics
 - https://www.npmjs.com/package/@quarkusio/code-quarkus.core.components
 - https://www.npmjs.com/package/@quarkusio/code-quarkus.core.types
-
 
 
 On your PR which contains the changes, run (before committing):
