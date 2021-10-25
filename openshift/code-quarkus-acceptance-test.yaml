@@ -14,7 +14,7 @@ objects:
         spec:
           restartPolicy: Never
           containers:
-            - image: quay.io/quarkus/code-quarkus-acceptance-test:latest
+            - image: quay.io/quarkus/code-quarkus-acceptance-test:3005d6f
               imagePullPolicy: Always
               name: code-quarkus-acceptance-test
               env:
