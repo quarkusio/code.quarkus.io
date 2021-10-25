@@ -71,7 +71,7 @@ public class AcceptanceTestApp implements QuarkusApplication {
             final List<ElementHandle> streams = page.querySelectorAll(".stream-picker .dropdown-menu .dropdown-item");
             final Integer minStreams = testConfig.getMinStreams().orElse(DEFAULT_MIN_STREAMS);
 
-            if (streams.size() <= minStreams) {
+            if (streams.size() < minStreams) {
                 LOG.error("{} streams found is low than minimum requirement: {}", streams.size(), minStreams);
                 return 1;
             } else {
@@ -81,7 +81,7 @@ public class AcceptanceTestApp implements QuarkusApplication {
             final List<ElementHandle> extensions = page.querySelectorAll(".extensions-picker .extension-row");
             final Integer minExtensions = testConfig.getMinExtensions().orElse(DEFAULT_MIN_EXTENSIONS);
 
-            if (extensions.size() <= minExtensions) {
+            if (extensions.size() < minExtensions) {
                 LOG.error("{} extensions found is low than minimum requirement: {}", extensions.size(), minExtensions);
                 return 1;
             } else {
