@@ -7,7 +7,7 @@ objects:
   - apiVersion: batch/v1
     kind: Job
     metadata:
-      name: code-quarkus-acceptance-test-${IMAGE_TAG}
+      name: code-quarkus-acceptance-${TEST_NAME}-${IMAGE_TAG}
     spec:
       backoffLimit: 2
       template:
@@ -28,4 +28,7 @@ parameters:
     required: true
   - name: CODE_QUARKUS_STAGING_URL
     value: 'https://stage.code.quarkus.io'
+    optional: true
+  - name: TEST_NAME
+    value: 'test'
     optional: true
