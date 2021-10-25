@@ -29,6 +29,3 @@ parameters:
   - name: CODE_QUARKUS_STAGING_URL
     value: 'https://stage.code.quarkus.io'
     optional: true
-  - name: TEST_NAME
-    value: 'test'
-    optional: true
