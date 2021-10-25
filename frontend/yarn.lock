@@ -1548,10 +1548,10 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.10.1.tgz#728ecd95ab207aab8a9a4e421f0422db329232be"
   integrity sha512-HnUhk1Sy9IuKrxEMdIRCxpIqPw6BFsbYSEUO9p/hNw5sMld/+3OLMWQP80F8/db9qsv3qUjs7ZR5bS/R+iinXw==
 
-"@quarkusio/code-quarkus.components@0.0.22":
-  version "0.0.22"
-  resolved "https://registry.yarnpkg.com/@quarkusio/code-quarkus.components/-/code-quarkus.components-0.0.22.tgz#4f47f88d2a3edafecc00a7828d2e7c53f0de8c94"
-  integrity sha512-OiLdVSPyfH6HW+Y3o3ic7211SZkz3qH52Be8vKps5qEVcGnuIrMoJqFP66AOQRa7ZtTmdEXfpX8R4CPZoxn6Jg==
+"@quarkusio/code-quarkus.components@0.0.23":
+  version "0.0.23"
+  resolved "https://registry.yarnpkg.com/@quarkusio/code-quarkus.components/-/code-quarkus.components-0.0.23.tgz#ef8fcb26675bbf08ddaf26096fc7b8df1e56f8b4"
+  integrity sha512-4v+B85TXVGFVcT92FEKfRN5VELOo7rVXCBd8XKpgr/f/XuCA+4dxFKAEoAFjCPsE/1BaOr2azkDfljbKnnZaEQ==
   dependencies:
     "@quarkusio/code-quarkus.core.analytics" "0.0.1"
     "@quarkusio/code-quarkus.core.components" "0.0.5"
@@ -1560,7 +1560,7 @@
     core-js "^3.0.0"
     lodash "4.17.21"
     react-bootstrap "1.6.4"
-    react-hotkeys-hook "3.4.3"
+    react-hotkeys-hook "3.4.4"
     react-icons "4.3.1"
     use-persisted-state "0.3.3"
 
@@ -9833,10 +9833,10 @@ react-error-overlay@^6.0.9:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.9.tgz#3c743010c9359608c375ecd6bc76f35d93995b0a"
   integrity sha512-nQTTcUu+ATDbrSD1BZHr5kgSD4oF8OFjxun8uAaL8RwPBacGBNPf/yAuVVdx17N8XNzRDMrZ9XcKZHCjPW+9ew==
 
-react-hotkeys-hook@3.4.3:
-  version "3.4.3"
-  resolved "https://registry.yarnpkg.com/react-hotkeys-hook/-/react-hotkeys-hook-3.4.3.tgz#74da79c2a5106f8d203f543794833c1af39030ac"
-  integrity sha512-rb8wjXItbZ0ItX1lHKd1lVfqoiGhzrnNo+rtqNoTkxMdyUcxI3RIdP8wmAHoK9Z/0F+aHo2yWAeKgv3pUvmGpw==
+react-hotkeys-hook@3.4.4:
+  version "3.4.4"
+  resolved "https://registry.yarnpkg.com/react-hotkeys-hook/-/react-hotkeys-hook-3.4.4.tgz#52ba5d8ef5e47cc2e776c70a9036d518e0993d51"
+  integrity sha512-vaORq07rWgmuF3owWRhgFV/3VL8/l2q9lz0WyVEddJnWTtKW+AOgU5YgYKuwN6h6h7bCcLG3MFsJIjCrM/5DvQ==
   dependencies:
     hotkeys-js "3.8.7"
 
