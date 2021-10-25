@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import 'react-app-polyfill/ie11';
 import reportWebVitals from './reportWebVitals';
 import { CodeQuarkus, fetchConfig, fetchPlatform } from '@quarkusio/code-quarkus.components';
+import './theme.scss';
 
 const PUBLIC_URL = process.env.PUBLIC_URL && `${process.env.PUBLIC_URL}/`;
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || PUBLIC_URL;
