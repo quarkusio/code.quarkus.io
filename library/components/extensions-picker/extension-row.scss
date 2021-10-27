@@ -54,6 +54,20 @@
     outline: none;
   }
 
+  .extension-id {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 0.8rem;
+    margin: 0 5px;
+    height: 24px;
+    outline: none;
+    color: var(--extensionsPickerIdTextColor);
+    @media screen and (max-width: $mobileWidth) {
+      display: none;
+    }
+  }
+
   .extension-tag {
     font-size: 0.6rem;
     line-height: 20px;
@@ -64,6 +78,7 @@
     text-transform: uppercase;
     border: 1px solid black;
   }
+
   .extension-tag-dropdown .dropdown-menu {
     padding: 5px;
     font-size: 0.8rem;

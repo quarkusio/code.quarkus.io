@@ -45,7 +45,7 @@ export function ExtensionRow(props: ExtensionRowProps) {
 
   const description = props.description || '...';
   const selected = props.selected || props.default;
-
+  const ga = props.id.split(':');
   return (
     <div {...activationEvents} className={classNames('extension-row', {
       'keyboard-actived': props.keyboardActived,
@@ -65,6 +65,7 @@ export function ExtensionRow(props: ExtensionRowProps) {
 
       <div className="extension-summary">
         <span className="extension-name" title={`${props.name} (${props.version})`}>{props.name}</span>
+        <span className="extension-id" title={props.id}> [{ga[1]}]</span>
         {props.tags && props.tags.map((s, i) => <ExtensionTags key={i} tagsDef={props.tagsDef} name={s} hover={hover}/>)}
       </div>
 
