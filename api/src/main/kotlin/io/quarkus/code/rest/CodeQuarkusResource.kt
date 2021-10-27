@@ -17,6 +17,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 import org.eclipse.microprofile.openapi.annotations.tags.Tag
+import org.jboss.resteasy.annotations.cache.NoCache
 import java.lang.IllegalArgumentException
 import java.nio.charset.StandardCharsets
 import java.time.format.DateTimeFormatter
@@ -72,6 +73,7 @@ class CodeQuarkusResource {
     @GET
     @Path("/config")
     @Produces(APPLICATION_JSON)
+    @NoCache
     @Operation(summary = "Get the Quarkus Launcher configuration", hidden = true)
     fun config(): PublicConfig {
         return PublicConfig(
@@ -90,6 +92,7 @@ class CodeQuarkusResource {
     @GET
     @Path("/platforms")
     @Produces(APPLICATION_JSON)
+    @NoCache
     @Operation(summary = "Get all available platforms")
     @Tag(name = "Platform", description = "Platform related endpoints")
     @APIResponse(
@@ -109,6 +112,7 @@ class CodeQuarkusResource {
     @GET
     @Path("/streams")
     @Produces(APPLICATION_JSON)
+    @NoCache
     @Operation(summary = "Get all available streams")
     @Tag(name = "Platform", description = "Platform related endpoints")
     @APIResponse(
@@ -128,6 +132,7 @@ class CodeQuarkusResource {
     @GET
     @Path("/extensions")
     @Produces(APPLICATION_JSON)
+    @NoCache
     @Operation(operationId = "extensions", summary = "Get the Quarkus Launcher list of Quarkus extensions")
     @Tag(name = "Extensions", description = "Extension related endpoints")
     @APIResponse(
@@ -156,6 +161,7 @@ class CodeQuarkusResource {
     @GET
     @Path("/extensions/stream/{streamKey}")
     @Produces(APPLICATION_JSON)
+    @NoCache
     @Operation(operationId = "extensionsForStream", summary = "Get the Quarkus Launcher list of Quarkus extensions")
     @Tag(name = "Extensions", description = "Extension related endpoints")
     @APIResponse(
