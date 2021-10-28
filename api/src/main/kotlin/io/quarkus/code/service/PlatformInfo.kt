@@ -36,9 +36,6 @@ class PlatformInfo(
         val fromShortId = parseShortExtensions(rawShortExtensions).stream()
             .map { (this.extensionsByShortId[it] ?: throw IllegalArgumentException("Invalid shortId: $it")).id }
             .collect(Collectors.toSet())
-        if (fromShortId.isNotEmpty()) {
-            LOG.warning("Use of @Deprecated ProjectDefinition.shortExtensions (s)")
-        }
         return fromId union fromShortId
     }
 
