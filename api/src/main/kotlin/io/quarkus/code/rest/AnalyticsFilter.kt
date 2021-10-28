@@ -2,6 +2,7 @@ package io.quarkus.code.rest
 
 import io.quarkus.code.model.ProjectDefinition
 import io.quarkus.code.service.GoogleAnalyticsService
+import io.quarkus.code.service.PlatformInfo
 import io.quarkus.code.service.PlatformService
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
@@ -55,7 +56,7 @@ class AnalyticsFilter : ContainerRequestFilter {
             }
             if (appAction != null) {
                 try {
-                    val w = readWatchedData(context)
+                    val w = readWatchedData(context, applicationName)
                     w.extensions.forEach {
                         googleAnalyticsService.get().sendEvent(
                                 category = "Extension",
@@ -108,7 +109,7 @@ class AnalyticsFilter : ContainerRequestFilter {
 
     }
 
-    private fun readWatchedData(context: ContainerRequestContext): WatchedData {
+    private fun readWatchedData(context: ContainerRequestContext, applicationName: String): WatchedData {
         val queryParams = context.uriInfo.queryParameters
         val extensions: Set<String>
         val buildTool: String
@@ -125,7 +126,13 @@ class AnalyticsFilter : ContainerRequestFilter {
                 buildTool = ProjectDefinition.DEFAULT_BUILDTOOL
             }
         } else {
-            extensions = platformService.get().recommendedPlatformInfo.checkAndMergeExtensions(queryParams["e"]?.toSet(), queryParams.getFirst("s"))
+            val rawShortExtensions = queryParams.getFirst("s")
+            if(rawShortExtensions.isNotBlank()) {
+                LOG.log(Level.WARNING, "Use of @Deprecated ProjectDefinition.shortExtensions (s) by client {0}", applicationName)
+            }
+            extensions = platformService.get().recommendedPlatformInfo.checkAndMergeExtensions(queryParams["e"]?.toSet(),
+                rawShortExtensions
+            )
             buildTool = queryParams.getFirst("b") ?: ProjectDefinition.DEFAULT_BUILDTOOL
         }
         return WatchedData(
