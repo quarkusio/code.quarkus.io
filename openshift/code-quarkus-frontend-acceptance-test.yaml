@@ -21,8 +21,6 @@ objects:
                 - name: TEST_CONFIG_URL
                   value: ${CODE_QUARKUS_STAGING_URL}
 parameters:
-  - name: IMAGE
-    value: ''
   - name: IMAGE_TAG
     value: ''
     required: true
