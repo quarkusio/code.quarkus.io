@@ -127,7 +127,7 @@ class AnalyticsFilter : ContainerRequestFilter {
             }
         } else {
             val rawShortExtensions = queryParams.getFirst("s")
-            if(rawShortExtensions.isNotBlank()) {
+            if(!rawShortExtensions.isNullOrBlank()) {
                 LOG.log(Level.WARNING, "Use of @Deprecated ProjectDefinition.shortExtensions (s) by client {0}", applicationName)
             }
             extensions = platformService.get().recommendedPlatformInfo.checkAndMergeExtensions(queryParams["e"]?.toSet(),
