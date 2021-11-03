@@ -52,12 +52,9 @@ Staging is auto-updated with main (it takes ~15min to refresh after a merge): ht
 
 You can check deployed commit hash on: https://stage.code.quarkus.io/api/config
 
-# Promote to production (temporarily only available to Red Hat developers)
+# Promote to production
 
-1. Check that everything works as expected on [staging](#staging)
-2. (Inside Red Hat private network) Create a PR on this [link](https://gitlab.cee.redhat.com/service/app-interface/-/edit/master/data/services/quarkus/cicd/ci-ext/saas.yaml) with the commit hash to release in the production `ref: ...` **(there are two `ref` to edit, api & frontend)**
-3. Comment with `/lgtm` and wait for CI checks
-4. Merging the PR will trigger a deployment to production
+It is automated based on the [acceptance tests](https://github.com/quarkusio/code.quarkus.io/tree/main/acceptance-test)
 
 # API Documentation
 
