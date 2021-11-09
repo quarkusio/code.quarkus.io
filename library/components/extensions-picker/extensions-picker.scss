@@ -2,7 +2,9 @@
 
 .extensions-picker {
   color: var(--extensionsPickerTextColor);
-
+  .button-show-more {
+    margin-top: 20px;
+  }
   .main-container .extension-list-wrapper {
     .extension-category {
       border-bottom: 1px solid var(--extensionsPickerCategoryUnderlineColor);
@@ -71,40 +73,8 @@
     z-index: 99;
     padding-top: 20px;
 
-    .search-bar {
-      margin: 0 auto;
-      width: 100%
-    }
-
     @media screen and (max-width: $mobileWidth) {
       display: none;
-    }
-
-    .form-group {
-      svg {
-        margin: 0 10px;
-        width: 20px;
-        vertical-align: middle;
-      }
-    }
-
-    input.form-control {
-      border: 1px solid var(--extensionsPickerSearchBorderColor);
-      padding-left: 40px;
-      margin-left: -40px;
-      font-size: 14px;
-      height: 40px;
-      line-height: 40px;
-      width: 100%;
-      background: transparent;
-      color: var(--extensionsPickerSearchTextColor);
-      font-family: var(--inputFont);
-      padding-bottom: 4px;
-    }
-
-    input.form-control:focus {
-      outline: none;
-      border: 1px solid var(--extensionsPickerSearchBorderColorOnFocus);
     }
 
     h4 {
@@ -141,18 +111,6 @@
       padding: 0px 0px 200px;
     }
 
-    .extension-search-clear {
-      border-bottom: 1px solid var(--extensionsPickerCategoryUnderlineColor);
-      font-weight: bold;
-      font-size: 1.1rem;
-      margin: 0 0 5px 0;
-      height: 30px;
 
-      a.btn {
-        cursor: pointer;
-        color: var(--extensionsPickerSearchClearColor);
-        padding: 0 3px;
-      }
-    }
   }
 }

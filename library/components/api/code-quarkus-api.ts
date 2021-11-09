@@ -10,7 +10,7 @@ export interface Api {
   requestOptions: RequestInit;
 }
 
-export type PlatformApi = (api: Api, streamKey?: string) => Promise<Platform>
+export type PlatformApi = (api: Api, streamKey?: string, platformOnly?: boolean) => Promise<Platform>
 export type ConfigApi = (api: Api) => Promise<Config>
 
 export const DEFAULT_TAGS: Tag[] = [
@@ -36,12 +36,12 @@ export const DEFAULT_TAGS: Tag[] = [
   }
 ];
 
-export async function fetchPlatform(api: Api, streamKey?: string) {
-  const cacheKey = streamKey || 'recommended';
+export async function fetchPlatform(api: Api, streamKey?: string, platformOnly: boolean = false) {
+  const cacheKey = `${streamKey || 'recommended'}-${String(platformOnly)}`;
   if (platformCache.has(cacheKey)) {
     return platformCache.get(cacheKey);
   }
-  const path = streamKey ? `/api/extensions/stream/${streamKey}` : '/api/extensions';
+  const path = streamKey ? `/api/extensions/stream/${streamKey}?platformOnly=${String(platformOnly)}` : `/api/extensions?platformOnly=${String(platformOnly)}`;
   const data = await Promise.all([
     fetch(`${api.backendUrl}${path}`, api.requestOptions)
       .catch(() => Promise.reject(new Error('Failed to fetch the Quarkus extensions list from the api'))),

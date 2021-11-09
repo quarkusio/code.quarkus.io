@@ -20,6 +20,7 @@ const entries: Extension[] = [
       'di',
       'label'
     ],
+    'platform': true,
     'default': false,
     'description': 'Build time CDI dependency injection',
     'shortName': 'CDI',
@@ -36,6 +37,7 @@ const entries: Extension[] = [
       'camel-netty4-http',
       'camel'
     ],
+    'platform': true,
     'description': 'Camel support for Netty',
     'category': 'Integration',
     'order': 2,
@@ -54,6 +56,7 @@ const entries: Extension[] = [
       'aws',
       'label'
     ],
+    'platform': true,
     'shortName': 'a shortname',
     'description': 'Some description',
     'category': 'Cloud',
@@ -73,6 +76,7 @@ const entries: Extension[] = [
       'aws',
       'label'
     ],
+    'platform': true,
     'shortName': 'a shortname',
     'description': 'Some description',
     'category': 'Toto',

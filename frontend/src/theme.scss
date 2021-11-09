@@ -24,6 +24,8 @@
 
   --loaderColor: white;
 
+  --buttonBorderColor: var(--primary);
+
   // Top container
   --topContainerTextColor: white;
   --topContainerBg: var(--background);
@@ -94,7 +96,7 @@
   --extensionsPickerSearchBorderColorOnFocus: var(--secondary);
   --extensionsPickerSearchClearColor: var(--warningColor);
 
-  //Copy to clipboard
+  // Copy to clipboard
   --copyToClipboardBackgroundColor: #1f1f1f;
   --copyToClipboardBodyBackgroundColor: #1f1f1f;
   --copyToClipboardHeaderTextColor: #b4b4b4;

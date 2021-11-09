@@ -74,6 +74,8 @@ object QuarkusExtensionUtils {
         }
         val id = ext.managementKey()
         val shortId = createShortId(id)
+        var tags = extensionProcessor.getTags(config.tagsFrom.orElse(null))
+            .map { if (it == "provides-code") "code" else it }
         return CodeQuarkusExtension(
             id = id,
             shortId = shortId,
@@ -82,8 +84,7 @@ object QuarkusExtensionUtils {
             description = ext.description,
             shortName = extensionProcessor.shortName,
             category = cat.name,
-            tags = extensionProcessor.getTags(config.tagsFrom.orElse(null))
-                .map { if (it == "provides-code") "code" else it },
+            tags = tags,
             keywords = extensionProcessor.extendedKeywords,
             order = order.getAndIncrement(),
             providesExampleCode = extensionProcessor.providesCode(),

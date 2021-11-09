@@ -85,6 +85,17 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
+"@jest/types@^27.2.5":
+  version "27.2.5"
+  resolved "https://registry.yarnpkg.com/@jest/types/-/types-27.2.5.tgz#420765c052605e75686982d24b061b4cbba22132"
+  integrity sha512-nmuM4VuDtCZcY+eTpw+0nvstwReMsjPoj7ZR80/BbixulhLaiX+fbv8oeLW8WZlJMcsGQsTmMKT/iTZu1Uy/lQ==
+  dependencies:
+    "@types/istanbul-lib-coverage" "^2.0.0"
+    "@types/istanbul-reports" "^3.0.0"
+    "@types/node" "*"
+    "@types/yargs" "^16.0.0"
+    chalk "^4.0.0"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -458,6 +469,14 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
+"@types/jest@27.0.2":
+  version "27.0.2"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-27.0.2.tgz#ac383c4d4aaddd29bbf2b916d8d105c304a5fcd7"
+  integrity sha512-4dRxkS/AFX0c5XW6IPMNOydLn2tEhNhJV7DnYK+0bjoJZ+QTmfucBlihX7aoEsh/ocYtkLC73UbnBXBXIxsULA==
+  dependencies:
+    jest-diff "^27.0.0"
+    pretty-format "^27.0.0"
+
 "@types/json-schema@^7.0.7":
   version "7.0.9"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.9.tgz#97edc9037ea0c38585320b28964dde3b39e4660d"
@@ -642,7 +661,7 @@ ansi-colors@^4.1.1:
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-4.1.1.tgz#cbb9ae256bf750af1eab344f229aa27fe94ba348"
   integrity sha512-JoX0apGbHaUJBNl6yF+p6JAFYZ666/hhCGKN5t9QFjbJQKUU/g8MNbFDbvfrgKXvI1QpZplPOnwIo99lX/AAmA==
 
-ansi-regex@^5.0.0:
+ansi-regex@^5.0.0, ansi-regex@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-5.0.1.tgz#082cb2c89c9fe8659a311a53bd6a4dc5301db304"
   integrity sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==
@@ -1028,6 +1047,11 @@ dequal@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/dequal/-/dequal-2.0.2.tgz#85ca22025e3a87e65ef75a7a437b35284a7e319d"
   integrity sha512-q9K8BlJVxK7hQYqa6XISGmBZbtQQWVXSrRrWreHC94rMt1QL/Impruc+7p2CYSYuVIUr+YCt6hjrs1kkdJRTug==
+
+diff-sequences@^27.0.6:
+  version "27.0.6"
+  resolved "https://registry.yarnpkg.com/diff-sequences/-/diff-sequences-27.0.6.tgz#3305cb2e55a033924054695cc66019fd7f8e5723"
+  integrity sha512-ag6wfpBFyNXZ0p8pcuIDS//D8H062ZQJ3fzYxjpmeKjnz8W4pekL3AI8VohmyZmsWW2PWaHgjsmqR6L13101VQ==
 
 dir-glob@^3.0.1:
   version "3.0.1"
@@ -1795,6 +1819,21 @@ isexe@^2.0.0:
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=
 
+jest-diff@^27.0.0:
+  version "27.3.1"
+  resolved "https://registry.yarnpkg.com/jest-diff/-/jest-diff-27.3.1.tgz#d2775fea15411f5f5aeda2a5e02c2f36440f6d55"
+  integrity sha512-PCeuAH4AWUo2O5+ksW4pL9v5xJAcIKPUPfIhZBcG1RKv/0+dvaWTQK1Nrau8d67dp65fOqbeMdoil+6PedyEPQ==
+  dependencies:
+    chalk "^4.0.0"
+    diff-sequences "^27.0.6"
+    jest-get-type "^27.3.1"
+    pretty-format "^27.3.1"
+
+jest-get-type@^27.3.1:
+  version "27.3.1"
+  resolved "https://registry.yarnpkg.com/jest-get-type/-/jest-get-type-27.3.1.tgz#a8a2b0a12b50169773099eee60a0e6dd11423eff"
+  integrity sha512-+Ilqi8hgHSAdhlQ3s12CAVNd8H96ZkQBfYoXmArzZnOfAtVAJEiPDBirjByEblvG/4LPJmkL+nBqPO3A1YJAEg==
+
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -2223,6 +2262,16 @@ pretty-bytes@5.6.0:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/pretty-bytes/-/pretty-bytes-5.6.0.tgz#356256f643804773c82f64723fe78c92c62beaeb"
   integrity sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==
+
+pretty-format@^27.0.0, pretty-format@^27.3.1:
+  version "27.3.1"
+  resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-27.3.1.tgz#7e9486365ccdd4a502061fa761d3ab9ca1b78df5"
+  integrity sha512-DR/c+pvFc52nLimLROYjnXPtolawm+uWDxr4FjuLDLUn+ktWnSN851KoHwHzzqq6rfCOjkzN8FLgDrSub6UDuA==
+  dependencies:
+    "@jest/types" "^27.2.5"
+    ansi-regex "^5.0.1"
+    ansi-styles "^5.0.0"
+    react-is "^17.0.1"
 
 pretty-format@^27.0.2:
   version "27.2.0"

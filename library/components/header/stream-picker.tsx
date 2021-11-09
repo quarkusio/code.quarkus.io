@@ -2,7 +2,7 @@ import React from 'react';
 import './stream-picker.scss';
 import { Platform, Stream } from '../api/model';
 import { normalizeStreamKey } from '../api/quarkus-project-utils';
-import { Dropdown } from 'react-bootstrap';
+import { Dropdown, Form } from 'react-bootstrap';
 import { FaAngleDown, FaCheck } from 'react-icons/fa';
 import { useAnalytics } from '@quarkusio/code-quarkus.core.analytics';
 import classNames from 'classnames';
@@ -26,7 +26,8 @@ function getProjectStream(platform: Platform, streamKey?: string) {
 export interface StreamPickerProps {
   platform: Platform;
   streamKey?: string;
-  setStreamKey: (string?) => void;
+  platformOnly?: boolean;
+  setStreamKey: (string?, boolean?) => void;
 }
 
 function StreamItem(props: { streamKey: string; quarkusCoreVersion?: string; recommended: boolean; selected?: boolean; status?: string }) {
@@ -51,9 +52,11 @@ export function StreamPicker(props: StreamPickerProps) {
   const recommendedStream = getRecommendedStream(props.platform);
   const stream = getProjectStream(props.platform, props.streamKey) || recommendedStream;
   function setStreamKey(s: Stream) {
-    props.setStreamKey(s.key);
+    props.setStreamKey(s.key, props.platformOnly);
     analytics.event('UX', 'Stream Picker', s.key);
   }
+
+  const platformOnly = props.platformOnly !== undefined ? props.platformOnly : true;
   return (
     <>
       <Dropdown className="stream-picker">

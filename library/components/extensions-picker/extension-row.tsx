@@ -5,6 +5,7 @@ import { ExtensionTags } from './extension-tags';
 import { ExtensionMoreDropdown } from './extension-more-dropdown';
 import { FaRegCheckSquare, FaRegSquare, FaTrashAlt } from 'react-icons/fa';
 import './extension-row.scss';
+import { ExtensionsOrigin } from './extensions-origin';
 
 export interface ExtensionRowProps extends ExtensionEntry {
   selected?: boolean;
@@ -66,6 +67,7 @@ export function ExtensionRow(props: ExtensionRowProps) {
       <div className="extension-summary">
         <span className="extension-name" title={`${props.name} (${props.version})`}>{props.name}</span>
         <span className="extension-id" title={props.id}> [{ga[1]}]</span>
+        <ExtensionsOrigin platform={props.platform} />
         {props.tags && props.tags.map((s, i) => <ExtensionTags key={i} tagsDef={props.tagsDef} name={s} hover={hover}/>)}
       </div>
 
