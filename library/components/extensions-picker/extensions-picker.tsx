@@ -95,7 +95,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     }
   }, [ filter, processedEntries, setShowAll, setResult ]);
 
-  const allEntries = result ? result.selected : props.entries;
+  const allEntries = result ? result.selected : props.entries.filter(e => e.platform);
   const entries = showAll ? allEntries : allEntries.slice(0, REDUCED_SIZE)
 
   useEffect(() => {
