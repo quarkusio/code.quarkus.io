@@ -139,6 +139,20 @@ code.code {
   color: var(--codeTextColor);
 }
 
+button.btn.btn-base {
+  border: 1px solid var(--buttonBorderColor);
+  cursor: pointer;
+  border-radius: 0;
+  background-color: transparent;
+  color: var(--linkTextColor);
+
+  svg {
+    margin-top: 2px;
+    margin-right: 5px;
+    font-size: 0.8rem;
+  }
+}
+
 .alert {
   border-radius: 0;
 }

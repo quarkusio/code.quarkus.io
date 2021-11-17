@@ -24,13 +24,13 @@
 .tooltip.show {
     opacity: 0.9;
 }
-.tooltip .tooltip-arrow {
+.tooltip .arrow {
     position: absolute;
     display: block;
     width: 0.8rem;
     height: 0.4rem;
 }
-.tooltip .tooltip-arrow::before {
+.tooltip .arrow::before {
     position: absolute;
     content: "";
     border-color: transparent;
@@ -40,24 +40,24 @@
 .bs-tooltip-top, .bs-tooltip-auto[data-popper-placement^=top] {
     padding: 0.4rem 0;
 }
-.bs-tooltip-top .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow {
+.bs-tooltip-top .arrow, .bs-tooltip-auto[data-popper-placement^=top] .arrow {
     bottom: 0;
 }
-.bs-tooltip-top .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow::before {
+.bs-tooltip-top .arrow::before, .bs-tooltip-auto[data-popper-placement^=top] .arrow::before {
     top: -1px;
     border-width: 0.4rem 0.4rem 0;
     border-top-color: #000;
 }
 
-.bs-tooltip-end, .bs-tooltip-auto[data-popper-placement^=right] {
+.bs-tooltip-right, .bs-tooltip-auto[data-popper-placement^=right] {
     padding: 0 0.4rem;
 }
-.bs-tooltip-end .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^=right] .tooltip-arrow {
+.bs-tooltip-right .arrow, .bs-tooltip-auto[data-popper-placement^=right] .arrow {
     left: 0;
     width: 0.4rem;
     height: 0.8rem;
 }
-.bs-tooltip-end .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=right] .tooltip-arrow::before {
+.bs-tooltip-right .arrow::before, .bs-tooltip-auto[data-popper-placement^=right] .arrow::before {
     right: -1px;
     border-width: 0.4rem 0.4rem 0.4rem 0;
     border-right-color: #000;
@@ -66,10 +66,10 @@
 .bs-tooltip-bottom, .bs-tooltip-auto[data-popper-placement^=bottom] {
     padding: 0.4rem 0;
 }
-.bs-tooltip-bottom .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^=bottom] .tooltip-arrow {
+.bs-tooltip-bottom .arrow, .bs-tooltip-auto[data-popper-placement^=bottom] .arrow {
     top: 0;
 }
-.bs-tooltip-bottom .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=bottom] .tooltip-arrow::before {
+.bs-tooltip-bottom .arrow::before, .bs-tooltip-auto[data-popper-placement^=bottom] .arrow::before {
     bottom: -1px;
     border-width: 0 0.4rem 0.4rem;
     border-bottom-color: #000;
@@ -78,12 +78,12 @@
 .bs-tooltip-start, .bs-tooltip-auto[data-popper-placement^=left] {
     padding: 0 0.4rem;
 }
-.bs-tooltip-start .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^=left] .tooltip-arrow {
+.bs-tooltip-start .arrow, .bs-tooltip-auto[data-popper-placement^=left] .arrow {
     right: 0;
     width: 0.4rem;
     height: 0.8rem;
 }
-.bs-tooltip-start .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=left] .tooltip-arrow::before {
+.bs-tooltip-start .arrow::before, .bs-tooltip-auto[data-popper-placement^=left] .arrow::before {
     left: -1px;
     border-width: 0.4rem 0 0.4rem 0.4rem;
     border-left-color: #000;
@@ -92,11 +92,10 @@
 .tooltip-inner {
     max-width: 200px;
     padding: 0.25rem 0.5rem;
-    color: #fff;
-    text-align: center;
+    color: white;
+    text-align: justify;
     background-color: #000;
 }
-
 
 .popover {
     position: absolute;

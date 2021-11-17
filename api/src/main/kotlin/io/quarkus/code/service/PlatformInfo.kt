@@ -34,7 +34,7 @@ class PlatformInfo(
             .map { findById(it) }
             .collect(Collectors.toSet())
         val fromShortId = parseShortExtensions(rawShortExtensions).stream()
-            .map { (this.extensionsByShortId[it] ?: throw IllegalArgumentException("Invalid shortId: $it")).id }
+            .map { withVersionIfNeeded(this.extensionsByShortId[it] ?: throw IllegalArgumentException("Invalid shortId: $it")) }
             .collect(Collectors.toSet())
         return fromId union fromShortId
     }
@@ -49,14 +49,22 @@ class PlatformInfo(
 
     private fun findById(id: String): String {
         if (this.extensionsById.containsKey(id)) {
-            return this.extensionsById[id]!!.id
+            return withVersionIfNeeded(this.extensionsById[id]!!)
         }
         val found = this.extensionsById.entries
             .filter { QuarkusExtensionUtils.toShortcut(it.key) == QuarkusExtensionUtils.toShortcut(id) }
         if (found.size == 1) {
-            return found[0].value.id
+            val ext = found[0].value
+            return withVersionIfNeeded(ext)
         }
         throw IllegalArgumentException("Invalid extension: $id")
+    }
+
+    private fun withVersionIfNeeded(ext: CodeQuarkusExtension): String {
+        if (!ext.platform) {
+            return ext.id + ":${ext.version}"
+        }
+        return ext.id
     }
 
     companion object {

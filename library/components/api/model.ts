@@ -10,6 +10,7 @@ export interface QuarkusProject {
   };
   extensions: string[];
   streamKey?: string;
+  platformOnly?: boolean;
   github?: {
     code: string;
     state: string;
@@ -32,6 +33,7 @@ export interface Extension {
   description?: string;
   shortName?: string;
   category: string;
+  platform: boolean;
   default: boolean;
   order: number;
   guide?: string;

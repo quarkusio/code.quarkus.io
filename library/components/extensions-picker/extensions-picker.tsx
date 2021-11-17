@@ -3,12 +3,13 @@ import _ from 'lodash';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useAnalytics } from '@quarkusio/code-quarkus.core.analytics';
 import { InputProps } from '@quarkusio/code-quarkus.core.types';
-import { processEntries } from './extensions-picker-utils';
+import { ExtensionValues, filterExtensions, FilterResult, processExtensionsValues } from './extensions-utils';
 import { QuarkusProject } from '../api/model';
 import './extensions-picker.scss';
 import { ExtensionRow } from './extension-row';
+import { ExtensionSearchBar, SearchResultsInfo } from './extension-search-bar';
 import { Button } from 'react-bootstrap';
-import { ExtensionSearchBar } from './extension-search-bar';
+import { FaCaretDown } from 'react-icons/fa';
 
 export interface ExtensionEntry {
   id: string;
@@ -23,6 +24,7 @@ export interface ExtensionEntry {
   default: boolean;
   guide?: string;
   bom?: string
+  platform: boolean;
 }
 
 export interface TagEntry {
@@ -35,6 +37,8 @@ export interface TagEntry {
 export interface ExtensionsPickerValue {
   extensions: ExtensionEntry[];
 }
+
+const REDUCED_SIZE = 100;
 
 interface ExtensionsPickerProps extends InputProps<ExtensionsPickerValue> {
   entries: ExtensionEntry[];
@@ -63,7 +67,10 @@ const hotkeysOptions = {
 
 export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const { filter, setFilter } = props;
+  const [ processedEntries, setProcessedEntries ] = useState<ExtensionValues[]>([]);
   const [ keyboardActivated, setKeyBoardActivated ] = useState<number>(-1);
+  const [ showAll, setShowAll ] = useState<boolean>(false);
+  const [ result, setResult ] = useState<FilterResult | undefined>();
   const analytics = useAnalytics();
   const debouncedSearchEvent = useRef<(events: string[][]) => void>(_.debounce(
     (events) => {
@@ -71,21 +78,36 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     }, 3000)).current;
 
   const extensions = props.value.extensions || [];
+
   const entrySet = new Set(extensions.map(e => e.id));
   const entriesById: Map<string, ExtensionEntry> = new Map(props.entries.map(item => [ item.id, item ]));
 
-  const result = processEntries(filter, props.entries);
+  useEffect(() => {
+    setProcessedEntries(processExtensionsValues(props.entries));
+  }, [ props.entries, setProcessedEntries ]);
+  
+  useEffect(() => {
+    if(filter.trim().length > 0) {
+      setShowAll(false);
+      filterExtensions(filter, processedEntries, setResult);
+    } else {
+      setResult(undefined);
+    }
+  }, [ filter, processedEntries, setShowAll, setResult ]);
+
+  const allEntries = result ? result.selected : props.entries;
+  const entries = showAll ? allEntries : allEntries.slice(0, REDUCED_SIZE)
 
   useEffect(() => {
     if (filter.length > 0) {
-      const topEvents = result.slice(0, 5).map(r => [ 'Extension', 'Display in search top 5 results', r.id ]);
+      const topEvents =entries.slice(0, 5).map(r => [ 'Extension', 'Display in search top 5 results', r.id ]);
       debouncedSearchEvent([ ...topEvents, [ 'UX', 'Search', filter ] ]);
     }
-  }, [ filter, result, debouncedSearchEvent ]);
+  }, [ filter,entries, debouncedSearchEvent ]);
 
 
   const add = (index: number, origin: string) => {
-    const id = result[index].id;
+    const id =entries[index].id;
     entrySet.add(id);
     props.onChange({ extensions: Array.from(entrySet).map(e => entriesById.get(e)!) });
     analytics.event('UX', 'Extension - Select', origin);
@@ -100,16 +122,12 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     analytics.event('UX', 'Extension - Unselect', origin);
   };
 
-  const clearFilterButton = () => {
-    setFilter('');
-  };
-
   const flip = (index: number, origin: string) => {
-    if (!result[index] || result[index].default) {
+    if (!entries[index] || entries[index].default) {
       return;
     }
-    if (entrySet.has(result[index].id)) {
-      remove(result[index].id, origin);
+    if (entrySet.has(entries[index].id)) {
+      remove(entries[index].id, origin);
     } else {
       add(index, origin);
     }
@@ -118,15 +136,16 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
 
   useHotkeys('esc', () => setKeyBoardActivated(-1), hotkeysOptions);
   useHotkeys('up', () => setKeyBoardActivated((prev) => Math.max(0, prev - 1)), hotkeysOptions);
-  useHotkeys('down', () => setKeyBoardActivated((prev) => Math.min(result.length - 1, prev + 1)), hotkeysOptions, [ result ]);
+  useHotkeys('down', () => setKeyBoardActivated((prev) => Math.min(entries.length - 1, prev + 1)), hotkeysOptions, [ entries ]);
   useHotkeys('space', (event) => {
     if (keyboardActivated >= 0) {
       event.preventDefault();
       flip(keyboardActivated, 'Keyboard');
     }
-  }, hotkeysOptions, [ result, keyboardActivated ]);
+  }, hotkeysOptions, [ entries, keyboardActivated ]);
 
   let currentCat: string | undefined;
+
   return (
     <div className="extensions-picker" aria-label="Extensions picker">
       <div className="control-container">
@@ -134,18 +153,9 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
           setFilter={setFilter} setKeyBoardActivated={setKeyBoardActivated}/>
       </div>
       <div className="main-container responsive-container">
-        {!!filter && result.length > 0 && (
-          <div className="extension-search-clear">
-            Search results ({result.length} found, <Button as="a" onClick={clearFilterButton}>Clear search</Button>)
-          </div>
-        )}
-        {!!filter && result.length === 0 && (
-          <div className="extension-search-clear">
-            No results found (<Button as="a" onClick={clearFilterButton}>Clear search</Button>)
-          </div>
-        )}
+        <SearchResultsInfo filter={props.filter} setFilter={props.setFilter} result={result} />
         <div className="extension-list-wrapper">
-          {result.map((ex, i) => {
+          {entries.map((ex, i) => {
             const ext = (
               <ExtensionRow
                 selected={entrySet.has(ex.id)}
@@ -158,7 +168,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
                 pickerLayout={true}
               />
             );
-            if (!filter && (!currentCat || currentCat !== ex.category)) {
+            if (!result && (!currentCat || currentCat !== ex.category)) {
               currentCat = ex.category;
               return (
                 <React.Fragment key={i}>
@@ -172,6 +182,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
             return ext;
           })}
         </div>
+        {!showAll && allEntries.length > 100 && <Button className='button-show-more btn-base' onClick={() => setShowAll(true)}><FaCaretDown /> Show more extensions</Button>}
       </div>
     </div>
   );

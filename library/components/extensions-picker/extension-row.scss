@@ -1,5 +1,9 @@
 @import "../config.scss";
 
+#extension-origin-platform-tooltip > .tooltip-inner {
+  max-width: 400px;
+}
+
 .extension-row {
   display: flex;
   width: 100%;
@@ -42,6 +46,13 @@
   .extension-summary {
     overflow: hidden;
     display: flex;
+  }
+
+  .extension-origin-platform {
+    font-size: 0.8rem;
+    color: #84C590;
+    margin-top: 3px;
+    font-weight: normal;
   }
 
   .extension-name {

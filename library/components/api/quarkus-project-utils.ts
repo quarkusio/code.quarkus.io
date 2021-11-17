@@ -23,6 +23,7 @@ export interface ProjectPayload {
   buildTool?: string;
   noCode?: boolean;
   extensions?: string[];
+  platformOnly?: boolean;
   streamKey?: string;
 }
 
@@ -47,6 +48,9 @@ export function generateProjectPayload(project: QuarkusProject): ProjectPayload 
   if (project.streamKey) {
     changes.streamKey = project.streamKey;
   }
+  if (project.platformOnly !== undefined) {
+    changes.platformOnly = project.platformOnly;
+  }
   if (project.extensions && project.extensions.length > 0) {
     changes.extensions = project.extensions;
   }
@@ -60,7 +64,8 @@ const QUERY_PROJECT_MAPPING: any = {
   buildTool: 'b',
   noCode: 'nc',
   extensions: 'e',
-  streamKey: 'S'
+  streamKey: 'S',
+  platformOnly: 'po'
 };
 
 export function generateProjectQuery(api: Api, project: QuarkusProject,
@@ -71,7 +76,7 @@ export function generateProjectQuery(api: Api, project: QuarkusProject,
   for (const key in QUERY_PROJECT_MAPPING) {
     if (QUERY_PROJECT_MAPPING.hasOwnProperty(key)) {
       const pValue = (payload as any)[key];
-      if (pValue) {
+      if (pValue !== undefined) {
         if (key === 'extensions') {
           params[QUERY_PROJECT_MAPPING['extensions']] = payload.extensions!!.map(id => toShortcut(id));
         } else {
@@ -259,6 +264,7 @@ export function parseProjectInQuery(queryParams?: ParsedUrlQuery): QuarkusProjec
     },
     extensions: Array.from(queryExtensions),
     streamKey: queryParams.S,
+    platformOnly: queryParams.po || defaultProj.platformOnly,
     github: queryParams.github === 'true' ? {
       code: queryParams.code,
       state: queryParams.state
