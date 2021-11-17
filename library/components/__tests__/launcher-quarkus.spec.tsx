@@ -25,6 +25,7 @@ const fetchPlatform = async (api: Api, streamKey?: string) => (
           'dependency-injection',
           'di'
         ],
+        'platform': true,
         'description': 'Build time CDI dependency injection',
         'shortName': 'CDI',
         'category': 'Core',
@@ -40,6 +41,7 @@ const fetchPlatform = async (api: Api, streamKey?: string) => (
           'web',
           'rest'
         ],
+        'platform': true,
         'description': 'REST framework implementing JAX-RS and more',
         'shortName': 'jax-rs',
         'category': 'Web',
@@ -58,6 +60,7 @@ const fetchPlatform = async (api: Api, streamKey?: string) => (
           'json',
           'jsonb'
         ],
+        'platform': true,
         'description': 'JSON-B serialization support for RESTEasy',
         'category': 'Web',
         'order': 5
@@ -75,6 +78,7 @@ const fetchPlatform = async (api: Api, streamKey?: string) => (
           'json',
           'jackson'
         ],
+        'platform': true,
         'description': 'Jackson serialization support for RESTEasy',
         'category': 'Web',
         'order': 6
