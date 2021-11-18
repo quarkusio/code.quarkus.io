@@ -74,6 +74,9 @@
   --codeTextColor: white;
 
   // Extensions picker
+  --switchOriginSelectedTextColor: var(--mainContainerTextColor);
+  --switchOriginTextColor: #8d8d8d;
+
   --extensionsPickerTextColor: var(--mainContainerTextColor);
   --extensionsPickerIdTextColor: var(--primary);
   --extensionsPickerCheckColor: white;
