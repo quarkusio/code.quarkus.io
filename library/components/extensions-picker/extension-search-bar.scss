@@ -45,10 +45,10 @@
   .origin-count {
     margin-left: 10px;
     cursor: pointer;
-    color: #8d8d8d;
+    color: var(--switchOriginTextColor);
     &.current-origin {
       font-weight: bold;
-      color: white;
+      color: var(--switchOriginSelectedTextColor);
     }
 
     svg {
