@@ -31,6 +31,8 @@ interface QuarkusProjectFlowProps extends ConfiguredCodeQuarkusProps {
   api: Api;
   project: QuarkusProject;
   setProject: React.Dispatch<SetStateAction<QuarkusProject>>;
+  filter: string;
+  setFilter: React.Dispatch<SetStateAction<string>>;
 }
 
 export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
@@ -82,7 +84,7 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
   
   return (
     <>
-      <CodeQuarkusForm api={props.api} project={props.project} setProject={props.setProject} config={props.config} onSave={generate} platform={props.platform} selectedExtensions={mappedExtensions.mapped}/>
+      <CodeQuarkusForm api={props.api} project={props.project} setProject={props.setProject} filter={props.filter} setFilter={props.setFilter} config={props.config} onSave={generate} platform={props.platform} selectedExtensions={mappedExtensions.mapped}/>
       {!run.error && run.status === Status.RUNNING && (
         <LoadingModal/>
       )}

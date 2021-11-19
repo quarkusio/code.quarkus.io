@@ -107,11 +107,13 @@ export function search(search: string, extensionValues: ExtensionValues[]): Exte
   if (!formattedSearch) {
     return extensionValues.map(v => v.extension);
   }
-  const shortNameFound = extensionValues.find(e => e.values.get('shortname') === formattedSearch);
-  if (shortNameFound) {
-    return [ shortNameFound.extension ];
+  let filtered = [ ...extensionValues ];
+  const shortNameIndex = filtered.findIndex(e => e.values.get('shortname') === formattedSearch);
+  if (shortNameIndex >= 0) {
+    const val = filtered.splice(shortNameIndex, 1);
+    filtered.unshift(val[0]);
   }
-  let filtered = extensionValues;
+
   const equalsMatches = matchAll(EQUALS_PATTERN, formattedSearch);
   for (const e of equalsMatches) {
     if (!e.groups?.expr || !e.groups?.field) {

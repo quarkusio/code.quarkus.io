@@ -8,7 +8,7 @@ import { Config, QuarkusProject } from './api/model';
 import { QuarkusBlurb } from './layout/quarkus-blurb';
 import { Api, ConfigApi, PlatformApi } from './api/code-quarkus-api';
 import { DataLoader, SentryBoundary } from '@quarkusio/code-quarkus.core.components';
-import { getQueryParams, resolveInitialProject } from './api/quarkus-project-utils';
+import { getQueryParams, resolveInitialFilterQueryParam, resolveInitialProject } from './api/quarkus-project-utils';
 import { CodeQuarkusIoHeader } from './header/code-quarkus-io-header';
 import { CodeQuarkusHeaderProps } from './header/code-quarkus-header';
 
@@ -23,6 +23,7 @@ const queryParams = getQueryParams();
 
 export function ConfiguredCodeQuarkus(props: ConfiguredCodeQuarkusProps) {
   const [ analytics, setAnalytics ] = useState<Analytics>(useAnalytics());
+  const [ filter, setFilter ] = useState(resolveInitialFilterQueryParam());
   const [ project, setProject ] = useState<QuarkusProject>(resolveInitialProject(queryParams));
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export function ConfiguredCodeQuarkus(props: ConfiguredCodeQuarkusProps) {
   const Header: React.FC<CodeQuarkusHeaderProps> = props.header || CodeQuarkusIoHeader;
   const platformLoader = () => props.platformApi(props.api, project.streamKey, project.platformOnly);
   function setStreamKey(streamKey: string, platformOnly: boolean) {
-    setProject({ ...project, streamKey, platformOnly });
+    setProject((prev) => ({ ...prev, streamKey, platformOnly }));
   }
   return (
     <AnalyticsContext.Provider value={analytics}>
@@ -44,7 +45,7 @@ export function ConfiguredCodeQuarkus(props: ConfiguredCodeQuarkusProps) {
           {platform => (
             <>
               <Header streamProps={{ platform:platform, streamKey:project.streamKey, setStreamKey, platformOnly: project.platformOnly }} />
-              <QuarkusProjectFlow {...props} platform={platform} project={project} setProject={setProject} />
+              <QuarkusProjectFlow {...props} platform={platform} project={project} setProject={setProject} filter={filter} setFilter={setFilter} />
             </>
           )}
         </DataLoader>

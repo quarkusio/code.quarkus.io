@@ -18,7 +18,6 @@ const entries: ExtensionEntry[] = [
     ],
     'default': false,
     'description': 'Build time CDI dependency injection',
-    'shortName': 'CDI',
     'category': 'Core',
     'platform': true,
     'order': 0,
@@ -72,7 +71,7 @@ const entries: ExtensionEntry[] = [
       'aws',
     ],
     'platform': true,
-    'shortName': 'a shortname 2',
+    'shortName': 'cdi',
     'description': 'Some description',
     'category': 'Web',
     'order': 3,
@@ -102,8 +101,8 @@ describe('search', () => {
     () => expect(search('cdi in name; tags:experimental,preview', processedEntries)).toEqual([ entries[2] ]));
   it('"cdi in name tags:experimental,preview" filters by tags contains "experimental" or "preview and cdi in name',
     () => expect(search('cdi in name tags:experimental,preview', processedEntries)).toEqual([ entries[2] ]));
-  it('"cdi" returns only the extension with cdi as shortName',
-    () => expect(search('cdi', processedEntries)).toEqual([ entries[0] ]));
+  it('"cdi" returns the extension with cdi as shortName first',
+    () => expect(search('cdi', processedEntries)).toEqual([ entries[3], entries[0], entries[1], entries[2] ]));
   it('"cdi test" is like "cdi test in name,shortname,keywords,tags,category"',
     () => expect(search('cdi test', processedEntries)).toEqual(entries));
 });

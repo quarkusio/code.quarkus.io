@@ -6,7 +6,6 @@ import { GenerateButton } from '../generate-project/generate-button';
 import { Config, Extension, Platform, QuarkusProject } from '../api/model';
 import {
   debouncedSyncParamsQuery,
-  resolveInitialFilterQueryParam,
   Target
 } from '../api/quarkus-project-utils';
 import { ExtensionsCart } from '../generate-project/extensions-cart';
@@ -17,6 +16,8 @@ interface CodeQuarkusFormProps {
   selectedExtensions: Extension[];
   platform: Platform;
   setProject: React.Dispatch<SetStateAction<QuarkusProject>>;
+  filter: string;
+  setFilter: React.Dispatch<SetStateAction<string>>;
   config: Config;
   api: Api;
   onSave: (target?: Target) => void;
@@ -24,8 +25,7 @@ interface CodeQuarkusFormProps {
 
 export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
   const [ isProjectValid, setIsProjectValid ] = useState(isValidInfo(props.project.metadata));
-  const [ filter, setFilter ] = useState(resolveInitialFilterQueryParam());
-  const setProject = props.setProject;
+  const { setProject, filter, setFilter } = props;
 
   const setMetadata = (metadata: any) => {
     setIsProjectValid(isValidInfo(metadata));
