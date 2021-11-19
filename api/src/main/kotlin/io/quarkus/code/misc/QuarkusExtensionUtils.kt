@@ -57,7 +57,6 @@ object QuarkusExtensionUtils {
         return list
     }
 
-
     @JvmStatic
     fun toCodeQuarkusExtension(
         ext: Extension?,

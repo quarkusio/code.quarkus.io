@@ -100,10 +100,10 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
 
   useEffect(() => {
     if (filter.length > 0) {
-      const topEvents =entries.slice(0, 5).map(r => [ 'Extension', 'Display in search top 5 results', r.id ]);
+      const topEvents = entries.slice(0, 5).map(r => [ 'Extension', 'Display in search top 5 results', r.id ]);
       debouncedSearchEvent([ ...topEvents, [ 'UX', 'Search', filter ] ]);
     }
-  }, [ filter,entries, debouncedSearchEvent ]);
+  }, [ filter, entries, debouncedSearchEvent ]);
 
 
   const add = (index: number, origin: string) => {
