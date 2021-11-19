@@ -51,11 +51,16 @@ class PlatformInfo(
         if (this.extensionsById.containsKey(id)) {
             return withVersionIfNeeded(this.extensionsById[id]!!)
         }
-        val found = this.extensionsById.entries
-            .filter { QuarkusExtensionUtils.toShortcut(it.key) == QuarkusExtensionUtils.toShortcut(id) }
+        val found = this.extensionsById
+            .filterKeys { QuarkusExtensionUtils.toShortcut(it) == QuarkusExtensionUtils.toShortcut(id) }
         if (found.size == 1) {
-            val ext = found[0].value
+            val ext = found.values.elementAt(0)
             return withVersionIfNeeded(ext)
+        } else if(found.size > 1) {
+            val core = found.filterKeys { it.startsWith("io.quarkus") }
+            if (core.size == 1) {
+                return withVersionIfNeeded(core.values.elementAt(0))
+            }
         }
         throw IllegalArgumentException("Invalid extension: $id")
     }
