@@ -1,6 +1,7 @@
 import { ExtensionEntry } from './extensions-picker';
 import { Extension } from '../api/model';
 import _ from 'lodash';
+const matchAll = require('string.prototype.matchall');
 
 type ExtensionFieldValueSupplier = (e: Extension) => string | string[] | undefined
 
@@ -35,18 +36,6 @@ const ORIGIN_REGEX = new RegExp(ORIGIN_PATTERN, 'gi');
 export interface ExtensionValues {
   extension: Extension;
   values: Map<string, string | string[] | undefined>;
-}
-
-function matchAll(pattern: string, expression: string) {
-  const matchResult = expression.match(new RegExp(pattern, 'gi'));
-  if(!matchResult) {
-    return [];
-  }
-  const matches = new Array<RegExpMatchArray>(matchResult.length);
-  for (const index in matchResult){
-    matches[index] = matchResult[index].match(new RegExp(pattern, 'i'))!!;
-  }
-  return matches;
 }
 
 export function processExtensionsValues(extensions: Extension[]): ExtensionValues[] {
@@ -113,8 +102,9 @@ export function search(search: string, extensionValues: ExtensionValues[]): Exte
     const val = filtered.splice(shortNameIndex, 1);
     filtered.unshift(val[0]);
   }
-
-  const equalsMatches = matchAll(EQUALS_PATTERN, formattedSearch);
+  // @ts-ignore
+  const equalsMatches = formattedSearch.matchAll(EQUALS_REGEX);
+  // @ts-ignore
   for (const e of equalsMatches) {
     if (!e.groups?.expr || !e.groups?.field) {
       continue;
@@ -125,7 +115,9 @@ export function search(search: string, extensionValues: ExtensionValues[]): Exte
   }
   formattedSearch = formattedSearch.replace(EQUALS_REGEX, ';').replace(ORIGIN_REGEX, ';').trim();
   if(formattedSearch) {
-    const inMatches = matchAll(IN_PATTERN, formattedSearch);
+    // @ts-ignore
+    const inMatches = formattedSearch.matchAll(IN_REGEX);
+    // @ts-ignore
     for (const e of inMatches) {
       if (!e.groups?.expr || !e.groups?.fields) {
         continue;
@@ -157,7 +149,9 @@ export interface FilterResult {
 }
 
 function getOrigin(filter: string): Origin {
-  const originMatches = matchAll(ORIGIN_PATTERN, filter);
+  // @ts-ignore
+  const originMatches = filter.matchAll(ORIGIN_REGEX);
+  // @ts-ignore
   for (const e of originMatches) {
     if (e.groups?.origin) {
       return e.groups.origin as Origin;

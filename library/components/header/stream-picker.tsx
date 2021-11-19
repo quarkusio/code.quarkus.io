@@ -2,7 +2,7 @@ import React from 'react';
 import './stream-picker.scss';
 import { Platform, Stream } from '../api/model';
 import { normalizeStreamKey } from '../api/quarkus-project-utils';
-import { Dropdown, Form } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import { FaAngleDown, FaCheck } from 'react-icons/fa';
 import { useAnalytics } from '@quarkusio/code-quarkus.core.analytics';
 import classNames from 'classnames';
