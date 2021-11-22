@@ -1,4 +1,4 @@
-package io.quarkus.code.gen
+package io.quarkus.code.misc
 
 import io.quarkus.code.config.ExtensionProcessorConfig
 import io.quarkus.code.misc.QuarkusExtensionUtils.processExtensions
@@ -6,8 +6,6 @@ import io.quarkus.code.misc.QuarkusExtensionUtils.shorten
 import io.quarkus.code.misc.QuarkusExtensionUtils.toShortcut
 import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.registry.catalog.ExtensionCatalog
-import io.quarkus.registry.catalog.json.JsonCatalogMapperHelper
-import io.quarkus.registry.catalog.json.JsonExtensionCatalog
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.contains
@@ -110,11 +108,10 @@ internal class QuarkusExtensionUtilsTest {
             )
         )
     }
-    
+
     private fun getTestCatalog(): ExtensionCatalog {
         val inputString = javaClass.classLoader.getResourceAsStream(FAKE_CATALOG_JSON)
             ?: throw IllegalStateException("Failed to locate $FAKE_CATALOG_JSON on the classpath")
-        val catalog = JsonCatalogMapperHelper.deserialize(inputString, JsonExtensionCatalog::class.java)
-        return catalog
+        return ExtensionCatalog.fromStream(inputString)
     }
 }
