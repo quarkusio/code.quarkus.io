@@ -102,9 +102,7 @@ export function search(search: string, extensionValues: ExtensionValues[]): Exte
     const val = filtered.splice(shortNameIndex, 1);
     filtered.unshift(val[0]);
   }
-  // @ts-ignore
-  const equalsMatches = formattedSearch.matchAll(EQUALS_REGEX);
-  // @ts-ignore
+  const equalsMatches = matchAll(formattedSearch, EQUALS_REGEX);
   for (const e of equalsMatches) {
     if (!e.groups?.expr || !e.groups?.field) {
       continue;
@@ -115,9 +113,7 @@ export function search(search: string, extensionValues: ExtensionValues[]): Exte
   }
   formattedSearch = formattedSearch.replace(EQUALS_REGEX, ';').replace(ORIGIN_REGEX, ';').trim();
   if(formattedSearch) {
-    // @ts-ignore
-    const inMatches = formattedSearch.matchAll(IN_REGEX);
-    // @ts-ignore
+    const inMatches = matchAll(formattedSearch, IN_REGEX);
     for (const e of inMatches) {
       if (!e.groups?.expr || !e.groups?.fields) {
         continue;
@@ -149,9 +145,7 @@ export interface FilterResult {
 }
 
 function getOrigin(filter: string): Origin {
-  // @ts-ignore
-  const originMatches = filter.matchAll(ORIGIN_REGEX);
-  // @ts-ignore
+  const originMatches = matchAll(filter, ORIGIN_REGEX);
   for (const e of originMatches) {
     if (e.groups?.origin) {
       return e.groups.origin as Origin;
