@@ -13,7 +13,13 @@
         "scope": "quarkusio.code-quarkus",
         "version": "0.0.29",
         "mainFile": "index.ts",
-        "rootDir": "components"
+        "rootDir": "components",
+        "nextVersion": {
+            "version": "patch",
+            "message": "",
+            "username": "Andy Damevin",
+            "email": "ia3andy@gmail.com"
+        }
     },
     "core/analytics": {
         "scope": "quarkusio.code-quarkus",
