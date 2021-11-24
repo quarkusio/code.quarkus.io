@@ -11,6 +11,9 @@ export function ExtensionTags(props: { name?: string; tagsDef: TagEntry[]; hover
     name: props.name,
     color: 'black'
   }
+  if (tagDef.hide) {
+    return <React.Fragment/>;
+  }
   const tag = (
     <span 
     >
@@ -38,7 +41,7 @@ export function ExtensionTags(props: { name?: string; tagsDef: TagEntry[]; hover
     >
       <Dropdown.Toggle as="div"
         className={`extension-tag ${props.name.toLowerCase()}`}
-        style={{ borderColor: tagDef.color }}>{tag}</Dropdown.Toggle>
+        style={{ borderColor: tagDef.color!! }}>{tag}</Dropdown.Toggle>
       <Dropdown.Menu>{tooltip}</Dropdown.Menu>
     </HoverControlledDropdown>
   );

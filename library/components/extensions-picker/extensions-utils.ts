@@ -20,7 +20,7 @@ const FIELD_IDENTIFIERS: ExtensionFieldIdentifier[] = [
   { keys: [ 'shortname', 'short-name' ], valueSupplier: e => e.shortName?.toLowerCase() },
   { keys: [ 'keywords', 'keyword' ], valueSupplier: e => e.keywords },
   { keys: [ 'tags', 'tag' ], valueSupplier: e => e.tags },
-  { keys: [ 'category', 'cat' ], valueSupplier: e => e.category?.toLowerCase() },
+  { keys: [ 'category', 'cat' ], valueSupplier: e => e.category?.toLowerCase().replace(' ', '-') },
 ];
 
 const SEARCH_FIELD_KEYS = FIELD_IDENTIFIERS.filter(s => s.canSearch === undefined || s.canSearch).map(s => s.keys).reduce((acc, value) => acc.concat(value), [])
@@ -142,6 +142,10 @@ export interface FilterResult {
   other: ExtensionEntry[];
   selected: ExtensionEntry[];
   origin: Origin;
+  metadata: {
+    [key: string]: any
+  };
+  filtered: boolean;
 }
 
 function getOrigin(filter: string): Origin {
@@ -158,14 +162,29 @@ export function clearFilterOrigin(filter: string) {
   return filter.replace(ORIGIN_REGEX, '');
 }
 
-const directFilterEntries = (filter: string, extensions: ExtensionValues[], onResult: (result: FilterResult) => void): void => {
-  const entries = search(filter, extensions);
+function getMetadata(entries: ExtensionEntry[]): { [key: string]: any } {
+  const tags = new Set<string>();
+  const categories = new Set<string>();
+  for (let entry of entries) {
+    if(entry.tags) {
+      for(let tag of entry.tags) {
+        tags.add(tag);
+      }
+    }
+    categories.add(entry.category?.toLowerCase().replace(' ', '-'))
+  }
+  return { tags: Array.from(tags), categories: Array.from(categories) };
+}
+
+export function toFilterResult(filter: string, entries: Extension[], filtered: boolean, onResult: (result: FilterResult) => void) {
   const result: FilterResult = {
     any: entries,
     platform: [],
     other: [],
     origin: getOrigin(filter),
-    selected: []
+    selected: [],
+    metadata:{},
+    filtered
   }
   for (let entry of entries) {
     if (entry.platform) {
@@ -175,8 +194,16 @@ const directFilterEntries = (filter: string, extensions: ExtensionValues[], onRe
     }
   }
   result.selected = result[result.origin];
+  result.metadata = getMetadata(result.selected);
   onResult(result);
+}
+
+const directFilterEntries = (filter: string, extensions: ExtensionValues[], onResult: (result: FilterResult) => void): void => {
+  const entries = search(filter, extensions);
+  toFilterResult(filter, entries, true, onResult);
 };
+
+
 
 export const filterExtensions = _.debounce(directFilterEntries, 300);
 

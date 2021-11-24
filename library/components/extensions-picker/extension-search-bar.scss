@@ -1,21 +1,65 @@
 .search-bar {
   margin: 0 auto;
   width: 100%;
+  display: flex;
 
   .form-group {
     border: 1px solid var(--extensionsPickerSearchBorderColor);
+    border-left: none;
     display: flex;
-    svg {
+    flex-grow: 1;
+
+    svg.search-icon {
       margin: 10px;
       width: 20px;
       font-size: 1.2rem;
     }
     &:focus-within {
-      border: 1px solid var(--extensionsPickerSearchBorderColorOnFocus);
+      border-color: var(--extensionsPickerSearchBorderColorOnFocus);
 
       svg {
         color: var(--extensionsPickerSearchBorderColorOnFocus);
       }
+    }
+  }
+  .filter-shortcut {
+    .dropdown-item.list-item {
+      width: 700px;
+      height: auto;
+      display: block;
+      border: none;
+      cursor: auto;
+      span.category, span.tag {
+        display: inline-block;
+        border: 1px solid var(--extensionsPickerSearchBorderColorOnFocus);
+        padding: 3px;
+        margin-left: 5px;
+        line-height: 15px;
+        font-size: 0.8rem;
+        cursor: pointer;
+      }
+    }
+    .dropdown-item {
+      font-weight: normal;
+      line-height: 35px;
+      height: 35px;
+    }
+  }
+
+  .filter-shortcut-button {
+    display: flex;
+    cursor: pointer;
+    background-color: transparent;
+    color: var(--extensionsPickerSearchTextColor);
+    line-height: 40px;
+    font-weight: bold;
+    padding: 0 10px;
+    align-items: center;
+    border: 1px solid var(--extensionsPickerSearchBorderColor);
+    svg {
+      font-size: 1rem;
+      width: 20px;
+      margin-left: 10px;
     }
   }
 
@@ -36,32 +80,3 @@
   }
 }
 
-.search-results-info {
-  border-bottom: 1px solid var(--extensionsPickerCategoryUnderlineColor);
-  font-size: 1.1rem;
-  margin: 0 0 5px 0;
-  height: 30px;
-
-  .origin-count {
-    margin-left: 10px;
-    cursor: pointer;
-    color: var(--switchOriginTextColor);
-    &.current-origin {
-      font-weight: bold;
-      color: var(--switchOriginSelectedTextColor);
-    }
-
-    svg {
-      font-size: 0.8rem;
-      margin-right: 5px;
-    }
-  }
-
-  a.clear-button.btn {
-    float: right;
-    cursor: pointer;
-    color: var(--extensionsPickerSearchClearColor);
-    padding: 0 3px;
-  }
-
-}

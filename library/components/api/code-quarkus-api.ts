@@ -33,6 +33,10 @@ export const DEFAULT_TAGS: Tag[] = [
     name: 'code',
     color: '#be9100',
     description: 'This extension provides starter code (may not be available in all languages).'
+  },
+  {
+    name: 'stable',
+    hide: true
   }
 ];
 

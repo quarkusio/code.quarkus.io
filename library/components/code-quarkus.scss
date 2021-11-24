@@ -178,14 +178,14 @@ button.btn.btn-base {
     line-height: 30px;
     font-weight: bold;
     width: 300px;
-    padding: 0;
+    padding: 0 0 0 20px;
     color: var(--dropdownMenuTextColor);
     background-color: var(--dropdownMenuBg);
     border-left: 1px solid var(--dropdownMenuBg);
+    cursor: pointer;
 
     svg {
       height: 30px;
-      margin-left: 20px;
       margin-right: 20px;
     }
   }
