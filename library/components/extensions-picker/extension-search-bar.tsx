@@ -33,19 +33,19 @@ function FilterShortcutsDropdown(props: ExtensionSearchBarProps) {
         onClick={(e) => e.stopPropagation()}
       >
         <DropdownItem as={ListItem} >
-            with category&nbsp;
+          With category&nbsp;
           {props.result?.metadata?.categories?.map((c, i) => (
             <span className="category" key={i} onClick={() => props.setFilter((f) => `cat:${c} ${f}`)}>{c}</span>
           ))}
         </DropdownItem>
         <DropdownItem as={ListItem}>
-          with tag&nbsp;
+          With tag&nbsp;
           {props.result?.metadata?.tags?.map((t, i) => (
             <span className="tag" key={i} onClick={() => props.setFilter((f) => `tag:${t} ${f}`)}>{t}</span>
           ))}
         </DropdownItem>
         <DropdownItem key="origin-any" as={Button} onClick={() => props.setFilter((f) => `origin:any ${f}`)}>
-          From&nbsp;<b>all</b>&nbsp;origins
+          From&nbsp;<b>any</b>&nbsp;origin
         </DropdownItem>
         {props.result?.filtered && (
           <DropdownItem key="clear" as={Button} onClick={() => props.setFilter('')}>

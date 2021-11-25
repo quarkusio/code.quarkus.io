@@ -75,9 +75,9 @@ object QuarkusExtensionUtils {
         val shortId = createShortId(id)
         var tags = extensionProcessor.getTags(config.tagsFrom.orElse(null))
             .map { if (it == "provides-code") "code" else it }
-        /**if(tags.isEmpty() || (tags.size == 1 && tags.contains("code"))) {
+        if (tags.isEmpty() || (tags.size == 1 && tags.contains("code"))) {
             tags = tags.plus("stable")
-        }**/
+        }
         return CodeQuarkusExtension(
             id = id,
             shortId = shortId,
@@ -93,13 +93,13 @@ object QuarkusExtensionUtils {
             providesCode = extensionProcessor.providesCode(),
             guide = extensionProcessor.guide,
             platform = ext.hasPlatformOrigin(),
-            bom = getBom(ext)?.let { "${it.groupId}:${it.artifactId}:${it.version}"  }
+            bom = getBom(ext)?.let { "${it.groupId}:${it.artifactId}:${it.version}" }
         )
     }
 
     private fun getBom(extension: Extension): ArtifactCoords? {
         return if (extension.origins == null || extension.origins.isEmpty()) {
-           null
+            null
         } else extension.origins[0].bom
     }
 

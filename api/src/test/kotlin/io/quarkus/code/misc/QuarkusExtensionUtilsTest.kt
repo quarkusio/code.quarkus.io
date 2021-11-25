@@ -52,7 +52,7 @@ internal class QuarkusExtensionUtilsTest {
                 description = "REST endpoint framework implementing JAX-RS and more",
                 shortName = "jax-rs",
                 category = "Web",
-                tags = listOf("code"),
+                tags = listOf("code", "stable"),
                 providesCode = true,
                 providesExampleCode = true,
                 keywords = listOf("endpoint", "framework", "jax", "jaxrs", "quarkus-resteasy", "rest", "resteasy", "web"),

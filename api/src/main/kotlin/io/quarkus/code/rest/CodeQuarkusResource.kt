@@ -179,7 +179,7 @@ class CodeQuarkusResource {
     ): Response {
         var extensions = platformService.getCodeQuarkusExtensions(streamKey)
         if (platformOnly) {
-            extensions = extensions?.filter { it.platform }
+            extensions = extensions.filter { it.platform }
         }
         if (extensionId != null) {
             extensions = extensions.filter { it.id == extensionId }
