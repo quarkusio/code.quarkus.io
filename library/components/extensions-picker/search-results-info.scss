@@ -1,0 +1,28 @@
+.search-results-info {
+  border-bottom: 1px solid var(--extensionsPickerCategoryUnderlineColor);
+  font-size: 1.1rem;
+  margin: 0 0 5px 0;
+  height: 30px;
+
+  .origin-count {
+    margin-left: 10px;
+    cursor: pointer;
+    color: var(--switchOriginTextColor);
+    &.current-origin {
+      font-weight: bold;
+      color: var(--switchOriginSelectedTextColor);
+    }
+
+    svg {
+      font-size: 0.8rem;
+      margin-right: 5px;
+    }
+  }
+
+  a.clear-button.btn {
+    float: right;
+    cursor: pointer;
+    color: var(--extensionsPickerSearchClearColor);
+    padding: 0 3px;
+  }
+}

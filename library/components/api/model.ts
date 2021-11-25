@@ -21,7 +21,8 @@ export interface Tag {
   name: string;
   href?: string;
   description?: string;
-  color: string;
+  color?: string;
+  hide?: boolean;
 }
 
 export interface Extension {

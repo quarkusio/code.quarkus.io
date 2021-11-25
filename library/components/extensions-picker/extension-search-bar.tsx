@@ -1,32 +1,76 @@
-import React, { SetStateAction } from 'react';
-import { Button, Form, FormGroup } from 'react-bootstrap';
-import { FaCheck, FaSearch } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { Button, Dropdown, Form, FormGroup } from 'react-bootstrap';
+import { FaAngleDown, FaAngleUp, FaSearch } from 'react-icons/fa';
 import { QuarkusProject } from '../api/model';
 import './extension-search-bar.scss';
-import { clearFilterOrigin, FilterResult } from './extensions-utils';
-import classNames from 'classnames';
+import DropdownItem from 'react-bootstrap/DropdownItem';
+import { FilterResult } from './extensions-utils';
 
 export interface ExtensionSearchBarProps {
   placeholder: string;
   filter: string;
   project: QuarkusProject | undefined;
   setFilter: (string) => void;
-  setKeyBoardActivated: (number) => void;
+  result: FilterResult
 }
 
+function ListItem(props: { className?: string, children: React.ReactChildren }) {
+  const className = `${props.className || ''} list-item`;
+  return (
+    <div {...props} className={className}>{props.children}</div>
+  )
+}
+
+function FilterShortcutsDropdown(props: ExtensionSearchBarProps) {
+  const [ isOpen , setIsOpen ] = useState(false);
+  return (
+    <Dropdown  className="filter-shortcut" onClick={(e) => e.stopPropagation()} onToggle={setIsOpen} show={isOpen}>
+      <Dropdown.Toggle className="filter-shortcut-button">
+        Filters {isOpen ? <FaAngleUp /> : <FaAngleDown />}
+      </Dropdown.Toggle>
+      <Dropdown.Menu
+        align="left"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <DropdownItem as={ListItem} >
+            with category&nbsp;
+          {props.result?.metadata?.categories?.map((c, i) => (
+            <span className="category" key={i} onClick={() => props.setFilter((f) => `cat:${c} ${f}`)}>{c}</span>
+          ))}
+        </DropdownItem>
+        <DropdownItem as={ListItem}>
+          with tag&nbsp;
+          {props.result?.metadata?.tags?.map((t, i) => (
+            <span className="tag" key={i} onClick={() => props.setFilter((f) => `tag:${t} ${f}`)}>{t}</span>
+          ))}
+        </DropdownItem>
+        <DropdownItem key="origin-any" as={Button} onClick={() => props.setFilter((f) => `origin:any ${f}`)}>
+          From&nbsp;<b>all</b>&nbsp;origins
+        </DropdownItem>
+        {props.result?.filtered && (
+          <DropdownItem key="clear" as={Button} onClick={() => props.setFilter('')}>
+          Clear filters
+          </DropdownItem>
+        )}
+      </Dropdown.Menu>
+    </Dropdown>
+  )
+}
+
+
 export function ExtensionSearchBar(props: ExtensionSearchBarProps) {
-  const { filter, setFilter, setKeyBoardActivated } = props;
+  const { filter, setFilter } = props;
   const search = (e: any) => {
-    setKeyBoardActivated(-1);
     setFilter(e.currentTarget.value);
   };
 
   return (
     <div className="search-bar responsive-container">
+      <FilterShortcutsDropdown {...props} />
       <FormGroup
         controlId="extensions-search-input"
       >
-        <FaSearch/>
+        <FaSearch className="search-icon" />
         <Form.Control
           type="search"
           aria-label="Search extensions"
@@ -39,47 +83,4 @@ export function ExtensionSearchBar(props: ExtensionSearchBarProps) {
       </FormGroup>
     </div>
   );
-}
-
-export function SearchResultsInfo(props: { filter: string; setFilter: React.Dispatch<SetStateAction<string>>, result: FilterResult }) {
-  function clickPlatform() {
-    if (props.result.origin !== 'platform') {
-      props.setFilter(`${clearFilterOrigin(props.filter)}`);
-    } else {
-      props.setFilter(`origin:any ${clearFilterOrigin(props.filter)}`);
-    }
-  }
-  function clickOther() {
-    if (props.result.origin !== 'other' ) {
-      props.setFilter(`origin:other ${clearFilterOrigin(props.filter)}`);
-    } else {
-      props.setFilter(`origin:any ${clearFilterOrigin(props.filter)}`);
-    }
-  }
-  function clearFilter() {
-    props.setFilter('');
-  }
-  const originOther =  props.result?.origin === 'other' ;
-  const originPlatform =  props.result?.origin === 'platform';
-  return (
-    <>
-      {props.result && (
-        <div className="search-results-info">
-          {props.result.any.length === 0 && <b>No extension found </b>}
-          {props.result.any.length > 0 && (
-            <span className='origins-count'>
-              <span className='results'>Extensions found by origin: </span>
-              <span className={classNames('origin-count', 'platform-origin', { 'current-origin': originPlatform })} onClick={clickPlatform}>
-                {originPlatform && <FaCheck />}<span className='count'>{props.result.platform.length}</span> Platform
-              </span>
-              <span className={classNames('origin-count', 'other-origin', { 'current-origin': originOther })} onClick={clickOther}>
-                {originOther && <FaCheck />}<span className='count'>{props.result.other.length}</span> Other
-              </span>
-            </span>
-          )}
-          <Button as="a" className='clear-button' onClick={clearFilter}>Clear filter</Button>
-        </div>
-      )}
-    </>
-  )
 }
