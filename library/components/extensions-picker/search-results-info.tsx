@@ -29,7 +29,7 @@ export function SearchResultsInfo(props: { filter: string; setFilter: React.Disp
     <>
       {props.result?.filtered && (
         <div className="search-results-info">
-          {props.result.any.length === 0 && <b>No extension found </b>}
+          {props.result.any.length === 0 && <b>No extensions found </b>}
           {props.result.any.length > 0 && (
             <span className='origins-count'>
               <span className='results'>Extensions found by origin: </span>
