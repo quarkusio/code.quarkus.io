@@ -126,13 +126,7 @@ class AnalyticsFilter : ContainerRequestFilter {
                 buildTool = ProjectDefinition.DEFAULT_BUILDTOOL
             }
         } else {
-            val rawShortExtensions = queryParams.getFirst("s")
-            if(!rawShortExtensions.isNullOrBlank()) {
-                LOG.log(Level.WARNING, "Use of @Deprecated ProjectDefinition.shortExtensions (s) by client {0}", applicationName)
-            }
-            extensions = platformService.get().recommendedPlatformInfo.checkAndMergeExtensions(queryParams["e"]?.toSet(),
-                rawShortExtensions
-            )
+            extensions = platformService.get().recommendedPlatformInfo.checkAndMergeExtensions(queryParams["e"]?.toSet())
             buildTool = queryParams.getFirst("b") ?: ProjectDefinition.DEFAULT_BUILDTOOL
         }
         return WatchedData(

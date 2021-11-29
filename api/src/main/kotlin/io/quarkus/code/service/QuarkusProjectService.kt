@@ -47,7 +47,7 @@ class QuarkusProjectService {
         silent: Boolean = false
     ) {
         val extensions =
-            platformInfo.checkAndMergeExtensions(projectDefinition.extensions, projectDefinition.shortExtensions)
+            platformInfo.checkAndMergeExtensions(projectDefinition.extensions)
         val sourceType = CreateProjectHelper.determineSourceType(extensions)
         val buildTool = BuildTool.valueOf(projectDefinition.buildTool)
         val codestarts = HashSet<String>()
