@@ -5,7 +5,7 @@ import { FaAtom } from 'react-icons/fa';
 export function ExtensionsOrigin(props: { platform: boolean }) {
   const Overlay = (
     <Tooltip id="extension-origin-platform-tooltip" style={{ zIndex: 200 }}>
-      The atom indicates the extension is part of the selected Quarkus Platform. Using extensions from the platform are tested and verified together and thus what is default recommended as easier to use and upgrade.
+      The atom indicates the extension is part of the selected Quarkus Platform. Extensions from the platform are recommended over other extensions: they are tested and verified together and thus easier to use and upgrade.
     </Tooltip>
   );
   return (
