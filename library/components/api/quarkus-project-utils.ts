@@ -154,12 +154,12 @@ export function newDefaultProject(): QuarkusProject {
 const FILTER_PARAM_NAME = 'extension-search';
 
 function syncParamsInQuery(api: Api, project: QuarkusProject | undefined, filterParam: string = ''): void {
+  const filter = filterParam.trim() === DEFAULT_FILTER ? '' : filterParam;
   if (!project) {
-    console.log(filterParam);
-    window.history.replaceState(null, '', `/?${formatParam(FILTER_PARAM_NAME, filterParam)}`);
+    window.history.replaceState(null, '', `/?${formatParam(FILTER_PARAM_NAME, filter)}`);
     return;
   }
-  window.history.replaceState(null, '', `/${generateParamQuery(formatParam(FILTER_PARAM_NAME, filterParam), generateProjectQuery(api, project, false, false))}`);
+  window.history.replaceState(null, '', `/${generateParamQuery(formatParam(FILTER_PARAM_NAME, filter), generateProjectQuery(api, project, false, false))}`);
 }
 
 export const debouncedSyncParamsQuery = _.debounce(syncParamsInQuery, 500);
@@ -195,13 +195,14 @@ export function getQueryParams(): ParsedUrlQuery | undefined {
   return queryParams;
 }
 
+export const DEFAULT_FILTER = 'origin:platform '
 
 export function resolveInitialFilterQueryParam(queryParams = getQueryParams()): string {
   if (!queryParams || !queryParams[FILTER_PARAM_NAME]) {
-    return '';
+    return DEFAULT_FILTER;
   }
 
-  return queryParams![FILTER_PARAM_NAME]!.toString() || '';
+  return queryParams![FILTER_PARAM_NAME]!.toString();
 }
 
 const formatParam = (paramName: string, value: string): string => {
