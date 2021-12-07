@@ -3,7 +3,12 @@ import _ from 'lodash';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useAnalytics } from '@quarkusio/code-quarkus.core.analytics';
 import { InputProps } from '@quarkusio/code-quarkus.core.types';
-import { ExtensionValues, filterExtensions, FilterResult, processExtensionsValues, toFilterResult } from './extensions-utils';
+import {
+  debouncedComputeResults,
+  ExtensionValues,
+  FilterResult,
+  processExtensionsValues
+} from './extensions-utils';
 import { QuarkusProject } from '../api/model';
 import './extensions-picker.scss';
 import { ExtensionRow } from './extension-row';
@@ -95,11 +100,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   }, [ props.entries, setProcessedEntries ]);
   
   useEffect(() => {
-    if(filter.trim().length > 0) {
-      filterExtensions(filter, processedEntries, setResult);
-    } else {
-      toFilterResult(filter, props.entries, false, setResult);
-    }
+    debouncedComputeResults(filter, props.entries, processedEntries, setResult);
   }, [ filter, processedEntries, props.entries, setShowAll, setResult ]);
 
   const allEntries = result?.selected || [];

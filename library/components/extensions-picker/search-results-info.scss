@@ -25,4 +25,16 @@
     color: var(--extensionsPickerSearchClearColor);
     padding: 0 3px;
   }
+
+
+}
+
+.alert-info.search-results-alert {
+  margin-top: 20px;
+
+  a {
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }

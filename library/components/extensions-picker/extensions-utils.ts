@@ -32,6 +32,7 @@ const EQUALS_PATTERN = `(?<field>${FIELD_KEYS.join('|')}):(?<expr>([a-zA-Z0-9-._
 const EQUALS_REGEX = new RegExp(EQUALS_PATTERN, 'gi');
 const ORIGIN_PATTERN = '\\s*origin:(?<origin>any|platform|other)\\s*'
 const ORIGIN_REGEX = new RegExp(ORIGIN_PATTERN, 'gi');
+const ORIGIN_REGEX_CLEAR = new RegExp(ORIGIN_PATTERN, 'i');
 
 export interface ExtensionValues {
   extension: Extension;
@@ -155,11 +156,15 @@ function getOrigin(filter: string): Origin {
       return e.groups.origin as Origin;
     }
   }
-  return 'platform';
+  return 'any';
+}
+
+export function shouldFilter(filter: string): boolean {
+  return clearFilterOrigin(filter).trim().length > 0;
 }
 
 export function clearFilterOrigin(filter: string) {
-  return filter.replace(ORIGIN_REGEX, '');
+  return filter.replace(ORIGIN_REGEX_CLEAR, '');
 }
 
 function getMetadata(entries: ExtensionEntry[]): { [key: string]: any } {
@@ -198,13 +203,17 @@ export function toFilterResult(filter: string, entries: Extension[], filtered: b
   onResult(result);
 }
 
-const directFilterEntries = (filter: string, extensions: ExtensionValues[], onResult: (result: FilterResult) => void): void => {
-  const entries = search(filter, extensions);
-  toFilterResult(filter, entries, true, onResult);
+const computeResults = (filter: string, entries: ExtensionEntry[], values: ExtensionValues[], onResult: (result: FilterResult) => void): void => {
+  if(shouldFilter(filter)) {
+    const filtered = search(filter, values);
+    toFilterResult(filter, filtered, true, onResult);
+  } else {
+    toFilterResult(filter, entries, false, onResult);
+  }
 };
 
 
 
-export const filterExtensions = _.debounce(directFilterEntries, 300);
+export const debouncedComputeResults = _.debounce(computeResults, 200);
 
 
