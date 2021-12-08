@@ -50,9 +50,14 @@
 
   .extension-origin-platform {
     font-size: 0.8rem;
-    color: var(--originPlatformColor);
     margin-top: 2px;
+    margin-left: 5px;
     font-weight: normal;
+
+    svg {
+      height: 12px;
+      fill: var(--originPlatformColor);
+    }
   }
 
   .extension-name {
@@ -81,7 +86,7 @@
 
   .extension-tag {
     font-size: 0.6rem;
-    line-height: 20px;
+    line-height: 17px;
     margin: 5px 5px;
     padding: 0 3px;
     height: 20px;
