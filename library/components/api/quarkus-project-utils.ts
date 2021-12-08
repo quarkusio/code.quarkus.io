@@ -154,7 +154,7 @@ export function newDefaultProject(): QuarkusProject {
 const FILTER_PARAM_NAME = 'extension-search';
 
 function syncParamsInQuery(api: Api, project: QuarkusProject | undefined, filterParam: string = ''): void {
-  const filter = filterParam.trim() === DEFAULT_FILTER ? '' : filterParam;
+  const filter = filterParam.trim() === DEFAULT_FILTER.trim() ? '' : filterParam;
   if (!project) {
     window.history.replaceState(null, '', `/?${formatParam(FILTER_PARAM_NAME, filter)}`);
     return;
