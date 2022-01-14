@@ -12,7 +12,7 @@ export const BuildToolSelect = (props: InputProps<string>) => {
     <div className="form-group form-group-select">
       <label className="form-group-label" htmlFor="buildtool" arial-label="Choose build tool"><span
         className="form-group-label-text">Build Tool</span></label>
-      <select id="buildtool" value={props.value} onChange={adaptedOnChange} className={'form-group-control'}>
+      <select id="buildtool" value={props.value} onChange={adaptedOnChange} className={'form-group-control form-group-select'}>
         <option value={'MAVEN'}>Maven</option>
         <option value={'GRADLE'}>Gradle (Preview)</option>
         <option value={'GRADLE_KOTLIN_DSL'}>Gradle with Kotlin DSL (Preview)</option>

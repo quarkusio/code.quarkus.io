@@ -13,7 +13,13 @@
         "scope": "quarkusio.code-quarkus",
         "version": "0.0.37",
         "mainFile": "index.ts",
-        "rootDir": "components"
+        "rootDir": "components",
+        "nextVersion": {
+            "version": "patch",
+            "message": "",
+            "username": "Tarcisio Coutinho",
+            "email": "tcs5cin@gmail.com"
+        }
     },
     "core/analytics": {
         "scope": "quarkusio.code-quarkus",
@@ -25,7 +31,13 @@
         "scope": "quarkusio.code-quarkus",
         "version": "0.0.6",
         "mainFile": "index.ts",
-        "rootDir": "core/components"
+        "rootDir": "core/components",
+        "nextVersion": {
+            "version": "patch",
+            "message": "",
+            "username": "Tarcisio Coutinho",
+            "email": "tcs5cin@gmail.com"
+        }
     },
     "core/types": {
         "scope": "quarkusio.code-quarkus",
