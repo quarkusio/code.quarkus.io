@@ -60,15 +60,3 @@ It is automated based on the [acceptance tests](https://github.com/quarkusio/cod
 
 - [OpenApi](https://code.quarkus.io/q/swagger-ui)
 
-## Infra Managed by Red Hat app-sre team 
-
-All those links have restricted access:
-
-- Staging cluster: https://console-openshift-console.apps.app-sre-stage-0.k3s7.p1.openshiftapps.com/k8s/cluster/projects
-- Production cluster: https://console-openshift-console.apps.app-sre-prod-01.i7w5.p1.openshiftapps.com/k8s/cluster/projects/code-quarkus-production
-- CI/CD: https://ci.ext.devshift.net/view/quarkus/
-- Jira: https://issues.redhat.com/projects/APPSRE/issues/
-- Infra repository: https://gitlab.cee.redhat.com/service/app-interface
-- Slack: https://coreos.slack.com (channel sd-app-sre)
-
-To request access, please contact adamevin@redhat.com
