@@ -15,7 +15,7 @@ src/main/docker/
 src/main/docker/Dockerfile.jvm
 src/main/docker/Dockerfile.legacy-jar
 src/main/docker/Dockerfile.native
-src/main/docker/Dockerfile.native-distroless
+src/main/docker/Dockerfile.native-micro
 src/main/java/
 src/main/java/com/
 src/main/java/com/test/
