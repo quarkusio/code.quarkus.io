@@ -47,7 +47,6 @@ class ProjectDefinition {
         this.buildTool = buildTool
         this.noCode = noCode
         this.noExamples = noExamples
-        this.shortExtensions = shortExtensions
     }
 
     @QueryParam("S")
@@ -126,14 +125,6 @@ class ProjectDefinition {
     var extensions: Set<String> = setOf()
         private set
 
-    @QueryParam("s")
-    @DefaultValue("")
-    @Parameter(name = "s", description = "The set of extension shortIds separated by a '.' that will be included in the generated application (Deprecated: see https://github.com/quarkusio/code.quarkus.io/issues/424)", required = false, schema = Schema(deprecated = true))
-    @Schema(description = "The set of extension shortIds separated by a '.' that will be included in the generated application (Deprecated: see https://github.com/quarkusio/code.quarkus.io/issues/424)", required = false, deprecated = true, defaultValue = "")
-    @Deprecated(message = "see https://github.com/quarkusio/code.quarkus.io/issues/424")
-    var shortExtensions: String = ""
-        private set
-
     override fun toString(): String {
         return "QuarkusProject(streamKey='$streamKey', groupId='$groupId', artifactId='$artifactId', version='$version', className='$className', path='$path', buildTool='$buildTool', noCode='$noCode', extensions=$extensions')"
     }
@@ -154,7 +145,6 @@ class ProjectDefinition {
         if (noCode != other.noCode) return false
         if (buildTool != other.buildTool) return false
         if (extensions != other.extensions) return false
-        if (shortExtensions != other.shortExtensions) return false
 
         return true
     }
@@ -170,7 +160,6 @@ class ProjectDefinition {
         result = 31 * result + noCode.hashCode()
         result = 31 * result + buildTool.hashCode()
         result = 31 * result + extensions.hashCode()
-        result = 31 * result + shortExtensions.hashCode()
         return result
     }
 }

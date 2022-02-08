@@ -153,7 +153,7 @@ class CodeQuarkusResourceTest {
     fun `Should fail when artifactId is empty`() {
         given()
                 .`when`()
-                .get("/api/download?g=org.acme&a=&pv=1.0.0&c=org.acme.TotoResource&s=98e")
+                .get("/api/download?g=org.acme&a=&pv=1.0.0&c=org.acme.TotoResource&e=resteasy")
                 .then()
                 .log().ifValidationFails()
                 .statusCode(400)
@@ -164,7 +164,7 @@ class CodeQuarkusResourceTest {
     fun testWithInvalidGroupId() {
         given()
                 .`when`()
-                .get("/api/download?g=org.acme.&s=98e")
+                .get("/api/download?g=org.acme.&e=resteasy")
                 .then()
                 .log().ifValidationFails()
                 .statusCode(400)
@@ -175,7 +175,7 @@ class CodeQuarkusResourceTest {
     fun testWithInvalidArtifactId() {
         given()
                 .`when`()
-                .get("/api/download?a=Art.&s=98e")
+                .get("/api/download?a=Art.&e=resteasy")
                 .then()
                 .log().ifValidationFails()
                 .statusCode(400)
@@ -186,7 +186,7 @@ class CodeQuarkusResourceTest {
     fun testWithInvalidPath() {
         given()
                 .`when`()
-                .get("/api/download?p=invalid&s=98e")
+                .get("/api/download?p=invalid&e=resteasy")
                 .then()
                 .log().ifValidationFails()
                 .statusCode(400)
@@ -197,18 +197,7 @@ class CodeQuarkusResourceTest {
     fun testWithInvalidClassName() {
         given()
                 .`when`()
-                .get("/api/download?c=com.1e&s=98e")
-                .then()
-                .log().ifValidationFails()
-                .statusCode(400)
-    }
-
-    @Test
-    @DisplayName("Should fail when using invalid shortId")
-    fun testWithInvalidShortId() {
-        given()
-                .`when`()
-                .get("/api/download?s=inv")
+                .get("/api/download?c=com.1e&e=resteasy")
                 .then()
                 .log().ifValidationFails()
                 .statusCode(400)
@@ -230,7 +219,7 @@ class CodeQuarkusResourceTest {
     fun testWithAFewParams() {
         given()
                 .`when`()
-                .get("/api/download?a=test-app-with-a-few-arg&v=1.0.0&s=D9x.9Ie")
+                .get("/api/download?a=test-app-with-a-few-arg&v=1.0.0&e=resteasy&e=resteasy-jackson")
                 .then()
                 .log().ifValidationFails()
                 .statusCode(200)
@@ -241,27 +230,27 @@ class CodeQuarkusResourceTest {
                 ProjectDefinition(
                         artifactId = "test-app-with-a-few-arg",
                         version = "1.0.0",
-                        shortExtensions = "D9x.9Ie"
+                        extensions = setOf("resteasy", "resteasy-jackson")
                 ))
         )
 
     }
 
     @Test
-    @DisplayName("Should return a project with specified configuration when shortIds is empty")
-    fun testWithEmptyShortIds() {
+    @DisplayName("Should return a project and ignore shortid")
+    fun testWitShortIds() {
         given()
                 .`when`()
-                .get("/api/download?g=org.acme&a=test-empty-shortids&v=1.0.1&b=MAVEN&s=")
+                .get("/api/download?g=org.acme&a=test-shortid&v=1.0.1&b=MAVEN&s=inv")
                 .then()
                 .log().ifValidationFails()
                 .statusCode(200)
                 .contentType("application/zip")
-                .header("Content-Disposition", "attachment; filename=\"test-empty-shortids.zip\"")
+                .header("Content-Disposition", "attachment; filename=\"test-shortid.zip\"")
         assertThat(
                 projectService.getCreatedProject(), equalTo(
                 ProjectDefinition(
-                        artifactId = "test-empty-shortids",
+                        artifactId = "test-shortid",
                         version = "1.0.1"
                 ))
         )

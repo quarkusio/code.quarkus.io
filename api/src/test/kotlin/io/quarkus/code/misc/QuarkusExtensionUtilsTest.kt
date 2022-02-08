@@ -2,7 +2,6 @@ package io.quarkus.code.misc
 
 import io.quarkus.code.config.ExtensionProcessorConfig
 import io.quarkus.code.misc.QuarkusExtensionUtils.processExtensions
-import io.quarkus.code.misc.QuarkusExtensionUtils.shorten
 import io.quarkus.code.misc.QuarkusExtensionUtils.toShortcut
 import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.registry.catalog.ExtensionCatalog
@@ -22,14 +21,6 @@ internal class QuarkusExtensionUtilsTest {
     }
 
     @Test
-    internal fun testShorten() {
-        assertThat(shorten("some random long string"), `is`("ODO"))
-        assertThat(shorten(""), `is`("a"))
-        assertThat(shorten("some-id"), `is`("gLa"))
-        assertThat(shorten("io.quarkus:quarkus-arc"), `is`("3eJ"))
-    }
-
-    @Test
     internal fun testToShortcut() {
         assertThat(toShortcut("io.quarkus:quarkus-my-ext"), `is`("my-ext"))
         assertThat(toShortcut("org.apache.camel.quarkus:camel-quarkus-core"), `is`("camel-quarkus-core"))
@@ -46,7 +37,7 @@ internal class QuarkusExtensionUtilsTest {
             extensions[0], `is`(
                 CodeQuarkusExtension(
                     id = "io.quarkus:quarkus-resteasy",
-                    shortId = "98e",
+                    shortId = "ignored",
                     version = "999-SNAPSHOT",
                     name = "RESTEasy JAX-RS",
                     description = "REST endpoint framework implementing JAX-RS and more",
@@ -67,7 +58,7 @@ internal class QuarkusExtensionUtilsTest {
             extensions[6], `is`(
                 CodeQuarkusExtension(
                     id = "io.quarkus:quarkus-rest-client-mutiny",
-                    shortId = "Ph0",
+                    shortId = "ignored",
                     version = "999-SNAPSHOT",
                     name = "Mutiny support for REST Client",
                     description = "Enable Mutiny for the REST client",

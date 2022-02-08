@@ -17,34 +17,17 @@ class PlatformInfo(
     val extensionCatalog: ExtensionCatalog,
 ) {
 
-    val extensionsByShortId: Map<String, CodeQuarkusExtension>
-        get() {
-            return codeQuarkusExtensions.associateBy { it.shortId }
-        }
-
     val extensionsById: Map<String, CodeQuarkusExtension>
         get() {
             return codeQuarkusExtensions.associateBy { it.id }
         }
 
-    fun checkAndMergeExtensions(extensionsIds: Set<String>?, rawShortExtensions: String? = null): Set<String> {
-        val fromId = (extensionsIds ?: setOf())
+    fun checkAndMergeExtensions(extensionsIds: Set<String>?): Set<String> {
+        return (extensionsIds ?: setOf())
             .stream()
             .filter { it.isNotBlank() }
             .map { findById(it) }
             .collect(Collectors.toSet())
-        val fromShortId = parseShortExtensions(rawShortExtensions).stream()
-            .map { withVersionIfNeeded(this.extensionsByShortId[it] ?: throw IllegalArgumentException("Invalid shortId: $it")) }
-            .collect(Collectors.toSet())
-        return fromId union fromShortId
-    }
-
-    private fun parseShortExtensions(shortExtension: String?): Set<String> {
-        return if (shortExtension.isNullOrBlank()) {
-            setOf()
-        } else {
-            shortExtension.split(".").filter { it.isNotBlank() }.toSet()
-        }
     }
 
     private fun findById(id: String): String {
