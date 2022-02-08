@@ -15,7 +15,7 @@
     "postinstall": "((! test -f ~/bin/bit && bvm install) || true) && ~/bin/bit import && ~/bin/bit link"
   },
   "dependencies": {
-    "@sentry/browser": "6.16.0",
+    "@sentry/browser": "6.17.5",
     "@teambit/bvm": "0.0.30",
     "@testing-library/dom": "8.11.1",
     "@testing-library/react": "12.1.2",
