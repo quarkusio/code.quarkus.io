@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@sentry/browser": "6.17.7",
-    "@teambit/bvm": "0.0.30",
+    "@teambit/bvm": "0.0.34",
     "@testing-library/dom": "8.11.1",
     "@testing-library/react": "12.1.2",
     "@types/jest": "27.4.0",
