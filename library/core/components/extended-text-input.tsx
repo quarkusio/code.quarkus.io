@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAnalyticsEditionField } from '@quarkusio/code-quarkus.core.analytics'
 import { DebouncedTextInput, DebouncedTextInputProps } from './debounced-text-input';
 import { FaExclamationTriangle } from 'react-icons/fa';
+import classNames from 'classnames';
 
 export interface ExtendedTextInputProps extends DebouncedTextInputProps {
   id: string;
@@ -13,7 +14,7 @@ export function ExtendedTextInput(props: ExtendedTextInputProps) {
   const [ isDirty, onChangeWithDirty ] = useAnalyticsEditionField(props.id, onChange);
   const valid = (!isDirty && !props.value) || isValid;
   return (
-    <div className="form-group">
+    <div className={classNames('form-group', { 'is-invalid': !isValid })}>
       <label className="form-group-label" htmlFor={props.id}><span
         className="form-group-label-text">{label}</span></label>
       <DebouncedTextInput
