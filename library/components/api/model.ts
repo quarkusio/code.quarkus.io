@@ -7,6 +7,7 @@ export interface QuarkusProject {
     name?: string;
     noCode?: boolean;
     buildTool: string;
+    javaVersion: string;
   };
   extensions: string[];
   streamKey?: string;

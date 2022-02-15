@@ -4,6 +4,7 @@ import { InputProps } from '@quarkusio/code-quarkus.core.types';
 import './info-picker.scss';
 import { BuildToolSelect } from './build-tool-select';
 import { NoCodeSelect } from './no-code-select';
+import { JavaVersionSelect } from './java-version-select';
 
 export interface InfoPickerValue {
   groupId?: string;
@@ -11,6 +12,7 @@ export interface InfoPickerValue {
   version?: string;
   noCode?: boolean;
   buildTool?: string;
+  javaVersion?: string;
 }
 
 interface InfoPickerProps extends InputProps<InfoPickerValue> {
@@ -37,6 +39,7 @@ export const InfoPicker = (props: InfoPickerProps) => {
   const onVersionChange = (newValue: string) => onInputChange({ ...props.value, version: newValue });
   const onNoCodeChange = (newValue: boolean) => onInputChange({ ...props.value, noCode: newValue });
   const onBuildToolChange = (newValue: string) => onInputChange({ ...props.value, buildTool: newValue });
+  const onJavaVersionChange = (newValue: string) => onInputChange({ ...props.value, javaVersion: newValue });
 
   return (
     <div className={'info-picker horizontal'}>
@@ -70,6 +73,7 @@ export const InfoPicker = (props: InfoPickerProps) => {
               onChange={onVersionChange}
               isValid={!!props.value.version}
             />
+            <JavaVersionSelect onChange={onJavaVersionChange} value={props.value.javaVersion || '11'} />
             <NoCodeSelect onChange={onNoCodeChange} value={props.value.noCode || false} />
           </div>
         </TogglePanel>

@@ -69,6 +69,7 @@ internal class QuarkusProjectServiceTest {
             .satisfies(checkContains("<quarkus.platform.artifact-id>${platformService.recommendedPlatformInfo.extensionCatalog.bom.artifactId}</quarkus.platform.artifact-id>"))
             .satisfies(checkContains("<quarkus.platform.version>${platformService.recommendedPlatformInfo.extensionCatalog.bom.version}</quarkus.platform.version>")).satisfies(checkContains("<groupId>io.quarkus</groupId>"))
             .satisfies(checkContains("<artifactId>quarkus-resteasy</artifactId>"))
+            .satisfies(checkContains("<maven.compiler.release>${ProjectDefinition.DEFAULT_JAVA_VERSION}</maven.compiler.release>"))
             .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
 
         assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/GreetingResource.java")
@@ -88,6 +89,7 @@ internal class QuarkusProjectServiceTest {
                 version = "2.0.0",
                 className = "com.test.TestResource",
                 path = "/test/it",
+                javaVersion = "17",
                 extensions = setOf(
                     "io.quarkus:quarkus-resteasy",
                     "io.quarkus:quarkus-resteasy-jsonb",
@@ -115,6 +117,8 @@ internal class QuarkusProjectServiceTest {
             .satisfies(checkContains("<artifactId>quarkus-hibernate-validator</artifactId>"))
             .satisfies(checkContains("<artifactId>quarkus-neo4j</artifactId>"))
             .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
+            .satisfies(checkContains("<maven.compiler.release>17</maven.compiler.release>"))
+
 
         assertThatMatchSnapshot(info, projDir, "src/main/java/com/test/TestResource.java")
             .satisfies(checkContains("@Path(\"/test/it\")"))
@@ -154,6 +158,30 @@ internal class QuarkusProjectServiceTest {
 
         assertThatMatchSnapshot(info, projDir, "src/main/kotlin/com/test/TestResource.kt")
             .satisfies(checkContains("fun hello() = \"Hello RESTEasy\""))
+    }
+
+    @Test
+    @DisplayName("Create a Gradle project with java 17")
+    fun testGradle17(info: TestInfo) {
+        // When
+        val creator = getProjectService()
+
+        val proj = creator.create(
+            platformService.recommendedPlatformInfo,
+            ProjectDefinition(
+                groupId = "com.gr",
+                artifactId = "test-gradle-17-app",
+                buildTool = "GRADLE",
+                javaVersion = "17"
+            )
+        )
+        val testDir = QuarkusProjectServiceTestUtils.extractProject(proj)
+        val projDir = Paths.get(testDir.first.path, "test-gradle-17-app")
+
+        // Then
+        assertThat(projDir.resolve("build.gradle"))
+            .satisfies(checkContains("sourceCompatibility = JavaVersion.VERSION_17"))
+            .satisfies(checkContains("targetCompatibility = JavaVersion.VERSION_17"))
     }
 
     @Test

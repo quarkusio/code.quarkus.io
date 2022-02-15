@@ -74,7 +74,7 @@ class QuarkusProjectService {
                 .sourceType(sourceType)
                 .resourcePath(projectDefinition.path)
                 .extraCodestarts(codestarts)
-                .javaTarget("11")
+                .javaTarget(projectDefinition.javaVersion)
                 .className(projectDefinition.className)
                 .extensions(extensions)
                 .noCode(projectDefinition.noCode || projectDefinition.noExamples)

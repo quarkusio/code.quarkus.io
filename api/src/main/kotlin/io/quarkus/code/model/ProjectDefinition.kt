@@ -17,7 +17,9 @@ class ProjectDefinition {
         const val DEFAULT_VERSION = "1.0.0-SNAPSHOT"
         const val DEFAULT_BUILDTOOL = "MAVEN"
         const val DEFAULT_NO_CODE = false
+        const val DEFAULT_JAVA_VERSION = "11"
 
+        const val JAVA_VERSION_PATTERN = "^(?:1\\.)?(\\d+)(?:\\..*)?\$";
         const val GROUPID_PATTERN = "^([a-zA-Z_\$][a-zA-Z\\d_\$]*\\.)*[a-zA-Z_\$][a-zA-Z\\d_\$]*\$"
         const val ARTIFACTID_PATTERN = "^[a-z][a-z0-9-._]*\$"
         const val CLASSNAME_PATTERN = GROUPID_PATTERN
@@ -33,10 +35,10 @@ class ProjectDefinition {
                 className: String? = null,
                 path: String? = null,
                 buildTool: String = DEFAULT_BUILDTOOL,
+                javaVersion: String = DEFAULT_JAVA_VERSION,
                 noExamples: Boolean = false,
                 noCode: Boolean = false,
-                extensions: Set<String> = setOf(),
-                shortExtensions: String = "") {
+                extensions: Set<String> = setOf()) {
         this.streamKey = streamKey
         this.groupId = groupId
         this.artifactId = artifactId
@@ -45,6 +47,7 @@ class ProjectDefinition {
         this.extensions = extensions
         this.path = path
         this.buildTool = buildTool
+        this.javaVersion = javaVersion
         this.noCode = noCode
         this.noExamples = noExamples
     }
@@ -119,6 +122,16 @@ class ProjectDefinition {
     var buildTool: String = DEFAULT_BUILDTOOL
         private set
 
+    @QueryParam("j")
+    @NotEmpty
+    @DefaultValue(DEFAULT_JAVA_VERSION)
+    @Pattern(regexp = JAVA_VERSION_PATTERN)
+    @Parameter(name = "j", description = "The Java version for the generation application", required = false)
+    @Schema(description = "The Java version for the generation application", required = false, pattern = JAVA_VERSION_PATTERN)
+    var javaVersion: String = DEFAULT_JAVA_VERSION
+        private set
+
+
     @QueryParam("e")
     @Parameter(name = "e", description = "The set of extension ids that will be included in the generated application", required = false)
     @Schema(description = "The set of extension ids that will be included in the generated application", required = false)
@@ -126,7 +139,7 @@ class ProjectDefinition {
         private set
 
     override fun toString(): String {
-        return "QuarkusProject(streamKey='$streamKey', groupId='$groupId', artifactId='$artifactId', version='$version', className='$className', path='$path', buildTool='$buildTool', noCode='$noCode', extensions=$extensions')"
+        return "QuarkusProject(streamKey='$streamKey', groupId='$groupId', artifactId='$artifactId', version='$version', className='$className', path='$path', buildTool='$buildTool', noCode='$noCode', extensions='$extensions', javaVersion='$javaVersion')"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -144,6 +157,7 @@ class ProjectDefinition {
         if (noExamples != other.noExamples) return false
         if (noCode != other.noCode) return false
         if (buildTool != other.buildTool) return false
+        if (javaVersion != other.javaVersion) return false
         if (extensions != other.extensions) return false
 
         return true
@@ -159,6 +173,7 @@ class ProjectDefinition {
         result = 31 * result + noExamples.hashCode()
         result = 31 * result + noCode.hashCode()
         result = 31 * result + buildTool.hashCode()
+        result = 31 * result + javaVersion.hashCode()
         result = 31 * result + extensions.hashCode()
         return result
     }

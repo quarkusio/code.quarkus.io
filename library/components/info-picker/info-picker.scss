@@ -5,7 +5,7 @@
 
 
   .base-settings {
-    flex-basis: 420px;
+    flex-basis: 350px;
     margin: 0 20px 0 0;
     padding: 0;
   }
@@ -47,11 +47,23 @@
       }
     }
     .form-group {
+      display: flex;
+      flex-direction: row;
       position: relative;
       font-family: overpass,open sans,-apple-system,blinkmacsystemfont,Segoe UI,roboto,Helvetica Neue,arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+      border-bottom: 1px solid var(--fieldLabelAndBorderColor);
+
+      &:focus-within {
+        border-bottom: 1px solid var(--fieldLabelAndBorderHoverColor);
+      }
+      &.is-invalid {
+        border-bottom: 1px solid var(--warningColor);
+      }
       .form-group-label {
+        white-space: nowrap;
         display: inline-block;
-        width: 120px;
+        flex-basis: 100px;
+        width: 100px;
         color: var(--fieldLabelAndBorderColor);
         font-size: 14px;
         font-weight: 600;
@@ -75,21 +87,15 @@
 
       input.form-group-control,
       select.form-group-control {
-        padding: 0;
         border: none;
-        margin-left: -120px;
-        padding-left: 120px;
-        border-bottom: 1px solid var(--fieldLabelAndBorderColor);
         font-size: 14px;
-        width: 100%;
+        flex: 1;
         height: 30px;
-        line-height: 21px;
+        padding: 0 0 8px;
         background-color: transparent;
         color: var(--fieldTextColor);
         outline: none;
         font-family: var(--inputFont);
-        padding-bottom: 4px;
-        padding-right: 30px;
         -webkit-appearance:none;
       }
 
@@ -97,18 +103,18 @@
         color: var(--selectOptionsTextColor);
       }
 
-      input.form-group-control:focus {
-        outline: none;
-        border-bottom: 1px solid var(--fieldLabelAndBorderHoverColor);
+      .code-switch-control:checked ~ .code-switch-label:after {
+        content: 'Yes';
       }
 
-      input.form-group-control.is-invalid {
-        border-bottom: 1px solid var(--warningColor);
+      input.form-group-control:focus {
+        outline: none;
       }
+
+
     }
 
     .form-group.code-switch {
-      border-bottom: 1px solid var(--fieldLabelAndBorderColor);
 
       input {
         z-index: -1;
@@ -121,7 +127,7 @@
         width: 100%;
         .code-switch-inner-label {
           display: inline-block;
-          width: 120px;
+          width: 100px;
         }
       }
 
@@ -140,16 +146,11 @@
 
     &.base-settings .form-group {
       .form-group-label {
-        width: 80px;
       }
       .form-group-control {
-        margin-left: -80px;
-        padding-left: 80px;
       }
       input.form-group-control,
       select.form-group-control {
-        margin-left: -80px;
-        padding-left: 80px;
       }
     }
   }
