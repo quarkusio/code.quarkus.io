@@ -5,7 +5,7 @@ on:
       - 'frontend/**'
       - 'library/**'
       - '.github/**'
-  pull_request:
+  pull_request_target:
     types: [assigned, opened, synchronize, reopened, ready_for_review, edited]
     paths:
       - 'frontend/**'
@@ -56,4 +56,12 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Build frontend
         working-directory: frontend
-        run: yarn build
+        run: REACT_APP_BACKEND_URL=https://stage.code.quarkus.io yarn build
+      - name: Publishing to surge for preview
+        id: surge-preview
+        uses: afc163/surge-preview@v1
+        with:
+          surge_token: ${{ secrets.SURGE_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          build: echo "Build is already done"
+          dist: frontend/build

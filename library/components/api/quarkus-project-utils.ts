@@ -21,6 +21,7 @@ export interface ProjectPayload {
   artifactId?: string;
   version?: string;
   buildTool?: string;
+  javaVersion?: string;
   noCode?: boolean;
   extensions?: string[];
   platformOnly?: boolean;
@@ -42,6 +43,9 @@ export function generateProjectPayload(project: QuarkusProject): ProjectPayload 
   if (project.metadata.buildTool && project.metadata.buildTool !== defaultProject.metadata.buildTool) {
     changes.buildTool = project.metadata.buildTool;
   }
+  if (project.metadata.javaVersion && project.metadata.javaVersion !== defaultProject.metadata.javaVersion) {
+    changes.javaVersion = project.metadata.javaVersion;
+  }
   if (project.metadata.noCode && project.metadata.noCode !== defaultProject.metadata.noCode) {
     changes.noCode = project.metadata.noCode;
   }
@@ -62,6 +66,7 @@ const QUERY_PROJECT_MAPPING: any = {
   artifactId: 'a',
   version: 'v',
   buildTool: 'b',
+  javaVersion: 'j',
   noCode: 'nc',
   extensions: 'e',
   streamKey: 'S',
@@ -145,6 +150,7 @@ export function newDefaultProject(): QuarkusProject {
       artifactId: 'code-with-quarkus',
       version: '1.0.0-SNAPSHOT',
       buildTool: 'MAVEN',
+      javaVersion: '11',
       noCode: false
     },
     extensions: [],
@@ -261,6 +267,7 @@ export function parseProjectInQuery(queryParams?: ParsedUrlQuery): QuarkusProjec
       artifactId: queryParams.a || defaultProj.metadata.artifactId,
       version: queryParams.v || defaultProj.metadata.version,
       buildTool: queryParams.b || defaultProj.metadata.buildTool,
+      javaVersion: queryParams.j || defaultProj.metadata.javaVersion,
       noCode: queryParams.nc || defaultProj.metadata.noCode
     },
     extensions: Array.from(queryExtensions),
