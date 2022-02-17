@@ -23,10 +23,12 @@ jobs:
           name: build-dir
       - name: Store PR id as variable
         id: pr
-        run: echo "::set-output name=id::$(<pr-id.txt)"
+        run: |
+          echo "::set-output name=id::$(<pr-id.txt)"
+          rm -f pr-id.txt
       - name: Publishing to surge for preview
         id: deploy
-        run: npx surge ./build --domain https://code-quarkus-io-pr-${{  steps.pr.outputs.id }}-preview.surge.sh --token ${{ secrets.SURGE_TOKEN }}
+        run: npx surge ./ --domain https://code-quarkus-io-pr-${{  steps.pr.outputs.id }}-preview.surge.sh --token ${{ secrets.SURGE_TOKEN }}
       - name: Update PR status comment on success
         uses: actions-cool/maintain-one-comment@v1.2.1
         with:
