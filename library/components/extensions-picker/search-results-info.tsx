@@ -5,19 +5,25 @@ import { FaCheck } from 'react-icons/fa';
 import { Alert, Button } from 'react-bootstrap';
 import './search-results-info.scss';
 import { DEFAULT_FILTER } from '../api/quarkus-project-utils';
+import { useAnalytics } from '@quarkusio/code-quarkus.core.analytics';
 
 export function SearchResultsInfo(props: { filter: string; setFilter: React.Dispatch<SetStateAction<string>>, result: FilterResult }) {
+  const analytics = useAnalytics();
   function clickPlatform() {
     if (props.result.origin !== 'platform') {
+      analytics.event('UX', 'Switch origin', 'platform');
       props.setFilter(`origin:platform ${clearFilterOrigin(props.filter)}`);
     } else {
+      analytics.event('UX', 'Switch origin', 'any');
       props.setFilter(`origin:any ${clearFilterOrigin(props.filter)}`);
     }
   }
   function clickOther() {
     if (props.result.origin !== 'other' ) {
+      analytics.event('UX', 'Switch origin', 'other');
       props.setFilter(`origin:other ${clearFilterOrigin(props.filter)}`);
     } else {
+      analytics.event('UX', 'Switch origin', 'any');
       props.setFilter(`origin:any ${clearFilterOrigin(props.filter)}`);
     }
   }

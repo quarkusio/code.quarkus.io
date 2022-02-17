@@ -7,6 +7,7 @@ import DropdownItem from 'react-bootstrap/DropdownItem';
 import { clearFilterOrigin, FilterResult } from './extensions-utils';
 import classNames from 'classnames';
 import { DEFAULT_FILTER } from '../api/quarkus-project-utils';
+import { useAnalytics } from '@quarkusio/code-quarkus.core.analytics';
 
 export interface ExtensionSearchBarProps {
   placeholder: string;
@@ -25,13 +26,17 @@ function ListItem(props: { className?: string, children: React.ReactChildren }) 
 
 function FilterShortcutsDropdown(props: ExtensionSearchBarProps) {
   const [ isOpen , setIsOpen ] = useState(false);
+  const analytics = useAnalytics();
   function clickPlatform() {
+    analytics.event('UX', 'Switch origin', 'platform');
     props.setFilter(`origin:platform ${clearFilterOrigin(props.filter)}`);
   }
   function clickOther() {
+    analytics.event('UX', 'Switch origin', 'other');
     props.setFilter(`origin:other ${clearFilterOrigin(props.filter)}`);
   }
   function clickAny() {
+    analytics.event('UX', 'Switch origin', 'any');
     props.setFilter(`origin:any ${clearFilterOrigin(props.filter)}`);
   }
   const origin = props.result?.origin;
