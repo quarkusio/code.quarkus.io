@@ -56,10 +56,12 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Build frontend
         working-directory: frontend
-        run: REACT_APP_BACKEND_URL=https://stage.code.quarkus.io yarn build
-      - name: Publishing to surge for preview
-        id: surge-preview
-        if: github.event_name == 'pull_request'
-        working-directory: frontend
         run: |
-          npx surge ./build --domain https://code-quarkus-io-pr-${{ github.event.pull_request.number }}-preview.surge.sh --token ${{ secrets.SURGE_TOKEN }}
+          REACT_APP_BACKEND_URL=https://stage.code.quarkus.io yarn build
+          echo ${{ github.event.number }} > ./build/pr-id.txt
+      - name: Publishing build directory for PR preview
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v2
+        with:
+         name: build-dir
+         path: ./frontend/build

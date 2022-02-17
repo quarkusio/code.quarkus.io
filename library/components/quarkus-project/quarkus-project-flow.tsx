@@ -37,7 +37,7 @@ interface QuarkusProjectFlowProps extends ConfiguredCodeQuarkusProps {
 
 export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
   const [ run, setRun ] = useState<RunState>({ status: Status.EDITION });
-  const [ mappingWarning, setMappingWarning ] = useState<boolean | undefined>(undefined);
+  const [ missingExtensions, setMissingExtensions ] = useState<string[]>([]);
   const analytics = useAnalytics();
 
   const generate = (target: Target = Target.DOWNLOAD) => {
@@ -76,11 +76,11 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
   const mappedExtensions = mapExtensions(props.platform.extensions, props.project.extensions);
   
   useEffect(() => {
-    if(mappingWarning === undefined && mappedExtensions.missing.length > 0) {
-      setMappingWarning(true);
+    if(missingExtensions.length === 0 && mappedExtensions.missing.length > 0) {
+      setMissingExtensions(mappedExtensions.missing);
       props.setProject((prev) => ({ ...prev, extensions: mappedExtensions.mapped.map(e => e.id) }));
     }
-  }, [ mappingWarning, mappedExtensions.missing ]);
+  }, [ missingExtensions, mappedExtensions.missing ]);
   
   return (
     <>
@@ -94,7 +94,7 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
       {run.error && (
         <ErrorModal onHide={() => closeModal(false)} error={run.error}/>
       )}
-      {!!mappingWarning && <MissingExtensionWarningModal mappedExtensions={mappedExtensions} platform={props.platform} setMappingWarning={setMappingWarning} project={props.project} />}
+      {missingExtensions.length > 0 && <MissingExtensionWarningModal missingExtensions={missingExtensions} platform={props.platform} setMissingExtensions={setMissingExtensions} project={props.project} />}
     </>
   );
 

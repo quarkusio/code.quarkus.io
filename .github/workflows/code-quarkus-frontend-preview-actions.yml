@@ -1,0 +1,48 @@
+name: Code Quarkus Frontend Preview CI
+
+on:
+  workflow_run:
+    workflows: ["Code Quarkus Frontend CI"]
+    types:
+      - completed
+env:
+  # Workaround testsuite locale issue
+  LANG: en_US.UTF-8
+
+jobs:
+  publish:
+    name: "Publish PR frontend preview to surge.sh"
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.conclusion == 'success'
+    steps:
+      - name: Download PR Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build-dir
+      - name: Save PR id
+        id: pr
+        run: echo "::set-output name=id::$(<pr-id.txt)"
+      - name: Publishing to surge for preview
+        id: deploy
+        run: npx surge ./build --domain https://code-quarkus-io-pr-${{  steps.pr.outputs.id }}-preview.surge.sh --token ${{ secrets.SURGE_TOKEN }}
+      - name: Update PR status comment on success
+        uses: actions-cool/maintain-one-comment@v1.2.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            🎊 PR Preview has been successfully built and deployed to https://code-quarkus-io-pr-${{ steps.pr.outputs.id }}-preview.surge.sh
+            <img width="300" src="https://user-images.githubusercontent.com/507615/90250366-88233900-de6e-11ea-95a5-84f0762ffd39.png">
+            <!-- Sticky Pull Request Comment -->
+          body-include: '<!-- Sticky Pull Request Comment -->'
+          number: ${{ steps.pr.outputs.id }}
+      - name: Update PR status comment on failure
+        if: ${{ failure() }}
+        uses: actions-cool/maintain-one-comment@v1.2.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          body: |
+            😭 Deploy PR Preview failed.
+            <img width="300" src="https://user-images.githubusercontent.com/507615/90250824-4e066700-de6f-11ea-8230-600ecc3d6a6b.png">
+            <!-- Sticky Pull Request Comment -->
+          body-include: '<!-- Sticky Pull Request Comment -->'
+          number: ${{ steps.pr.outputs.id }}
