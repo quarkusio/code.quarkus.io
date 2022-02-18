@@ -97,5 +97,4 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
       {missingExtensions.length > 0 && <MissingExtensionWarningModal missingExtensions={missingExtensions} platform={props.platform} setMissingExtensions={setMissingExtensions} project={props.project} />}
     </>
   );
-
 }
