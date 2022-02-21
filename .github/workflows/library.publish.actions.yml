@@ -1,4 +1,4 @@
-name: Code Quarkus Publish NPM Library CI
+name: Publish NPM Library
 on:
   push:
     branches: [main]

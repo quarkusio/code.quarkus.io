@@ -1,8 +1,8 @@
-name: Code Quarkus Frontend Preview CI
+name: Frontend Preview
 
 on:
   workflow_run:
-    workflows: ["Code Quarkus Frontend CI"]
+    workflows: ["Frontend Tests"]
     types:
       - completed
 env:

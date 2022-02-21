@@ -1,4 +1,4 @@
-name: Code Quarkus Frontend Preview Teardown CI
+name: Frontend Preview Teardown
 
 on:
   pull_request_target:

@@ -1,4 +1,4 @@
-name: Code Quarkus Frontend CI
+name: Frontend Tests
 on:
   push:
     paths:

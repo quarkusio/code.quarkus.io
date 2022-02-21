@@ -1,4 +1,4 @@
-name: Code Quarkus API CI
+name: API Tests
 on:
   push:
     paths:
