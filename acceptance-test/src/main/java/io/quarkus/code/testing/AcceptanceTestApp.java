@@ -78,6 +78,7 @@ public class AcceptanceTestApp implements QuarkusApplication {
                 LOG.info("{} streams found", streams.size());
             }
 
+            page.waitForSelector(".extensions-picker .extension-row");
             final List<ElementHandle> extensions = page.querySelectorAll(".extensions-picker .extension-row");
             final Integer minExtensions = testConfig.getMinExtensions().orElse(DEFAULT_MIN_EXTENSIONS);
 
