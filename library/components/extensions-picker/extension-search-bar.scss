@@ -32,6 +32,7 @@
       line-height: 30px;
       margin-right: 10px;
 
+
       span {
         display: inline-block;
         margin-left: 7px;
@@ -40,11 +41,9 @@
         color: var(--extensionsPickerSearchBorderColorOnFocus);
         border: none;
         text-decoration: underline;
-      }
 
-      span.origin {
-
-        &.current-origin {
+        &.active {
+          color: var(--extensionsPickerSearchClearColor);
           font-weight: bold;
         }
       }
@@ -53,6 +52,10 @@
       font-weight: normal;
       line-height: 35px;
       height: 35px;
+    }
+
+    .dropdown-item.clear-filter {
+      color: var(--extensionsPickerSearchClearColor);
     }
   }
 

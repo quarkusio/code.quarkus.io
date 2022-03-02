@@ -6,7 +6,7 @@ import { InputProps } from '@quarkusio/code-quarkus.core.types';
 import {
   debouncedComputeResults,
   ExtensionValues,
-  FilterResult,
+  FilterResult, ProcessedExtensions,
   processExtensionsValues
 } from './extensions-utils';
 import { QuarkusProject } from '../api/model';
@@ -74,7 +74,7 @@ const hotkeysOptions = {
 
 export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const { filter } = props;
-  const [ processedEntries, setProcessedEntries ] = useState<ExtensionValues[]>([]);
+  const [ processedExtensions, setProcessedExtensions ] = useState<ProcessedExtensions | undefined>(undefined);
   const [ keyboardActivated, setKeyBoardActivated ] = useState<number>(-1);
   const [ showAll, setShowAll ] = useState<boolean>(false);
   const [ result, setResult ] = useState<FilterResult | undefined>();
@@ -96,12 +96,12 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const entriesById: Map<string, ExtensionEntry> = new Map(props.entries.map(item => [ item.id, item ]));
 
   useEffect(() => {
-    setProcessedEntries(processExtensionsValues(props.entries));
-  }, [ props.entries, setProcessedEntries ]);
+    setProcessedExtensions(processExtensionsValues(props.entries));
+  }, [ props.entries, setProcessedExtensions ]);
   
   useEffect(() => {
-    debouncedComputeResults(filter, props.entries, processedEntries, setResult);
-  }, [ filter, processedEntries, props.entries, setShowAll, setResult ]);
+    debouncedComputeResults(filter, props.entries, processedExtensions, setResult);
+  }, [ filter, processedExtensions, props.entries, setShowAll, setResult ]);
 
   const allEntries = result?.selected || [];
   const entries = showAll ? allEntries : allEntries.slice(0, REDUCED_SIZE)

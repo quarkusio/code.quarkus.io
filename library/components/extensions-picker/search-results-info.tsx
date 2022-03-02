@@ -14,8 +14,8 @@ export function SearchResultsInfo(props: { filter: string; setFilter: React.Disp
       analytics.event('UX', 'Switch origin', 'platform');
       props.setFilter(`origin:platform ${clearFilterOrigin(props.filter)}`);
     } else {
-      analytics.event('UX', 'Switch origin', 'any');
-      props.setFilter(`origin:any ${clearFilterOrigin(props.filter)}`);
+      analytics.event('UX', 'Switch origin', 'clear');
+      props.setFilter(`${clearFilterOrigin(props.filter)}`);
     }
   }
   function clickOther() {
@@ -23,8 +23,8 @@ export function SearchResultsInfo(props: { filter: string; setFilter: React.Disp
       analytics.event('UX', 'Switch origin', 'other');
       props.setFilter(`origin:other ${clearFilterOrigin(props.filter)}`);
     } else {
-      analytics.event('UX', 'Switch origin', 'any');
-      props.setFilter(`origin:any ${clearFilterOrigin(props.filter)}`);
+      analytics.event('UX', 'Switch origin', 'clear');
+      props.setFilter(`${clearFilterOrigin(props.filter)}`);
     }
   }
   function clearFilters() {
@@ -38,8 +38,8 @@ export function SearchResultsInfo(props: { filter: string; setFilter: React.Disp
       {props.result?.filtered && (
         <>
           <div className="search-results-info">
-            {props.result.any.length === 0 && <b>No extensions found </b>}
-            {props.result.any.length > 0 && (
+            {props.result.all.length === 0 && <b>No extensions found </b>}
+            {props.result.all.length > 0 && (
               <span className='origins-count'>
                 <span className='results'>Extensions found by origin: </span>
                 <span className={classNames('origin-count', 'platform-origin', { 'current-origin': originPlatform })} onClick={clickPlatform}>

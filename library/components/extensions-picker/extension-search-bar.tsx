@@ -8,6 +8,7 @@ import { clearFilterOrigin, FilterResult } from './extensions-utils';
 import classNames from 'classnames';
 import { DEFAULT_FILTER } from '../api/quarkus-project-utils';
 import { useAnalytics } from '@quarkusio/code-quarkus.core.analytics';
+import * as _ from 'lodash';
 
 export interface ExtensionSearchBarProps {
   placeholder: string;
@@ -28,18 +29,33 @@ function FilterShortcutsDropdown(props: ExtensionSearchBarProps) {
   const [ isOpen , setIsOpen ] = useState(false);
   const analytics = useAnalytics();
   function clickPlatform() {
-    analytics.event('UX', 'Switch origin', 'platform');
-    props.setFilter(`origin:platform ${clearFilterOrigin(props.filter)}`);
+    if (props.result.origin !== 'platform') {
+      analytics.event('UX', 'Switch origin', 'platform');
+      props.setFilter(`origin:platform ${clearFilterOrigin(props.filter)}`);
+    } else {
+      analytics.event('UX', 'Switch origin', 'clear');
+      props.setFilter(`${clearFilterOrigin(props.filter)}`);
+    }
   }
   function clickOther() {
-    analytics.event('UX', 'Switch origin', 'other');
-    props.setFilter(`origin:other ${clearFilterOrigin(props.filter)}`);
+    if (props.result.origin !== 'other' ) {
+      analytics.event('UX', 'Switch origin', 'other');
+      props.setFilter(`origin:other ${clearFilterOrigin(props.filter)}`);
+    } else {
+      analytics.event('UX', 'Switch origin', 'clear');
+      props.setFilter(`${clearFilterOrigin(props.filter)}`);
+    }
   }
-  function clickAny() {
-    analytics.event('UX', 'Switch origin', 'any');
-    props.setFilter(`origin:any ${clearFilterOrigin(props.filter)}`);
+
+  function addFilter(k: string, v:string) {
+    props.setFilter(f => `${k}:${v} ${f}`);
+  }
+
+  function clearFilter(k: string, v:string) {
+    props.setFilter(f => f.replaceAll(new RegExp(`\\s*${k}:${v}\\s*`, 'ig'), ''));
   }
   const origin = props.result?.origin;
+  const filters = _.sortBy(Object.entries(props.result?.filters || {}), f => f[0]);
   return (
     <Dropdown  className="filter-shortcut" onClick={(e) => e.stopPropagation()} onToggle={setIsOpen} show={isOpen}>
       <Dropdown.Toggle className="filter-shortcut-button">
@@ -49,30 +65,24 @@ function FilterShortcutsDropdown(props: ExtensionSearchBarProps) {
         align="left"
         onClick={(e) => e.stopPropagation()}
       >
-        {props.result?.metadata?.categories?.length > 0 &&
-          <DropdownItem as={ListItem}>
-              With category&nbsp;
-            {props.result?.metadata?.categories?.map((c, i) => (
-              <span className="category" key={i} onClick={() => props.setFilter((f) => `cat:${c} ${f}`)}>{c}</span>
-            ))}
-          </DropdownItem>
-        }
-        {props.result?.metadata?.tags?.length > 0 &&
-          <DropdownItem as={ListItem}>
-              With tag&nbsp;
-            {props.result?.metadata?.tags?.map((t, i) => (
-              <span className="tag" key={i} onClick={() => props.setFilter((f) => `tag:${t} ${f}`)}>{t}</span>
-            ))}
-          </DropdownItem>
-        }
         <DropdownItem as={ListItem}>
-          From origin&nbsp;
-          <span onClick={clickPlatform} className={classNames( 'origin', { 'current-origin': origin === 'platform' })}>platform</span>
-          <span onClick={clickOther}  className={classNames( 'origin', { 'current-origin': origin === 'other' })}>other</span>
-          <span onClick={clickAny}  className={classNames( 'origin', { 'current-origin': origin === 'any' })}>any</span>
+          origin:&nbsp;
+          <span onClick={clickPlatform} className={classNames( 'origin', { 'active': origin === 'platform' })}>platform</span>
+          <span onClick={clickOther}  className={classNames( 'origin', { 'active': origin === 'other' })}>other</span>
         </DropdownItem>
+        {filters.length > 0 && filters.map((t: any, i) => (
+          <DropdownItem as={ListItem} key={i}>
+            {t[0]}:&nbsp;
+            {t[1].active.map((v, i) => (
+              <span className={`${t[0]} active`} key={i} onClick={() => clearFilter(t[0], v)}>{v}</span>
+            ))}
+            {t[1].inactive.map((v, i) => (
+              <span className={`${t[0]} inactive`} key={i} onClick={() => addFilter(t[0], v)}>{v}</span>
+            ))}
+          </DropdownItem>
+        ))}
         {props.result?.filtered && (
-          <DropdownItem key="clear" as={Button} onClick={() => props.setFilter(DEFAULT_FILTER)}>
+          <DropdownItem key="clear" className='clear-filter' as={Button} onClick={() => props.setFilter(DEFAULT_FILTER)}>
           Clear filters
           </DropdownItem>
         )}
