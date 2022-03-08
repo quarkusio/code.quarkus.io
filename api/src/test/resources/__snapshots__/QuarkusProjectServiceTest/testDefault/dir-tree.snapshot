@@ -29,5 +29,5 @@ src/test/
 src/test/java/
 src/test/java/org/
 src/test/java/org/acme/
+src/test/java/org/acme/GreetingResourceIT.java
 src/test/java/org/acme/GreetingResourceTest.java
-src/test/java/org/acme/NativeGreetingResourceIT.java

@@ -1,7 +1,6 @@
 package io.quarkus.code.service
 
 import io.quarkus.code.misc.QuarkusExtensionUtils.processExtensions
-import io.quarkus.code.config.ExtensionProcessorConfig
 import io.quarkus.code.config.PlatformConfig
 import io.quarkus.devtools.project.QuarkusProjectHelper
 import io.quarkus.code.model.CodeQuarkusExtension
@@ -28,8 +27,6 @@ import javax.inject.Singleton
 @Singleton
 class PlatformService {
 
-    @Inject
-    lateinit var extensionProcessorConfig: ExtensionProcessorConfig
 
     @Inject
     lateinit var platformConfig: PlatformConfig
@@ -129,7 +126,7 @@ class PlatformService {
                 val recommendedRelease = stream.recommendedRelease
                 val extensionCatalog = catalogResolver.resolveExtensionCatalog(recommendedRelease.memberBoms)
                 val codeQuarkusExtensions: List<CodeQuarkusExtension> =
-                    processExtensions(extensionCatalog, extensionProcessorConfig)
+                    processExtensions(extensionCatalog)
                 val platformKey = platform.platformKey
                 val streamId = stream.id
                 val streamKey = createStreamKey(platformKey, streamId)
