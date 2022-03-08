@@ -1,7 +1,7 @@
 # Code Quarkus App
 
- [![Code Quarkus API CI](https://github.com/quarkusio/code.quarkus.io/actions/workflows/code-quarkus-api-actions.yml/badge.svg)](https://github.com/quarkusio/code.quarkus.io/actions/workflows/code-quarkus-api-actions.yml) [![Code Quarkus Frontend CI](https://github.com/quarkusio/code.quarkus.io/actions/workflows/code-quarkus-frontend-actions.yml/badge.svg)](https://github.com/quarkusio/code.quarkus.io/actions/workflows/code-quarkus-frontend-actions.yml)
- [![Code Quarkus Library CI](https://github.com/quarkusio/code.quarkus.io/actions/workflows/code-quarkus-library-publish-actions.yml/badge.svg)](https://github.com/quarkusio/code.quarkus.io/actions/workflows/code-quarkus-library-publish-actions.yml)
+ [![API Tests](https://github.com/quarkusio/code.quarkus.io/actions/workflows/api.tests.actions.yml/badge.svg)](https://github.com/quarkusio/code.quarkus.io/actions/workflows/api.tests.actions.yml) [![Frontend Tests](https://github.com/quarkusio/code.quarkus.io/actions/workflows/frontend.tests.actions.yml/badge.svg)](https://github.com/quarkusio/code.quarkus.io/actions/workflows/frontend.tests.actions.yml)
+ [![Code Quarkus Library CI](https://github.com/quarkusio/code.quarkus.io/actions/workflows/library.publish.actions.yml/badge.svg)](https://github.com/quarkusio/code.quarkus.io/actions/workflows/library.publish.actions.yml)
 
 # Development
 
