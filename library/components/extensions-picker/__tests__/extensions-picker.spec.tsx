@@ -32,7 +32,7 @@ const entries: ExtensionEntry[] = [
     'id': 'io.quarkus:quarkus-camel-netty4-http',
     'version': 'test-version',
     'name': 'Camel Netty4 test HTTP',
-    'tags': [ 'preview' ],
+    'tags': [ 'status:preview' ],
     'default': false,
     'keywords': [
       'camel-netty4-http',
@@ -47,7 +47,7 @@ const entries: ExtensionEntry[] = [
     'id': 'some-id',
     'version': 'test-version',
     'name': 'A CDI in name test',
-    'tags': [ 'experimental' ],
+    'tags': [ 'status:experimental' ],
     'default': false,
     'keywords': [
       'lambda',

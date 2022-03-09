@@ -26,9 +26,11 @@ const entries: ExtensionEntry[] = [
     'id': 'io.quarkus:quarkus-camel-netty4-http',
     'version': 'test-version',
     'name': 'Camel Netty4 test HTTP foo',
-    'tags': [ 'preview', 'cdi', 'test' ],
+    'tags': [ 'status:preview', 'status:foo', 'some:test' ],
     'default': false,
     'keywords': [
+      'cdi',
+      'test',
       'camel-netty4-http',
       'camel',
     ],
@@ -41,7 +43,7 @@ const entries: ExtensionEntry[] = [
     'id': 'io.bar:some-id-foo-bar',
     'version': 'test-version',
     'name': 'A CDI bob test',
-    'tags': [ 'experimental' ],
+    'tags': [ 'status:experimental' ],
     'default': false,
     'keywords': [
       'lambda',
@@ -61,7 +63,7 @@ const entries: ExtensionEntry[] = [
     'id': 'io.ttt:arti',
     'version': 'test-version',
     'name': 'A Web cdi test 2',
-    'tags': [ 'code' ],
+    'tags': [ 'with:starter-code' ],
     'default': false,
     'keywords': [
       'lambda',
@@ -81,7 +83,7 @@ const entries: ExtensionEntry[] = [
 const processedEntries = processExtensionsValues(entries);
 
 describe('search', () => {
-  it('"cdi bob in name" filters by name containing cdi',
+  it('"cdi bob in name" filters by name containing cdi and bob',
     () => expect(search('cdi bob in name', processedEntries)).toEqual([ entries[2] ]));
   it('"foo in name,artifact-id" filters by name or artifact-id containing foo',
     () => expect(search('foo in name,artifact-id', processedEntries)).toEqual([ entries[1], entries[2] ]));
@@ -93,16 +95,16 @@ describe('search', () => {
     () => expect(search('cat:cloud', processedEntries)).toEqual([ entries[2] ]));
   it('"cat:cloud,integration" filters by category equals "cloud" or "integration"',
     () => expect(search('cat:cloud,integration', processedEntries)).toEqual([ entries[1], entries[2] ]));
-  it('"tags:experimental" filters by tags contains "experimental"',
-    () => expect(search('tags:experimental', processedEntries)).toEqual([ entries[2] ]));
-  it('"tags:experimental,preview" filters by tags contains "experimental" or "preview',
-    () => expect(search('tags:experimental,preview', processedEntries)).toEqual([ entries[1], entries[2] ]));
-  it('"cdi in name; tags:experimental,preview" filters by tags contains "experimental" or "preview and cdi in name',
-    () => expect(search('cdi in name; tags:experimental,preview', processedEntries)).toEqual([ entries[2] ]));
-  it('"cdi in name tags:experimental,preview" filters by tags contains "experimental" or "preview and cdi in name',
-    () => expect(search('cdi in name tags:experimental,preview', processedEntries)).toEqual([ entries[2] ]));
+  it('"status:experimental" filters by status contains "experimental"',
+    () => expect(search('status:experimental', processedEntries)).toEqual([ entries[2] ]));
+  it('"status:experimental,preview" filters by status contains "experimental" or "preview',
+    () => expect(search('status:experimental,preview', processedEntries)).toEqual([ entries[1], entries[2] ]));
+  it('"cdi in name; status:experimental,preview" filters by status contains "experimental" or "preview and cdi in name',
+    () => expect(search('cdi in name; status:experimental,preview', processedEntries)).toEqual([ entries[2] ]));
+  it('"cdi in name status:experimental,preview" filters by status contains "experimental" or "preview and cdi in name',
+    () => expect(search('cdi in name status:experimental,preview', processedEntries)).toEqual([ entries[2] ]));
   it('"cdi" returns the extension with cdi as shortName first',
     () => expect(search('cdi', processedEntries)).toEqual([ entries[3], entries[0], entries[1], entries[2] ]));
-  it('"cdi test" is like "cdi test in name,shortname,keywords,tags,category"',
+  it('"cdi test" is like "cdi test in name,shortname,keywords,category"',
     () => expect(search('cdi test', processedEntries)).toEqual(entries));
 });

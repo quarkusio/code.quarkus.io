@@ -14,15 +14,17 @@ export function ExtensionTags(props: { name?: string; tagsDef: TagEntry[]; hover
   if (tagDef.hide) {
     return <React.Fragment/>;
   }
+  let s = props.name.split(':');
+  const name = s.length > 1 ? s[1] : s[0];
   const tag = (
     <span 
     >
-      {props.name.toUpperCase()}
+      {name.toUpperCase()}
     </span>
   );
   const tooltip = !props.hover ? '': (
     <>
-      {tagDef.description}
+      [{props.name}] - {tagDef.description}
       {!!tagDef.href && (
         <> 
           {tagDef.description && <br/>}

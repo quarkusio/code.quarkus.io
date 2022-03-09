@@ -1,6 +1,7 @@
 import { ExtensionEntry } from './extensions-picker';
 import { Extension } from '../api/model';
 import _ from 'lodash';
+
 const matchAll = require('string.prototype.matchall');
 
 type ExtensionFieldValueSupplier = (e: Extension) => string | string[] | undefined
@@ -8,7 +9,6 @@ type ExtensionFieldValueSupplier = (e: Extension) => string | string[] | undefin
 interface ExtensionFieldIdentifier {
   keys: string[];
   valueSupplier: ExtensionFieldValueSupplier;
-  canSearch?: boolean;
 }
 
 // FOR SHORTCUT KEYS, MAKE SURE IT IS AFTER THE FULL KEY (REPLACE IS TAKING THE FIRST)
@@ -23,37 +23,86 @@ const FIELD_IDENTIFIERS: ExtensionFieldIdentifier[] = [
   { keys: [ 'category', 'cat' ], valueSupplier: e => e.category?.toLowerCase().replace(' ', '-') },
 ];
 
-const SEARCH_FIELD_KEYS = FIELD_IDENTIFIERS.filter(s => s.canSearch === undefined || s.canSearch).map(s => s.keys).reduce((acc, value) => acc.concat(value), [])
 const FIELD_KEYS = FIELD_IDENTIFIERS.map(s => s.keys).reduce((acc, value) => acc.concat(value), [])
 
-const IN_PATTERN = `(?<expr>(([a-zA-Z0-9-._]+)\\s*)+)\\sin\\s(?<fields>((${SEARCH_FIELD_KEYS.join('|')}),?)+)`;
-const IN_REGEX = new RegExp(IN_PATTERN, 'gi');
-const EQUALS_PATTERN = `(?<field>${FIELD_KEYS.join('|')}):(?<expr>([a-zA-Z0-9-._,]+|("([a-zA-Z0-9-._,]+\\s*)+")))`;
-const EQUALS_REGEX = new RegExp(EQUALS_PATTERN, 'gi');
-const ORIGIN_PATTERN = '\\s*origin:(?<origin>any|platform|other)\\s*'
+const getInPattern = keys => `(?<expr>(([a-zA-Z0-9-._]+)\\s*)+)\\sin\\s(?<fields>((${keys.join('|')}),?)+)`;
+const getInRegexp = keys => new RegExp(getInPattern(keys), 'gi');
+const getEqualsPattern = keys => `(?<field>${keys.join('|')}):(?<expr>([a-zA-Z0-9-._,]+|("([a-zA-Z0-9-._,:]+\\s*)+")))`;
+const getEqualsRegexp = keys => new RegExp(getEqualsPattern(keys), 'gi');
+const ORIGIN_PATTERN = '\\s*origin:(?<origin>platform|other)\\s*'
 const ORIGIN_REGEX = new RegExp(ORIGIN_PATTERN, 'gi');
 const ORIGIN_REGEX_CLEAR = new RegExp(ORIGIN_PATTERN, 'i');
+
+export interface ProcessedExtensions {
+  extensionsValues: ExtensionValues[];
+  fieldKeys: string[];
+}
 
 export interface ExtensionValues {
   extension: Extension;
   values: Map<string, string | string[] | undefined>;
 }
 
-export function processExtensionsValues(extensions: Extension[]): ExtensionValues[] {
-  const byFields:ExtensionValues[] = [];
+export function getAllKeys(extensions: Extension[]): string[] {
+  const keys = new Set<string>();
+  FIELD_KEYS.forEach(k => keys.add(k));
+  for (let extension of extensions) {
+    for (let tag of extension.tags || []) {
+      if (tag.indexOf(':') > 0) {
+        keys.add(tag.split(':')[0])
+      }
+    }
+  }
+  return Array.from(keys);
+}
+
+export function processTags(tags: string[]): { [field: string]: string[] } {
+  const processed: { [field: string]: string[] } = {};
+  for (let tag of tags) {
+    let key: string, value: string;
+    if (tag.indexOf(':') > 0) {
+      const s = tag.split(':');
+      key = s[0];
+      value = s[1];
+    } else {
+      key = 'tag';
+      value = tag;
+    }
+    if(!processed[key]) {
+      processed[key] = [];
+    }
+    processed[key].push(value) ;
+  }
+  return processed;
+}
+
+export function processExtensionsValues(extensions: Extension[]): ProcessedExtensions {
+  const extensionsValues: ExtensionValues[] = [];
   const unique = removeDuplicateIds(extensions);
   for (let extension of unique) {
-    const values = new  Map<string, string | string[] | undefined>();
+    const values = new Map<string, string | string[] | undefined>();
     for (let id of FIELD_IDENTIFIERS) {
       const val = id.valueSupplier(extension);
       for (let key of id.keys) {
         values.set(key, val);
       }
     }
+    for (let tag of extension.tags || []) {
+      if (tag.indexOf(':') > 0 && tag.indexOf('origin:') !== 0) {
+        let pair = tag.split(':');
+        const v = (values.get(pair[0]) || []) as string[];
+        v.push(pair[1]);
+        values.set(pair[0], v);
+      }
+    }
     const extensionValues = { extension, values };
-    byFields.push(extensionValues);
+    extensionsValues.push(extensionValues);
   }
-  return byFields;
+  let fieldKeys = getAllKeys(extensions);
+  return {
+    extensionsValues,
+    fieldKeys
+  };
 }
 
 function inFilter(e: ExtensionValues, expr: string[], fields: string[]) {
@@ -92,29 +141,33 @@ function equalsFilter(e: ExtensionValues, expr: string[], field: string) {
   return false;
 }
 
-export function search(search: string, extensionValues: ExtensionValues[]): Extension[] {
+export function search(search: string, processedExtensions: ProcessedExtensions): Extension[] {
   let formattedSearch = search.trim().toLowerCase();
   if (!formattedSearch) {
-    return extensionValues.map(v => v.extension);
+    return processedExtensions.extensionsValues.map(v => v.extension);
   }
-  let filtered = [ ...extensionValues ];
+  let filtered = [ ...processedExtensions.extensionsValues ];
   const shortNameIndex = filtered.findIndex(e => e.values.get('shortname') === formattedSearch);
   if (shortNameIndex >= 0) {
     const val = filtered.splice(shortNameIndex, 1);
     filtered.unshift(val[0]);
   }
-  const equalsMatches = matchAll(formattedSearch, EQUALS_REGEX);
+  const equalsRegex = getEqualsRegexp(processedExtensions.fieldKeys)
+  const equalsMatches = matchAll(formattedSearch, equalsRegex);
   for (const e of equalsMatches) {
     if (!e.groups?.expr || !e.groups?.field) {
       continue;
     }
+
     const expr = e.groups.expr.replace(/"/g, '').split(',').map(s => s.toLowerCase().trim());
     const field = e.groups.field.trim().toLowerCase();
     filtered = filtered.filter(e => equalsFilter(e, expr, field));
   }
-  formattedSearch = formattedSearch.replace(EQUALS_REGEX, ';').replace(ORIGIN_REGEX, ';').trim();
-  if(formattedSearch) {
-    const inMatches = matchAll(formattedSearch, IN_REGEX);
+
+  formattedSearch = formattedSearch.replace(equalsRegex, ';').replace(ORIGIN_REGEX, ';').trim();
+  if (formattedSearch) {
+    const inRegex = getInRegexp(processedExtensions.fieldKeys)
+    const inMatches = matchAll(formattedSearch, inRegex);
     for (const e of inMatches) {
       if (!e.groups?.expr || !e.groups?.fields) {
         continue;
@@ -123,9 +176,9 @@ export function search(search: string, extensionValues: ExtensionValues[]): Exte
       const fields = e.groups.fields.split(/[\s,]+/);
       filtered = filtered.filter(e => inFilter(e, expr, fields));
     }
-    formattedSearch = formattedSearch.replace(IN_REGEX, '').replace(/;/g, '').trim();
+    formattedSearch = formattedSearch.replace(inRegex, '').replace(/;/g, '').trim();
     if (formattedSearch) {
-      filtered = filtered.filter(e => inFilter(e, formattedSearch.split(/\s+/), [ 'name', 'shortname', 'keywords', 'tags', 'category' ]));
+      filtered = filtered.filter(e => inFilter(e, formattedSearch.split(/\s+/), [ 'name', 'shortname', 'keywords', 'category' ]));
     }
   }
   return filtered.map(e => e.extension);
@@ -135,17 +188,22 @@ export const removeDuplicateIds = (entries: ExtensionEntry[]): ExtensionEntry[] 
   return _.uniqBy(entries, 'id');
 };
 
-type Origin = 'any' | 'other' | 'platform';
+type Origin = 'other' | 'platform' | 'all';
+
+export interface MetadataFilters {
+  [key: string]: {
+    active: string[];
+    inactive: string[];
+  }
+}
 
 export interface FilterResult {
-  any: ExtensionEntry[];
+  all: ExtensionEntry[];
   platform: ExtensionEntry[];
   other: ExtensionEntry[];
   selected: ExtensionEntry[];
   origin: Origin;
-  metadata: {
-    [key: string]: any
-  };
+  filters: MetadataFilters;
   filtered: boolean;
 }
 
@@ -156,7 +214,7 @@ function getOrigin(filter: string): Origin {
       return e.groups.origin as Origin;
     }
   }
-  return 'any';
+  return 'all';
 }
 
 export function shouldFilter(filter: string): boolean {
@@ -167,28 +225,43 @@ export function clearFilterOrigin(filter: string) {
   return filter.replace(ORIGIN_REGEX_CLEAR, '');
 }
 
-function getMetadata(entries: ExtensionEntry[]): { [key: string]: any } {
+
+
+function getMetadataFilters(filter: string, entries: ExtensionEntry[]): MetadataFilters {
   const tags = new Set<string>();
-  const categories = new Set<string>();
+  const cats = new Set<string>();
   for (let entry of entries) {
-    if(entry.tags) {
-      for(let tag of entry.tags) {
+    if (entry.tags) {
+      for (let tag of entry.tags) {
         tags.add(tag);
       }
     }
-    categories.add(entry.category?.toLowerCase().replace(' ', '-'))
+    cats.add(entry.category?.toLowerCase().replace(' ', '-'))
   }
-  return { tags: Array.from(tags), categories: Array.from(categories) };
+  const rawFilters = processTags(Array.from(tags));
+  rawFilters.category = Array.from(cats);
+  const filters: MetadataFilters = {};
+  for (let key in rawFilters) {
+    filters[key] = { active: [], inactive: [] };
+    for (let val of rawFilters[key]) {
+      if(filter.indexOf(key + ':' + val) >= 0) {
+        filters[key].active.push(val);
+      } else {
+        filters[key].inactive.push(val);
+      }
+    }
+  }
+  return filters;
 }
 
 export function toFilterResult(filter: string, entries: Extension[], filtered: boolean, onResult: (result: FilterResult) => void) {
   const result: FilterResult = {
-    any: entries,
+    all: entries,
     platform: [],
     other: [],
     origin: getOrigin(filter),
     selected: [],
-    metadata:{},
+    filters: {},
     filtered
   }
   for (let entry of entries) {
@@ -199,19 +272,18 @@ export function toFilterResult(filter: string, entries: Extension[], filtered: b
     }
   }
   result.selected = result[result.origin];
-  result.metadata = getMetadata(result.selected);
+  result.filters = getMetadataFilters(filter, result.selected);
   onResult(result);
 }
 
-const computeResults = (filter: string, entries: ExtensionEntry[], values: ExtensionValues[], onResult: (result: FilterResult) => void): void => {
-  if(shouldFilter(filter)) {
-    const filtered = search(filter, values);
+const computeResults = (filter: string, entries: ExtensionEntry[], processedExtensions: ProcessedExtensions, onResult: (result: FilterResult) => void): void => {
+  if (shouldFilter(filter)) {
+    const filtered = search(filter, processedExtensions);
     toFilterResult(filter, filtered, true, onResult);
   } else {
     toFilterResult(filter, entries, false, onResult);
   }
 };
-
 
 
 export const debouncedComputeResults = _.debounce(computeResults, 200);
