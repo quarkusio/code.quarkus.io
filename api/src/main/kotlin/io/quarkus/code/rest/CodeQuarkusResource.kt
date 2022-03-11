@@ -247,22 +247,12 @@ class CodeQuarkusResource {
     @Operation(operationId = "downloadForStream", summary = "Download a custom Quarkus application with the provided settings")
     @Tag(name = "Download", description = "Download endpoints")
     fun download(@Valid @BeanParam projectDefinition: ProjectDefinition): Response {
-        return try {
-            val platformInfo = platformService.getPlatformInfo(projectDefinition.streamKey)
-            Response
-                .ok(projectCreator.create(platformInfo, projectDefinition))
-                .type("application/zip")
-                .header("Content-Disposition", "attachment; filename=\"${projectDefinition.artifactId}.zip\"")
-                .build()
-        } catch (e: IllegalArgumentException) {
-            val message = "Bad request: ${e.message}"
-            LOG.warning(message)
-            Response
-                .status(Response.Status.BAD_REQUEST)
-                .entity(message)
-                .type(TEXT_PLAIN)
-                .build()
-        }
+        val platformInfo = platformService.getPlatformInfo(projectDefinition.streamKey)
+        return Response
+            .ok(projectCreator.create(platformInfo, projectDefinition))
+            .type("application/zip")
+            .header("Content-Disposition", "attachment; filename=\"${projectDefinition.artifactId}.zip\"")
+            .build()
     }
 
     @POST
@@ -272,22 +262,12 @@ class CodeQuarkusResource {
     @Operation(summary = "Download a custom Quarkus application with the provided settings")
     @Tag(name = "Download", description = "Download endpoints")
     fun postDownload(@Valid projectDefinition: ProjectDefinition?): Response {
-        try {
-            val project = projectDefinition ?: ProjectDefinition()
-            val platformInfo = platformService.getPlatformInfo(project.streamKey)
-            return Response
-                .ok(projectCreator.create(platformInfo, project))
-                .type("application/zip")
-                .header("Content-Disposition", "attachment; filename=\"${project.artifactId}.zip\"")
-                .build()
-        } catch (e: IllegalArgumentException) {
-            val message = "Bad request: ${e.message}"
-            LOG.warning(message)
-            return Response
-                .status(Response.Status.BAD_REQUEST)
-                .entity(message)
-                .type(TEXT_PLAIN)
-                .build()
-        }
+        val project = projectDefinition ?: ProjectDefinition()
+        val platformInfo = platformService.getPlatformInfo(project.streamKey)
+        return Response
+            .ok(projectCreator.create(platformInfo, project))
+            .type("application/zip")
+            .header("Content-Disposition", "attachment; filename=\"${project.artifactId}.zip\"")
+            .build()
     }
 }
