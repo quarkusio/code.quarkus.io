@@ -3,6 +3,10 @@ name: Frontend Preview Teardown
 on:
   pull_request_target:
     types: [closed]
+    paths:
+      - 'frontend/**'
+      - 'library/**'
+      - '.github/**'
 
 jobs:
   preview:
