@@ -33,7 +33,7 @@
 
         <!-- Quarkus devtools version -->
         <quarkus.devtools.version>2.7.1.Final</quarkus.devtools.version>
-        <quarkus.base-codestarts.version>2.7.1.Final</quarkus.base-codestarts.version>
+        <quarkus.base-codestarts.version>2.7.5.Final</quarkus.base-codestarts.version>
 
         <!-- Quarkiverse versions -->
         <quarkus.jgit.version>1.1.0</quarkus.jgit.version>
