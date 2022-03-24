@@ -31,7 +31,7 @@ src/native-test/
 src/native-test/kotlin/
 src/native-test/kotlin/com/
 src/native-test/kotlin/com/test/
-src/native-test/kotlin/com/test/NativeTestResourceIT.kt
+src/native-test/kotlin/com/test/TestResourceIT.kt
 src/test/
 src/test/kotlin/
 src/test/kotlin/com/

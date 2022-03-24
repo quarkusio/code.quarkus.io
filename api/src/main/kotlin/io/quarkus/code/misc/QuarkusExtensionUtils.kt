@@ -1,7 +1,6 @@
 package io.quarkus.code.misc
 
 import com.google.common.collect.Lists
-import io.quarkus.code.config.ExtensionProcessorConfig
 import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.maven.ArtifactCoords
 import io.quarkus.platform.catalog.processor.CatalogProcessor.getProcessedCategoriesInOrder
@@ -10,21 +9,21 @@ import io.quarkus.registry.catalog.Category
 import io.quarkus.registry.catalog.Extension
 import io.quarkus.registry.catalog.ExtensionCatalog
 import java.util.concurrent.atomic.AtomicInteger
-import kotlin.math.abs
-import kotlin.math.pow
 
 object QuarkusExtensionUtils {
+
+    val TAG_KEYS = listOf("status", ".+-support", "with")
 
     fun toShortcut(id: String): String = id.replace(Regex("^([^:]+:)?(quarkus-)?"), "")
 
     @JvmStatic
-    fun processExtensions(catalog: ExtensionCatalog, config: ExtensionProcessorConfig): List<CodeQuarkusExtension> {
+    fun processExtensions(catalog: ExtensionCatalog): List<CodeQuarkusExtension> {
         val list = Lists.newArrayList<CodeQuarkusExtension>()
         val processedCategories = getProcessedCategoriesInOrder(catalog)
         val order = AtomicInteger()
         processedCategories.forEach { c ->
             c.sortedExtensions.forEach { e ->
-                val codeQExt = toCodeQuarkusExtension(e, c.category, order, config)
+                val codeQExt = toCodeQuarkusExtension(e, c.category, order)
                 codeQExt?.let { list.add(it) }
             }
         }
@@ -35,8 +34,7 @@ object QuarkusExtensionUtils {
     fun toCodeQuarkusExtension(
         ext: Extension?,
         cat: Category,
-        order: AtomicInteger,
-        config: ExtensionProcessorConfig
+        order: AtomicInteger
     ): CodeQuarkusExtension? {
         if (ext == null || ext.name == null) {
             return null
@@ -46,11 +44,6 @@ object QuarkusExtensionUtils {
             return null
         }
         val id = ext.managementKey()
-        var tags = extensionProcessor.getTags(config.tagsFrom.orElse(null))
-            .map { if (it == "provides-code") "code" else it }
-        if (tags.isEmpty() || (tags.size == 1 && tags.contains("code"))) {
-            tags = tags.plus("stable")
-        }
         return CodeQuarkusExtension(
             id = id,
             shortId = "ignored",
@@ -59,7 +52,7 @@ object QuarkusExtensionUtils {
             description = ext.description,
             shortName = extensionProcessor.shortName,
             category = cat.name,
-            tags = tags,
+            tags = getTags(extensionProcessor),
             keywords = extensionProcessor.extendedKeywords,
             order = order.getAndIncrement(),
             providesExampleCode = extensionProcessor.providesCode(),
@@ -68,6 +61,17 @@ object QuarkusExtensionUtils {
             platform = ext.hasPlatformOrigin(),
             bom = getBom(ext)?.let { "${it.groupId}:${it.artifactId}:${it.version}" }
         )
+    }
+
+    private fun getTags(extension: ExtensionProcessor): List<String> {
+        val tags = arrayListOf<String>()
+        val data = extension.syntheticMetadata
+        for (entry in data.entries) {
+            if (TAG_KEYS.any { Regex(it).matches(entry.key) } && !entry.value.isEmpty()) {
+                tags.add(entry.key + ":" + entry.value.first())
+            }
+        }
+        return tags;
     }
 
     private fun getBom(extension: Extension): ArtifactCoords? {

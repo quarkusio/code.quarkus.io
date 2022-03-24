@@ -44,7 +44,7 @@ internal class QuarkusProjectServiceTest {
             .satisfies(checkContains("<quarkus.platform.artifact-id>${platformService.recommendedPlatformInfo.extensionCatalog.bom.artifactId}</quarkus.platform.artifact-id>"))
             .satisfies(checkContains("<quarkus.platform.version>${platformService.recommendedPlatformInfo.extensionCatalog.bom.version}</quarkus.platform.version>")).satisfies(checkContains("<groupId>io.quarkus</groupId>"))
             .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
-            .satisfies(checkContains("<artifactId>quarkus-resteasy</artifactId>"))
+            .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive</artifactId>"))
             .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
 
         assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/GreetingResource.java")
@@ -68,7 +68,7 @@ internal class QuarkusProjectServiceTest {
             .satisfies(checkContains("<quarkus.platform.group-id>${platformService.recommendedPlatformInfo.extensionCatalog.bom.groupId}</quarkus.platform.group-id>"))
             .satisfies(checkContains("<quarkus.platform.artifact-id>${platformService.recommendedPlatformInfo.extensionCatalog.bom.artifactId}</quarkus.platform.artifact-id>"))
             .satisfies(checkContains("<quarkus.platform.version>${platformService.recommendedPlatformInfo.extensionCatalog.bom.version}</quarkus.platform.version>")).satisfies(checkContains("<groupId>io.quarkus</groupId>"))
-            .satisfies(checkContains("<artifactId>quarkus-resteasy</artifactId>"))
+            .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive</artifactId>"))
             .satisfies(checkContains("<maven.compiler.release>${ProjectDefinition.DEFAULT_JAVA_VERSION}</maven.compiler.release>"))
             .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
 

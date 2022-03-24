@@ -1,6 +1,5 @@
 package io.quarkus.code.misc
 
-import io.quarkus.code.config.ExtensionProcessorConfig
 import io.quarkus.code.misc.QuarkusExtensionUtils.processExtensions
 import io.quarkus.code.misc.QuarkusExtensionUtils.toShortcut
 import io.quarkus.code.model.CodeQuarkusExtension
@@ -9,15 +8,10 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.contains
 import org.junit.jupiter.api.Test
-import java.util.*
 
 internal class QuarkusExtensionUtilsTest {
     companion object {
         const val FAKE_CATALOG_JSON = "fakeextensions.json"
-    }
-
-    val config = object : ExtensionProcessorConfig {
-        override val tagsFrom: Optional<String> = Optional.empty()
     }
 
     @Test
@@ -32,7 +26,7 @@ internal class QuarkusExtensionUtilsTest {
     @Test
     internal fun textContent() {
 
-        val extensions = processExtensions(catalog = getTestCatalog(), config = config)
+        val extensions = processExtensions(catalog = getTestCatalog())
         assertThat(
             extensions[0], `is`(
                 CodeQuarkusExtension(
@@ -43,14 +37,14 @@ internal class QuarkusExtensionUtilsTest {
                     description = "REST endpoint framework implementing JAX-RS and more",
                     shortName = "jax-rs",
                     category = "Web",
-                    tags = listOf("code", "stable"),
-                    providesCode = true,
+                    tags = listOf("with:starter-code", "status:stable"),
+                    keywords = setOf("endpoint", "framework", "jax", "jaxrs", "jax-rs", "quarkus-resteasy", "rest", "resteasy", "web"),
                     providesExampleCode = true,
-                    keywords = listOf("endpoint", "framework", "jax", "jaxrs", "quarkus-resteasy", "rest", "resteasy", "web"),
+                    providesCode = true,
                     guide = "https://quarkus.io/guides/rest-json",
                     order = 0,
                     platform = true,
-                    bom = "io.quarkus:quarkus-bom:999-SNAPSHOT"
+                    bom = "io.quarkus:quarkus-bom:999-SNAPSHOT",
                 )
             )
         )
@@ -62,21 +56,23 @@ internal class QuarkusExtensionUtilsTest {
                     version = "999-SNAPSHOT",
                     name = "Mutiny support for REST Client",
                     description = "Enable Mutiny for the REST client",
-                    shortName = "Mutiny support for REST Client",
                     category = "Web",
-                    providesCode = false,
-                    providesExampleCode = false,
-                    tags = listOf("preview"),
-                    keywords = listOf(
-                        "client",
-                        "microprofile-rest-client",
-                        "mutiny",
-                        "quarkus-rest-client-mutiny",
+                    tags = listOf("status:preview"),
+                    keywords = setOf(
                         "rest",
+                        "reactive",
+                        "web",
+                        "web-client",
                         "rest-client",
-                        "rest-client-mutiny",
-                        "web-client"
+                        "client",
+                        "quarkus-rest-client-mutiny",
+                        "microprofile-rest-client",
+                        "support",
+                        "mutiny",
+                        "rest-client-mutiny"
                     ),
+                    providesExampleCode = false,
+                    providesCode = false,
                     guide = null,
                     order = 6,
                     platform = true,
@@ -88,7 +84,7 @@ internal class QuarkusExtensionUtilsTest {
 
     @Test
     internal fun testOrder() {
-        val extensions = processExtensions(getTestCatalog(), config)
+        val extensions = processExtensions(getTestCatalog())
         assertThat(
             extensions.map { it.name }.subList(0, 5), contains(
                 "RESTEasy JAX-RS",
