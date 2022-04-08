@@ -123,56 +123,56 @@
   dependencies:
     dequal "^2.0.2"
 
-"@sentry/browser@6.19.1":
-  version "6.19.1"
-  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-6.19.1.tgz#b941368c230dad721e4fc29873eac52fef4107de"
-  integrity sha512-nU73PecOoMwrsw2WRJW+oQSSfgGkcY3So3JH7qwRHnnk4Gx56TkDfS0AOrNRsSpIQXj1UbSFIWKzz6ajsOg9OA==
+"@sentry/browser@6.19.6":
+  version "6.19.6"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-6.19.6.tgz#75be467667fffa1f4745382fc7a695568609c634"
+  integrity sha512-V5QyY1cO1iuFCI78dOFbHV7vckbeQEPPq3a5dGSXlBQNYnd9Ec5xoxp5nRNpWQPOZ8/Ixt9IgRxdqVTkWib51g==
   dependencies:
-    "@sentry/core" "6.19.1"
-    "@sentry/types" "6.19.1"
-    "@sentry/utils" "6.19.1"
+    "@sentry/core" "6.19.6"
+    "@sentry/types" "6.19.6"
+    "@sentry/utils" "6.19.6"
     tslib "^1.9.3"
 
-"@sentry/core@6.19.1":
-  version "6.19.1"
-  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-6.19.1.tgz#9672d0d19d4fe438be6e186b2b10a79826f19a03"
-  integrity sha512-ZSIFnwYCzABK1jX1iMwUbaAoWbbJear0wM+gSZvJpSUJ1dAXV1OZyL7kXtEJRtATahIlcrMou5ewIoeJizeWAw==
+"@sentry/core@6.19.6":
+  version "6.19.6"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-6.19.6.tgz#7d4649d0148b5d0be1358ab02e2f869bf7363e9a"
+  integrity sha512-biEotGRr44/vBCOegkTfC9rwqaqRKIpFljKGyYU6/NtzMRooktqOhjmjmItNCMRknArdeaQwA8lk2jcZDXX3Og==
   dependencies:
-    "@sentry/hub" "6.19.1"
-    "@sentry/minimal" "6.19.1"
-    "@sentry/types" "6.19.1"
-    "@sentry/utils" "6.19.1"
+    "@sentry/hub" "6.19.6"
+    "@sentry/minimal" "6.19.6"
+    "@sentry/types" "6.19.6"
+    "@sentry/utils" "6.19.6"
     tslib "^1.9.3"
 
-"@sentry/hub@6.19.1":
-  version "6.19.1"
-  resolved "https://registry.yarnpkg.com/@sentry/hub/-/hub-6.19.1.tgz#bff9ed5885b6e0eb4280774b653fa05edec6ed07"
-  integrity sha512-BgUwdxxXntGohAYrXtYrYBA6QzOeRz3NINuS838n7SRTkGf9gBJ/Rd3dyOWUrzJciKty7rmvYIwTA0oo91AMkw==
+"@sentry/hub@6.19.6":
+  version "6.19.6"
+  resolved "https://registry.yarnpkg.com/@sentry/hub/-/hub-6.19.6.tgz#ada83ceca0827c49534edfaba018221bc1eb75e1"
+  integrity sha512-PuEOBZxvx3bjxcXmWWZfWXG+orojQiWzv9LQXjIgroVMKM/GG4QtZbnWl1hOckUj7WtKNl4hEGO2g/6PyCV/vA==
   dependencies:
-    "@sentry/types" "6.19.1"
-    "@sentry/utils" "6.19.1"
+    "@sentry/types" "6.19.6"
+    "@sentry/utils" "6.19.6"
     tslib "^1.9.3"
 
-"@sentry/minimal@6.19.1":
-  version "6.19.1"
-  resolved "https://registry.yarnpkg.com/@sentry/minimal/-/minimal-6.19.1.tgz#d6fc92bd683ae7db207ad9666084307311881dcb"
-  integrity sha512-Xre3J6mjWEcQhDmQ3j4g71J8f0nDgg2p7K41SngibfZVYSOe8jAowxSI9JuWD7juuwT5GVRVCqLs+Y6mWDBaoQ==
+"@sentry/minimal@6.19.6":
+  version "6.19.6"
+  resolved "https://registry.yarnpkg.com/@sentry/minimal/-/minimal-6.19.6.tgz#b6cced3708e25d322039e68ebdf8fadfa445bf7d"
+  integrity sha512-T1NKcv+HTlmd8EbzUgnGPl4ySQGHWMCyZ8a8kXVMZOPDzphN3fVIzkYzWmSftCWp0rpabXPt9aRF2mfBKU+mAQ==
   dependencies:
-    "@sentry/hub" "6.19.1"
-    "@sentry/types" "6.19.1"
+    "@sentry/hub" "6.19.6"
+    "@sentry/types" "6.19.6"
     tslib "^1.9.3"
 
-"@sentry/types@6.19.1":
-  version "6.19.1"
-  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-6.19.1.tgz#684a231f8fe10c9cf14f9552f5da0a4492e6fdbc"
-  integrity sha512-ovmNYdqD2MKLmru4calxetX1xjJdYim+HEI/GzwvVUYshsaXRq4EiQ17h3DAy90MV7JH279PmMoPGDTOpufq+Q==
+"@sentry/types@6.19.6":
+  version "6.19.6"
+  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-6.19.6.tgz#70513f9dca05d23d7ab9c2a6cb08d4db6763ca67"
+  integrity sha512-QH34LMJidEUPZK78l+Frt3AaVFJhEmIi05Zf8WHd9/iTt+OqvCHBgq49DDr1FWFqyYWm/QgW/3bIoikFpfsXyQ==
 
-"@sentry/utils@6.19.1":
-  version "6.19.1"
-  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-6.19.1.tgz#9d5f50a0ceb60b63631de88b4abed07253568209"
-  integrity sha512-mWcQbQ1yO7PooLpJpQK84+wOfxGeb8iUKRb8inO+2Eg6VksDbXRuJ89Yd4APBTRxBj5Wihy48bPuVfKtovtm8g==
+"@sentry/utils@6.19.6":
+  version "6.19.6"
+  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-6.19.6.tgz#2ddc9ef036c3847084c43d0e5a55e4646bdf9021"
+  integrity sha512-fAMWcsguL0632eWrROp/vhPgI7sBj/JROWVPzpabwVkm9z3m1rQm6iLFn4qfkZL8Ozy6NVZPXOQ7EXmeU24byg==
   dependencies:
-    "@sentry/types" "6.19.1"
+    "@sentry/types" "6.19.6"
     tslib "^1.9.3"
 
 "@teambit/bvm.commands.config@0.0.26":
