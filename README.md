@@ -58,5 +58,5 @@ It is automated based on the [acceptance tests](https://github.com/quarkusio/cod
 
 # API Documentation
 
-- [OpenApi](https://code.quarkus.io/q/swagger-ui)
+- [OpenApi (Swagger UI)](https://editor.swagger.io/?url=https://code.quarkus.io/q/openapi)
 
