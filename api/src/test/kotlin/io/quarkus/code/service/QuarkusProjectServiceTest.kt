@@ -91,8 +91,8 @@ internal class QuarkusProjectServiceTest {
                 path = "/test/it",
                 javaVersion = "17",
                 extensions = setOf(
-                    "io.quarkus:quarkus-resteasy",
-                    "io.quarkus:quarkus-resteasy-jsonb",
+                    "io.quarkus:quarkus-resteasy-reactive",
+                    "io.quarkus:quarkus-resteasy-reactive-jsonb",
                     "quarkus-neo4j",
                     "hibernate-validator"
                 )
@@ -112,8 +112,8 @@ internal class QuarkusProjectServiceTest {
             .satisfies(checkContains("<quarkus.platform.artifact-id>${platformService.recommendedPlatformInfo.extensionCatalog.bom.artifactId}</quarkus.platform.artifact-id>"))
             .satisfies(checkContains("<quarkus.platform.version>${platformService.recommendedPlatformInfo.extensionCatalog.bom.version}</quarkus.platform.version>"))
             .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
-            .satisfies(checkContains("<artifactId>quarkus-resteasy</artifactId>"))
-            .satisfies(checkContains("<artifactId>quarkus-resteasy-jsonb</artifactId>"))
+            .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive</artifactId>"))
+            .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive-jsonb</artifactId>"))
             .satisfies(checkContains("<artifactId>quarkus-hibernate-validator</artifactId>"))
             .satisfies(checkContains("<artifactId>quarkus-neo4j</artifactId>"))
             .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
@@ -138,7 +138,7 @@ internal class QuarkusProjectServiceTest {
                 version = "2.0.0",
                 buildTool = "GRADLE",
                 className = "com.test.TestResource",
-                extensions = setOf("resteasy", "kotlin")
+                extensions = setOf("resteasy-reactive", "kotlin")
             )
         )
         val testDir = QuarkusProjectServiceTestUtils.extractProject(proj)
@@ -150,14 +150,14 @@ internal class QuarkusProjectServiceTest {
             .satisfies(checkContains("rootProject.name='test-kotlin-app'"))
         assertThat(projDir.resolve("build.gradle"))
             .satisfies(checkContains("id 'org.jetbrains.kotlin.jvm' version "))
-            .satisfies(checkContains("implementation 'io.quarkus:quarkus-resteasy'"))
+            .satisfies(checkContains("implementation 'io.quarkus:quarkus-resteasy-reactive'"))
             .satisfies(checkContains("implementation 'io.quarkus:quarkus-kotlin'"))
             .satisfies(checkContains("implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk"))
             .satisfies(checkContains("group 'com.kot'"))
             .satisfies(checkContains("version '2.0.0'"))
 
         assertThatMatchSnapshot(info, projDir, "src/main/kotlin/com/test/TestResource.kt")
-            .satisfies(checkContains("fun hello() = \"Hello RESTEasy\""))
+            .satisfies(checkContains("fun hello() = \"Hello from RESTEasy Reactive\""))
     }
 
     @Test
@@ -196,7 +196,7 @@ internal class QuarkusProjectServiceTest {
                 groupId = "my.qute.yaml.app",
                 artifactId = "test-qute-yaml-app",
                 buildTool = "MAVEN",
-                extensions = setOf("resteasy-qute", "config-yaml")
+                extensions = setOf("resteasy-reactive-qute", "config-yaml")
             )
         )
         val testDir = QuarkusProjectServiceTestUtils.extractProject(proj)
