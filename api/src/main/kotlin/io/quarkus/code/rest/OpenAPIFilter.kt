@@ -49,7 +49,11 @@ class OpenAPIFilter : OASFilter {
 
     private val validStreamValues: Set<String>
         get() {
-            val platformService = CDI.current().select(PlatformService::class.java).get()
-            return platformService.streamKeys
+            return try {
+                val platformService = CDI.current().select(PlatformService::class.java).get()
+                platformService.streamKeys
+            }catch(e : Exception){
+                emptySet()
+            }
         }
 }
