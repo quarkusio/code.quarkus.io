@@ -7,21 +7,20 @@
 
 > Have a look at the Makefile to find the most used dev commands.
 
-In one terminal tab, use this command to start backend in dev mode (on: http://0.0.0.0:8080).
+Link the library for dev:
 ```
-make dev-api
+make link-lib
+```
+
+Use this command to start dev mode (on: http://0.0.0.0:8080).
+```
+make dev
 ```
 
 Or use those command to start the api in packaged mode (on: http://0.0.0.0:8080).
 ```
 make build-api
 make start-api
-```
-
-In the another terminal tab, use those commands to link the library and then start frontend in dev mode also watching for changes in the lib (on: http://0.0.0.0:3000).
-```
-make link-lib
-make dev-lib
 ```
 
 If you want to unlink the local library and use the npm package library in the frontend:

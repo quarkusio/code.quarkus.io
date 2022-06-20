@@ -12,6 +12,7 @@ class PlatformInfo(
     val platformKey: String,
     val streamKey: String,
     val quarkusCoreVersion: String,
+    val platformVersion: String,
     val recommended: Boolean,
     val codeQuarkusExtensions: List<CodeQuarkusExtension>,
     val extensionCatalog: ExtensionCatalog,
