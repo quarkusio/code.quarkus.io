@@ -56,6 +56,7 @@ export interface Platform {
 export interface Stream {
   key: string;
   quarkusCoreVersion: string;
+  platformVersion: string;
   recommended: boolean;
   status: string;
 }

@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap';
 interface SentryBoundaryProps {
   sentryDSN?: string;
   environment: string;
+  children?: React.ReactNode;
 }
 
 export class SentryBoundary extends React.Component<SentryBoundaryProps, { error?: Error }> {
@@ -23,7 +24,7 @@ export class SentryBoundary extends React.Component<SentryBoundaryProps, { error
     }
   }
 
-  public componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     if (this.props.sentryDSN) {
       this.setState({ error });
       Sentry.withScope(scope => {
@@ -36,13 +37,13 @@ export class SentryBoundary extends React.Component<SentryBoundaryProps, { error
     }
   }
 
-  public render() {
+  render() {
     if (this.state.error) {
       return (
         <Button onClick={() => Sentry.showReportDialog()}>Report feedback</Button>
       );
     } else {
-      return this.props.children;
+      return <>{this.props.children}</>;
     }
   }
 }

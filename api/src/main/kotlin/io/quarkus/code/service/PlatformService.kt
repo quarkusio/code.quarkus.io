@@ -134,6 +134,7 @@ class PlatformService {
                     platformKey = platformKey,
                     streamKey = streamKey,
                     quarkusCoreVersion = stream.recommendedRelease.quarkusCoreVersion,
+                    platformVersion = stream.recommendedRelease.version.toString(),
                     recommended = (stream.id == platform.recommendedStream.id),
                     codeQuarkusExtensions = codeQuarkusExtensions,
                     extensionCatalog = extensionCatalog
@@ -141,6 +142,7 @@ class PlatformService {
                 streams.add(Stream(
                     key = streamKey,
                     quarkusCoreVersion = platformInfo.quarkusCoreVersion,
+                    platformVersion = stream.recommendedRelease.version.toString(),
                     recommended = platformInfo.recommended,
                     status = getStreamStatus(platformInfo)
                 ))
