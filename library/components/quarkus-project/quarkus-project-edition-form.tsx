@@ -6,7 +6,8 @@ import { GenerateButton } from '../generate-project/generate-button';
 import { Config, Extension, Platform, QuarkusProject } from '../api/model';
 import {
   debouncedSyncParamsQuery,
-  Target
+  Target,
+  saveProjectToLocalStorage
 } from '../api/quarkus-project-utils';
 import { ExtensionsCart } from '../generate-project/extensions-cart';
 import { Api } from '../api/code-quarkus-api';
@@ -26,17 +27,31 @@ interface CodeQuarkusFormProps {
 export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
   const [ isProjectValid, setIsProjectValid ] = useState(isValidInfo(props.project.metadata));
   const { setProject, filter, setFilter } = props;
+  const [ isConfigSaved, setConfigSaved ] = useState(false);
 
   const setMetadata = (metadata: any) => {
     setIsProjectValid(isValidInfo(metadata));
     setProject((prev) => ({ ...prev, metadata }));
+    setConfigSaved(false);
   };
-  const setExtensions = (value: { extensions: ExtensionEntry[] }) => setProject((prev) => ({ ...prev, extensions: value.extensions.map(e => e.id) }));
+  const setExtensions = (value: { extensions: ExtensionEntry[] }) => {
+    setProject((prev) => ({ ...prev, extensions: value.extensions.map(e => e.id) }));
+    setConfigSaved(false);
+  }
+
   const save = (target?: Target) => {
     if (isProjectValid) {
       props.onSave(target);
     }
   };
+
+  const storeAppConfig = () => {
+    if(isProjectValid) {
+      saveProjectToLocalStorage(props.project);
+      setConfigSaved(true);
+    }
+  };
+
   useEffect(() => {
     debouncedSyncParamsQuery(props.api, props.project, filter);
   }, [ filter, props.project ])
@@ -54,7 +69,15 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
           </div>
           <div className="generate-project">
             <ExtensionsCart  value={{ extensions: props.selectedExtensions }} onChange={setExtensions} tagsDef={props.platform.tagsDef}/>
-            <GenerateButton api={props.api} project={props.project} generate={save} isProjectValid={isProjectValid} githubClientId={props.config.gitHubClientId}/>
+            <GenerateButton 
+              api={props.api} 
+              project={props.project} 
+              generate={save} 
+              isProjectValid={isProjectValid} 
+              githubClientId={props.config.gitHubClientId}
+              isConfigSaved={isConfigSaved}
+              storeAppConfig={storeAppConfig}
+            />
           </div>
         </div>
       </div>

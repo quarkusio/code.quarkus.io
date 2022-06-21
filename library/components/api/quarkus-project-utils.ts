@@ -10,6 +10,10 @@ export enum Target {
   GITHUB = 'GITHUB'
 }
 
+export enum LocalStorageKey {
+  DEFAULT_PROJECT = 'quarkus:default-project-config'
+}
+
 export interface GenerateResult {
   target: Target;
   url: string;
@@ -236,7 +240,7 @@ const generateParamQuery = (filter: string, project: string) => {
 };
 
 export function resolveInitialProject(queryParams?: ParsedUrlQuery) {
-  return parseProjectInQuery(queryParams) || newDefaultProject();
+  return parseProjectInQuery(queryParams) || retrieveProjectFromLocalStorage() || newDefaultProject();
 }
 
 function normalizeQueryExtensions(queryExtensions: undefined | string | string[]): Set<string> {
@@ -282,4 +286,20 @@ export function parseProjectInQuery(queryParams?: ParsedUrlQuery): QuarkusProjec
     console.log('Received GitHub auth');
   }
   return project;
+}
+
+export function retrieveProjectFromLocalStorage() : QuarkusProject | undefined {
+  const jsonProject = localStorage.getItem(LocalStorageKey.DEFAULT_PROJECT);
+
+  if(jsonProject === null) {
+    return undefined;
+  }
+  
+  const project = JSON.parse(jsonProject) as QuarkusProject;
+  return project;
+}
+
+export function saveProjectToLocalStorage(project : QuarkusProject) {
+  const jsonProject = JSON.stringify(project);
+  localStorage.setItem(LocalStorageKey.DEFAULT_PROJECT, jsonProject);
 }
