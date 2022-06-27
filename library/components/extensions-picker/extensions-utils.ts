@@ -2,7 +2,14 @@ import { ExtensionEntry } from './extensions-picker';
 import { Extension } from '../api/model';
 import _ from 'lodash';
 
-const matchAll = require('string.prototype.matchall');
+function* matchAll(str, regexp) {
+  const flags = regexp.global ? regexp.flags : regexp.flags + 'g';
+  const re = new RegExp(regexp, flags);
+  let match;
+  while (match = re.exec(str)) {
+    yield match;
+  }
+}
 
 type ExtensionFieldValueSupplier = (e: Extension) => string | string[] | undefined
 
@@ -25,7 +32,7 @@ const FIELD_IDENTIFIERS: ExtensionFieldIdentifier[] = [
 
 const FIELD_KEYS = FIELD_IDENTIFIERS.map(s => s.keys).reduce((acc, value) => acc.concat(value), [])
 
-const getInPattern = keys => `(?<expr>(([a-zA-Z0-9-._]+)\\s*)+)\\sin\\s(?<fields>((${keys.join('|')}),?)+)`;
+const getInPattern = keys => `(?<expr>([a-zA-Z0-9-._]+\\s+)*[a-zA-Z0-9-._]+)\\sin\\s(?<fields>((${keys.join('|')}),?)+)`;
 const getInRegexp = keys => new RegExp(getInPattern(keys), 'gi');
 const getEqualsPattern = keys => `(?<field>${keys.join('|')}):(?<expr>([a-zA-Z0-9-._,]+|("([a-zA-Z0-9-._,:]+\\s*)+")))`;
 const getEqualsRegexp = keys => new RegExp(getEqualsPattern(keys), 'gi');
@@ -108,8 +115,8 @@ export function processExtensionsValues(extensions: Extension[]): ProcessedExten
 function inFilter(e: ExtensionValues, expr: string[], fields: string[]) {
   for (const field of fields) {
     const val = e.values.get(field);
-    //console.log(`${field} ${val}==${expr}`);
     if (val) {
+      console.log(`${field} ${val}==${expr}`);
       let allFoundInValue = true;
       for (const e of expr) {
         if (val.indexOf(e) < 0) {
@@ -141,6 +148,11 @@ function equalsFilter(e: ExtensionValues, expr: string[], field: string) {
   return false;
 }
 
+function defaultFiltering(filtered: ExtensionValues[], formattedSearch: string) {
+  return filtered.filter(e => inFilter(e, formattedSearch.split(/\s+/), [ 'name', 'shortname', 'keywords', 'category' ]));
+}
+
+
 export function search(search: string, processedExtensions: ProcessedExtensions): Extension[] {
   let formattedSearch = search.trim().toLowerCase();
   if (!formattedSearch) {
@@ -152,6 +164,13 @@ export function search(search: string, processedExtensions: ProcessedExtensions)
     const val = filtered.splice(shortNameIndex, 1);
     filtered.unshift(val[0]);
   }
+  // Basic search
+  if(formattedSearch.indexOf(' in ') < 0 && formattedSearch.indexOf(':') < 0) {
+    filtered = defaultFiltering(filtered, formattedSearch);
+    return filtered.map(e => e.extension);
+  }
+
+  // Complex search
   const equalsRegex = getEqualsRegexp(processedExtensions.fieldKeys)
   const equalsMatches = matchAll(formattedSearch, equalsRegex);
   for (const e of equalsMatches) {
@@ -165,6 +184,7 @@ export function search(search: string, processedExtensions: ProcessedExtensions)
   }
 
   formattedSearch = formattedSearch.replace(equalsRegex, ';').replace(ORIGIN_REGEX, ';').trim();
+
   if (formattedSearch) {
     const inRegex = getInRegexp(processedExtensions.fieldKeys)
     const inMatches = matchAll(formattedSearch, inRegex);
@@ -178,7 +198,7 @@ export function search(search: string, processedExtensions: ProcessedExtensions)
     }
     formattedSearch = formattedSearch.replace(inRegex, '').replace(/;/g, '').trim();
     if (formattedSearch) {
-      filtered = filtered.filter(e => inFilter(e, formattedSearch.split(/\s+/), [ 'name', 'shortname', 'keywords', 'category' ]));
+      filtered = defaultFiltering(filtered, formattedSearch);
     }
   }
   return filtered.map(e => e.extension);

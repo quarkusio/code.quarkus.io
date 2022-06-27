@@ -23,12 +23,13 @@ const entries: ExtensionEntry[] = [
     'order': 0,
   },
   {
-    'id': 'io.quarkus:quarkus-camel-netty4-http',
+    'id': 'io.quarkus:quarkus-camel-netty4-http-bab-ejfn-eafjna-fejanfj',
     'version': 'test-version',
     'name': 'Camel Netty4 test HTTP foo',
     'tags': [ 'status:preview', 'status:foo', 'some:test' ],
     'default': false,
     'keywords': [
+      'quarkus-camel-netty4-http-bab-ejfn-eafjna-fejanfj',
       'cdi',
       'test',
       'camel-netty4-http',
@@ -107,4 +108,8 @@ describe('search', () => {
     () => expect(search('cdi', processedEntries)).toEqual([ entries[3], entries[0], entries[1], entries[2] ]));
   it('"cdi test" is like "cdi test in name,shortname,keywords,category"',
     () => expect(search('cdi test', processedEntries)).toEqual(entries));
+  it('"quarkus-camel-netty4-http-bab-ejfn-eafjna-fejanfj" works with default search"',
+    () => expect(search('quarkus-camel-netty4-http-bab-ejfn-eafjna-fejanfj', processedEntries)).toEqual([ entries[1] ]));
+  it('"quarkus-camel-netty4-http-bab-ejfn-eafjna-fejanfj in artifact" works with default search"',
+    () => expect(search('quarkus-camel-netty4-http-bab-ejfn-eafjna-fejanfj', processedEntries)).toEqual([ entries[1] ]));
 });
