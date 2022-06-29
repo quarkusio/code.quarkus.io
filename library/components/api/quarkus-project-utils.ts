@@ -289,14 +289,17 @@ export function parseProjectInQuery(queryParams?: ParsedUrlQuery): QuarkusProjec
 }
 
 export function retrieveProjectFromLocalStorage() : QuarkusProject | undefined {
-  const jsonProject = localStorage.getItem(LocalStorageKey.DEFAULT_PROJECT);
+  try {
+    const jsonProject = localStorage.getItem(LocalStorageKey.DEFAULT_PROJECT);
 
-  if(jsonProject === null) {
+    if(!jsonProject) {
+      return undefined;
+    }
+  
+    return JSON.parse(jsonProject!) as QuarkusProject;
+  } catch (err) {
     return undefined;
   }
-  
-  const project = JSON.parse(jsonProject) as QuarkusProject;
-  return project;
 }
 
 export function saveProjectToLocalStorage(project : QuarkusProject) {

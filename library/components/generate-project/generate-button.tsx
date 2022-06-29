@@ -70,7 +70,7 @@ export function GenerateButton(props: { api: Api, project: QuarkusProject, isPro
             <FaGithub/> Push to GitHub
           </Dropdown.Item>
         )}
-        <Dropdown.Item as={Button} key="store" onClick={handleStoreAppConfig}>
+        <Dropdown.Item as={Button} key="store" onClick={handleStoreAppConfig} aria-label="Store current app as default">
           {
             props.isConfigSaved ? <FaCheck /> : <FaBookmark /> 
           }
