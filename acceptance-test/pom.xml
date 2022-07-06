@@ -16,6 +16,7 @@
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.version>2.10.0.Final</quarkus.platform.version>
     <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
+    <playwright.version>1.23.0</playwright.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -36,12 +37,12 @@
     <dependency>
       <groupId>com.microsoft.playwright</groupId>
       <artifactId>playwright</artifactId>
-      <version>1.22.0</version>
+      <version>${playwright.version}</version>
     </dependency>
     <dependency>
       <groupId>com.microsoft.playwright</groupId>
       <artifactId>driver-bundle</artifactId>
-      <version>1.22.0</version>
+      <version>${playwright.version}</version>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
