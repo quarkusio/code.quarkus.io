@@ -2,7 +2,7 @@
 FROM quay.io/quarkus/centos-quarkus-maven:20.1.0-java11 AS build
 ARG MAVEN_BUILD_EXTRA_ARGS=
 RUN echo "$MAVEN_BUILD_EXTRA_ARGS"
-COPY pom.xml maven-settings.xml* /usr/src/app/
+COPY pom.xml /usr/src/app/
 RUN cd /usr/src/app/ && mvn verify clean --fail-never
 COPY src /usr/src/app/src
 USER root
@@ -13,20 +13,25 @@ RUN cd /usr/src/app/ && mvn clean package $MAVEN_BUILD_EXTRA_ARGS
 ## Stage 2 : create the docker final image
 FROM mcr.microsoft.com/playwright:focal
 
+ARG JAVA_PACKAGE=openjdk-11-jre-headless
 ARG MAVEN_EXTRA_ARGS=
 RUN echo "$MAVEN_EXTRA_ARGS"
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' QUARKUS_LOCAL_REPO=/tmp/.m2 PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
 
-RUN mkdir $QUARKUS_LOCAL_REPO \
-    && chown 185 $QUARKUS_LOCAL_REPO \
-    && chmod "g+rwX" $QUARKUS_LOCAL_REPO
+RUN  apt-get update \
+    && apt-get install -y curl ${JAVA_PACKAGE} ca-certificates \
+    && apt-get update \
+    && mkdir /.cache \
+    && chown 185:root /.cache \
+    && chmod "g+rwX" /.cache
 
 # We make four distinct layers so if there are application changes the library layers can be re-used
 COPY --from=build --chown=185 usr/src/app/target/quarkus-app/lib/ /deployments/lib/
 COPY --from=build --chown=185 usr/src/app/target/quarkus-app/app/ /deployments/app/
-COPY --from=build --chown=185 usr/src/app/target/quarkus-app/*.jar usr/src/app/maven-settings.xml* /deployments/
+COPY --from=build --chown=185 usr/src/app/target/quarkus-app/*.jar /deployments/
 COPY --from=build --chown=185 usr/src/app/target/quarkus-app/quarkus/ /deployments/quarkus/
+
 
 EXPOSE 8080
 USER 185
@@ -36,4 +41,4 @@ ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss
 
 ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
 
-ENTRYPOINT [ "java", $JAVA_OPTS, "-jar", $JAVA_APP_JAR]
+ENTRYPOINT java $JAVA_OPTS -jar $JAVA_APP_JAR
