@@ -2,7 +2,7 @@ package io.quarkus.code.misc
 
 import com.google.common.collect.Lists
 import io.quarkus.code.model.CodeQuarkusExtension
-import io.quarkus.maven.ArtifactCoords
+import io.quarkus.maven.dependency.ArtifactCoords
 import io.quarkus.platform.catalog.processor.CatalogProcessor.getProcessedCategoriesInOrder
 import io.quarkus.platform.catalog.processor.ExtensionProcessor
 import io.quarkus.registry.catalog.Category
