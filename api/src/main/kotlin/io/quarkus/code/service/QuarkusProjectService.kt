@@ -7,7 +7,6 @@ import io.quarkus.devtools.commands.data.QuarkusCommandException
 import io.quarkus.devtools.messagewriter.MessageWriter
 import io.quarkus.devtools.project.BuildTool
 import io.quarkus.devtools.project.QuarkusProjectHelper
-import io.quarkus.devtools.project.codegen.CreateProjectHelper
 import io.quarkus.devtools.project.compress.QuarkusProjectCompress
 import java.io.IOException
 import java.io.OutputStream
@@ -48,7 +47,6 @@ class QuarkusProjectService {
     ) {
         val extensions =
             platformInfo.checkAndMergeExtensions(projectDefinition.extensions)
-        val sourceType = CreateProjectHelper.determineSourceType(extensions)
         val buildTool = BuildTool.valueOf(projectDefinition.buildTool)
         val codestarts = HashSet<String>()
         if (gitHub) {
@@ -71,11 +69,10 @@ class QuarkusProjectService {
                 .groupId(projectDefinition.groupId)
                 .artifactId(projectDefinition.artifactId)
                 .version(projectDefinition.version)
-                .sourceType(sourceType)
                 .resourcePath(projectDefinition.path)
                 .extraCodestarts(codestarts)
-                .javaTarget(projectDefinition.javaVersion)
-                .className(projectDefinition.className)
+                .javaVersion(projectDefinition.javaVersion)
+                .resourceClassName(projectDefinition.className)
                 .extensions(extensions)
                 .noCode(projectDefinition.noCode || projectDefinition.noExamples)
             if (platformInfo.quarkusCoreVersion.contains("-redhat-")) {
