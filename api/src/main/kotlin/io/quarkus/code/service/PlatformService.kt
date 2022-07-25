@@ -158,7 +158,7 @@ class PlatformService {
             streamCatalogMap = updatedStreamCatalogMap,
             cacheLastUpdated = LocalDateTime.now(ZoneOffset.UTC as ZoneId),
             platformTimestamp = platformTimestamp,
-            streams = streams.sortedBy { it.key }
+            streams = streams
         )
 
         checkNewCache(newCache)
