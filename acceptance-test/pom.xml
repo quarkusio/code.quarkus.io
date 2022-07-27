@@ -16,7 +16,7 @@
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.version>2.11.0.Final</quarkus.platform.version>
     <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
-    <playwright.version>1.23.0</playwright.version>
+    <playwright.version>1.24.1</playwright.version>
   </properties>
   <dependencyManagement>
     <dependencies>
