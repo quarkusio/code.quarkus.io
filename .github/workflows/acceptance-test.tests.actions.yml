@@ -1,4 +1,4 @@
-name: API Tests
+name: Acceptance Test Tests
 on:
   push:
     paths:
@@ -9,7 +9,7 @@ on:
     types: [assigned, opened, synchronize, reopened, ready_for_review, edited]
     paths:
       - 'pom.xml'
-      - 'api/**'
+      - 'acceptance-test/**'
       - '.github/**'
 
 env:
@@ -35,14 +35,14 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('api/pom.xml') }}
+          key: ${{ runner.os }}-maven-${{ hashFiles('acceptance-test/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Build
-        working-directory: api
+        working-directory: acceptance-test
         run: |
           mvn -e -B -DskipTests=true clean package
       - name: Test
-        working-directory: api
+        working-directory: acceptance-test
         run: |
           mvn -e -B verify
