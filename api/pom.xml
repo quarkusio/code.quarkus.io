@@ -3,9 +3,12 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>io.quarkus</groupId>
+    <parent>
+        <groupId>io.quarkus.code</groupId>
+        <artifactId>code-quarkus-parent</artifactId>
+        <version>1.0.0</version>
+    </parent>
     <artifactId>code-quarkus-api</artifactId>
-    <version>1.0.0</version>
     <properties>
         <kotlin.compiler.jvmTarget>11</kotlin.compiler.jvmTarget>
         <maven.compiler.parameters>true</maven.compiler.parameters>
@@ -26,14 +29,9 @@
 
         <git.commit.id>local</git.commit.id>
 
-        <!-- Quarkus platform used for the code.quarkus app-->
-        <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-        <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.version>2.11.0.Final</quarkus.platform.version>
-
         <!-- Quarkus devtools version -->
-        <quarkus.devtools.version>2.11.0.Final</quarkus.devtools.version>
-        <quarkus.base-codestarts.version>2.11.0.Final</quarkus.base-codestarts.version>
+        <quarkus.devtools.version>${quarkus.platform.version}</quarkus.devtools.version>
+        <quarkus.base-codestarts.version>${quarkus.platform.version}</quarkus.base-codestarts.version>
 
         <!-- Quarkiverse versions -->
         <quarkus.jgit.version>2.1.0</quarkus.jgit.version>
