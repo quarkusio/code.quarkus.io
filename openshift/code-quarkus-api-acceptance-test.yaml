@@ -20,6 +20,13 @@ objects:
               env:
                 - name: TEST_CONFIG_URL
                   value: ${CODE_QUARKUS_STAGING_URL}
+              resources:
+                requests:
+                  cpu: ${CPU_REQUEST}
+                  memory: ${MEMORY_REQUEST}
+                limits:
+                  cpu: ${CPU_LIMIT}
+                  memory: ${MEMORY_LIMIT}
 parameters:
   - name: IMAGE_TAG
     value: ''
@@ -27,3 +34,16 @@ parameters:
   - name: CODE_QUARKUS_STAGING_URL
     value: 'https://stage.code.quarkus.io'
     optional: true
+  - name: CPU_REQUEST
+    required: true
+    value: 400m
+  - name: CPU_LIMIT
+    required: true
+    value: 1000m
+  - name: MEMORY_REQUEST
+    required: true
+    value: 768Mi
+  - displayName: Memory limit
+    required: true
+    name: MEMORY_LIMIT
+    value: 1Gi
