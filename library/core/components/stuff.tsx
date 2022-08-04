@@ -64,6 +64,20 @@ export function effectSafety(): EffectSafety {
   return { callSafely, unload };
 }
 
+export function Plural(props: {
+  count: number;
+  label: string | {plural: string; singular: string;};
+}) {
+  let isPlural = props.count === 0 || props.count > 1;
+  if (typeof props.label === 'string') {
+    return  <>{props.label}{isPlural ? 's' : ''}</>;
+  }
+  if (typeof props.label === 'object') {
+    return <>{isPlural ? props.label.plural : props.label.singular}</>;
+  }
+  throw new Error("Invalid type");
+}
+
 export function ExternalLink(props: {
   'aria-label'?: string;
   onClick?: React.MouseEventHandler<any>;
