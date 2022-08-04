@@ -5,7 +5,6 @@ import { useAnalytics } from '@quarkusio/code-quarkus.core.analytics';
 import { InputProps } from '@quarkusio/code-quarkus.core.types';
 import {
   debouncedComputeResults,
-  ExtensionValues,
   FilterResult, ProcessedExtensions,
   processExtensionsValues
 } from './extensions-utils';
@@ -103,7 +102,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     debouncedComputeResults(filter, props.entries, processedExtensions, setResult);
   }, [ filter, processedExtensions, props.entries, setShowAll, setResult ]);
 
-  const allEntries = result?.selected || [];
+  const allEntries = result?.effective || [];
   const entries = showAll ? allEntries : allEntries.slice(0, REDUCED_SIZE)
   useEffect(() => {
     if (filter.length > 0) {

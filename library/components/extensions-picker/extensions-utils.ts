@@ -222,6 +222,7 @@ export interface FilterResult {
   platform: ExtensionEntry[];
   other: ExtensionEntry[];
   selected: ExtensionEntry[];
+  effective: ExtensionEntry[];
   origin: Origin;
   filters: MetadataFilters;
   filtered: boolean;
@@ -281,6 +282,7 @@ export function toFilterResult(filter: string, entries: Extension[], filtered: b
     other: [],
     origin: getOrigin(filter),
     selected: [],
+    effective: [],
     filters: {},
     filtered
   }
@@ -292,6 +294,7 @@ export function toFilterResult(filter: string, entries: Extension[], filtered: b
     }
   }
   result.selected = result[result.origin];
+  result.effective = result.selected.length > 0 ? result.selected : result.all;
   result.filters = getMetadataFilters(filter, result.selected);
   onResult(result);
 }
