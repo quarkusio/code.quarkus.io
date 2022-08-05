@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@quarkusio/code-quarkus.components": "0.0.45",
-    "@testing-library/jest-dom": "5.16.4",
+    "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "12.1.5",
     "@testing-library/user-event": "14.4.1",
     "http-server": "14.1.1",
