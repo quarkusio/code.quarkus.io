@@ -31,7 +31,7 @@
         <quarkus.platform.version>2.12.0.Final</quarkus.platform.version>
 
         <!-- Quarkus devtools version -->
-        <quarkus.devtools.version>${quarkus.platform.version}</quarkus.devtools.version>
+        <quarkus.devtools.version>2.12.1.Final</quarkus.devtools.version>
         <quarkus.base-codestarts.version>2.12.0.Final</quarkus.base-codestarts.version>
 
         <!-- Quarkiverse versions -->
