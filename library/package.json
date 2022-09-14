@@ -19,7 +19,7 @@
     "@teambit/bvm": "0.1.5",
     "@testing-library/dom": "8.16.0",
     "@testing-library/react": "12.1.5",
-    "@types/jest": "28.1.6",
+    "@types/jest": "29.0.2",
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.33.0",
     "classnames": "2.3.1",
