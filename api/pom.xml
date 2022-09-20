@@ -37,7 +37,7 @@
         <!-- Quarkiverse versions -->
         <quarkus.jgit.version>2.1.0</quarkus.jgit.version>
         <quarkus.logging.sentry.version>1.2.1</quarkus.logging.sentry.version>
-        <quarkus.quinoa.version>1.1.2</quarkus.quinoa.version>
+        <quarkus.quinoa.version>1.2.0</quarkus.quinoa.version>
     </properties>
     <dependencyManagement>
         <dependencies>
