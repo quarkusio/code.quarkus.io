@@ -295,8 +295,13 @@ export function retrieveProjectFromLocalStorage() : QuarkusProject | undefined {
     if(!jsonProject) {
       return undefined;
     }
+
+    const project = JSON.parse(jsonProject!) as QuarkusProject;
+    if (!isValidQuarkusProject(project)) {
+      return undefined;
+    }
   
-    return JSON.parse(jsonProject!) as QuarkusProject;
+    return project;
   } catch (err) {
     return undefined;
   }
@@ -305,4 +310,16 @@ export function retrieveProjectFromLocalStorage() : QuarkusProject | undefined {
 export function saveProjectToLocalStorage(project : QuarkusProject) {
   const jsonProject = JSON.stringify(project);
   localStorage.setItem(LocalStorageKey.DEFAULT_PROJECT, jsonProject);
+}
+
+//Basic validation (prevent changes on localstorage json, breaking project structure)
+function isValidQuarkusProject(project : QuarkusProject): Boolean {
+  const valid = project.metadata !== undefined && 
+                project.metadata.groupId !== undefined &&
+                project.metadata.artifactId !== undefined &&
+                project.metadata.version !== undefined &&
+                project.metadata.buildTool !== undefined &&
+                project.metadata.javaVersion !== undefined &&
+                project.extensions !== undefined;
+  return valid;
 }
