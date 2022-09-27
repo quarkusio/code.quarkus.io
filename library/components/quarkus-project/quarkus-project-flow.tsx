@@ -1,7 +1,7 @@
 import React, { SetStateAction, useEffect, useState } from 'react';
 import {
   generateProject,
-  newDefaultProject,
+  resolveInitialProject,
   Target,
   mapExtensions
 } from '../api/quarkus-project-utils';
@@ -69,7 +69,7 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
   const closeModal = (resetProject = true) => {
     setRun({ status: Status.EDITION });
     if (resetProject) {
-      props.setProject(newDefaultProject());
+      props.setProject(resolveInitialProject());
     }
   };
 

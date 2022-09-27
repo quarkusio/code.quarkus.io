@@ -1,8 +1,9 @@
 import { act, cleanup, fireEvent, render, RenderResult } from '@testing-library/react';
 import * as React from 'react';
 import { CodeQuarkus } from '../code-quarkus';
-import { Config, Platform } from '../api/model';
+import { Config, Platform, QuarkusProject } from '../api/model';
 import { Api } from '../api/code-quarkus-api';
+import { LocalStorageKey } from '../api/quarkus-project-utils';
 
 const fetchPlatform = async (api: Api, streamKey?: string) => (
   {
@@ -94,6 +95,20 @@ const api: Api = {
   backendUrl: 'localhost:8080', clientName: 'test', requestOptions: {}
 }
 
+const storedProject = {
+  "metadata": {
+      "groupId":"quarkus.test",
+      "artifactId":"quarkus-test",
+      "version":"1.0.0-SNAPSHOT",
+      "buildTool":"MAVEN",
+      "javaVersion":"11",
+      "noCode":false
+    },
+  "extensions":[
+    "io.quarkus:quarkus-resteasy",
+    "io.quarkus:quarkus-resteasy-jsonb"
+  ]};
+
 afterEach(() => {
   cleanup();
 });
@@ -156,4 +171,60 @@ it('Let user customize an Application and Generate it', async () => {
 
   const downloadLink = await comp!.findByLabelText('Download the zip');
   expect(downloadLink.getAttribute('href')).toMatchSnapshot();
+});
+
+it('Let user save app config', async () => {
+  window.open = jest.fn();
+  let comp: RenderResult;
+  await act(async () => {
+    comp = render(<CodeQuarkus api={api} configApi={fetchConfig} platformApi={fetchPlatform}/>);
+    await comp.findByLabelText('Extensions picker');
+  });
+
+  //Show options
+  const toggleBtn = await comp!.container.getElementsByClassName("generate-button-split-more dropdown-toggle")[0];
+  fireEvent.mouseOver(toggleBtn);
+
+  expect(localStorage.getItem(LocalStorageKey.DEFAULT_PROJECT)).toBeNull();
+  
+  const saveBtn = await comp!.findByLabelText('Store current app as default');
+  fireEvent.click(saveBtn);
+
+  expect(localStorage.getItem(LocalStorageKey.DEFAULT_PROJECT)).not.toBeNull();
+});
+
+
+it('When a stored app config exists, it should be loaded.', async () => {
+  //save app config to localstorage
+  localStorage.setItem(LocalStorageKey.DEFAULT_PROJECT, JSON.stringify(storedProject));
+
+  //open app
+  window.open = jest.fn();
+  let comp: RenderResult;
+  await act(async () => {
+    comp = render(<CodeQuarkus api={api} configApi={fetchConfig} platformApi={fetchPlatform}/>);
+    await comp.findByLabelText('Extensions picker');
+  });
+
+  const toggleMoreOptionsBtn = await comp!.findByLabelText('Toggle panel');
+  fireEvent.click(toggleMoreOptionsBtn);
+
+  //Project Metadata
+  const groupIdInput = await comp!.findByLabelText('Edit groupId');
+  const artifactIdInput = await comp!.findByLabelText('Edit artifactId');
+  const versionInput = await comp!.findByLabelText('Edit project version');
+  expect(groupIdInput.getAttribute("value")).toBe("quarkus.test");
+  expect(artifactIdInput.getAttribute("value")).toBe("quarkus-test");
+  expect(versionInput.getAttribute("value")).toBe("1.0.0-SNAPSHOT");
+
+  // Selected extensions
+  const selectedExtensions = await comp!.container.getElementsByClassName("extension-row selected");
+  expect(selectedExtensions.length).toBe(2);
+
+  const selectedExtToggle = await comp!.findByLabelText("Selected extensions");
+  fireEvent.mouseOver(selectedExtToggle);
+  const ext1 = await comp!.findByText("RESTEasy JAX-RS")
+  const ext2 = await comp!.findByText("RESTEasy JSON-B")
+  expect(ext1).not.toBeNull();
+  expect(ext2).not.toBeNull();
 });

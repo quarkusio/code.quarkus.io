@@ -1,11 +1,24 @@
 import { cleanup } from '@testing-library/react';
-import { mapExtensions, parseProjectInQuery, toShortcut } from '../quarkus-project-utils';
-import { Extension } from '../model';
+import { mapExtensions, parseProjectInQuery, toShortcut, retrieveProjectFromLocalStorage, LocalStorageKey, saveProjectToLocalStorage } from '../quarkus-project-utils';
+import { Extension, QuarkusProject } from '../model';
 import { parse } from 'querystring';
+
+
+beforeAll(()=> {
+  configureLocalstorageMock();
+});
 
 afterEach(() => {
   cleanup();
 });
+
+function configureLocalstorageMock() {
+  jest.spyOn(window.localStorage.__proto__, "setItem");
+  jest.spyOn(window.localStorage.__proto__, "getItem");
+
+  window.localStorage.__proto__.setItem = jest.fn();
+  window.localStorage.__proto__.getItem = jest.fn();
+}
 
 const entries: Extension[] = [
   {
@@ -113,5 +126,20 @@ describe('quarkus-project', () => {
     expect(toShortcut('my-quarkus-ext')).toBe('my-quarkus-ext');
     expect(toShortcut('io.quarkiverse.myext:quarkus-my-ext')).toBe('io.quarkiverse.myext:quarkus-my-ext');
     expect(toShortcut('org.apache.camel.quarkus:camel-quarkus-core')).toBe('org.apache.camel.quarkus:camel-quarkus-core');
+  });
+
+  it('retrieveProjectFromLocalStorage should load app config from localstorage', () => {
+    retrieveProjectFromLocalStorage();
+
+    expect(localStorage.getItem).toHaveBeenCalledWith(LocalStorageKey.DEFAULT_PROJECT);
+  });
+
+  it('saveProjectToLocalStorage should save app config to localstorage', () => {
+    const quarkusProject = parseProjectInQuery(parse('g=org.test&a=code-test&e=arc')) as QuarkusProject;
+    const jsonProject = JSON.stringify(quarkusProject);
+
+    saveProjectToLocalStorage(quarkusProject);
+
+    expect(localStorage.setItem).toHaveBeenCalledWith(LocalStorageKey.DEFAULT_PROJECT, jsonProject);
   });
 });

@@ -4,7 +4,7 @@ import { createOnGitHub, getProjectDownloadUrl, Target } from '../api/quarkus-pr
 import { QuarkusProject } from '../api/model';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
-import { FaAngleDown, FaAngleUp, FaDownload, FaGithub } from 'react-icons/fa';
+import { FaAngleDown, FaAngleUp, FaDownload, FaGithub, FaBookmark, FaCheck } from 'react-icons/fa';
 import './generate-button.scss';
 import DropdownToggle from 'react-bootstrap/DropdownToggle';
 import { Api } from '../api/code-quarkus-api';
@@ -16,7 +16,8 @@ export function GenerateButtonPrimary(props: { onClick: MouseEventHandler<any>, 
   );
 }
 
-export function GenerateButton(props: { api: Api, project: QuarkusProject, isProjectValid: boolean, generate: (target?: Target) => void, githubClientId?: string }) {
+export function GenerateButton(props: { api: Api, project: QuarkusProject, isProjectValid: boolean, generate: (target?: Target) => void, githubClientId?: string, isConfigSaved: boolean, storeAppConfig: () => void }) {
+
   const [ isMoreOpen , setIsMoreOpen ] = useState(false);
   const analytics = useAnalytics();
 
@@ -30,6 +31,10 @@ export function GenerateButton(props: { api: Api, project: QuarkusProject, isPro
 
   function onToggleFn(isOpen: boolean) {
     setIsMoreOpen(isOpen);
+  }
+  
+  function handleStoreAppConfig() {
+    props.storeAppConfig();
   }
 
   const downloadZip = (e: any) => {
@@ -47,6 +52,7 @@ export function GenerateButton(props: { api: Api, project: QuarkusProject, isPro
     analytics.event('Extension', 'Click "Create on Github"');
     createOnGitHub(props.api, props.project, props.githubClientId!);
   };
+
   useHotkeys('alt+enter', defaultGenerate, [ props.isProjectValid, props.generate ]);
 
   return (
@@ -64,6 +70,12 @@ export function GenerateButton(props: { api: Api, project: QuarkusProject, isPro
             <FaGithub/> Push to GitHub
           </Dropdown.Item>
         )}
+        <Dropdown.Item as={Button} key="store" onClick={handleStoreAppConfig} aria-label="Store current app as default">
+          {
+            props.isConfigSaved ? <FaCheck /> : <FaBookmark /> 
+          }
+           Store current app as default
+        </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );
