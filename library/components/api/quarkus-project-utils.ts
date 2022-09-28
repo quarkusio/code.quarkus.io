@@ -312,6 +312,15 @@ export function saveProjectToLocalStorage(project : QuarkusProject) {
   localStorage.setItem(LocalStorageKey.DEFAULT_PROJECT, jsonProject);
 }
 
+export function resetProjectToDefault() {
+  localStorage.removeItem(LocalStorageKey.DEFAULT_PROJECT);
+}
+
+export function existsStoredProject(): boolean {
+  const jsonProject = localStorage.getItem(LocalStorageKey.DEFAULT_PROJECT);
+  return jsonProject !== null;
+}
+
 //Basic validation (prevent changes on localstorage json, breaking project structure)
 function isValidQuarkusProject(project : QuarkusProject): Boolean {
   const valid = project.metadata !== undefined && 
