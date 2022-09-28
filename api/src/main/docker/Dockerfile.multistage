@@ -1,5 +1,5 @@
 ## Stage 1 : build with maven builder image
-FROM quay.io/quarkus/centos-quarkus-maven:20.1.0-java11 AS build
+FROM maven:3.8.6-openjdk-18 AS build
 ARG MAVEN_BUILD_EXTRA_ARGS=
 RUN echo "$MAVEN_BUILD_EXTRA_ARGS"
 COPY pom.xml maven-settings.xml* /usr/src/app/
@@ -11,7 +11,7 @@ USER quarkus
 RUN cd /usr/src/app/ && mvn clean package $MAVEN_BUILD_EXTRA_ARGS
 
 ## Stage 2 : create the docker final image
-FROM registry.access.redhat.com/ubi8/openjdk-11:1.11
+FROM registry.access.redhat.com/ubi8/openjdk-17:1.14
 
 ARG MAVEN_EXTRA_ARGS=
 RUN echo "$MAVEN_EXTRA_ARGS"
