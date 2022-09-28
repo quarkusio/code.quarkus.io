@@ -1,5 +1,5 @@
 ## Stage 1 : build with maven builder image
-FROM maven:3.8.6-openjdk-18 AS build
+FROM registry.hub.docker.com/library/maven:3.8.6-openjdk-18 AS build
 ARG MAVEN_BUILD_EXTRA_ARGS=
 RUN echo "$MAVEN_BUILD_EXTRA_ARGS"
 COPY pom.xml maven-settings.xml* /usr/src/app/
