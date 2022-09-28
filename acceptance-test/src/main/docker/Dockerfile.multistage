@@ -1,5 +1,5 @@
 ## Stage 1 : build with maven builder image
-FROM quay.io/quarkus/centos-quarkus-maven:20.1.0-java11 AS build
+FROM maven:3.8.6-openjdk-18 AS build
 ARG MAVEN_BUILD_EXTRA_ARGS=
 RUN echo "$MAVEN_BUILD_EXTRA_ARGS"
 COPY pom.xml /usr/src/app/
@@ -13,7 +13,7 @@ RUN cd /usr/src/app/ && mvn clean package -DskipTests $MAVEN_BUILD_EXTRA_ARGS
 ## Stage 2 : create the docker final image
 FROM mcr.microsoft.com/playwright:focal
 
-ARG JAVA_PACKAGE=openjdk-11-jre-headless
+ARG JAVA_PACKAGE=openjdk-17-jre-headless
 ARG MAVEN_EXTRA_ARGS=
 RUN echo "$MAVEN_EXTRA_ARGS"
 

@@ -154,7 +154,7 @@ export function newDefaultProject(): QuarkusProject {
       artifactId: 'code-with-quarkus',
       version: '1.0.0-SNAPSHOT',
       buildTool: 'MAVEN',
-      javaVersion: '11',
+      javaVersion: '17',
       noCode: false
     },
     extensions: [],

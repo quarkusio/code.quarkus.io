@@ -17,7 +17,7 @@ class ProjectDefinition {
         const val DEFAULT_VERSION = "1.0.0-SNAPSHOT"
         const val DEFAULT_BUILDTOOL = "MAVEN"
         const val DEFAULT_NO_CODE = false
-        const val DEFAULT_JAVA_VERSION = "11"
+        const val DEFAULT_JAVA_VERSION = "17"
 
         const val JAVA_VERSION_PATTERN = "^(?:1\\.)?(\\d+)(?:\\..*)?\$";
         const val GROUPID_PATTERN = "^([a-zA-Z_\$][a-zA-Z\\d_\$]*\\.)*[a-zA-Z_\$][a-zA-Z\\d_\$]*\$"
