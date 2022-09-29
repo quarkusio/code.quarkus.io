@@ -81,12 +81,12 @@ export function GenerateButton(props: { api: Api, project: QuarkusProject, isPro
         <Dropdown.Item as={Button} key="store" 
           aria-label="Store current app as default">
           <div className="store-app-config">
-            <span onClick={handleStoreAppConfig}>
+            <span className="store-config-button" onClick={handleStoreAppConfig}>
               { props.isConfigSaved ? <FaCheck /> : <FaBookmark /> }
               Store current app as default  
             </span>
             
-            <div onClick={resetStoredAppConfig}>
+            <div role="button" className="reset-config-button" onClick={resetStoredAppConfig}>
               { isResetEnabled && <FaTrashAlt className="reset-to-default"/> }
             </div>
            </div>
