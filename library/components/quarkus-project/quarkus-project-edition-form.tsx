@@ -7,7 +7,8 @@ import { Config, Extension, Platform, QuarkusProject } from '../api/model';
 import {
   debouncedSyncParamsQuery,
   Target,
-  saveProjectToLocalStorage
+  saveProjectToLocalStorage,
+  resetProjectToDefault
 } from '../api/quarkus-project-utils';
 import { ExtensionsCart } from '../generate-project/extensions-cart';
 import { Api } from '../api/code-quarkus-api';
@@ -52,6 +53,11 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
     }
   };
 
+  const resetAppConfig = () => {
+    resetProjectToDefault();
+    setConfigSaved(false);
+  };
+
   useEffect(() => {
     debouncedSyncParamsQuery(props.api, props.project, filter);
   }, [ filter, props.project ])
@@ -77,6 +83,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
               githubClientId={props.config.gitHubClientId}
               isConfigSaved={isConfigSaved}
               storeAppConfig={storeAppConfig}
+              resetAppConfig={resetAppConfig}
             />
           </div>
         </div>

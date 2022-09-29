@@ -1,10 +1,10 @@
 import React, { MouseEventHandler, useState } from 'react';
 import { useAnalytics } from '@quarkusio/code-quarkus.core.analytics';
-import { createOnGitHub, getProjectDownloadUrl, Target } from '../api/quarkus-project-utils';
+import { createOnGitHub, getProjectDownloadUrl, Target, existsStoredProject } from '../api/quarkus-project-utils';
 import { QuarkusProject } from '../api/model';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
-import { FaAngleDown, FaAngleUp, FaDownload, FaGithub, FaBookmark, FaCheck } from 'react-icons/fa';
+import { FaAngleDown, FaAngleUp, FaDownload, FaGithub, FaBookmark, FaCheck, FaTrashAlt } from 'react-icons/fa';
 import './generate-button.scss';
 import DropdownToggle from 'react-bootstrap/DropdownToggle';
 import { Api } from '../api/code-quarkus-api';
@@ -16,9 +16,11 @@ export function GenerateButtonPrimary(props: { onClick: MouseEventHandler<any>, 
   );
 }
 
-export function GenerateButton(props: { api: Api, project: QuarkusProject, isProjectValid: boolean, generate: (target?: Target) => void, githubClientId?: string, isConfigSaved: boolean, storeAppConfig: () => void }) {
+export function GenerateButton(props: { api: Api, project: QuarkusProject, isProjectValid: boolean, generate: (target?: Target) => void, githubClientId?: string, isConfigSaved: boolean, storeAppConfig: () => void, resetAppConfig: () => void }) {
 
   const [ isMoreOpen , setIsMoreOpen ] = useState(false);
+  const [ isResetEnabled, setResetEnabeld] = useState(existsStoredProject());
+
   const analytics = useAnalytics();
 
   function onMouseEnterFn(e) {
@@ -35,6 +37,12 @@ export function GenerateButton(props: { api: Api, project: QuarkusProject, isPro
   
   function handleStoreAppConfig() {
     props.storeAppConfig();
+    setResetEnabeld(true);
+  }
+
+  function resetStoredAppConfig() {
+    props.resetAppConfig();
+    setResetEnabeld(false);
   }
 
   const downloadZip = (e: any) => {
@@ -70,11 +78,18 @@ export function GenerateButton(props: { api: Api, project: QuarkusProject, isPro
             <FaGithub/> Push to GitHub
           </Dropdown.Item>
         )}
-        <Dropdown.Item as={Button} key="store" onClick={handleStoreAppConfig} aria-label="Store current app as default">
-          {
-            props.isConfigSaved ? <FaCheck /> : <FaBookmark /> 
-          }
-           Store current app as default
+        <Dropdown.Item as={Button} key="store" 
+          aria-label="Store current app as default">
+          <div className="store-app-config">
+            <span className="store-config-button" onClick={handleStoreAppConfig}>
+              { props.isConfigSaved ? <FaCheck /> : <FaBookmark /> }
+              Store current app as default  
+            </span>
+            
+            <div role="button" className="reset-config-button" onClick={resetStoredAppConfig}>
+              { isResetEnabled && <FaTrashAlt className="reset-to-default"/> }
+            </div>
+           </div>
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>

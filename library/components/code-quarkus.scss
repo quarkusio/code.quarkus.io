@@ -183,16 +183,34 @@ button.btn.btn-base {
     border: none;
     line-height: 30px;
     font-weight: bold;
-    width: 300px;
+    width: 100%;
     padding: 0 0 0 20px;
     color: var(--dropdownMenuTextColor);
     background-color: var(--dropdownMenuBg);
     border-left: 1px solid var(--dropdownMenuBg);
     cursor: pointer;
 
+    .store-app-config {
+      display: flex;
+      width: 100%;
+
+      span {
+        flex: 1;
+        text-align: start;
+      }
+    }
+    
     svg {
       height: 30px;
       margin-right: 20px;
+    }
+
+    svg.reset-to-default {
+      transition: 0.3s;
+    }
+
+    svg.reset-to-default:hover {
+      color: var(--resetToDefaultButtonColor);
     }
   }
 

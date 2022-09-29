@@ -1,5 +1,5 @@
 import { cleanup } from '@testing-library/react';
-import { mapExtensions, parseProjectInQuery, toShortcut, retrieveProjectFromLocalStorage, LocalStorageKey, saveProjectToLocalStorage } from '../quarkus-project-utils';
+import { mapExtensions, parseProjectInQuery, toShortcut, retrieveProjectFromLocalStorage, LocalStorageKey, saveProjectToLocalStorage, resetProjectToDefault, existsStoredProject } from '../quarkus-project-utils';
 import { Extension, QuarkusProject } from '../model';
 import { parse } from 'querystring';
 
@@ -15,9 +15,11 @@ afterEach(() => {
 function configureLocalstorageMock() {
   jest.spyOn(window.localStorage.__proto__, "setItem");
   jest.spyOn(window.localStorage.__proto__, "getItem");
+  jest.spyOn(window.localStorage.__proto__, "removeItem");
 
   window.localStorage.__proto__.setItem = jest.fn();
   window.localStorage.__proto__.getItem = jest.fn();
+  window.localStorage.__proto__.removeItem = jest.fn();
 }
 
 const entries: Extension[] = [
@@ -141,5 +143,18 @@ describe('quarkus-project', () => {
     saveProjectToLocalStorage(quarkusProject);
 
     expect(localStorage.setItem).toHaveBeenCalledWith(LocalStorageKey.DEFAULT_PROJECT, jsonProject);
+  });
+
+  it('resetProjectToDefault delete app config to localstorage', () => {
+    resetProjectToDefault();
+
+    expect(localStorage.removeItem).toHaveBeenCalledWith(LocalStorageKey.DEFAULT_PROJECT);
+  });
+
+
+  it('existsStoredProject should search for app config on localstorage', () => {
+    existsStoredProject();
+
+    expect(localStorage.getItem).toHaveBeenCalledWith(LocalStorageKey.DEFAULT_PROJECT);
   });
 });

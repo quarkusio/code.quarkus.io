@@ -174,6 +174,9 @@ it('Let user customize an Application and Generate it', async () => {
 });
 
 it('Let user save app config', async () => {
+  //clear localstorage
+  localStorage.removeItem(LocalStorageKey.DEFAULT_PROJECT)
+
   window.open = jest.fn();
   let comp: RenderResult;
   await act(async () => {
@@ -187,7 +190,7 @@ it('Let user save app config', async () => {
 
   expect(localStorage.getItem(LocalStorageKey.DEFAULT_PROJECT)).toBeNull();
   
-  const saveBtn = await comp!.findByLabelText('Store current app as default');
+  const saveBtn = await comp!.container.getElementsByClassName("store-config-button")[0];
   fireEvent.click(saveBtn);
 
   expect(localStorage.getItem(LocalStorageKey.DEFAULT_PROJECT)).not.toBeNull();
@@ -227,4 +230,62 @@ it('When a stored app config exists, it should be loaded.', async () => {
   const ext2 = await comp!.findByText("RESTEasy JSON-B")
   expect(ext1).not.toBeNull();
   expect(ext2).not.toBeNull();
+});
+
+it('Let user restore default app config', async () => {
+  //clear localstorage
+  localStorage.removeItem(LocalStorageKey.DEFAULT_PROJECT)
+
+  window.open = jest.fn();
+  let comp: RenderResult;
+  await act(async () => {
+    comp = render(<CodeQuarkus api={api} configApi={fetchConfig} platformApi={fetchPlatform}/>);
+    await comp.findByLabelText('Extensions picker');
+  });
+
+  //Show options
+  const toggleBtn = await comp!.container.getElementsByClassName("generate-button-split-more dropdown-toggle")[0];
+  fireEvent.mouseOver(toggleBtn);
+
+  //validates that trash icon doesn't exist (since there is no config in localstorage)
+  expect(localStorage.getItem(LocalStorageKey.DEFAULT_PROJECT)).toBeNull();
+  let resetIcon = await comp!.container.getElementsByClassName("reset-to-default")[0]
+  expect(resetIcon).toBeUndefined();
+
+  //store app config
+  const saveBtn = await comp!.container.getElementsByClassName("store-config-button")[0];
+  fireEvent.click(saveBtn);
+
+  //validates that trash icon is redenred
+  resetIcon = await comp!.container.getElementsByClassName("reset-to-default")[0];
+  expect(resetIcon).not.toBeUndefined();
+
+  //reset config
+  const resetAppBtn = await comp!.container.getElementsByClassName("reset-config-button")[0];
+  fireEvent.click(resetAppBtn);
+
+  //validates that the config was removed
+  resetIcon = await comp!.container.getElementsByClassName("reset-to-default")[0];
+  expect(resetIcon).toBeUndefined();
+  expect(localStorage.getItem(LocalStorageKey.DEFAULT_PROJECT)).toBeNull();
+});
+
+
+it('When a stored app config exists, the restore to default app button should be rendered', async () => {
+  //save app config to localstorage
+  localStorage.setItem(LocalStorageKey.DEFAULT_PROJECT, JSON.stringify(storedProject));
+
+  let comp: RenderResult;
+  await act(async () => {
+    comp = render(<CodeQuarkus api={api} configApi={fetchConfig} platformApi={fetchPlatform}/>);
+    await comp.findByLabelText('Extensions picker');
+  });
+
+  //Show options
+  const toggleBtn = await comp!.container.getElementsByClassName("generate-button-split-more dropdown-toggle")[0];
+  fireEvent.mouseOver(toggleBtn);
+
+  expect(localStorage.getItem(LocalStorageKey.DEFAULT_PROJECT)).not.toBeNull();
+  const resetIcon = await comp!.container.getElementsByClassName("reset-to-default")[0]
+  expect(resetIcon).not.toBeUndefined();
 });
