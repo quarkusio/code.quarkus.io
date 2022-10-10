@@ -113,6 +113,8 @@ objects:
                       name: secrets
                       key: ga-tracking-id
                       optional: true
+                - name: IO_QUARKUS_CODE_JAVA_VERSION
+                  value: ${IO_QUARKUS_CODE_JAVA_VERSION}
               envFrom:
                 - configMapRef:
                     name: code-quarkus-api-registry
@@ -135,6 +137,7 @@ objects:
       sessionAffinity: None
       type: ClusterIP
 parameters:
+  - name: IO_QUARKUS_CODE_JAVA_VERSION
   - name: IO_QUARKUS_CODE_ENVIRONMENT
   - name: IO_QUARKUS_CODE_FEATURES
   - name: IO_QUARKUS_CODE_HOSTNAME

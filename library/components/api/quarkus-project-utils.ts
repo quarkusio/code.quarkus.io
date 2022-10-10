@@ -1,6 +1,6 @@
 import { parse, ParsedUrlQuery, stringify } from 'querystring';
 import { createGitHubProject } from './code-quarkus-github-api';
-import { Extension, PlatformMappedExtensions, QuarkusProject } from './model';
+import {Config, Extension, PlatformMappedExtensions, QuarkusProject} from './model';
 import _ from 'lodash';
 import { Api } from './code-quarkus-api';
 
@@ -147,14 +147,14 @@ export const createOnGitHub = (api: Api, project: QuarkusProject, clientId: stri
   window.location.href = githubAuthorizeUrl;
 };
 
-export function newDefaultProject(): QuarkusProject {
+export function newDefaultProject(config? : Config): QuarkusProject {
   return ({
     metadata: {
       groupId: 'org.acme',
       artifactId: 'code-with-quarkus',
       version: '1.0.0-SNAPSHOT',
       buildTool: 'MAVEN',
-      javaVersion: '17',
+      javaVersion: config?.javaVersion || '17',
       noCode: false
     },
     extensions: [],
@@ -239,8 +239,8 @@ const generateParamQuery = (filter: string, project: string) => {
   return '';
 };
 
-export function resolveInitialProject(queryParams?: ParsedUrlQuery) {
-  return parseProjectInQuery(queryParams) || retrieveProjectFromLocalStorage() || newDefaultProject();
+export function resolveInitialProject(queryParams?: ParsedUrlQuery, config?: Config) {
+  return parseProjectInQuery(queryParams) || retrieveProjectFromLocalStorage() || newDefaultProject(config);
 }
 
 function normalizeQueryExtensions(queryExtensions: undefined | string | string[]): Set<string> {

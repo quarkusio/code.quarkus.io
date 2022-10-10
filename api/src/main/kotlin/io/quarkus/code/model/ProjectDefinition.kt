@@ -173,7 +173,7 @@ class ProjectDefinition {
         result = 31 * result + noExamples.hashCode()
         result = 31 * result + noCode.hashCode()
         result = 31 * result + buildTool.hashCode()
-        result = 31 * result + javaVersion.hashCode()
+        result = 31 * result + (javaVersion?.hashCode() ?: 0)
         result = 31 * result + extensions.hashCode()
         return result
     }

@@ -69,6 +69,7 @@ export interface Config {
   gitCommitId: string;
   gitHubClientId?: string;
   features: string[];
+  javaVersion: string;
 }
 
 

@@ -10,5 +10,6 @@ data class PublicConfig(
     val quarkusVersion: String,
     val gitHubClientId: String?,
     val features: List<String>,
-    val gitCommitId: String?
+    val gitCommitId: String?,
+    var javaVersion: String
 )

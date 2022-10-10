@@ -24,7 +24,7 @@ const queryParams = getQueryParams();
 export function ConfiguredCodeQuarkus(props: ConfiguredCodeQuarkusProps) {
   const [ analytics, setAnalytics ] = useState<Analytics>(useAnalytics());
   const [ filter, setFilter ] = useState(resolveInitialFilterQueryParam());
-  const [ project, setProject ] = useState<QuarkusProject>(resolveInitialProject(queryParams));
+  const [ project, setProject ] = useState<QuarkusProject>(resolveInitialProject(queryParams, props. config));
 
   useEffect(() => {
     setAnalytics((prev) => {

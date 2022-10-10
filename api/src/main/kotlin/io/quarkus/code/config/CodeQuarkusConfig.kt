@@ -1,8 +1,10 @@
 package io.quarkus.code.config
 
+import io.quarkus.code.model.ProjectDefinition
 import io.smallrye.config.ConfigMapping
+import io.smallrye.config.WithDefault
 import io.smallrye.config.WithName
-import java.util.*
+import java.util.Optional
 
 @ConfigMapping(prefix = "io.quarkus.code")
 interface CodeQuarkusConfig {
@@ -11,6 +13,10 @@ interface CodeQuarkusConfig {
 
     @get:WithName("quarkus-devtools-version")
     val quarkusDevtoolsVersion: String
+
+    @get:WithName("java-version")
+    @get:WithDefault(ProjectDefinition.DEFAULT_JAVA_VERSION)
+    val javaVersion: String
 
     @get:WithName("git-commit-id")
     val gitCommitId: String

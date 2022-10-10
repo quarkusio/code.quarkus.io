@@ -66,6 +66,7 @@ class CodeQuarkusResource {
                 quarkusDevtoolsVersion = ${config().quarkusDevtoolsVersion},
                 gitCommitId: ${config().gitCommitId},
                 features: ${config().features}
+                javaVersion: ${config().javaVersion}
         """.trimIndent()
         }
     }
@@ -85,7 +86,8 @@ class CodeQuarkusResource {
             quarkusVersion= config.quarkusPlatformVersion,
             gitCommitId = config.gitCommitId,
             gitHubClientId = gitHubConfig.clientId.filter(String::isNotBlank).orElse(null),
-            features = config.features.map { listOf(it) }.orElse(listOf())
+            features = config.features.map { listOf(it) }.orElse(listOf()),
+            javaVersion = config.javaVersion
         )
     }
 
@@ -212,7 +214,7 @@ class CodeQuarkusResource {
             if (projectDefinition.buildTool != ProjectDefinition.DEFAULT_BUILDTOOL) {
                 params.add(BasicNameValuePair("b", projectDefinition.buildTool))
             }
-            if (projectDefinition.javaVersion != ProjectDefinition.DEFAULT_JAVA_VERSION) {
+            if (projectDefinition.javaVersion != null && projectDefinition.javaVersion != config.javaVersion) {
                 params.add(BasicNameValuePair("j", projectDefinition.javaVersion))
             }
             if (projectDefinition.noCode != ProjectDefinition.DEFAULT_NO_CODE || projectDefinition.noExamples != ProjectDefinition.DEFAULT_NO_CODE) {
