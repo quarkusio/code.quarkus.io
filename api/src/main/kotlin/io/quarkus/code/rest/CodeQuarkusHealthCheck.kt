@@ -20,12 +20,11 @@ class CodeQuarkusHealthCheck : HealthCheck {
     internal lateinit var platformService: PlatformService
 
     @Inject
-    internal var projectCreator: QuarkusProjectService? = null
+    internal lateinit var projectCreator: QuarkusProjectService
 
     override fun call(): HealthCheckResponse {
         val responseBuilder = HealthCheckResponse.named("Code Quarkus HealthCheck")
-        if(platformService.isLoaded
-            && projectCreator != null) {
+        if(platformService.isLoaded) {
                     responseBuilder
                         .withData("cache last updated", platformService.cacheLastUpdated.toString())
                         .withData("registry timestamp", platformService.platformsCache.platformTimestamp)
