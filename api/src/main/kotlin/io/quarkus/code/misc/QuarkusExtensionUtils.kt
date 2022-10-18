@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger
 
 object QuarkusExtensionUtils {
 
-    val TAG_KEYS = listOf("status", ".+-support", "with")
+    val TAG_KEYS = listOf("status", "with", "supported-by")
 
     fun toShortcut(id: String): String = id.replace(Regex("^([^:]+:)?(quarkus-)?"), "")
 
@@ -68,7 +68,12 @@ object QuarkusExtensionUtils {
         val data = extension.syntheticMetadata
         for (entry in data.entries) {
             if (TAG_KEYS.any { Regex(it).matches(entry.key) } && !entry.value.isEmpty()) {
-                tags.add(entry.key + ":" + entry.value.first())
+                if ("supported-by".equals(entry.key)) {
+                    val key = entry.value.first() + "-support"
+                    tags.add(key + ":" + data.get(key)?.first())
+                } else {
+                    tags.add(entry.key + ":" + entry.value.first())
+                }
             }
         }
         return tags;

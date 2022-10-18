@@ -960,6 +960,8 @@
       "guide" : "https://quarkus.io/guides/rest-json",
       "categories" : [ "web" ],
       "status" : "stable",
+      "supported-by" : "redhat",
+      "redhat-support" : "stable",
       "codestart" : {
         "name" : "resteasy",
         "languages" : [ "java", "kotlin", "scala" ],
