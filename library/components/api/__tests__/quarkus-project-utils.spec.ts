@@ -157,20 +157,5 @@ describe('quarkus-project', () => {
 
     expect(localStorage.getItem).toHaveBeenCalledWith(LocalStorageKey.DEFAULT_PROJECT);
   });
-
-  it('should not save to localStorage platform streamKey', () => {
-    const quarkusProject = parseProjectInQuery(parse('S=io.quarkus.platform=2.12')) as QuarkusProject;
-    expect(quarkusProject.streamKey).toBe('io.quarkus.platform=2.12')
-
-    saveProjectToLocalStorage(quarkusProject);
-    
-    //remove streamKey
-    let projectWithoutStreamKey = quarkusProject;
-    projectWithoutStreamKey.streamKey = undefined;
-
-    const jsonWithoutStreamKey = JSON.stringify(projectWithoutStreamKey);
-    
-    expect(localStorage.setItem).toBeCalledWith(LocalStorageKey.DEFAULT_PROJECT, jsonWithoutStreamKey);
-  });
   
 });
