@@ -300,6 +300,9 @@ export function retrieveProjectFromLocalStorage() : QuarkusProject | undefined {
     if (!isValidQuarkusProject(project)) {
       return undefined;
     }
+
+    //should not store streamKey
+    project.streamKey = undefined;
   
     return project;
   } catch (err) {

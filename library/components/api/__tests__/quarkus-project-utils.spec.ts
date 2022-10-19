@@ -157,4 +157,5 @@ describe('quarkus-project', () => {
 
     expect(localStorage.getItem).toHaveBeenCalledWith(LocalStorageKey.DEFAULT_PROJECT);
   });
+  
 });
