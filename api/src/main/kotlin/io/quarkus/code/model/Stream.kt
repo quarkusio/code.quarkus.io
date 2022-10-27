@@ -5,9 +5,5 @@ data class Stream(
     val quarkusCoreVersion: String,
     val platformVersion: String,
     val recommended: Boolean,
-    val status: StreamStatus
+    val status: String
 )
-
-enum class StreamStatus {
-    FINAL, CR
-}
