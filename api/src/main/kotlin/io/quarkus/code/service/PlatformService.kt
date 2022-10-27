@@ -6,7 +6,6 @@ import io.quarkus.devtools.project.QuarkusProjectHelper
 import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.code.model.ProjectDefinition
 import io.quarkus.code.model.Stream
-import io.quarkus.code.model.StreamStatus
 import io.quarkus.registry.Constants
 import java.util.HashMap
 import io.quarkus.registry.catalog.PlatformCatalog
@@ -17,6 +16,7 @@ import io.quarkus.scheduler.Scheduled
 import java.time.ZoneOffset
 import java.time.ZoneId
 import io.quarkus.registry.RegistryResolutionException
+import org.apache.maven.artifact.versioning.DefaultArtifactVersion
 import java.util.concurrent.atomic.AtomicReference
 import java.util.logging.Level
 import kotlin.Throws
@@ -218,12 +218,8 @@ class PlatformService {
 
     }
 
-    private fun getStreamStatus(platformInfo: PlatformInfo): StreamStatus {
-        return if(platformInfo.quarkusCoreVersion.contains("final", true)) {
-            StreamStatus.FINAL
-        } else {
-            StreamStatus.CR
-        }
+    private fun getStreamStatus(platformInfo: PlatformInfo): String {
+        return DefaultArtifactVersion(platformInfo.quarkusCoreVersion).qualifier.uppercase()
     }
 
     private fun createStreamKey(platformKey: String, streamId: String): String {
