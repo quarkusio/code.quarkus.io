@@ -14,11 +14,11 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
-    <playwright.version>1.26.0</playwright.version>
+    <playwright.version>1.27.1</playwright.version>
 
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-    <quarkus.platform.version>2.13.0.Final</quarkus.platform.version>
+    <quarkus.platform.version>2.13.3.Final</quarkus.platform.version>
   </properties>
   <dependencyManagement>
     <dependencies>

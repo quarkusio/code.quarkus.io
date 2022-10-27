@@ -12,7 +12,7 @@ USER 185
 RUN cd /usr/src/app/ && ./mvnw clean package -DskipTests $MAVEN_BUILD_EXTRA_ARGS
 
 ## Stage 2 : create the docker final image
-FROM mcr.microsoft.com/playwright:focal
+FROM mcr.microsoft.com/playwright:v1.27.1-focal
 
 ARG JAVA_PACKAGE=openjdk-17-jre-headless
 ARG MAVEN_EXTRA_ARGS=
