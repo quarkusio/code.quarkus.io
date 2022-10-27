@@ -58,4 +58,3 @@ It is automated based on the [acceptance tests](https://github.com/quarkusio/cod
 # API Documentation
 
 - [OpenApi (Swagger UI)](https://editor.swagger.io/?url=https://code.quarkus.io/q/openapi)
-
