@@ -40,7 +40,10 @@ function StreamItem(props: { streamKey: string; quarkusCoreVersion?: string; pla
     <div className={classNames('quarkus-stream', status)} title={props.platformVersion}>
       {props.selected ? <span className="selected"><FaCheck /></span> : <span className="unselected"/>}
       <span className="platform-key">{streamKeys[0]}</span>
-      <span className="stream-id">{streamKeys[1]}</span>
+      <span className="stream-id">
+        {streamKeys[1]}
+        { (status !== 'final' && !props.recommended) && <span className="stream-status">{status}</span> }
+      </span>
       {props.recommended && <span className="tag recommended">(recommended)</span>}
       {status !== 'final'  && <span className="tag status">({status})</span>}
     </div>
