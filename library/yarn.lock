@@ -2340,11 +2340,6 @@ hosted-git-info@^4.0.1:
   dependencies:
     lru-cache "^6.0.0"
 
-hotkeys-js@3.8.7:
-  version "3.8.7"
-  resolved "https://registry.yarnpkg.com/hotkeys-js/-/hotkeys-js-3.8.7.tgz#c16cab978b53d7242f860ca3932e976b92399981"
-  integrity sha512-ckAx3EkUr5XjDwjEHDorHxRO2Kb7z6Z2Sxul4MbBkN8Nho7XDslQsgMJT+CiJ5Z4TgRxxvKHEpuLE3imzqy4Lg==
-
 http-proxy-agent@4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/http-proxy-agent/-/http-proxy-agent-4.0.1.tgz#8a8c8ef7f5932ccf953c296ca8291b95aa74aa3a"
@@ -3550,12 +3545,12 @@ react-dom@17.0.2:
     object-assign "^4.1.1"
     scheduler "^0.20.2"
 
-react-hotkeys-hook@3.4.4:
-  version "3.4.4"
-  resolved "https://registry.yarnpkg.com/react-hotkeys-hook/-/react-hotkeys-hook-3.4.4.tgz#52ba5d8ef5e47cc2e776c70a9036d518e0993d51"
-  integrity sha512-vaORq07rWgmuF3owWRhgFV/3VL8/l2q9lz0WyVEddJnWTtKW+AOgU5YgYKuwN6h6h7bCcLG3MFsJIjCrM/5DvQ==
+react-hotkeys-hook@4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/react-hotkeys-hook/-/react-hotkeys-hook-4.0.2.tgz#f56905a07ae975d297b86d8a7bbc434b597749f4"
+  integrity sha512-4UVC0jpvgfBqfrfbeEJHm/Jh+MKRTqX/z0BZR6kc51wYMf9IXaNUbLna/7z6vphGESmHJbiU/9TvvHJeMZTIOA==
   dependencies:
-    hotkeys-js "3.8.7"
+    lodash "4.17.21"
 
 react-icons@4.4.0:
   version "4.4.0"
