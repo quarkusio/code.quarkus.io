@@ -38,8 +38,11 @@
       color: var(--streamPickerStreamIdTextColor);
     }
 
-    .tag {
-      display: none;
+    .stream-status {
+      font-size: 0.9rem;
+      padding-left: 0.5rem;
+      line-height: normal;
+      text-transform: uppercase;
     }
   }
 
@@ -88,6 +91,7 @@
       margin-right: 5px;
       order: 1;
     }
+
     .tag {
       margin-left: 5px;
       font-size: 0.8rem;

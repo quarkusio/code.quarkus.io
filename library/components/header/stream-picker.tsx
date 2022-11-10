@@ -23,6 +23,24 @@ function getProjectStream(platform: Platform, streamKey?: string) {
   return platform.streams.find(s => s.key === normalizedStreamKey);
 }
 
+function formatStreamStatus(status?: string, quarkusCoreVersion?: string) {
+  let result = status?.toLowerCase();
+  if(!result) {
+    result = quarkusCoreVersion?.toLowerCase().indexOf('final') >= 0  ? 'final' : 'cr';
+  }
+  return result;
+}
+
+function parseStreamKey(key: string) {
+  const streamKey = key.split(':');
+  const platformKey = streamKey[0];
+  const streamId = streamKey[1];
+
+  return {
+    platformKey, streamId
+  }
+}
+
 export interface StreamPickerProps {
   platform: Platform;
   streamKey?: string;
@@ -30,19 +48,35 @@ export interface StreamPickerProps {
   setStreamKey: (string?, boolean?) => void;
 }
 
+const SelectedStream = (props: {stream: Stream}) => {
+  const platformVersion = props.stream.platformVersion;
+  const recommended = props.stream.recommended;
+  
+  const status = formatStreamStatus(props.stream.status, props.stream.quarkusCoreVersion);
+  const { platformKey, streamId} = parseStreamKey(props.stream.key);
+  
+  return (
+    <div className={classNames('quarkus-stream', status)} title={platformVersion}>
+      <span className="stream-id">
+        {streamId}
+        { (status !== 'final' && !recommended) && <span className="stream-status">{status}</span> }
+      </span>
+      <span className="platform-key">{platformKey}</span>
+    </div>
+  );
+}
+
 function StreamItem(props: { streamKey: string; quarkusCoreVersion?: string; platformVersion?: string; recommended: boolean; selected?: boolean; status?: string }) {
-  const streamKeys = props.streamKey.split(':');
-  let status = props.status?.toLowerCase();
-  if(!status) {
-    status = props.quarkusCoreVersion?.toLowerCase().indexOf('final') >= 0  ? 'final' : 'cr';
-  }
+  const status = formatStreamStatus(props.status, props.quarkusCoreVersion);
+  const { platformKey, streamId} = parseStreamKey(props.streamKey);
+  
   return (
     <div className={classNames('quarkus-stream', status)} title={props.platformVersion}>
       {props.selected ? <span className="selected"><FaCheck /></span> : <span className="unselected"/>}
-      <span className="platform-key">{streamKeys[0]}</span>
-      <span className="stream-id">{streamKeys[1]}</span>
+      <span className="platform-key">{platformKey}</span>
+      <span className="stream-id">{streamId}</span>
       {props.recommended && <span className="tag recommended">(recommended)</span>}
-      {status !== 'final'  && <span className="tag status">({status})</span>}
+      {status !== 'final' && <span className="tag status">({status})</span>}
     </div>
   );
 }
@@ -60,7 +94,7 @@ export function StreamPicker(props: StreamPickerProps) {
     <>
       <Dropdown className="stream-picker">
         <Dropdown.Toggle className="current-stream" as="div">
-          <StreamItem streamKey={stream.key} quarkusCoreVersion={stream.quarkusCoreVersion} platformVersion={stream.platformVersion} recommended={false} status={stream.status}/>
+          <SelectedStream stream={stream}/>
           { props.platform.streams.length > 1 && <FaAngleDown />}
         </Dropdown.Toggle>
         <Dropdown.Menu>
