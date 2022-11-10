@@ -11,15 +11,9 @@
 {
     "components": {
         "scope": "quarkusio.code-quarkus",
-        "version": "0.0.48",
+        "version": "0.0.49",
         "mainFile": "index.ts",
-        "rootDir": "components",
-        "nextVersion": {
-            "version": "patch",
-            "message": "",
-            "username": "Tarcisio Coutinho",
-            "email": "tcs5cin@gmail.com"
-        }
+        "rootDir": "components"
     },
     "core/analytics": {
         "scope": "quarkusio.code-quarkus",
