@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Analytics, AnalyticsContext, GoogleAnalytics, useAnalytics } from '@quarkusio/code-quarkus.core.analytics';
+import { Analytics, AnalyticsContext, SegmentAnalyticsImpl, useAnalytics } from '@quarkusio/code-quarkus.core.analytics';
 import './bootstrap-reboot.css';
 import './bootstrap-base.css';
 import './code-quarkus.scss';
@@ -28,11 +28,11 @@ export function ConfiguredCodeQuarkus(props: ConfiguredCodeQuarkusProps) {
 
   useEffect(() => {
     setAnalytics((prev) => {
-      const newAnalytics = props.config.gaTrackingId ? new GoogleAnalytics(props.config.gaTrackingId) : prev;
+      const newAnalytics = props.config.segmentWriteKey ? new SegmentAnalyticsImpl(props.config.segmentWriteKey) : prev;
       newAnalytics.init();
       return newAnalytics;
     });
-  }, [ props.config.gaTrackingId ]);
+  }, [ props.config.segmentWriteKey ]);
   const Header: React.FC<CodeQuarkusHeaderProps> = props.header || CodeQuarkusIoHeader;
   const platformLoader = () => props.platformApi(props.api, project.streamKey, project.platformOnly);
   function setStreamKey(streamKey: string, platformOnly: boolean) {

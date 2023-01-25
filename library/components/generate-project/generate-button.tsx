@@ -19,7 +19,7 @@ export function GenerateButtonPrimary(props: { onClick: MouseEventHandler<any>, 
 export function GenerateButton(props: { api: Api, project: QuarkusProject, isProjectValid: boolean, generate: (target?: Target) => void, githubClientId?: string, isConfigSaved: boolean, storeAppConfig: () => void, resetAppConfig: () => void }) {
 
   const [ isMoreOpen , setIsMoreOpen ] = useState(false);
-  const [ isResetEnabled, setResetEnabeld] = useState(existsStoredProject());
+  const [ isResetEnabled, setResetEnabled] = useState(existsStoredProject());
 
   const analytics = useAnalytics();
 
@@ -33,16 +33,19 @@ export function GenerateButton(props: { api: Api, project: QuarkusProject, isPro
 
   function onToggleFn(isOpen: boolean) {
     setIsMoreOpen(isOpen);
+    analytics.event('Generate app dropdown', { action: isOpen ? 'close': 'open', element: 'generate-button' });
   }
   
   function handleStoreAppConfig() {
     props.storeAppConfig();
-    setResetEnabeld(true);
+    setResetEnabled(true);
+    analytics.event('Store app config', { element: 'generate-button' });
   }
 
   function resetStoredAppConfig() {
     props.resetAppConfig();
-    setResetEnabeld(false);
+    setResetEnabled(false);
+    analytics.event('Reset app config', { element: 'generate-button' });
   }
 
   const downloadZip = (e: any) => {
@@ -57,7 +60,7 @@ export function GenerateButton(props: { api: Api, project: QuarkusProject, isPro
   const downloadUrl = getProjectDownloadUrl(props.api, props.project);
 
   const githubClick = () => {
-    analytics.event('Extension', 'Click "Create on Github"');
+    analytics.event('Click', { label: 'Create on Github', element: 'generate-button' });
     createOnGitHub(props.api, props.project, props.githubClientId!);
   };
 

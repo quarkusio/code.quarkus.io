@@ -10,28 +10,28 @@ class LoggingAnalytics implements Analytics {
     console.log(`analytics>pageview(${path})`);
   }
 
-  event(category: string, action: string, label?: string, value?: number, params?: object) {
-    console.log(`analytics>event(${category}, ${action}, ${label}, ${value})`);
+  event(event: string, context: object): void {
+    console.log(`analytics>event(${event}, ${JSON.stringify(context)})`);
   }
 }
 
 export const AnalyticsContext = React.createContext<Analytics>(new LoggingAnalytics());
 
-export function createLinkTracker(analytic: Analytics, category = 'UX', label: string, attr = 'href') {
+export function createLinkTracker(analytic: Analytics, attr = 'href', context: object = {}) {
   return (e: any) => {
     const attrVal = e.target?.getAttribute?.(attr);
     if (!!attrVal) {
-      analytic.event(category, label, attrVal);
+      analytic.event('Click', { label: attrVal, ...context });
     }
   };
 }
 
-export function useAnalyticsEditionField(id: string, onChange: any): [boolean, (event: any) => void] {
+export function useAnalyticsEditionField(id: string, onChange: any, context: object = {}): [boolean, (event: any) => void] {
   const [ isDirty, setIsDirty ] = useState(false);
   const analytics = useAnalytics();
   const onChangeWithDirty = (event: any) => {
     if (!isDirty) {
-      analytics.event('UX', 'Edit field', id);
+      analytics.event('Edit field', { field: id, ...context });
     }
     setIsDirty(true);
     if (onChange) {

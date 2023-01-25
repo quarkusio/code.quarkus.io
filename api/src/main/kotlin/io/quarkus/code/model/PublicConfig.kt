@@ -2,7 +2,7 @@ package io.quarkus.code.model
 
 data class PublicConfig(
     val environment: String,
-    val gaTrackingId: String?,
+    val segmentWriteKey: String?,
     val sentryDSN: String?,
     val quarkusPlatformVersion: String,
     val quarkusDevtoolsVersion: String,

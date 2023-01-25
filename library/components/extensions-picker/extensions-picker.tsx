@@ -1,5 +1,4 @@
 import React, { SetStateAction, useEffect, useRef, useState } from 'react';
-import _ from 'lodash';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useAnalytics } from '@quarkusio/code-quarkus.core.analytics';
 import { InputProps } from '@quarkusio/code-quarkus.core.types';
@@ -78,17 +77,13 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const [ showAll, setShowAll ] = useState<boolean>(false);
   const [ result, setResult ] = useState<FilterResult | undefined>();
   const analytics = useAnalytics();
+  const context = { element: 'extension-picker' };
 
   function setFilter(filter: string) {
     setKeyBoardActivated(-1);
     setShowAll(false);
     props.setFilter(filter);
   }
-  const debouncedSearchEvent = useRef<(events: string[][]) => void>(_.debounce(
-    (events) => {
-      events.forEach(e => analytics.event(e[0], e[1], e[2]));
-    }, 3000)).current;
-
   const extensions = props.value.extensions || [];
 
   const entrySet = new Set(extensions.map(e => e.id));
@@ -99,33 +94,25 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   }, [ props.entries, setProcessedExtensions ]);
   
   useEffect(() => {
-    debouncedComputeResults(filter, props.entries, processedExtensions, setResult);
+    debouncedComputeResults(analytics, filter, props.entries, processedExtensions, setResult);
   }, [ filter, processedExtensions, props.entries, setShowAll, setResult ]);
 
   const allEntries = result?.effective || [];
   const entries = showAll ? allEntries : allEntries.slice(0, REDUCED_SIZE)
-  useEffect(() => {
-    if (filter.length > 0) {
-      const topEvents = entries.slice(0, 5).map(r => [ 'Extension', 'Display in search top 5 results', r.id ]);
-      debouncedSearchEvent([ ...topEvents, [ 'UX', 'Search', filter ] ]);
-    }
-  }, [ filter, entries, debouncedSearchEvent ]);
-
-
-  const add = (index: number, origin: string) => {
+  const add = (index: number, type: string) => {
     const id =entries[index].id;
     entrySet.add(id);
     props.onChange({ extensions: Array.from(entrySet).map(e => entriesById.get(e)!) });
-    analytics.event('UX', 'Extension - Select', origin);
+    analytics.event('Select extension', { extension: id, type, ...context });
     if (keyboardActivated >= 0) {
       setKeyBoardActivated(index);
     }
   };
 
-  const remove = (id: string, origin: string) => {
+  const remove = (id: string, type: string) => {
     entrySet.delete(id);
     props.onChange({ extensions: Array.from(entrySet).map(e => entriesById.get(e)!) });
-    analytics.event('UX', 'Extension - Unselect', origin);
+    analytics.event('Unselect extension', { extension: id, type, ...context });
   };
 
   const flip = (index: number, origin: string) => {

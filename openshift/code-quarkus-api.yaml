@@ -61,16 +61,10 @@ objects:
               env:
                 - name: IO_QUARKUS_CODE_ENVIRONMENT
                   value: ${IO_QUARKUS_CODE_ENVIRONMENT}
-                - name: IO_QUARKUS_CODE_GA_EXTENSIONS_DIMENSION_INDEX
-                  value: ${IO_QUARKUS_CODE_GA_EXTENSIONS_DIMENSION_INDEX}
-                - name: IO_QUARKUS_CODE_GA_QUARKUS_VERSION_DIMENSION_INDEX
-                  value: ${IO_QUARKUS_CODE_GA_QUARKUS_VERSION_DIMENSION_INDEX}
-                - name: IO_QUARKUS_CODE_GA_BUILD_TOOL_DIMENSION_INDEX
-                  value: ${IO_QUARKUS_CODE_GA_BUILD_TOOL_DIMENSION_INDEX}
-                - name: IO_QUARKUS_CODE_GA_EXTENSION_QUANTITY_INDEX
-                  value: ${IO_QUARKUS_CODE_GA_EXTENSION_QUANTITY_INDEX}
-                - name: IO_QUARKUS_CODE_GA_BATCHING_ENABLED
-                  value: ${IO_QUARKUS_CODE_GA_BATCHING_ENABLED}
+                - name: IO_QUARKUS_CODE_SEGMENT_FLUSH_QUEUE_SIZE
+                  value: ${IO_QUARKUS_CODE_SEGMENT_FLUSH_QUEUE_SIZE}
+                - name: IO_QUARKUS_CODE_SEGMENT_FLUSH_INTERVAL_SECONDS
+                  value: ${IO_QUARKUS_CODE_SEGMENT_FLUSH_INTERVAL_SECONDS}
                 - name: IO_QUARKUS_CODE_LOG_LEVEL
                   value: ${IO_QUARKUS_CODE_LOG_LEVEL}
                 - name: IO_QUARKUS_CODE_HOSTNAME
@@ -107,11 +101,11 @@ objects:
                       name: secrets
                       key: sentry-dsn
                       optional: true
-                - name: IO_QUARKUS_CODE_GA_TRACKING_ID
+                - name: IO_QUARKUS_CODE_SEGMENT_WRITE_KEY
                   valueFrom:
                     secretKeyRef:
                       name: secrets
-                      key: ga-tracking-id
+                      key: segment-write-key
                       optional: true
               envFrom:
                 - configMapRef:
@@ -138,11 +132,8 @@ parameters:
   - name: IO_QUARKUS_CODE_ENVIRONMENT
   - name: IO_QUARKUS_CODE_FEATURES
   - name: IO_QUARKUS_CODE_HOSTNAME
-  - name: IO_QUARKUS_CODE_GA_BATCHING_ENABLED
-  - name: IO_QUARKUS_CODE_GA_EXTENSIONS_DIMENSION_INDEX
-  - name: IO_QUARKUS_CODE_GA_QUARKUS_VERSION_DIMENSION_INDEX
-  - name: IO_QUARKUS_CODE_GA_BUILD_TOOL_DIMENSION_INDEX
-  - name: IO_QUARKUS_CODE_GA_EXTENSION_QUANTITY_INDEX
+  - name: IO_QUARKUS_CODE_SEGMENT_FLUSH_QUEUE_SIZE
+  - name: IO_QUARKUS_CODE_SEGMENT_FLUSH_INTERVAL_SECONDS
   - name: IO_QUARKUS_CODE_QUARKUS_PLATFORMS_RELOAD_CRON_EXPR
     value: "0 */5 * * * ?"
   - name: QUARKUS_LOG_SENTRY

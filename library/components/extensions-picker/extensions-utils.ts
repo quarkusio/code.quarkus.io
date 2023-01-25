@@ -1,6 +1,7 @@
 import { ExtensionEntry } from './extensions-picker';
 import { Extension } from '../api/model';
 import _ from 'lodash';
+import { Analytics } from '@quarkusio/code-quarkus.core.analytics';
 
 function* matchAll(str, regexp) {
   const flags = regexp.global ? regexp.flags : regexp.flags + 'g';
@@ -116,7 +117,6 @@ function inFilter(e: ExtensionValues, expr: string[], fields: string[]) {
   for (const field of fields) {
     const val = e.values.get(field);
     if (val) {
-      console.log(`${field} ${val}==${expr}`);
       let allFoundInValue = true;
       for (const e of expr) {
         if (val.indexOf(e) < 0) {
@@ -239,7 +239,7 @@ function getOrigin(filter: string): Origin {
 }
 
 export function shouldFilter(filter: string): boolean {
-  return clearFilterOrigin(filter).trim().length > 0;
+  return filter.length > 0 && clearFilterOrigin(filter).trim().length > 0;
 }
 
 export function clearFilterOrigin(filter: string) {
@@ -299,8 +299,9 @@ export function toFilterResult(filter: string, entries: Extension[], filtered: b
   onResult(result);
 }
 
-const computeResults = (filter: string, entries: ExtensionEntry[], processedExtensions: ProcessedExtensions, onResult: (result: FilterResult) => void): void => {
+const computeResults = (analytics: Analytics, filter: string, entries: ExtensionEntry[], processedExtensions: ProcessedExtensions, onResult: (result: FilterResult) => void): void => {
   if (shouldFilter(filter)) {
+    analytics.event('Search', { filter, element: 'search-bar' })
     const filtered = search(filter, processedExtensions);
     toFilterResult(filter, filtered, true, onResult);
   } else {

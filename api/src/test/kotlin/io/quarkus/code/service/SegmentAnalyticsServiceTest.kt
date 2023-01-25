@@ -1,11 +1,11 @@
 package io.quarkus.code.service
 
-import io.quarkus.code.service.GoogleAnalyticsService.Companion.USER_AGENT_PATTERN
+import io.quarkus.code.service.SegmentAnalyticsService.Companion.USER_AGENT_PATTERN
 import org.junit.jupiter.api.Test
 import org.wildfly.common.Assert.assertFalse
 import org.wildfly.common.Assert.assertTrue
 
-internal class GoogleAnalyticsServiceTest {
+internal class SegmentAnalyticsServiceTest {
     @Test
     internal fun testUserAgentPattern() {
         assertTrue(USER_AGENT_PATTERN.matcher("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36").matches())

@@ -15,18 +15,18 @@ interface NextStepsProps {
 
 export function NextStepsModal(props: NextStepsProps) {
   const analytics = useAnalytics();
-  const baseEvent = [ 'UX', 'Post-Generate Popup Action' ];
+  const context = { element: 'next-step-modal' };
   const close = (reset?: boolean) => {
-    analytics.event(baseEvent[0], baseEvent[1], reset ? 'Start new' : 'Close');
+    analytics.event('Click', { label: reset ? 'Start new' : 'Close', ...context } );
     if (props.onClose) props.onClose(reset);
   };
-  const linkTracker = createLinkTracker(analytics, baseEvent[0], baseEvent[1], 'aria-label');
+  const linkTracker = createLinkTracker(analytics, 'aria-label', context);
   const onClickGuide = (id: string) => (e: any) => {
     linkTracker(e);
-    analytics.event('Extension', 'Click "Open Extension Guide" link', id);
+    analytics.event('Click', { label: 'Extension guide', extension: id, ...context });
   };
   const extensionsWithGuides = props.extensions.filter(e => !!e.guide);
-  const devModeEvent = [ ...baseEvent, 'Copy "Dev mode" command' ];
+  const devModeEventContext = { ...context, label: 'Dev mode command' }
   const zip = props.result.target === Target.DOWNLOAD || props.result.target === Target.GENERATE;
   return (
     <Modal
@@ -51,7 +51,7 @@ export function NextStepsModal(props: NextStepsProps) {
         {props.result.target === Target.GITHUB && (
           <React.Fragment>
             <p>Your application is now on <ExternalLink href={props.result.url} aria-label={'Open GitHub repository'} onClick={linkTracker}>GitHub</ExternalLink> ready to be cloned:</p>
-            <CopyToClipboard className="code" id="copy-git-clone-cmd-code" light={true} event={[ ...baseEvent, 'Copy git clone command' ]} content={`git clone ${props.result.url}`} zIndex={1100}>
+            <CopyToClipboard className="code" id="copy-git-clone-cmd-code" light={true} eventContext={{...context, label: 'git clone command' }} content={`git clone ${props.result.url}`} zIndex={1100}>
               <code className="code">git clone {props.result.url}</code>
             </CopyToClipboard>
           </React.Fragment>
@@ -68,19 +68,19 @@ export function NextStepsModal(props: NextStepsProps) {
 
           <p>Use the <ExternalLink href="https://quarkus.io/guides/cli-tooling" aria-label={'Open Quarkus CLI guide'} onClick={linkTracker}>Quarkus CLI</ExternalLink>:</p>
 
-          <CopyToClipboard className="code" id="copy-cli-cmd-code" light={true}  event={devModeEvent} content="quarkus dev" zIndex={1100} tooltipPlacement="top">
+          <CopyToClipboard className="code" id="copy-cli-cmd-code" light={true}  eventContext={devModeEventContext} content="quarkus dev" zIndex={1100} tooltipPlacement="top">
             <code className="code">quarkus dev</code>
           </CopyToClipboard>
 
           <p>Use your favorite build tool:</p>
           {props.buildTool === 'MAVEN' && (
-            <CopyToClipboard className="code" id="copy-mvn-cmd-code" light={true} event={devModeEvent} content="./mvnw compile quarkus:dev" zIndex={1100} tooltipPlacement="top">
+            <CopyToClipboard className="code" id="copy-mvn-cmd-code" light={true} eventContext={devModeEventContext} content="./mvnw compile quarkus:dev" zIndex={1100} tooltipPlacement="top">
               <code className="code">./mvnw compile quarkus:dev</code>
             </CopyToClipboard>
           )}
 
           {props.buildTool.startsWith('GRADLE')  && (
-            <CopyToClipboard className="code" id="copy-gradle-cmd-code" light={true}  event={devModeEvent} content="./gradlew quarkusDev" zIndex={1100} tooltipPlacement="top">
+            <CopyToClipboard className="code" id="copy-gradle-cmd-code" light={true}  eventContext={devModeEventContext} content="./gradlew quarkusDev" zIndex={1100} tooltipPlacement="top">
               <code className="code">./gradlew quarkusDev</code>
             </CopyToClipboard>
           )}

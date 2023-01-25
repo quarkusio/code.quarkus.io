@@ -17,10 +17,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <kotlin.version>1.8.0</kotlin.version>
+        <kotlin.version>1.7.21</kotlin.version>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <commons-compress.version>1.21</commons-compress.version>
-        <google-analytics-java.version>2.0.0</google-analytics-java.version>
         <hoverfly-java.version>0.14.3</hoverfly-java.version>
         <assertj.version>3.24.2</assertj.version>
 
@@ -28,16 +27,17 @@
         <!-- Quarkus platform used for the code.quarkus app-->
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.version>2.13.3.Final</quarkus.platform.version>
+        <quarkus.platform.version>2.15.3.Final</quarkus.platform.version>
 
         <!-- Quarkus devtools version -->
-        <quarkus.devtools.version>2.13.3.Final</quarkus.devtools.version>
-        <quarkus.base-codestarts.version>2.13.3.Final</quarkus.base-codestarts.version>
+        <quarkus.devtools.version>2.15.3.Final</quarkus.devtools.version>
+        <quarkus.base-codestarts.version>2.15.3.Final</quarkus.base-codestarts.version>
 
         <!-- Quarkiverse versions -->
         <quarkus.jgit.version>2.3.1</quarkus.jgit.version>
         <quarkus.logging.sentry.version>1.2.1</quarkus.logging.sentry.version>
         <quarkus.quinoa.version>1.2.4</quarkus.quinoa.version>
+        <segment-analytics.version>3.3.1</segment-analytics.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -126,9 +126,9 @@
             <version>${commons-compress.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.brsanthu</groupId>
-            <artifactId>google-analytics-java</artifactId>
-            <version>${google-analytics-java.version}</version>
+            <groupId>com.segment.analytics.java</groupId>
+            <artifactId>analytics</artifactId>
+            <version>${segment-analytics.version}</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -316,7 +316,7 @@
                 </property>
             </activation>
             <properties>
-                <quarkus.devtools.version>999-SNAPSHOT</quarkus.devtools.version>
+                <quarkus.devtools.version>2.15.3.Final</quarkus.devtools.version>
                 <quarkus.base-codestarts.version>${quarkus.platform.version}</quarkus.base-codestarts.version>
             </properties>
 

@@ -12,15 +12,15 @@ export function QuarkusBlurb() {
   const [ visible, setVisible ] = useState<boolean>(true);
   const [ notAgainCheckboxValue, setNotAgainCheckboxValue ] = useState<boolean>(false);
   const close = (notAgain?: boolean) => {
-    analytics.event('UX', 'Blurb', 'Close');
+    analytics.event('Click', { label: 'Close', element: 'blurb'});
     setNotAgain(notAgain || false);
     setVisible(false);
   };
   const missingFeatureLinkClick = () => {
-    analytics.event('UX', 'Blurb', 'Click on "Missing a feature?" link');
+    analytics.event('Click', { label: 'Missing a feature?', element: 'blurb' });
   };
   const foundBugLinkClick = () => {
-    analytics.event('UX', 'Blurb', 'Click on "Found a bug?" link');
+    analytics.event('Click', { label: 'Found a bug?', element: 'blurb' });
   };
   return (
     <>

@@ -87,7 +87,7 @@ export function StreamPicker(props: StreamPickerProps) {
   const stream = getProjectStream(props.platform, props.streamKey) || recommendedStream;
   function setStreamKey(s: Stream) {
     props.setStreamKey(s.key, props.platformOnly);
-    analytics.event('UX', 'Stream Picker', s.key);
+    analytics.event('Switch stream', { stream: s.key, element: 'stream-picker' });
   }
 
   return (

@@ -63,7 +63,7 @@ export interface Stream {
 
 export interface Config {
   environment: string;
-  gaTrackingId?: string;
+  segmentWriteKey?: string;
   sentryDSN?: string;
   quarkusPlatformVersion: string;
   gitCommitId: string;

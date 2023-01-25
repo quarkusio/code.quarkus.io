@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@sentry/browser": "7.12.1",
-    "@teambit/bvm": "0.1.5",
+    "@teambit/bvm": "0.2.9",
     "@testing-library/dom": "8.16.0",
     "@testing-library/react": "12.1.5",
     "@types/jest": "29.2.6",
@@ -24,6 +24,7 @@
     "@typescript-eslint/parser": "4.33.0",
     "classnames": "2.3.1",
     "copy-to-clipboard": "3.3.2",
+    "@segment/analytics-next": "1.49.2",
     "eslint": "7.32.0",
     "eslint-config-react-app": "6.0.0",
     "eslint-plugin-flowtype": "5.10.0",

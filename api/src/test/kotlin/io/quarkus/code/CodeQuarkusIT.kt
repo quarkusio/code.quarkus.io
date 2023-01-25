@@ -21,7 +21,7 @@ class CodeQuarkusIT {
         val languageExt = if(language != "java") "io.quarkus:quarkus-$language" else ""
         val appName = "test-app-maven-$language"
         val result = given()
-                .`when`().get("/api/download?a=$appName&e=$languageExt")
+                .`when`().get("/api/download?a=$appName&e=neo4j&e=amazon-lambda-http&e=$languageExt")
                 .then()
                 .log().ifValidationFails()
                 .statusCode(200)
