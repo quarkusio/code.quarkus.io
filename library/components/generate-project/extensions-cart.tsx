@@ -68,9 +68,9 @@ export function ExtensionsCart(props: ExtensionsCartProps) {
     setOpenedFromChange(false);
   }
 
-  function onRemove(id: string, origin: string) {
+  function onRemove(id: string, type: string) {
     props.onChange({ extensions: _.filter(props.value.extensions, e => e.id !== id && id !== '*') });
-    analytics.event('UX', 'Extension - Unselect', origin);
+    analytics.event('Unselect extension', { extension: id, type, element: 'extension-cart'});
   }
 
   useEffect(() => {

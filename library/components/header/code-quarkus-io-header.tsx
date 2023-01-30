@@ -9,13 +9,13 @@ import { CompanyHeader, CodeQuarkusHeaderProps } from './code-quarkus-header';
 function SupportButton(prop: {}) {
   const [ opened, open ] = useState(false);
   const analytics = useAnalytics();
-  const linkTracker = createLinkTracker(analytics,'UX', 'Support panel');
+  const linkTracker = createLinkTracker(analytics, 'Support panel');
   const openPanel = (e: any) => {
-    analytics.event('UX', 'Support panel', 'open');
+    analytics.event('Open Support panel', { element: 'support-button' });
     open(true);
   };
   const closePanel = (e: any) => {
-    analytics.event('UX', 'Support panel', 'close');
+    analytics.event('Close Support panel', { element: 'support-button' });
     open(false);
   };
   return (
@@ -30,7 +30,7 @@ function SupportButton(prop: {}) {
 
 export function CodeQuarkusIoHeader(props: CodeQuarkusHeaderProps) {
   const analytics = useAnalytics();
-  const linkTracker = createLinkTracker(analytics,'UX', 'Header');
+  const linkTracker = createLinkTracker(analytics, 'Header');
   return (
     <CompanyHeader {...props}>
       <>

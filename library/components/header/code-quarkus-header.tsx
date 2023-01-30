@@ -15,7 +15,7 @@ export interface CompanyHeaderProps extends CodeQuarkusHeaderProps {
 
 export function CompanyHeader(props: CompanyHeaderProps) {
   const analytics = useAnalytics();
-  const linkTracker = createLinkTracker(analytics,'UX', 'Header');
+  const linkTracker = createLinkTracker(analytics, 'Header');
   return (
     <div className="header">
       <div className="header-content responsive-container">

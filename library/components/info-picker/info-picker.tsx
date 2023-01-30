@@ -63,7 +63,7 @@ export const InfoPicker = (props: InfoPickerProps) => {
         <BuildToolSelect onChange={onBuildToolChange} value={props.value.buildTool || 'MAVEN'}/>
       </div>
       {optionalBool(props.showMoreOptions, true) && (
-        <TogglePanel id="info-extended" mode="horizontal" openLabel="More options" event={[ 'UX', 'Application Info - Configure More Options' ]}>
+        <TogglePanel id="info-extended" mode="horizontal" openLabel="More options" event="Extends app info" eventContext={{ location: 'info-picker' }}>
           <div className="extended-settings form">
             <ExtendedTextInput
               label="Version"

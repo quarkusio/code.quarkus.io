@@ -28,21 +28,22 @@ function ListItem(props: { className?: string, children: React.ReactChildren }) 
 function FilterShortcutsDropdown(props: ExtensionSearchBarProps) {
   const [ isOpen , setIsOpen ] = useState(false);
   const analytics = useAnalytics();
+  const context = { element: 'extension-search-dropdown' };
   function clickPlatform() {
     if (props.result.origin !== 'platform') {
-      analytics.event('UX', 'Switch origin', 'platform');
+      analytics.event('Switch origin', { origin: 'platform', ...context });
       props.setFilter(`origin:platform ${clearFilterOrigin(props.filter)}`);
     } else {
-      analytics.event('UX', 'Switch origin', 'clear');
+      analytics.event('Switch origin', { origin: 'other', ...context });
       props.setFilter(`${clearFilterOrigin(props.filter)}`);
     }
   }
   function clickOther() {
     if (props.result.origin !== 'other' ) {
-      analytics.event('UX', 'Switch origin', 'other');
+      analytics.event('Switch origin', { origin: 'other', ...context });
       props.setFilter(`origin:other ${clearFilterOrigin(props.filter)}`);
     } else {
-      analytics.event('UX', 'Switch origin', 'clear');
+      analytics.event('Switch origin', { origin: '', ...context });
       props.setFilter(`${clearFilterOrigin(props.filter)}`);
     }
   }

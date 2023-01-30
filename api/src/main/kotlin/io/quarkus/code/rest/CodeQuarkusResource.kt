@@ -2,7 +2,7 @@ package io.quarkus.code.rest
 
 import io.quarkus.code.config.CodeQuarkusConfig
 import io.quarkus.code.config.GitHubConfig
-import io.quarkus.code.config.GoogleAnalyticsConfig
+import io.quarkus.code.config.SegmentConfig
 import io.quarkus.code.model.*
 import io.quarkus.code.service.PlatformService
 import io.quarkus.code.service.QuarkusProjectService
@@ -18,7 +18,6 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 import org.eclipse.microprofile.openapi.annotations.tags.Tag
 import org.jboss.resteasy.annotations.cache.NoCache
-import java.lang.IllegalArgumentException
 import java.nio.charset.StandardCharsets
 import java.time.format.DateTimeFormatter
 import java.util.logging.Level
@@ -45,7 +44,7 @@ class CodeQuarkusResource {
     internal lateinit var config: CodeQuarkusConfig
 
     @Inject
-    lateinit var gaConfig: GoogleAnalyticsConfig
+    lateinit var segmentConfig: SegmentConfig
 
     @Inject
     lateinit var gitHubConfig: GitHubConfig
@@ -62,6 +61,7 @@ class CodeQuarkusResource {
             Code Quarkus is started with:
                 environment = ${config().environment}
                 sentryDSN = ${config().sentryDSN}
+                segmentWriteKey = ${segmentConfig.writeKeyForDisplay()}
                 quarkusPlatformVersion = ${config().quarkusPlatformVersion},
                 quarkusDevtoolsVersion = ${config().quarkusDevtoolsVersion},
                 gitCommitId: ${config().gitCommitId},
@@ -78,7 +78,7 @@ class CodeQuarkusResource {
     fun config(): PublicConfig {
         return PublicConfig(
             environment = config.environment.orElse("dev"),
-            gaTrackingId = gaConfig.trackingId.filter(String::isNotBlank).orElse(null),
+            segmentWriteKey = segmentConfig.writeKey.filter(String::isNotBlank).orElse(null),
             sentryDSN = config.sentryFrontendDSN.filter(String::isNotBlank).orElse(null),
             quarkusPlatformVersion = config.quarkusPlatformVersion,
             quarkusDevtoolsVersion = config.quarkusDevtoolsVersion,

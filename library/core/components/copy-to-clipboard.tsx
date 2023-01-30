@@ -9,7 +9,7 @@ import classNames from 'classnames';
 
 export interface CopyToClipboardProps {
   id: string;
-  event: string[];
+  eventContext: object;
   content: string;
   children?: React.ReactNode;
   tooltipPlacement?: Placement;
@@ -28,8 +28,8 @@ export function CopyToClipboard(props: CopyToClipboardProps) {
     e.stopPropagation();
     if (props.onClick) props.onClick(e);
     copy(props.content);
-    if (props.event && props.event.length === 3 && !copied) {
-      analytics.event(props.event[0], props.event[1], props.event[2]);
+    if (props.eventContext && !copied) {
+      analytics.event('Copy to Clipboard', props.eventContext);
     }
     setCopied(true);
   };

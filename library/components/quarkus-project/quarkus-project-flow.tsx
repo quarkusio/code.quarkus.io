@@ -48,7 +48,7 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
     if (target === Target.GITHUB) {
       setRun({ status: Status.RUNNING });
     }
-    analytics.event('UX', 'Generate application', target);
+    analytics.event('Generate application', { type: target });
     generateProject(props.api, props.config.environment, props.project, target).then((result) => {
       setRun((prev) => ({ ...prev, result, status: Status.DOWNLOADED }));
     }).catch((error: any) => {

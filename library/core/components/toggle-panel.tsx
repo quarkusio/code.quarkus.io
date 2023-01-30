@@ -9,7 +9,8 @@ interface TogglePanelProps {
   id: string;
   closeLabel?: string;
   openLabel?: string
-  event?: string[];
+  event?: string;
+  eventContext?: object;
   mode?: 'vertical' | 'horizontal';
   children: ReactNode;
 }
@@ -23,7 +24,10 @@ export function TogglePanel(props: TogglePanelProps) {
   const OpenIcon = mode === 'horizontal' ? <FaCaretSquareRight/> : <FaCaretSquareDown/>;
   const flip = () => {
     if (props.event && props.event.length === 2) {
-      analytics.event(props.event[0], props.event[1], open ? 'Hide' : 'Show')
+      let eventContext = props.eventContext || {};
+      if (open) {
+        analytics.event(props.event, { ...eventContext })
+      }
     }
     setOpen(!open);
   };

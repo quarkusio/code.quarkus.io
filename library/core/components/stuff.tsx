@@ -10,15 +10,6 @@ export function optionalBool(val: (boolean | undefined), defaultValue: boolean):
   return val === undefined ? defaultValue : val!;
 }
 
-export function Code(props: { id: string, content: string, event: string[]  }) {
-  return (
-    <code className="code">
-      <span className="content">{props.content}</span>
-      <CopyToClipboard id={props.id} zIndex={5000} tooltipPlacement="left" event={props.event} content={`${props.content}`}/>
-    </code>
-  );
-}
-
 export function Spin(props: { children: React.ReactNode }) {
   return (
     <span className="animate-spin">

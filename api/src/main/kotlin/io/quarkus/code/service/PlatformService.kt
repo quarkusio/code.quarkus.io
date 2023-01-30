@@ -103,14 +103,14 @@ class PlatformService {
     @Throws(RegistryResolutionException::class)
     private fun reloadPlatformServiceCache() {
         catalogResolver.clearRegistryCache()
-        val platformCatalog = if(platformConfig.registryId.isEmpty) catalogResolver.resolvePlatformCatalog()
+        val platformCatalog: PlatformCatalog? = if(platformConfig.registryId.isEmpty) catalogResolver.resolvePlatformCatalog()
             else catalogResolver.resolvePlatformCatalogFromRegistry(platformConfig.registryId.get())
         val updatedStreamCatalogMap: MutableMap<String, PlatformInfo> = HashMap()
-        if(platformCatalog?.metadata == null) {
+        if(platformCatalog?.metadata == null || platformCatalog.platforms == null) {
             throw error("Platform catalog not found");
         }
 
-        val platformTimestamp = platformCatalog?.metadata?.get(Constants.LAST_UPDATED) as String?
+        val platformTimestamp: String? = platformCatalog.metadata[Constants.LAST_UPDATED]?.toString()
         if(platformTimestamp.isNullOrBlank()) {
             throw error("Platform last updated date is empty");
         }
