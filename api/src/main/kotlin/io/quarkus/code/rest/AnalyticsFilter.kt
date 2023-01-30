@@ -69,13 +69,13 @@ class AnalyticsFilter : ContainerRequestFilter {
                         val props = if (id.split(":").size == 2) {
                             val key = ArtifactKey.fromString(id)
                             mapOf(
-                                "key" to key.toGacString()
+                                "extension" to key.toGacString()
                             )
                         } else {
                             val coords = ArtifactCoords.fromString(id)
                             mapOf(
-                                "key" to coords.key.toGacString(),
-                                "version" to coords.version,
+                                "extension" to coords.key.toGacString(),
+                                "extensionVersion" to coords.version,
                             )
                         }
                         analyticsService.get().track(

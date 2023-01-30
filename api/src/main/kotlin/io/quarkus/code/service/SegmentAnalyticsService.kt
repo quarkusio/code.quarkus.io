@@ -79,11 +79,11 @@ class SegmentAnalyticsService @Inject constructor(val config: CodeQuarkusConfig,
                 "source" to source,
                 "path" to path,
                 "url" to url,
-                "userAgent" to userAgent,
-                "referer" to referer,
-            ) + properties
+                "requestHeaders" to mapOf("userAgent" to userAgent, "referer" to referer)
+            )
             analytics!!.enqueue(TrackMessage.builder(event)
                 .anonymousId(anonymousId)
+                .properties(properties)
                 .context(props))
         } else {
             prefix = "[Disabled] "
@@ -94,8 +94,8 @@ class SegmentAnalyticsService @Inject constructor(val config: CodeQuarkusConfig,
                 $prefix sending analytics event "$event":
                     - properties: $properties
                     - userAgent: $fixedUserAgent
-                    - documentReferrer: $referer
-                    - documentHostName: $hostName
+                    - referer: $referer
+                    - hostName: $hostName
                     - anonymousId: ${anonymousId != null}
                     - source: $source
                     - documentUrl: $url
