@@ -3,9 +3,9 @@
 /**
  * The Bitmap file is an auto generated file used by Bit to track all your Bit components. It maps the component to a folder in your file system.
  * This file should be committed to VCS(version control).
- * Components are listed using their component ID (https://harmony-docs.bit.dev/aspects/component/#component-id).
+ * Components are listed using their component ID (https://bit.dev/docs/components/component-id).
  * If you want to delete components you can use the "bit remove <component-id>" command.
- * See the docs (https://harmony-docs.bit.dev/building-with-bit/removing-components) for more information, or use "bit remove --help".
+ * See the docs (https://bit.dev/docs/components/removing-components) for more information, or use "bit remove --help".
  */
 
 {
@@ -17,7 +17,7 @@
         "nextVersion": {
             "version": "patch",
             "message": "",
-            "username": "Andy Damevin",
+            "username": "ia3andy",
             "email": "ia3andy@gmail.com"
         }
     },
@@ -29,7 +29,7 @@
         "nextVersion": {
             "version": "patch",
             "message": "",
-            "username": "Andy Damevin",
+            "username": "ia3andy",
             "email": "ia3andy@gmail.com"
         }
     },
@@ -41,7 +41,7 @@
         "nextVersion": {
             "version": "patch",
             "message": "",
-            "username": "Andy Damevin",
+            "username": "ia3andy",
             "email": "ia3andy@gmail.com"
         }
     },
@@ -49,7 +49,13 @@
         "scope": "quarkusio.code-quarkus",
         "version": "0.0.1",
         "mainFile": "index.ts",
-        "rootDir": "core/types"
+        "rootDir": "core/types",
+        "nextVersion": {
+            "version": "patch",
+            "message": "",
+            "username": "ia3andy",
+            "email": "ia3andy@gmail.com"
+        }
     },
     "$schema-version": "15.0.0"
 }
