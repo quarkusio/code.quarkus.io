@@ -11,51 +11,27 @@
 {
     "components": {
         "scope": "quarkusio.code-quarkus",
-        "version": "0.0.49",
+        "version": "0.0.50",
         "mainFile": "index.ts",
-        "rootDir": "components",
-        "nextVersion": {
-            "version": "patch",
-            "message": "",
-            "username": "ia3andy",
-            "email": "ia3andy@gmail.com"
-        }
+        "rootDir": "components"
     },
     "core/analytics": {
         "scope": "quarkusio.code-quarkus",
-        "version": "0.0.1",
+        "version": "0.0.2",
         "mainFile": "index.ts",
-        "rootDir": "core/analytics",
-        "nextVersion": {
-            "version": "patch",
-            "message": "",
-            "username": "ia3andy",
-            "email": "ia3andy@gmail.com"
-        }
+        "rootDir": "core/analytics"
     },
     "core/components": {
         "scope": "quarkusio.code-quarkus",
-        "version": "0.0.13",
+        "version": "0.0.14",
         "mainFile": "index.ts",
-        "rootDir": "core/components",
-        "nextVersion": {
-            "version": "patch",
-            "message": "",
-            "username": "ia3andy",
-            "email": "ia3andy@gmail.com"
-        }
+        "rootDir": "core/components"
     },
     "core/types": {
         "scope": "quarkusio.code-quarkus",
-        "version": "0.0.1",
+        "version": "0.0.2",
         "mainFile": "index.ts",
-        "rootDir": "core/types",
-        "nextVersion": {
-            "version": "patch",
-            "message": "",
-            "username": "ia3andy",
-            "email": "ia3andy@gmail.com"
-        }
+        "rootDir": "core/types"
     },
     "$schema-version": "15.0.0"
 }
