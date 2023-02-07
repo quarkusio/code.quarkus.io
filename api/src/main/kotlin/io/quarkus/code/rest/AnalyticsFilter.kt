@@ -63,7 +63,7 @@ class AnalyticsFilter : ContainerRequestFilter {
             }
             if (appAction != null) {
                 try {
-                    val w = readWatchedData(context, source)
+                    val w = readWatchedData(context)
                     (w["extensions"] as? Set<*>)?.forEach {
                         val id = it as String
                         val props = if (id.split(":").size == 2) {
@@ -120,7 +120,7 @@ class AnalyticsFilter : ContainerRequestFilter {
 
     }
 
-    private fun readWatchedData(context: ContainerRequestContext, source: String): Map<String, Any?> {
+    private fun readWatchedData(context: ContainerRequestContext): Map<String, Any?> {
         val queryParams = context.uriInfo.queryParameters
         val extensions: Set<String>
         val buildTool: String
@@ -138,7 +138,7 @@ class AnalyticsFilter : ContainerRequestFilter {
                 buildTool = json.getString("buildTool", ProjectDefinition.DEFAULT_BUILDTOOL)
                 javaVersion = json.getString("javaVersion", ProjectDefinition.DEFAULT_JAVA_VERSION)
                 streamKey = json.getString("streamKey")
-                noCode = json.getBoolean("noCode")
+                noCode = json.getBoolean("noCode", ProjectDefinition.DEFAULT_NO_CODE)
             } else {
                 extensions = emptySet()
                 buildTool = ProjectDefinition.DEFAULT_BUILDTOOL
