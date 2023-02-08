@@ -8,16 +8,19 @@ import io.quarkus.code.service.PlatformService
 import io.quarkus.code.service.QuarkusProjectService
 import io.quarkus.registry.catalog.PlatformCatalog
 import io.quarkus.runtime.StartupEvent
+import io.smallrye.common.annotation.Blocking
+import io.smallrye.mutiny.Uni
 import org.apache.http.NameValuePair
 import org.apache.http.client.utils.URLEncodedUtils
 import org.apache.http.message.BasicNameValuePair
+import org.eclipse.microprofile.context.ManagedExecutor
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType
 import org.eclipse.microprofile.openapi.annotations.media.Content
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse
 import org.eclipse.microprofile.openapi.annotations.tags.Tag
-import org.jboss.resteasy.annotations.cache.NoCache
+import org.jboss.resteasy.reactive.NoCache
 import java.nio.charset.StandardCharsets
 import java.time.format.DateTimeFormatter
 import java.util.logging.Level
@@ -32,7 +35,15 @@ import javax.ws.rs.core.Response
 
 
 @Path("/")
-class CodeQuarkusResource {
+class CodeQuarkusResource @Inject constructor(
+    val config: CodeQuarkusConfig,
+    val segmentConfig: SegmentConfig,
+    val gitHubConfig: GitHubConfig,
+    val platformService: PlatformService,
+    val projectCreator: QuarkusProjectService,
+    val exec: ManagedExecutor
+) {
+
 
     companion object {
         private val LOG = Logger.getLogger(CodeQuarkusResource::class.java.name)
@@ -40,33 +51,20 @@ class CodeQuarkusResource {
         private const val LAST_MODIFIED_HEADER = "Last-Modified"
     }
 
-    @Inject
-    internal lateinit var config: CodeQuarkusConfig
-
-    @Inject
-    lateinit var segmentConfig: SegmentConfig
-
-    @Inject
-    lateinit var gitHubConfig: GitHubConfig
-
-    @Inject
-    internal lateinit var platformService: PlatformService
-
-    @Inject
-    internal lateinit var projectCreator: QuarkusProjectService
-
     fun onStart(@Observes e: StartupEvent) {
-        LOG.log(Level.INFO) {
-            """
-            Code Quarkus is started with:
-                environment = ${config().environment}
-                sentryDSN = ${config().sentryDSN}
-                segmentWriteKey = ${segmentConfig.writeKeyForDisplay()}
-                quarkusPlatformVersion = ${config().quarkusPlatformVersion},
-                quarkusDevtoolsVersion = ${config().quarkusDevtoolsVersion},
-                gitCommitId: ${config().gitCommitId},
-                features: ${config().features}
-        """.trimIndent()
+        config().subscribe().with {
+            LOG.log(Level.INFO) {
+                """
+                    Code Quarkus is started with:
+                        environment = ${it.environment}
+                        sentryDSN = ${it.sentryDSN}
+                        segmentWriteKey = ${segmentConfig.writeKeyForDisplay()}
+                        quarkusPlatformVersion = ${it.quarkusPlatformVersion},
+                        quarkusDevtoolsVersion = ${it.quarkusDevtoolsVersion},
+                        gitCommitId: ${it.gitCommitId},
+                        features: ${it.features}
+                """.trimIndent()
+            }
         }
     }
 
@@ -75,18 +73,19 @@ class CodeQuarkusResource {
     @Produces(APPLICATION_JSON)
     @NoCache
     @Operation(summary = "Get the Quarkus Launcher configuration", hidden = true)
-    fun config(): PublicConfig {
-        return PublicConfig(
+    fun config(): Uni<PublicConfig> {
+        val publicConfig = PublicConfig(
             environment = config.environment.orElse("dev"),
             segmentWriteKey = segmentConfig.writeKey.filter(String::isNotBlank).orElse(null),
             sentryDSN = config.sentryFrontendDSN.filter(String::isNotBlank).orElse(null),
             quarkusPlatformVersion = config.quarkusPlatformVersion,
             quarkusDevtoolsVersion = config.quarkusDevtoolsVersion,
-            quarkusVersion= config.quarkusPlatformVersion,
+            quarkusVersion = config.quarkusPlatformVersion,
             gitCommitId = config.gitCommitId,
             gitHubClientId = gitHubConfig.clientId.filter(String::isNotBlank).orElse(null),
             features = config.features.map { listOf(it) }.orElse(listOf())
         )
+        return Uni.createFrom().item(publicConfig)
     }
 
     @GET
@@ -103,10 +102,11 @@ class CodeQuarkusResource {
             schema = Schema(implementation = PlatformCatalog::class)
         )]
     )
-    fun platforms(): Response {
+    fun platforms(): Uni<Response> {
         val platformCatalog = platformService.platformCatalog
         val lastUpdated = platformService.cacheLastUpdated
-        return Response.ok(platformCatalog).header(LAST_MODIFIED_HEADER, lastUpdated.format(formatter)).build()
+        val response = Response.ok(platformCatalog).header(LAST_MODIFIED_HEADER, lastUpdated.format(formatter)).build()
+        return Uni.createFrom().item(response)
     }
 
     @GET
@@ -123,10 +123,11 @@ class CodeQuarkusResource {
             schema = Schema(implementation = Stream::class, type = SchemaType.ARRAY)
         )]
     )
-    fun streams(): Response {
+    fun streams(): Uni<Response> {
         val streamKeys = platformService.streams
         val lastUpdated = platformService.cacheLastUpdated
-        return Response.ok(streamKeys).header(LAST_MODIFIED_HEADER, lastUpdated.format(formatter)).build()
+        val response = Response.ok(streamKeys).header(LAST_MODIFIED_HEADER, lastUpdated.format(formatter)).build()
+        return Uni.createFrom().item(response)
     }
 
     @GET
@@ -146,16 +147,9 @@ class CodeQuarkusResource {
     fun extensions(
         @QueryParam("platformOnly") @DefaultValue("true") platformOnly: Boolean,
         @QueryParam("id") extensionId: String?
-    ): Response {
-        var extensions = platformService.recommendedCodeQuarkusExtensions
-        if (platformOnly) {
-            extensions = extensions.filter { it.platform }
-        }
-        if (extensionId != null) {
-            extensions = extensions.filter { it.id == extensionId }
-        }
-        val lastUpdated = platformService.cacheLastUpdated
-        return Response.ok(extensions).header(LAST_MODIFIED_HEADER, lastUpdated.format(formatter)).build()
+    ): Uni<Response>? {
+        val extensions = platformService.recommendedCodeQuarkusExtensions
+        return extensions(platformOnly, extensions, extensionId)
     }
 
     @GET
@@ -176,16 +170,26 @@ class CodeQuarkusResource {
         @PathParam("streamKey") streamKey: String,
         @QueryParam("platformOnly") @DefaultValue("true") platformOnly: Boolean,
         @QueryParam("id") extensionId: String?
-    ): Response {
-        var extensions = platformService.getCodeQuarkusExtensions(streamKey)
+    ): Uni<Response>? {
+        val extensions = platformService.getCodeQuarkusExtensions(streamKey)
+        return extensions(platformOnly, extensions, extensionId)
+    }
+
+    private fun extensions(
+        platformOnly: Boolean,
+        extensions: List<CodeQuarkusExtension>,
+        extensionId: String?
+    ): Uni<Response>? {
+        var extensionsFiltered = extensions
         if (platformOnly) {
-            extensions = extensions.filter { it.platform }
+            extensionsFiltered = extensionsFiltered.filter { it.platform }
         }
         if (extensionId != null) {
-            extensions = extensions.filter { it.id == extensionId }
+            extensionsFiltered = extensionsFiltered.filter { it.id == extensionId }
         }
         val lastUpdated = platformService.cacheLastUpdated
-        return Response.ok(extensions).header(LAST_MODIFIED_HEADER, lastUpdated.format(formatter)).build()
+        val response = Response.ok(extensionsFiltered).header(LAST_MODIFIED_HEADER, lastUpdated.format(formatter)).build()
+        return Uni.createFrom().item(response)
     }
 
     @POST
@@ -194,7 +198,7 @@ class CodeQuarkusResource {
     @Produces(APPLICATION_JSON)
     @Operation(summary = "Prepare a Quarkus application project to be downloaded")
     @Tag(name = "Project", description = "Project creation endpoints")
-    fun project(@Valid projectDefinition: ProjectDefinition?): CreatedProject {
+    fun project(@Valid projectDefinition: ProjectDefinition?): Uni<CreatedProject>? {
         val params = ArrayList<NameValuePair>()
         if (projectDefinition != null) {
             if (projectDefinition.streamKey != null) {
@@ -215,7 +219,7 @@ class CodeQuarkusResource {
             if (projectDefinition.javaVersion != ProjectDefinition.DEFAULT_JAVA_VERSION) {
                 params.add(BasicNameValuePair("j", projectDefinition.javaVersion))
             }
-            if (projectDefinition.noCode != ProjectDefinition.DEFAULT_NO_CODE || projectDefinition.noExamples != ProjectDefinition.DEFAULT_NO_CODE) {
+            if (projectDefinition.noCode != ProjectDefinition.DEFAULT_NO_CODE) {
                 params.add(BasicNameValuePair("nc", projectDefinition.noCode.toString()))
             }
             if (projectDefinition.extensions.isNotEmpty()) {
@@ -238,7 +242,7 @@ class CodeQuarkusResource {
                     .build()
             )
         }
-        return CreatedProject(path)
+        return Uni.createFrom().item(CreatedProject(path))
     }
 
     @GET
@@ -246,13 +250,9 @@ class CodeQuarkusResource {
     @Produces("application/zip")
     @Operation(operationId = "downloadForStream", summary = "Download a custom Quarkus application with the provided settings")
     @Tag(name = "Download", description = "Download endpoints")
-    fun download(@Valid @BeanParam projectDefinition: ProjectDefinition): Response {
-        val platformInfo = platformService.getPlatformInfo(projectDefinition.streamKey)
-        return Response
-            .ok(projectCreator.create(platformInfo, projectDefinition))
-            .type("application/zip")
-            .header("Content-Disposition", "attachment; filename=\"${projectDefinition.artifactId}.zip\"")
-            .build()
+    @Blocking
+    fun getDownload(@Valid @BeanParam query: ProjectDefinitionQuery): Response {
+        return download(query.toProjectDefinition())
     }
 
     @POST
@@ -261,13 +261,13 @@ class CodeQuarkusResource {
     @Produces("application/zip")
     @Operation(summary = "Download a custom Quarkus application with the provided settings")
     @Tag(name = "Download", description = "Download endpoints")
-    fun postDownload(@Valid projectDefinition: ProjectDefinition?): Response {
-        val project = projectDefinition ?: ProjectDefinition()
-        val platformInfo = platformService.getPlatformInfo(project.streamKey)
-        return Response
-            .ok(projectCreator.create(platformInfo, project))
+    @Blocking
+    fun download(@Valid projectDefinition: ProjectDefinition?): Response {
+        val p = projectDefinition ?: ProjectDefinition()
+        val platformInfo = platformService.getPlatformInfo(p.streamKey)
+        return Response.ok(projectCreator.create(platformInfo, p))
             .type("application/zip")
-            .header("Content-Disposition", "attachment; filename=\"${project.artifactId}.zip\"")
+            .header("Content-Disposition", "attachment; filename=\"${p.artifactId}.zip\"")
             .build()
     }
 }

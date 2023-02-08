@@ -96,7 +96,7 @@ class SegmentAnalyticsService @Inject constructor(val config: CodeQuarkusConfig,
                     - userAgent: $fixedUserAgent
                     - referer: $referer
                     - hostName: $hostName
-                    - anonymousId: ${anonymousId != null}
+                    - anonymousId: $anonymousId
                     - source: $source
                     - documentUrl: $url
                     - documentPath: $path
