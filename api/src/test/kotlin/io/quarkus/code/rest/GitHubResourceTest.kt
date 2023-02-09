@@ -1,9 +1,12 @@
 package io.quarkus.code.rest
 
+import io.quarkus.code.service.GitHubService
+import io.quarkus.test.junit.QuarkusMock
 import io.quarkus.test.junit.QuarkusTest
 import io.restassured.RestAssured.given
 import io.restassured.http.ContentType
 import org.hamcrest.Matchers
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import javax.inject.Inject
 
@@ -11,7 +14,12 @@ import javax.inject.Inject
 class GitHubResourceTest {
 
     @Inject
-    lateinit var gitHubService: GitHubServiceMock
+    lateinit var gitHubService: GitHubService
+
+    @BeforeEach
+    fun setUp() {
+        QuarkusMock.installMockForType(GitHubServiceMock(), GitHubService::class.java)
+    }
 
     @Test
     fun `Should create a repository with code and push to github`() {

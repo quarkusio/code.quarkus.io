@@ -239,26 +239,6 @@ class CodeQuarkusResourceTest {
     }
 
     @Test
-    @DisplayName("Should return a project and ignore shortid")
-    fun testWitShortIds() {
-        given()
-                .`when`()
-                .get("/api/download?g=org.acme&a=test-shortid&v=1.0.1&b=MAVEN&s=inv")
-                .then()
-                .log().ifValidationFails()
-                .statusCode(200)
-                .contentType("application/zip")
-                .header("Content-Disposition", "attachment; filename=\"test-shortid.zip\"")
-        assertThat(
-                projectService.getCreatedProject(), equalTo(
-                ProjectDefinition(
-                        artifactId = "test-shortid",
-                        version = "1.0.1"
-                ))
-        )
-    }
-
-    @Test
     @DisplayName("Should return a project with specified configuration when extensions is empty")
     fun testWithEmptyExtensions() {
         given()

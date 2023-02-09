@@ -5,6 +5,7 @@ import io.quarkus.code.service.PlatformService
 import io.quarkus.code.service.SegmentAnalyticsService
 import io.quarkus.maven.dependency.ArtifactCoords
 import io.quarkus.maven.dependency.ArtifactKey
+import io.vertx.core.http.HttpServerRequest
 import io.vertx.core.json.JsonArray
 import io.vertx.core.json.JsonObject
 import java.io.BufferedReader
@@ -15,7 +16,6 @@ import java.util.logging.Logger
 import java.util.stream.Collectors
 import javax.enterprise.inject.Instance
 import javax.inject.Inject
-import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.container.ContainerRequestContext
 import javax.ws.rs.container.ContainerRequestFilter
 import javax.ws.rs.core.Context
@@ -38,10 +38,10 @@ class AnalyticsFilter : ContainerRequestFilter {
     lateinit var platformService: Instance<PlatformService>
 
     @Context
-    internal var info: UriInfo? = null
+    lateinit var httpServerRequest: HttpServerRequest
 
     @Context
-    var httpRequest: HttpServletRequest? = null
+    internal var info: UriInfo? = null
 
     override fun filter(context: ContainerRequestContext) {
         try {
@@ -51,10 +51,8 @@ class AnalyticsFilter : ContainerRequestFilter {
             val url = info!!.requestUri.toString()
             val userAgent = context.headers.getFirst(HttpHeaders.USER_AGENT)
             val referer = context.headers.getFirst("Referer")
-            val remoteAddr = httpRequest!!.remoteAddr
-            val inetAddress = InetAddress.getByName(remoteAddr)
-            val address = inetAddress.address
-            val uuid = UUID.nameUUIDFromBytes(address)
+            val remoteAddr = httpServerRequest.remoteAddress()?.hostAddress()
+            val uuid = if(remoteAddr == null) UUID.randomUUID().toString() else UUID.nameUUIDFromBytes(remoteAddr.toByteArray())
             val anonymousId = uuid.toString()
             val appAction: String? = when {
                 path.startsWith("/download") -> "App Download"
@@ -127,7 +125,7 @@ class AnalyticsFilter : ContainerRequestFilter {
         val streamKey: String?
         val javaVersion: String
         val noCode: Boolean
-        if (httpRequest!!.method == "POST") {
+        if (context.method == "POST") {
             val text = context.entityStream.bufferedReader().use(BufferedReader::readText)
             context.entityStream = text.byteInputStream()
             if (text.isNotBlank()) {

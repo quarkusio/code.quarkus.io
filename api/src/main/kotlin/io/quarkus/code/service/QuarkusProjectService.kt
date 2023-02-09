@@ -52,9 +52,6 @@ class QuarkusProjectService {
         if (gitHub) {
             codestarts.add("github-action")
         }
-        if (projectDefinition.noExamples) {
-            LOG.warning("Use of @Deprecated ProjectDefinition.noExamples (ne)")
-        }
         val messageWriter =
             if (silent) MessageWriter.info(PrintStream(OutputStream.nullOutputStream())) else MessageWriter.info()
         try {
@@ -74,7 +71,7 @@ class QuarkusProjectService {
                 .javaVersion(projectDefinition.javaVersion)
                 .resourceClassName(projectDefinition.className)
                 .extensions(extensions)
-                .noCode(projectDefinition.noCode || projectDefinition.noExamples)
+                .noCode(projectDefinition.noCode)
             if (platformInfo.quarkusCoreVersion.contains("-redhat-")) {
                 // Hack to use the community quarkus gradle plugin (it is not released with the RHBQ)
                 projectDefinition.quarkusGradlePluginVersion(platformInfo.quarkusCoreVersion.replace("-redhat-.*".toRegex(), ""))

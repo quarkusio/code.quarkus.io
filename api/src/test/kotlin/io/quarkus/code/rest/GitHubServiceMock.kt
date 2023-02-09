@@ -1,14 +1,11 @@
 package io.quarkus.code.rest
 
-import io.quarkus.code.service.GitHubService
 import io.quarkus.code.model.GitHubCreatedRepository
 import io.quarkus.code.model.GitHubToken
-import io.quarkus.test.Mock
+import io.quarkus.code.service.GitHubService
 import java.nio.file.Path
-import javax.enterprise.context.ApplicationScoped
 
-@Mock
-@ApplicationScoped
+
 class GitHubServiceMock: GitHubService() {
 
     var existing = "existing-repo"

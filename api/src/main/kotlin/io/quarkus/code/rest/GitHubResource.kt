@@ -6,6 +6,7 @@ import io.quarkus.code.service.GitHubService
 import io.quarkus.code.service.PlatformService
 import io.quarkus.code.service.QuarkusProjectService
 import io.quarkus.runtime.StartupEvent
+import io.smallrye.common.annotation.Blocking
 import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.tags.Tag
 import java.util.logging.Level
@@ -21,6 +22,7 @@ import javax.ws.rs.core.Response
 
 
 @Path("/github")
+@Blocking
 class GitHubResource {
 
     companion object {

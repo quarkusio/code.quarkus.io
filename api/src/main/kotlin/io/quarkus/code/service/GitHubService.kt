@@ -18,11 +18,10 @@ import javax.enterprise.context.ApplicationScoped
 import javax.inject.Inject
 import javax.ws.rs.WebApplicationException
 
-
 @ApplicationScoped
 class GitHubService {
 
-    companion object {
+    internal companion object {
         private val LOG = Logger.getLogger(GitHubService::class.java.name)
     }
 
