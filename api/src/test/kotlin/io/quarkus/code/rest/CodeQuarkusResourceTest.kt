@@ -71,7 +71,24 @@ class CodeQuarkusResourceTest {
         val projectDefinition = ProjectDefinition(noExamples = true)
         given()
             .contentType(ContentType.JSON)
-            .body("{\"noExamples\":true}")
+            .body(projectDefinition)
+            .`when`().post("/api/download")
+            .then()
+            .log().ifValidationFails()
+            .statusCode(200)
+            .contentType("application/zip")
+            .header("Content-Disposition", "attachment; filename=\"code-with-quarkus.zip\"")
+        assertThat(projectService.createdProjectRef.get(), equalTo(projectDefinition))
+    }
+
+    @Test
+    fun `Download as POST should work with an all extensions`() {
+        val projectDefinition = ProjectDefinition(noCode = true, extensions = platformService.recommendedCodeQuarkusExtensions
+            .filter { it.category != "Alternative languages" }
+            .map { it.id }.toSet())
+        given()
+            .contentType(ContentType.JSON)
+            .body(projectDefinition)
             .`when`().post("/api/download")
             .then()
             .log().ifValidationFails()
