@@ -52,7 +52,8 @@ class AnalyticsFilter : ContainerRequestFilter {
             val userAgent = context.headers.getFirst(HttpHeaders.USER_AGENT)
             val referer = context.headers.getFirst("Referer")
             val remoteAddr = httpServerRequest.remoteAddress()?.hostAddress()
-            val uuid = if(remoteAddr == null) UUID.randomUUID().toString() else UUID.nameUUIDFromBytes(remoteAddr.toByteArray())
+            val uuid = if (remoteAddr == null) UUID.randomUUID()
+                .toString() else UUID.nameUUIDFromBytes(remoteAddr.toByteArray())
             val anonymousId = uuid.toString()
             val appAction: String? = when {
                 path.startsWith("/download") -> "App Download"
@@ -62,42 +63,45 @@ class AnalyticsFilter : ContainerRequestFilter {
             if (appAction != null) {
                 try {
                     val w = readWatchedData(context)
-                    (w["extensions"] as? Set<*>)?.forEach {
-                        val id = it as String
-                        val props = if (id.split(":").size == 2) {
-                            val key = ArtifactKey.fromString(id)
-                            mapOf(
-                                "extension" to key.toGacString()
-                            )
-                        } else {
-                            val coords = ArtifactCoords.fromString(id)
-                            mapOf(
-                                "extension" to coords.key.toGacString(),
-                                "extensionVersion" to coords.version,
+
+                    val extensions = w["extensions"] as? Set<*>
+                    if (extensions != null && extensions.size < 20) {
+                        extensions?.forEach {
+                            val id = it as String
+                            val props = if (id.split(":").size == 2) {
+                                val key = ArtifactKey.fromString(id)
+                                mapOf(
+                                    "extension" to key.toGacString()
+                                )
+                            } else {
+                                val coords = ArtifactCoords.fromString(id)
+                                mapOf(
+                                    "extension" to coords.key.toGacString(),
+                                    "extensionVersion" to coords.version,
+                                )
+                            }
+                            analyticsService.get().track(
+                                event = "Extension Used",
+                                properties = w - "extensions" + props,
+                                source = source,
+                                path = path,
+                                url = url,
+                                userAgent = userAgent,
+                                referer = referer,
+                                anonymousId = anonymousId,
                             )
                         }
                         analyticsService.get().track(
-                            event = "Extension Used",
-                            properties = w - "extensions" + props,
+                            event = appAction,
                             source = source,
                             path = path,
                             url = url,
                             userAgent = userAgent,
                             referer = referer,
                             anonymousId = anonymousId,
+                            properties = w
                         )
                     }
-                    analyticsService.get().track(
-                        event = appAction,
-                        source = source,
-                        path = path,
-                        url = url,
-                        userAgent = userAgent,
-                        referer = referer,
-                        anonymousId = anonymousId,
-                        properties = w
-                    )
-
                 } catch (e: IllegalStateException) {
                     LOG.log(Level.FINE, e) { "Error while extracting extension list from request" }
                 }

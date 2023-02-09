@@ -17,7 +17,8 @@ data class ProjectDefinition(val streamKey: String? = null,
                              val path: String? = null,
                              val buildTool: String = DEFAULT_BUILDTOOL,
                              val javaVersion: String = DEFAULT_JAVA_VERSION,
-                             val noCode: Boolean = false,
+                             val noCode: Boolean = DEFAULT_NO_CODE,
+                             val noExamples: Boolean = DEFAULT_NO_CODE,
                              val extensions: Set<String> = setOf()) {
 
     companion object {
