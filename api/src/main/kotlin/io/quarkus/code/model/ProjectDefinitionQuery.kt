@@ -119,7 +119,8 @@ class ProjectDefinitionQuery {
             path = path,
             buildTool = buildTool,
             javaVersion = javaVersion,
-            noCode = noCode || noExamples,
+            noCode = noCode,
+            noExamples = noExamples,
             extensions = extensions
         )
     }

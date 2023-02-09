@@ -71,7 +71,7 @@ class QuarkusProjectService {
                 .javaVersion(projectDefinition.javaVersion)
                 .resourceClassName(projectDefinition.className)
                 .extensions(extensions)
-                .noCode(projectDefinition.noCode)
+                .noCode(projectDefinition.noCode || projectDefinition.noExamples)
             if (platformInfo.quarkusCoreVersion.contains("-redhat-")) {
                 // Hack to use the community quarkus gradle plugin (it is not released with the RHBQ)
                 projectDefinition.quarkusGradlePluginVersion(platformInfo.quarkusCoreVersion.replace("-redhat-.*".toRegex(), ""))

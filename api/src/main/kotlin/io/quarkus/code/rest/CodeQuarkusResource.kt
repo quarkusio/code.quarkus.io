@@ -219,8 +219,8 @@ class CodeQuarkusResource @Inject constructor(
             if (projectDefinition.javaVersion != ProjectDefinition.DEFAULT_JAVA_VERSION) {
                 params.add(BasicNameValuePair("j", projectDefinition.javaVersion))
             }
-            if (projectDefinition.noCode != ProjectDefinition.DEFAULT_NO_CODE) {
-                params.add(BasicNameValuePair("nc", projectDefinition.noCode.toString()))
+            if (projectDefinition.noCode != ProjectDefinition.DEFAULT_NO_CODE || projectDefinition.noExamples != ProjectDefinition.DEFAULT_NO_CODE) {
+                params.add(BasicNameValuePair("nc", (!ProjectDefinition.DEFAULT_NO_CODE).toString()))
             }
             if (projectDefinition.extensions.isNotEmpty()) {
                 projectDefinition.extensions.forEach { params.add(BasicNameValuePair("e", it)) }

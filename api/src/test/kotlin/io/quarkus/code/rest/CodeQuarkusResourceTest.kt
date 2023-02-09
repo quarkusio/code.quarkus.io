@@ -67,6 +67,21 @@ class CodeQuarkusResourceTest {
     }
 
     @Test
+    fun `Download as POST should work with an no examples (legacy)`() {
+        val projectDefinition = ProjectDefinition(noExamples = true)
+        given()
+            .contentType(ContentType.JSON)
+            .body("{\"noExamples\":true}")
+            .`when`().post("/api/download")
+            .then()
+            .log().ifValidationFails()
+            .statusCode(200)
+            .contentType("application/zip")
+            .header("Content-Disposition", "attachment; filename=\"code-with-quarkus.zip\"")
+        assertThat(projectService.createdProjectRef.get(), equalTo(projectDefinition))
+    }
+
+    @Test
     fun `Download flow should work with gav`() {
         val projectDefinition = ProjectDefinition(groupId = "io.andy", artifactId = "my-app", version = "1.0.0")
         val path = given()
