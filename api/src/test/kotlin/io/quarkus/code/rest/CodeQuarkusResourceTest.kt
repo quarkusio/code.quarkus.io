@@ -10,8 +10,8 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.greaterThan
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import javax.inject.Inject
-import javax.ws.rs.core.MediaType
+import jakarta.inject.Inject
+import jakarta.ws.rs.core.MediaType
 
 @QuarkusTest
 class CodeQuarkusResourceTest {

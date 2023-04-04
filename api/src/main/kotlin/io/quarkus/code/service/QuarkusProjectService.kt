@@ -14,12 +14,12 @@ import java.io.PrintStream
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.logging.Logger
-import javax.inject.Singleton
+import jakarta.inject.Singleton
 
 @Singleton
-class QuarkusProjectService {
+open class QuarkusProjectService {
 
-    fun create(platformInfo: PlatformInfo, projectDefinition: ProjectDefinition): ByteArray {
+    open fun create(platformInfo: PlatformInfo, projectDefinition: ProjectDefinition): ByteArray {
         val path = createTmp(platformInfo, projectDefinition)
         val time = System.currentTimeMillis() - 24 * 3600000
         val zipPath = Files.createTempDirectory("zipped-").resolve("project.zip")

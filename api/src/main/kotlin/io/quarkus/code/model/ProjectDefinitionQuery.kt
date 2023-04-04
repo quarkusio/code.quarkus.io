@@ -15,10 +15,10 @@ import io.quarkus.code.model.ProjectDefinition.Companion.JAVA_VERSION_PATTERN
 import io.quarkus.code.model.ProjectDefinition.Companion.PATH_PATTERN
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter
-import javax.validation.constraints.NotEmpty
-import javax.validation.constraints.Pattern
-import javax.ws.rs.DefaultValue
-import javax.ws.rs.QueryParam
+import jakarta.validation.constraints.NotEmpty
+import jakarta.validation.constraints.Pattern
+import jakarta.ws.rs.DefaultValue
+import jakarta.ws.rs.QueryParam
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 class ProjectDefinitionQuery {

@@ -25,13 +25,13 @@ import java.nio.charset.StandardCharsets
 import java.time.format.DateTimeFormatter
 import java.util.logging.Level
 import java.util.logging.Logger
-import javax.enterprise.event.Observes
-import javax.inject.Inject
-import javax.validation.Valid
-import javax.ws.rs.*
-import javax.ws.rs.core.MediaType.APPLICATION_JSON
-import javax.ws.rs.core.MediaType.TEXT_PLAIN
-import javax.ws.rs.core.Response
+import jakarta.enterprise.event.Observes
+import jakarta.inject.Inject
+import jakarta.validation.Valid
+import jakarta.ws.rs.*
+import jakarta.ws.rs.core.MediaType.APPLICATION_JSON
+import jakarta.ws.rs.core.MediaType.TEXT_PLAIN
+import jakarta.ws.rs.core.Response
 
 
 @Path("/")

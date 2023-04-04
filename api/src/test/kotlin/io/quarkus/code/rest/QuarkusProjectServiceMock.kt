@@ -5,7 +5,7 @@ import io.quarkus.code.model.ProjectDefinition
 import io.quarkus.code.service.PlatformInfo
 import io.quarkus.test.Mock
 import java.util.concurrent.atomic.AtomicReference
-import javax.inject.Singleton
+import jakarta.inject.Singleton
 
 @Mock
 @Singleton

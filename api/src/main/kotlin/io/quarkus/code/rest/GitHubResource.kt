@@ -11,14 +11,14 @@ import org.eclipse.microprofile.openapi.annotations.Operation
 import org.eclipse.microprofile.openapi.annotations.tags.Tag
 import java.util.logging.Level
 import java.util.logging.Logger
-import javax.enterprise.event.Observes
-import javax.inject.Inject
-import javax.validation.Valid
-import javax.validation.constraints.NotEmpty
-import javax.ws.rs.*
-import javax.ws.rs.core.MediaType
-import javax.ws.rs.core.MediaType.APPLICATION_JSON
-import javax.ws.rs.core.Response
+import jakarta.enterprise.event.Observes
+import jakarta.inject.Inject
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotEmpty
+import jakarta.ws.rs.*
+import jakarta.ws.rs.core.MediaType
+import jakarta.ws.rs.core.MediaType.APPLICATION_JSON
+import jakarta.ws.rs.core.Response
 
 
 @Path("/github")
