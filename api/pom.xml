@@ -27,16 +27,16 @@
         <!-- Quarkus platform used for the code.quarkus app-->
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.version>2.15.3.Final</quarkus.platform.version>
+        <quarkus.platform.version>3.0.0.CR1</quarkus.platform.version>
 
         <!-- Quarkus devtools version -->
-        <quarkus.devtools.version>2.15.3.Final</quarkus.devtools.version>
-        <quarkus.base-codestarts.version>2.15.3.Final</quarkus.base-codestarts.version>
+        <quarkus.devtools.version>3.0.0.CR1</quarkus.devtools.version>
+        <quarkus.base-codestarts.version>3.0.0.CR1</quarkus.base-codestarts.version>
 
         <!-- Quarkiverse versions -->
         <quarkus.jgit.version>2.3.1</quarkus.jgit.version>
         <quarkus.logging.sentry.version>1.2.1</quarkus.logging.sentry.version>
-        <quarkus.quinoa.version>1.2.4</quarkus.quinoa.version>
+        <quarkus.quinoa.version>2.0.1</quarkus.quinoa.version>
         <segment-analytics.version>3.3.1</segment-analytics.version>
     </properties>
     <dependencyManagement>

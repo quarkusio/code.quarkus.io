@@ -6,7 +6,7 @@ import io.quarkus.code.service.PlatformService
 import org.eclipse.microprofile.openapi.models.OpenAPI
 import org.eclipse.microprofile.openapi.models.media.Schema
 import java.util.ArrayList
-import javax.enterprise.inject.spi.CDI
+import jakarta.enterprise.inject.spi.CDI
 
 /**
  * Creates Enums for Endpoint parameters

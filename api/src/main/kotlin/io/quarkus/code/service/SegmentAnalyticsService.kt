@@ -10,8 +10,8 @@ import java.util.logging.Level.FINE
 import java.util.logging.Level.INFO
 import java.util.logging.Logger
 import java.util.regex.Pattern
-import javax.inject.Inject
-import javax.inject.Singleton
+import jakarta.inject.Inject
+import jakarta.inject.Singleton
 
 
 @Singleton

@@ -10,7 +10,7 @@ import io.quarkus.registry.Constants
 import java.util.HashMap
 import io.quarkus.registry.catalog.PlatformCatalog
 import java.time.LocalDateTime
-import javax.enterprise.event.Observes
+import jakarta.enterprise.event.Observes
 import io.quarkus.runtime.StartupEvent
 import io.quarkus.scheduler.Scheduled
 import java.time.ZoneOffset
@@ -21,8 +21,8 @@ import java.util.concurrent.atomic.AtomicReference
 import java.util.logging.Level
 import kotlin.Throws
 import java.util.logging.Logger
-import javax.inject.Inject
-import javax.inject.Singleton
+import jakarta.inject.Inject
+import jakarta.inject.Singleton
 
 @Singleton
 class PlatformService {

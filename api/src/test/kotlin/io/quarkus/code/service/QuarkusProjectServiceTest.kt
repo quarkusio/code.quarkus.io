@@ -13,7 +13,7 @@ import java.nio.file.Paths
 import java.util.concurrent.Callable
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
-import javax.inject.Inject
+import jakarta.inject.Inject
 
 @QuarkusTest
 internal class QuarkusProjectServiceTest {
@@ -75,6 +75,33 @@ internal class QuarkusProjectServiceTest {
         assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/GreetingResource.java")
             .satisfies(checkContains("@Path(\"/hello\")"))
     }
+
+    @Test
+    @DisplayName("When using 3.0 project, then, it should create all the files correctly with the requested content")
+    fun test3_0(info: TestInfo) {
+        // When
+        val creator = getProjectService()
+        val platformInfo = platformService.getPlatformInfo("3.0")
+        val projDir = creator.createTmp(platformInfo, ProjectDefinition(streamKey = "3.0"))
+
+        // Then
+        assertThatDirectoryTreeMatchSnapshots(info, projDir)
+
+        assertThat(projDir.resolve("pom.xml"))
+            .satisfies(checkContains("<groupId>org.acme</groupId>"))
+            .satisfies(checkContains("<artifactId>code-with-quarkus</artifactId>"))
+            .satisfies(checkContains("<version>1.0.0-SNAPSHOT</version>"))
+            .satisfies(checkContains("<quarkus.platform.group-id>${platformInfo.extensionCatalog.bom.groupId}</quarkus.platform.group-id>"))
+            .satisfies(checkContains("<quarkus.platform.artifact-id>${platformInfo.extensionCatalog.bom.artifactId}</quarkus.platform.artifact-id>"))
+            .satisfies(checkContains("<quarkus.platform.version>${platformInfo.extensionCatalog.bom.version}</quarkus.platform.version>")).satisfies(checkContains("<groupId>io.quarkus</groupId>"))
+            .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive</artifactId>"))
+            .satisfies(checkContains("<maven.compiler.release>${ProjectDefinition.DEFAULT_JAVA_VERSION}</maven.compiler.release>"))
+            .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
+
+        assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/GreetingResource.java")
+            .satisfies(checkContains("@Path(\"/hello\")"))
+    }
+
 
     @Test
     @DisplayName("When using a custom project, then, it should create all the files correctly with the requested content")

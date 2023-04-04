@@ -14,12 +14,12 @@ import java.nio.file.Path
 import java.util.Objects.requireNonNull
 import java.util.logging.Level
 import java.util.logging.Logger
-import javax.enterprise.context.ApplicationScoped
-import javax.inject.Inject
-import javax.ws.rs.WebApplicationException
+import jakarta.enterprise.context.ApplicationScoped
+import jakarta.inject.Inject
+import jakarta.ws.rs.WebApplicationException
 
 @ApplicationScoped
-class GitHubService {
+open class GitHubService {
 
     internal companion object {
         private val LOG = Logger.getLogger(GitHubService::class.java.name)
@@ -36,7 +36,7 @@ class GitHubService {
     @field: RestClient
     internal lateinit var ghClient: GitHubClient
 
-    fun login(token: String): String {
+    open fun login(token: String): String {
         try {
             val me = ghClient.getMe(toAuthorization(token))
             return me.login
@@ -46,7 +46,7 @@ class GitHubService {
         }
     }
 
-    fun repositoryExists(login: String, token: String, repositoryName: String): Boolean {
+    open fun repositoryExists(login: String, token: String, repositoryName: String): Boolean {
         check(isEnabled()) { "GitHub is not enabled" }
         require(token.isNotEmpty()) { "token must not be empty." }
         require(login.isNotEmpty()) { "login must not be empty." }
@@ -66,7 +66,7 @@ class GitHubService {
         }
     }
 
-    fun createRepository(login: String, token: String, repositoryName: String): GitHubCreatedRepository {
+    open fun createRepository(login: String, token: String, repositoryName: String): GitHubCreatedRepository {
         check(isEnabled()) { "GitHub is not enabled" }
         require(login.isNotEmpty()) { "login must not be empty." }
         require(token.isNotEmpty()) { "token must not be empty." }
@@ -80,7 +80,7 @@ class GitHubService {
         }
     }
 
-    fun push(ownerName: String, token: String, initialBranch: String?, httpTransportUrl: String, path: Path) {
+    open fun push(ownerName: String, token: String, initialBranch: String?, httpTransportUrl: String, path: Path) {
         check(isEnabled()) { "GitHub is not enabled" }
         require(token.isNotEmpty()) { "token must not be empty." }
         require(httpTransportUrl.isNotEmpty()) { "httpTransportUrl must not be empty." }
@@ -111,7 +111,7 @@ class GitHubService {
 
     }
 
-    fun fetchAccessToken(code: String, state: String): GitHubToken {
+    open fun fetchAccessToken(code: String, state: String): GitHubToken {
         check(isEnabled()) { "GitHub is not enabled" }
         try {
             val response = oauthClient.getAccessToken(GitHubOAuthClient.TokenParameter(config.clientId.get(), config.clientSecret.get(), code, state))
@@ -125,6 +125,6 @@ class GitHubService {
         }
     }
 
-    fun isEnabled() = config.clientId.filter(String::isNotBlank).isPresent && config.clientSecret.filter(String::isNotBlank).isPresent
+    open fun isEnabled() = config.clientId.filter(String::isNotBlank).isPresent && config.clientSecret.filter(String::isNotBlank).isPresent
 
 }
