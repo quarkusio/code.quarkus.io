@@ -77,12 +77,12 @@ internal class QuarkusProjectServiceTest {
     }
 
     @Test
-    @DisplayName("When using 3.0 project, then, it should create all the files correctly with the requested content")
-    fun test3_0(info: TestInfo) {
+    @DisplayName("When using 2.16 project, then, it should create all the files correctly with the requested content")
+    fun test2_16(info: TestInfo) {
         // When
         val creator = getProjectService()
-        val platformInfo = platformService.getPlatformInfo("3.0")
-        val projDir = creator.createTmp(platformInfo, ProjectDefinition(streamKey = "3.0"))
+        val platformInfo = platformService.getPlatformInfo("2.16")
+        val projDir = creator.createTmp(platformInfo, ProjectDefinition(streamKey = "2.16"))
 
         // Then
         assertThatDirectoryTreeMatchSnapshots(info, projDir)
