@@ -82,8 +82,6 @@ open class QuarkusProjectService {
             }
         } catch (e: CodestartException) {
             throw IllegalArgumentException(e.message)
-        } catch (e: QuarkusCommandException) {
-            throw IOException("Error during Quarkus project creation", e)
         }
     }
 
