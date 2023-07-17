@@ -49,9 +49,9 @@ open class QuarkusProjectService {
             platformInfo.checkAndMergeExtensions(projectDefinition.extensions)
         val buildTool = BuildTool.valueOf(projectDefinition.buildTool)
         val codestarts = HashSet<String>()
-        if (gitHub) {
+        /**if (gitHub) {
             codestarts.add("github-action")
-        }
+        }**/
         val messageWriter =
             if (silent) MessageWriter.info(PrintStream(OutputStream.nullOutputStream())) else MessageWriter.info()
         try {
