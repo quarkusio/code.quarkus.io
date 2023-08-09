@@ -17,7 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <kotlin.version>1.7.21</kotlin.version>
+        <kotlin.version>1.9.0</kotlin.version>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <commons-compress.version>1.21</commons-compress.version>
         <hoverfly-java.version>0.14.3</hoverfly-java.version>
