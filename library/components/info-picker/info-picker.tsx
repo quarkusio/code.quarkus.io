@@ -1,4 +1,4 @@
-import React  from 'react';
+import * as React  from 'react';
 import { optionalBool, ExtendedTextInput, TogglePanel  } from '@quarkusio/code-quarkus.core.components';
 import { InputProps } from '@quarkusio/code-quarkus.core.types';
 import './info-picker.scss';

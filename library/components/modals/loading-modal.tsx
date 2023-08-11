@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Loader } from '@quarkusio/code-quarkus.core.components';
 import { Modal } from 'react-bootstrap';
 

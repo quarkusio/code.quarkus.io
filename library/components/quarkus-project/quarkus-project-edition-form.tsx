@@ -1,4 +1,4 @@
-import React, { SetStateAction, useEffect, useState } from 'react';
+import * as React from 'react';
 import './quarkus-project-edition-form.scss';
 import { ExtensionEntry, ExtensionsPicker } from '../extensions-picker/extensions-picker';
 import { InfoPicker, isValidInfo } from '../info-picker/info-picker';
@@ -17,18 +17,18 @@ interface CodeQuarkusFormProps {
   project: QuarkusProject;
   selectedExtensions: Extension[];
   platform: Platform;
-  setProject: React.Dispatch<SetStateAction<QuarkusProject>>;
+  setProject: React.Dispatch<React.SetStateAction<QuarkusProject>>;
   filter: string;
-  setFilter: React.Dispatch<SetStateAction<string>>;
+  setFilter: React.Dispatch<React.SetStateAction<string>>;
   config: Config;
   api: Api;
   onSave: (target?: Target) => void;
 }
 
 export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
-  const [ isProjectValid, setIsProjectValid ] = useState(isValidInfo(props.project.metadata));
+  const [ isProjectValid, setIsProjectValid ] = React.useState(isValidInfo(props.project.metadata));
   const { setProject, filter, setFilter } = props;
-  const [ isConfigSaved, setConfigSaved ] = useState(false);
+  const [ isConfigSaved, setConfigSaved ] = React.useState(false);
 
   const setMetadata = (metadata: any) => {
     setIsProjectValid(isValidInfo(metadata));
@@ -58,7 +58,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
     setConfigSaved(false);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     debouncedSyncParamsQuery(props.api, props.project, filter);
   }, [ filter, props.project ])
   return (

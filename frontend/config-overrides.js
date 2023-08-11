@@ -11,14 +11,8 @@ function ignoredFiles(appSrc) {
 }
 
 module.exports = {
-    //do stuff with the webpack config...
-    devServer: function (configFunction) {
-        return function (proxy, allowedHost) {
-            const devServerConfig = configFunction(proxy, allowedHost);
-            devServerConfig.watchOptions = {
-                ignored: ignoredFiles(paths.appSrc),
-            }
-            return devServerConfig;
-        };
+    watchOptions: function (config) {
+        config.ignored = ignoredFiles(paths.appSrc);
+        return config;
     }
 }

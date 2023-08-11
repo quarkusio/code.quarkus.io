@@ -33,8 +33,18 @@ unlink-lib:
 	cd frontend && yarn && yarn run unlink-library;
 	cd library && yarn && yarn run unlink;
 
-dev:
-	cd api && mvn quarkus:dev
+dev-frontend:
+	cd frontend && yarn && yarn start
+
+watch-lib:
+	cd library && yarn run watch;
+
+dev-lib:
+	make build-lib
+	make -j2 watch-lib dev-frontend
+
+dev-lib-staging:
+	REACT_APP_BACKEND_URL=https://stage.code.quarkus.io make dev-lib
 
 test-frontend:
 	cd frontend && yarn && yarn test

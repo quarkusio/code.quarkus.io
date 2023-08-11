@@ -1,4 +1,4 @@
-import React, { SetStateAction, useEffect, useState } from 'react';
+import * as React from 'react';
 import {
   generateProject,
   resolveInitialProject,
@@ -11,9 +11,8 @@ import { LoadingModal } from '../modals/loading-modal';
 import { NextStepsModal } from '../modals/next-steps-modal';
 import { ConfiguredCodeQuarkusProps } from '../code-quarkus';
 import { ErrorModal } from '../modals/error-modal';
-import { Platform, QuarkusProject, Tag } from '../api/model';
+import { Platform, QuarkusProject } from '../api/model';
 import { Api } from '../api/code-quarkus-api';
-import { Alert, Button, Modal } from 'react-bootstrap';
 import { MissingExtensionWarningModal } from '../layout/missing-extension-warning-modal';
 
 enum Status {
@@ -30,14 +29,14 @@ interface QuarkusProjectFlowProps extends ConfiguredCodeQuarkusProps {
   platform: Platform;
   api: Api;
   project: QuarkusProject;
-  setProject: React.Dispatch<SetStateAction<QuarkusProject>>;
+  setProject: React.Dispatch<React.SetStateAction<QuarkusProject>>;
   filter: string;
-  setFilter: React.Dispatch<SetStateAction<string>>;
+  setFilter: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
-  const [ run, setRun ] = useState<RunState>({ status: Status.EDITION });
-  const [ missingExtensions, setMissingExtensions ] = useState<string[]>([]);
+  const [ run, setRun ] = React.useState<RunState>({ status: Status.EDITION });
+  const [ missingExtensions, setMissingExtensions ] = React.useState<string[]>([]);
   const analytics = useAnalytics();
 
   const generate = (target: Target = Target.DOWNLOAD) => {
@@ -52,14 +51,14 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
     generateProject(props.api, props.config.environment, props.project, target).then((result) => {
       setRun((prev) => ({ ...prev, result, status: Status.DOWNLOADED }));
     }).catch((error: any) => {
-      setRun((prev) => ({ status: Status.ERROR, error }));
+      setRun(() => ({ status: Status.ERROR, error }));
     });
     if (target === Target.GITHUB) {
       props.setProject(prev => ({ ...prev, github: undefined }));
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (props.project.github) {
       generate(Target.GITHUB);
     }
@@ -74,8 +73,8 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
   };
 
   const mappedExtensions = mapExtensions(props.platform.extensions, props.project.extensions);
-  
-  useEffect(() => {
+
+  React.useEffect(() => {
     if(missingExtensions.length === 0 && mappedExtensions.missing.length > 0) {
       setMissingExtensions(mappedExtensions.missing);
       props.setProject((prev) => ({ ...prev, extensions: mappedExtensions.mapped.map(e => e.id) }));

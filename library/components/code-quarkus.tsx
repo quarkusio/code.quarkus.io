@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import { Analytics, AnalyticsContext, SegmentAnalyticsImpl, useAnalytics } from '@quarkusio/code-quarkus.core.analytics';
 import './bootstrap-reboot.css';
 import './bootstrap-base.css';
@@ -22,11 +22,11 @@ export interface ConfiguredCodeQuarkusProps {
 const queryParams = getQueryParams();
 
 export function ConfiguredCodeQuarkus(props: ConfiguredCodeQuarkusProps) {
-  const [ analytics, setAnalytics ] = useState<Analytics>(useAnalytics());
-  const [ filter, setFilter ] = useState(resolveInitialFilterQueryParam());
-  const [ project, setProject ] = useState<QuarkusProject>(resolveInitialProject(queryParams));
+  const [ analytics, setAnalytics ] = React.useState<Analytics>(useAnalytics());
+  const [ filter, setFilter ] = React.useState(resolveInitialFilterQueryParam());
+  const [ project, setProject ] = React.useState<QuarkusProject>(resolveInitialProject(queryParams));
 
-  useEffect(() => {
+  React.useEffect(() => {
     setAnalytics((prev) => {
       const newAnalytics = props.config.segmentWriteKey ? new SegmentAnalyticsImpl(props.config.segmentWriteKey) : prev;
       newAnalytics.init();

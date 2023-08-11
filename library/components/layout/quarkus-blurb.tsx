@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
-import createPersistedState from 'use-persisted-state';
+import * as React from 'react';
+import { useLocalStorage } from '@rehooks/local-storage';
 import './quarkus-blurb.scss';
 import { useAnalytics } from '@quarkusio/code-quarkus.core.analytics';
 import { Alert, Button, Form, Modal } from 'react-bootstrap';
 
-const useQuarkusBlurbVisibleState = createPersistedState('quarkus-blurb-visible-v1');
-
 export function QuarkusBlurb() {
   const analytics = useAnalytics();
-  const [ notAgain, setNotAgain ] = useQuarkusBlurbVisibleState<boolean>(false);
-  const [ visible, setVisible ] = useState<boolean>(true);
-  const [ notAgainCheckboxValue, setNotAgainCheckboxValue ] = useState<boolean>(false);
+  const [ notAgain, setNotAgain ] = useLocalStorage<boolean>('quarkus-blurb-visible-v1', false);
+  const [ visible, setVisible ] = React.useState<boolean>(true);
+  const [ notAgainCheckboxValue, setNotAgainCheckboxValue ] = React.useState<boolean>(false);
   const close = (notAgain?: boolean) => {
     analytics.event('Click', { label: 'Close', element: 'blurb'});
     setNotAgain(notAgain || false);

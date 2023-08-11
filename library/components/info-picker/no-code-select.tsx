@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { InputProps } from '@quarkusio/code-quarkus.core.types';
 import { useAnalyticsEditionField } from '@quarkusio/code-quarkus.core.analytics';
 import { Form, OverlayTrigger, Tooltip } from 'react-bootstrap';

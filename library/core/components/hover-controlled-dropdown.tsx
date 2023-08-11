@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import { Dropdown } from 'react-bootstrap';
 
 export function HoverControlledDropdown(props: any) {
-  const [ isHovered, setIsHovered ] = useState(false);
+  const [ isHovered, setIsHovered ] = React.useState(false);
   const { onMouseEnter, onMouseLeave, onToggle, ...rest } = props;
   function onMouseEnterFn(e) {
     if (onMouseEnter) {

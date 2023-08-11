@@ -1,11 +1,11 @@
-import React, { ChangeEvent } from 'react';
+import * as React from 'react';
 import { useAnalyticsEditionField } from '@quarkusio/code-quarkus.core.analytics';
 import { InputProps } from '@quarkusio/code-quarkus.core.types';
 import { FaAngleDown } from 'react-icons/fa';
 
 export const BuildToolSelect = (props: InputProps<string>) => {
   const onChangeWithDirty = useAnalyticsEditionField('buildTool', props.onChange)[1];
-  const adaptedOnChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const adaptedOnChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     onChangeWithDirty(e.currentTarget.value);
   };
   return (

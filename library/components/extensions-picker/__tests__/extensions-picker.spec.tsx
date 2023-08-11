@@ -1,5 +1,5 @@
+import * as React from 'react'
 import { cleanup, fireEvent, render } from '@testing-library/react';
-import React from 'react';
 import { ExtensionEntry, ExtensionsPicker } from '../extensions-picker';
 import { act } from 'react-dom/test-utils';
 import { DEFAULT_TAGS } from '../../api/code-quarkus-api';
