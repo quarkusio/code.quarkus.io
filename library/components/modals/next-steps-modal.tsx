@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { useAnalytics, createLinkTracker } from '@quarkusio/code-quarkus.core.analytics';
 import { CopyToClipboard, ExternalLink } from '@quarkusio/code-quarkus.core.components';
 import { GenerateResult, Target } from '../api/quarkus-project-utils';

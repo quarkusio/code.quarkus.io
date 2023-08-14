@@ -28,7 +28,7 @@ export function ExtensionTags(props: { name?: string; tagsDef: TagEntry[]; hover
       {!!tagDef.href && (
         <> 
           {tagDef.description && <br/>}
-          <a href={tagDef.href} target="_blank" rel="noopener noreferrer" >More info...</a>
+          <a onClick={(e) => e.stopPropagation()} href={tagDef.href} target="_blank" rel="noopener noreferrer" >More info...</a>
         </>
       )}
     </>

@@ -1,4 +1,4 @@
-import React, { SetStateAction, useEffect, useRef, useState } from 'react';
+import * as React from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { useAnalytics } from '@quarkusio/code-quarkus.core.analytics';
 import { InputProps } from '@quarkusio/code-quarkus.core.types';
@@ -53,13 +53,13 @@ interface ExtensionsPickerProps extends InputProps<ExtensionsPickerValue> {
   project?: QuarkusProject;
 
   filter: string;
-  setFilter: React.Dispatch<SetStateAction<string>>;
+  setFilter: React.Dispatch<React.SetStateAction<string>>;
 
   filterFunction?(d: ExtensionEntry): boolean;
 }
 
 const hotkeysOptions = {
-  filter: (e) => {
+  ignoreEventWhen: (e) => {
     const el = (e.target) as any | undefined;
     if (!el) {
       return true;
@@ -67,15 +67,15 @@ const hotkeysOptions = {
     const tagName = el && el.tagName;
     return el.id === 'extensions-search-input' || !(tagName === 'INPUT' || tagName === 'SELECT' || tagName === 'TEXTAREA');
   },
-  enableOnTags: [ 'INPUT' ] as 'INPUT'[]
+  enableOnFormTags: [ 'INPUT' ] as 'INPUT'[]
 };
 
 export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const { filter } = props;
-  const [ processedExtensions, setProcessedExtensions ] = useState<ProcessedExtensions | undefined>(undefined);
-  const [ keyboardActivated, setKeyBoardActivated ] = useState<number>(-1);
-  const [ showAll, setShowAll ] = useState<boolean>(false);
-  const [ result, setResult ] = useState<FilterResult | undefined>();
+  const [ processedExtensions, setProcessedExtensions ] = React.useState<ProcessedExtensions | undefined>(undefined);
+  const [ keyboardActivated, setKeyBoardActivated ] = React.useState<number>(-1);
+  const [ showAll, setShowAll ] = React.useState<boolean>(false);
+  const [ result, setResult ] = React.useState<FilterResult | undefined>();
   const analytics = useAnalytics();
   const context = { element: 'extension-picker' };
 
@@ -89,11 +89,11 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const entrySet = new Set(extensions.map(e => e.id));
   const entriesById: Map<string, ExtensionEntry> = new Map(props.entries.map(item => [ item.id, item ]));
 
-  useEffect(() => {
+  React.useEffect(() => {
     setProcessedExtensions(processExtensionsValues(props.entries));
   }, [ props.entries, setProcessedExtensions ]);
-  
-  useEffect(() => {
+
+  React.useEffect(() => {
     debouncedComputeResults(analytics, filter, props.entries, processedExtensions, setResult);
   }, [ filter, processedExtensions, props.entries, setShowAll, setResult ]);
 

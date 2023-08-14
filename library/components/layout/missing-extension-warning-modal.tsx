@@ -1,5 +1,5 @@
 import { Alert, Button, Modal } from 'react-bootstrap';
-import React from 'react';
+import * as React from 'react';
 import { Platform, QuarkusProject } from '../api/model';
 
 export function MissingExtensionWarningModal(props: { missingExtensions: string[]; project: QuarkusProject; platform: Platform; setMissingExtensions: React.Dispatch<string[]>}) {

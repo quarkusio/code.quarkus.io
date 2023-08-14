@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { cleanup, fireEvent, render } from '@testing-library/react';
 import { DebouncedTextInput } from '../debounced-text-input';
 import { act } from 'react-dom/test-utils';

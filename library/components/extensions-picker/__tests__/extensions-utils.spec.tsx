@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { processExtensionsValues, search } from '../extensions-utils';
 import { ExtensionEntry } from '../extensions-picker';
 

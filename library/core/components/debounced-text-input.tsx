@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import * as React from 'react';
 import { useDebounce } from './use-debounce';
 import { Form } from 'react-bootstrap';
 
@@ -12,9 +12,9 @@ export interface DebouncedTextInputProps {
 
 export function DebouncedTextInput(props: DebouncedTextInputProps) {
   const { value, onChange, isValid, ...rest } = props;
-  const [ localValue, setLocalValue ] = useState<string>(value);
-  const [ prevValue, setPrevValue ] = useState<string | undefined>(undefined);
-  useEffect(() => {
+  const [ localValue, setLocalValue ] = React.useState<string>(value);
+  const [ prevValue, setPrevValue ] = React.useState<string | undefined>(undefined);
+  React.useEffect(() => {
     if (value !== prevValue) {
       setLocalValue(value);
     }
@@ -25,7 +25,7 @@ export function DebouncedTextInput(props: DebouncedTextInputProps) {
     onChange(newVal);
   } : undefined;
   const debouncedOnChange = useDebounce(onChangeWithPrev, props.delay || 200);
-  const onChangeWithLocal = debouncedOnChange ? (e: FormEvent<HTMLInputElement>) => {
+  const onChangeWithLocal = debouncedOnChange ? (e: React.FormEvent<HTMLInputElement>) => {
     const newVal = e.currentTarget.value;
     setLocalValue(newVal);
     debouncedOnChange(newVal);
