@@ -1,8 +1,37 @@
-import { parse, ParsedUrlQuery, stringify } from 'querystring';
-import { createGitHubProject } from './code-quarkus-github-api';
-import { Extension, PlatformMappedExtensions, QuarkusProject } from './model';
+import {createGitHubProject} from './code-quarkus-github-api';
+import {Extension, PlatformMappedExtensions, QuarkusProject} from './model';
 import _ from 'lodash';
-import { Api } from './code-quarkus-api';
+import {Api} from './code-quarkus-api';
+
+
+export function parse(str): object {
+  const decode = decodeURIComponent;
+  return (str + '')
+    .replace(/\+/g, ' ')
+    .split('&')
+    .filter(Boolean)
+    .reduce(function (obj, item) {
+      const ref = item.split('=');
+      const key = decode(ref[0] || '');
+      const val = decode(ref[1] || '');
+      const prev = obj[key];
+      obj[key] = prev === undefined ? val : [].concat(prev, val);
+      return obj;
+    }, {});
+}
+
+export function stringify(obj): string {
+  const encode = encodeURIComponent;
+  return Object.keys(obj || {})
+    .reduce(function (arr, key) {
+      [].concat(obj[key]).forEach(function (v) {
+        arr.push(encode(key) + '=' + encode(v));
+      });
+      return arr;
+    }, [])
+    .join('&')
+    .replace(/\s/g, '+');
+}
 
 export enum Target {
   GENERATE = 'GENERATE',
@@ -30,6 +59,10 @@ export interface ProjectPayload {
   extensions?: string[];
   platformOnly?: boolean;
   streamKey?: string;
+}
+
+export function parseQuery(query: string) {
+  return parse(query);
 }
 
 export function generateProjectPayload(project: QuarkusProject): ProjectPayload {
@@ -143,8 +176,7 @@ export const createOnGitHub = (api: Api, project: QuarkusProject, clientId: stri
     scope: 'public_repo,workflow',
     state: Math.random().toString(36)
   };
-  const githubAuthorizeUrl = `https://github.com/login/oauth/authorize?${stringify(authParams)}`;
-  window.location.href = githubAuthorizeUrl;
+  window.location.href = `https://github.com/login/oauth/authorize?${stringify(authParams)}`;
 };
 
 export function newDefaultProject(): QuarkusProject {
@@ -180,7 +212,7 @@ const defaultCleanHistory = () => {
 };
 
 export function resolveQueryParams(search: string = window.location.search.substr(1),
-  cleanHistory: () => void = defaultCleanHistory): ParsedUrlQuery | undefined {
+  cleanHistory: () => void = defaultCleanHistory): object | undefined {
   if (search.length === 0) {
     return undefined;
   }
@@ -189,7 +221,7 @@ export function resolveQueryParams(search: string = window.location.search.subst
   return queryParams;
 }
 
-let queryParams: ParsedUrlQuery | undefined = undefined;
+let queryParams : object | undefined = undefined;
 
 export function normalizeStreamKey(recommendedPlatformId: string, streamKey?: string) {
   if (streamKey == null) {
@@ -198,7 +230,7 @@ export function normalizeStreamKey(recommendedPlatformId: string, streamKey?: st
   return streamKey!.indexOf(':') >= 0 ? streamKey! : `${recommendedPlatformId}:${streamKey}`;
 }
 
-export function getQueryParams(): ParsedUrlQuery | undefined {
+export function getQueryParams(): object | undefined {
   if (!queryParams) {
     queryParams = resolveQueryParams();
   }
@@ -239,7 +271,7 @@ const generateParamQuery = (filter: string, project: string) => {
   return '';
 };
 
-export function resolveInitialProject(queryParams?: ParsedUrlQuery) {
+export function resolveInitialProject(queryParams?: object) {
   return parseProjectInQuery(queryParams) || retrieveProjectFromLocalStorage() || newDefaultProject();
 }
 
@@ -259,27 +291,27 @@ export function mapExtensions(catalog: Extension[], extensions: string[]): Platf
   };
 }
 
-export function parseProjectInQuery(queryParams?: ParsedUrlQuery): QuarkusProject | undefined {
+export function parseProjectInQuery(queryParams?: object): QuarkusProject | undefined {
   if (!queryParams) {
     return undefined;
   }
-  const queryExtensions = normalizeQueryExtensions(queryParams?.e);
+  const queryExtensions = normalizeQueryExtensions(queryParams['e']);
   const defaultProj = newDefaultProject();
   const project = {
     metadata: {
-      groupId: queryParams.g || defaultProj.metadata.groupId,
-      artifactId: queryParams.a || defaultProj.metadata.artifactId,
-      version: queryParams.v || defaultProj.metadata.version,
-      buildTool: queryParams.b || defaultProj.metadata.buildTool,
-      javaVersion: queryParams.j || defaultProj.metadata.javaVersion,
-      noCode: queryParams.nc || defaultProj.metadata.noCode
+      groupId: queryParams['g'] || defaultProj.metadata.groupId,
+      artifactId: queryParams['a'] || defaultProj.metadata.artifactId,
+      version: queryParams['v'] || defaultProj.metadata.version,
+      buildTool: queryParams['b'] || defaultProj.metadata.buildTool,
+      javaVersion: queryParams['j'] || defaultProj.metadata.javaVersion,
+      noCode: queryParams['nc'] || defaultProj.metadata.noCode
     },
     extensions: Array.from(queryExtensions),
-    streamKey: queryParams.S,
-    platformOnly: queryParams.po || defaultProj.platformOnly,
-    github: queryParams.github === 'true' ? {
-      code: queryParams.code,
-      state: queryParams.state
+    streamKey: queryParams['S'],
+    platformOnly: queryParams['po'] || defaultProj.platformOnly,
+    github: queryParams['github'] === 'true' ? {
+      code: queryParams['code'],
+      state: queryParams['state']
     } : undefined
   } as QuarkusProject;
   if (project.github) {
@@ -326,12 +358,11 @@ export function existsStoredProject(): boolean {
 
 //Basic validation (prevent changes on localstorage json, breaking project structure)
 function isValidQuarkusProject(project : QuarkusProject): Boolean {
-  const valid = project.metadata !== undefined && 
-                project.metadata.groupId !== undefined &&
-                project.metadata.artifactId !== undefined &&
-                project.metadata.version !== undefined &&
-                project.metadata.buildTool !== undefined &&
-                project.metadata.javaVersion !== undefined &&
-                project.extensions !== undefined;
-  return valid;
+  return project.metadata !== undefined &&
+    project.metadata.groupId !== undefined &&
+    project.metadata.artifactId !== undefined &&
+    project.metadata.version !== undefined &&
+    project.metadata.buildTool !== undefined &&
+    project.metadata.javaVersion !== undefined &&
+    project.extensions !== undefined;
 }

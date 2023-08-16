@@ -1,8 +1,6 @@
 import { cleanup } from '@testing-library/react';
-import { mapExtensions, parseProjectInQuery, toShortcut, retrieveProjectFromLocalStorage, LocalStorageKey, saveProjectToLocalStorage, resetProjectToDefault, existsStoredProject } from '../quarkus-project-utils';
+import { mapExtensions, parseProjectInQuery, toShortcut, retrieveProjectFromLocalStorage, LocalStorageKey, saveProjectToLocalStorage, resetProjectToDefault, existsStoredProject, parse } from '../quarkus-project-utils';
 import { Extension, QuarkusProject } from '../model';
-import { parse } from 'querystring';
-
 
 beforeAll(()=> {
   configureLocalstorageMock();

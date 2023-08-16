@@ -47,9 +47,6 @@
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
-  "devDependencies": {
-    "querystring": "0.2.1"
-  },
   "eslintConfig": {
     "extends": [
       "react-app"
