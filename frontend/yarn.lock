@@ -1645,21 +1645,21 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
-"@quarkusio/code-quarkus.components@0.0.50":
-  version "0.0.50"
-  resolved "https://registry.yarnpkg.com/@quarkusio/code-quarkus.components/-/code-quarkus.components-0.0.50.tgz#0f9bf8e4c7a1d08fcf4018dc3f882c7498aab43c"
-  integrity sha512-Xbo31BLuUhdxntOmcOfutXC32eef9nJSVxfmJwzgOoMthWQlcjwSn57T8biz6QuTzBT9U1K0fe6mT/2eHUWFIw==
+"@quarkusio/code-quarkus.components@0.0.51":
+  version "0.0.51"
+  resolved "https://registry.yarnpkg.com/@quarkusio/code-quarkus.components/-/code-quarkus.components-0.0.51.tgz#16abd20a8124fd93252d6c12b7e5a4fe23cb612f"
+  integrity sha512-qEjZyAcfdJY57teRQ3oFtDssVE+6+MM0luj0K109LNFkRmiyFKpleQRwvfTl5V8LWIzSmO9u8m46c34XaURbUQ==
   dependencies:
     "@quarkusio/code-quarkus.core.analytics" "0.0.2"
     "@quarkusio/code-quarkus.core.components" "0.0.14"
     "@quarkusio/code-quarkus.core.types" "0.0.2"
-    classnames "2.3.1"
+    "@rehooks/local-storage" "2.4.4"
+    classnames "2.3.2"
     core-js "^3.0.0"
     lodash "4.17.21"
     react-bootstrap "1.6.4"
-    react-hotkeys-hook "3.4.4"
+    react-hotkeys-hook "4.4.1"
     react-icons "4.4.0"
-    use-persisted-state "0.3.3"
 
 "@quarkusio/code-quarkus.core.analytics@0.0.2":
   version "0.0.2"
@@ -1690,6 +1690,11 @@
   integrity sha512-bqXU162hJTho7cOwIrGBTHqlW0mDAeBeuFs951nI4i9k6YGK73vqlkfX/batd3X65be+/VD20N8o7pJWncwlXw==
   dependencies:
     core-js "^3.0.0"
+
+"@rehooks/local-storage@2.4.4":
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/@rehooks/local-storage/-/local-storage-2.4.4.tgz#ccf40f60c2dcbab86dc88f9e3ea898d1fb8bea2d"
+  integrity sha512-zE+kfOkG59n/1UTxdmbwktIosclr67Nlbf2MzUJ9mNtCSypVscNHeD1qT6JCSo5Pjj8DO893IKWNLJqKKzDL/Q==
 
 "@restart/context@^2.1.4":
   version "2.1.4"
@@ -4217,7 +4222,7 @@ classnames@2.3.1:
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.1.tgz#dfcfa3891e306ec1dad105d0e88f4417b8535e8e"
   integrity sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==
 
-classnames@^2.3.1:
+classnames@2.3.2, classnames@^2.3.1:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.2.tgz#351d813bf0137fcc6a76a16b88208d2560a0d924"
   integrity sha512-CSbhY4cFEJRe6/GQzIk5qXZ4Jeg5pcsP7b5peFSDpffpe1cqjASH/n9UTjBwOp6XpMSTwQ8Za2K5V02ueA7Tmw==
@@ -5971,11 +5976,6 @@ hoopy@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/hoopy/-/hoopy-0.1.4.tgz#609207d661100033a9a9402ad3dea677381c1b1d"
   integrity sha512-HRcs+2mr52W0K+x8RzcLzuPPmVIKMSv97RGHy0Ea9y/mpcaK+xTrjICA04KAHi4GRzxliNqNJEFYWHghy3rSfQ==
-
-hotkeys-js@3.8.7:
-  version "3.8.7"
-  resolved "https://registry.yarnpkg.com/hotkeys-js/-/hotkeys-js-3.8.7.tgz#c16cab978b53d7242f860ca3932e976b92399981"
-  integrity sha512-ckAx3EkUr5XjDwjEHDorHxRO2Kb7z6Z2Sxul4MbBkN8Nho7XDslQsgMJT+CiJ5Z4TgRxxvKHEpuLE3imzqy4Lg==
 
 hpack.js@^2.1.6:
   version "2.1.6"
@@ -8729,12 +8729,10 @@ react-error-overlay@^6.0.11:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.11.tgz#92835de5841c5cf08ba00ddd2d677b6d17ff9adb"
   integrity sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==
 
-react-hotkeys-hook@3.4.4:
-  version "3.4.4"
-  resolved "https://registry.yarnpkg.com/react-hotkeys-hook/-/react-hotkeys-hook-3.4.4.tgz#52ba5d8ef5e47cc2e776c70a9036d518e0993d51"
-  integrity sha512-vaORq07rWgmuF3owWRhgFV/3VL8/l2q9lz0WyVEddJnWTtKW+AOgU5YgYKuwN6h6h7bCcLG3MFsJIjCrM/5DvQ==
-  dependencies:
-    hotkeys-js "3.8.7"
+react-hotkeys-hook@4.4.1:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/react-hotkeys-hook/-/react-hotkeys-hook-4.4.1.tgz#1f7a7a1c9c21d4fa3280bf340fcca8fd77d81994"
+  integrity sha512-sClBMBioFEgFGYLTWWRKvhxcCx1DRznd+wkFHwQZspnRBkHTgruKIHptlK/U/2DPX8BhHoRGzpMVWUXMmdZlmw==
 
 react-icons@4.4.0:
   version "4.4.0"
