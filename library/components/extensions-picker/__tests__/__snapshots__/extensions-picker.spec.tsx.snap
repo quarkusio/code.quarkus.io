@@ -165,7 +165,7 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
             >
               1
             </span>
-             Platform
+             in platform
           </span>
           <span
             class="origin-count other-origin"
@@ -175,7 +175,7 @@ exports[`<ExtensionsPicker /> select values and save 1`] = `
             >
               0
             </span>
-             Other
+             in other
           </span>
         </span>
         <a
@@ -390,7 +390,7 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
             >
               2
             </span>
-             Platform
+             in platform
           </span>
           <span
             class="origin-count other-origin"
@@ -400,7 +400,7 @@ exports[`<ExtensionsPicker /> show results for valid search 1`] = `
             >
               0
             </span>
-             Other
+             in other
           </span>
         </span>
         <a
