@@ -36,7 +36,6 @@
     "eslint-plugin-react": "7.33.1",
     "eslint-plugin-react-hooks": "4.6.0",
     "lodash": "4.17.21",
-    "querystring": "0.2.1",
     "react": "17.0.2",
     "react-bootstrap": "1.6.4",
     "react-dom": "17.0.2",
@@ -47,6 +46,9 @@
   "peerDependencies": {
     "react": "17.0.2",
     "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "querystring": "0.2.1"
   },
   "eslintConfig": {
     "extends": [
