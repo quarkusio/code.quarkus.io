@@ -11,39 +11,21 @@
 {
     "components": {
         "scope": "quarkusio.code-quarkus",
-        "version": "0.0.51",
+        "version": "0.0.52",
         "mainFile": "index.ts",
-        "rootDir": "components",
-        "nextVersion": {
-            "version": "patch",
-            "message": "",
-            "username": "ia3andy",
-            "email": "ia3andy@gmail.com"
-        }
+        "rootDir": "components"
     },
     "core/analytics": {
         "scope": "quarkusio.code-quarkus",
-        "version": "0.0.2",
+        "version": "0.0.3",
         "mainFile": "index.ts",
-        "rootDir": "core/analytics",
-        "nextVersion": {
-            "version": "patch",
-            "message": "",
-            "username": "ia3andy",
-            "email": "ia3andy@gmail.com"
-        }
+        "rootDir": "core/analytics"
     },
     "core/components": {
         "scope": "quarkusio.code-quarkus",
-        "version": "0.0.14",
+        "version": "0.0.15",
         "mainFile": "index.ts",
-        "rootDir": "core/components",
-        "nextVersion": {
-            "version": "patch",
-            "message": "",
-            "username": "ia3andy",
-            "email": "ia3andy@gmail.com"
-        }
+        "rootDir": "core/components"
     },
     "core/types": {
         "scope": "quarkusio.code-quarkus",
