@@ -11,15 +11,9 @@
 {
     "components": {
         "scope": "quarkusio.code-quarkus",
-        "version": "0.0.52",
+        "version": "0.0.53",
         "mainFile": "index.ts",
-        "rootDir": "components",
-        "nextVersion": {
-            "version": "patch",
-            "message": "",
-            "username": "ia3andy",
-            "email": "ia3andy@gmail.com"
-        }
+        "rootDir": "components"
     },
     "core/analytics": {
         "scope": "quarkusio.code-quarkus",
