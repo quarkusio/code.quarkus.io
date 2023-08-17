@@ -1,5 +1,5 @@
 ## Stage 1 : build with maven builder image
-FROM registry.access.redhat.com/ubi8/nodejs-14 AS build
+FROM registry.access.redhat.com/ubi8/nodejs-18 AS build
 RUN npm install --global yarn
 COPY package.json yarn.lock ./
 RUN yarn --frozen-lockfile
