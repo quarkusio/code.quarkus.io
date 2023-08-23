@@ -6,6 +6,7 @@ import io.quarkus.devtools.commands.CreateProject
 import io.quarkus.devtools.commands.data.QuarkusCommandException
 import io.quarkus.devtools.messagewriter.MessageWriter
 import io.quarkus.devtools.project.BuildTool
+import io.quarkus.devtools.project.JavaVersion
 import io.quarkus.devtools.project.QuarkusProjectHelper
 import io.quarkus.devtools.project.compress.QuarkusProjectCompress
 import java.io.IOException
@@ -60,6 +61,7 @@ open class QuarkusProjectService {
                     projectFolderPath,
                     platformInfo.extensionCatalog,
                     buildTool,
+                    JavaVersion(projectDefinition.javaVersion),
                     messageWriter
                 )
             val projectDefinition = CreateProject(project)

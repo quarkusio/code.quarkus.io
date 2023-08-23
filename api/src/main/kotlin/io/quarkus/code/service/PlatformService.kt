@@ -218,8 +218,8 @@ class PlatformService {
 
     }
 
-    private fun getStreamStatus(platformInfo: PlatformInfo): String {
-        return DefaultArtifactVersion(platformInfo.quarkusCoreVersion).qualifier.uppercase()
+    private fun getStreamStatus(platformInfo: PlatformInfo): String? {
+        return DefaultArtifactVersion(platformInfo.quarkusCoreVersion).qualifier?.uppercase()
     }
 
     private fun createStreamKey(platformKey: String, streamId: String): String {
