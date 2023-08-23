@@ -24,11 +24,11 @@ function getProjectStream(platform: Platform, streamKey?: string) {
 }
 
 function formatStreamStatus(status?: string, quarkusCoreVersion?: string) {
-  let result = status?.toLowerCase();
-  if(!result) {
-    result = quarkusCoreVersion?.toLowerCase().indexOf('final') >= 0  ? 'final' : 'cr';
+  let s = status?.toLowerCase();
+  if (s === 'final') {
+    return null;
   }
-  return result;
+  return  s;
 }
 
 function parseStreamKey(key: string) {
@@ -59,7 +59,7 @@ const SelectedStream = (props: {stream: Stream}) => {
     <div className={classNames('quarkus-stream', status)} title={platformVersion}>
       <span className="stream-id">
         {streamId}
-        { (status !== 'final' && !recommended) && <span className="stream-status">{status}</span> }
+        { (status && !recommended) && <span className="stream-status">{status}</span> }
       </span>
       <span className="platform-key">{platformKey}</span>
     </div>
@@ -76,7 +76,7 @@ function StreamItem(props: { streamKey: string; quarkusCoreVersion?: string; pla
       <span className="platform-key">{platformKey}</span>
       <span className="stream-id">{streamId}</span>
       {props.recommended && <span className="tag recommended">(recommended)</span>}
-      {status !== 'final' && <span className="tag status">({status})</span>}
+      {status && <span className="tag status">({status})</span>}
     </div>
   );
 }
