@@ -1645,10 +1645,10 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
-"@quarkusio/code-quarkus.components@0.0.53":
-  version "0.0.53"
-  resolved "https://registry.yarnpkg.com/@quarkusio/code-quarkus.components/-/code-quarkus.components-0.0.53.tgz#23ed1481cc5805a05cb6fd301942a3273b161557"
-  integrity sha512-k3rgWNDXYPiQFN+SDZrP4ithKOJJEG0uork5kCROG4n58LmYR666KuOob/LoPkTVmdOdb1EbHnoXRtJrGjguvg==
+"@quarkusio/code-quarkus.components@0.0.54":
+  version "0.0.54"
+  resolved "https://registry.yarnpkg.com/@quarkusio/code-quarkus.components/-/code-quarkus.components-0.0.54.tgz#7a15cf8a4a8d65ddb04af17a0fbee68aa7c62594"
+  integrity sha512-oYwL8lVRiPxTNDLTdK/rNgs1PRF6dIidhoFf2b5hg9dr82UY3C3k8hp3Y4b8U4FZr13f2F4YdLGF8h6KSD5D9g==
   dependencies:
     "@quarkusio/code-quarkus.core.analytics" "0.0.3"
     "@quarkusio/code-quarkus.core.components" "0.0.15"
