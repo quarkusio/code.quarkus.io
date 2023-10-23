@@ -1,5 +1,5 @@
 ## Stage 1 : build with maven builder image
-FROM registry.access.redhat.com/ubi8/openjdk-17:1.14 AS build
+FROM registry.access.redhat.com/ubi8/openjdk-17:1.17 AS build
 ARG MAVEN_BUILD_EXTRA_ARGS=
 RUN echo "$MAVEN_BUILD_EXTRA_ARGS"
 COPY mvnw pom.xml maven-settings.xml* /usr/src/app/
@@ -12,7 +12,7 @@ USER 185
 RUN cd /usr/src/app/ && ./mvnw clean package $MAVEN_BUILD_EXTRA_ARGS
 
 ## Stage 2 : create the docker final image
-FROM registry.access.redhat.com/ubi8/openjdk-17:1.14
+FROM registry.access.redhat.com/ubi8/openjdk-17:1.17
 
 ARG MAVEN_EXTRA_ARGS=
 RUN echo "$MAVEN_EXTRA_ARGS"
@@ -32,5 +32,5 @@ COPY --from=build --chown=185 usr/src/app/target/quarkus-app/quarkus/ /deploymen
 EXPOSE 8080
 USER 185
 ENV AB_JOLOKIA_OFF=""
-ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dfile.encoding=UTF-8 $MAVEN_EXTRA_ARGS"
+ENV JAVA_OPTS_APPEND="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dfile.encoding=UTF-8 $MAVEN_EXTRA_ARGS"
 ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
