@@ -130,6 +130,7 @@ class PlatformService {
                 val platformKey = platform.platformKey
                 val streamId = stream.id
                 val streamKey = createStreamKey(platformKey, streamId)
+                val lts = stream.metadata["lts"] as Boolean
                 val platformInfo = PlatformInfo(
                     platformKey = platformKey,
                     streamKey = streamKey,
@@ -144,7 +145,8 @@ class PlatformService {
                     quarkusCoreVersion = platformInfo.quarkusCoreVersion,
                     platformVersion = stream.recommendedRelease.version.toString(),
                     recommended = platformInfo.recommended,
-                    status = getStreamStatus(platformInfo)
+                    status = getStreamStatus(platformInfo),
+                    lts = lts
                 ))
                 updatedStreamCatalogMap[streamKey] = platformInfo
             }

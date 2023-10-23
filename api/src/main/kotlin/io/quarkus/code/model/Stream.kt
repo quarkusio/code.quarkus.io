@@ -5,5 +5,6 @@ data class Stream(
     val quarkusCoreVersion: String,
     val platformVersion: String,
     val recommended: Boolean,
-    val status: String
+    val status: String,
+    val lts: Boolean
 )
