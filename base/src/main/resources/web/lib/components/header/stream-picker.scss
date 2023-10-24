@@ -1,0 +1,118 @@
+@import "../_config.scss";
+
+.stream-picker {
+  z-index: 1500;
+  margin-left: 20px;
+  cursor: pointer;
+  .dropdown-toggle {
+    display: flex;
+
+    svg {
+      margin-top: 28px;
+      margin-left: 10px;
+    }
+  }
+  .current-stream .quarkus-stream {
+    display: flex;
+    flex-direction: column;
+
+    font-size: 1.2rem;
+    border-left: 1px solid var(--streamPickerBorderColor);
+    text-align: left;
+    padding-left: 5px;
+    height: 40px;
+    margin-top: 15px;
+
+    .platform-key {
+      line-height: 15px;
+      order: 1;
+      font-size: 0.8rem;
+      color: var(--streamPickerPlatformKeyTextColor);
+    }
+
+    .stream-id {
+      order: 0;
+      line-height: 25px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--streamPickerStreamIdTextColor);
+    }
+
+    .stream-status {
+      font-size: 0.9rem;
+      padding-left: 0.5rem;
+      line-height: normal;
+      text-transform: uppercase;
+    }
+  }
+
+  .dropdown-menu {
+    margin-top: 5px;
+    background-color: var(--streamPickerDropdownBackgroundColor);
+  }
+  .dropdown-item {
+    line-height: 20px;
+    width: auto;
+    border-left: 3px solid transparent;
+
+    &:hover {
+      border-left: 3px solid var(--streamPickerBorderColor);
+    }
+  }
+
+  .dropdown-item .quarkus-stream {
+    display: flex;
+    padding: 5px 10px;
+
+    .unselected {
+      display: inline-block;
+      width: 10px;
+    }
+
+    .selected svg {
+      width: 10px;
+      font-size: 10px;
+      color: var(--streamPickerDropdownStreamIdTextColor);
+    }
+
+    .platform-key {
+      font-size: 0.8rem;
+      color: var(--streamPickerDropdownPlatformKeyTextColor);
+
+      line-height: 20px;
+      order: 2;
+    }
+
+    .stream-id {
+      color: var(--streamPickerDropdownStreamIdTextColor);
+      font-weight: bold;
+      margin-left: 5px;
+      line-height: 20px;
+      margin-right: 5px;
+      order: 1;
+    }
+
+    .tag {
+      margin-left: 5px;
+      font-size: 0.8rem;
+      order: 3;
+      padding: 0 2px;
+      height: 20px;
+      line-height: 20px;
+      white-space: nowrap;
+      color: var(--streamPickerDropdownStreamIdTextColor);
+      text-transform: uppercase;
+    }
+
+    &.cr {
+      .tag, .stream-id, .platform-key {
+        color: var(--streamPickerDropdownCRTextColor);
+      }
+    }
+  }
+
+  @media screen and (max-width: $mobileWidth) {
+    display: none;
+  }
+}
+

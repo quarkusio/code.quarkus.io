@@ -1,0 +1,73 @@
+@import "../_config.scss";
+
+.header {
+  .enterprise-support {
+    position: relative;
+
+    button.btn {
+      background-color: var(--headerSupportButtonBackgroundColor);
+      border: 1px solid var(--headerSupportButtonBorderColor);
+      border-radius: 0;
+      color: var(--headerSupportButtonTextColor);
+      height: 38px;
+      line-height: 35px;
+
+      svg {
+        vertical-align: middle;
+      }
+    }
+
+    .support-panel {
+      position: absolute;
+      top: 50px;
+      right: 0;
+      z-index: 120;
+      white-space: normal;
+      background-color: var(--headerSupportPanelBackgroundColor);
+      max-height: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: max-height 0.3s ease-in-out;
+
+      a {
+        color: var(--headerSupportPanelTextColor);
+        display: block;
+        line-height: 20px;
+        border-right: 2px solid var(--headerSupportPanelBackgroundColor);
+        white-space: nowrap;
+        padding: 10px 20px;
+        font-weight: bold;
+
+        &.secondary {
+          font-style: italic;
+          font-weight: normal;
+        }
+
+        svg {
+          margin-right: 20px;
+          color: #D73F22;
+        }
+
+        &:hover {
+          text-decoration: none;
+          border-color: var(--headerSupportPanelTextColor);
+        }
+      }
+    }
+
+    &.opened {
+      button.pf-c-button {
+      }
+
+      .support-panel {
+        max-height: 100px;
+      }
+    }
+
+
+    @media screen and (max-width: $mobileWidth) {
+      display: none;
+    }
+  }
+}

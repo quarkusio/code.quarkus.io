@@ -1,0 +1,143 @@
+@import "../_config.scss";
+
+#extension-origin-platform-tooltip > .tooltip-inner {
+  max-width: 400px;
+}
+
+.extension-row {
+  display: flex;
+  width: 100%;
+  line-height: 30px;
+  cursor: pointer;
+  flex-wrap: wrap;
+
+  svg {
+    pointer-events: none;
+  }
+
+  .extension-selector {
+    color: var(--extensionsPickerCheckColor);
+  }
+
+  &.selected .extension-selector {
+    color: var(--extensionsPickerCheckSelectedColor);
+  }
+
+  &.hover.selected .extension-selector {
+    color: var(--extensionsPickerCheckSelectedHoverColor);
+  }
+
+  div:focus {
+    outline: none;
+  }
+
+  .extension-remove {
+    color: var(--extensionsPickerRemoveButtonColor);
+    height: 30px;
+  }
+
+  .extension-selector {
+
+    @media screen and (max-width: $mobileWidth) {
+      display: none;
+    }
+  }
+
+  .extension-summary {
+    overflow: hidden;
+    display: flex;
+  }
+
+  .extension-origin-platform {
+    font-size: 0.8rem;
+    margin-top: 2px;
+    margin-left: 5px;
+    font-weight: normal;
+
+    svg {
+      height: 12px;
+      fill: var(--originPlatformColor);
+    }
+  }
+
+  .extension-name {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 0.8rem;
+    font-weight: bold;
+    height: 24px;
+    outline: none;
+  }
+
+  .extension-id {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 0.8rem;
+    margin: 0 5px;
+    height: 24px;
+    outline: none;
+    color: var(--extensionsPickerIdTextColor);
+    @media screen and (max-width: $mobileWidth) {
+      display: none;
+    }
+  }
+
+  .extension-tag {
+    font-size: 0.6rem;
+    line-height: 17px;
+    margin: 5px 5px;
+    padding: 0 3px;
+    height: 20px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    border: 1px solid black;
+  }
+
+  .extension-tag-dropdown .dropdown-menu {
+    padding: 5px;
+    font-size: 0.8rem;
+    max-width: 500px;
+    line-height: 20px;
+  }
+  a.extension-tag {
+    cursor: pointer;
+  }
+
+  .extension-description {
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size: 0.8rem;
+    color: var(--extensionsPickerDescriptionTextColorOnTablet);
+  }
+
+  .extension-more {
+    max-width: 150px;
+    font-size: 0.8rem;
+    height: 33px;
+
+    .extension-more-button {
+      background-color: transparent;
+      border: none;
+      color: var(--extensionsPickerTextColor);
+      outline: none;
+      padding: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+
+      display: flex;
+      font-weight: 400;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .dropdown-item {
+      width: 350px;
+      font-weight: normal;
+    }
+    .dropdown-item .copy-to-clipboard {
+      display: flex;
+      width: 100%;
+    }
+  }
+}

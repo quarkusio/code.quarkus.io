@@ -1,0 +1,72 @@
+@import "../_config.scss";
+
+.header {
+  height: 70px;
+  background-color: var(--headerBackgroundColor);
+  background-image: var(--headerBackgroundImage);
+  background-repeat: repeat-x;
+  color: var(--headerTextColor);
+
+  @media screen and (min-width: 1920px) {
+    background-image: var(--headerBackgroundImageWide);
+  }
+
+  .header-content {
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    height: 70px;
+
+    .nav-container {
+      display: flex;
+      height: 55px;
+      line-height: 55px;
+
+      & > a {
+        display: inline-block;
+        color: var(--headerMenuLinkTextColor);
+        padding: 0 10px;
+        text-decoration: none;
+        height: 55px;
+        font-size: 1rem;
+        white-space: nowrap;
+
+        svg {
+          transition: transform 0.3s ease-in-out;
+          vertical-align: middle;
+        }
+
+        &:hover svg {
+          transform: translate(-10px);
+        }
+      }
+    }
+
+    .quarkus-brand {
+      flex-grow: 1;
+      line-height: 70px;
+      display: flex;
+
+      a {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
+        padding: 0;
+
+        img {
+          vertical-align: middle;
+          height: 40px;
+          width: auto;
+        }
+
+        @media screen and (max-width: $mobileWidth) {
+          margin-left: 20px;
+          img {
+            height: 20px;
+          }
+        }
+      }
+    }
+  }
+}
