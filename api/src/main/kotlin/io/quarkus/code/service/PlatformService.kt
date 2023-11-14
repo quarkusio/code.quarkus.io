@@ -168,7 +168,7 @@ class PlatformService {
             """
             PlatformService cache has been reloaded successfully:
                 platform timestamp: $platformTimestamp
-                recommended stream key: $recommendedStreamKey (core: ${recommendedPlatformInfo.quarkusCoreVersion})
+                recommended stream key: $recommendedStreamKey (core: ${recommendedPlatformInfo.quarkusCoreVersion}, platform: ${recommendedPlatformInfo.platformVersion})
                 recommended stream extensions: ${recommendedCodeQuarkusExtensions.size}
                 available streams: ${updatedStreamCatalogMap.keys.joinToString(", ")}
         """.trimIndent()
