@@ -69,7 +69,7 @@ internal class QuarkusProjectServiceTest {
             .satisfies(checkContains("<quarkus.platform.artifact-id>${platformService.recommendedPlatformInfo.extensionCatalog.bom.artifactId}</quarkus.platform.artifact-id>"))
             .satisfies(checkContains("<quarkus.platform.version>${platformService.recommendedPlatformInfo.extensionCatalog.bom.version}</quarkus.platform.version>")).satisfies(checkContains("<groupId>io.quarkus</groupId>"))
             .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive</artifactId>"))
-            .satisfies(checkContains("<maven.compiler.release>${ProjectDefinition.DEFAULT_JAVA_VERSION}</maven.compiler.release>"))
+            .satisfies(checkContains("<maven.compiler.release>${platformService.recommendedPlatformInfo.stream.javaCompatibility.recommended}</maven.compiler.release>"))
             .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
 
         assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/GreetingResource.java")
@@ -95,7 +95,7 @@ internal class QuarkusProjectServiceTest {
             .satisfies(checkContains("<quarkus.platform.artifact-id>${platformInfo.extensionCatalog.bom.artifactId}</quarkus.platform.artifact-id>"))
             .satisfies(checkContains("<quarkus.platform.version>${platformInfo.extensionCatalog.bom.version}</quarkus.platform.version>")).satisfies(checkContains("<groupId>io.quarkus</groupId>"))
             .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive</artifactId>"))
-            .satisfies(checkContains("<maven.compiler.release>${ProjectDefinition.DEFAULT_JAVA_VERSION}</maven.compiler.release>"))
+            .satisfies(checkContains("<maven.compiler.release>${platformService.recommendedPlatformInfo.stream.javaCompatibility.recommended}</maven.compiler.release>"))
             .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
 
         assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/GreetingResource.java")
@@ -116,7 +116,7 @@ internal class QuarkusProjectServiceTest {
                 version = "2.0.0",
                 className = "com.test.TestResource",
                 path = "/test/it",
-                javaVersion = "17",
+                javaVersion = platformService.recommendedPlatformInfo.stream.javaCompatibility.recommended,
                 extensions = setOf(
                     "io.quarkus:quarkus-resteasy-reactive",
                     "io.quarkus:quarkus-resteasy-reactive-jsonb",
@@ -144,7 +144,7 @@ internal class QuarkusProjectServiceTest {
             .satisfies(checkContains("<artifactId>quarkus-hibernate-validator</artifactId>"))
             .satisfies(checkContains("<artifactId>quarkus-neo4j</artifactId>"))
             .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
-            .satisfies(checkContains("<maven.compiler.release>17</maven.compiler.release>"))
+            .satisfies(checkContains("<maven.compiler.release>${platformService.recommendedPlatformInfo.stream.javaCompatibility.recommended}</maven.compiler.release>"))
 
 
         assertThatMatchSnapshot(info, projDir, "src/main/java/com/test/TestResource.java")
@@ -199,7 +199,7 @@ internal class QuarkusProjectServiceTest {
                 groupId = "com.gr",
                 artifactId = "test-gradle-17-app",
                 buildTool = "GRADLE",
-                javaVersion = "17"
+                javaVersion = 17
             )
         )
         val testDir = QuarkusProjectServiceTestUtils.extractProject(proj)
@@ -212,30 +212,53 @@ internal class QuarkusProjectServiceTest {
     }
 
     @Test
-    @DisplayName("Create a project with RESTEasy-Qute and YAML config")
-    fun testQuteYaml(info: TestInfo) {
+    @DisplayName("Create a Gradle project with java 21")
+    fun testGradle21(info: TestInfo) {
         // When
         val creator = getProjectService()
 
         val proj = creator.create(
             platformService.recommendedPlatformInfo,
             ProjectDefinition(
-                groupId = "my.qute.yaml.app",
-                artifactId = "test-qute-yaml-app",
-                buildTool = "MAVEN",
-                extensions = setOf("resteasy-reactive-qute", "config-yaml")
+                groupId = "com.gr",
+                artifactId = "test-gradle-21-app",
+                buildTool = "GRADLE",
+                javaVersion = 21
             )
         )
         val testDir = QuarkusProjectServiceTestUtils.extractProject(proj)
-        val projDir = Paths.get(testDir.first.path, "test-qute-yaml-app")
+        val projDir = Paths.get(testDir.first.path, "test-gradle-21-app")
+
+        // Then
+        assertThat(projDir.resolve("build.gradle"))
+            .satisfies(checkContains("sourceCompatibility = JavaVersion.VERSION_21"))
+            .satisfies(checkContains("targetCompatibility = JavaVersion.VERSION_21"))
+    }
+
+    @Test
+    @DisplayName("Create a project with quinoa and YAML config")
+    fun testQuinoaYaml(info: TestInfo) {
+        // When
+        val creator = getProjectService()
+
+        val proj = creator.create(
+            platformService.recommendedPlatformInfo,
+            ProjectDefinition(
+                groupId = "my.quinoa.yaml.app",
+                artifactId = "test-quinoa-yaml-app",
+                buildTool = "MAVEN",
+                extensions = setOf("quinoa", "config-yaml")
+            )
+        )
+        val testDir = QuarkusProjectServiceTestUtils.extractProject(proj)
+        val projDir = Paths.get(testDir.first.path, "test-quinoa-yaml-app")
 
         // Then
         assertThatDirectoryTreeMatchSnapshots(info, projDir)
             .contains(
-                "src/main/resources/templates/page.qute.html",
-                "src/main/java/my/qute/yaml/app/GreetingConfig.java",
-                "src/main/resources/application.yml",
-                "src/main/java/my/qute/yaml/app/SomePage.java"
+                "src/main/webui/package.json",
+                "src/main/java/my/quinoa/yaml/app/GreetingConfig.java",
+                "src/main/resources/application.yml"
             )
     }
 

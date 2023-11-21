@@ -3,6 +3,7 @@ package io.quarkus.code.service
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import io.quarkus.code.misc.QuarkusExtensionUtils
 import io.quarkus.code.model.CodeQuarkusExtension
+import io.quarkus.code.model.Stream
 import io.quarkus.registry.catalog.ExtensionCatalog
 import java.util.logging.Logger
 import java.util.stream.Collectors
@@ -10,7 +11,7 @@ import java.util.stream.Collectors
 @JsonIgnoreProperties(ignoreUnknown = true)
 class PlatformInfo(
     val platformKey: String,
-    val streamKey: String,
+    val stream: Stream,
     val quarkusCoreVersion: String,
     val platformVersion: String,
     val recommended: Boolean,

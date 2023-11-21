@@ -6,6 +6,11 @@ import io.quarkus.devtools.project.QuarkusProjectHelper
 import io.quarkus.code.model.CodeQuarkusExtension
 import io.quarkus.code.model.ProjectDefinition
 import io.quarkus.code.model.Stream
+import io.quarkus.devtools.project.JavaVersion
+import io.quarkus.devtools.project.JavaVersion.getCompatibleLTSVersions
+import io.quarkus.platform.catalog.processor.CatalogProcessor
+import io.quarkus.platform.catalog.processor.CatalogProcessor.getMinimumJavaVersion
+import io.quarkus.platform.catalog.processor.CatalogProcessor.getRecommendedJavaVersion
 import io.quarkus.registry.Constants
 import java.util.HashMap
 import io.quarkus.registry.catalog.PlatformCatalog
@@ -130,22 +135,36 @@ class PlatformService {
                 val platformKey = platform.platformKey
                 val streamId = stream.id
                 val streamKey = createStreamKey(platformKey, streamId)
+                val lts = stream.metadata["lts"] as Boolean
+                val minimumJavaVersion = getMinimumJavaVersion(extensionCatalog)
+
+                val compatibleJavaLTSVersions = getCompatibleLTSVersions(JavaVersion(minimumJavaVersion))
+                if (platformKey.equals("com.redhat.quarkus.platform")) {
+                    // Hack to remove 21 support from code.quarkus.redhat.com
+                    compatibleJavaLTSVersions.remove(21)
+                }
+                val recommendedJavaVersion = getRecommendedJavaVersion(extensionCatalog)?.toInt() ?: compatibleJavaLTSVersions.first()
+                val quarkusCoreVersion = stream.recommendedRelease.quarkusCoreVersion
+                val recommended = stream.id == platform.recommendedStream.id
+                val streamInfo = Stream(
+                    key = streamKey,
+                    quarkusCoreVersion = quarkusCoreVersion,
+                    platformVersion = stream.recommendedRelease.version.toString(),
+                    recommended = recommended,
+                    status = getStreamStatus(quarkusCoreVersion),
+                    lts = lts,
+                    javaCompatibility = Stream.JavaCompatibility(compatibleJavaLTSVersions, recommendedJavaVersion)
+                )
                 val platformInfo = PlatformInfo(
                     platformKey = platformKey,
-                    streamKey = streamKey,
-                    quarkusCoreVersion = stream.recommendedRelease.quarkusCoreVersion,
+                    quarkusCoreVersion = quarkusCoreVersion,
                     platformVersion = stream.recommendedRelease.version.toString(),
-                    recommended = (stream.id == platform.recommendedStream.id),
+                    recommended = recommended,
                     codeQuarkusExtensions = codeQuarkusExtensions,
-                    extensionCatalog = extensionCatalog
+                    extensionCatalog = extensionCatalog,
+                    stream = streamInfo
                 )
-                streams.add(Stream(
-                    key = streamKey,
-                    quarkusCoreVersion = platformInfo.quarkusCoreVersion,
-                    platformVersion = stream.recommendedRelease.version.toString(),
-                    recommended = platformInfo.recommended,
-                    status = getStreamStatus(platformInfo)
-                ))
+                streams.add(streamInfo)
                 updatedStreamCatalogMap[streamKey] = platformInfo
             }
         }
@@ -218,8 +237,8 @@ class PlatformService {
 
     }
 
-    private fun getStreamStatus(platformInfo: PlatformInfo): String {
-        val qualifier = DefaultArtifactVersion(platformInfo.quarkusCoreVersion).qualifier?.uppercase()
+    private fun getStreamStatus(quarkusCoreVersion: String): String {
+        val qualifier = DefaultArtifactVersion(quarkusCoreVersion).qualifier?.uppercase()
         return if (qualifier.isNullOrBlank())  "FINAL" else qualifier
     }
 

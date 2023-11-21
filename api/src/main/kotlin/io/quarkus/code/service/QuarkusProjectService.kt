@@ -3,19 +3,19 @@ package io.quarkus.code.service
 import io.quarkus.code.model.ProjectDefinition
 import io.quarkus.devtools.codestarts.CodestartException
 import io.quarkus.devtools.commands.CreateProject
-import io.quarkus.devtools.commands.data.QuarkusCommandException
 import io.quarkus.devtools.messagewriter.MessageWriter
 import io.quarkus.devtools.project.BuildTool
 import io.quarkus.devtools.project.JavaVersion
 import io.quarkus.devtools.project.QuarkusProjectHelper
+import io.quarkus.devtools.project.SourceType
 import io.quarkus.devtools.project.compress.QuarkusProjectCompress
+import jakarta.inject.Singleton
 import java.io.IOException
 import java.io.OutputStream
 import java.io.PrintStream
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.logging.Logger
-import jakarta.inject.Singleton
 
 @Singleton
 open class QuarkusProjectService {
@@ -50,9 +50,19 @@ open class QuarkusProjectService {
             platformInfo.checkAndMergeExtensions(projectDefinition.extensions)
         val buildTool = BuildTool.valueOf(projectDefinition.buildTool)
         val codestarts = HashSet<String>()
-        /**if (gitHub) {
-            codestarts.add("github-action")
-        }**/
+        val javaVersionString = (projectDefinition.javaVersion ?: platformInfo.stream.javaCompatibility.recommended).toString()
+        if (gitHub) {
+            codestarts.add("tooling-github-action")
+        }
+        val javaVersion = JavaVersion(javaVersionString)
+        if (javaVersion.isPresent && !platformInfo.stream.javaCompatibility.versions.contains(javaVersion.asInt)) {
+            throw IllegalArgumentException("This Java version is not compatible with this stream (${platformInfo.stream.javaCompatibility.versions}): $javaVersionString");
+        }
+        val isJava = extensions.stream()
+            .noneMatch{ it.startsWith("io.quarkus:quarkus-kotlin") || it.startsWith("io.quarkus:quarkus-scala") }
+        if (javaVersion.isPresent && !isJava && javaVersion.asInt > JavaVersion.MAX_LTS_SUPPORTED_BY_KOTLIN) {
+            throw IllegalArgumentException("This Java version is not yet compatible with Kotlin and Scala using Quarkus (max:${JavaVersion.MAX_LTS_SUPPORTED_BY_KOTLIN}): $javaVersionString");
+        }
         val messageWriter =
             if (silent) MessageWriter.info(PrintStream(OutputStream.nullOutputStream())) else MessageWriter.info()
         try {
@@ -61,7 +71,7 @@ open class QuarkusProjectService {
                     projectFolderPath,
                     platformInfo.extensionCatalog,
                     buildTool,
-                    JavaVersion(projectDefinition.javaVersion),
+                    javaVersion,
                     messageWriter
                 )
             val projectDefinition = CreateProject(project)
@@ -70,7 +80,7 @@ open class QuarkusProjectService {
                 .version(projectDefinition.version)
                 .resourcePath(projectDefinition.path)
                 .extraCodestarts(codestarts)
-                .javaVersion(projectDefinition.javaVersion)
+                .javaVersion(javaVersion.version)
                 .resourceClassName(projectDefinition.className)
                 .extensions(extensions)
                 .noCode(projectDefinition.noCode || projectDefinition.noExamples)

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './quarkus-project-edition-form.scss';
 import { ExtensionEntry, ExtensionsPicker } from '../extensions-picker/extensions-picker';
+import { getProjectStream } from '../api/quarkus-project-utils';
 import { InfoPicker, isValidInfo } from '../info-picker/info-picker';
 import { GenerateButton } from '../generate-project/generate-button';
 import { Config, Extension, Platform, QuarkusProject } from '../api/model';
@@ -60,7 +61,9 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
 
   React.useEffect(() => {
     debouncedSyncParamsQuery(props.api, props.project, filter);
-  }, [ filter, props.project ])
+  }, [ filter, props.project ]);
+  
+  const currentStream = getProjectStream(props.platform, props.project.streamKey);
   return (
     <div className="quarkus-project-edition-form">
       <div className="form-header-sticky-container">
@@ -71,7 +74,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
                 Configure your application
               </h3>
             </div>
-            <InfoPicker value={props.project.metadata} onChange={setMetadata} />
+            <InfoPicker currentStream={currentStream} value={props.project.metadata} onChange={setMetadata} />
           </div>
           <div className="generate-project">
             <ExtensionsCart  value={{ extensions: props.selectedExtensions }} onChange={setExtensions} tagsDef={props.platform.tagsDef}/>

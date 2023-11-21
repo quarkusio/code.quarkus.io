@@ -7,11 +7,9 @@ import io.quarkus.code.model.ProjectDefinition.Companion.CLASSNAME_PATTERN
 import io.quarkus.code.model.ProjectDefinition.Companion.DEFAULT_ARTIFACTID
 import io.quarkus.code.model.ProjectDefinition.Companion.DEFAULT_BUILDTOOL
 import io.quarkus.code.model.ProjectDefinition.Companion.DEFAULT_GROUPID
-import io.quarkus.code.model.ProjectDefinition.Companion.DEFAULT_JAVA_VERSION
 import io.quarkus.code.model.ProjectDefinition.Companion.DEFAULT_NO_CODE
 import io.quarkus.code.model.ProjectDefinition.Companion.DEFAULT_VERSION
 import io.quarkus.code.model.ProjectDefinition.Companion.GROUPID_PATTERN
-import io.quarkus.code.model.ProjectDefinition.Companion.JAVA_VERSION_PATTERN
 import io.quarkus.code.model.ProjectDefinition.Companion.PATH_PATTERN
 import org.eclipse.microprofile.openapi.annotations.media.Schema
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter
@@ -94,12 +92,9 @@ class ProjectDefinitionQuery {
         private set
 
     @QueryParam("j")
-    @NotEmpty
-    @DefaultValue(DEFAULT_JAVA_VERSION)
-    @Pattern(regexp = JAVA_VERSION_PATTERN)
     @Parameter(name = "j", description = "The Java version for the generation application", required = false)
-    @Schema(description = "The Java version for the generation application", required = false, pattern = JAVA_VERSION_PATTERN)
-    var javaVersion: String = DEFAULT_JAVA_VERSION
+    @Schema(description = "The Java version for the generation application", required = false)
+    var javaVersion: Int? = null
         private set
 
 

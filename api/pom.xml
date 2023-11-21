@@ -9,8 +9,8 @@
     <properties>
         <kotlin.compiler.jvmTarget>17</kotlin.compiler.jvmTarget>
         <maven.compiler.parameters>true</maven.compiler.parameters>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <rest-assured.version>4.3.2</rest-assured.version>
         <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
 
@@ -27,11 +27,11 @@
         <!-- Quarkus platform used for the code.quarkus app-->
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.version>3.5.1</quarkus.platform.version>
+        <quarkus.platform.version>3.6.0</quarkus.platform.version>
 
         <!-- Quarkus devtools version -->
-        <quarkus.devtools.version>3.5.1</quarkus.devtools.version>
-        <quarkus.base-codestarts.version>3.5.1</quarkus.base-codestarts.version>
+        <quarkus.devtools.version>3.6.0</quarkus.devtools.version>
+        <quarkus.base-codestarts.version>3.6.0</quarkus.base-codestarts.version>
 
         <!-- Quarkiverse versions -->
         <quarkus.jgit.version>2.3.1</quarkus.jgit.version>

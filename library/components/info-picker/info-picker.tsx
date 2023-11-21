@@ -5,6 +5,7 @@ import './info-picker.scss';
 import { BuildToolSelect } from './build-tool-select';
 import { NoCodeSelect } from './no-code-select';
 import { JavaVersionSelect } from './java-version-select';
+import { Stream } from '../api/model';
 
 export interface InfoPickerValue {
   groupId?: string;
@@ -17,6 +18,7 @@ export interface InfoPickerValue {
 
 interface InfoPickerProps extends InputProps<InfoPickerValue> {
   showMoreOptions?: boolean;
+  currentStream: Stream;
 }
 
 const ARTIFACTID_PATTERN = /^[a-z][a-z0-9-._]*$/;
@@ -73,7 +75,7 @@ export const InfoPicker = (props: InfoPickerProps) => {
               onChange={onVersionChange}
               isValid={!!props.value.version}
             />
-            <JavaVersionSelect onChange={onJavaVersionChange} value={props.value.javaVersion || '11'} />
+            <JavaVersionSelect javaCompatibility={props.currentStream?.javaCompatibility} onChange={onJavaVersionChange} value={props.value.javaVersion} />
             <NoCodeSelect onChange={onNoCodeChange} value={props.value.noCode || false} />
           </div>
         </TogglePanel>

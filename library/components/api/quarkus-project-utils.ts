@@ -1,9 +1,31 @@
 import {createGitHubProject} from './code-quarkus-github-api';
-import {Extension, PlatformMappedExtensions, QuarkusProject} from './model';
+import {Extension, PlatformMappedExtensions, QuarkusProject, Platform, Stream } from './model';
 import _ from 'lodash';
 import {Api} from './code-quarkus-api';
 
 
+const ERROR_STREAM: Stream = { 
+  key: 'recommended.not.found:stream', 
+  quarkusCoreVersion: 'error', 
+  recommended: true, 
+  status: 'NOT_FOUND', 
+  platformVersion: 'error',
+  lts: false,
+  javaCompatibility: { versions: [], recommended: -1 }
+}
+
+export function getRecommendedStream(platform: Platform) {
+  return platform.streams.find(s => s.recommended) || ERROR_STREAM;
+}
+
+export function getProjectStream(platform: Platform, streamKey?: string): Stream {
+  const recommendedStream = getRecommendedStream(platform);
+  if (!streamKey) {
+    return recommendedStream;
+  }
+  const normalizedStreamKey = normalizeStreamKey(recommendedStream.key.split(':')[0], streamKey);
+  return platform.streams.find(s => s.key === normalizedStreamKey) || recommendedStream;
+}
 export function parse(str): object {
   const decode = decodeURIComponent;
   return (str + '')
@@ -186,7 +208,6 @@ export function newDefaultProject(): QuarkusProject {
       artifactId: 'code-with-quarkus',
       version: '1.0.0-SNAPSHOT',
       buildTool: 'MAVEN',
-      javaVersion: '17',
       noCode: false
     },
     extensions: [],

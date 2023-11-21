@@ -7,7 +7,7 @@ export interface QuarkusProject {
     name?: string;
     noCode?: boolean;
     buildTool: string;
-    javaVersion: string;
+    javaVersion?: string;
   };
   extensions: string[];
   streamKey?: string;
@@ -53,12 +53,19 @@ export interface Platform {
   tagsDef: Tag[];
 }
 
+export interface JavaCompatibility {
+  versions: number[];
+  recommended: number;
+}
+
 export interface Stream {
   key: string;
   quarkusCoreVersion: string;
   platformVersion: string;
   recommended: boolean;
   status: string;
+  lts: boolean;
+  javaCompatibility: JavaCompatibility;
 }
 
 export interface Config {
