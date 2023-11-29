@@ -127,7 +127,6 @@ class CodeQuarkusResourceTest {
                 artifactId = "my-awesome-app",
                 version = "2.0.0",
                 noCode = true,
-                javaVersion = "17",
                 extensions = setOf("io.quarkus:quarkus-resteasy", "io.quarkus:quarkus-resteasy-jackson")
         )
         val path = given()
@@ -155,7 +154,7 @@ class CodeQuarkusResourceTest {
             groupId = "io.awesome",
             artifactId = "my-awesome-app",
             version = "2.0.0",
-            javaVersion = "11",
+            javaVersion = 11,
             noCode = true,
             extensions = setOf("io.quarkus:quarkus-resteasy", "io.quarkus:quarkus-resteasy-jackson")
         )
@@ -246,6 +245,45 @@ class CodeQuarkusResourceTest {
                 .then()
                 .log().ifValidationFails()
                 .statusCode(400)
+    }
+
+    @Test
+    @DisplayName("Should fail when using invalid javaVersion")
+    fun testWithInvalidJavaVersion() {
+        given()
+            .`when`()
+            .get("/api/download?j=550")
+            .then()
+            .log().ifValidationFails()
+            .statusCode(400)
+    }
+
+    @Test
+    @DisplayName("Should fail when using incompatible java version with kotlin & Scala")
+    fun testWithInvalidJavaVersionKotlinScala() {
+        given()
+            .`when`()
+            .get("/api/download?j=21&e=kotlin")
+            .then()
+            .log().ifValidationFails()
+            .statusCode(400)
+        given()
+            .`when`()
+            .get("/api/download?j=21&e=scala")
+            .then()
+            .log().ifValidationFails()
+            .statusCode(400)
+    }
+
+    @Test
+    @DisplayName("Should fail when using javaVersion as text")
+    fun testWithInvalidJavaVersionString() {
+        given()
+            .`when`()
+            .get("/api/download?j=text")
+            .then()
+            .log().ifValidationFails()
+            .statusCode(404)
     }
 
     @Test

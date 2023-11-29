@@ -1,5 +1,5 @@
 ## Stage 1 : build with maven builder image
-FROM registry.access.redhat.com/ubi8/openjdk-17:1.14 AS build
+FROM registry.access.redhat.com/ubi8/openjdk-21:1.18 AS build
 ARG MAVEN_BUILD_EXTRA_ARGS=
 RUN echo "$MAVEN_BUILD_EXTRA_ARGS"
 COPY pom.xml mvnw /usr/src/app/
@@ -14,7 +14,7 @@ RUN cd /usr/src/app/ && ./mvnw clean package -DskipTests $MAVEN_BUILD_EXTRA_ARGS
 ## Stage 2 : create the docker final image
 FROM mcr.microsoft.com/playwright:v1.29.2-focal
 
-ARG JAVA_PACKAGE=openjdk-17-jre-headless
+ARG JAVA_PACKAGE=openjdk-21-jre-headless
 ARG MAVEN_EXTRA_ARGS=
 RUN echo "$MAVEN_EXTRA_ARGS"
 

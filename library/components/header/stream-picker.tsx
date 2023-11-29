@@ -1,27 +1,13 @@
 import React from 'react';
 import './stream-picker.scss';
 import { Platform, Stream } from '../api/model';
-import { normalizeStreamKey } from '../api/quarkus-project-utils';
+import { getRecommendedStream, getProjectStream } from '../api/quarkus-project-utils';
 import { Dropdown } from 'react-bootstrap';
 import { FaAngleDown, FaCheck } from 'react-icons/fa';
 import { useAnalytics } from '@quarkusio/code-quarkus.core.analytics';
 import classNames from 'classnames';
 
 
-const ERROR_STREAM: Stream = { key: 'recommended.not.found:stream', quarkusCoreVersion: 'error', recommended: true, status: 'NOT_FOUND', platformVersion: 'error' }
-
-function getRecommendedStream(platform: Platform) {
-  return platform.streams.find(s => s.recommended) || ERROR_STREAM;
-}
-
-function getProjectStream(platform: Platform, streamKey?: string) {
-  if (!streamKey) {
-    return null;
-  }
-  const recommendedStream = getRecommendedStream(platform);
-  const normalizedStreamKey = normalizeStreamKey(recommendedStream.key.split(':')[0], streamKey);
-  return platform.streams.find(s => s.key === normalizedStreamKey);
-}
 
 function formatStreamStatus(status?: string, quarkusCoreVersion?: string) {
   let s = status?.toLowerCase();
@@ -84,7 +70,7 @@ function StreamItem(props: { streamKey: string; quarkusCoreVersion?: string; pla
 export function StreamPicker(props: StreamPickerProps) {
   const analytics = useAnalytics();
   const recommendedStream = getRecommendedStream(props.platform);
-  const stream = getProjectStream(props.platform, props.streamKey) || recommendedStream;
+  const stream = getProjectStream(props.platform, props.streamKey);
   function setStreamKey(s: Stream) {
     props.setStreamKey(s.key, props.platformOnly);
     analytics.event('Switch stream', { stream: s.key, element: 'stream-picker' });

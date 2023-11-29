@@ -127,8 +127,9 @@ class AnalyticsFilter : ContainerRequestFilter {
         val extensions: Set<String>
         val buildTool: String
         val streamKey: String?
-        val javaVersion: String
+        val javaVersion: Int?
         val noCode: Boolean
+        val recommendedPlatformInfo = platformService.get().recommendedPlatformInfo
         if (context.method == "POST") {
             val text = context.entityStream.bufferedReader().use(BufferedReader::readText)
             context.entityStream = text.byteInputStream()
@@ -136,27 +137,27 @@ class AnalyticsFilter : ContainerRequestFilter {
                 val json = JsonObject(text)
                 val rawExtensions = json.getJsonArray("extensions", JsonArray()).stream().map { it.toString() }
                     .collect(Collectors.toSet())
-                extensions = platformService.get().recommendedPlatformInfo.checkAndMergeExtensions(rawExtensions)
+                extensions = recommendedPlatformInfo.checkAndMergeExtensions(rawExtensions)
                 buildTool = json.getString("buildTool", ProjectDefinition.DEFAULT_BUILDTOOL)
-                javaVersion = json.getString("javaVersion", ProjectDefinition.DEFAULT_JAVA_VERSION)
+                javaVersion = json.getInteger("javaVersion")
                 streamKey = json.getString("streamKey")
                 noCode = json.getBoolean("noCode", ProjectDefinition.DEFAULT_NO_CODE)
             } else {
                 extensions = emptySet()
                 buildTool = ProjectDefinition.DEFAULT_BUILDTOOL
                 streamKey = null
-                javaVersion = ProjectDefinition.DEFAULT_JAVA_VERSION
+                javaVersion = null
                 noCode = ProjectDefinition.DEFAULT_NO_CODE
             }
         } else {
             extensions =
-                platformService.get().recommendedPlatformInfo.checkAndMergeExtensions(queryParams["e"]?.toSet())
+                recommendedPlatformInfo.checkAndMergeExtensions(queryParams["e"]?.toSet())
             buildTool = queryParams.getFirst("b") ?: ProjectDefinition.DEFAULT_BUILDTOOL
             streamKey = queryParams.getFirst("S")
-            javaVersion = queryParams.getFirst("j") ?: ProjectDefinition.DEFAULT_JAVA_VERSION
+            javaVersion = queryParams.getFirst("j")?.toInt()
             noCode = queryParams.getFirst("nc")?.toBoolean() ?: ProjectDefinition.DEFAULT_NO_CODE
         }
-        val resolvedStreamKey = platformService.get().getPlatformInfo(streamKey).streamKey
+        val resolvedStreamKey = platformService.get().getPlatformInfo(streamKey).stream.key
         return mapOf(
             "buildTool" to buildTool,
             "extensions" to extensions,

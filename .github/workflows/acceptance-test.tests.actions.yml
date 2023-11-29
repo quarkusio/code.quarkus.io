@@ -25,11 +25,11 @@ jobs:
       - uses: n1hility/cancel-previous-runs@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         # Uses sha for added security since tags can be updated
         uses: joschi/setup-jdk@e87a7cec853d2dd7066adf837fe12bf0f3d45e52
         with:
-          java-version: openjdk17
+          java-version: openjdk21
       - name: Cache Maven Repository
         id: cache-maven
         uses: actions/cache@v1

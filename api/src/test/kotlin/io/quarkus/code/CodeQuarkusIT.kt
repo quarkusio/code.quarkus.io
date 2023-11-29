@@ -15,13 +15,13 @@ import io.quarkus.devtools.testing.WrapperRunner
 class CodeQuarkusIT {
 
     @ParameterizedTest
-    @ValueSource(strings = ["java", "kotlin", "scala"])
+    @ValueSource(strings = ["java"])
     @DisplayName("Should generate a maven project and run it in different language")
     fun testMaven(language: String) {
         val languageExt = if(language != "java") "io.quarkus:quarkus-$language" else ""
         val appName = "test-app-maven-$language"
         val result = given()
-                .`when`().get("/api/download?a=$appName&e=neo4j&e=amazon-lambda-http&e=$languageExt")
+                .`when`().get("/api/download?a=$appName&e=neo4j&e=resteasy-reactive&e=$languageExt&j=21")
                 .then()
                 .log().ifValidationFails()
                 .statusCode(200)
@@ -36,13 +36,13 @@ class CodeQuarkusIT {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = ["java", "kotlin", "scala"])
+    @ValueSource(strings = ["java"])
     @DisplayName("Should generate a gradle project and run it in different language")
     fun testGradle(language: String) {
         val languageExt = if(language != "java") "io.quarkus:quarkus-$language" else ""
         val appName = "test-app-gradle-$language"
         val result = given()
-                .`when`().get("/api/download?b=GRADLE&a=$appName&v=1.0.0&e=neo4j&e=amazon-lambda-http&e=$languageExt")
+                .`when`().get("/api/download?b=GRADLE&a=$appName&v=1.0.0&e=neo4j&e=resteasy-reactive&e=$languageExt&j=21")
                 .then()
                 .log().ifValidationFails()
                 .statusCode(200)
@@ -54,4 +54,5 @@ class CodeQuarkusIT {
         val run = WrapperRunner.run(dir.toPath().resolve(appName), WrapperRunner.Wrapper.GRADLE)
         assertThat(run, `is`(0))
     }
+
 }

@@ -216,8 +216,8 @@ class CodeQuarkusResource @Inject constructor(
             if (projectDefinition.buildTool != ProjectDefinition.DEFAULT_BUILDTOOL) {
                 params.add(BasicNameValuePair("b", projectDefinition.buildTool))
             }
-            if (projectDefinition.javaVersion != ProjectDefinition.DEFAULT_JAVA_VERSION) {
-                params.add(BasicNameValuePair("j", projectDefinition.javaVersion))
+            if (projectDefinition.javaVersion != null) {
+                params.add(BasicNameValuePair("j", projectDefinition.javaVersion.toString()))
             }
             if (projectDefinition.noCode != ProjectDefinition.DEFAULT_NO_CODE || projectDefinition.noExamples != ProjectDefinition.DEFAULT_NO_CODE) {
                 params.add(BasicNameValuePair("nc", (!ProjectDefinition.DEFAULT_NO_CODE).toString()))
