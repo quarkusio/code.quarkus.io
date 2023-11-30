@@ -1,5 +1,6 @@
 package io.quarkus.code.service
 
+import org.apache.commons.compress.archivers.ArchiveInputStream
 import org.apache.commons.compress.archivers.ArchiveStreamFactory
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry
 import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream
@@ -41,7 +42,8 @@ object QuarkusProjectServiceTestUtils {
 
     fun unzip(outputDir: File, zipFile: File): List<String> {
         zipFile.inputStream().use { zfis ->
-            ArchiveStreamFactory().createArchiveInputStream(ArchiveStreamFactory.ZIP, zfis).use { zip ->
+            val ais: ArchiveInputStream<ZipArchiveEntry> = ArchiveStreamFactory().createArchiveInputStream(ArchiveStreamFactory.ZIP, zfis)
+            ais.use { zip ->
                 var entry: ZipArchiveEntry?
                 val list = arrayListOf<String>()
                 do {
@@ -59,7 +61,7 @@ object QuarkusProjectServiceTestUtils {
                         file.outputStream().use { output ->
                             zip.copyTo(output)
                         }
-                        if(EXECUTABLES.contains(file.name)) {
+                        if (EXECUTABLES.contains(file.name)) {
                             file.setExecutable(true)
                         }
                     }
