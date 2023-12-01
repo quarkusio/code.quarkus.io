@@ -9,6 +9,9 @@
     <version>1.0.0-SNAPSHOT</version>
   </parent>
   <properties>
+    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
     <playwright.version>1.40.0</playwright.version>
   </properties>
   <dependencies>

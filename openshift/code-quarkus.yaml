@@ -1,0 +1,165 @@
+---
+apiVersion: v1
+kind: Template
+metadata:
+  name: code-quarkus
+objects:
+  - kind: ConfigMap
+    apiVersion: v1
+    metadata:
+      name: code-quarkus-registry
+  - apiVersion: v1
+    kind: DeploymentConfig
+    metadata:
+      name: code-quarkus
+    spec:
+      replicas: ${{REPLICAS}}
+      selector:
+        service: code-quarkus
+      strategy:
+        rollingParams:
+          intervalSeconds: 1
+          maxSurge: 25%
+          maxUnavailable: 25%
+          timeoutSeconds: 600
+          updatePeriodSeconds: 1
+        type: Rolling
+      template:
+        metadata:
+          labels:
+            service: code-quarkus
+        spec:
+          serviceAccount: ${SERVICE_ACCOUNT}
+          serviceAccountName: ${SERVICE_ACCOUNT}
+          containers:
+            - image: ${IMAGE}:${IMAGE_TAG}
+              imagePullPolicy: Always
+              name: code-quarkus
+              ports:
+                - containerPort: 8080
+              livenessProbe:
+                httpGet:
+                  path: /q/health/live
+                  port: 8080
+                initialDelaySeconds: 15
+                periodSeconds: 10
+                timeoutSeconds: 3
+              readinessProbe:
+                httpGet:
+                  path: /q/health/ready
+                  port: 8080
+                initialDelaySeconds: 15
+                periodSeconds: 10
+                timeoutSeconds: 3
+              resources:
+                requests:
+                  cpu: ${CPU_REQUEST}
+                  memory: ${MEMORY_REQUEST}
+                limits:
+                  cpu: ${CPU_LIMIT}
+                  memory: ${MEMORY_LIMIT}
+              env:
+                - name: IO_QUARKUS_CODE_ENVIRONMENT
+                  value: ${IO_QUARKUS_CODE_ENVIRONMENT}
+                - name: IO_QUARKUS_CODE_SEGMENT_FLUSH_QUEUE_SIZE
+                  value: ${IO_QUARKUS_CODE_SEGMENT_FLUSH_QUEUE_SIZE}
+                - name: IO_QUARKUS_CODE_SEGMENT_FLUSH_INTERVAL_SECONDS
+                  value: ${IO_QUARKUS_CODE_SEGMENT_FLUSH_INTERVAL_SECONDS}
+                - name: IO_QUARKUS_CODE_LOG_LEVEL
+                  value: ${IO_QUARKUS_CODE_LOG_LEVEL}
+                - name: IO_QUARKUS_CODE_HOSTNAME
+                  value: ${IO_QUARKUS_CODE_HOSTNAME}
+                - name: IO_QUARKUS_CODE_FEATURES
+                  value: ${IO_QUARKUS_CODE_FEATURES}
+                - name: IO_QUARKUS_CODE_QUARKUS_PLATFORMS_RELOAD_CRON_EXPR
+                  value: ${IO_QUARKUS_CODE_QUARKUS_PLATFORMS_RELOAD_CRON_EXPR}
+                - name: IO_QUARKUS_CODE_SENTRY_FRONTEND_DSN
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: sentry-frontend-dsn
+                      optional: true
+                - name: IO_QUARKUS_CODE_GITHUB_CLIENT_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: github-client-id
+                      optional: true
+                - name: IO_QUARKUS_CODE_GITHUB_CLIENT_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: github-client-secret
+                      optional: true
+                - name: QUARKUS_LOG_SENTRY
+                  value: ${QUARKUS_LOG_SENTRY}
+                - name: QUARKUS_LOG_SENTRY_ENVIRONMENT
+                  value: ${IO_QUARKUS_CODE_ENVIRONMENT}
+                - name: QUARKUS_LOG_SENTRY_DSN
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: sentry-dsn
+                      optional: true
+                - name: IO_QUARKUS_CODE_SEGMENT_WRITE_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: secrets
+                      key: segment-write-key
+                      optional: true
+              envFrom:
+                - configMapRef:
+                    name: code-quarkus-registry
+      triggers:
+        - type: ConfigChange
+  - kind: Service
+    apiVersion: v1
+    metadata:
+      labels:
+        service: code-quarkus
+      name: code-quarkus
+    spec:
+      ports:
+        - name: '8080'
+          port: 8080
+          protocol: TCP
+          targetPort: 8080
+      selector:
+        service: code-quarkus
+      sessionAffinity: None
+      type: ClusterIP
+parameters:
+  - name: IO_QUARKUS_CODE_ENVIRONMENT
+  - name: IO_QUARKUS_CODE_FEATURES
+  - name: IO_QUARKUS_CODE_HOSTNAME
+  - name: IO_QUARKUS_CODE_SEGMENT_FLUSH_QUEUE_SIZE
+  - name: IO_QUARKUS_CODE_SEGMENT_FLUSH_INTERVAL_SECONDS
+  - name: IO_QUARKUS_CODE_QUARKUS_PLATFORMS_RELOAD_CRON_EXPR
+    value: "0 */5 * * * ?"
+  - name: QUARKUS_LOG_SENTRY
+    value: "false"
+  - name: IO_QUARKUS_CODE_LOG_LEVEL
+    value: inherit
+  - name: IMAGE
+    value: quay.io/quarkus/code-quarkus-app
+    required: true
+  - name: IMAGE_TAG
+    value: latest
+    required: true
+  - name: CPU_REQUEST
+    required: true
+    value: 400m
+  - name: CPU_LIMIT
+    required: true
+    value: 1000m
+  - name: MEMORY_REQUEST
+    required: true
+    value: 768Mi
+  - displayName: Memory limit
+    required: true
+    name: MEMORY_LIMIT
+    value: 1Gi
+  - name: REPLICAS
+    required: true
+    value: '1'
+  - name: SERVICE_ACCOUNT
