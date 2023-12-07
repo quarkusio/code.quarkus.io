@@ -259,23 +259,6 @@ class CodeQuarkusResourceTest {
     }
 
     @Test
-    @DisplayName("Should fail when using incompatible java version with kotlin & Scala")
-    fun testWithInvalidJavaVersionKotlinScala() {
-        given()
-            .`when`()
-            .get("/api/download?j=21&e=kotlin")
-            .then()
-            .log().ifValidationFails()
-            .statusCode(400)
-        given()
-            .`when`()
-            .get("/api/download?j=21&e=scala")
-            .then()
-            .log().ifValidationFails()
-            .statusCode(400)
-    }
-
-    @Test
     @DisplayName("Should fail when using javaVersion as text")
     fun testWithInvalidJavaVersionString() {
         given()
