@@ -123,6 +123,8 @@
       <artifactId>analytics</artifactId>
       <version>${segment-analytics.version}</version>
     </dependency>
+
+    <!-- web deps -->
     <dependency>
       <groupId>org.mvnpm</groupId>
       <artifactId>lodash</artifactId>

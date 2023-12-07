@@ -53,7 +53,7 @@ export function ExtensionRow(props: ExtensionRowProps) {
       hover,
       selected,
       'by-default': props.default
-    })} ref={ref}>
+    })} ref={ref} aria-label={props.id} >
       {props.pickerLayout && (
         <div
           className="extension-selector"

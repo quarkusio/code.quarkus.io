@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.util.function.Predicate.not;
@@ -48,7 +47,7 @@ public class PlatformInfo {
                 }));
     }
 
-    public List<CodeQuarkusExtension> getCodeQuarkusExtensions() {
+    public List<CodeQuarkusExtension> codeQuarkusExtensions() {
         return codeQuarkusExtensions;
     }
 
@@ -72,9 +71,6 @@ public class PlatformInfo {
         return recommended;
     }
 
-    public List<CodeQuarkusExtension> codeQuarkusExtensions() {
-        return codeQuarkusExtensions;
-    }
 
     public ExtensionCatalog extensionCatalog() {
         return extensionCatalog;

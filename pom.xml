@@ -17,7 +17,7 @@
     <quarkus.platform.version>3.6.1</quarkus.platform.version>
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.1.2</surefire-plugin.version>
-    <quarkus-web-bundler.version>1.1.6</quarkus-web-bundler.version>
+    <quarkus-web-bundler.version>999-SNAPSHOT</quarkus-web-bundler.version>
     <quarkus-playwright.version>0.0.1</quarkus-playwright.version>
     <quarkus-qute-web.version>3.0.0</quarkus-qute-web.version>
   </properties>

@@ -121,7 +121,7 @@ public class PlatformService {
     }
 
     public List<CodeQuarkusExtension> codeQuarkusExtensions(String streamKey) {
-        return platformInfo(streamKey).getCodeQuarkusExtensions();
+        return platformInfo(streamKey).codeQuarkusExtensions();
     }
 
     public PlatformInfo platformInfo(String platformKey, String streamId) {
@@ -256,7 +256,7 @@ public class PlatformService {
         }
 
         for (Map.Entry<String, PlatformInfo> entry : newCache.streamCatalogMap().entrySet()) {
-            if (entry.getValue().getCodeQuarkusExtensions().isEmpty()) {
+            if (entry.getValue().codeQuarkusExtensions().isEmpty()) {
                 throw new RuntimeException("No extension found in the stream: " + entry.getKey());
             }
             projectService.createTmp(
