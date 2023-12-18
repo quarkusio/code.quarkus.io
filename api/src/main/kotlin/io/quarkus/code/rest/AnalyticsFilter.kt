@@ -78,7 +78,7 @@ class AnalyticsFilter : ContainerRequestFilter {
                                 mapOf(
                                     "extension" to coords.key.toGacString(),
                                     "extensionVersion" to coords.version,
-                                )
+                                ).filterValues { it != null }
                             }
                             analyticsService.get().track(
                                 event = "Extension Used",
@@ -164,7 +164,7 @@ class AnalyticsFilter : ContainerRequestFilter {
             "streamKey" to resolvedStreamKey,
             "javaVersion" to javaVersion,
             "noCode" to noCode
-        )
+        ).filterValues { it != null }
     }
 
 }
