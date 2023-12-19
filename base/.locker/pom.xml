@@ -14,7 +14,7 @@
       <dependency>
         <groupId>org.mvnpm.at.babel</groupId>
         <artifactId>runtime</artifactId>
-        <version>7.23.4</version>
+        <version>7.23.6</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.lukeed</groupId>
@@ -35,6 +35,7 @@
         <groupId>org.mvnpm.at.rehooks</groupId>
         <artifactId>local-storage</artifactId>
         <version>2.4.5</version>
+        <classifier>sources</classifier>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.restart</groupId>
@@ -49,12 +50,17 @@
       <dependency>
         <groupId>org.mvnpm.at.segment</groupId>
         <artifactId>analytics-core</artifactId>
-        <version>1.3.0</version>
+        <version>1.4.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm.at.segment</groupId>
+        <artifactId>analytics-generic-utils</artifactId>
+        <version>1.1.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.segment</groupId>
         <artifactId>analytics-next</artifactId>
-        <version>1.53.3</version>
+        <version>1.62.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.segment</groupId>
@@ -90,6 +96,7 @@
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>browser</artifactId>
         <version>7.63.0</version>
+        <classifier>sources</classifier>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
@@ -674,7 +681,7 @@
       <dependency>
         <groupId>org.mvnpm.at.types</groupId>
         <artifactId>react-transition-group</artifactId>
-        <version>4.4.9</version>
+        <version>4.4.10</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.types</groupId>
@@ -703,18 +710,25 @@
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
+        <artifactId>classnames</artifactId>
+        <version>2.3.2</version>
+        <classifier>sources</classifier>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm</groupId>
         <artifactId>copy-to-clipboard</artifactId>
         <version>3.3.3</version>
+        <classifier>sources</classifier>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>core-js</artifactId>
-        <version>3.33.3</version>
+        <version>3.34.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>csstype</artifactId>
-        <version>3.1.2</version>
+        <version>3.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -855,21 +869,25 @@
         <groupId>org.mvnpm</groupId>
         <artifactId>react-bootstrap</artifactId>
         <version>1.6.4</version>
+        <classifier>sources</classifier>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>react-dom</artifactId>
         <version>18.2.0</version>
+        <classifier>sources</classifier>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>react-hotkeys-hook</artifactId>
         <version>4.4.1</version>
+        <classifier>sources</classifier>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>react-icons</artifactId>
         <version>4.4.0</version>
+        <classifier>sources</classifier>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -895,6 +913,7 @@
         <groupId>org.mvnpm</groupId>
         <artifactId>react</artifactId>
         <version>18.2.0</version>
+        <classifier>sources</classifier>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -964,7 +983,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>whatwg-fetch</artifactId>
-        <version>3.6.19</version>
+        <version>3.6.20</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -974,22 +993,23 @@
     </dependencies>
   </dependencyManagement>
   <properties>
-    <lock-integrity-org.mvnpm.at.babel--runtime>sha512:4TBsCQBt6lx4tnBKZsY7HzBAifoPOBRCAM5lOQk7NRJj6u/a48Hc2XYXcmmMY8Y4OZPmo0+1gxRIRKA8qwdeKQ==</lock-integrity-org.mvnpm.at.babel--runtime>
+    <lock-integrity-org.mvnpm.at.babel--runtime>sha512:fGjySAS+5uOBEvn+dP+7cUwZY8fUZZQXOb9hc7AALRrUmQMKOTyANY28LW9m3GKXLF+mjLog1N0BweD6KZdUhQ==</lock-integrity-org.mvnpm.at.babel--runtime>
     <lock-integrity-org.mvnpm.at.lukeed--csprng>sha512:MsfRLSaKlgfJ0X7S1z12hJMib2hAKI3V9D04HyU1oKWVK7kx4n+cN7fkJkzQ7MzF5rAKG3o7Nj2/bqwWR7iV2A==</lock-integrity-org.mvnpm.at.lukeed--csprng>
     <lock-integrity-org.mvnpm.at.lukeed--uuid>sha512:ZX7wwORATOSspXDXdWy0Q1KjBiIug3Q8FtQG8Vc1TCd8gtH2/tp8MCxyS0jk2urzNA6Ifs7c3YbNGIn/K6Kd5Q==</lock-integrity-org.mvnpm.at.lukeed--uuid>
     <lock-integrity-org.mvnpm.at.popperjs--core>sha512:rFiv+Od7w2vTc35ym/2AcD8m1wkS2hU2U5JNECYcVR4oARsye2+yNqnAgHcvWNg9cSMTcJvcCavjn2YOHwJmJA==</lock-integrity-org.mvnpm.at.popperjs--core>
-    <lock-integrity-org.mvnpm.at.rehooks--local-storage>sha512:hCP7782pk7Zq7pWA/iyRFG8UZ9cKv6MHsHwQUu8K9ZKNGDobO0BSWPV5CFi08xgITzEjzI/HRIvPtKHjA0mZdg==</lock-integrity-org.mvnpm.at.rehooks--local-storage>
+    <lock-integrity-org.mvnpm.at.rehooks--local-storage>sha512:h+pSNYi6upB7CCWFhw0nKecjXtT2ja/TdqYaFb5uE0KveXucnUA6pYC4NHvA88ak9MGIA8M6sLkjamjYS9ax0Q==</lock-integrity-org.mvnpm.at.rehooks--local-storage>
     <lock-integrity-org.mvnpm.at.restart--context>sha512:Cw45jn3syAZj54kq/gJTCLno70z9LxFYiK3UJYjM4uvSMKiDRXacW3xvXn+554P8r5nSIqt1vI5vwBwcLiPxvA==</lock-integrity-org.mvnpm.at.restart--context>
     <lock-integrity-org.mvnpm.at.restart--hooks>sha512:7t6jpSq2bl5sFgeExUxC3khgn57F6kjnEVRpJ2/BhqJ/iOWGY+HsyZXVV5Z3nGO83YXtIAVhvvvS1M5Jvn2cOg==</lock-integrity-org.mvnpm.at.restart--hooks>
-    <lock-integrity-org.mvnpm.at.segment--analytics-core>sha512:37SsVLFSJS9KBabeoggMwMqLf/AR/blqXThWpf5430NiWWuj1mqB6JUFmBniL8E75sKm1JbznsvKsWdIgrgjig==</lock-integrity-org.mvnpm.at.segment--analytics-core>
-    <lock-integrity-org.mvnpm.at.segment--analytics-next>sha512:Lyr4bmfyl4ZWaZNElbAVHJQYz2uvjaonad1GiXfI9NT0RXkafIxtoG7FYeYvgagAtZnDmwSWHxDn5PlruXskqg==</lock-integrity-org.mvnpm.at.segment--analytics-next>
+    <lock-integrity-org.mvnpm.at.segment--analytics-core>sha512:L9vUjo64ITdDbY+/WLQRx1VooqrF1U+uyQUI5Zp6yTJYgH0WVNL7pEEB+NW+0R9FkNrzG8MdTWgzyeiEgaeqNQ==</lock-integrity-org.mvnpm.at.segment--analytics-core>
+    <lock-integrity-org.mvnpm.at.segment--analytics-generic-utils>sha512:uKyssvmIPEfrjYmgGB6PiDlIb7tEozFdvX2MzqkDBDFZw/1YnGs3c32F6SQX8ypCqgJD69huQyCEf4F6u9v07A==</lock-integrity-org.mvnpm.at.segment--analytics-generic-utils>
+    <lock-integrity-org.mvnpm.at.segment--analytics-next>sha512:eFYJBvgeGobOvPqltM4OipY7Xbw6/yCp6tdWIxWvybQWnX4hQSgfMlnx+Jb+9y3HHlVTXm3IaF3HnHwFtfDS+w==</lock-integrity-org.mvnpm.at.segment--analytics-next>
     <lock-integrity-org.mvnpm.at.segment--analytics.js-video-plugins>sha512:nayiL7RiuaE7heHIoNQ4VdQ/vPWeLSIV2N6NKyTjbxgxkplDgkT7TY0CIwvfGTzZmmTs+ItNKgYXnprSSmfNeg==</lock-integrity-org.mvnpm.at.segment--analytics.js-video-plugins>
     <lock-integrity-org.mvnpm.at.segment--facade>sha512:ex/tUpGKyCD5g6TGrgKNBIkCg8Dm+jrzYC8xwQ7gmX+qCo/zO2jeCwRoBGj+yxHcUPVrhernWNjCD6QhFLKlvQ==</lock-integrity-org.mvnpm.at.segment--facade>
     <lock-integrity-org.mvnpm.at.segment--isodate-traverse>sha512:wnJKScHFqVJT/CTS4n7QX4OICcTckZJNXM/Xt6zewPZifebxHvci7Nco37uq1FbL9F1Yt47qqLprAz0mBV/DRg==</lock-integrity-org.mvnpm.at.segment--isodate-traverse>
     <lock-integrity-org.mvnpm.at.segment--isodate>sha512:0Nd4j5XHx8cB9Utz/4uhGxHyg9Fu40CN34XeJ6OtUagH2cSt6+0KaoilnbyapraaTISsvA81H6gxhgG1gltCVg==</lock-integrity-org.mvnpm.at.segment--isodate>
     <lock-integrity-org.mvnpm.at.segment--tsub>sha512:GyIji2dDhvCE0M0QyudHiMSJ0ionCSfHSExlpn/vx67gWGgDbP1SIOyc52jcjax+iuJczuLbOrKtKzNLMhFWPQ==</lock-integrity-org.mvnpm.at.segment--tsub>
     <lock-integrity-org.mvnpm.at.sentry-internal--tracing>sha512:BVAzfsDiUJkssBrnPrdobiPfCDKDK84iotFUT1st1LUX0Ia6P3Bb8RVWvKb9iLKYyTF0bdcZcVpULY0fi+yGhQ==</lock-integrity-org.mvnpm.at.sentry-internal--tracing>
-    <lock-integrity-org.mvnpm.at.sentry--browser>sha512:z0+HZd/do0ILvi0rlsnvq8pGjkj6QQwpVU1BlH61TyB7XifImS/qYRBkrCqvtljxjL2P0kdyrc7jSST6B+S1Wg==</lock-integrity-org.mvnpm.at.sentry--browser>
+    <lock-integrity-org.mvnpm.at.sentry--browser>sha512:0Eh40V/t/89JFDzPZtjUfnNOt2+CsmBgVVlJoqJJZz92/l5Q0saBmzw8IMc+npuvBR3UaVBOZK7+4me3HwkmAw==</lock-integrity-org.mvnpm.at.sentry--browser>
     <lock-integrity-org.mvnpm.at.sentry--core>sha512:wjC2cSfsOZfwlwhoWuT/e2k3zMQBd65LeA2mh59giBrbVEe3i4W8OAwqmfFwRmWbWFlkFNKVRjrzDKsyHbFDuQ==</lock-integrity-org.mvnpm.at.sentry--core>
     <lock-integrity-org.mvnpm.at.sentry--replay>sha512:e++ITmAHLBAbXaLT4gvFMsvkt7opHUDgCreGPxGNREmNFxuXFHZoBkUAhELTkNvhFgsuzCOGzFQD1v1zr3D5/w==</lock-integrity-org.mvnpm.at.sentry--replay>
     <lock-integrity-org.mvnpm.at.sentry--types>sha512:kw9HdbpVQuBt+Bjq6kD71EKR+VL4L1owa3ie88lcXDa+PHrfxHwqbV57QNtY4uj/6pjH6SvyCd5ONRKtHpM4kA==</lock-integrity-org.mvnpm.at.sentry--types>
@@ -1106,15 +1126,16 @@
     <lock-integrity-org.mvnpm.at.stdlib--utils-type-of>sha512:1luacI8Xg4Xe2VYhTj65uiLlHDN9IdL59avdGecJOIkeFVarnavcOFg5V0KDf6KCLnndLmUmSbmQKilvGwWaYA==</lock-integrity-org.mvnpm.at.stdlib--utils-type-of>
     <lock-integrity-org.mvnpm.at.types--invariant>sha512:65PG91/0nWPZDaOx9sX2RbZR+TGbka5BIBuNCR8YhNMfJIK5wlfQcE2/xYMjPagOFXPboIiCkXdqHvM8uKG6tA==</lock-integrity-org.mvnpm.at.types--invariant>
     <lock-integrity-org.mvnpm.at.types--prop-types>sha512:45805HWmoMMW0lBvhn3vgBJj2dsTWYZMWNkrqWHHebGDeEO/yf04YqM0gc3m5ATFFHSsnS3iJbqpDsnKAS5D0Q==</lock-integrity-org.mvnpm.at.types--prop-types>
-    <lock-integrity-org.mvnpm.at.types--react-transition-group>sha512:m9PJDfC6oNDzsebnL4TXCWucbhyOUlngxJhdYiZScEyE7OLJPMChWI8OOSxlM0MY0lzcDQxWCzJI3TmscCjv5A==</lock-integrity-org.mvnpm.at.types--react-transition-group>
+    <lock-integrity-org.mvnpm.at.types--react-transition-group>sha512:mNE7mYzwXRNzYlaac4VYr5TUvCCxD33Huav6ByLOLGIrCqbG6UzhptcjTBHNOnBCimdcn6uCMJV89lX3JS5DOQ==</lock-integrity-org.mvnpm.at.types--react-transition-group>
     <lock-integrity-org.mvnpm.at.types--react>sha512:TlhyFJYsNgC69SJWT360OcOprRG3bNOm2YwPKbAHXRhQLC3Ip4o0IwaGtLxhxCd5ABHMZ1jGZF+LbdaFkxv2Dg==</lock-integrity-org.mvnpm.at.types--react>
     <lock-integrity-org.mvnpm.at.types--scheduler>sha512:p5sGjHKSbXsNJLWZAbzmkh2+/hQOHAJ1OL4WN5aCFKRqmGa+rmv7PKpiodUPQXqQ5Yrzr49d7k/ZbMKlXZasrg==</lock-integrity-org.mvnpm.at.types--scheduler>
     <lock-integrity-org.mvnpm.at.types--warning>sha512:g3b7TmtIyl20ICxmoEH6uPz686IWKwIYiSwa5VGV+flmD4L4guj2gzcTl5mRN+h2aCoEao/1v0DpHdp2zTvNdg==</lock-integrity-org.mvnpm.at.types--warning>
     <lock-integrity-org.mvnpm--asap>sha512:HvW0yKwRqGX27xqFlAzPrFF4UvouIf3lDk3tKpU75mm3qHdOddICOoCbFgMnC82HMO5Kd3HkIqH0u62evgm+Tw==</lock-integrity-org.mvnpm--asap>
     <lock-integrity-org.mvnpm--classnames>sha512:Ab57vqhcqfKweF4Xjx+poCm985J/cVnDgx9BMeAe5IWIdmipej1hMUvANf/1Mtbi7k/apxDGvB/fmGlKTv0xUA==</lock-integrity-org.mvnpm--classnames>
-    <lock-integrity-org.mvnpm--copy-to-clipboard>sha512:9JzPUVuoardlXXSAM0InVNe+HXLw+aCT60g2xxibIz8O/zCx8PPZvu+UqEfb2OoMkikkfng6ayHYwqd2zOMHzA==</lock-integrity-org.mvnpm--copy-to-clipboard>
-    <lock-integrity-org.mvnpm--core-js>sha512:B8nJpg2J8ce9Y/23gfcDqYKLbo64FVhfrDiJuJ0HBAuKb0oW4GtnKb4CGeo0ROnXNggcefmMX+Xou2FplY7eFA==</lock-integrity-org.mvnpm--core-js>
-    <lock-integrity-org.mvnpm--csstype>sha512:nF2ZB45uxHSdPCrrSTh1aCmTfYBb6AXizqA8Le9rWKUriYV7fhlWFf0GzYU0oytobOJOo3WuJmYsuPjLpsvUVQ==</lock-integrity-org.mvnpm--csstype>
+    <lock-integrity-org.mvnpm--classnames>sha512:YGQfP2R/fy46s+tCAIHQ1UEMrO6RA9XgxEK9Asd+gDpKDceWeRGVzCvOsiKSbQv4TRf2inAII40tn5rMoOdYlQ==</lock-integrity-org.mvnpm--classnames>
+    <lock-integrity-org.mvnpm--copy-to-clipboard>sha512:3iX/nxhu1jlramamevuW7FU67Dl0xp7/28+IVN+bU2AwCRk9rQwS8lrGCoqaT5nN2gnicTKHyPLcXDcmO0JElw==</lock-integrity-org.mvnpm--copy-to-clipboard>
+    <lock-integrity-org.mvnpm--core-js>sha512:rUI79zNbFAkPtSrkqHFAi3SnQnJgEE95kTzjMkY7baIs3qhdqvZ52dN1ShQQqlM5y5HR4khsJ1Brq1CnYrrXRQ==</lock-integrity-org.mvnpm--core-js>
+    <lock-integrity-org.mvnpm--csstype>sha512:qfS9qvw07XVA+qW2AEyXTIGSdogXvb9MQ7KXIC3/MigwHbHFMJOyLsP8yyCmdfdDmjycRcmufaEtFn1JxcYBzw==</lock-integrity-org.mvnpm--csstype>
     <lock-integrity-org.mvnpm--debug>sha512:Nj7FgIOvQwzPcsAugdf1BlL95iOet6KLVZNlT8mtLgCVYQ4/SKGhU3XUoMTwYdhcnzqFS6ecLQm3aIqHoZSl/Q==</lock-integrity-org.mvnpm--debug>
     <lock-integrity-org.mvnpm--dequal>sha512:zpZCCs1ISI0JGHjgB74n8WIwfSbHfKnvk4d5FzfL2RZr5IHb04i+Yy7N/Mrv7d2X44bCY3hGJXvPy1C3v6wkcw==</lock-integrity-org.mvnpm--dequal>
     <lock-integrity-org.mvnpm--dlv>sha512:mhqqHTgYuFHU4UtKYwuASRZPyPCZmxnYfB46E4WA9lHR+Q0eY0kBD1/8bVbIPlknTSW9Incy03ZGruSCA/+1IA==</lock-integrity-org.mvnpm--dlv>
@@ -1142,15 +1163,15 @@
     <lock-integrity-org.mvnpm--prop-types>sha512:Ex1s5Si9mVDPiGeFp58jLHEIcEqnXpusIZ5EKC9I08Fo+IP/r//X/ksMNrXv/At968JlzsdNd0qyxY24O6tbJA==</lock-integrity-org.mvnpm--prop-types>
     <lock-integrity-org.mvnpm--raf>sha512:W66OEDMBTTum+55eo6zy+C3lJSdAz3e4PgBB1uwNINJUnbWUs2oAt4jidebbJeVHc8ySzJPevLTVntUxFPM1mA==</lock-integrity-org.mvnpm--raf>
     <lock-integrity-org.mvnpm--react-app-polyfill>sha512:Y2Wdqlib+kUDyOnRz0ovj2s/pX4NlrVhhumKMBgEUOIEHxcMtR86lqDJSC0MeN7Yg3GV8NkHPeg+owsJcHQHHA==</lock-integrity-org.mvnpm--react-app-polyfill>
-    <lock-integrity-org.mvnpm--react-bootstrap>sha512:L9B+WwanY+rR6OMZCJ1e4tCTUd7afq/Oy2Vod7gRH4KC9/c5eACzVPohXWYhpufeuwFl64M4HrRugaEnWPhRYw==</lock-integrity-org.mvnpm--react-bootstrap>
-    <lock-integrity-org.mvnpm--react-dom>sha512:+hME3y38obBbrkPFjB5tDWfPCNOtepVKa+5H6xcGi73b4DXOBPRoHgBMFzhtADCUOTkd5/aCtF+WO4QQNnPErw==</lock-integrity-org.mvnpm--react-dom>
-    <lock-integrity-org.mvnpm--react-hotkeys-hook>sha512:PbpuxeBc++YS1tKTAkj0ejfYj+DRRan9Pv31/u/2faOkyH3LCYuVB2saqSx96zLmpOCjjKouvdJgClX5URBjQg==</lock-integrity-org.mvnpm--react-hotkeys-hook>
-    <lock-integrity-org.mvnpm--react-icons>sha512:kOj69RIbuR18yPwuqxc1Sfk7YlQ08vLnSddwNRuhhwhcu8RSOOc9oMgzNhs85gi9A0WGp4rOo9ELmm7sE/vrYw==</lock-integrity-org.mvnpm--react-icons>
+    <lock-integrity-org.mvnpm--react-bootstrap>sha512:xVFNEekSiCUvIP7ddh+/fCx5GxxupTUmJmUMqjI7D9uDSHCRsN+NpxEm0ADqf4mZStdYSMna75/SQH6ClBHMoQ==</lock-integrity-org.mvnpm--react-bootstrap>
+    <lock-integrity-org.mvnpm--react-dom>sha512:QXSvAp5S/IxE033pmblqjTvavc1dk+h1o1V2mOMHdK/Eq/kB56e3n/sH4JR5Sc2q8tNixWBQBlVI49T0fqLH4g==</lock-integrity-org.mvnpm--react-dom>
+    <lock-integrity-org.mvnpm--react-hotkeys-hook>sha512:LJJ335abfgJ8/p2o9Z4MGdG5uv4MS0b5grIE441fao6Ao4qQa7aLkfVZNKjvXp08Sz/pLYH2VvKfxHuP6q213A==</lock-integrity-org.mvnpm--react-hotkeys-hook>
+    <lock-integrity-org.mvnpm--react-icons>sha512:plMICpiboU3az5ZrEYdh/opD5hP1Z/iOsodxZUu+JUyfcLrVuk2WYOPtzo3Q9V3TDnR/MnYfhvP4H4vcOG0RNA==</lock-integrity-org.mvnpm--react-icons>
     <lock-integrity-org.mvnpm--react-is>sha512:Qjq8bbTXDnUR/ttGWyjzb6Tzrq9Xdc0hp8etEPwosOoIDldFZiGX+CBlHnxz0Kd3U+SS/ZsvuzHu4ZAW5WzpaA==</lock-integrity-org.mvnpm--react-is>
     <lock-integrity-org.mvnpm--react-lifecycles-compat>sha512:5Uv6p5dOmTHPCxW4wLwLqptSQ2YncArtrYnjXv4fYzKlyksvC1p0ZbtAtK+delqDQBVPbakqqwfV3YfbXzdggQ==</lock-integrity-org.mvnpm--react-lifecycles-compat>
     <lock-integrity-org.mvnpm--react-overlays>sha512:CCHavPHYZzeQ8BQlnA9YzGhXob1DwjNfu0Vu8jWF1vqJ0Nk/3n/0S/5//fXy4l76k8wa0AAHbx6+Kvas9Fd7KQ==</lock-integrity-org.mvnpm--react-overlays>
     <lock-integrity-org.mvnpm--react-transition-group>sha512:wat4tpgqKPhsh/Gba1QJBkhbss5mzKBTeNZK3LPRf1B13OL5sRyWwSWtqXDg0y84GkDFZVBSxWgmh2dxGq34aA==</lock-integrity-org.mvnpm--react-transition-group>
-    <lock-integrity-org.mvnpm--react>sha512:Q0JyR1So7FHnWiclQpAilYkH6zclgt+nDzMQlINUSJixkQNTTpcGy5TDwWLzxOcPx9kWSJ14dnNL6zkFPFWVug==</lock-integrity-org.mvnpm--react>
+    <lock-integrity-org.mvnpm--react>sha512:hBX3bj4JwmbziIM9wcU7xw+GpKi+A8yXyh+6c44FCpj5wDNHKT5SCIWiH3ZviBNAF3zxloqSRavMZ85Opk4yHw==</lock-integrity-org.mvnpm--react>
     <lock-integrity-org.mvnpm--regenerator-runtime>sha512:Pnpc73cK56SYbXteUXWCgMzOVfMk/jkZWiknMZJ6EGADfikT0Qs52YDLKF91a8cBdCxVwq7lCD1gTo80C/N/bA==</lock-integrity-org.mvnpm--regenerator-runtime>
     <lock-integrity-org.mvnpm--resolve>sha512:VTSytR5gAyqmWv9ybeZfkfVHwKJ3UNH6cZCPxVJSbuJqmz9VVPWR8bDzxED/++BpmgmF6RUgvdcpnJKiElo+Mw==</lock-integrity-org.mvnpm--resolve>
     <lock-integrity-org.mvnpm--scheduler>sha512:h2PhYx9JI5g2RqQqb/aOidObLi/8pT8h7CiCLukoRvwF3HoU7m8rfag7/11t26jJRgGgDqVN914nKVMSkSOe0Q==</lock-integrity-org.mvnpm--scheduler>
@@ -1164,7 +1185,7 @@
     <lock-integrity-org.mvnpm--unfetch>sha512:a5KHHO+ZK/1pmv0rKWIkxEzX9TliNBciTCuUJl4ZnngSRgGjBT8HNdCmMm0aNrLkmSvlvKNXa2WuZ2Jd40SWOQ==</lock-integrity-org.mvnpm--unfetch>
     <lock-integrity-org.mvnpm--warning>sha512:V1ovkdwB7CChwyx1GDSWWm1M5ZjvdDzxQiBESO8YxN5fjuW+T8tI27CiQNsAECZRnVn6kGKbyZyZZ5nbeNy1dg==</lock-integrity-org.mvnpm--warning>
     <lock-integrity-org.mvnpm--webidl-conversions>sha512:uIsLO3qYv76C4RHFmMPVF7U7BjyO85eGL3X7APOndgJO15G6/oHiW1mcC2tyBPq7e3IZmFcq1VOMfn/jszff4Q==</lock-integrity-org.mvnpm--webidl-conversions>
-    <lock-integrity-org.mvnpm--whatwg-fetch>sha512:si5ryTIXyDOk+Re06YIFtyYyAPu85zj9hErJFCKGnbqcDaitmDyf5nJlMHYi8nAcWU9DSjxC+u3guwv+UNTR3g==</lock-integrity-org.mvnpm--whatwg-fetch>
+    <lock-integrity-org.mvnpm--whatwg-fetch>sha512:/iENmHe03/ldhSlUrurfHxOg1xq1SLbEzqbdEPcTgor/sVG4xS91Ap8zYOQSPhPD6TENB3h5Wk7bI5Mms4jkFQ==</lock-integrity-org.mvnpm--whatwg-fetch>
     <lock-integrity-org.mvnpm--whatwg-url>sha512:PZ6nk6clVbfRX3C9/VMK/z25KEoNSUa48SKGDmJJYu0JI0BPoKS+P7WZVFGyFfAa912ES5upjJ/f3VWX7i6aqA==</lock-integrity-org.mvnpm--whatwg-url>
   </properties>
 </project>

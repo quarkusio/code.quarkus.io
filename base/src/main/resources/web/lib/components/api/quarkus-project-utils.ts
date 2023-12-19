@@ -349,14 +349,30 @@ export function retrieveProjectFromLocalStorage() : QuarkusProject | undefined {
       return undefined;
     }
 
-    const project = JSON.parse(jsonProject!) as QuarkusProject;
-    if (!isValidQuarkusProject(project)) {
-      return undefined;
-    }
+    const payload = JSON.parse(jsonProject!) as ProjectPayload;
 
-    //should not store streamKey
-    project.streamKey = undefined;
-  
+    const project = newDefaultProject();
+    if(payload.groupId) {
+      project.metadata.groupId = payload.groupId;
+    }
+    if(payload.artifactId) {
+      project.metadata.artifactId = payload.artifactId;
+    }
+    if(payload.version) {
+      project.metadata.version = payload.version;
+    }
+    if(payload.buildTool) {
+      project.metadata.buildTool = payload.buildTool;
+    }
+    if(payload.javaVersion) {
+      project.metadata.javaVersion = payload.javaVersion;
+    }
+    if(payload.noCode) {
+      project.metadata.noCode = payload.noCode;
+    }
+    if(payload.extensions) {
+      project.extensions = payload.extensions;
+    }
     return project;
   } catch (err) {
     return undefined;
@@ -364,7 +380,9 @@ export function retrieveProjectFromLocalStorage() : QuarkusProject | undefined {
 }
 
 export function saveProjectToLocalStorage(project : QuarkusProject) {
-  const jsonProject = JSON.stringify(project);
+  const projectPayload = generateProjectPayload(project);
+  projectPayload.streamKey = null;
+  const jsonProject = JSON.stringify(projectPayload);
   localStorage.setItem(LocalStorageKey.DEFAULT_PROJECT, jsonProject);
 }
 
@@ -375,15 +393,4 @@ export function resetProjectToDefault() {
 export function existsStoredProject(): boolean {
   const jsonProject = localStorage.getItem(LocalStorageKey.DEFAULT_PROJECT);
   return jsonProject !== null;
-}
-
-//Basic validation (prevent changes on localstorage json, breaking project structure)
-function isValidQuarkusProject(project : QuarkusProject): Boolean {
-  return project.metadata !== undefined &&
-    project.metadata.groupId !== undefined &&
-    project.metadata.artifactId !== undefined &&
-    project.metadata.version !== undefined &&
-    project.metadata.buildTool !== undefined &&
-    project.metadata.javaVersion !== undefined &&
-    project.extensions !== undefined;
 }

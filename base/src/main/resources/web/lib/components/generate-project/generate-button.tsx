@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useState } from 'react';
+import { MouseEventHandler, useState } from 'react';
 import { useAnalytics } from '../../core/analytics';
 import { createOnGitHub, getProjectDownloadUrl, Target, existsStoredProject } from '../api/quarkus-project-utils';
 import { QuarkusProject } from '../api/model';
@@ -69,7 +69,7 @@ export function GenerateButton(props: { api: Api, project: QuarkusProject, isPro
   return (
     <Dropdown as={ButtonGroup} show={isMoreOpen} onMouseLeave={onMouseLeaveFn} className="generate-project-button">
       <GenerateButtonPrimary onClick={defaultGenerate} disabled={!props.isProjectValid} />
-      <DropdownToggle className="generate-button-split-more" disabled={!props.isProjectValid} onMouseEnter={onMouseEnterFn} >
+      <DropdownToggle aria-label="More options to get the app" className="generate-button-split-more" disabled={!props.isProjectValid} onMouseEnter={onMouseEnterFn} >
         {isMoreOpen ? <FaAngleUp /> : <FaAngleDown />}
       </DropdownToggle>
       <Dropdown.Menu onMouseEnter={onMouseEnterFn} align="right">
@@ -89,7 +89,7 @@ export function GenerateButton(props: { api: Api, project: QuarkusProject, isPro
               Store current app as default  
             </span>
             
-            <div role="button" className="reset-config-button" onClick={resetStoredAppConfig}>
+            <div role="button" aria-label="Restore default app" className="restore-config-button" onClick={resetStoredAppConfig}>
               { isResetEnabled && <FaTrashAlt className="reset-to-default"/> }
             </div>
            </div>

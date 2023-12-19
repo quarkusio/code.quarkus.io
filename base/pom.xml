@@ -67,10 +67,6 @@
       <artifactId>quarkus-rest-client-reactive</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.quarkiverse.qute.web</groupId>
-      <artifactId>quarkus-qute-web</artifactId>
-    </dependency>
-    <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-rest-client-reactive-jackson</artifactId>
     </dependency>
@@ -134,16 +130,19 @@
       <groupId>org.mvnpm</groupId>
       <artifactId>react</artifactId>
       <version>18.2.0</version>
+      <classifier>sources</classifier>
     </dependency>
     <dependency>
       <groupId>org.mvnpm</groupId>
       <artifactId>react-dom</artifactId>
       <version>18.2.0</version>
+      <classifier>sources</classifier>
     </dependency>
     <dependency>
       <groupId>org.mvnpm</groupId>
       <artifactId>react-bootstrap</artifactId>
       <version>1.6.4</version>
+      <classifier>sources</classifier>
     </dependency>
     <dependency>
       <groupId>org.mvnpm</groupId>
@@ -154,31 +153,36 @@
       <groupId>org.mvnpm</groupId>
       <artifactId>react-hotkeys-hook</artifactId>
       <version>4.4.1</version>
+      <classifier>sources</classifier>
     </dependency>
     <dependency>
       <groupId>org.mvnpm</groupId>
       <artifactId>react-icons</artifactId>
       <version>4.4.0</version>
+      <classifier>sources</classifier>
     </dependency>
     <dependency>
       <groupId>org.mvnpm</groupId>
       <artifactId>copy-to-clipboard</artifactId>
       <version>3.3.3</version>
+      <classifier>sources</classifier>
     </dependency>
     <dependency>
       <groupId>org.mvnpm</groupId>
       <artifactId>classnames</artifactId>
       <version>2.3.2</version>
+      <classifier>sources</classifier>
     </dependency>
     <dependency>
       <groupId>org.mvnpm.at.sentry</groupId>
       <artifactId>browser</artifactId>
       <version>7.63.0</version>
+      <classifier>sources</classifier>
     </dependency>
     <dependency>
       <groupId>org.mvnpm.at.segment</groupId>
       <artifactId>analytics-next</artifactId>
-      <version>1.53.3</version>
+      <version>1.62.0</version>
       <exclusions>
         <exclusion>
           <groupId>org.mvnpm</groupId>
@@ -190,7 +194,11 @@
       <groupId>org.mvnpm.at.rehooks</groupId>
       <artifactId>local-storage</artifactId>
       <version>2.4.5</version>
+      <classifier>sources</classifier>
     </dependency>
+
+
+    <!-- Tests -->
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-compress</artifactId>

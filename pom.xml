@@ -14,12 +14,11 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-    <quarkus.platform.version>3.6.1</quarkus.platform.version>
+    <quarkus.platform.version>3.6.3</quarkus.platform.version>
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.1.2</surefire-plugin.version>
-    <quarkus-web-bundler.version>999-SNAPSHOT</quarkus-web-bundler.version>
+    <quarkus-web-bundler.version>1.2.0.CR1</quarkus-web-bundler.version>
     <quarkus-playwright.version>0.0.1</quarkus-playwright.version>
-    <quarkus-qute-web.version>3.0.0</quarkus-qute-web.version>
   </properties>
   <modules>
     <module>base/.locker</module>
@@ -44,11 +43,6 @@
         <groupId>io.quarkiverse.playwright</groupId>
         <artifactId>quarkus-playwright</artifactId>
         <version>${quarkus-playwright.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.quarkiverse.qute.web</groupId>
-        <artifactId>quarkus-qute-web</artifactId>
-        <version>${quarkus-qute-web.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

@@ -42,7 +42,7 @@ export function ExtensionTags(props: { name?: string; tagsDef: TagEntry[]; hover
       delay={{ show: 200, hide: 0 }}
     >
       <Dropdown.Toggle as="div"
-        className={`extension-tag ${props.name.toLowerCase()}`}
+        className={`extension-tag ${props.name.toLowerCase().replace(":", "-")}`}
         style={{ borderColor: tagDef.color!! }}>{tag}</Dropdown.Toggle>
       <Dropdown.Menu>{tooltip}</Dropdown.Menu>
     </HoverControlledDropdown>

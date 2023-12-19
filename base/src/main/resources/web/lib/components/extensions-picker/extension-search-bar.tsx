@@ -59,7 +59,7 @@ function FilterShortcutsDropdown(props: ExtensionSearchBarProps) {
   const filters = _.sortBy(Object.entries(props.result?.filters || {}), f => f[0]);
   return (
     <Dropdown  className="filter-shortcut" onClick={(e) => e.stopPropagation()} onToggle={setIsOpen} show={isOpen}>
-      <Dropdown.Toggle className="filter-shortcut-button">
+      <Dropdown.Toggle className="filter-shortcut-button" aria-label="Toggle search filters">
         Filters {isOpen ? <FaAngleUp /> : <FaAngleDown />}
       </Dropdown.Toggle>
       <Dropdown.Menu
@@ -68,23 +68,23 @@ function FilterShortcutsDropdown(props: ExtensionSearchBarProps) {
       >
         <DropdownItem as={ListItem}>
           origin:&nbsp;
-          <span onClick={clickPlatform} className={classNames( 'origin', { 'active': origin === 'platform' })}>platform</span>
-          <span onClick={clickOther}  className={classNames( 'origin', { 'active': origin === 'other' })}>other</span>
+          <span onClick={clickPlatform} aria-label="Toggle origin:platform filter" className={classNames( 'origin',origin === 'platform' ? 'active': 'inactive')}>platform</span>
+          <span onClick={clickOther} aria-label="Toggle origin:other filter"  className={classNames( 'origin',  origin === 'other' ? 'active': 'inactive')}>other</span>
         </DropdownItem>
         {filters.length > 0 && filters.map((t: any, i) => (
           <DropdownItem as={ListItem} key={i}>
             {t[0]}:&nbsp;
             {t[1].active.map((v, i) => (
-              <span className={`${t[0]} active`} key={i} onClick={() => clearFilter(t[0], v)}>{v}</span>
+              <span className={`${t[0]} active`} key={i} aria-label={`Remove ${t[0]}:${v} filter`} onClick={() => clearFilter(t[0], v)}>{v}</span>
             ))}
             {t[1].inactive.map((v, i) => (
-              <span className={`${t[0]} inactive`} key={i} onClick={() => addFilter(t[0], v)}>{v}</span>
+              <span className={`${t[0]} inactive`} key={i} aria-label={`Filter by ${t[0]}:${v}`} onClick={() => addFilter(t[0], v)}>{v}</span>
             ))}
           </DropdownItem>
         ))}
         {props.result?.filtered && (
-          <DropdownItem key="clear" className='clear-filter' as={Button} onClick={() => props.setFilter(DEFAULT_FILTER)}>
-          Clear filters
+          <DropdownItem key="clear" aria-label="Clear search" className='clear-filter' as={Button} onClick={() => props.setFilter(DEFAULT_FILTER)}>
+          Clear search
           </DropdownItem>
         )}
       </Dropdown.Menu>

@@ -4,9 +4,10 @@
 .factorypath
 .settings/
 bin/
-node_modules
+node_modules/
 
-node_modules
+.quarkus/
+
 
 # IntelliJ
 .idea
@@ -14,7 +15,6 @@ node_modules
 *.iml
 *.iws
 
-node_modules
 .yarn
 .bit
 

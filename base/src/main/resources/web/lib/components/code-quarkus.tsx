@@ -21,10 +21,14 @@ export interface ConfiguredCodeQuarkusProps {
 
 const queryParams = getQueryParams();
 
+const initialFilterQueryParam = resolveInitialFilterQueryParam();
+
+const initialProject = resolveInitialProject(queryParams);
+
 export function ConfiguredCodeQuarkus(props: ConfiguredCodeQuarkusProps) {
   const [ analytics, setAnalytics ] = React.useState<Analytics>(useAnalytics());
-  const [ filter, setFilter ] = React.useState(resolveInitialFilterQueryParam());
-  const [ project, setProject ] = React.useState<QuarkusProject>(resolveInitialProject(queryParams));
+  const [ filter, setFilter ] = React.useState(initialFilterQueryParam);
+  const [ project, setProject ] = React.useState<QuarkusProject>(initialProject);
 
   React.useEffect(() => {
     setAnalytics((prev) => {
