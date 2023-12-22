@@ -1,0 +1,8 @@
+*
+!src
+!mvnw
+!.mvn
+!pom.xml
+!base/*
+!community-app/*
+!acceptance-test/*

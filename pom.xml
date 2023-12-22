@@ -20,11 +20,6 @@
     <quarkus-web-bundler.version>1.2.0.CR1</quarkus-web-bundler.version>
     <quarkus-playwright.version>0.0.1</quarkus-playwright.version>
   </properties>
-  <modules>
-    <module>base/.locker</module>
-    <module>base</module>
-    <module>community-app</module>
-  </modules>
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -89,6 +84,23 @@
     </plugins>
   </build>
   <profiles>
+    <profile>
+      <id>app</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <modules>
+        <module>base/.locker</module>
+        <module>base</module>
+        <module>community-app</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>acceptance-test</id>
+      <modules>
+        <module>acceptance-test</module>
+      </modules>
+    </profile>
     <profile>
       <id>native</id>
       <activation>
