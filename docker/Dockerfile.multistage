@@ -1,0 +1,42 @@
+## Stage 1 : build with maven builder image
+FROM registry.access.redhat.com/ubi8/openjdk-21:1.18 AS build
+ARG MAVEN_BUILD_EXTRA_ARGS=
+RUN echo "$MAVEN_BUILD_EXTRA_ARGS"
+
+COPY mvnw pom.xml maven-settings.xml* /usr/src/app/
+COPY base/pom.xml /usr/src/app/base/
+COPY base/.locker/pom.xml /usr/src/app/base/.locker/
+COPY community-app/pom.xml /usr/src/app/community-app/
+COPY .mvn /usr/src/app/.mvn
+RUN cd /usr/src/app/ && ./mvnw verify clean --fail-never
+COPY base/src /usr/src/app/base/src
+COPY community-app/src /usr/src/app/community-app/src
+USER root
+RUN chown -R 185 /usr/src/app
+RUN microdnf install -y gzip atk at-spi2-atk libdrm libxkbcommon at-spi2-core libXdamage libXfixes libXrandr mesa-libgbm pango cairo && microdnf clean all
+USER 185
+RUN cd /usr/src/app/ && ./mvnw clean install -DskipTests -Dlib $MAVEN_BUILD_EXTRA_ARGS
+
+## Stage 2 : create the docker final image
+FROM registry.access.redhat.com/ubi8/openjdk-21:1.18
+
+ARG MAVEN_EXTRA_ARGS=
+RUN echo "$MAVEN_EXTRA_ARGS"
+
+ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' QUARKUS_LOCAL_REPO=/tmp/.m2
+
+RUN mkdir $QUARKUS_LOCAL_REPO \
+    && chown 185 $QUARKUS_LOCAL_REPO \
+    && chmod "g+rwX" $QUARKUS_LOCAL_REPO
+
+# We make four distinct layers so if there are application changes the library layers can be re-used
+COPY --from=build --chown=185 usr/src/app/community-app/target/quarkus-app/*.jar usr/src/app/maven-settings.xml* /deployments/
+COPY --from=build --chown=185 usr/src/app/community-app/target/quarkus-app/lib/ /deployments/lib/
+COPY --from=build --chown=185 usr/src/app/community-app/target/quarkus-app/app/ /deployments/app/
+COPY --from=build --chown=185 usr/src/app/community-app/target/quarkus-app/quarkus/ /deployments/quarkus/
+
+EXPOSE 8080
+USER 185
+ENV AB_JOLOKIA_OFF=""
+ENV JAVA_OPTS_APPEND="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dfile.encoding=UTF-8 $MAVEN_EXTRA_ARGS"
+ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"

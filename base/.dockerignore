@@ -1,0 +1,11 @@
+*
+!src
+!mvnw
+!.mvn
+!pom.xml
+!.locker/pom.xml
+!target/*-runner
+!target/*-runner.jar
+!target/lib/*
+!target/quarkus-app/*
+!maven-settings.xml

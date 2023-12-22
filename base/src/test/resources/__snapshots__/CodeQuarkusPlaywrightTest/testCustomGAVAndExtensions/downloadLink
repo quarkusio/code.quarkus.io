@@ -1,0 +1,1 @@
+http://localhost:8083/d?g=io.test.group&a=custom-test-app&v=1.0.0-TEST&e=grpc&e=resteasy&e=resteasy-jackson&cn=localhost

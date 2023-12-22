@@ -1,0 +1,49 @@
+---
+apiVersion: v1
+kind: Template
+metadata:
+  name: code-quarkus-acceptance-test
+objects:
+  - apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: code-quarkus-acceptance-test-${IMAGE_TAG}
+    spec:
+      backoffLimit: 2
+      template:
+        spec:
+          restartPolicy: Never
+          containers:
+            - image: quay.io/quarkus/code-quarkus-acceptance-test:latest
+              imagePullPolicy: Always
+              name: code-quarkus-acceptance-test
+              env:
+                - name: TEST_CONFIG_URL
+                  value: ${CODE_QUARKUS_STAGING_URL}
+              resources:
+                requests:
+                  cpu: ${CPU_REQUEST}
+                  memory: ${MEMORY_REQUEST}
+                limits:
+                  cpu: ${CPU_LIMIT}
+                  memory: ${MEMORY_LIMIT}
+parameters:
+  - name: IMAGE_TAG
+    value: ''
+    required: true
+  - name: CODE_QUARKUS_STAGING_URL
+    value: 'https://stage.code.quarkus.io'
+    optional: true
+  - name: CPU_REQUEST
+    required: true
+    value: 400m
+  - name: CPU_LIMIT
+    required: true
+    value: 1000m
+  - name: MEMORY_REQUEST
+    required: true
+    value: 768Mi
+  - displayName: Memory limit
+    required: true
+    name: MEMORY_LIMIT
+    value: 1Gi

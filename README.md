@@ -1,49 +1,26 @@
 # Code Quarkus App
 
- [![API Tests](https://github.com/quarkusio/code.quarkus.io/actions/workflows/api.tests.actions.yml/badge.svg)](https://github.com/quarkusio/code.quarkus.io/actions/workflows/api.tests.actions.yml) [![Frontend Tests](https://github.com/quarkusio/code.quarkus.io/actions/workflows/frontend.tests.actions.yml/badge.svg)](https://github.com/quarkusio/code.quarkus.io/actions/workflows/frontend.tests.actions.yml)
- [![Code Quarkus Library CI](https://github.com/quarkusio/code.quarkus.io/actions/workflows/library.publish.actions.yml/badge.svg)](https://github.com/quarkusio/code.quarkus.io/actions/workflows/library.publish.actions.yml)
+ [![API Tests](https://github.com/quarkusio/code.quarkus.io/actions/workflows/build.actions.yml/badge.svg)](https://github.com/quarkusio/code.quarkus.io/actions/workflows/build.actions.yml)
 
 # Development
 
-> Have a look at the Makefile to find the most used dev commands.
+Api is located in `src/main/java`
+UI is located in `src/main/resources/web/`
 
-Link the library for dev:
+Build the library locally:
 ```
-make link-lib
-```
-
-Use this command to start dev mode (on: http://0.0.0.0:8080).
-```
-make dev
+mvn clean install -Dlib
 ```
 
-Or use those command to start the api in packaged mode (on: http://0.0.0.0:8080).
+After building, use this command to start the `community-app` in production mode:
 ```
-make build-api
-make start-api
-```
-
-If you want to unlink the local library and use the npm package library in the frontend:
-```
-make unlink-lib
+java -jar community-app/target/quarkus-app/quarkus-run.jar
 ```
 
-# Publishing a change in the library to npm
-
-## @quarkusio/code-quarkus library NPM packages
-
-- https://www.npmjs.com/package/@quarkusio/code-quarkus.components
-- https://www.npmjs.com/package/@quarkusio/code-quarkus.core.analytics
-- https://www.npmjs.com/package/@quarkusio/code-quarkus.core.components
-- https://www.npmjs.com/package/@quarkusio/code-quarkus.core.types
-
-
-On your PR which contains the changes, run (before committing):
+Use this command to start `community-app` dev mode on: http://0.0.0.0:8080 (Api and UI).
 ```
-make tag-lib
+cd base && quarkus dev
 ```
-
-It will automatically change the `.bitmap` file, which will trigger a GH action when the PR gets merged to publish a new version in npm.
 
 # Staging
 

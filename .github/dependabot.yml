@@ -1,18 +1,15 @@
 version: 2
 updates:
 - package-ecosystem: "npm"
-  directory: "/library"
+  directory: "/"
   schedule:
     interval: "daily"
-- package-ecosystem: "npm"
-  directory: "/frontend"
-  schedule:
-    interval: "daily"
-- package-ecosystem: "maven"
-  directory: "/api"
-  schedule:
-    interval: "daily"
-- package-ecosystem: "maven"
-  directory: "/acceptance-test"
-  schedule:
-    interval: "daily"
+  groups:
+    quarkus:
+      patterns:
+        - "quarkus.*"
+    dependencies:
+      patterns:
+        - "*"
+      exclude-patterns:
+        - "quarkus.*"
