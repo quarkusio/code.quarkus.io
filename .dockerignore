@@ -6,3 +6,4 @@
 !base/*
 !community-app/*
 !acceptance-test/*
+!docker/*
