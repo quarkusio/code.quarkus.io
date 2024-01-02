@@ -7,7 +7,7 @@ COPY mvnw pom.xml maven-settings.xml* /usr/src/app/
 COPY acceptance-test/pom.xml /usr/src/app/acceptance-test/
 COPY .mvn /usr/src/app/.mvn
 
-RUN cd /usr/src/app/ && ./mvnw verify clean --fail-never
+RUN cd /usr/src/app/ && ./mvnw verify clean -P\!app --fail-never
 COPY acceptance-test/src /usr/src/app/acceptance-test/src
 USER root
 RUN chown -R 185 /usr/src/app

@@ -8,7 +8,7 @@ COPY base/pom.xml /usr/src/app/base/
 COPY base/.locker/pom.xml /usr/src/app/base/.locker/
 COPY community-app/pom.xml /usr/src/app/community-app/
 COPY .mvn /usr/src/app/.mvn
-RUN cd /usr/src/app/ && ./mvnw verify clean --fail-never
+RUN cd /usr/src/app/ && ./mvnw verify clean  -Dlib --fail-never
 COPY base/src /usr/src/app/base/src
 COPY community-app/src /usr/src/app/community-app/src
 USER root
