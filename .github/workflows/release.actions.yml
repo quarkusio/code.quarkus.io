@@ -50,7 +50,7 @@ jobs:
           echo "Next release version is: $release_version"
           next_dev_version="$(( ${current_version} + 1 ))-SNAPSHOT"
           echo "Next development version is: $next_dev_version"
-          mvn -B release:prepare -DreleaseVersion=${current_version} -DdevelopmentVersion=${next_dev_version} -Prelease
+          mvn -B release:prepare -DreleaseVersion=${current_version} -DdevelopmentVersion=${next_dev_version} -Dlib -Prelease
           mvn -B release:perform -Darguments=-Dlib -Prelease
           echo "::set-output name=release_version::$release_version"
           echo "::set-output name=next_dev_version::$next_dev_version"
