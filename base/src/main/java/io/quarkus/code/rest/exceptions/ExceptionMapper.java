@@ -17,7 +17,7 @@ public class ExceptionMapper {
         if (Log.isDebugEnabled() || LaunchMode.current().isDevOrTest()) {
             Log.error(exception.getMessage(), exception);
         }
-        if(exception instanceof WebApplicationException) {
+        if (exception instanceof WebApplicationException) {
             return Uni.createFrom().item(((WebApplicationException) exception).getResponse());
         }
         return Uni.createFrom().item(Response.serverError().build());

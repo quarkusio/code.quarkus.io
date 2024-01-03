@@ -1,3 +1,4 @@
 package io.quarkus.code.model;
 
-public record CreatedProject(String path) {}
+public record CreatedProject(String path) {
+}

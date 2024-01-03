@@ -149,7 +149,7 @@ public class PlatformService {
         }
         Map<String, PlatformInfo> updatedStreamCatalogMap = new HashMap<>();
         if (platformCatalog == null || platformCatalog.getMetadata() == null
-            || platformCatalog.getPlatforms() == null) {
+                || platformCatalog.getPlatforms() == null) {
             throw new RuntimeException("Platform catalog not found");
         }
 
@@ -158,7 +158,7 @@ public class PlatformService {
             throw new RuntimeException("Platform last updated date is empty");
         }
         if (platformServiceCacheRef.get() != null
-            && platformServiceCacheRef.get().platformTimestamp().equals(platformTimestamp)) {
+                && platformServiceCacheRef.get().platformTimestamp().equals(platformTimestamp)) {
             LOG.log(Level.INFO, "The platform cache is up to date with the registry");
             return;
         }
@@ -223,19 +223,18 @@ public class PlatformService {
 
         platformServiceCacheRef.set(newCache);
         Log.infof("""
-                        PlatformService cache has been reloaded successfully:
-                        platform timestamp: %s
-                        recommended stream key: %s (core: %s, platform: %s)
-                        recommended stream extensions: %d
-                        available streams: %s
-                        """.stripIndent(),
+                PlatformService cache has been reloaded successfully:
+                platform timestamp: %s
+                recommended stream key: %s (core: %s, platform: %s)
+                recommended stream extensions: %d
+                available streams: %s
+                """.stripIndent(),
                 platformTimestamp,
                 recommendedStreamKey(),
                 recommendedPlatformInfo().quarkusCoreVersion(),
                 recommendedPlatformInfo().platformVersion(),
                 recommendedCodeQuarkusExtensions().size(),
-                String.join(", ", updatedStreamCatalogMap.keySet())
-        );
+                String.join(", ", updatedStreamCatalogMap.keySet()));
     }
 
     private void checkNewCache(PlatformServiceCache newCache) throws IOException, QuarkusCommandException {

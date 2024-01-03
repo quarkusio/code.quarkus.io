@@ -19,6 +19,6 @@ public interface GitHubOAuthClient {
             String client_id,
             String client_secret,
             String code,
-            String state
-    ) {}
+            String state) {
+    }
 }

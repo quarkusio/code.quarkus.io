@@ -6,13 +6,12 @@ import java.util.List;
 
 @JsonInclude(Include.NON_NULL)
 public record PublicConfig(
-    String environment,
-    String segmentWriteKey,
-    String sentryDSN,
-    String quarkusPlatformVersion,
-    String quarkusDevtoolsVersion,
-    @Deprecated
-    String quarkusVersion,
-    String gitHubClientId,
-    String gitCommitId
-) {}
+        String environment,
+        String segmentWriteKey,
+        String sentryDSN,
+        String quarkusPlatformVersion,
+        String quarkusDevtoolsVersion,
+        @Deprecated String quarkusVersion,
+        String gitHubClientId,
+        String gitCommitId) {
+}

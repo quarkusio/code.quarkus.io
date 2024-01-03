@@ -41,12 +41,13 @@ public class GitHubResource {
     @Inject
     private GitHubService gitHubService;
 
-    @Inject GitHubConfig config;
+    @Inject
+    GitHubConfig config;
 
     public void onStart(@Observes StartupEvent e) {
         if (gitHubService.isEnabled()) {
             LOG.log(Level.INFO, () -> "GitHub is enabled:\n" +
-                    "clientId = " +config.clientId().orElse(null) + "\n" +
+                    "clientId = " + config.clientId().orElse(null) + "\n" +
                     "clientSecret = xxxxxxxxxx");
         } else {
             LOG.log(Level.INFO, "GitHub is disabled");
@@ -69,7 +70,8 @@ public class GitHubResource {
         var token = gitHubService.fetchAccessToken(code, state);
         var login = gitHubService.login(token.accessToken());
         if (gitHubService.repositoryExists(login, token.accessToken(), projectDefinition.artifactId())) {
-            throw new WebApplicationException("This repository name " + projectDefinition.artifactId() + " already exists", Response.Status.CONFLICT);
+            throw new WebApplicationException("This repository name " + projectDefinition.artifactId() + " already exists",
+                    Response.Status.CONFLICT);
         }
         var platformInfo = platformService.platformInfo(projectDefinition.streamKey());
         var location = projectCreator.createTmp(platformInfo, projectDefinition, true);
@@ -93,8 +95,7 @@ public class GitHubResource {
                     Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                             .entity("Error while creating GitHub repository.")
                             .type(MediaType.TEXT_PLAIN)
-                            .build()
-            );
+                            .build());
         }
         gitHubService.push(repo.ownerName(), token.accessToken(), repo.defaultBranch(), repo.url(), location);
         return repo;

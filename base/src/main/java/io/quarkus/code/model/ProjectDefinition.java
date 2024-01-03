@@ -16,31 +16,21 @@ import java.util.Set;
 public record ProjectDefinition(
         String streamKey,
 
-        @NotEmpty
-        @Pattern(regexp = GROUPID_PATTERN)
-        String groupId,
+        @NotEmpty @Pattern(regexp = GROUPID_PATTERN) String groupId,
 
-        @NotEmpty
-        @Pattern(regexp = ARTIFACTID_PATTERN)
-        String artifactId,
+        @NotEmpty @Pattern(regexp = ARTIFACTID_PATTERN) String artifactId,
 
-        @NotEmpty
-        String version,
+        @NotEmpty String version,
 
-        @Pattern(regexp = CLASSNAME_PATTERN)
-        String className,
+        @Pattern(regexp = CLASSNAME_PATTERN) String className,
 
-        @Pattern(regexp = PATH_PATTERN)
-        String path,
+        @Pattern(regexp = PATH_PATTERN) String path,
 
-        @NotEmpty
-        @Pattern(regexp = BUILDTOOL_PATTERN)
-        String buildTool,
+        @NotEmpty @Pattern(regexp = BUILDTOOL_PATTERN) String buildTool,
         Integer javaVersion,
         Boolean noCode,
         Boolean noExamples,
-        Set<String> extensions
-) {
+        Set<String> extensions) {
 
     public ProjectDefinition {
         Objects.requireNonNull(groupId, "groupId is required");
@@ -65,9 +55,9 @@ public record ProjectDefinition(
     public static final String PATH_PATTERN = "^\\/([a-z0-9\\-._~%!$&'()*+,;=:@]+\\/?)*$";
     public static final String BUILDTOOL_PATTERN = "^(MAVEN)|(GRADLE)|(GRADLE_KOTLIN_DSL)$";
 
-
     public static ProjectDefinition of() {
-       return new ProjectDefinition(null, DEFAULT_GROUPID, DEFAULT_ARTIFACTID, DEFAULT_VERSION, null, null, DEFAULT_BUILDTOOL, null, DEFAULT_NO_CODE, DEFAULT_NO_CODE, Set.of());
+        return new ProjectDefinition(null, DEFAULT_GROUPID, DEFAULT_ARTIFACTID, DEFAULT_VERSION, null, null, DEFAULT_BUILDTOOL,
+                null, DEFAULT_NO_CODE, DEFAULT_NO_CODE, Set.of());
     }
 
     @JsonCreator
@@ -148,7 +138,8 @@ public record ProjectDefinition(
         }
 
         public ProjectDefinition build() {
-            return new ProjectDefinition(streamKey, groupId, artifactId, version, className, path, buildTool, javaVersion, noCode, noExamples, extensions);
+            return new ProjectDefinition(streamKey, groupId, artifactId, version, className, path, buildTool, javaVersion,
+                    noCode, noExamples, extensions);
         }
     }
 

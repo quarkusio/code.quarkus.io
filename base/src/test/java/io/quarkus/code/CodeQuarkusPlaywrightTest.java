@@ -42,7 +42,8 @@ public class CodeQuarkusPlaywrightTest {
     public static final String LABEL_GENERATE_YOUR_APPLICATION = "[aria-label='Generate your application']";
     public static final String LABEL_DOWNLOAD_THE_ZIP = "[aria-label='Download the zip']";
     public static final String LABEL_TOGGLE_PANEL = "[aria-label='Toggle panel']";
-    @Inject PlatformService platformService;
+    @Inject
+    PlatformService platformService;
 
     @InjectPlaywright
     BrowserContext context;
@@ -167,7 +168,8 @@ public class CodeQuarkusPlaywrightTest {
     @Test
     public void testUrlParams() {
         try (Page page = context.newPage()) {
-            Response response = page.navigate(index.toString() + "?g=my.app&a=foo&v=2.0.0&b=GRADLE&j=21&e=hibernate-orm&e=grpc&e=io.quarkus:quarkus-hibernate-validator");
+            Response response = page.navigate(index.toString()
+                    + "?g=my.app&a=foo&v=2.0.0&b=GRADLE&j=21&e=hibernate-orm&e=grpc&e=io.quarkus:quarkus-hibernate-validator");
             Assertions.assertEquals("OK", response.statusText());
             page.waitForLoadState();
             closeIntroductionModal(page);
@@ -192,7 +194,7 @@ public class CodeQuarkusPlaywrightTest {
 
     @Test
     void testSaveApp() {
-        try(Page page = openIndex()) {
+        try (Page page = openIndex()) {
             page.waitForSelector(LABEL_EDIT_GROUP_ID).fill("other.app");
             page.waitForSelector(LABEL_EDIT_ARTIFACT_ID).fill("bar");
             search(page, "grpc", null);
@@ -258,12 +260,10 @@ public class CodeQuarkusPlaywrightTest {
         page.waitForSelector(".extension-category");
         searchInput.fill(query);
         page.waitForSelector(".search-results-info");
-        if(runnable != null) {
+        if (runnable != null) {
             runnable.run();
         }
     }
-
-
 
     private static void checkDownloadLink(TestInfo testInfo, Page page) throws Throwable {
         // Click on generate button
@@ -291,7 +291,8 @@ public class CodeQuarkusPlaywrightTest {
 
     public static final class PlaywrightTestProfile implements QuarkusTestProfile {
 
-        @Override public String getConfigProfile() {
+        @Override
+        public String getConfigProfile() {
             return QuarkusTestProfile.super.getConfigProfile() + ",playwright";
         }
 

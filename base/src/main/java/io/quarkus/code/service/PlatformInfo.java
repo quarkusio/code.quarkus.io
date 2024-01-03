@@ -29,8 +29,8 @@ public class PlatformInfo {
     private final Map<String, ExtensionRef> extensionsById;
 
     public PlatformInfo(String platformKey, Stream stream, String quarkusCoreVersion, String platformVersion,
-                        boolean recommended, List<CodeQuarkusExtension> codeQuarkusExtensions,
-                        ExtensionCatalog extensionCatalog) {
+            boolean recommended, List<CodeQuarkusExtension> codeQuarkusExtensions,
+            ExtensionCatalog extensionCatalog) {
         this.platformKey = platformKey;
         this.stream = stream;
         this.quarkusCoreVersion = quarkusCoreVersion;
@@ -70,7 +70,6 @@ public class PlatformInfo {
     public boolean recommended() {
         return recommended;
     }
-
 
     public ExtensionCatalog extensionCatalog() {
         return extensionCatalog;

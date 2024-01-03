@@ -3,15 +3,15 @@ package io.quarkus.code.model;
 import java.util.SortedSet;
 
 public record Stream(
-    String key,
-    String quarkusCoreVersion,
-    JavaCompatibility javaCompatibility,
-    String platformVersion,
-    boolean recommended,
-    String status,
-    boolean lts
-) {
-    public static record JavaCompatibility(SortedSet<Integer> versions, int recommended) {}
+        String key,
+        String quarkusCoreVersion,
+        JavaCompatibility javaCompatibility,
+        String platformVersion,
+        boolean recommended,
+        String status,
+        boolean lts) {
+    public static record JavaCompatibility(SortedSet<Integer> versions, int recommended) {
+    }
 
     public static StreamBuilder builder() {
         return new StreamBuilder();

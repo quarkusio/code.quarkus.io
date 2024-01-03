@@ -29,33 +29,37 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-@Provider public class AnalyticsFilter implements ContainerRequestFilter {
+@Provider
+public class AnalyticsFilter implements ContainerRequestFilter {
 
     private static final Logger LOG = Logger.getLogger(AnalyticsFilter.class.getName());
 
-    @Inject private Instance<SegmentAnalyticsService> analyticsService;
+    @Inject
+    private Instance<SegmentAnalyticsService> analyticsService;
 
-    @Inject private Instance<PlatformService> platformService;
+    @Inject
+    private Instance<PlatformService> platformService;
 
-    @Context private HttpServerRequest httpServerRequest;
+    @Context
+    private HttpServerRequest httpServerRequest;
 
-    @Context private UriInfo info;
+    @Context
+    private UriInfo info;
 
-    @Override public void filter(ContainerRequestContext context) {
+    @Override
+    public void filter(ContainerRequestContext context) {
         try {
             MultivaluedMap<String, String> queryParams = info.getQueryParameters();
             String path = info.getPath();
-            String source = queryParams.getFirst("cn") != null ?
-                    queryParams.getFirst("cn") :
-                    context.getHeaderString("Client-Name") != null ? context.getHeaderString("Client-Name") : "unknown";
+            String source = queryParams.getFirst("cn") != null ? queryParams.getFirst("cn")
+                    : context.getHeaderString("Client-Name") != null ? context.getHeaderString("Client-Name") : "unknown";
             String url = info.getRequestUri().toString();
             String userAgent = context.getHeaders().getFirst(HttpHeaders.USER_AGENT);
             String referer = context.getHeaders().getFirst("Referer");
-            String remoteAddr =
-                    httpServerRequest.remoteAddress() != null ? httpServerRequest.remoteAddress().hostAddress() : null;
-            String uuid = remoteAddr != null ?
-                    UUID.nameUUIDFromBytes(remoteAddr.getBytes()).toString() :
-                    UUID.randomUUID().toString();
+            String remoteAddr = httpServerRequest.remoteAddress() != null ? httpServerRequest.remoteAddress().hostAddress()
+                    : null;
+            String uuid = remoteAddr != null ? UUID.nameUUIDFromBytes(remoteAddr.getBytes()).toString()
+                    : UUID.randomUUID().toString();
             String appAction = null;
             if (path.startsWith("/download")) {
                 appAction = "App Download";
@@ -125,13 +129,13 @@ import java.util.stream.Collectors;
                 noCode = ProjectDefinition.DEFAULT_NO_CODE;
             }
         } else {
-            extensions = recommendedPlatformInfo.checkAndMergeExtensions(new HashSet<>(queryParams.getOrDefault("e", List.of())));
+            extensions = recommendedPlatformInfo
+                    .checkAndMergeExtensions(new HashSet<>(queryParams.getOrDefault("e", List.of())));
             buildTool = queryParams.containsKey("b") ? queryParams.getFirst("b") : ProjectDefinition.DEFAULT_BUILDTOOL;
             streamKey = queryParams.getFirst("S");
             javaVersion = queryParams.containsKey("j") ? queryParams.getFirst("j") : null;
-            noCode = queryParams.containsKey("nc") ?
-                    Boolean.parseBoolean(queryParams.getFirst("nc")) :
-                    ProjectDefinition.DEFAULT_NO_CODE;
+            noCode = queryParams.containsKey("nc") ? Boolean.parseBoolean(queryParams.getFirst("nc"))
+                    : ProjectDefinition.DEFAULT_NO_CODE;
         }
         String resolvedStreamKey = platformService.get().platformInfo(streamKey).stream().key();
         Map<String, Object> data = new HashMap<>();

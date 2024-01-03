@@ -52,45 +52,51 @@ public class QuarkusProjectServiceTest {
         assertThatDirectoryTreeMatchSnapshots(info, projDir);
 
         assertThat(projDir.resolve("pom.xml"))
-            .satisfies(checkContains("<groupId>org.acme</groupId>"))
-            .satisfies(checkContains("<artifactId>code-with-quarkus</artifactId>"))
-            .satisfies(checkContains("<version>1.0.0-SNAPSHOT</version>"))
-            .satisfies(checkContains("<quarkus.platform.group-id>%s</quarkus.platform.group-id>".formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getGroupId())))
-            .satisfies(checkContains("<quarkus.platform.artifact-id>%s</quarkus.platform.artifact-id>".formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getArtifactId())))
-            .satisfies(checkContains("<quarkus.platform.version>%s</quarkus.platform.version>".formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getVersion())))
-            .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
-            .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive</artifactId>"))
-            .satisfies(checkContains("<artifactId>rest-assured</artifactId>"));
+                .satisfies(checkContains("<groupId>org.acme</groupId>"))
+                .satisfies(checkContains("<artifactId>code-with-quarkus</artifactId>"))
+                .satisfies(checkContains("<version>1.0.0-SNAPSHOT</version>"))
+                .satisfies(checkContains("<quarkus.platform.group-id>%s</quarkus.platform.group-id>"
+                        .formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getGroupId())))
+                .satisfies(checkContains("<quarkus.platform.artifact-id>%s</quarkus.platform.artifact-id>"
+                        .formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getArtifactId())))
+                .satisfies(checkContains("<quarkus.platform.version>%s</quarkus.platform.version>"
+                        .formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getVersion())))
+                .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
+                .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive</artifactId>"))
+                .satisfies(checkContains("<artifactId>rest-assured</artifactId>"));
 
         assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/GreetingResource.java")
-            .satisfies(checkContains("@Path(\"/hello\")"));
+                .satisfies(checkContains("@Path(\"/hello\")"));
     }
-
 
     @Test
     @DisplayName("When using default project, then, it should create all the files correctly with the requested content")
     void testDefault(TestInfo info) throws Throwable {
-    // When
-    QuarkusProjectService creator = getProjectService();
-    var projDir = creator.createTmp(platformService.recommendedPlatformInfo(), ProjectDefinition.of());
+        // When
+        QuarkusProjectService creator = getProjectService();
+        var projDir = creator.createTmp(platformService.recommendedPlatformInfo(), ProjectDefinition.of());
 
-    // Then
-    assertThatDirectoryTreeMatchSnapshots(info, projDir);
+        // Then
+        assertThatDirectoryTreeMatchSnapshots(info, projDir);
 
-    assertThat(projDir.resolve("pom.xml"))
-        .satisfies(checkContains("<groupId>org.acme</groupId>"))
-        .satisfies(checkContains("<artifactId>code-with-quarkus</artifactId>"))
-        .satisfies(checkContains("<version>1.0.0-SNAPSHOT</version>"))
-        .satisfies(checkContains("<quarkus.platform.group-id>%s</quarkus.platform.group-id>".formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getGroupId())))
-        .satisfies(checkContains("<quarkus.platform.artifact-id>%s</quarkus.platform.artifact-id>".formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getArtifactId())))
-        .satisfies(checkContains("<quarkus.platform.version>%s</quarkus.platform.version>".formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getVersion())))
-        .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
-        .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive</artifactId>"))
-        .satisfies(checkContains("<maven.compiler.release>%s</maven.compiler.release>".formatted(platformService.recommendedPlatformInfo().stream().javaCompatibility().recommended())))
-        .satisfies(checkContains("<artifactId>rest-assured</artifactId>"));
+        assertThat(projDir.resolve("pom.xml"))
+                .satisfies(checkContains("<groupId>org.acme</groupId>"))
+                .satisfies(checkContains("<artifactId>code-with-quarkus</artifactId>"))
+                .satisfies(checkContains("<version>1.0.0-SNAPSHOT</version>"))
+                .satisfies(checkContains("<quarkus.platform.group-id>%s</quarkus.platform.group-id>"
+                        .formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getGroupId())))
+                .satisfies(checkContains("<quarkus.platform.artifact-id>%s</quarkus.platform.artifact-id>"
+                        .formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getArtifactId())))
+                .satisfies(checkContains("<quarkus.platform.version>%s</quarkus.platform.version>"
+                        .formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getVersion())))
+                .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
+                .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive</artifactId>"))
+                .satisfies(checkContains("<maven.compiler.release>%s</maven.compiler.release>"
+                        .formatted(platformService.recommendedPlatformInfo().stream().javaCompatibility().recommended())))
+                .satisfies(checkContains("<artifactId>rest-assured</artifactId>"));
 
-    assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/GreetingResource.java")
-        .satisfies(checkContains("@Path(\"/hello\")"));
+        assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/GreetingResource.java")
+                .satisfies(checkContains("@Path(\"/hello\")"));
     }
 
     @Test
@@ -105,21 +111,24 @@ public class QuarkusProjectServiceTest {
         assertThatDirectoryTreeMatchSnapshots(info, projDir);
 
         assertThat(projDir.resolve("pom.xml"))
-            .satisfies(checkContains("<groupId>org.acme</groupId>"))
-            .satisfies(checkContains("<artifactId>code-with-quarkus</artifactId>"))
-            .satisfies(checkContains("<version>1.0.0-SNAPSHOT</version>"))
-            .satisfies(checkContains("<quarkus.platform.group-id>%s</quarkus.platform.group-id>".formatted(platformInfo.extensionCatalog().getBom().getGroupId())))
-            .satisfies(checkContains("<quarkus.platform.artifact-id>%s</quarkus.platform.artifact-id>".formatted(platformInfo.extensionCatalog().getBom().getArtifactId())))
-            .satisfies(checkContains("<quarkus.platform.version>%s</quarkus.platform.version>".formatted(platformInfo.extensionCatalog().getBom().getVersion())))
-            .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
-            .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive</artifactId>"))
-            .satisfies(checkContains("<maven.compiler.release>%s</maven.compiler.release>".formatted(platformService.recommendedPlatformInfo().stream().javaCompatibility().recommended())))
-            .satisfies(checkContains("<artifactId>rest-assured</artifactId>"));
+                .satisfies(checkContains("<groupId>org.acme</groupId>"))
+                .satisfies(checkContains("<artifactId>code-with-quarkus</artifactId>"))
+                .satisfies(checkContains("<version>1.0.0-SNAPSHOT</version>"))
+                .satisfies(checkContains("<quarkus.platform.group-id>%s</quarkus.platform.group-id>"
+                        .formatted(platformInfo.extensionCatalog().getBom().getGroupId())))
+                .satisfies(checkContains("<quarkus.platform.artifact-id>%s</quarkus.platform.artifact-id>"
+                        .formatted(platformInfo.extensionCatalog().getBom().getArtifactId())))
+                .satisfies(checkContains("<quarkus.platform.version>%s</quarkus.platform.version>"
+                        .formatted(platformInfo.extensionCatalog().getBom().getVersion())))
+                .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
+                .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive</artifactId>"))
+                .satisfies(checkContains("<maven.compiler.release>%s</maven.compiler.release>"
+                        .formatted(platformService.recommendedPlatformInfo().stream().javaCompatibility().recommended())))
+                .satisfies(checkContains("<artifactId>rest-assured</artifactId>"));
 
         assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/GreetingResource.java")
-            .satisfies(checkContains("@Path(\"/hello\")"));
+                .satisfies(checkContains("@Path(\"/hello\")"));
     }
-
 
     @Test
     @DisplayName("When using a custom project, then, it should create all the files correctly with the requested content")
@@ -127,20 +136,17 @@ public class QuarkusProjectServiceTest {
         // When
         QuarkusProjectService creator = getProjectService();
         byte[] proj = creator.create(
-            platformService.recommendedPlatformInfo(),
-            ProjectDefinition.builder().groupId("com.test").artifactId("test-app").version("2.0.0")
-                .className("com.test.TestResource").path("/test/it")
-                .extensions(
-                    Set.of(
-                        "io.quarkus:quarkus-resteasy-reactive",
-                        "io.quarkus:quarkus-resteasy-reactive-jsonb",
-                        "quarkus-neo4j",
-                        "hibernate-validator"
-                    )
-                )
-                .javaVersion(platformService.recommendedPlatformInfo().stream().javaCompatibility().recommended())
-                .build()
-        );
+                platformService.recommendedPlatformInfo(),
+                ProjectDefinition.builder().groupId("com.test").artifactId("test-app").version("2.0.0")
+                        .className("com.test.TestResource").path("/test/it")
+                        .extensions(
+                                Set.of(
+                                        "io.quarkus:quarkus-resteasy-reactive",
+                                        "io.quarkus:quarkus-resteasy-reactive-jsonb",
+                                        "quarkus-neo4j",
+                                        "hibernate-validator"))
+                        .javaVersion(platformService.recommendedPlatformInfo().stream().javaCompatibility().recommended())
+                        .build());
         Entry<File, List<String>> testDir = QuarkusProjectServiceTestUtils.extractProject(proj);
         Path projDir = Paths.get(testDir.getKey().toString(), "test-app");
 
@@ -148,23 +154,26 @@ public class QuarkusProjectServiceTest {
         assertThatDirectoryTreeMatchSnapshots(info, projDir);
 
         assertThat(projDir.resolve("pom.xml"))
-            .satisfies(checkContains("<groupId>com.test</groupId>"))
-            .satisfies(checkContains("<artifactId>test-app</artifactId>"))
-            .satisfies(checkContains("<version>2.0.0</version>"))
-            .satisfies(checkContains("<quarkus.platform.group-id>%s</quarkus.platform.group-id>".formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getGroupId())))
-            .satisfies(checkContains("<quarkus.platform.artifact-id>%s</quarkus.platform.artifact-id>".formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getArtifactId())))
-            .satisfies(checkContains("<quarkus.platform.version>%s</quarkus.platform.version>".formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getVersion())))
-            .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
-            .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive</artifactId>"))
-            .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive-jsonb</artifactId>"))
-            .satisfies(checkContains("<artifactId>quarkus-hibernate-validator</artifactId>"))
-            .satisfies(checkContains("<artifactId>quarkus-neo4j</artifactId>"))
-            .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
-            .satisfies(checkContains("<maven.compiler.release>%s</maven.compiler.release>".formatted(platformService.recommendedPlatformInfo().stream().javaCompatibility().recommended())));
-
+                .satisfies(checkContains("<groupId>com.test</groupId>"))
+                .satisfies(checkContains("<artifactId>test-app</artifactId>"))
+                .satisfies(checkContains("<version>2.0.0</version>"))
+                .satisfies(checkContains("<quarkus.platform.group-id>%s</quarkus.platform.group-id>"
+                        .formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getGroupId())))
+                .satisfies(checkContains("<quarkus.platform.artifact-id>%s</quarkus.platform.artifact-id>"
+                        .formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getArtifactId())))
+                .satisfies(checkContains("<quarkus.platform.version>%s</quarkus.platform.version>"
+                        .formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getVersion())))
+                .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
+                .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive</artifactId>"))
+                .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive-jsonb</artifactId>"))
+                .satisfies(checkContains("<artifactId>quarkus-hibernate-validator</artifactId>"))
+                .satisfies(checkContains("<artifactId>quarkus-neo4j</artifactId>"))
+                .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
+                .satisfies(checkContains("<maven.compiler.release>%s</maven.compiler.release>"
+                        .formatted(platformService.recommendedPlatformInfo().stream().javaCompatibility().recommended())));
 
         assertThatMatchSnapshot(info, projDir, "src/main/java/com/test/TestResource.java")
-            .satisfies(checkContains("@Path(\"/test/it\")"));
+                .satisfies(checkContains("@Path(\"/test/it\")"));
     }
 
     @Test
@@ -174,33 +183,32 @@ public class QuarkusProjectServiceTest {
         QuarkusProjectService creator = getProjectService();
 
         byte[] proj = creator.create(
-            platformService.recommendedPlatformInfo(),
-            ProjectDefinition.builder()
-                .groupId("com.kot")
-                .artifactId("test-kotlin-app")
-                .version("2.0.0")
-                .buildTool("GRADLE")
-                .className("com.test.TestResource")
-                .extensions(Set.of("resteasy-reactive", "kotlin"))
-                .build()
-        );
+                platformService.recommendedPlatformInfo(),
+                ProjectDefinition.builder()
+                        .groupId("com.kot")
+                        .artifactId("test-kotlin-app")
+                        .version("2.0.0")
+                        .buildTool("GRADLE")
+                        .className("com.test.TestResource")
+                        .extensions(Set.of("resteasy-reactive", "kotlin"))
+                        .build());
         Entry<File, List<String>> testDir = QuarkusProjectServiceTestUtils.extractProject(proj);
         Path projDir = Paths.get(testDir.getKey().toString(), "test-kotlin-app");
 
         // Then
         assertThatDirectoryTreeMatchSnapshots(info, projDir);
         assertThatMatchSnapshot(info, projDir, "settings.gradle")
-            .satisfies(checkContains("rootProject.name='test-kotlin-app'"));
+                .satisfies(checkContains("rootProject.name='test-kotlin-app'"));
         assertThat(projDir.resolve("build.gradle"))
-            .satisfies(checkContains("id 'org.jetbrains.kotlin.jvm' version "))
-            .satisfies(checkContains("implementation 'io.quarkus:quarkus-resteasy-reactive'"))
-            .satisfies(checkContains("implementation 'io.quarkus:quarkus-kotlin'"))
-            .satisfies(checkContains("implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk"))
-            .satisfies(checkContains("group 'com.kot'"))
-            .satisfies(checkContains("version '2.0.0'"));
+                .satisfies(checkContains("id 'org.jetbrains.kotlin.jvm' version "))
+                .satisfies(checkContains("implementation 'io.quarkus:quarkus-resteasy-reactive'"))
+                .satisfies(checkContains("implementation 'io.quarkus:quarkus-kotlin'"))
+                .satisfies(checkContains("implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk"))
+                .satisfies(checkContains("group 'com.kot'"))
+                .satisfies(checkContains("version '2.0.0'"));
 
         assertThatMatchSnapshot(info, projDir, "src/main/kotlin/com/test/TestResource.kt")
-            .satisfies(checkContains("fun hello() = \"Hello from RESTEasy Reactive\""));
+                .satisfies(checkContains("fun hello() = \"Hello from RESTEasy Reactive\""));
     }
 
     @Test
@@ -210,21 +218,20 @@ public class QuarkusProjectServiceTest {
         QuarkusProjectService creator = getProjectService();
 
         byte[] proj = creator.create(
-            platformService.recommendedPlatformInfo(),
-            ProjectDefinition.builder()
-                .groupId("com.gr")
-                .artifactId("test-gradle-17-app")
-                .buildTool("GRADLE")
-                .javaVersion(17)
-                .build()
-        );
+                platformService.recommendedPlatformInfo(),
+                ProjectDefinition.builder()
+                        .groupId("com.gr")
+                        .artifactId("test-gradle-17-app")
+                        .buildTool("GRADLE")
+                        .javaVersion(17)
+                        .build());
         Entry<File, List<String>> testDir = QuarkusProjectServiceTestUtils.extractProject(proj);
         Path projDir = Paths.get(testDir.getKey().toString(), "test-gradle-17-app");
 
         // Then
         assertThat(projDir.resolve("build.gradle"))
-            .satisfies(checkContains("sourceCompatibility = JavaVersion.VERSION_17"))
-            .satisfies(checkContains("targetCompatibility = JavaVersion.VERSION_17"));
+                .satisfies(checkContains("sourceCompatibility = JavaVersion.VERSION_17"))
+                .satisfies(checkContains("targetCompatibility = JavaVersion.VERSION_17"));
     }
 
     @Test
@@ -234,21 +241,20 @@ public class QuarkusProjectServiceTest {
         QuarkusProjectService creator = getProjectService();
 
         byte[] proj = creator.create(
-            platformService.recommendedPlatformInfo(),
-            ProjectDefinition.builder()
-                .groupId("com.gr")
-                .artifactId("test-gradle-21-app")
-                .buildTool("GRADLE")
-                .javaVersion(21)
-                .build()
-        );
+                platformService.recommendedPlatformInfo(),
+                ProjectDefinition.builder()
+                        .groupId("com.gr")
+                        .artifactId("test-gradle-21-app")
+                        .buildTool("GRADLE")
+                        .javaVersion(21)
+                        .build());
         Entry<File, List<String>> testDir = QuarkusProjectServiceTestUtils.extractProject(proj);
         Path projDir = Paths.get(testDir.getKey().getPath(), "test-gradle-21-app");
 
         // Then
         assertThat(projDir.resolve("build.gradle"))
-            .satisfies(checkContains("sourceCompatibility = JavaVersion.VERSION_21"))
-            .satisfies(checkContains("targetCompatibility = JavaVersion.VERSION_21"));
+                .satisfies(checkContains("sourceCompatibility = JavaVersion.VERSION_21"))
+                .satisfies(checkContains("targetCompatibility = JavaVersion.VERSION_21"));
     }
 
     @Test
@@ -258,24 +264,22 @@ public class QuarkusProjectServiceTest {
         QuarkusProjectService creator = getProjectService();
 
         byte[] proj = creator.create(
-            platformService.recommendedPlatformInfo(),
-            ProjectDefinition.builder()
-                .groupId("my.quinoa.yaml.app")
-                .artifactId("test-quinoa-yaml-app")
-                .buildTool("MAVEN")
-                .extensions(Set.of("quinoa", "config-yaml"))
-                .build()
-        );
+                platformService.recommendedPlatformInfo(),
+                ProjectDefinition.builder()
+                        .groupId("my.quinoa.yaml.app")
+                        .artifactId("test-quinoa-yaml-app")
+                        .buildTool("MAVEN")
+                        .extensions(Set.of("quinoa", "config-yaml"))
+                        .build());
         Entry<File, List<String>> testDir = QuarkusProjectServiceTestUtils.extractProject(proj);
         Path projDir = Paths.get(testDir.getKey().toString(), "test-quinoa-yaml-app");
 
         // Then
         assertThatDirectoryTreeMatchSnapshots(info, projDir)
-            .contains(
-                "src/main/webui/package.json",
-                "src/main/java/my/quinoa/yaml/app/GreetingConfig.java",
-                "src/main/resources/application.yml"
-            );
+                .contains(
+                        "src/main/webui/package.json",
+                        "src/main/java/my/quinoa/yaml/app/GreetingConfig.java",
+                        "src/main/resources/application.yml");
     }
 
     @Test
@@ -286,12 +290,12 @@ public class QuarkusProjectServiceTest {
         CountDownLatch latch = new CountDownLatch(20);
         QuarkusProjectService creator = getProjectService();
         List<Callable<Void>> creates = IntStream.rangeClosed(1, 20)
-            .mapToObj(i -> (Callable<Void>) () -> {
-                creator.create(platformService.recommendedPlatformInfo(), ProjectDefinition.builder().build());
-                latch.countDown();
-                return null;
-            })
-            .collect(Collectors.toList());
+                .mapToObj(i -> (Callable<Void>) () -> {
+                    creator.create(platformService.recommendedPlatformInfo(), ProjectDefinition.builder().build());
+                    latch.countDown();
+                    return null;
+                })
+                .collect(Collectors.toList());
 
         executorService.invokeAll(creates);
         System.out.println("await");

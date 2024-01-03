@@ -23,15 +23,15 @@ public interface GitHubClient {
     @Path("/repos/{ownerName}/{repoName}")
     @Produces(MediaType.APPLICATION_JSON)
     GHRepo getRepo(@HeaderParam("Authorization") String authorization,
-                   @PathParam("ownerName") String ownerName,
-                   @PathParam("repoName") String repoName);
+            @PathParam("ownerName") String ownerName,
+            @PathParam("repoName") String repoName);
 
     @POST
     @Path("/user/repos")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     GHRepo createRepo(@HeaderParam("Authorization") String authorization,
-                      GHCreateRepo repo);
+            GHCreateRepo repo);
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     class GHMe {
