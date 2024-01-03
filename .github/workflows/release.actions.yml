@@ -14,12 +14,30 @@ defaults:
     shell: bash
 
 jobs:
+  check_changes:
+    runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.check_changes.outputs.skip }}
+    steps:
+      - name: Check for changes
+        id: check_changes
+        run: |
+          LAST_RELEASE_SHA=$(git rev-list --tags --max-count=1)
+          LAST_COMMIT_SHA=$(git rev-parse HEAD)
+
+          if [ "$LAST_RELEASE_SHA" == "$LAST_COMMIT_SHA" ]; then
+            echo "No changes since last release. Skipping..."
+            echo "::set-output name=skip::true"
+          else
+            echo "Changes detected. Proceeding with release..."
+            echo "::set-output name=skip::false"
+          fi
   release:
     runs-on: ubuntu-latest
+    if: ${{needs.check_changes.outputs.skip == 'false'}}
     name: release
     steps:
       - uses: actions/checkout@v4
-
       - name: Import GPG key
         id: import_gpg
         uses: crazy-max/ghaction-import-gpg@v5
