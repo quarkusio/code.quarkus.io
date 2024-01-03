@@ -56,7 +56,7 @@ class CodeQuarkusResourceTest {
                 .log().ifValidationFails()
                 .statusCode(200)
                 .body("path", equalTo("/d"))
-                .extract().<String>path("path");
+                .extract().<String> path("path");
         given()
                 .when().get(path)
                 .then()
@@ -96,13 +96,13 @@ class CodeQuarkusResourceTest {
 
     @Test
     void downloadAsPostShouldWorkWithAllExtensions() {
-        var projectDefinition =
-                ProjectDefinition.builder().noCode(true).extensions(platformService.recommendedCodeQuarkusExtensions()
+        var projectDefinition = ProjectDefinition.builder().noCode(true)
+                .extensions(platformService.recommendedCodeQuarkusExtensions()
                         .stream()
                         .filter(extension -> !extension.category().equals("Alternative languages"))
                         .map(CodeQuarkusExtension::id)
-                        .collect(Collectors.toSet())
-                ).build();
+                        .collect(Collectors.toSet()))
+                .build();
         given()
                 .contentType(ContentType.JSON)
                 .body("{\"noCode\":true,\"extensions\":[\""
@@ -127,7 +127,7 @@ class CodeQuarkusResourceTest {
                 .log().ifValidationFails()
                 .statusCode(200)
                 .body("path", equalTo("/d?g=io.andy&a=my-app&v=1.0.0"))
-                .extract().<String>path("path");
+                .extract().<String> path("path");
         given()
                 .when().get(path)
                 .then()
@@ -153,7 +153,7 @@ class CodeQuarkusResourceTest {
                 .statusCode(200)
                 .body("path",
                         equalTo("/d?g=io.awesome&a=my-awesome-app&v=2.0.0&nc=true&e=io.quarkus%3Aquarkus-resteasy&e=io.quarkus%3Aquarkus-resteasy-jackson"))
-                .extract().<String>path("path");
+                .extract().<String> path("path");
         given()
                 .when().urlEncodingEnabled(false).get(path)
                 .then()
@@ -439,8 +439,6 @@ class CodeQuarkusResourceTest {
         assertThat(
                 projectService.getCreatedProject(), equalTo(
                         ProjectDefinition.builder().artifactId("test-app-with-a-few-arg").version("1.0.0").buildTool("GRADLE")
-                                .extensions(Set.of("neo4j", "amazon-lambda-http")).build()
-                )
-        );
+                                .extensions(Set.of("neo4j", "amazon-lambda-http")).build()));
     }
 }

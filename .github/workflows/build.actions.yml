@@ -36,4 +36,4 @@ jobs:
           mvn -e -B -DskipTests=true clean package -Dlib
       - name: Test
         run: |
-          mvn -e -B verify -Dlib -Dacceptance-test
+          mvn -e -B verify -Pacceptance-test

@@ -1,6 +1,5 @@
 package io.quarkus.code;
 
-
 import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -71,7 +70,7 @@ public class SnapshotTesting {
         if (url == null) {
             if (srcTree == null) {
                 Assertions.fail("Failed to locate " + SNAPSHOTS_DIR_NAME + " directory on the classpath and "
-                                + SNAPSHOTS_DIR.toAbsolutePath() + " directory does not exist (use -Dsnap to create it automatically)");
+                        + SNAPSHOTS_DIR.toAbsolutePath() + " directory does not exist (use -Dsnap to create it automatically)");
             }
             return snapshotsBaseRoot = srcTree;
         } else if ("file".equals(url.getProtocol())) {
@@ -102,7 +101,8 @@ public class SnapshotTesting {
         }
     }
 
-    public static AbstractStringAssert<?> assertThatMatchSnapshot(String content, TestInfo testInfo, String name) throws Throwable {
+    public static AbstractStringAssert<?> assertThatMatchSnapshot(String content, TestInfo testInfo, String name)
+            throws Throwable {
         assertThat(content).isNotNull();
         final String snapshotIdentifier = getSnapshotDirName(testInfo) + "/" + name;
         final boolean updateSnapshot = shouldUpdateSnapshot(snapshotIdentifier);
@@ -122,9 +122,9 @@ public class SnapshotTesting {
             }
 
             final String snapshotNotFoundDescription = "corresponding snapshot file not found for " + snapshotIdentifier
-                                                       + " (Use -Dsnap to create it automatically)";
+                    + " (Use -Dsnap to create it automatically)";
             final String description = "Snapshot is not matching (use -Dsnap to update it automatically): "
-                                       + snapshotIdentifier;
+                    + snapshotIdentifier;
             assertThat(snapshotFile).as(snapshotNotFoundDescription).isRegularFile();
             assertThat(content).as(description).isEqualToIgnoringNewLines(getTextContent(snapshotFile));
             return assertThat(content);
@@ -204,9 +204,9 @@ public class SnapshotTesting {
             }
 
             final String snapshotNotFoundDescription = "corresponding snapshot file not found for " + snapshotIdentifier
-                                                       + " (Use -Dsnap to create it automatically)";
+                    + " (Use -Dsnap to create it automatically)";
             final String description = "Snapshot is not matching (use -Dsnap to update it automatically): "
-                                       + snapshotIdentifier;
+                    + snapshotIdentifier;
             if (isUTF8File(fileToCheck)) {
                 assertThat(snapshotFile).as(snapshotNotFoundDescription).isRegularFile();
                 assertThat(fileToCheck).as(description).exists()
@@ -287,7 +287,7 @@ public class SnapshotTesting {
             }
             assertThat(snapshotFile)
                     .as("corresponding snapshot file not found for " + snapshotName
-                        + " (Use -Dsnap to create it automatically)")
+                            + " (Use -Dsnap to create it automatically)")
                     .isRegularFile();
 
             final List<String> content = Arrays.stream(getTextContent(snapshotFile).split("\\v"))
@@ -373,4 +373,3 @@ public class SnapshotTesting {
     }
 
 }
-

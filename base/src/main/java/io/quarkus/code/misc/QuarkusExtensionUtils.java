@@ -40,8 +40,7 @@ public class QuarkusExtensionUtils {
     public static CodeQuarkusExtension toCodeQuarkusExtension(
             Extension ext,
             Category cat,
-            AtomicInteger order
-    ) {
+            AtomicInteger order) {
         if (ext == null || ext.getName() == null) {
             return null;
         }

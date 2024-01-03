@@ -36,16 +36,14 @@ public class QuarkusProjectService {
 
     public Path createTmp(
             PlatformInfo platformInfo,
-            ProjectDefinition projectDefinition
-    ) throws IOException, QuarkusCommandException {
+            ProjectDefinition projectDefinition) throws IOException, QuarkusCommandException {
         return this.createTmp(platformInfo, projectDefinition, false, false);
     }
 
     public Path createTmp(
             PlatformInfo platformInfo,
             ProjectDefinition projectDefinition,
-            boolean isGitHub
-    ) throws IOException, QuarkusCommandException {
+            boolean isGitHub) throws IOException, QuarkusCommandException {
         return this.createTmp(platformInfo, projectDefinition, isGitHub, false);
     }
 
@@ -53,8 +51,7 @@ public class QuarkusProjectService {
             PlatformInfo platformInfo,
             ProjectDefinition projectDefinition,
             boolean isGitHub,
-            boolean silent
-    ) throws IOException, QuarkusCommandException {
+            boolean silent) throws IOException, QuarkusCommandException {
         Path location = Files.createTempDirectory("generated-").resolve(projectDefinition.artifactId());
         createProject(platformInfo, projectDefinition, location, isGitHub, silent);
         return location;
@@ -65,39 +62,38 @@ public class QuarkusProjectService {
             ProjectDefinition projectDefinition,
             Path projectFolderPath,
             boolean gitHub,
-            boolean silent
-    ) throws IOException, QuarkusCommandException {
-        Set<String> extensions =
-                platformInfo.checkAndMergeExtensions(projectDefinition.extensions());
+            boolean silent) throws IOException, QuarkusCommandException {
+        Set<String> extensions = platformInfo.checkAndMergeExtensions(projectDefinition.extensions());
         BuildTool buildTool = BuildTool.valueOf(projectDefinition.buildTool());
         HashSet<String> codestarts = new HashSet<>();
-        String javaVersionString = Integer.toString(projectDefinition.javaVersion() != null ? projectDefinition.javaVersion() : platformInfo.stream().javaCompatibility().recommended());
+        String javaVersionString = Integer.toString(projectDefinition.javaVersion() != null ? projectDefinition.javaVersion()
+                : platformInfo.stream().javaCompatibility().recommended());
         if (gitHub) {
             codestarts.add("tooling-github-action");
         }
         JavaVersion javaVersion = new JavaVersion(javaVersionString);
         if (javaVersion.isPresent() && !platformInfo.stream().javaCompatibility().versions().contains(javaVersion.getAsInt())) {
-            throw new IllegalArgumentException("This Java version is not compatible with this stream (" + platformInfo.stream().javaCompatibility().versions() + "): " + javaVersionString);
+            throw new IllegalArgumentException("This Java version is not compatible with this stream ("
+                    + platformInfo.stream().javaCompatibility().versions() + "): " + javaVersionString);
         }
         boolean isJava = extensions.stream()
                 .noneMatch(it -> it.startsWith("io.quarkus:quarkus-kotlin") || it.startsWith("io.quarkus:quarkus-scala"));
         if (javaVersion.isPresent() && !isJava && javaVersion.getAsInt() > JavaVersion.MAX_LTS_SUPPORTED_BY_KOTLIN) {
-            throw new IllegalArgumentException("This Java version is not yet compatible with Kotlin and Scala using Quarkus (max:" + JavaVersion.MAX_LTS_SUPPORTED_BY_KOTLIN + "): " + javaVersionString);
+            throw new IllegalArgumentException(
+                    "This Java version is not yet compatible with Kotlin and Scala using Quarkus (max:"
+                            + JavaVersion.MAX_LTS_SUPPORTED_BY_KOTLIN + "): " + javaVersionString);
         }
-        MessageWriter messageWriter =
-                silent ? MessageWriter.info(new PrintStream(new OutputStream() {
-                    public void write(int b) {
-                    }
-                })) : MessageWriter.info();
+        MessageWriter messageWriter = silent ? MessageWriter.info(new PrintStream(new OutputStream() {
+            public void write(int b) {
+            }
+        })) : MessageWriter.info();
         try {
-            QuarkusProject project =
-                    QuarkusProjectHelper.getProject(
-                            projectFolderPath,
-                            platformInfo.extensionCatalog(),
-                            buildTool,
-                            javaVersion,
-                            messageWriter
-                    );
+            QuarkusProject project = QuarkusProjectHelper.getProject(
+                    projectFolderPath,
+                    platformInfo.extensionCatalog(),
+                    buildTool,
+                    javaVersion,
+                    messageWriter);
             CreateProject projectDefinitionCreateProject = new CreateProject(project)
                     .groupId(projectDefinition.groupId())
                     .artifactId(projectDefinition.artifactId())
@@ -110,7 +106,8 @@ public class QuarkusProjectService {
                     .noCode(projectDefinition.noCode() || projectDefinition.noExamples());
             if (platformInfo.quarkusCoreVersion().contains("-redhat-")) {
                 // Hack to use the community quarkus gradle plugin (it is not released with the RHBQ)
-                projectDefinitionCreateProject.quarkusGradlePluginVersion(platformInfo.quarkusCoreVersion().replace("-redhat-.*", ""));
+                projectDefinitionCreateProject
+                        .quarkusGradlePluginVersion(platformInfo.quarkusCoreVersion().replace("-redhat-.*", ""));
             }
             QuarkusCommandOutcome result = projectDefinitionCreateProject.execute();
             if (!result.isSuccess()) {

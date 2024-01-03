@@ -32,7 +32,8 @@ public class CodeQuarkusHealthCheck implements HealthCheck {
                     .withData("registry timestamp", platformService.platformsCache().platformTimestamp())
                     .withData("recommended stream", platformService.recommendedStreamKey())
                     .withData("recommended stream quarkus core", platformService.recommendedPlatformInfo().quarkusCoreVersion())
-                    .withData("recommended stream extensions", String.valueOf(platformService.recommendedCodeQuarkusExtensions().size()))
+                    .withData("recommended stream extensions",
+                            String.valueOf(platformService.recommendedCodeQuarkusExtensions().size()))
                     .withData("available streams", String.join(", ", platformService.streamKeys()))
                     .withData("reload cron expr", platformConfig.getReloadCronExpr())
                     .withData("registryId", platformConfig.getRegistryId().orElse("empty"))

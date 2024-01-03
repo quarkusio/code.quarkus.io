@@ -53,8 +53,9 @@ public class QuarkusProjectServiceTestUtils {
     }
 
     public static List<String> unzip(File outputDir, File zipFile) throws IOException, ArchiveException {
-        try (ArchiveInputStream<ZipArchiveEntry> ais = new ArchiveStreamFactory().createArchiveInputStream(ArchiveStreamFactory.ZIP, Files.newInputStream(zipFile.toPath()));
-             ZipArchiveInputStream zip = (ZipArchiveInputStream) ais) {
+        try (ArchiveInputStream<ZipArchiveEntry> ais = new ArchiveStreamFactory()
+                .createArchiveInputStream(ArchiveStreamFactory.ZIP, Files.newInputStream(zipFile.toPath()));
+                ZipArchiveInputStream zip = (ZipArchiveInputStream) ais) {
             List<String> fileList = new ArrayList<>();
             ZipArchiveEntry entry;
             while ((entry = zip.getNextEntry()) != null) {

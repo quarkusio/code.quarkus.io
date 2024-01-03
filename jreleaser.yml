@@ -1,0 +1,18 @@
+project:
+  name: code-quarkus
+  description: Code Quarkus
+  longDescription: |
+    This allows to create Quarkus Project from a web interface.
+  authors:
+    - Andy Damevin
+  license: Apache-2.0
+  links:
+    homepage: https://github.com/quarkusio/code.quarkus.io
+  java:
+    groupId: io.quarkus.code
+    version: 21
+  inceptionYear: 2019
+
+release:
+  github:
+    owner: quarkusio

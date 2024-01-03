@@ -30,14 +30,17 @@ import java.util.Optional;
 
 /**
  * To record:
- * 1. Get a "code" using https://github.com/login/oauth/authorize?client_id=e1177a88a6d9eec4bd16&scope=public_repo&state=lMqTg6m6A-wbzQsCv2qW8jW-y0Y (it's in the query param of the redirection)
+ * 1. Get a "code" using
+ * https://github.com/login/oauth/authorize?client_id=e1177a88a6d9eec4bd16&scope=public_repo&state=lMqTg6m6A-wbzQsCv2qW8jW-y0Y
+ * (it's in the query param of the redirection)
  * 2. Set the constant in the companion object CODE, LOGIN and AN_EXISTING_REPO
  * 4. Replace @HoverflySimulate by @HoverflyCapture
  * 5. Run all tests (should all pass)
  * 6. Replace @HoverflyCapture by @HoverflySimulate
  * 7. ----WARNING----- Replace your access_token in the recoding: io_quarkus_code_service_GitHubServiceTest.json
  */
-@HoverflySimulate(config = @HoverflyConfig(destination = {"github.com"}, statefulCapture = true, simulationPreprocessor = CustomSimulationPreprocessor.class))
+@HoverflySimulate(config = @HoverflyConfig(destination = {
+        "github.com" }, statefulCapture = true, simulationPreprocessor = CustomSimulationPreprocessor.class))
 @ExtendWith(HoverflyExtension.class)
 @QuarkusTest
 public class GitHubServiceHoverflyTest {
@@ -86,7 +89,8 @@ public class GitHubServiceHoverflyTest {
     public void createAndPushRepository() throws IOException {
         //given
         var path = Files.createTempDirectory("github-service-test");
-        Files.copy(GitHubServiceHoverflyTest.class.getResourceAsStream("/fakeextensions.json"), new File(path.toString(), "test.json").toPath());
+        Files.copy(GitHubServiceHoverflyTest.class.getResourceAsStream("/fakeextensions.json"),
+                new File(path.toString(), "test.json").toPath());
 
         //when
         var result = githubService.createRepository(LOGIN, token.accessToken(), REPO_TO_CREATE_NAME);
@@ -107,7 +111,8 @@ public class GitHubServiceHoverflyTest {
         Assert.assertFalse(exists);
     }
 
-    public record GitHubConfigImpl(Optional<String> clientId, Optional<String> clientSecret) implements GitHubConfig {}
+    public record GitHubConfigImpl(Optional<String> clientId, Optional<String> clientSecret) implements GitHubConfig {
+    }
 
     public static class CustomSimulationPreprocessor implements SimulationPreprocessor {
         @Override

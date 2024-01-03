@@ -39,32 +39,32 @@ class QuarkusExtensionUtilsTest {
                         .shortName("jax-rs")
                         .category("Web")
                         .tags(List.of("with:starter-code", "status:stable"))
-                        .keywords(Set.of("endpoint", "framework", "jax", "jaxrs", "jax-rs", "quarkus-resteasy", "rest", "resteasy", "web"))
+                        .keywords(Set.of("endpoint", "framework", "jax", "jaxrs", "jax-rs", "quarkus-resteasy", "rest",
+                                "resteasy", "web"))
                         .providesExampleCode(true)
                         .providesCode(true)
                         .guide("https://quarkus.io/guides/rest-json")
                         .order(0)
                         .platform(true)
                         .bom("io.quarkus:quarkus-bom:999-SNAPSHOT")
-                        .build())
-        );
+                        .build()));
         assertThat(extensions.get(6), is(CodeQuarkusExtension.builder()
-                        .id("io.quarkus:quarkus-rest-client-mutiny")
-                        .shortId("ignored")
-                        .version("999-SNAPSHOT")
-                        .name("Mutiny support for REST Client")
-                        .description("Enable Mutiny for the REST client")
-                        .category("Web")
-                        .tags(List.of("status:preview"))
-                        .keywords(Set.of("rest", "reactive", "web", "web-client", "rest-client", "client", "quarkus-rest-client-mutiny", "microprofile-rest-client", "support", "mutiny", "rest-client-mutiny"))
-                        .providesExampleCode(false)
-                        .providesCode(false)
-                        .guide(null)
-                        .order(6)
-                        .platform(true)
-                        .bom("io.quarkus:quarkus-bom:999-SNAPSHOT")
-                        .build())
-        );
+                .id("io.quarkus:quarkus-rest-client-mutiny")
+                .shortId("ignored")
+                .version("999-SNAPSHOT")
+                .name("Mutiny support for REST Client")
+                .description("Enable Mutiny for the REST client")
+                .category("Web")
+                .tags(List.of("status:preview"))
+                .keywords(Set.of("rest", "reactive", "web", "web-client", "rest-client", "client", "quarkus-rest-client-mutiny",
+                        "microprofile-rest-client", "support", "mutiny", "rest-client-mutiny"))
+                .providesExampleCode(false)
+                .providesCode(false)
+                .guide(null)
+                .order(6)
+                .platform(true)
+                .bom("io.quarkus:quarkus-bom:999-SNAPSHOT")
+                .build()));
     }
 
     @Test
@@ -76,9 +76,7 @@ class QuarkusExtensionUtilsTest {
                         "RESTEasy Jackson",
                         "RESTEasy JSON-B",
                         "Eclipse Vert.x GraphQL",
-                        "gRPC"
-                )
-        );
+                        "gRPC"));
     }
 
     private ExtensionCatalog getTestCatalog() throws IOException {

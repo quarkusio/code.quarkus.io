@@ -9,24 +9,21 @@ import java.util.Set;
 
 @JsonInclude(Include.NON_NULL)
 public record CodeQuarkusExtension(
-    String id,
-    @Deprecated
-    String shortId,
-    String version,
-    String name,
-    String description,
-    String shortName,
-    String category,
-    List<String> tags,
-    Set<String> keywords,
-    @Deprecated
-    boolean providesExampleCode,
-    boolean providesCode,
-    String guide,
-    int order,
-    boolean platform,
-    String bom
-) {
+        String id,
+        @Deprecated String shortId,
+        String version,
+        String name,
+        String description,
+        String shortName,
+        String category,
+        List<String> tags,
+        Set<String> keywords,
+        @Deprecated boolean providesExampleCode,
+        boolean providesCode,
+        String guide,
+        int order,
+        boolean platform,
+        String bom) {
 
     public ExtensionRef toExtensionRef() {
         return new ExtensionRef(id, version, platform);
@@ -37,22 +34,25 @@ public record CodeQuarkusExtension(
         return new Builder();
     }
 
-    @Override public boolean equals(Object o) {
+    @Override
+    public boolean equals(Object o) {
         if (this == o)
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
         CodeQuarkusExtension that = (CodeQuarkusExtension) o;
         return providesExampleCode == that.providesExampleCode && providesCode == that.providesCode && order == that.order
-               && platform == that.platform && Objects.equals(id, that.id) && Objects.equals(shortId,
-                that.shortId) && Objects.equals(version, that.version) && Objects.equals(name, that.name)
-               && Objects.equals(description, that.description) && Objects.equals(shortName, that.shortName)
-               && Objects.equals(category, that.category) && Objects.equals(tags, that.tags)
-               && Objects.equals(keywords, that.keywords) && Objects.equals(guide, that.guide)
-               && Objects.equals(bom, that.bom);
+                && platform == that.platform && Objects.equals(id, that.id) && Objects.equals(shortId,
+                        that.shortId)
+                && Objects.equals(version, that.version) && Objects.equals(name, that.name)
+                && Objects.equals(description, that.description) && Objects.equals(shortName, that.shortName)
+                && Objects.equals(category, that.category) && Objects.equals(tags, that.tags)
+                && Objects.equals(keywords, that.keywords) && Objects.equals(guide, that.guide)
+                && Objects.equals(bom, that.bom);
     }
 
-    @Override public int hashCode() {
+    @Override
+    public int hashCode() {
         return Objects.hash(id, shortId, version, name, description, shortName, category, tags, keywords, providesExampleCode,
                 providesCode, guide, order, platform, bom);
     }
@@ -154,22 +154,21 @@ public record CodeQuarkusExtension(
 
         public CodeQuarkusExtension build() {
             return new CodeQuarkusExtension(
-                id,
-                shortId,
-                version,
-                name,
-                description,
-                shortName,
-                category,
-                tags,
-                keywords,
-                providesExampleCode,
-                providesCode,
-                guide,
-                order,
-                platform,
-                bom
-            );
+                    id,
+                    shortId,
+                    version,
+                    name,
+                    description,
+                    shortName,
+                    category,
+                    tags,
+                    keywords,
+                    providesExampleCode,
+                    providesCode,
+                    guide,
+                    order,
+                    platform,
+                    bom);
         }
     }
 }

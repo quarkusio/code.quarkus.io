@@ -39,21 +39,21 @@ public class SegmentAnalyticsService {
     private Analytics createAnalytics() {
         Optional<String> writeKey = segmentConfig.writeKey();
         defaultUserAgent = "CodeQuarkusBackend/" + config.gitCommitId() + " (" +
-                           System.getProperty("os.name") + "; " +
-                           System.getProperty("os.version") + "; " +
-                           System.getProperty("os.arch") + ", Java " +
-                           System.getProperty("java.version") + ")";
+                System.getProperty("os.name") + "; " +
+                System.getProperty("os.version") + "; " +
+                System.getProperty("os.arch") + ", Java " +
+                System.getProperty("java.version") + ")";
         if (analytics == null && writeKey.filter(not(Strings::isNullOrEmpty)).isPresent()) {
             int flushQueueSize = segmentConfig.flushQueueSize().orElse(30);
             int flushIntervalSeconds = segmentConfig.flushIntervalSeconds().orElse(120);
             Log.infof("""
-                            Segment Analytics is enabled:
-                                writeKey: %s
-                                flushQueueSize: %s
-                                flushIntervalSeconds: %s
-                                hostname: %s
-                                defaultUserAgent: %s
-                            """.stripIndent(),
+                    Segment Analytics is enabled:
+                        writeKey: %s
+                        flushQueueSize: %s
+                        flushIntervalSeconds: %s
+                        hostname: %s
+                        defaultUserAgent: %s
+                    """.stripIndent(),
                     segmentConfig.writeKeyForDisplay(), flushQueueSize, flushIntervalSeconds, config.hostname(),
                     defaultUserAgent);
             return Analytics.builder(writeKey.get())
@@ -77,8 +77,7 @@ public class SegmentAnalyticsService {
                     "source", source,
                     "path", path,
                     "url", url,
-                    "requestHeaders", Map.of("userAgent", userAgent, "referer", referer)
-            );
+                    "requestHeaders", Map.of("userAgent", userAgent, "referer", referer));
             analytics.enqueue(TrackMessage.builder(event)
                     .anonymousId(anonymousId)
                     .properties(properties.entrySet().stream().filter(e -> e.getValue() != null).collect(
@@ -89,16 +88,16 @@ public class SegmentAnalyticsService {
             level = Level.INFO;
         }
         Log.logf(level, """
-                        %s sending analytics event "%s":
-                            - properties: %s
-                            - userAgent: %s
-                            - referer: %s
-                            - hostName: %s
-                            - anonymousId: %s
-                            - source: %s
-                            - documentUrl: %s
-                            - documentPath: %s
-                        """.stripIndent(),
+                %s sending analytics event "%s":
+                    - properties: %s
+                    - userAgent: %s
+                    - referer: %s
+                    - hostName: %s
+                    - anonymousId: %s
+                    - source: %s
+                    - documentUrl: %s
+                    - documentPath: %s
+                """.stripIndent(),
                 prefix, event, properties, fixedUserAgent, referer, hostName, anonymousId, source, url, path);
     }
 

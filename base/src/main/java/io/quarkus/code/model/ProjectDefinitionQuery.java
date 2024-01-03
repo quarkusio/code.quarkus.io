@@ -103,8 +103,7 @@ public class ProjectDefinitionQuery {
                 javaVersion,
                 noCode,
                 noExamples,
-                extensions
-        );
+                extensions);
     }
 
 }

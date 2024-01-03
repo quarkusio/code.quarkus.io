@@ -17,7 +17,7 @@ import java.io.IOException;
 public class CodeQuarkusIT {
 
     @ParameterizedTest
-    @ValueSource(strings = {"java"})
+    @ValueSource(strings = { "java" })
     @DisplayName("Should generate a maven project and run it in different language")
     void testMaven(String language) throws IOException, ArchiveException {
         String languageExt = language.equals("java") ? "" : "io.quarkus:quarkus-" + language;
@@ -38,13 +38,14 @@ public class CodeQuarkusIT {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"java"})
+    @ValueSource(strings = { "java" })
     @DisplayName("Should generate a gradle project and run it in different language")
     void testGradle(String language) throws IOException, ArchiveException {
         String languageExt = language.equals("java") ? "" : "io.quarkus:quarkus-" + language;
         String appName = "test-app-gradle-" + language;
         byte[] result = RestAssured.given()
-                .when().get("/api/download?b=GRADLE&a=" + appName + "&v=1.0.0&e=neo4j&e=resteasy-reactive&e=" + languageExt + "&j=21")
+                .when()
+                .get("/api/download?b=GRADLE&a=" + appName + "&v=1.0.0&e=neo4j&e=resteasy-reactive&e=" + languageExt + "&j=21")
                 .then()
                 .log().ifValidationFails()
                 .statusCode(200)

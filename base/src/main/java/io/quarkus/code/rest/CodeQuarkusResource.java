@@ -80,8 +80,7 @@ public class CodeQuarkusResource {
                 config.quarkusDevtoolsVersion().orElse("unknown"),
                 config.quarkusPlatformVersion().orElse("unknown"),
                 config.gitCommitId().orElse("unknown"),
-                gitHubConfig.clientId().filter(not(Strings::isNullOrEmpty)).orElse(null)
-        );
+                gitHubConfig.clientId().filter(not(Strings::isNullOrEmpty)).orElse(null));
         return Uni.createFrom().item(publicConfig);
     }
 
@@ -91,14 +90,7 @@ public class CodeQuarkusResource {
     @NoCache
     @Operation(summary = "Get all available platforms")
     @Tag(name = "Platform", description = "Platform related endpoints")
-    @APIResponse(
-            responseCode = "200",
-            description = "All available platforms",
-            content = @Content(
-                    mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(implementation = PlatformCatalog.class)
-            )
-    )
+    @APIResponse(responseCode = "200", description = "All available platforms", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = PlatformCatalog.class)))
     public Uni<Response> platforms() {
         PlatformCatalog platformCatalog = platformService.platformCatalog();
         String lastUpdated = platformService.cacheLastUpdated().format(FORMATTER);
@@ -114,14 +106,7 @@ public class CodeQuarkusResource {
     @NoCache
     @Operation(summary = "Get all available streams")
     @Tag(name = "Platform", description = "Platform related endpoints")
-    @APIResponse(
-            responseCode = "200",
-            description = "All available streams",
-            content = @Content(
-                    mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(implementation = Stream.class, type = SchemaType.ARRAY)
-            )
-    )
+    @APIResponse(responseCode = "200", description = "All available streams", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Stream.class, type = SchemaType.ARRAY)))
     public Uni<Response> streams() {
         List<Stream> streamKeys = platformService.streams();
         String lastUpdated = platformService.cacheLastUpdated().format(FORMATTER);
@@ -137,14 +122,7 @@ public class CodeQuarkusResource {
     @NoCache
     @Operation(operationId = "extensions", summary = "Get the Quarkus Launcher list of Quarkus extensions")
     @Tag(name = "Extensions", description = "Extension related endpoints")
-    @APIResponse(
-            responseCode = "200",
-            description = "List of Quarkus extensions",
-            content = @Content(
-                    mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(implementation = CodeQuarkusExtension.class, type = SchemaType.ARRAY)
-            )
-    )
+    @APIResponse(responseCode = "200", description = "List of Quarkus extensions", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = CodeQuarkusExtension.class, type = SchemaType.ARRAY)))
     public Uni<Response> extensions(
             @QueryParam("platformOnly") @DefaultValue("true") boolean platformOnly,
             @QueryParam("id") String extensionId) {
@@ -158,14 +136,7 @@ public class CodeQuarkusResource {
     @NoCache
     @Operation(operationId = "extensionsForStream", summary = "Get the Quarkus Launcher list of Quarkus extensions")
     @Tag(name = "Extensions", description = "Extension related endpoints")
-    @APIResponse(
-            responseCode = "200",
-            description = "List of Quarkus extensions for a certain stream",
-            content = @Content(
-                    mediaType = MediaType.APPLICATION_JSON,
-                    schema = @Schema(implementation = CodeQuarkusExtension.class, type = SchemaType.ARRAY)
-            )
-    )
+    @APIResponse(responseCode = "200", description = "List of Quarkus extensions for a certain stream", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = CodeQuarkusExtension.class, type = SchemaType.ARRAY)))
     public Uni<Response> extensionsForStream(
             @PathParam("streamKey") String streamKey,
             @QueryParam("platformOnly") @DefaultValue("true") boolean platformOnly,
@@ -204,7 +175,7 @@ public class CodeQuarkusResource {
     @Tag(name = "Project", description = "Project creation endpoints")
     public Uni<CreatedProject> project(@Valid ProjectDefinition projectDefinition) {
         List<NameValuePair> params = new ArrayList<>();
-        if(projectDefinition != null) {
+        if (projectDefinition != null) {
             if (projectDefinition.streamKey() != null) {
                 params.add(new BasicNameValuePair("S", projectDefinition.streamKey()));
             }
@@ -223,7 +194,8 @@ public class CodeQuarkusResource {
             if (projectDefinition.javaVersion() != null) {
                 params.add(new BasicNameValuePair("j", projectDefinition.javaVersion().toString()));
             }
-            if (projectDefinition.noCode() != ProjectDefinition.DEFAULT_NO_CODE || projectDefinition.noExamples() != ProjectDefinition.DEFAULT_NO_CODE) {
+            if (projectDefinition.noCode() != ProjectDefinition.DEFAULT_NO_CODE
+                    || projectDefinition.noExamples() != ProjectDefinition.DEFAULT_NO_CODE) {
                 params.add(new BasicNameValuePair("nc", String.valueOf(!ProjectDefinition.DEFAULT_NO_CODE)));
             }
             if (!projectDefinition.extensions().isEmpty()) {
@@ -243,8 +215,7 @@ public class CodeQuarkusResource {
                     Response.status(Response.Status.BAD_REQUEST)
                             .entity("The path is too long. Choose a sensible amount of extensions.")
                             .type(MediaType.TEXT_PLAIN)
-                            .build()
-            );
+                            .build());
         }
         return Uni.createFrom().item(new CreatedProject(path));
     }

@@ -21,7 +21,8 @@ public class OpenAPIFilter implements OASFilter {
     public PathItem filterPathItem(PathItem pathItem) {
         if (pathItem.getGET() != null && pathItem.getGET().getOperationId() != null) {
             if (pathItem.getGET().getOperationId().equalsIgnoreCase("extensionsForStream")) {
-                List<org.eclipse.microprofile.openapi.models.parameters.Parameter> parameters = pathItem.getGET().getParameters();
+                List<org.eclipse.microprofile.openapi.models.parameters.Parameter> parameters = pathItem.getGET()
+                        .getParameters();
                 for (org.eclipse.microprofile.openapi.models.parameters.Parameter parameter : parameters) {
                     if (parameter.getName().equalsIgnoreCase("streamKey")) {
                         Schema schema = parameter.getSchema();
@@ -29,7 +30,8 @@ public class OpenAPIFilter implements OASFilter {
                     }
                 }
             } else if (pathItem.getGET().getOperationId().equalsIgnoreCase("downloadForStream")) {
-                List<org.eclipse.microprofile.openapi.models.parameters.Parameter> parameters = pathItem.getGET().getParameters();
+                List<org.eclipse.microprofile.openapi.models.parameters.Parameter> parameters = pathItem.getGET()
+                        .getParameters();
                 for (org.eclipse.microprofile.openapi.models.parameters.Parameter parameter : parameters) {
                     if (parameter.getName().equalsIgnoreCase("S")) {
                         Schema schema = parameter.getSchema();
