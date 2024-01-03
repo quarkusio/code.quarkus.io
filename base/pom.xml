@@ -3,6 +3,8 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>code-quarkus-base</artifactId>
   <packaging>jar</packaging>
+  <name>Code Quarkus Base</name>
+  <description>Base Quarkus Application to create Quarkus Project from a web interface.</description>
   <parent>
     <groupId>io.quarkus.code</groupId>
     <artifactId>code-quarkus-parent</artifactId>

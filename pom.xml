@@ -29,6 +29,29 @@
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
     </properties>
+    <name>Code Quarkus Parent</name>
+    <url>https://github.com/quarkusio/code.quarkus.io</url>
+    <scm>
+        <connection>scm:git:git://github.com/quarkusio/code.quarkus.io.git</connection>
+        <developerConnection>scm:git:ssh://github.com:quarkusio/code.quarkus.io.git</developerConnection>
+        <url>http://github.com/quarkusio/code.quarkus.io/tree/main</url>
+        <tag>HEAD</tag>
+    </scm>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Andy Damevin</name>
+            <email>ia3andy@gmail.com</email>
+            <organization>Quarkus</organization>
+            <organizationUrl>https://quarkus.io</organizationUrl>
+        </developer>
+    </developers>
     <dependencyManagement>
         <dependencies>
             <dependency>

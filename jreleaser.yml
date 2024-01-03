@@ -1,8 +1,8 @@
 project:
   name: code-quarkus
-  description: Code Quarkus
+  description: Code Quarkus Base
   longDescription: |
-    This allows to create Quarkus Project from a web interface.
+    Base Quarkus Application to create Quarkus Project from a web interface.
   authors:
     - Andy Damevin
   license: Apache-2.0
