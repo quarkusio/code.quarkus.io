@@ -29,7 +29,7 @@ jobs:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
           distribution: temurin
@@ -45,9 +45,17 @@ jobs:
           git config --local user.name "GitHub Action"
 
       - name: Maven release ${{steps.metadata.outputs.current-version}}
+        id: maven_release
         run: |
-          mvn -B release:prepare -DreleaseVersion=${{steps.metadata.outputs.current-version}} -DdevelopmentVersion=${{steps.metadata.outputs.next-version}} -Prelease
+          current_version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+          release_version=${current_version%-SNAPSHOT}
+          echo "Next release version is: $release_version"
+          next_dev_version="$(( ${current_version} + 1 ))-SNAPSHOT"
+          echo "Next development version is: $next_dev_version"
+          mvn -B release:prepare -DreleaseVersion=${current_version} -DdevelopmentVersion=${next_dev_version} -Prelease
           mvn -B release:perform -Darguments=-Dlib -Prelease
+          echo "::set-output name=release_version::$release_version"
+          echo "::set-output name=next_dev_version::$next_dev_version"
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
@@ -56,7 +64,7 @@ jobs:
         uses: jreleaser/release-action@v2
         env:
           JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          JRELEASER_PROJECT_VERSION: ${{ steps.metadata.outputs.current-version }}
+          JRELEASER_PROJECT_VERSION: ${{ steps.maven_release.outputs.release_version }}
         with:
           setup-java: false
 

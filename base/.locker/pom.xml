@@ -7,7 +7,7 @@
 
   <groupId>io.quarkus.code</groupId>
   <artifactId>code-quarkus-base-locker</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <dependencyManagement>
     <dependencies>
