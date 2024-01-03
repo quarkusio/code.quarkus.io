@@ -19,6 +19,7 @@ jobs:
     outputs:
       skip: ${{ steps.check_changes.outputs.skip }}
     steps:
+      - uses: actions/checkout@v4
       - name: Check for changes
         id: check_changes
         run: |
