@@ -2,6 +2,8 @@ name: Release CI
 
 on:
   workflow_dispatch:
+    branches:
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -15,8 +17,6 @@ jobs:
   release:
     runs-on: ubuntu-latest
     name: release
-    if: ${{github.event.pull_request.merged == true}}
-
     steps:
       - uses: actions/checkout@v4
 
