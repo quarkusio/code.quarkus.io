@@ -14,10 +14,9 @@ defaults:
     shell: bash
 
 jobs:
-  check_changes:
+  release:
     runs-on: ubuntu-latest
-    outputs:
-      skip: ${{ steps.check_changes.outputs.skip }}
+    name: release
     steps:
       - uses: actions/checkout@v4
       - name: Check for changes
@@ -33,20 +32,16 @@ jobs:
             echo "Changes detected. Proceeding with release..."
             echo "::set-output name=skip::false"
           fi
-  release:
-    runs-on: ubuntu-latest
-    if: ${{needs.check_changes.outputs.skip == 'false'}}
-    name: release
-    steps:
-      - uses: actions/checkout@v4
       - name: Import GPG key
         id: import_gpg
+        if: steps.check_changes.outputs.skip == 'false'
         uses: crazy-max/ghaction-import-gpg@v5
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Set up JDK 21
+        if: steps.check_changes.outputs.skip == 'false'
         uses: actions/setup-java@v3
         with:
           distribution: temurin
@@ -57,11 +52,13 @@ jobs:
           server-password: MAVEN_PASSWORD
 
       - name: Configure Git author
+        if: steps.check_changes.outputs.skip == 'false'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
       - name: Maven release ${{steps.metadata.outputs.current-version}}
+        if: steps.check_changes.outputs.skip == 'false'
         id: maven_release
         run: |
           current_version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
@@ -78,6 +75,7 @@ jobs:
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
 
       - name: Run JReleaser
+        if: steps.check_changes.outputs.skip == 'false'
         uses: jreleaser/release-action@v2
         env:
           JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -87,7 +85,7 @@ jobs:
 
       # Persist logs
       - name: JReleaser release output
-        if: always()
+        if: steps.check_changes.outputs.skip == 'false'
         uses: actions/upload-artifact@v3
         with:
           name: jreleaser-release
@@ -96,6 +94,7 @@ jobs:
             out/jreleaser/output.properties
 
       - name: Push changes to ${{github.base_ref}} branch
+        if: steps.check_changes.outputs.skip == 'false'
         run: |
           git push
-          git push origin ${{steps.metadata.outputs.current-version}}
+          git push origin ${{ steps.maven_release.outputs.release_version }}
