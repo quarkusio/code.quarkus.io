@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.quarkus.code</groupId>
     <artifactId>code-quarkus-parent</artifactId>
-    <version>1-SNAPSHOT</version>
+    <version>2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <properties>
         <compiler-plugin.version>3.11.0</compiler-plugin.version>

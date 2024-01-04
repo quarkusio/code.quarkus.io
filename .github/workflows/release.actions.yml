@@ -97,4 +97,3 @@ jobs:
         if: steps.check_changes.outputs.skip == 'false'
         run: |
           git push
-          git push origin ${{ steps.maven_release.outputs.release_version }}
