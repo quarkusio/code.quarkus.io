@@ -32,7 +32,7 @@
         <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
     </properties>
     <name>Code Quarkus - Parent</name>
-    <description></description>
+    <description>Customize a Web Interface to generate Quarkus starter projects.</description>
     <url>https://github.com/quarkusio/code.quarkus.io</url>
     <scm>
         <connection>scm:git:git://github.com/quarkusio/code.quarkus.io.git</connection>

@@ -4,7 +4,7 @@
   <artifactId>code-quarkus</artifactId>
   <packaging>jar</packaging>
   <name>Code Quarkus</name>
-  <description>Customize a Web Interface to generate Quarkus starter projects..</description>
+  <description>Customize a Web Interface to generate Quarkus starter projects.</description>
   <parent>
     <groupId>io.quarkus.code</groupId>
     <artifactId>code-quarkus-parent</artifactId>
