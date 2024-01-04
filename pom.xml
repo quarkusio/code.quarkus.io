@@ -176,6 +176,7 @@
                         <version>${maven-release-plugin.version}</version>
                         <configuration>
                             <preparationGoals>clean install</preparationGoals>
+                            <arguments>-Dlib -Prelease</arguments>
                             <autoVersionSubmodules>true</autoVersionSubmodules>
                             <tagNameFormat>@{project.version}</tagNameFormat>
                             <pushChanges>false</pushChanges>
