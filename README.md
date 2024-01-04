@@ -4,8 +4,13 @@
 
 # Development
 
-Api is located in `src/main/java`
-UI is located in `src/main/resources/web/`
+Api is located in `base/src/main/java`
+UI is located in `base/src/main/resources/web/`
+
+Use this command to start `community-app` dev mode on: http://0.0.0.0:8080 (Api and UI).
+```
+cd base && quarkus dev
+```
 
 Build the library locally:
 ```
@@ -15,11 +20,6 @@ mvn clean install -Dlib
 After building, use this command to start the `community-app` in production mode:
 ```
 java -jar community-app/target/quarkus-app/quarkus-run.jar
-```
-
-Use this command to start `community-app` dev mode on: http://0.0.0.0:8080 (Api and UI).
-```
-cd base && quarkus dev
 ```
 
 # Staging
