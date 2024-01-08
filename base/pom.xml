@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>code-quarkus</artifactId>
   <packaging>jar</packaging>
-  <name>Code Quarkus</name>
+  <name>Code Quarkus - Library</name>
   <description>Customize a Web Interface to generate Quarkus starter projects.</description>
   <parent>
     <groupId>io.quarkus.code</groupId>
@@ -121,7 +121,6 @@
       <artifactId>analytics</artifactId>
       <version>${segment-analytics.version}</version>
     </dependency>
-
     <!-- web deps -->
     <dependency>
       <groupId>org.mvnpm</groupId>
@@ -198,8 +197,6 @@
       <version>2.4.5</version>
       <classifier>sources</classifier>
     </dependency>
-
-
     <!-- Tests -->
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -257,7 +254,6 @@
       </resource>
       <resource>
         <directory>src/main/resources</directory>
-        <filtering>false</filtering>
         <excludes>
           <exclude>application.properties</exclude>
         </excludes>
@@ -317,7 +313,6 @@
           <plugin>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-maven-plugin</artifactId>
-            <version>${quarkus.platform.version}</version>
             <executions>
               <execution>
                 <goals>
@@ -335,7 +330,7 @@
       <id>lib</id>
       <activation>
         <property>
-          <name>lib</name>
+          <name>!lib</name>
         </property>
       </activation>
       <build>
@@ -343,7 +338,6 @@
           <plugin>
             <groupId>io.smallrye</groupId>
             <artifactId>jandex-maven-plugin</artifactId>
-            <version>3.1.3</version>
             <executions>
               <execution>
                 <id>make-index</id>
@@ -359,7 +353,9 @@
     <profile>
       <id>locker</id>
       <activation>
-        <activeByDefault>true</activeByDefault>
+        <property>
+          <name>!unlocked</name>
+        </property>
       </activation>
       <dependencyManagement>
         <dependencies>

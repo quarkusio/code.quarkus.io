@@ -33,7 +33,7 @@ jobs:
             ${{ runner.os }}-maven-
       - name: Build
         run: |
-          mvn -e -B -DskipTests=true clean package -Dlib -Pacceptance-test
+          mvn -e -B -DskipTests=true clean package -Dlib -Dacceptance-test -Dcommunity-app
       - name: Test
         run: |
-          mvn -e -B verify -Pacceptance-test
+          mvn -e -B verify -Dlib -Dacceptance-test -Dcommunity-app

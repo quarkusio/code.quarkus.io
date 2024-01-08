@@ -3,6 +3,6 @@
     <extension>
         <groupId>io.mvnpm</groupId>
         <artifactId>locker-maven-plugin</artifactId>
-        <version>0.0.4</version>
+        <version>0.0.5</version>
     </extension>
 </extensions>

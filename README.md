@@ -1,6 +1,6 @@
 # Code Quarkus App
 
- [![API Tests](https://github.com/quarkusio/code.quarkus.io/actions/workflows/build.actions.yml/badge.svg)](https://github.com/quarkusio/code.quarkus.io/actions/workflows/build.actions.yml)
+ [![Tests](https://github.com/quarkusio/code.quarkus.io/actions/workflows/build.actions.yml/badge.svg)](https://github.com/quarkusio/code.quarkus.io/actions/workflows/build.actions.yml)
 
 # Development
 
@@ -12,9 +12,9 @@ Use this command to start `community-app` dev mode on: http://0.0.0.0:8080 (Api 
 cd base && quarkus dev
 ```
 
-Build the library locally:
+Build the app locally:
 ```
-mvn clean install -Dlib
+mvn clean install -Dlib -Dcommunity-app
 ```
 
 After building, use this command to start the `community-app` in production mode:

@@ -43,7 +43,8 @@ public class AcceptanceTestApp implements QuarkusApplication {
         this.testConfig = testConfig;
     }
 
-    @Override public int run(String... args) throws Exception {
+    @Override
+    public int run(String... args) throws Exception {
         try (Playwright playwright = Playwright.create()) {
             Browser browser = playwright.chromium().launch(new BrowserType.LaunchOptions()
                     .setArgs(List.of("--headless", "--disable-gpu", "--no-sandbox")));
@@ -56,8 +57,8 @@ public class AcceptanceTestApp implements QuarkusApplication {
             page.navigate(url);
             final ElementHandle generateButton = page.waitForSelector(".generate-button");
             if (!generateButton.textContent().toLowerCase().contains(GENERATE_YOUR_APPLICATION_TEXT)) {
-               LOG.error("{} was not found", GENERATE_YOUR_APPLICATION_TEXT);
-               return 1;
+                LOG.error("{} was not found", GENERATE_YOUR_APPLICATION_TEXT);
+                return 1;
             } else {
                 LOG.info("Generate button found: {}", generateButton.textContent());
             }
@@ -98,7 +99,7 @@ public class AcceptanceTestApp implements QuarkusApplication {
 
             final ElementHandle extensionsCart = page.waitForSelector(".extensions-cart button");
             LOG.info("Focus on extensions-cart button");
-            page.mouse().move(extensionsCart.boundingBox().x + 5, extensionsCart.boundingBox().y +5);
+            page.mouse().move(extensionsCart.boundingBox().x + 5, extensionsCart.boundingBox().y + 5);
 
             final List<ElementHandle> selected = page.querySelectorAll(".selected-extensions .extension-row");
 

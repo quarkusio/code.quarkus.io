@@ -11,9 +11,8 @@
     <relativePath>../../pom.xml</relativePath>
   </parent>
   <artifactId>code-quarkus-locker</artifactId>
-  <name>Code Quarkus - Locker</name>
-  <version>2-SNAPSHOT</version>
   <packaging>pom</packaging>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -150,11 +149,6 @@
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
-        <artifactId>assert-contains</artifactId>
-        <version>0.0.7</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>assert-has-float32array-support</artifactId>
         <version>0.0.8</version>
       </dependency>
@@ -220,11 +214,6 @@
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
-        <artifactId>assert-is-collection</artifactId>
-        <version>0.0.8</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>assert-is-float32array</artifactId>
         <version>0.0.8</version>
       </dependency>
@@ -240,22 +229,7 @@
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
-        <artifactId>assert-is-integer</artifactId>
-        <version>0.0.8</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>assert-is-little-endian</artifactId>
-        <version>0.0.7</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.stdlib</groupId>
-        <artifactId>assert-is-nan</artifactId>
-        <version>0.0.8</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.stdlib</groupId>
-        <artifactId>assert-is-nonnegative-integer</artifactId>
         <version>0.0.7</version>
       </dependency>
       <dependency>
@@ -310,11 +284,6 @@
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
-        <artifactId>assert-is-uppercase</artifactId>
-        <version>0.0.8</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>assert-tools-array-function</artifactId>
         <version>0.0.7</version>
       </dependency>
@@ -355,11 +324,6 @@
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
-        <artifactId>constants-array-max-typed-array-length</artifactId>
-        <version>0.0.7</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>constants-float64-exponent-bias</artifactId>
         <version>0.0.8</version>
       </dependency>
@@ -386,11 +350,6 @@
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>constants-float64-max-base2-exponent</artifactId>
-        <version>0.0.8</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.stdlib</groupId>
-        <artifactId>constants-float64-max-safe-integer</artifactId>
         <version>0.0.8</version>
       </dependency>
       <dependency>
@@ -445,18 +404,8 @@
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
-        <artifactId>math-base-assert-is-finite</artifactId>
-        <version>0.0.7</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>math-base-assert-is-infinite</artifactId>
         <version>0.0.9</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.stdlib</groupId>
-        <artifactId>math-base-assert-is-integer</artifactId>
-        <version>0.0.7</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -482,11 +431,6 @@
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>math-base-special-copysign</artifactId>
         <version>0.0.7</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.stdlib</groupId>
-        <artifactId>math-base-special-floor</artifactId>
-        <version>0.0.8</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -575,6 +519,16 @@
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
+        <artifactId>string-base-format-interpolate</artifactId>
+        <version>0.0.4</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm.at.stdlib</groupId>
+        <artifactId>string-base-format-tokenize</artifactId>
+        <version>0.0.4</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>string-format</artifactId>
         <version>0.0.3</version>
       </dependency>
@@ -585,23 +539,8 @@
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
-        <artifactId>string-repeat</artifactId>
-        <version>0.0.9</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>string-replace</artifactId>
         <version>0.0.11</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.stdlib</groupId>
-        <artifactId>string-starts-with</artifactId>
-        <version>0.0.9</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.stdlib</groupId>
-        <artifactId>string-uppercase</artifactId>
-        <version>0.0.9</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -711,7 +650,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>classnames</artifactId>
-        <version>2.3.2</version>
+        <version>2.5.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -997,200 +936,4 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-  <properties>
-    <lock-integrity-org.mvnpm.at.babel--runtime>sha512:fGjySAS+5uOBEvn+dP+7cUwZY8fUZZQXOb9hc7AALRrUmQMKOTyANY28LW9m3GKXLF+mjLog1N0BweD6KZdUhQ==</lock-integrity-org.mvnpm.at.babel--runtime>
-    <lock-integrity-org.mvnpm.at.lukeed--csprng>sha512:MsfRLSaKlgfJ0X7S1z12hJMib2hAKI3V9D04HyU1oKWVK7kx4n+cN7fkJkzQ7MzF5rAKG3o7Nj2/bqwWR7iV2A==</lock-integrity-org.mvnpm.at.lukeed--csprng>
-    <lock-integrity-org.mvnpm.at.lukeed--uuid>sha512:ZX7wwORATOSspXDXdWy0Q1KjBiIug3Q8FtQG8Vc1TCd8gtH2/tp8MCxyS0jk2urzNA6Ifs7c3YbNGIn/K6Kd5Q==</lock-integrity-org.mvnpm.at.lukeed--uuid>
-    <lock-integrity-org.mvnpm.at.popperjs--core>sha512:rFiv+Od7w2vTc35ym/2AcD8m1wkS2hU2U5JNECYcVR4oARsye2+yNqnAgHcvWNg9cSMTcJvcCavjn2YOHwJmJA==</lock-integrity-org.mvnpm.at.popperjs--core>
-    <lock-integrity-org.mvnpm.at.rehooks--local-storage>sha512:h+pSNYi6upB7CCWFhw0nKecjXtT2ja/TdqYaFb5uE0KveXucnUA6pYC4NHvA88ak9MGIA8M6sLkjamjYS9ax0Q==</lock-integrity-org.mvnpm.at.rehooks--local-storage>
-    <lock-integrity-org.mvnpm.at.restart--context>sha512:Cw45jn3syAZj54kq/gJTCLno70z9LxFYiK3UJYjM4uvSMKiDRXacW3xvXn+554P8r5nSIqt1vI5vwBwcLiPxvA==</lock-integrity-org.mvnpm.at.restart--context>
-    <lock-integrity-org.mvnpm.at.restart--hooks>sha512:7t6jpSq2bl5sFgeExUxC3khgn57F6kjnEVRpJ2/BhqJ/iOWGY+HsyZXVV5Z3nGO83YXtIAVhvvvS1M5Jvn2cOg==</lock-integrity-org.mvnpm.at.restart--hooks>
-    <lock-integrity-org.mvnpm.at.segment--analytics-core>sha512:L9vUjo64ITdDbY+/WLQRx1VooqrF1U+uyQUI5Zp6yTJYgH0WVNL7pEEB+NW+0R9FkNrzG8MdTWgzyeiEgaeqNQ==</lock-integrity-org.mvnpm.at.segment--analytics-core>
-    <lock-integrity-org.mvnpm.at.segment--analytics-generic-utils>sha512:uKyssvmIPEfrjYmgGB6PiDlIb7tEozFdvX2MzqkDBDFZw/1YnGs3c32F6SQX8ypCqgJD69huQyCEf4F6u9v07A==</lock-integrity-org.mvnpm.at.segment--analytics-generic-utils>
-    <lock-integrity-org.mvnpm.at.segment--analytics-next>sha512:eFYJBvgeGobOvPqltM4OipY7Xbw6/yCp6tdWIxWvybQWnX4hQSgfMlnx+Jb+9y3HHlVTXm3IaF3HnHwFtfDS+w==</lock-integrity-org.mvnpm.at.segment--analytics-next>
-    <lock-integrity-org.mvnpm.at.segment--analytics.js-video-plugins>sha512:nayiL7RiuaE7heHIoNQ4VdQ/vPWeLSIV2N6NKyTjbxgxkplDgkT7TY0CIwvfGTzZmmTs+ItNKgYXnprSSmfNeg==</lock-integrity-org.mvnpm.at.segment--analytics.js-video-plugins>
-    <lock-integrity-org.mvnpm.at.segment--facade>sha512:ex/tUpGKyCD5g6TGrgKNBIkCg8Dm+jrzYC8xwQ7gmX+qCo/zO2jeCwRoBGj+yxHcUPVrhernWNjCD6QhFLKlvQ==</lock-integrity-org.mvnpm.at.segment--facade>
-    <lock-integrity-org.mvnpm.at.segment--isodate-traverse>sha512:wnJKScHFqVJT/CTS4n7QX4OICcTckZJNXM/Xt6zewPZifebxHvci7Nco37uq1FbL9F1Yt47qqLprAz0mBV/DRg==</lock-integrity-org.mvnpm.at.segment--isodate-traverse>
-    <lock-integrity-org.mvnpm.at.segment--isodate>sha512:0Nd4j5XHx8cB9Utz/4uhGxHyg9Fu40CN34XeJ6OtUagH2cSt6+0KaoilnbyapraaTISsvA81H6gxhgG1gltCVg==</lock-integrity-org.mvnpm.at.segment--isodate>
-    <lock-integrity-org.mvnpm.at.segment--tsub>sha512:GyIji2dDhvCE0M0QyudHiMSJ0ionCSfHSExlpn/vx67gWGgDbP1SIOyc52jcjax+iuJczuLbOrKtKzNLMhFWPQ==</lock-integrity-org.mvnpm.at.segment--tsub>
-    <lock-integrity-org.mvnpm.at.sentry-internal--tracing>sha512:BVAzfsDiUJkssBrnPrdobiPfCDKDK84iotFUT1st1LUX0Ia6P3Bb8RVWvKb9iLKYyTF0bdcZcVpULY0fi+yGhQ==</lock-integrity-org.mvnpm.at.sentry-internal--tracing>
-    <lock-integrity-org.mvnpm.at.sentry--browser>sha512:0Eh40V/t/89JFDzPZtjUfnNOt2+CsmBgVVlJoqJJZz92/l5Q0saBmzw8IMc+npuvBR3UaVBOZK7+4me3HwkmAw==</lock-integrity-org.mvnpm.at.sentry--browser>
-    <lock-integrity-org.mvnpm.at.sentry--core>sha512:wjC2cSfsOZfwlwhoWuT/e2k3zMQBd65LeA2mh59giBrbVEe3i4W8OAwqmfFwRmWbWFlkFNKVRjrzDKsyHbFDuQ==</lock-integrity-org.mvnpm.at.sentry--core>
-    <lock-integrity-org.mvnpm.at.sentry--replay>sha512:e++ITmAHLBAbXaLT4gvFMsvkt7opHUDgCreGPxGNREmNFxuXFHZoBkUAhELTkNvhFgsuzCOGzFQD1v1zr3D5/w==</lock-integrity-org.mvnpm.at.sentry--replay>
-    <lock-integrity-org.mvnpm.at.sentry--types>sha512:kw9HdbpVQuBt+Bjq6kD71EKR+VL4L1owa3ie88lcXDa+PHrfxHwqbV57QNtY4uj/6pjH6SvyCd5ONRKtHpM4kA==</lock-integrity-org.mvnpm.at.sentry--types>
-    <lock-integrity-org.mvnpm.at.sentry--utils>sha512:Xs1ywyyBpEuFdChMEvJo3wzl8nyCces3kSi6ZpTJplMFmW9ARKaigbx+Bp0T8kurNewwLBZZ2aDtWZsxWy6OrQ==</lock-integrity-org.mvnpm.at.sentry--utils>
-    <lock-integrity-org.mvnpm.at.stdlib--array-float32>sha512:oIdmmFXaTSZFEpY/2El+hicpCvp2gfvi5QOgxHib+b4qnaXgPAnN04Lq/d+6/C0O9B0Ot+vSeqfW4bBwXZ98BA==</lock-integrity-org.mvnpm.at.stdlib--array-float32>
-    <lock-integrity-org.mvnpm.at.stdlib--array-float64>sha512:gJTlWcchc3H5P9ZgynY/M6n1O+L8SYgttY6gJUw4tak58Dca0YX7QUwhanzADna48Md4/aFSiWJQYR3kwk6OpQ==</lock-integrity-org.mvnpm.at.stdlib--array-float64>
-    <lock-integrity-org.mvnpm.at.stdlib--array-uint16>sha512:2pi0uqocFKEmMLCEiS8L4aj3lOi5yOPLZKYxdMW+g1hxFy+PWX6C9vVZRHYYYDgWR5KpjnRNfksc0u9FsL9Lhg==</lock-integrity-org.mvnpm.at.stdlib--array-uint16>
-    <lock-integrity-org.mvnpm.at.stdlib--array-uint32>sha512:Kw+D87qzuvu1w2eU6Fv0I50U7pM6pG3oJ3MoQMCQUhTg7sRT8zPv6YY0zULC9ct3s22gOZNFAfIZlnBqPGecKQ==</lock-integrity-org.mvnpm.at.stdlib--array-uint32>
-    <lock-integrity-org.mvnpm.at.stdlib--array-uint8>sha512:T0izUPCQiV9VPcvBR4cYGi5s7NeFu3FhxkFYcqlI7JIqv0+gp6l+C2CQTEFkLwO6TNVc5Jb5zfum4EnGZ/OHlA==</lock-integrity-org.mvnpm.at.stdlib--array-uint8>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-contains>sha512:tTK4KHCzzyI4tszbAzTdR8M66q46u91zZgmur6ZLzL9WhtA4Q0RMDdffs0M9bLLEXBEgGZgbNeAiHl4gVkfVMg==</lock-integrity-org.mvnpm.at.stdlib--assert-contains>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-has-float32array-support>sha512:ZLwV1CXqS70WoS3MUjgsN1xadGvSw0Qf550Ar6KgY14sHL+3VRVjCuD7aCqph742K9weVgJWWSFFT0eDiJfaFQ==</lock-integrity-org.mvnpm.at.stdlib--assert-has-float32array-support>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-has-float64array-support>sha512:JanEzaLqQmeZBbVAwQlYACOimRSXtlOjQmnVr8dxxXTSgM6qJgpb0eki6vAyqT0FtyLC+FNHY8jymXRuhh9lxg==</lock-integrity-org.mvnpm.at.stdlib--assert-has-float64array-support>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-has-node-buffer-support>sha512:y2H8bR2IZwYDMIuTJGDE5mxKXEYHRCLBEQ/fINVklF4qP/U3GJWHWpaTv+toEV8+hs88Whs0ZznwCsEoeGJLNA==</lock-integrity-org.mvnpm.at.stdlib--assert-has-node-buffer-support>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-has-own-property>sha512:EIwTDToVRsV8uclWLbDixKWJAUw7y/0BYzw4IV/TyuiiWTtr39/GB7xJ1i4FkfY1plewGDlKQ7HCc8VF2EgPww==</lock-integrity-org.mvnpm.at.stdlib--assert-has-own-property>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-has-symbol-support>sha512:9eaBvXeR8P1g3Gtks2KoLgBXRaLCOwEfhIkdRwtfjI9gSRWmbZeF93ZWE3TwhJJTubblMGl567PcpmemLkg3Tg==</lock-integrity-org.mvnpm.at.stdlib--assert-has-symbol-support>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-has-tostringtag-support>sha512:MeaC0/+tSSeMcO3zEgUfh+/tD+0fk8n40RVs1b2u8d1OCrUQasGb9DyIyTb3c1AUrahPj7lL/38eH1D8qousow==</lock-integrity-org.mvnpm.at.stdlib--assert-has-tostringtag-support>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-has-uint16array-support>sha512:oP/0JRYL7LY9CD94oqv1edoWjr01VYTeynafELX1as1vLYwNjSa56EH1mwlERzdqKVzfyng+VTYc8jePrwdk2Q==</lock-integrity-org.mvnpm.at.stdlib--assert-has-uint16array-support>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-has-uint32array-support>sha512:JJQcWlgoNr9V4eaTT/mAJ+IC8xie6+q1CnotzmaBixX2/Dl5hhkZKeCva1RJPScPTG8uIyOVc7y96OaPbfodyQ==</lock-integrity-org.mvnpm.at.stdlib--assert-has-uint32array-support>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-has-uint8array-support>sha512:uX1cKxVCE2oi/B6Eb1lDMW0YK/tlJKtoBk89STCoFpbP0/zD+DFCRpuzO8SGl5l9ROUU8s/BcukW02ApFVVj8A==</lock-integrity-org.mvnpm.at.stdlib--assert-has-uint8array-support>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-array>sha512:ZKZddhOokgJIyYt7PhYh1w7DXKJ88SAj8V30l0ZEhNxpsYDG/3etnxLztJBNA//bny72aLvj+pBoEEMr+4jdIQ==</lock-integrity-org.mvnpm.at.stdlib--assert-is-array>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-big-endian>sha512:sYNa7pY3t4TUxyEKKuX7pBX9r1bP0xV9UoMf6IkkAJpM49l1w+o29Kb+VlTmkXmuqaUFePsJSIHR9KfgrY558w==</lock-integrity-org.mvnpm.at.stdlib--assert-is-big-endian>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-boolean>sha512:yidNKsyP6clday/7b+UaUMIp9GubijbliJBzGhtd2BZWRDfLL+RGceq7bbM233ccAMKiebWykFskuV+1jsfGYg==</lock-integrity-org.mvnpm.at.stdlib--assert-is-boolean>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-buffer>sha512:SQBDm1qe99/7Fc1NRmvdBvNADC9GBaUSLLSc8M3SozbUGsZ1g9njqogRhTpOvENDzlrmfpMudeRnfosutX2GJQ==</lock-integrity-org.mvnpm.at.stdlib--assert-is-buffer>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-collection>sha512:z3+0ODxxWBlo1YHnegY2jr1zdmdplvU1KT5mR9am1JlCnBLOHNEP1vMQ/lP7uuaAnKqel/CmNFgxIDS1cFr87A==</lock-integrity-org.mvnpm.at.stdlib--assert-is-collection>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-float32array>sha512:OOSPJ148tExIz933q2wfgoe9TcO3BCGrXEBv2Tvam/1WwUsRQ6Of+Csx50A71gW/QdeSPsYebJ7gmydL8vHC3Q==</lock-integrity-org.mvnpm.at.stdlib--assert-is-float32array>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-float64array>sha512:lauy6DWj4/Xx/wIUGNdWWNfHla0c8jCkh87VdIMXP/jT3KzpiroHaIcZDvKzMqvdco68Gc2xU+QVu6bNnifmfA==</lock-integrity-org.mvnpm.at.stdlib--assert-is-float64array>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-function>sha512:IIHjICkwPcrTSBiRzfW4vpzRPQWRQJ/JhymsuC3PAqX+H8+vEsGbo1XEx+swANt0G88dWK4goilG4GKs+S4sgg==</lock-integrity-org.mvnpm.at.stdlib--assert-is-function>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-integer>sha512:EAHKqnFLlvF5ocyXTWKPVp3/ajqdLHG4rmhbuQzmxtY1tqVweHyrogFQ5PSmMC4SZ9QzrsYOxcaQP2byTnCvpw==</lock-integrity-org.mvnpm.at.stdlib--assert-is-integer>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-little-endian>sha512:Ex0OxoPhaBBRutYhhEl3cInZbOVMfv75r4m9w0WAWqpg6+/B0ZMj7QGoGEa5dSRoL2sTPDNzhVA0CS670Y7hfw==</lock-integrity-org.mvnpm.at.stdlib--assert-is-little-endian>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-nan>sha512:KfYrDs8O0M/jXX6n9Wt6TGXLuKWtdiLz29q7AiWFNfBf9Pjfy16h3AtBSU8iD4uTu0IBj8cREfFMbYi+SzUPvw==</lock-integrity-org.mvnpm.at.stdlib--assert-is-nan>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-nonnegative-integer>sha512:Jhj1ydEKj5luKt2ndzZJgcdHiI9LLKlSeorMy4GRO6QYVXefLoK5Lq4y+7/ojosuA+rhawJGJEnVykAr0wFJeg==</lock-integrity-org.mvnpm.at.stdlib--assert-is-nonnegative-integer>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-number>sha512:xuz45kQGcmCSThJ3tqxeRJDiKJahsIYCNZfUP4Hmv34Rr3xgZDwPDOTMmagZ3Kh4NfqNCsb0suPz3raMg7IclQ==</lock-integrity-org.mvnpm.at.stdlib--assert-is-number>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-object-like>sha512:HK5FUdJL5pKNX5g2vIzAp252ic9OfZZjmI0+vmvECQ0iSpDoiGKVKOILKlqJ36UoB9ewkwu7I28wVAVLwN74bA==</lock-integrity-org.mvnpm.at.stdlib--assert-is-object-like>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-object>sha512:DuR1+ef2WqzJGC1pPJDaTsIdw5PBb5G9naVG4OkT2axjzcuAp2v+qJBF4MXfv5hrlS9MU98ZQJ4LWmhEexiO4A==</lock-integrity-org.mvnpm.at.stdlib--assert-is-object>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-plain-object>sha512:JDdGF4/uIWl08ApLf5/p9eqye1GL4L/8XyUrOM18mM5G9kSpiUYKO8x1QjO+n7ixED/UdS8xZr0jnVPE8uu6GA==</lock-integrity-org.mvnpm.at.stdlib--assert-is-plain-object>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-regexp-string>sha512:c+NnMrfm1LRwRgEiQ1F8fBteCIkMQTsyWT0qTE5xCi2ASg+ZaEO5mo4PPU3Wz19+FFO5RRMCz5QF1lKDJ37rDg==</lock-integrity-org.mvnpm.at.stdlib--assert-is-regexp-string>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-regexp>sha512:G2p1EAZ0HfvdBzfEswphmgELFggJNnvSCnzFQvHYTQML8Tziy+HOaBM4vmxTSgm0nxofZUBZRdTHjIHIYde0Wg==</lock-integrity-org.mvnpm.at.stdlib--assert-is-regexp>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-string>sha512:s2OD6975ULvsmzdP4WhesG4abqEDK51N/FYluculbPAyc8FSjHT7RwvLCR9dof1CciLtYFdnuSUwD8Vqv/3N/w==</lock-integrity-org.mvnpm.at.stdlib--assert-is-string>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-uint16array>sha512:YmJgiEiQdOhGIJ3D881+iWldQAMclYR8/hHV2KJNzZGNnX5I2QP6WBSv20NRPWLt0Z2Ag/YdUaKaTWWsdDOC/A==</lock-integrity-org.mvnpm.at.stdlib--assert-is-uint16array>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-uint32array>sha512:xk4O3q/iEHoj+Y7pIVxw7ki8ACEkqDmlaF+ya3InpkNamHpnLVrBh9zVvFv6vZsETZ4S2A9JTdeBz0FClGUwKA==</lock-integrity-org.mvnpm.at.stdlib--assert-is-uint32array>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-uint8array>sha512:LtWoFeDLZDqpzUlxYCHPOwV1kviNOF3WhLZWUJ2F7qOmYLI2ZffPrOCAFVKCpEnzFtDFgoaayXPUbVvrLZKDQA==</lock-integrity-org.mvnpm.at.stdlib--assert-is-uint8array>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-is-uppercase>sha512:lWYcMCUOJJHny9eud+5P+kIcYCtIQm0a7QsGdeECv7rHDKVTiXHKLdf1xoHOBPGHzxduzQOFUhjLur8TvvUUUQ==</lock-integrity-org.mvnpm.at.stdlib--assert-is-uppercase>
-    <lock-integrity-org.mvnpm.at.stdlib--assert-tools-array-function>sha512:VSyoAa8xseMc+kt2wJnAESueQTEYkQpk8A26PgTXjguImz3xEEy9CRPm+wcQzLppA1h1Q/XGPP7gPUEwMpGQ+g==</lock-integrity-org.mvnpm.at.stdlib--assert-tools-array-function>
-    <lock-integrity-org.mvnpm.at.stdlib--buffer-ctor>sha512:8eP2nYBgFynE/H/BGuXfbh8tpnny8V5A+BijvoSK3GhH+ArDB+u43tJ9E9T+rnRYTYrSJDEQ0l+mZOv1TXoiRw==</lock-integrity-org.mvnpm.at.stdlib--buffer-ctor>
-    <lock-integrity-org.mvnpm.at.stdlib--buffer-from-string>sha512:Fdk/mRkAqn7289u8vCN3mPNKneDL41Z/5P5+zI/0vcjFFWWwLTKaBKscnJ6OMMo+esgs1/G+pHm7KzL34zF45w==</lock-integrity-org.mvnpm.at.stdlib--buffer-from-string>
-    <lock-integrity-org.mvnpm.at.stdlib--cli-ctor>sha512:fLrV2ttH6ksDedrs8nMnHKUjRAcSRnHPslnQwKK7QOud7jeRqYPaWQ0qbOXmGrKVPnKHi+3DM14vaDSamvA5hQ==</lock-integrity-org.mvnpm.at.stdlib--cli-ctor>
-    <lock-integrity-org.mvnpm.at.stdlib--complex-float32>sha512:AFQWXn37jFJuHLMRVM5TucDf1Z4DCA65IXkgzvJp4R/zb39Y64ar/zA8YrkYiP4/rVwqFOSKfwFJwCzLp/iM+w==</lock-integrity-org.mvnpm.at.stdlib--complex-float32>
-    <lock-integrity-org.mvnpm.at.stdlib--complex-float64>sha512:zBfIwy2gdYzx5/tdrRql5Kv10c+S5shiuXaheeawCtWy3zJiL7EJ6wiwzAqniX6xeYidZq6ztSGYZu9j2qBxXw==</lock-integrity-org.mvnpm.at.stdlib--complex-float64>
-    <lock-integrity-org.mvnpm.at.stdlib--complex-reim>sha512:DQOHkwXkXFMJEsUTWYK1TEdNPVkXqm14z0PM9wk4nP/y6cFVeSM6Vw2A3+w68P06cCI4EvZx+QGcOOfyzLkIGw==</lock-integrity-org.mvnpm.at.stdlib--complex-reim>
-    <lock-integrity-org.mvnpm.at.stdlib--complex-reimf>sha512:1FeT/OJn2g+MAR/yBQ0HbUshUFaSAd19QQ9h97CZeoTJLtfTOzx4rtCWbnOY9SD/PgQBLxtpeIZGrDZ+DB++SA==</lock-integrity-org.mvnpm.at.stdlib--complex-reimf>
-    <lock-integrity-org.mvnpm.at.stdlib--constants-array-max-typed-array-length>sha512:voplehztMPr3p77ZCKAoKeKuDtBCzkhZTwX0OKl9SHgaGw5vBEeLW153527GG24jVES3ddSPlzOeegPk8b8vAA==</lock-integrity-org.mvnpm.at.stdlib--constants-array-max-typed-array-length>
-    <lock-integrity-org.mvnpm.at.stdlib--constants-float64-exponent-bias>sha512:VzJ4zmUFii7/8FRESMTbKb2C0prGE7weE4Sy6mzuwnxFUSsiW8mehexE0NAh6tX25hsysx9GVdTTgWYBcDi1tg==</lock-integrity-org.mvnpm.at.stdlib--constants-float64-exponent-bias>
-    <lock-integrity-org.mvnpm.at.stdlib--constants-float64-high-word-abs-mask>sha512:FczQ4j4oE1iuuY2pGyNe8SFM4TOL3l98ZoGumthGBBioy+D3azxozbGudUIF+iZKDUOwEMJuZ7mN1GQx3YsEsA==</lock-integrity-org.mvnpm.at.stdlib--constants-float64-high-word-abs-mask>
-    <lock-integrity-org.mvnpm.at.stdlib--constants-float64-high-word-exponent-mask>sha512:NBu+zLesUPciHrVzmQf5r8ZSts8lGKusiKUnzlEzhqLAWFbC6SdRXn+rpCub9843l1uWRD0HBNJzNMhJSzh8Mg==</lock-integrity-org.mvnpm.at.stdlib--constants-float64-high-word-exponent-mask>
-    <lock-integrity-org.mvnpm.at.stdlib--constants-float64-high-word-sign-mask>sha512:wylfrEf6WpiGwEejNgVARiYGBQMbotGbRexjx2GDCNCB6eDrfh8ues6e/2pzbAAIr0GiqYBxCTmWaNTzUoVggw==</lock-integrity-org.mvnpm.at.stdlib--constants-float64-high-word-sign-mask>
-    <lock-integrity-org.mvnpm.at.stdlib--constants-float64-max-base2-exponent-subnormal>sha512:QOtCWfPlSS+Hv/nr1NtwWhND13Ai7rvHFQMqspS5RICagljYUXbzQvgTWiCuP9r9W29PCJcP8JF6ch83ERZkaA==</lock-integrity-org.mvnpm.at.stdlib--constants-float64-max-base2-exponent-subnormal>
-    <lock-integrity-org.mvnpm.at.stdlib--constants-float64-max-base2-exponent>sha512:VPIlfG/nxUHXRG6T3w7YE4yIewRJ2kF7nqr46fOkRImRicl9nT0hTsq7f9SpX44okWhwMe2NG6kb4QcrCY4qtQ==</lock-integrity-org.mvnpm.at.stdlib--constants-float64-max-base2-exponent>
-    <lock-integrity-org.mvnpm.at.stdlib--constants-float64-max-safe-integer>sha512:dGAT3O1+RM30gB5K5Ix415R9+p+eyZDSXLzeKZ9cORUR7mbWdfcINJ1bAFOM6MxlLeglnMWFRPQo06kGkKt0Iw==</lock-integrity-org.mvnpm.at.stdlib--constants-float64-max-safe-integer>
-    <lock-integrity-org.mvnpm.at.stdlib--constants-float64-min-base2-exponent-subnormal>sha512:dCVDTZbWa96Y+8nh9kMEUWWLddh+XQnds49NVEU+ExwVmYJFeEyj6HGrHrW/BJDhqsVOUUQn8DQHDKCJJNJ5UA==</lock-integrity-org.mvnpm.at.stdlib--constants-float64-min-base2-exponent-subnormal>
-    <lock-integrity-org.mvnpm.at.stdlib--constants-float64-ninf>sha512:CaURZ7FcQchZaD9jvjqvU0c+Kli5oTrWc3YtdtUL4+WceG2gToLQIGUdBqkXP7E6c8XF3iKjC19iR5uMJwEljQ==</lock-integrity-org.mvnpm.at.stdlib--constants-float64-ninf>
-    <lock-integrity-org.mvnpm.at.stdlib--constants-float64-pinf>sha512:9vyxk0mVjcOzEZHOZ4c8IyIz2ceH1R8p0XzJqXC5gD+l7KbKFEMwgLBeY7GOjIk9yWrPj9voSTOyjYArBLvO7A==</lock-integrity-org.mvnpm.at.stdlib--constants-float64-pinf>
-    <lock-integrity-org.mvnpm.at.stdlib--constants-float64-smallest-normal>sha512:hfuAOwa6HPrchU6Ov2EY1xxq4cD3aB/Px1TBUHPg689r0kQ0XV8ziaBuJdEbOlth75ec8rHVhiF1YA2YNxq0kA==</lock-integrity-org.mvnpm.at.stdlib--constants-float64-smallest-normal>
-    <lock-integrity-org.mvnpm.at.stdlib--constants-uint16-max>sha512:xRkHoEPA/uQj5NGtnVZVYbnCzBVbBKsoNHb85GloQ9VPloMJfQhrklv1ExsnupnjTT01TE/HPiPnqjx08imKOw==</lock-integrity-org.mvnpm.at.stdlib--constants-uint16-max>
-    <lock-integrity-org.mvnpm.at.stdlib--constants-uint32-max>sha512:YuXSU0Cn9Dn5yMFhvEdWZC8nLaL90eEHuSK52XLnnwJxXCL9kBM4SS+ayz3ssbmbNeAqWJ8ofBReApK64TSoJA==</lock-integrity-org.mvnpm.at.stdlib--constants-uint32-max>
-    <lock-integrity-org.mvnpm.at.stdlib--constants-uint8-max>sha512:wQVvxKq4piyMSdQG54m1Ms/JlV5L5byiE3YtWmiMnprhf0Cb2DQwN7cw8HJtipOYgeMxq47tXOoaSvKhv3ElZQ==</lock-integrity-org.mvnpm.at.stdlib--constants-uint8-max>
-    <lock-integrity-org.mvnpm.at.stdlib--fs-exists>sha512:p914D4tVUrAH/jig85eiPYdIdHcViQvBkK/1mXIBSnC7QJdPJlM9mW47x64b7X5lkTedfgiIHPDWRRjzUp2T4A==</lock-integrity-org.mvnpm.at.stdlib--fs-exists>
-    <lock-integrity-org.mvnpm.at.stdlib--fs-read-file>sha512:vym26d6oI1ewGr71NR89kGB34D2rCbYYhIa+xxwdXN/y0NvWYG9zjxLZbkbXoHTjQr6cuYv9YbEb+qHFHwMX1Q==</lock-integrity-org.mvnpm.at.stdlib--fs-read-file>
-    <lock-integrity-org.mvnpm.at.stdlib--fs-resolve-parent-path>sha512:3JCpdtHvWvzgZr2rIoK1Vf7RogK5el3BRVzFryhYnuCvT97ZpkjDEqiFB3O0dhVtduCXHNOeLiXhBpLt3dYM8w==</lock-integrity-org.mvnpm.at.stdlib--fs-resolve-parent-path>
-    <lock-integrity-org.mvnpm.at.stdlib--math-base-assert-is-finite>sha512:ZaJMCTGIneYZqpDGONBvvfLmEiLR7/0/HjYEbO+tm3Q4H6nu9mPhQGtZJmfSlkiaf+5f/TQA2EM36I2a80Jhjw==</lock-integrity-org.mvnpm.at.stdlib--math-base-assert-is-finite>
-    <lock-integrity-org.mvnpm.at.stdlib--math-base-assert-is-infinite>sha512:EunQjuJQHhBRtMM+2ycbsCHKQ6hPLYuf0S/yJOzG9L3E2fuwbH8utXiNReVJaTcppqqFFGGy40xSr7SdwydErw==</lock-integrity-org.mvnpm.at.stdlib--math-base-assert-is-infinite>
-    <lock-integrity-org.mvnpm.at.stdlib--math-base-assert-is-integer>sha512:HJfFYlXPBzVjJPAtqjW7S2IkXcqYmSZhkxj+GNICKs2Igjzv9V/Y/EPmHASAyEpCYCUPSCkkd+fAwdTAsuTuiw==</lock-integrity-org.mvnpm.at.stdlib--math-base-assert-is-integer>
-    <lock-integrity-org.mvnpm.at.stdlib--math-base-assert-is-nan>sha512:c8MJyUbmQz7htE8pqvk4i83SAqTpsosWRWV8792eZTfJao3MK6bBDaa4tWDRFsmZCIEiFpBWNKMTBKwGRaa1KA==</lock-integrity-org.mvnpm.at.stdlib--math-base-assert-is-nan>
-    <lock-integrity-org.mvnpm.at.stdlib--math-base-napi-binary>sha512:tO++9yt1RxMS2JIYnXNwjXBtE0MsRAj+82XWLFq2wqR5XiBUUySBmcTyEU18d0Fzs//KwMEOyuJnR4xFH8pKrQ==</lock-integrity-org.mvnpm.at.stdlib--math-base-napi-binary>
-    <lock-integrity-org.mvnpm.at.stdlib--math-base-napi-unary>sha512:3HfDGtnGG8Sa71qYfPbN4NABItfW19bUwCXQ1O0yZoL3w9k7QQGl0kE9ZX47P9iqujle2B8JMyjVN8Epq45Wyw==</lock-integrity-org.mvnpm.at.stdlib--math-base-napi-unary>
-    <lock-integrity-org.mvnpm.at.stdlib--math-base-special-abs>sha512:H4Eo0ntaT4YPyYGJsnHbYIPK5l0atA4qwDFrUNpoIPuano6OoXxYUAMRwmkQSs+2z51Rq+CSJX8tCpBLE2ZxJw==</lock-integrity-org.mvnpm.at.stdlib--math-base-special-abs>
-    <lock-integrity-org.mvnpm.at.stdlib--math-base-special-copysign>sha512:UrcfsBclWAuuHVtuTIY9FC889CKImJe4IlpL68sHGgqhroyPa1Hj4ilYKBjxQzhNrkK5udTAfqdJ9e3X5DHZzw==</lock-integrity-org.mvnpm.at.stdlib--math-base-special-copysign>
-    <lock-integrity-org.mvnpm.at.stdlib--math-base-special-floor>sha512:5clYlZnv5tUPJo3MNsKBV7VooKanJIKWl1s9z24wa2WQE8+ur2CIH41dbAqbogwfYw05LHyGfrcRdqBn/FKbvQ==</lock-integrity-org.mvnpm.at.stdlib--math-base-special-floor>
-    <lock-integrity-org.mvnpm.at.stdlib--math-base-special-ldexp>sha512:MNvvS3TOJKLrNNMQj4BZpZGmohFFnt+lmuekKM6GDC+mPYBI1uMjaM5a0s+hzKXDora1zlncDNQqVjha3sGz7g==</lock-integrity-org.mvnpm.at.stdlib--math-base-special-ldexp>
-    <lock-integrity-org.mvnpm.at.stdlib--number-ctor>sha512:ooS4mqgLH7+8+6P6GX1pTRF+w24yi0z+OvznPy3SyooQXkK1yTFqtJdgjQtZSbo6gngzDae1pPB6VZ6VVfGO4g==</lock-integrity-org.mvnpm.at.stdlib--number-ctor>
-    <lock-integrity-org.mvnpm.at.stdlib--number-float64-base-exponent>sha512:ab49aoKP2rU02NFx3u3NmOOSEbSEuiDOHKm2rY4v67hJGchAhrZIgiTIObncLrg6Y3afTOuCbh0futmiTdj0dQ==</lock-integrity-org.mvnpm.at.stdlib--number-float64-base-exponent>
-    <lock-integrity-org.mvnpm.at.stdlib--number-float64-base-from-words>sha512:kKUYRbjzaUrLDw5DfU4sENZsohVUoAAjEDa6wrr2MTslqa4TONdNu+Lwc+Gcd3+8u9NGk4ZCz+sCyGM6ISBVcw==</lock-integrity-org.mvnpm.at.stdlib--number-float64-base-from-words>
-    <lock-integrity-org.mvnpm.at.stdlib--number-float64-base-get-high-word>sha512:JCkKIrq4Qbj70piIzmfwUDKH0T7GbWY0JX1XHg7tvl8a9UfmIfXQ5SvH6GS0exLIC097u87/EF+/EF/AteUcRQ==</lock-integrity-org.mvnpm.at.stdlib--number-float64-base-get-high-word>
-    <lock-integrity-org.mvnpm.at.stdlib--number-float64-base-normalize>sha512:JBwM82p8yZKDDXiLyDItj7ueHtWvyYos8nKpnADo9hnQgk0UqDCRyXQkzu0WXJbvaoXhJ3W8jlm2Gep3GXqN5A==</lock-integrity-org.mvnpm.at.stdlib--number-float64-base-normalize>
-    <lock-integrity-org.mvnpm.at.stdlib--number-float64-base-to-float32>sha512:uNGFcfgD/AGSXmaYh0NlrQ5yTlZU27fteuoqihYZJ6Y4OZvi6IJ7Wd2ywSgWLEHA891RBezDbj3OxcvX8Bqmwg==</lock-integrity-org.mvnpm.at.stdlib--number-float64-base-to-float32>
-    <lock-integrity-org.mvnpm.at.stdlib--number-float64-base-to-words>sha512:5HwS0FRTBOwWt33OmNAevNHE0UtZqHRUxekJnAqPWp/6k68wB9Yjq4m8gzhfUzmNU+A86MjeTuaTrq8gTnHHEA==</lock-integrity-org.mvnpm.at.stdlib--number-float64-base-to-words>
-    <lock-integrity-org.mvnpm.at.stdlib--os-byte-order>sha512:TKNIKB3ItpTy584VBer3mGiZOX9e7KuqwBvjQVhDNPSaJoi6QltuKkf3tHFQW/bRXq5ukIPn+nKw248h5MTTpg==</lock-integrity-org.mvnpm.at.stdlib--os-byte-order>
-    <lock-integrity-org.mvnpm.at.stdlib--os-float-word-order>sha512:NbV3bsDOtjAD/MwUKTc3PStCwrKiOqTVNhvdfjoksHcZ9cG8oEgSKh9b4Kj7P01GgNe8ddYtcG4jPjl5KNI8Jg==</lock-integrity-org.mvnpm.at.stdlib--os-float-word-order>
-    <lock-integrity-org.mvnpm.at.stdlib--process-cwd>sha512:Z77iJNMkbCCbDcw+N68UqFNkhNoMk6DntLfOJjvEr4OJZYSxW57QmRtgifBG/Xn1x1BbKml97L/8AVFG6LgWTQ==</lock-integrity-org.mvnpm.at.stdlib--process-cwd>
-    <lock-integrity-org.mvnpm.at.stdlib--process-read-stdin>sha512:eJI0z8w0EM7IxOVxeEzPJ1UkPBBLwKLSjYEt77j4NRmsi0o1NhBj4l/edd8eV5hYkY6Mx+Mj2jkMDMNQauuZTw==</lock-integrity-org.mvnpm.at.stdlib--process-read-stdin>
-    <lock-integrity-org.mvnpm.at.stdlib--regexp-eol>sha512:+VN1B8Mqn2Gu0qLS5UylQVSnTkJPmHBK3n9IANnBIVwMTt550aPDY9Vk5kSscAYKDjYmvEiI6kD6gNEQ9mEDgA==</lock-integrity-org.mvnpm.at.stdlib--regexp-eol>
-    <lock-integrity-org.mvnpm.at.stdlib--regexp-extended-length-path>sha512:v5vZY4AQQFPEO7Y4h5jZ9rQIGRhB3J89XGeqCouXL33GvFcIK6/90uGGn7iTiETj7tKQNR35nwq4j45SLpRdUg==</lock-integrity-org.mvnpm.at.stdlib--regexp-extended-length-path>
-    <lock-integrity-org.mvnpm.at.stdlib--regexp-function-name>sha512:m3cV054MA2n1GQv2bYhiafsy+U/9jhNvVKHCtMQkQ4hSmNnFRd90NabFlPIoqxfJRuTjDhWz5f3sxdhJ+q4YzQ==</lock-integrity-org.mvnpm.at.stdlib--regexp-function-name>
-    <lock-integrity-org.mvnpm.at.stdlib--regexp-regexp>sha512:nrnoGp6THs3ULEyswO8WBdyCd+enBbAfp2/c+VWmYc1PJKFiFZGU9j9ZiLUcyk8CRiKlR7EAle9iLxxa/BBV1A==</lock-integrity-org.mvnpm.at.stdlib--regexp-regexp>
-    <lock-integrity-org.mvnpm.at.stdlib--streams-node-stdin>sha512:7tyObKbzvv2jH2Nx7NjK4QoJT4aHEmLJP+wXsRydzb5ZVsNEzILLOFEc7rKOSVhDrhwXXL/C0pdFJL5E3EqVQA==</lock-integrity-org.mvnpm.at.stdlib--streams-node-stdin>
-    <lock-integrity-org.mvnpm.at.stdlib--string-format>sha512:floyIS6I46BaMp9IGnjd7JBBmO0QLSN0161bbAnWCp0dbSw3AsC5Ui7sNgHIAcXj6NxsNqoXs8GRp0UA7gXVhg==</lock-integrity-org.mvnpm.at.stdlib--string-format>
-    <lock-integrity-org.mvnpm.at.stdlib--string-lowercase>sha512:AYMgUt4KT+AOMvOJZEzAHKTCCgiN0AUgv2ufGs7Xky2XVcmXpMJRH3t7XPX3pvrHLUn7WabuXv73a5/NWp3Cwg==</lock-integrity-org.mvnpm.at.stdlib--string-lowercase>
-    <lock-integrity-org.mvnpm.at.stdlib--string-repeat>sha512:b6G9AHGITgbAu6Y8O1ZCDz+j9JbYd6iRKjC15OT3V8SBMBDWjEtk2b/HAW4rGoPExhhXHPmHXP3aYSmGGTd7aA==</lock-integrity-org.mvnpm.at.stdlib--string-repeat>
-    <lock-integrity-org.mvnpm.at.stdlib--string-replace>sha512:ob8l7lyyC6tMdVm3RXZ/zKQEJLttdiuOxDCRZns/a1TOyW5EYdAkK1rSGglX/yvVtEouXTSn89aaFV8zq8Yy5A==</lock-integrity-org.mvnpm.at.stdlib--string-replace>
-    <lock-integrity-org.mvnpm.at.stdlib--string-starts-with>sha512:413UqR56W099y6VAJwUje4SgNKsn3UfQW/BVBmc5zGr9/QYnqCLzsHT8hZiXFEp8pLFMAL8ClDm6b/dMYucajw==</lock-integrity-org.mvnpm.at.stdlib--string-starts-with>
-    <lock-integrity-org.mvnpm.at.stdlib--string-uppercase>sha512:k1yyXEfhU7ywJjGkHD4otNVj56byTNAeBnap7srL/hI+MtMUAo4yGryEUMwax/zzCCKPJDzWu9zokeTwZRhJKg==</lock-integrity-org.mvnpm.at.stdlib--string-uppercase>
-    <lock-integrity-org.mvnpm.at.stdlib--types>sha512:y9jRCjQ8aqbuBfxl6+ghbPS9lyBEdHzA2HSz3SQRNC/1EOUWLlJGLPdxo5UiASZE0jk0IuepQMoht2WF9s6CFQ==</lock-integrity-org.mvnpm.at.stdlib--types>
-    <lock-integrity-org.mvnpm.at.stdlib--utils-constructor-name>sha512:4sClDQmkSbUXOWFpg3FVhlZZ4SOKG0Ih+aowIRu0QvlRsBQWJuw9sm6vDhE22RFfxeuT+RScxqOTES0YnAr3IA==</lock-integrity-org.mvnpm.at.stdlib--utils-constructor-name>
-    <lock-integrity-org.mvnpm.at.stdlib--utils-convert-path>sha512:bwmEqBDK3Hm+84+ssivtTOqztoWJcfe32smI+RF0+eZkFqi90FZGKvEiK69B/fjAoes3cx0XvrqX1QvZ0FtiRg==</lock-integrity-org.mvnpm.at.stdlib--utils-convert-path>
-    <lock-integrity-org.mvnpm.at.stdlib--utils-define-nonenumerable-read-only-property>sha512:ieC5gUCRmHQHRRbmCceuUk23NETBL4qycMsFfrVld/UKH2tLqvzkn5q6Uw3J0n0/AaERwWdgj3Pvyy15ypbrpQ==</lock-integrity-org.mvnpm.at.stdlib--utils-define-nonenumerable-read-only-property>
-    <lock-integrity-org.mvnpm.at.stdlib--utils-define-property>sha512:xNBejmFAEl8aouUfyJuKE2TtlB7tYacQNUjlGaVLus2Aj++IiqdppXuBgSD//UwRyp5Y3g1jULxb0oWh3RQU7Q==</lock-integrity-org.mvnpm.at.stdlib--utils-define-property>
-    <lock-integrity-org.mvnpm.at.stdlib--utils-escape-regexp-string>sha512:gbD1Vs6TTaDtCrwCpr+Ciwas36vFzEYsC/3CltPvFGhqfWMOhjSHLUstYQDR2miyJTA3YqhiVchv7h2uV1Ks+w==</lock-integrity-org.mvnpm.at.stdlib--utils-escape-regexp-string>
-    <lock-integrity-org.mvnpm.at.stdlib--utils-get-prototype-of>sha512:xdixs1XdkvwDS+AlWTeNk7CJH9SITIXd32fjyJKT5uWMBsj4MmamOKlYtfFt5WkQI7OLXE97szKFLlCmRSNEzw==</lock-integrity-org.mvnpm.at.stdlib--utils-get-prototype-of>
-    <lock-integrity-org.mvnpm.at.stdlib--utils-global>sha512:Dk1uXQ0bImggaDTUhK3uUch2L5ldfpNV7BkK0l6eLpbTfZbfwDCKVDVpPvwPYOzoi+xmT4L00HWxgvB73XtD9w==</lock-integrity-org.mvnpm.at.stdlib--utils-global>
-    <lock-integrity-org.mvnpm.at.stdlib--utils-library-manifest>sha512:LPbYt1mM24zBdjy6IixE+vEfg9mU+qrUPnkU5+0V3BaVUDZ9563sx1yR0b25RtOtRMhH/f7z24Oq+77Zi5lrfQ==</lock-integrity-org.mvnpm.at.stdlib--utils-library-manifest>
-    <lock-integrity-org.mvnpm.at.stdlib--utils-native-class>sha512:G8coWvHEOgAKg+/SbUoVldF3lmwaFORFJbeVBe8IFGLlhQpzBziAtI0UwcYfji5pdIqCvvCbF9CWLGUIDOG9Hg==</lock-integrity-org.mvnpm.at.stdlib--utils-native-class>
-    <lock-integrity-org.mvnpm.at.stdlib--utils-next-tick>sha512:QPi/Ruk7hCgzl2WEFY3KHWZcf3RITxn0IfJ9sxZwYRNd3vYfGkdhZ89w6j5Lngox5hhzahED+UU6/1mhc/0acw==</lock-integrity-org.mvnpm.at.stdlib--utils-next-tick>
-    <lock-integrity-org.mvnpm.at.stdlib--utils-noop>sha512:iMOAZFNUXf0jeMxTZVksYgAiK/oxKO42d1yieDqNX6TzbGZviQCWPMRUnE7brrIHWEleccE5TRAUmKR/h23rEw==</lock-integrity-org.mvnpm.at.stdlib--utils-noop>
-    <lock-integrity-org.mvnpm.at.stdlib--utils-regexp-from-string>sha512:Ex3IdRJrFF931PDxnhMmNW54pWNpu6bsd3WuR00IZhSxb/RWAFrpqoiaffXVs4UFzG1Y4EKBRxOiEIZSa2A+sw==</lock-integrity-org.mvnpm.at.stdlib--utils-regexp-from-string>
-    <lock-integrity-org.mvnpm.at.stdlib--utils-type-of>sha512:1luacI8Xg4Xe2VYhTj65uiLlHDN9IdL59avdGecJOIkeFVarnavcOFg5V0KDf6KCLnndLmUmSbmQKilvGwWaYA==</lock-integrity-org.mvnpm.at.stdlib--utils-type-of>
-    <lock-integrity-org.mvnpm.at.types--invariant>sha512:65PG91/0nWPZDaOx9sX2RbZR+TGbka5BIBuNCR8YhNMfJIK5wlfQcE2/xYMjPagOFXPboIiCkXdqHvM8uKG6tA==</lock-integrity-org.mvnpm.at.types--invariant>
-    <lock-integrity-org.mvnpm.at.types--prop-types>sha512:45805HWmoMMW0lBvhn3vgBJj2dsTWYZMWNkrqWHHebGDeEO/yf04YqM0gc3m5ATFFHSsnS3iJbqpDsnKAS5D0Q==</lock-integrity-org.mvnpm.at.types--prop-types>
-    <lock-integrity-org.mvnpm.at.types--react-transition-group>sha512:mNE7mYzwXRNzYlaac4VYr5TUvCCxD33Huav6ByLOLGIrCqbG6UzhptcjTBHNOnBCimdcn6uCMJV89lX3JS5DOQ==</lock-integrity-org.mvnpm.at.types--react-transition-group>
-    <lock-integrity-org.mvnpm.at.types--react>sha512:TlhyFJYsNgC69SJWT360OcOprRG3bNOm2YwPKbAHXRhQLC3Ip4o0IwaGtLxhxCd5ABHMZ1jGZF+LbdaFkxv2Dg==</lock-integrity-org.mvnpm.at.types--react>
-    <lock-integrity-org.mvnpm.at.types--scheduler>sha512:p5sGjHKSbXsNJLWZAbzmkh2+/hQOHAJ1OL4WN5aCFKRqmGa+rmv7PKpiodUPQXqQ5Yrzr49d7k/ZbMKlXZasrg==</lock-integrity-org.mvnpm.at.types--scheduler>
-    <lock-integrity-org.mvnpm.at.types--warning>sha512:g3b7TmtIyl20ICxmoEH6uPz686IWKwIYiSwa5VGV+flmD4L4guj2gzcTl5mRN+h2aCoEao/1v0DpHdp2zTvNdg==</lock-integrity-org.mvnpm.at.types--warning>
-    <lock-integrity-org.mvnpm--asap>sha512:HvW0yKwRqGX27xqFlAzPrFF4UvouIf3lDk3tKpU75mm3qHdOddICOoCbFgMnC82HMO5Kd3HkIqH0u62evgm+Tw==</lock-integrity-org.mvnpm--asap>
-    <lock-integrity-org.mvnpm--classnames>sha512:Ab57vqhcqfKweF4Xjx+poCm985J/cVnDgx9BMeAe5IWIdmipej1hMUvANf/1Mtbi7k/apxDGvB/fmGlKTv0xUA==</lock-integrity-org.mvnpm--classnames>
-    <lock-integrity-org.mvnpm--classnames>sha512:YGQfP2R/fy46s+tCAIHQ1UEMrO6RA9XgxEK9Asd+gDpKDceWeRGVzCvOsiKSbQv4TRf2inAII40tn5rMoOdYlQ==</lock-integrity-org.mvnpm--classnames>
-    <lock-integrity-org.mvnpm--copy-to-clipboard>sha512:3iX/nxhu1jlramamevuW7FU67Dl0xp7/28+IVN+bU2AwCRk9rQwS8lrGCoqaT5nN2gnicTKHyPLcXDcmO0JElw==</lock-integrity-org.mvnpm--copy-to-clipboard>
-    <lock-integrity-org.mvnpm--core-js>sha512:rUI79zNbFAkPtSrkqHFAi3SnQnJgEE95kTzjMkY7baIs3qhdqvZ52dN1ShQQqlM5y5HR4khsJ1Brq1CnYrrXRQ==</lock-integrity-org.mvnpm--core-js>
-    <lock-integrity-org.mvnpm--csstype>sha512:qfS9qvw07XVA+qW2AEyXTIGSdogXvb9MQ7KXIC3/MigwHbHFMJOyLsP8yyCmdfdDmjycRcmufaEtFn1JxcYBzw==</lock-integrity-org.mvnpm--csstype>
-    <lock-integrity-org.mvnpm--debug>sha512:Nj7FgIOvQwzPcsAugdf1BlL95iOet6KLVZNlT8mtLgCVYQ4/SKGhU3XUoMTwYdhcnzqFS6ecLQm3aIqHoZSl/Q==</lock-integrity-org.mvnpm--debug>
-    <lock-integrity-org.mvnpm--dequal>sha512:zpZCCs1ISI0JGHjgB74n8WIwfSbHfKnvk4d5FzfL2RZr5IHb04i+Yy7N/Mrv7d2X44bCY3hGJXvPy1C3v6wkcw==</lock-integrity-org.mvnpm--dequal>
-    <lock-integrity-org.mvnpm--dlv>sha512:mhqqHTgYuFHU4UtKYwuASRZPyPCZmxnYfB46E4WA9lHR+Q0eY0kBD1/8bVbIPlknTSW9Incy03ZGruSCA/+1IA==</lock-integrity-org.mvnpm--dlv>
-    <lock-integrity-org.mvnpm--dom-helpers>sha512:qL9HEdCbK02HQhoXtXChIJyMzdXT2IjQAlfc0qBL6NX1hvagtMo3EWRSIBEzLYf1CRNoynWecebTq76dEkfCFw==</lock-integrity-org.mvnpm--dom-helpers>
-    <lock-integrity-org.mvnpm--dset>sha512:7vS82yaYSbQMY6bXyQRw4iIA0zUHfRIB76NB0oc6yr11N9Nivd77giFHCVPyzOv7OqIu33aQ5FZiHj6SjGcxBQ==</lock-integrity-org.mvnpm--dset>
-    <lock-integrity-org.mvnpm--function-bind>sha512:PYZ45evl0FO4OL4QPeFoNv1isFIqubyaZ5MQQ6RcfogeLnEThrTZm2/MBiS1ld5RPqWjPWWwbYX45YhHQXt57Q==</lock-integrity-org.mvnpm--function-bind>
-    <lock-integrity-org.mvnpm--hasown>sha512:wEwHQBsR0kNIRomUEVGkVzBygCZ/DxqrW1uQ43Wt1dVzEWn1p78y7YCYUDqqFF0WnCuAm9ODWRR0ltDCTBqGUg==</lock-integrity-org.mvnpm--hasown>
-    <lock-integrity-org.mvnpm--inherits>sha512:zxMr7HkQ9GENklr+d3P8TJDABKJugK2ivF//pf0hRi2T/hcbY/mbBA4zMAX+KYfwTOsQEtYoavfyqNr/kgaFPA==</lock-integrity-org.mvnpm--inherits>
-    <lock-integrity-org.mvnpm--invariant>sha512:dgqCqg5B98p75ttTpTzxl13cy+jl+H5HGRiat2fbwm99+H/gzVetgMKkmSUgGwIsS1P2ccybwXadPhn8ceNUBw==</lock-integrity-org.mvnpm--invariant>
-    <lock-integrity-org.mvnpm--is-core-module>sha512:OK0bb3YYzCehkNpJ3wMw6+9n7E4N1L7rDBoqXz7XLC0YtzIM2zd86ImvBReMi4/fYqbfqN0WHtALwsOesbLLoA==</lock-integrity-org.mvnpm--is-core-module>
-    <lock-integrity-org.mvnpm--js-cookie>sha512:JNaIw80ipwNkdJt2nm4iIUI1xIre8QYSJXQ8jy6o8ENEC+Ojze9/iQDEzhKW+BAM09Bm6s5jiIDG5Rf5lJnmlg==</lock-integrity-org.mvnpm--js-cookie>
-    <lock-integrity-org.mvnpm--js-tokens>sha512:gGkIruBWobc4oaDZTmYme+ENPaRXn5iwscleh0R4hgtRsK0qxrU4jAmHDkcfmzDDuKBhdFsHB7+cr8SF9yeTlA==</lock-integrity-org.mvnpm--js-tokens>
-    <lock-integrity-org.mvnpm--lodash>sha512:ItPRVmJAQmeelupRc9afDHCdpoCyBpASCT+sIKHE9zGg8y581UBAOUlb3OQ3QeWiLsVj9aXSLdfjw1ue4ZmDxw==</lock-integrity-org.mvnpm--lodash>
-    <lock-integrity-org.mvnpm--loose-envify>sha512:/WJQE1T1XxSGnNWc8ILZ7fJgpSV4zDsznBBEZjZCsa2dH4CALEUI1ksqYmnq2V6RzTg59Ki+9cRZpUln3vMIQg==</lock-integrity-org.mvnpm--loose-envify>
-    <lock-integrity-org.mvnpm--minimist>sha512:ZHPHV1PqK4YVOtB98RJN2CHUGuU5o0w96fL+G/rXyM0hgNAyBe3ZkwmKzMdq1u0D//ks/UCD3QOXpaGqFagacA==</lock-integrity-org.mvnpm--minimist>
-    <lock-integrity-org.mvnpm--ms>sha512:dJj+c4C2c4lxNW27nGNAsQ90N4UfMQc2Ega/WBm7FV2Ca8FdnDyEWmfo4/xPgHhyMbw4E7Bat2O9TCrqitCFWw==</lock-integrity-org.mvnpm--ms>
-    <lock-integrity-org.mvnpm--new-date>sha512:gs9/pMZkV3+ZvOZMmDExEGKbzEB40ftoaYnpnFNMDzT9tyntNFU1WmtvCptdj5biOUmsmsmf5rp8uk8N5cG46g==</lock-integrity-org.mvnpm--new-date>
-    <lock-integrity-org.mvnpm--node-fetch>sha512:uPMA2WMQ7Sbzfw3c6wFIqTdsVmFJhjbvDkPUj9koyi6+BT0aPro8OmvdmloXqvEHCNV2WgIw7KlYwzgjtqytRQ==</lock-integrity-org.mvnpm--node-fetch>
-    <lock-integrity-org.mvnpm--obj-case>sha512:szFO6D+rr1u5LM9n43UjOiCTXnrKR+v9ZrssPsJ4dRnKKqQVu5W9cnqUURqIYiFIBT6RJtU7OLuwHtzggESjMg==</lock-integrity-org.mvnpm--obj-case>
-    <lock-integrity-org.mvnpm--object-assign>sha512:1eSMjqknT34DE3mNPMWFzubLsWq6QAUn3Mj/ILUYY1lWXpv07TB2PtGc9dkJ2RCcCVES8+k4D7BcoquhxxyTNA==</lock-integrity-org.mvnpm--object-assign>
-    <lock-integrity-org.mvnpm--path-parse>sha512:GDliz9GzFT5kpemL6BxD2gZrUQ9qbFWY0ydCrnH8cecWdeoBpeCxJWWrQbMTChVEzjkCb3Z4xr1ZiseXCtKDrw==</lock-integrity-org.mvnpm--path-parse>
-    <lock-integrity-org.mvnpm--performance-now>sha512:g1DI4G1o+2mjH2P5bmPfhryTPq6FEkL91Ks75F1x/milsXFxSynxCXEIS2BF0HsZS4RoBjCFKKSkvrvWcvmNaQ==</lock-integrity-org.mvnpm--performance-now>
-    <lock-integrity-org.mvnpm--promise>sha512:Z0ZbHpGrfOMq9eX56NohyGyY06wXx3mCDd/G/OddZlwt1SDoMJGrsgYEZt6tik+KaC+0hK8wY9XNGSlmY2VOng==</lock-integrity-org.mvnpm--promise>
-    <lock-integrity-org.mvnpm--prop-types-extra>sha512:RuPjM/0h5nvD1UvXLngdwvvPzGEEmWNBdUR6ZiwtWXaQjIox5yZT4e2C5qZP9jsE0PdXbsaac1aZ0UGhhFUmSw==</lock-integrity-org.mvnpm--prop-types-extra>
-    <lock-integrity-org.mvnpm--prop-types>sha512:Ex1s5Si9mVDPiGeFp58jLHEIcEqnXpusIZ5EKC9I08Fo+IP/r//X/ksMNrXv/At968JlzsdNd0qyxY24O6tbJA==</lock-integrity-org.mvnpm--prop-types>
-    <lock-integrity-org.mvnpm--raf>sha512:W66OEDMBTTum+55eo6zy+C3lJSdAz3e4PgBB1uwNINJUnbWUs2oAt4jidebbJeVHc8ySzJPevLTVntUxFPM1mA==</lock-integrity-org.mvnpm--raf>
-    <lock-integrity-org.mvnpm--react-app-polyfill>sha512:Y2Wdqlib+kUDyOnRz0ovj2s/pX4NlrVhhumKMBgEUOIEHxcMtR86lqDJSC0MeN7Yg3GV8NkHPeg+owsJcHQHHA==</lock-integrity-org.mvnpm--react-app-polyfill>
-    <lock-integrity-org.mvnpm--react-bootstrap>sha512:xVFNEekSiCUvIP7ddh+/fCx5GxxupTUmJmUMqjI7D9uDSHCRsN+NpxEm0ADqf4mZStdYSMna75/SQH6ClBHMoQ==</lock-integrity-org.mvnpm--react-bootstrap>
-    <lock-integrity-org.mvnpm--react-dom>sha512:QXSvAp5S/IxE033pmblqjTvavc1dk+h1o1V2mOMHdK/Eq/kB56e3n/sH4JR5Sc2q8tNixWBQBlVI49T0fqLH4g==</lock-integrity-org.mvnpm--react-dom>
-    <lock-integrity-org.mvnpm--react-hotkeys-hook>sha512:LJJ335abfgJ8/p2o9Z4MGdG5uv4MS0b5grIE441fao6Ao4qQa7aLkfVZNKjvXp08Sz/pLYH2VvKfxHuP6q213A==</lock-integrity-org.mvnpm--react-hotkeys-hook>
-    <lock-integrity-org.mvnpm--react-icons>sha512:plMICpiboU3az5ZrEYdh/opD5hP1Z/iOsodxZUu+JUyfcLrVuk2WYOPtzo3Q9V3TDnR/MnYfhvP4H4vcOG0RNA==</lock-integrity-org.mvnpm--react-icons>
-    <lock-integrity-org.mvnpm--react-is>sha512:Qjq8bbTXDnUR/ttGWyjzb6Tzrq9Xdc0hp8etEPwosOoIDldFZiGX+CBlHnxz0Kd3U+SS/ZsvuzHu4ZAW5WzpaA==</lock-integrity-org.mvnpm--react-is>
-    <lock-integrity-org.mvnpm--react-lifecycles-compat>sha512:5Uv6p5dOmTHPCxW4wLwLqptSQ2YncArtrYnjXv4fYzKlyksvC1p0ZbtAtK+delqDQBVPbakqqwfV3YfbXzdggQ==</lock-integrity-org.mvnpm--react-lifecycles-compat>
-    <lock-integrity-org.mvnpm--react-overlays>sha512:CCHavPHYZzeQ8BQlnA9YzGhXob1DwjNfu0Vu8jWF1vqJ0Nk/3n/0S/5//fXy4l76k8wa0AAHbx6+Kvas9Fd7KQ==</lock-integrity-org.mvnpm--react-overlays>
-    <lock-integrity-org.mvnpm--react-transition-group>sha512:wat4tpgqKPhsh/Gba1QJBkhbss5mzKBTeNZK3LPRf1B13OL5sRyWwSWtqXDg0y84GkDFZVBSxWgmh2dxGq34aA==</lock-integrity-org.mvnpm--react-transition-group>
-    <lock-integrity-org.mvnpm--react>sha512:hBX3bj4JwmbziIM9wcU7xw+GpKi+A8yXyh+6c44FCpj5wDNHKT5SCIWiH3ZviBNAF3zxloqSRavMZ85Opk4yHw==</lock-integrity-org.mvnpm--react>
-    <lock-integrity-org.mvnpm--regenerator-runtime>sha512:Pnpc73cK56SYbXteUXWCgMzOVfMk/jkZWiknMZJ6EGADfikT0Qs52YDLKF91a8cBdCxVwq7lCD1gTo80C/N/bA==</lock-integrity-org.mvnpm--regenerator-runtime>
-    <lock-integrity-org.mvnpm--resolve>sha512:VTSytR5gAyqmWv9ybeZfkfVHwKJ3UNH6cZCPxVJSbuJqmz9VVPWR8bDzxED/++BpmgmF6RUgvdcpnJKiElo+Mw==</lock-integrity-org.mvnpm--resolve>
-    <lock-integrity-org.mvnpm--scheduler>sha512:h2PhYx9JI5g2RqQqb/aOidObLi/8pT8h7CiCLukoRvwF3HoU7m8rfag7/11t26jJRgGgDqVN914nKVMSkSOe0Q==</lock-integrity-org.mvnpm--scheduler>
-    <lock-integrity-org.mvnpm--spark-md5>sha512:ARS0/wCrlPALhsHGoq9sLIgtr4PYaslsdv6iJwjyh4yLkep7J5XKxH+M2zVpospnJftusld4DE1cAB0soNSuOw==</lock-integrity-org.mvnpm--spark-md5>
-    <lock-integrity-org.mvnpm--supports-preserve-symlinks-flag>sha512:4qzssphm5QAL8om+3ihf73UguC/4VO3P73NGz8qemgNwHd3VdwLZKg8Riv1ooO84DZYg/kV2lhuZc5PXZRsgAA==</lock-integrity-org.mvnpm--supports-preserve-symlinks-flag>
-    <lock-integrity-org.mvnpm--tiny-hashes>sha512:51GVud70ypBfwfSRrZPae+77+cup363A4H16y187TL373TTAMB0DE0cnFp+BP19QodihrICtpSi43HfvVagC+w==</lock-integrity-org.mvnpm--tiny-hashes>
-    <lock-integrity-org.mvnpm--toggle-selection>sha512:ETxvtl1DDwvIXHm5ilgCWBWtFRBhS9vJlos2jFG6szN/P4D499+W9OL0qq2C1gny+q32biBjVTqT+q0qlCwYrg==</lock-integrity-org.mvnpm--toggle-selection>
-    <lock-integrity-org.mvnpm--tr46>sha512:nSm9uzr5WaTvxBXe4eRsdTQ+MxOVlqY2SqJJHkZWW0VVqV/7DX4GFyNkIDuUqp/K3Bbxd0BZnLN8fWHXHeBTJw==</lock-integrity-org.mvnpm--tr46>
-    <lock-integrity-org.mvnpm--tslib>sha512:ELZqxnpeK6/J1dxSTatoI4KhgcO+2V/dTPnsBKERkBAnvTyUQfkJgErh5JGWtu0+KZbwV7EXPPEw5EX9JD9wzQ==</lock-integrity-org.mvnpm--tslib>
-    <lock-integrity-org.mvnpm--uncontrollable>sha512:7s+D5o5S2RcABhGLjCY9hrE4GD5smEvbOTL/V11E2hwX6WSboH06dY1akH1WhpsZmaJBGn379w64MfDiPajaxQ==</lock-integrity-org.mvnpm--uncontrollable>
-    <lock-integrity-org.mvnpm--unfetch>sha512:a5KHHO+ZK/1pmv0rKWIkxEzX9TliNBciTCuUJl4ZnngSRgGjBT8HNdCmMm0aNrLkmSvlvKNXa2WuZ2Jd40SWOQ==</lock-integrity-org.mvnpm--unfetch>
-    <lock-integrity-org.mvnpm--warning>sha512:V1ovkdwB7CChwyx1GDSWWm1M5ZjvdDzxQiBESO8YxN5fjuW+T8tI27CiQNsAECZRnVn6kGKbyZyZZ5nbeNy1dg==</lock-integrity-org.mvnpm--warning>
-    <lock-integrity-org.mvnpm--webidl-conversions>sha512:uIsLO3qYv76C4RHFmMPVF7U7BjyO85eGL3X7APOndgJO15G6/oHiW1mcC2tyBPq7e3IZmFcq1VOMfn/jszff4Q==</lock-integrity-org.mvnpm--webidl-conversions>
-    <lock-integrity-org.mvnpm--whatwg-fetch>sha512:/iENmHe03/ldhSlUrurfHxOg1xq1SLbEzqbdEPcTgor/sVG4xS91Ap8zYOQSPhPD6TENB3h5Wk7bI5Mms4jkFQ==</lock-integrity-org.mvnpm--whatwg-fetch>
-    <lock-integrity-org.mvnpm--whatwg-url>sha512:PZ6nk6clVbfRX3C9/VMK/z25KEoNSUa48SKGDmJJYu0JI0BPoKS+P7WZVFGyFfAa912ES5upjJ/f3VWX7i6aqA==</lock-integrity-org.mvnpm--whatwg-url>
-  </properties>
 </project>
