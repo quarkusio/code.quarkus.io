@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.quarkus.code</groupId>
     <artifactId>code-quarkus-parent</artifactId>
-    <version>3-SNAPSHOT</version>
+    <version>3</version>
     <packaging>pom</packaging>
     <properties>
         <compiler-plugin.version>3.11.0</compiler-plugin.version>
@@ -38,7 +37,7 @@
         <connection>scm:git:git://github.com/quarkusio/code.quarkus.io.git</connection>
         <developerConnection>scm:git:ssh://github.com:quarkusio/code.quarkus.io.git</developerConnection>
         <url>http://github.com/quarkusio/code.quarkus.io/tree/main</url>
-        <tag>HEAD</tag>
+        <tag>3</tag>
     </scm>
     <licenses>
         <license>
