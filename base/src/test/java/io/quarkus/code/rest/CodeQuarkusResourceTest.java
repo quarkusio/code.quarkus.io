@@ -174,7 +174,7 @@ class CodeQuarkusResourceTest {
     void downloadAsPostShouldWorkWithAllOptions() {
         given()
                 .contentType(ContentType.JSON)
-                .body("{\"groupId\":\"io.awesome\",\"artifactId\":\"my-awesome-app\",\"version\":\"2.0.0\",\"javaVersion\":11,\"noCode\":true,\"extensions\":[\"io.quarkus:quarkus-resteasy\",\"io.quarkus:quarkus-resteasy-jackson\"]}")
+                .body("{\"groupId\":\"io.awesome\",\"artifactId\":\"my-awesome-app\",\"version\":\"2.0.0\",\"javaVersion\":21,\"noCode\":true,\"extensions\":[\"io.quarkus:quarkus-resteasy\",\"io.quarkus:quarkus-resteasy-jackson\"]}")
                 .when().post("/api/download")
                 .then()
                 .log().ifValidationFails()
@@ -185,7 +185,7 @@ class CodeQuarkusResourceTest {
                 .groupId("io.awesome")
                 .artifactId("my-awesome-app")
                 .version("2.0.0")
-                .javaVersion(11)
+                .javaVersion(21)
                 .noCode(true)
                 .extensions(Set.of("io.quarkus:quarkus-resteasy", "io.quarkus:quarkus-resteasy-jackson"))
                 .build()));
