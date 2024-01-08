@@ -263,6 +263,7 @@
         <profile>
             <id>community-app</id>
             <activation>
+               <activeByDefault>true</activeByDefault>
                 <property>
                     <name>community-app</name>
                 </property>
