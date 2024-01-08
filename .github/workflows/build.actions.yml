@@ -28,12 +28,12 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('api/pom.xml') }}
+          key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml', 'acceptance-test/pom.xml', 'base/.locker/pom.xml', 'base/pom.xml', 'community-app/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Build
         run: |
-          mvn -e -B -DskipTests=true clean package -Dlib
+          mvn -e -B -DskipTests=true clean package -Dlib -Pacceptance-test
       - name: Test
         run: |
           mvn -e -B verify -Pacceptance-test
