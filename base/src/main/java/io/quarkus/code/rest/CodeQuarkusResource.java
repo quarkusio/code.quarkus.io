@@ -72,15 +72,16 @@ public class CodeQuarkusResource {
     @NoCache
     @Operation(summary = "Get the Quarkus Launcher configuration", hidden = true)
     public Uni<PublicConfig> config() {
-        PublicConfig publicConfig = new PublicConfig(
-                config.environment().orElse("dev"),
-                segmentConfig.writeKey().filter(not(Strings::isNullOrEmpty)).orElse(null),
-                config.sentryFrontendDSN().filter(not(Strings::isNullOrEmpty)).orElse(null),
-                config.quarkusPlatformVersion().orElse("unknown"),
-                config.quarkusDevtoolsVersion().orElse("unknown"),
-                config.quarkusPlatformVersion().orElse("unknown"),
-                config.gitCommitId().orElse("unknown"),
-                gitHubConfig.clientId().filter(not(Strings::isNullOrEmpty)).orElse(null));
+        PublicConfig publicConfig = new PublicConfig.Builder()
+                .environment(config.environment().orElse("dev"))
+                .segmentWriteKey(segmentConfig.writeKey().filter(not(Strings::isNullOrEmpty)).orElse(null))
+                .sentryDSN(config.sentryFrontendDSN().filter(not(Strings::isNullOrEmpty)).orElse(null))
+                .quarkusPlatformVersion(config.quarkusPlatformVersion().orElse("unknown"))
+                .quarkusDevtoolsVersion(config.quarkusDevtoolsVersion().orElse("unknown"))
+                .quarkusVersion(config.quarkusPlatformVersion().orElse("unknown"))
+                .gitHubClientId(gitHubConfig.clientId().filter(not(Strings::isNullOrEmpty)).orElse(null))
+                .gitCommitId(config.gitCommitId().orElse("unknown"))
+                .build();
         return Uni.createFrom().item(publicConfig);
     }
 
