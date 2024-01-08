@@ -13,6 +13,7 @@ import org.junit.jupiter.api.TestInfo;
 
 import java.net.URL;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 @QuarkusTest
 @WithPlaywright(verbose = true)
@@ -49,14 +50,16 @@ public class CodeQuarkusCommunityPlaywrightTest {
             CountDownLatch latch = new CountDownLatch(1);
             page.onResponse(response -> {
                 // Check if the URL of the response matches the expected URL of the zip file
-                if (response.url().endsWith(".zip")) {
+                if(response.headers().get("content-type").equals("application/zip")) {
                     Assertions.assertEquals(200, response.status());
                     latch.countDown();
                 }
             });
 
             page.waitForSelector(LABEL_DOWNLOAD_THE_ZIP).click();
-            latch.await();
+            if (!latch.await(30, TimeUnit.SECONDS)) {
+                Assertions.fail("The expected .zip response did not arrive within 30 seconds");
+            }
         }
     }
 
