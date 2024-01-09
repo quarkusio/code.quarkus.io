@@ -69,8 +69,6 @@ objects:
                   value: ${IO_QUARKUS_CODE_LOG_LEVEL}
                 - name: IO_QUARKUS_CODE_HOSTNAME
                   value: ${IO_QUARKUS_CODE_HOSTNAME}
-                - name: IO_QUARKUS_CODE_FEATURES
-                  value: ${IO_QUARKUS_CODE_FEATURES}
                 - name: IO_QUARKUS_CODE_QUARKUS_PLATFORMS_RELOAD_CRON_EXPR
                   value: ${IO_QUARKUS_CODE_QUARKUS_PLATFORMS_RELOAD_CRON_EXPR}
                 - name: IO_QUARKUS_CODE_SENTRY_FRONTEND_DSN
@@ -130,7 +128,6 @@ objects:
       type: ClusterIP
 parameters:
   - name: IO_QUARKUS_CODE_ENVIRONMENT
-  - name: IO_QUARKUS_CODE_FEATURES
   - name: IO_QUARKUS_CODE_HOSTNAME
   - name: IO_QUARKUS_CODE_SEGMENT_FLUSH_QUEUE_SIZE
   - name: IO_QUARKUS_CODE_SEGMENT_FLUSH_INTERVAL_SECONDS

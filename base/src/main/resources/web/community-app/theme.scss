@@ -10,6 +10,8 @@
   --background2: black;
   --background3: #282A39;
 
+  --textColor: white;
+
   --primary: #71aeef;
   --secondary: #4695eb;
   --tertiary: #be9100;
@@ -27,7 +29,7 @@
   --buttonBorderColor: var(--primary);
 
   // Top container
-  --topContainerTextColor: white;
+  --topContainerTextColor: var(--textColor);
   --topContainerBg: var(--background);
   --topContainerBgImage: url("./media/bg-form-1920.jpeg");
   --topContainerBgImageWide: url("./media/bg-form-3000.jpeg");
@@ -37,10 +39,10 @@
   --fieldTextColor: var(--topContainerTextColor);
   --selectOptionsTextColor: black;
 
-  --extensionsCartButtonTextColor: white;
+  --extensionsCartButtonTextColor: var(--textColor);;
   --extensionsCartButtonBgColor: var(--background);
 
-  --generateButtonTextColor: white;
+  --generateButtonTextColor: var(--textColor);;
   --generateButtonBgColor: var(--secondary);
   --generateButtonBorderColorOnHover: white;
   --generateButtonDisabledBgAndBorderColor: rgba(90, 149, 235, 0.342);
@@ -51,12 +53,12 @@
   --resetToDefaultButtonColor: var(--warningColor);
 
   // Main container
-  --mainContainerTextColor: white;
+  --mainContainerTextColor: var(--textColor);;
   --mainContainerBg: var(--background);
 
   // Next steps Modal
   --modalBg: var(--background);
-  --modalTextColor: white;
+  --modalTextColor: var(--textColor);;
   --modalBorderColor: var(--secondary);
   --modalTitleColor: var(--secondary);
   --modalLinkColor: var(--linkTextColor);
@@ -65,14 +67,14 @@
   --modalCloseButtonBgHover: rgba(70, 149, 235, 0.548);
 
   --nextStepsModalDownloadButtonBg: var(--secondary);
-  --nextStepsModalDownloadButtonTextColor: white;
+  --nextStepsModalDownloadButtonTextColor: var(--textColor);;
   --nextStepsModalDownloadButtonBorderColorOnHover: white;
 
   --modalFooterButtonBg: black;
   --modalFooterButtonTextColor: var(--secondary);
 
   --codeBg: black;
-  --codeTextColor: white;
+  --codeTextColor: var(--textColor);;
 
   // Extensions picker
   --switchOriginSelectedTextColor: var(--mainContainerTextColor);
@@ -91,7 +93,7 @@
   --extensionsPickerDescriptionTextColorOnTablet: #ccc;
 
   --dropdownMenuBg: #363a50;
-  --dropdownMenuTextColor: white;
+  --dropdownMenuTextColor: var(--textColor);;
 
   --extensionsPickerCategoryTextColor: var(--mainContainerTextColor);
   --extensionsPickerCategoryUnderlineColor: var(--secondary);
@@ -111,23 +113,23 @@
   --headerBackgroundColor: var(--background);
   --headerBackgroundImage: url("./media/bg-header-1920.jpeg");
   --headerBackgroundImageWide: url("./media/bg-header-3000.jpeg");
-  --headerTextColor: white;
+  --headerTextColor: var(--textColor);;
 
-  --headerMenuLinkTextColor: white;
+  --headerMenuLinkTextColor: var(--textColor);;
 
-  --headerMenuStartCodingButtonTextColor: white;
+  --headerMenuStartCodingButtonTextColor: var(--textColor);;
   --headerMenuStartCodingButtonBorderColor: var(--secondary);
   --headerMenuStartCodingButtonBg: var(--secondary);
 
-  --headerSupportButtonTextColor: white;
+  --headerSupportButtonTextColor: var(--textColor);;
   --headerSupportButtonBorderColor: white;
   --headerSupportButtonBackgroundColor: transparent;
 
   --headerSupportPanelBackgroundColor: var(--background3);
-  --headerSupportPanelTextColor: white;
+  --headerSupportPanelTextColor: var(--textColor);;
 
   // StreamPicker
-  --streamPickerStreamIdTextColor: white;
+  --streamPickerStreamIdTextColor: var(--textColor);;
   --streamPickerPlatformKeyTextColor: var(--primary);
   --streamPickerBorderColor: var(--streamPickerPlatformKeyTextColor);
   --streamPickerDropdownStreamIdTextColor: var(--streamPickerStreamIdTextColor);
@@ -137,7 +139,7 @@
 
   // Blurb
   --blurbBg: #193E62;
-  --blurbTextColor: white;
+  --blurbTextColor: var(--textColor);;
   --blurbLinkTextColor: var(--linkTextColor);
   --blurbInfoIconColor: var(--primary);
 }
