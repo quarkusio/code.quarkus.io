@@ -11,6 +11,8 @@ public interface CodeQuarkusConfig {
 
     String name();
 
+    Optional<String> favicon();
+
     Optional<String> quarkusPlatformVersion();
 
     Optional<String> quarkusDevtoolsVersion();
