@@ -1,6 +1,7 @@
 # Code Quarkus App
 
- [![Tests](https://github.com/quarkusio/code.quarkus.io/actions/workflows/build.actions.yml/badge.svg)](https://github.com/quarkusio/code.quarkus.io/actions/workflows/build.actions.yml)
+ [![Tests](https://github.com/quarkusio/code.quarkus.io/actions/workflows/build.actions.yml/badge.svg)](https://github.com/quarkusio/code.quarkus.io/actions/workflows/build.actions.yml) [![Version](https://img.shields.io/maven-central/v/io.quarkus.code/code-quarkus?logo=apache-maven&style=flat-square)](https://search.maven.org/artifact/io.quarkus.code/code-quarkus)
+
 
 # Development
 
