@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.quarkus.code</groupId>
     <artifactId>code-quarkus-parent</artifactId>
-    <version>4-SNAPSHOT</version>
+    <version>4</version>
     <packaging>pom</packaging>
     <properties>
         <compiler-plugin.version>3.11.0</compiler-plugin.version>
@@ -37,7 +37,7 @@
         <connection>scm:git:git://github.com/quarkusio/code.quarkus.io.git</connection>
         <developerConnection>scm:git:ssh://github.com:quarkusio/code.quarkus.io.git</developerConnection>
         <url>http://github.com/quarkusio/code.quarkus.io/tree/main</url>
-        <tag>HEAD</tag>
+        <tag>4</tag>
     </scm>
     <licenses>
         <license>
