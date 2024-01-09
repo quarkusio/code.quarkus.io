@@ -66,6 +66,11 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>io.quarkus.code</groupId>
+                <artifactId>code-quarkus</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.quarkiverse.web-bundler</groupId>
                 <artifactId>quarkus-web-bundler</artifactId>
                 <version>${quarkus-web-bundler.version}</version>
