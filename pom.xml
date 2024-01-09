@@ -6,6 +6,8 @@
     <version>5-SNAPSHOT</version>
     <packaging>pom</packaging>
     <properties>
+        <code-quarkus.version>${project.version}</code-quarkus.version>
+
         <compiler-plugin.version>3.11.0</compiler-plugin.version>
         <maven.compiler.release>21</maven.compiler.release>
         <maven.compiler.source>21</maven.compiler.source>
