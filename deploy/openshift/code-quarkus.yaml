@@ -4,10 +4,6 @@ kind: Template
 metadata:
   name: code-quarkus
 objects:
-  - kind: ConfigMap
-    apiVersion: v1
-    metadata:
-      name: code-quarkus-registry
   - apiVersion: v1
     kind: DeploymentConfig
     metadata:
@@ -105,9 +101,6 @@ objects:
                       name: secrets
                       key: segment-write-key
                       optional: true
-              envFrom:
-                - configMapRef:
-                    name: code-quarkus-registry
       triggers:
         - type: ConfigChange
   - kind: Service
