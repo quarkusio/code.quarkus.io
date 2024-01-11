@@ -72,12 +72,13 @@ public class SegmentAnalyticsService {
         Level level = Level.DEBUG;
         String hostName = config.hostname().orElse("code.quarkus.io");
         if (analytics != null) {
+            Map<String, String> requestHeaders = Map.of("userAgent", fixedUserAgent, "referer", referer);
             Map<String, Object> props = Map.of(
                     "hostName", hostName,
                     "source", source,
                     "path", path,
                     "url", url,
-                    "requestHeaders", Map.of("userAgent", userAgent, "referer", referer));
+                    "requestHeaders", requestHeaders);
             analytics.enqueue(TrackMessage.builder(event)
                     .anonymousId(anonymousId)
                     .properties(properties.entrySet().stream().filter(e -> e.getValue() != null).collect(
