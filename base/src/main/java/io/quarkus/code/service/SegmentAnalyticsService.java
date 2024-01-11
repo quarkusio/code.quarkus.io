@@ -11,6 +11,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.jboss.logging.Logger.Level;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -72,7 +73,9 @@ public class SegmentAnalyticsService {
         Level level = Level.DEBUG;
         String hostName = config.hostname().orElse("code.quarkus.io");
         if (analytics != null) {
-            Map<String, String> requestHeaders = Map.of("userAgent", fixedUserAgent, "referer", referer);
+            Map<String, String> requestHeaders = new HashMap<>();
+            requestHeaders.put("userAgent", fixedUserAgent);
+            requestHeaders.put("referer", referer);
             Map<String, Object> props = Map.of(
                     "hostName", hostName,
                     "source", source,
