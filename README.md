@@ -5,7 +5,9 @@
 The structure of this Web app is a bit special as it is possible to extend and customize it. It is what we could call a Fullstack React library thanks to the power of the [Quarkus Web Bundler](https://github.com/quarkiverse/quarkus-web-bundler). It also contains our community implementation for code.quarkus.io.
 
 📁  **./base** is the base library, it contains the Api and the React library, it also contains the community-app React app which can be disabled in production
+
 📁  **./community-app** is the community-app Quarkus app, it uses the base library without doing much as it directly use the community-app inside it.
+
 📁  **./acceptance-test** are the test which run to auto promote new versions to production
 
 https://github.com/redhat-developer/code.quarkus.redhat.com is an example of how this can be extended and customized.
