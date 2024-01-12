@@ -77,11 +77,11 @@ export async function fetchPlatform(api: Api, streamKey?: string, platformOnly: 
   if (platformCache.has(cacheKey)) {
     return platformCache.get(cacheKey);
   }
-  const path = streamKey ? `/api/extensions/stream/${streamKey}?platformOnly=${String(platformOnly)}` : `/api/extensions?platformOnly=${String(platformOnly)}`;
+  const path = streamKey ? `/extensions/stream/${streamKey}?platformOnly=${String(platformOnly)}` : `/extensions?platformOnly=${String(platformOnly)}`;
   const data = await Promise.all([
     fetch(`${api.backendUrl}${path}`, api.requestOptions)
       .catch(() => Promise.reject(new Error('Failed to fetch the Quarkus extensions list from the api'))),
-    fetch(`${api.backendUrl}/api/streams`, api.requestOptions)
+    fetch(`${api.backendUrl}/streams`, api.requestOptions)
       .catch(() => Promise.reject(new Error('Failed to fetch the Quarkus stream list from the api')))
   ]);
   if (!data[0].ok) {
@@ -105,7 +105,7 @@ export async function fetchConfig(api: Api) {
   if (config) {
     return config!;
   }
-  const data = await fetch(`${api.backendUrl}/api/config`, api.requestOptions)
+  const data = await fetch(`${api.backendUrl}/config`, api.requestOptions)
     .catch(() => Promise.reject(new Error('Failed to fetch the configuration from the api')));
   if (!data.ok) {
     throw new Error('Failed to load Quarkus config');

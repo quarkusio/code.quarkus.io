@@ -8,7 +8,7 @@ const CLIENT_NAME = window.location.hostname;
 const REQUEST_OPTIONS = { headers: { 'Client-Name': CLIENT_NAME } };
 
 const api = {
-    backendUrl: window.PUBLIC_URL,
+    backendUrl: window.API_URL,
     clientName: CLIENT_NAME,
     requestOptions: REQUEST_OPTIONS
 };
