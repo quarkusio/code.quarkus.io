@@ -1,4 +1,5 @@
-{#let publicUrl = ''}
+{#let publicUrl = (config:property('io.quarkus.code.ui.public-url') ?: '')}
+{#let apiUrl = (config:property('io.quarkus.code.ui.api-url') ?: '/api')}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,12 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="theme-color" content="#000000" />
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
-    <link rel="shortcut icon" type="image/png" href="{config:property('io.quarkus.code.favicon') ?: 'https://quarkus.io/favicon.ico'}">
-    <title>Quarkus - Start coding with {config:property("io.quarkus.code.name")}</title>
+    <link rel="shortcut icon" type="image/png" href="{config:property('io.quarkus.code.ui.favicon') ?: 'https://quarkus.io/favicon.ico'}">
+    <title>Quarkus - Start coding with {config:property("io.quarkus.code.ui.name")}</title>
     {#bundle tag="style" /}
     <!-- Segment Analytics -->
     <script>
        window.PUBLIC_URL='{publicUrl}';
+       window.API_URL='{apiUrl}';
        !function(){ var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{ analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){ return function(){ var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){ var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){ var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._loadOptions=e};analytics._writeKey="YOUR_WRITE_KEY";analytics.SNIPPET_VERSION="4.15.2";}}();
     </script>
     <!-- End Segment Analytics -->
@@ -26,7 +28,7 @@
         <div id="loading">
             <img src="{publicUrl}/static/media/quarkus-icon-splash.svg" title="Quarkus">
             <span>Start coding with</span>
-            <span>{config:property("io.quarkus.code.name")}</span>
+            <span>{config:property("io.quarkus.code.ui.name")}</span>
         </div>
     </div>
 

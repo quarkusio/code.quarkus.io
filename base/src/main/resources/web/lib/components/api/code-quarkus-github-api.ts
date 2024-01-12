@@ -4,7 +4,7 @@ import { Api } from './code-quarkus-api';
 
 export async function createGitHubProject(api: Api, project: QuarkusProject) {
   const body = JSON.stringify(generateProjectPayload(project));
-  const data = await fetch(`${api.backendUrl}/api/github/project?cn=${api.clientName}`, {
+  const data = await fetch(`${api.backendUrl}/github/project?cn=${api.clientName}`, {
     headers: {
       ...api.requestOptions.headers,
       'Content-Type': 'application/json',

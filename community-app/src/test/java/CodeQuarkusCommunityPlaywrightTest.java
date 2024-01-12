@@ -50,7 +50,7 @@ public class CodeQuarkusCommunityPlaywrightTest {
             CountDownLatch latch = new CountDownLatch(1);
             page.onResponse(response -> {
                 // Check if the URL of the response matches the expected URL of the zip file
-                if(response.headers().get("content-type").equals("application/zip")) {
+                if (response.headers().get("content-type").equals("application/zip")) {
                     Assertions.assertEquals(200, response.status());
                     latch.countDown();
                 }

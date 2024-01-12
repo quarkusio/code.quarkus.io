@@ -7,12 +7,6 @@ import io.smallrye.config.ConfigMapping;
 @ConfigMapping(prefix = "io.quarkus.code")
 public interface CodeQuarkusConfig {
 
-    String id();
-
-    String name();
-
-    Optional<String> favicon();
-
     Optional<String> quarkusPlatformVersion();
 
     Optional<String> quarkusDevtoolsVersion();
@@ -24,4 +18,6 @@ public interface CodeQuarkusConfig {
     Optional<String> sentryFrontendDSN();
 
     Optional<String> hostname();
+
+    UIConfig ui();
 }
