@@ -27,7 +27,7 @@ jobs:
         id: check_changes
         run: |
           LAST_RELEASE_SHA=$(git rev-list --tags --max-count=1)
-          LAST_COMMIT_SHA=$(git rev-parse HEAD)
+          LAST_COMMIT_SHA=$(git rev-parse HEAD~2)
 
           if [ "$LAST_RELEASE_SHA" == "$LAST_COMMIT_SHA" ]; then
             echo "No changes since last release. Skipping..."
