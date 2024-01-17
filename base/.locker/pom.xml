@@ -4,7 +4,7 @@
   <parent>
     <groupId>io.quarkus.code</groupId>
     <artifactId>code-quarkus-parent</artifactId>
-    <version>11</version>
+    <version>12-SNAPSHOT</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
   <artifactId>code-quarkus-locker</artifactId>
