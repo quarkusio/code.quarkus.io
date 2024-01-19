@@ -18,6 +18,8 @@ updates:
       patterns:
         - "org.mvnpm*"
     dependencies:
+      patterns:
+        - "*"
       exclude-patterns:
         - "io.quarkus*"
         - "quarkus*"
