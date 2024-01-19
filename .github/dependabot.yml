@@ -15,9 +15,9 @@ updates:
       exclude-patterns:
         - "io.quarkus*"
         - "quarkus*"
-        - "io.mvnpm*"
+        - "org.mvnpm*"
     mvnpm:
       patterns:
-        - "io.mvnpm*"
+        - "org.mvnpm*"
       exclude-patterns:
-        - "io.mvnpm:react-bootstrap"
+        - "org.mvnpm:react-bootstrap"
