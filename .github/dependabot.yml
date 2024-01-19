@@ -7,9 +7,15 @@ updates:
   groups:
     quarkus:
       patterns:
-        - "quarkus.*"
+        - "io.quarkus*"
     dependencies:
       patterns:
         - "*"
       exclude-patterns:
-        - "quarkus.*"
+        - "io.quarkus*"
+        - "io.mvnpm*"
+    mvnpm:
+      patterns:
+        - "io.mvnpm*"
+      exclude-patterns:
+        - "io.mvnpm:react-bootstrap"
