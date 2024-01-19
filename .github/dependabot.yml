@@ -4,6 +4,8 @@ updates:
   directory: "/"
   schedule:
     interval: "daily"
+  ignore:
+    - dependency-name: "org.mvnpm:react-bootstrap"
   groups:
     quarkus:
       patterns:
@@ -15,8 +17,6 @@ updates:
     mvnpm:
       patterns:
         - "org.mvnpm*"
-      exclude-patterns:
-        - "org.mvnpm:react-bootstrap"
     dependencies:
       exclude-patterns:
         - "io.quarkus*"
