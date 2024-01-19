@@ -8,11 +8,13 @@ updates:
     quarkus:
       patterns:
         - "io.quarkus*"
+        - "quarkus*"
     dependencies:
       patterns:
         - "*"
       exclude-patterns:
         - "io.quarkus*"
+        - "quarkus*"
         - "io.mvnpm*"
     mvnpm:
       patterns:
