@@ -9,15 +9,17 @@ updates:
       patterns:
         - "io.quarkus*"
         - "quarkus*"
-    dependencies:
+    quarkiverse:
       patterns:
-        - "*"
-      exclude-patterns:
-        - "io.quarkus*"
-        - "quarkus*"
-        - "org.mvnpm*"
+        - "io.quarkiverse*"
     mvnpm:
       patterns:
         - "org.mvnpm*"
       exclude-patterns:
         - "org.mvnpm:react-bootstrap"
+    dependencies:
+      exclude-patterns:
+        - "io.quarkus*"
+        - "quarkus*"
+        - "org.mvnpm*"
+        - "io.quarkiverse*"
