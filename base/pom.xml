@@ -22,7 +22,7 @@
     <assertj.version>3.24.2</assertj.version>
     <git.commit.id>local</git.commit.id>
     <!-- Quarkus devtools version -->
-    <quarkus.devtools.version>${quarkus.platform.version}</quarkus.devtools.version>
+    <quarkus.devtools.version>3.6.6</quarkus.devtools.version>
     <quarkus.base-codestarts.version>${quarkus.devtools.version}</quarkus.base-codestarts.version>
     <!-- Quarkiverse versions -->
     <quarkus.jgit.version>2.3.1</quarkus.jgit.version>
