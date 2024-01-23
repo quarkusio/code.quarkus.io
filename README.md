@@ -18,17 +18,21 @@ Api is located in `base/src/main/java`
 UI is located in `base/src/main/resources/web/`
 
 Use this command to start `community-app` dev mode on: http://0.0.0.0:8080 (Api and UI).
-```
+```shell
+# Install the parent pom
+./mvnw clean install -N
+
+# Start the dev mode
 cd base && quarkus dev
 ```
 
 Build the app locally:
-```
+```shell
 mvn clean install -Dlib -Dcommunity-app
 ```
 
 After building, use this command to start the `community-app` in production mode:
-```
+```shell
 java -jar community-app/target/quarkus-app/quarkus-run.jar
 ```
 
