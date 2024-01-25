@@ -100,12 +100,12 @@ public class QuarkusProjectServiceTest {
     }
 
     @Test
-    @DisplayName("When using 2.16 project, then, it should create all the files correctly with the requested content")
-    void test2_16(TestInfo info) throws Throwable {
+    @DisplayName("When using 3.2 project, then, it should create all the files correctly with the requested content")
+    void test3__2(TestInfo info) throws Throwable {
         // When
         QuarkusProjectService creator = getProjectService();
-        PlatformInfo platformInfo = platformService.platformInfo("2.16");
-        Path projDir = creator.createTmp(platformInfo, ProjectDefinition.builder().streamKey("2.16").build());
+        PlatformInfo platformInfo = platformService.platformInfo("3.2");
+        Path projDir = creator.createTmp(platformInfo, ProjectDefinition.builder().streamKey("3.2").build());
 
         // Then
         assertThatDirectoryTreeMatchSnapshots(info, projDir);
