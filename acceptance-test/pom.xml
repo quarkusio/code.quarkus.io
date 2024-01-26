@@ -13,7 +13,7 @@
     <maven.compiler.release>17</maven.compiler.release>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
-    <playwright.version>1.41.0</playwright.version>
+    <playwright.version>1.41.1</playwright.version>
   </properties>
   <dependencies>
     <dependency>
