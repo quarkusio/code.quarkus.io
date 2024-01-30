@@ -61,8 +61,6 @@ objects:
                   value: ${IO_QUARKUS_CODE_SEGMENT_FLUSH_QUEUE_SIZE}
                 - name: IO_QUARKUS_CODE_SEGMENT_FLUSH_INTERVAL_SECONDS
                   value: ${IO_QUARKUS_CODE_SEGMENT_FLUSH_INTERVAL_SECONDS}
-                - name: IO_QUARKUS_CODE_LOG_LEVEL
-                  value: ${IO_QUARKUS_CODE_LOG_LEVEL}
                 - name: IO_QUARKUS_CODE_HOSTNAME
                   value: ${IO_QUARKUS_CODE_HOSTNAME}
                 - name: IO_QUARKUS_CODE_QUARKUS_PLATFORMS_RELOAD_CRON_EXPR
@@ -128,8 +126,6 @@ parameters:
     value: "0 */5 * * * ?"
   - name: QUARKUS_LOG_SENTRY
     value: "false"
-  - name: IO_QUARKUS_CODE_LOG_LEVEL
-    value: inherit
   - name: IMAGE
     value: quay.io/quarkus/code-quarkus-app
     required: true
