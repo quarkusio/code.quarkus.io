@@ -25,7 +25,7 @@
         <quarkus-playwright.version>0.0.1</quarkus-playwright.version>
 
         <formatter.plugin.version>2.23.0</formatter.plugin.version>
-        <quarkus.ide-config.version>${quarkus.platform.version}</quarkus.ide-config.version>
+        <quarkus.ide-config.version>3.7.1</quarkus.ide-config.version>
         <surefire.plugin.version>3.1.2</surefire.plugin.version>
         <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
         <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
