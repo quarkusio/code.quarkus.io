@@ -15,7 +15,7 @@
       <dependency>
         <groupId>org.mvnpm.at.babel</groupId>
         <artifactId>runtime</artifactId>
-        <version>7.23.8</version>
+        <version>7.23.9</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.lukeed</groupId>
@@ -729,7 +729,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>js-tokens</artifactId>
-        <version>8.0.2</version>
+        <version>8.0.3</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -821,7 +821,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>react-hotkeys-hook</artifactId>
-        <version>4.4.4</version>
+        <version>4.5.0</version>
         <classifier>sources</classifier>
       </dependency>
       <dependency>
