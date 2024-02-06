@@ -3,6 +3,8 @@
 !mvnw
 !.mvn
 !pom.xml
+!web-deps/*
+!web-deps/.locker/*
 !base/*
 !community-app/*
 !acceptance-test/*

@@ -3,7 +3,6 @@
 !mvnw
 !.mvn
 !pom.xml
-!.locker/pom.xml
 !target/*-runner
 !target/*-runner.jar
 !target/lib/*
