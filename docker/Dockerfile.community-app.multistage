@@ -4,8 +4,9 @@ ARG MAVEN_BUILD_EXTRA_ARGS=
 RUN echo "$MAVEN_BUILD_EXTRA_ARGS"
 
 COPY mvnw pom.xml maven-settings.xml* /usr/src/app/
+COPY web-deps/pom.xml /usr/src/app/web-deps/
+COPY web-deps/.locker/pom.xml /usr/src/app/web-deps/.locker/
 COPY base/pom.xml /usr/src/app/base/
-COPY base/.locker/pom.xml /usr/src/app/base/.locker/
 COPY community-app/pom.xml /usr/src/app/community-app/
 COPY .mvn /usr/src/app/.mvn
 RUN cd /usr/src/app/ && ./mvnw verify clean  -Dlib -Dcommunity-app --fail-never
