@@ -80,6 +80,12 @@
                 <artifactId>quarkus-playwright</artifactId>
                 <version>${quarkus-playwright.version}</version>
             </dependency>
+            <dependency>
+                <groupId>io.quarkus.code</groupId>
+                <artifactId>code-quarkus-web-deps</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -262,7 +268,8 @@
                 </property>
             </activation>
             <modules>
-                <module>base/.locker</module>
+                <module>web-deps/.locker</module>
+                <module>web-deps</module>
                 <module>base</module>
             </modules>
         </profile>
@@ -275,7 +282,8 @@
                 </property>
             </activation>
             <modules>
-                <module>base/.locker</module>
+                <module>web-deps/.locker</module>
+                <module>web-deps</module>
                 <module>base</module>
                 <module>community-app</module>
             </modules>

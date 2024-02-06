@@ -9,15 +9,12 @@
 
     <artifactId>code-quarkus-community-app</artifactId>
     <name>Code Quarkus - Community App</name>
-    <properties>
-        <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
-    </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>io.quarkus.code</groupId>
-                <artifactId>code-quarkus-locker</artifactId>
+                <artifactId>code-quarkus-web-deps-locker</artifactId>
                 <version>${project.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
@@ -29,6 +26,10 @@
             <groupId>io.quarkus.code</groupId>
             <artifactId>code-quarkus</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus.code</groupId>
+            <artifactId>code-quarkus-web-deps</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkiverse.playwright</groupId>
@@ -61,30 +62,6 @@
                         <arg>-parameters</arg>
                     </compilerArgs>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>${maven-antrun-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>delete-mvnpm-deps</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <!-- Delete libraries starting with org.mvnpm -->
-                                <delete includeemptydirs="true">
-                                    <fileset dir="${project.build.directory}/quarkus-app/lib/main">
-                                        <include name="org.mvnpm*" />
-                                    </fileset>
-                                </delete>
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
