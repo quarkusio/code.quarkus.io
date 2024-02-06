@@ -7,7 +7,7 @@
     <version>16-SNAPSHOT</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
-  <artifactId>code-quarkus-locker</artifactId>
+  <artifactId>code-quarkus-web-deps-locker</artifactId>
   <packaging>pom</packaging>
 
   <dependencyManagement>
