@@ -68,7 +68,7 @@
         <dependency>
             <groupId>org.mvnpm</groupId>
             <artifactId>react-hotkeys-hook</artifactId>
-            <version>4.4.4</version>
+            <version>4.5.0</version>
             <classifier>sources</classifier>
         </dependency>
         <dependency>
@@ -92,7 +92,7 @@
         <dependency>
             <groupId>org.mvnpm.at.sentry</groupId>
             <artifactId>browser</artifactId>
-            <version>7.89.0</version>
+            <version>7.99.0</version>
             <classifier>sources</classifier>
         </dependency>
         <dependency>
