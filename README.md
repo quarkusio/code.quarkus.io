@@ -21,11 +21,12 @@ UI is located in `base/src/main/resources/web/`
 
 Use this command to start `community-app` dev mode on: http://0.0.0.0:8080 (Api and UI).
 ```shell
-# Install the parent pom
+# Install the parent pom and web-deps
 ./mvnw clean install -N
+./mvnw clean install -f web-deps
 
 # Start the dev mode
-cd base && quarkus dev
+./mvnw quarkus:dev -f base
 ```
 
 Build the app locally:
