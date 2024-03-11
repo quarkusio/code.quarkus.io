@@ -149,7 +149,7 @@ function equalsFilter(e: ExtensionValues, expr: string[], field: string) {
 }
 
 function defaultFiltering(filtered: ExtensionValues[], formattedSearch: string) {
-  return filtered.filter(e => inFilter(e, formattedSearch.split(/\s+/), [ 'name', 'shortname', 'keywords', 'category' ]));
+  return filtered.filter(e => inFilter(e, formattedSearch.split(/\s+/), [ 'name', 'shortname', 'keywords', 'category', 'artifact-id' ]));
 }
 
 

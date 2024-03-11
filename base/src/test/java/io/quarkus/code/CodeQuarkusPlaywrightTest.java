@@ -111,6 +111,12 @@ public class CodeQuarkusPlaywrightTest {
                         .map(e -> e.querySelectorAll(".status-experimental"))
                         .noneMatch(List::isEmpty)).isTrue();
             });
+
+            search(page, "quarkus-hibernate-orm", () -> {
+                final List<ElementHandle> names = page.querySelectorAll(".extension-id");
+                final List<String> list = names.stream().map(ElementHandle::innerText).toList();
+                assertThat(list).isNotEmpty().allMatch(s -> s.toLowerCase().contains("quarkus-hibernate-orm"));
+            });
         }
 
     }
