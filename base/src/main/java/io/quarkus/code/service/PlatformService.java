@@ -264,10 +264,15 @@ public class PlatformService {
                             .extensions(Set.of("resteasy", "resteasy-jackson", "hibernate-validator")).build(),
                     false,
                     true);
+
+            Set<String> extensions = entry.getValue().extensionsById().containsKey("io.quarkus:quarkus-rest")
+                    ? Set.of("rest", "rest-jackson", "hibernate-validator")
+                    : Set.of("resteasy-reactive", "resteasy-reactive-jackson", "hibernate-validator");
+
             projectService.createTmp(
                     entry.getValue(),
                     ProjectDefinition.builder().streamKey(entry.getKey())
-                            .extensions(Set.of("resteasy-reactive", "resteasy-reactive-jackson", "hibernate-validator"))
+                            .extensions(extensions)
                             .build(),
                     false,
                     true);
