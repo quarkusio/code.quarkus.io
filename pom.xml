@@ -8,7 +8,7 @@
     <properties>
         <code-quarkus.version>${project.version}</code-quarkus.version>
 
-        <compiler-plugin.version>3.12.1</compiler-plugin.version>
+        <compiler-plugin.version>3.13.0</compiler-plugin.version>
         <maven.compiler.release>21</maven.compiler.release>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
@@ -28,7 +28,7 @@
         <quarkus.ide-config.version>${quarkus.platform.version}</quarkus.ide-config.version>
         <surefire.plugin.version>3.1.2</surefire.plugin.version>
         <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
-        <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
+        <maven-gpg-plugin.version>3.2.2</maven-gpg-plugin.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <maven-release-plugin.version>3.0.1</maven-release-plugin.version>
     </properties>
@@ -111,7 +111,7 @@
                 <plugin>
                     <groupId>io.smallrye</groupId>
                     <artifactId>jandex-maven-plugin</artifactId>
-                    <version>3.1.6</version>
+                    <version>3.1.7</version>
                 </plugin>
             </plugins>
         </pluginManagement>
