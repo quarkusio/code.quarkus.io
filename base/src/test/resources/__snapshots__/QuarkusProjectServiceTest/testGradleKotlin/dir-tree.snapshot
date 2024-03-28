@@ -23,9 +23,6 @@ src/main/kotlin/com/
 src/main/kotlin/com/test/
 src/main/kotlin/com/test/TestResource.kt
 src/main/resources/
-src/main/resources/META-INF/
-src/main/resources/META-INF/resources/
-src/main/resources/META-INF/resources/index.html
 src/main/resources/application.properties
 src/native-test/
 src/native-test/kotlin/

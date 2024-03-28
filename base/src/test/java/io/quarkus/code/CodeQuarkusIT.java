@@ -23,7 +23,7 @@ public class CodeQuarkusIT {
         String languageExt = language.equals("java") ? "" : "io.quarkus:quarkus-" + language;
         String appName = "test-app-maven-" + language;
         byte[] result = RestAssured.given()
-                .when().get("/api/download?a=" + appName + "&e=neo4j&e=resteasy-reactive&e=" + languageExt + "&j=21")
+                .when().get("/api/download?a=" + appName + "&e=neo4j&e=rest&e=" + languageExt + "&j=21")
                 .then()
                 .log().ifValidationFails()
                 .statusCode(200)
@@ -45,7 +45,7 @@ public class CodeQuarkusIT {
         String appName = "test-app-gradle-" + language;
         byte[] result = RestAssured.given()
                 .when()
-                .get("/api/download?b=GRADLE&a=" + appName + "&v=1.0.0&e=neo4j&e=resteasy-reactive&e=" + languageExt + "&j=21")
+                .get("/api/download?b=GRADLE&a=" + appName + "&v=1.0.0&e=neo4j&e=rest&e=" + languageExt + "&j=21")
                 .then()
                 .log().ifValidationFails()
                 .statusCode(200)
