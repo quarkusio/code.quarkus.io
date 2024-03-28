@@ -62,7 +62,7 @@ public class QuarkusProjectServiceTest {
                 .satisfies(checkContains("<quarkus.platform.version>%s</quarkus.platform.version>"
                         .formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getVersion())))
                 .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
-                .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive</artifactId>"))
+                .satisfies(checkContains("<artifactId>quarkus-rest</artifactId>"))
                 .satisfies(checkContains("<artifactId>rest-assured</artifactId>"));
 
         assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/GreetingResource.java")
@@ -90,7 +90,7 @@ public class QuarkusProjectServiceTest {
                 .satisfies(checkContains("<quarkus.platform.version>%s</quarkus.platform.version>"
                         .formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getVersion())))
                 .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
-                .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive</artifactId>"))
+                .satisfies(checkContains("<artifactId>quarkus-rest</artifactId>"))
                 .satisfies(checkContains("<maven.compiler.release>%s</maven.compiler.release>"
                         .formatted(platformService.recommendedPlatformInfo().stream().javaCompatibility().recommended())))
                 .satisfies(checkContains("<artifactId>rest-assured</artifactId>"));
@@ -141,8 +141,8 @@ public class QuarkusProjectServiceTest {
                         .className("com.test.TestResource").path("/test/it")
                         .extensions(
                                 Set.of(
-                                        "io.quarkus:quarkus-resteasy-reactive",
-                                        "io.quarkus:quarkus-resteasy-reactive-jsonb",
+                                        "io.quarkus:quarkus-rest",
+                                        "io.quarkus:quarkus-rest-jsonb",
                                         "quarkus-neo4j",
                                         "hibernate-validator"))
                         .javaVersion(platformService.recommendedPlatformInfo().stream().javaCompatibility().recommended())
@@ -164,8 +164,8 @@ public class QuarkusProjectServiceTest {
                 .satisfies(checkContains("<quarkus.platform.version>%s</quarkus.platform.version>"
                         .formatted(platformService.recommendedPlatformInfo().extensionCatalog().getBom().getVersion())))
                 .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
-                .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive</artifactId>"))
-                .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive-jsonb</artifactId>"))
+                .satisfies(checkContains("<artifactId>quarkus-rest</artifactId>"))
+                .satisfies(checkContains("<artifactId>quarkus-rest-jsonb</artifactId>"))
                 .satisfies(checkContains("<artifactId>quarkus-hibernate-validator</artifactId>"))
                 .satisfies(checkContains("<artifactId>quarkus-neo4j</artifactId>"))
                 .satisfies(checkContains("<artifactId>rest-assured</artifactId>"))
@@ -190,7 +190,7 @@ public class QuarkusProjectServiceTest {
                         .version("2.0.0")
                         .buildTool("GRADLE")
                         .className("com.test.TestResource")
-                        .extensions(Set.of("resteasy-reactive", "kotlin"))
+                        .extensions(Set.of("rest", "kotlin"))
                         .build());
         Entry<File, List<String>> testDir = QuarkusProjectServiceTestUtils.extractProject(proj);
         Path projDir = Paths.get(testDir.getKey().toString(), "test-kotlin-app");
@@ -201,14 +201,14 @@ public class QuarkusProjectServiceTest {
                 .satisfies(checkContains("rootProject.name='test-kotlin-app'"));
         assertThat(projDir.resolve("build.gradle"))
                 .satisfies(checkContains("id 'org.jetbrains.kotlin.jvm' version "))
-                .satisfies(checkContains("implementation 'io.quarkus:quarkus-resteasy-reactive'"))
+                .satisfies(checkContains("implementation 'io.quarkus:quarkus-rest'"))
                 .satisfies(checkContains("implementation 'io.quarkus:quarkus-kotlin'"))
                 .satisfies(checkContains("implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk"))
                 .satisfies(checkContains("group 'com.kot'"))
                 .satisfies(checkContains("version '2.0.0'"));
 
         assertThatMatchSnapshot(info, projDir, "src/main/kotlin/com/test/TestResource.kt")
-                .satisfies(checkContains("fun hello() = \"Hello from RESTEasy Reactive\""));
+                .satisfies(checkContains("fun hello() = \"Hello from Quarkus REST\""));
     }
 
     @Test

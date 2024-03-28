@@ -22,9 +22,6 @@ src/main/java/org/
 src/main/java/org/acme/
 src/main/java/org/acme/GreetingResource.java
 src/main/resources/
-src/main/resources/META-INF/
-src/main/resources/META-INF/resources/
-src/main/resources/META-INF/resources/index.html
 src/main/resources/application.properties
 src/test/
 src/test/java/

@@ -22,9 +22,6 @@ src/main/java/com/
 src/main/java/com/test/
 src/main/java/com/test/TestResource.java
 src/main/resources/
-src/main/resources/META-INF/
-src/main/resources/META-INF/resources/
-src/main/resources/META-INF/resources/index.html
 src/main/resources/application.properties
 src/test/
 src/test/java/

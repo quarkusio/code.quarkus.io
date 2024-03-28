@@ -24,9 +24,6 @@ src/main/java/my/quinoa/yaml/
 src/main/java/my/quinoa/yaml/app/
 src/main/java/my/quinoa/yaml/app/GreetingConfig.java
 src/main/resources/
-src/main/resources/META-INF/
-src/main/resources/META-INF/resources/
-src/main/resources/META-INF/resources/index.html
 src/main/resources/application.yml
 src/main/webui/
 src/main/webui/main.js

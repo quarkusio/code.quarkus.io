@@ -11,6 +11,6 @@ public class TestResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
-        return "Hello from RESTEasy Reactive";
+        return "Hello from Quarkus REST";
     }
 }
