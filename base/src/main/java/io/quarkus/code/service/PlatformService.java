@@ -178,10 +178,6 @@ public class PlatformService {
 
                 SortedSet<Integer> compatibleJavaLTSVersions = getCompatibleLTSVersions(
                         new JavaVersion(minimumJavaVersion));
-                if (platformKey.equals("com.redhat.quarkus.platform")) {
-                    // Hack to remove 21 support from code.quarkus.redhat.com
-                    compatibleJavaLTSVersions.remove(21);
-                }
                 int recommendedJavaVersion = Optional.ofNullable(getRecommendedJavaVersion(extensionCatalog))
                         .map(Integer::parseInt).orElse(compatibleJavaLTSVersions.stream().findFirst().orElseThrow());
                 String quarkusCoreVersion = stream.getRecommendedRelease().getQuarkusCoreVersion();
