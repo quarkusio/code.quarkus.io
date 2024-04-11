@@ -123,7 +123,7 @@ public class QuarkusProjectServiceTest {
                 .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
                 .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive</artifactId>"))
                 .satisfies(checkContains("<maven.compiler.release>%s</maven.compiler.release>"
-                        .formatted(platformService.recommendedPlatformInfo().stream().javaCompatibility().recommended())))
+                        .formatted(platformService.platformInfo("3.2").stream().javaCompatibility().recommended())))
                 .satisfies(checkContains("<artifactId>rest-assured</artifactId>"));
 
         assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/GreetingResource.java")
