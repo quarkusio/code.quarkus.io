@@ -38,7 +38,7 @@ export function NextStepsModal(props: NextStepsProps) {
       <Modal.Header><h2>Your Supersonic Subatomic App is ready!</h2></Modal.Header>
       <Modal.Body>
         {zip && (
-          <React.Fragment>
+          <>
             {props.result.target === Target.DOWNLOAD ? (
               <p>Your download should start shortly. If it doesn't, please use the direct link:</p>
             ) : (
@@ -46,15 +46,15 @@ export function NextStepsModal(props: NextStepsProps) {
             )}
             <Button as="a" href={props.result.url} aria-label="Download the zip" className="download-button"
               onClick={linkTracker}>Download the zip</Button>
-          </React.Fragment>
+          </>
         )}
         {props.result.target === Target.GITHUB && (
-          <React.Fragment>
+          <>
             <p>Your application is now on <ExternalLink href={props.result.url} aria-label={'Open GitHub repository'} onClick={linkTracker}>GitHub</ExternalLink> ready to be cloned:</p>
             <CopyToClipboard className="code" id="copy-git-clone-cmd-code" light={true} eventContext={{...context, label: 'git clone command' }} content={`git clone ${props.result.url}`} zIndex={1100}>
               <code className="code">git clone {props.result.url}</code>
             </CopyToClipboard>
-          </React.Fragment>
+          </>
         )}
 
         <h3>What's next?</h3>

@@ -268,7 +268,7 @@
                 </property>
             </activation>
             <modules>
-                <module>web-deps/.locker</module>
+                <module>web-deps/locker</module>
                 <module>web-deps</module>
                 <module>base</module>
             </modules>
@@ -282,7 +282,7 @@
                 </property>
             </activation>
             <modules>
-                <module>web-deps/.locker</module>
+                <module>web-deps/locker</module>
                 <module>web-deps</module>
                 <module>base</module>
                 <module>community-app</module>
