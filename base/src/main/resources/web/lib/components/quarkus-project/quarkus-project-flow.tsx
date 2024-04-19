@@ -35,6 +35,7 @@ interface QuarkusProjectFlowProps extends ConfiguredCodeQuarkusProps {
 }
 
 export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
+  const initialized = React.useRef(false);
   const [ run, setRun ] = React.useState<RunState>({ status: Status.EDITION });
   const [ missingExtensions, setMissingExtensions ] = React.useState<string[]>([]);
   const analytics = useAnalytics();
@@ -59,8 +60,11 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
   };
 
   React.useEffect(() => {
-    if (props.project.github) {
-      generate(Target.GITHUB);
+    if (!initialized.current) {
+      initialized.current = true;
+      if (props.project.github) {
+        generate(Target.GITHUB);
+      }
     }
     // eslint-disable-next-line
   }, []);
@@ -88,7 +92,7 @@ export function QuarkusProjectFlow(props: QuarkusProjectFlowProps) {
         <LoadingModal/>
       )}
       {!run.error && run.status === Status.DOWNLOADED && (
-        <NextStepsModal onClose={closeModal} result={run.result} buildTool={props.project.metadata.buildTool} extensions={mappedExtensions.mapped}/>
+          <NextStepsModal api={props.api} project={props.project} githubClientId={props.config.gitHubClientId} onClose={closeModal} result={run.result} buildTool={props.project.metadata.buildTool} extensions={mappedExtensions.mapped}/>
       )}
       {run.error && (
         <ErrorModal onHide={() => closeModal(false)} error={run.error}/>
