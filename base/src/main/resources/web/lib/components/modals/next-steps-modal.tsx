@@ -1,15 +1,19 @@
 import * as React from 'react';
 import { useAnalytics, createLinkTracker } from '../../core/analytics';
 import { CopyToClipboard, ExternalLink } from '../../core/components';
-import { GenerateResult, Target } from '../api/quarkus-project-utils';
-import { Extension } from '../api/model';
+import {GenerateResult, Target, createOnGitHub} from '../api/quarkus-project-utils';
+import {Extension, QuarkusProject} from '../api/model';
 import { Button, Modal } from 'react-bootstrap';
+import { FaGithub, FaFileArchive } from 'react-icons/fa';
+import {Api} from "../api/code-quarkus-api";
 
 interface NextStepsProps {
   result: GenerateResult;
   buildTool: string;
   extensions: Extension[];
-
+  api: Api;
+  project: QuarkusProject;
+  githubClientId?: string;
   onClose?(reset?: boolean): void;
 }
 
@@ -28,6 +32,12 @@ export function NextStepsModal(props: NextStepsProps) {
   const extensionsWithGuides = props.extensions.filter(e => !!e.guide);
   const devModeEventContext = { ...context, label: 'Dev mode command' }
   const zip = props.result.target === Target.DOWNLOAD || props.result.target === Target.GENERATE;
+
+  const githubClick = (e: any) => {
+    linkTracker(e);
+    createOnGitHub(props.api, props.project, props.githubClientId!);
+  };
+
   return (
     <Modal
       className="next-steps-modal code-quarkus-modal"
@@ -38,15 +48,22 @@ export function NextStepsModal(props: NextStepsProps) {
       <Modal.Header><h2>Your Supersonic Subatomic App is ready!</h2></Modal.Header>
       <Modal.Body>
         {zip && (
-          <>
-            {props.result.target === Target.DOWNLOAD ? (
-              <p>Your download should start shortly. If it doesn't, please use the direct link:</p>
-            ) : (
-              <p>It's time to download it:</p>
-            )}
-            <Button as="a" href={props.result.url} aria-label="Download the zip" className="download-button"
-              onClick={linkTracker}>Download the zip</Button>
-          </>
+            <>
+              {props.result.target === Target.DOWNLOAD ? (
+                  <p>Your download should start shortly. If it doesn't, please use the direct link:</p>
+              ) : (
+                  <p>Your download link is ready:</p>
+              )}
+              <Button as="a" href={props.result.url} aria-label="Download the zip" className="action-button"
+                      onClick={linkTracker}><FaFileArchive /><span>Download the zip</span></Button>
+              {props.githubClientId && (
+                  <>
+                    <p>If you want to start collaborating:</p>
+                    <Button as="button" aria-label="Create on GitHub" className="action-button github"
+                            onClick={githubClick}><FaGithub/><span>Push to GitHub</span></Button>
+                  </>
+              )}
+            </>
         )}
         {props.result.target === Target.GITHUB && (
           <>
@@ -87,8 +104,9 @@ export function NextStepsModal(props: NextStepsProps) {
 
         </div>
         {extensionsWithGuides.length === 1 && (
-          <div>
-            <b>Follow the <ExternalLink href={extensionsWithGuides[0].guide!} aria-label={`Open ${extensionsWithGuides[0].name} guide`} onClick={onClickGuide(extensionsWithGuides[0].id)}>{extensionsWithGuides[0].name} guide</ExternalLink> for your next steps!</b>
+            <div>
+              <b>Follow the <ExternalLink href={extensionsWithGuides[0].guide!}
+                                          aria-label={`Open ${extensionsWithGuides[0].name} guide`} onClick={onClickGuide(extensionsWithGuides[0].id)}>{extensionsWithGuides[0].name} guide</ExternalLink> for your next steps!</b>
           </div>
         )}
         {extensionsWithGuides.length > 1 && (

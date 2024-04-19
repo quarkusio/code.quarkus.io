@@ -175,6 +175,7 @@ export function getProjectShareUrl(api: Api, project: QuarkusProject, github = f
   return `${BASE_LOCATION}?${generateProjectQuery(api, project, github, false)}`;
 }
 
+
 export async function generateProject(api: Api, environment: string, project: QuarkusProject, target: Target): Promise<GenerateResult> {
   switch (target) {
   case Target.DOWNLOAD:
@@ -191,14 +192,19 @@ export async function generateProject(api: Api, environment: string, project: Qu
   }
 }
 
-export const createOnGitHub = (api: Api, project: QuarkusProject, clientId: string) => {
+export const createOnGitHubUrl = (api: Api, project: QuarkusProject, clientId: string) => {
   const authParams = {
     redirect_uri: getProjectShareUrl(api, project, true),
     client_id: clientId,
     scope: 'public_repo,workflow',
     state: Math.random().toString(36)
   };
-  window.location.href = `https://github.com/login/oauth/authorize?${stringify(authParams)}`;
+  return `https://github.com/login/oauth/authorize?${stringify(authParams)}`;
+};
+
+
+export const createOnGitHub = (api: Api, project: QuarkusProject, clientId: string) => {
+  window.location.href = createOnGitHubUrl(api, project, clientId)
 };
 
 export function newDefaultProject(): QuarkusProject {

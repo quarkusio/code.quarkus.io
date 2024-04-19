@@ -88,7 +88,7 @@ button.btn, a.btn {
     }
 
     h3 {
-      margin-top: 20px;
+      margin-top: 10px;
     }
 
   }
@@ -99,20 +99,35 @@ button.btn, a.btn {
     border: none;
   }
 
-  a.download-button {
+  a.action-button, button.action-button {
+    cursor: pointer;
+    display: inline-block;
     background-color: var(--nextStepsModalDownloadButtonBg);
     border: 1px solid var(--nextStepsModalDownloadButtonBg);
     color: var(--nextStepsModalDownloadButtonTextColor);
     border-radius: 0;
     text-transform: uppercase;
-    width: 200px;
-    padding: 5px;
+    padding: 10px;
     text-decoration: none;
-
+    margin-bottom: 20px;
+    line-height: 20px;
     &:hover {
       border: 1px solid var(--nextStepsModalDownloadButtonBorderColorOnHover);
     }
+    svg {
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    span {
+      vertical-align: middle;
+    }
+
+    &.github {
+      background-color: transparent;
+    }
   }
+
 
   .modal-footer {
     border: none;
