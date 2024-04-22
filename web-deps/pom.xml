@@ -93,7 +93,7 @@
         <dependency>
             <groupId>org.mvnpm.at.sentry</groupId>
             <artifactId>browser</artifactId>
-            <version>7.110.1</version>
+            <version>7.111.0</version>
         </dependency>
         <dependency>
             <groupId>org.mvnpm.at.segment</groupId>
