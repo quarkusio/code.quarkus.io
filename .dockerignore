@@ -4,7 +4,7 @@
 !.mvn
 !pom.xml
 !web-deps/*
-!web-deps/.locker/*
+!web-deps/locker/*
 !base/*
 !community-app/*
 !acceptance-test/*
