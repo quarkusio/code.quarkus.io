@@ -33,7 +33,7 @@ public class AcceptanceTestApp implements QuarkusApplication {
     private static final Logger LOG = LoggerFactory.getLogger(AcceptanceTestApp.class);
 
     private static final String GENERATE_YOUR_APPLICATION_TEXT = "generate your application";
-    private static final String DOWNLOAD_ZIP_TEXT = "download the zip";
+    public static final String LABEL_DOWNLOAD_THE_ZIP = "[aria-label='Download the zip']";
     private static final int DEFAULT_MIN_EXTENSIONS = 50;
     private static final int DEFAULT_MIN_STREAMS = 1;
 
@@ -113,7 +113,7 @@ public class AcceptanceTestApp implements QuarkusApplication {
             LOG.info("Click on generate button");
             generateButton.click();
 
-            final ElementHandle downloadButton = page.waitForSelector(".download-button");
+            final ElementHandle downloadButton = page.waitForSelector(LABEL_DOWNLOAD_THE_ZIP);
 
             LOG.info("Click on download button");
             downloadButton.click();
