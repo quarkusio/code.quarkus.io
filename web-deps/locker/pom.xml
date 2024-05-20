@@ -17,7 +17,7 @@
       <dependency>
         <groupId>org.mvnpm.at.babel</groupId>
         <artifactId>runtime</artifactId>
-        <version>7.24.4</version>
+        <version>7.24.5</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.lukeed</groupId>
@@ -103,37 +103,37 @@
       <dependency>
         <groupId>org.mvnpm.at.sentry-internal</groupId>
         <artifactId>tracing</artifactId>
-        <version>7.110.1</version>
+        <version>7.114.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>browser</artifactId>
-        <version>7.110.1</version>
+        <version>8.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>core</artifactId>
-        <version>7.110.1</version>
+        <version>8.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>replay</artifactId>
-        <version>7.110.1</version>
+        <version>7.116.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>types</artifactId>
-        <version>7.110.1</version>
+        <version>8.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>utils</artifactId>
-        <version>7.110.1</version>
+        <version>8.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>array-float32</artifactId>
-        <version>0.0.6</version>
+        <version>0.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -143,7 +143,7 @@
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>array-uint16</artifactId>
-        <version>0.0.6</version>
+        <version>0.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -193,7 +193,7 @@
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>assert-has-uint16array-support</artifactId>
-        <version>0.0.8</version>
+        <version>0.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -203,7 +203,7 @@
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>assert-has-uint8array-support</artifactId>
-        <version>0.0.8</version>
+        <version>0.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -223,12 +223,12 @@
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>assert-is-buffer</artifactId>
-        <version>0.0.8</version>
+        <version>0.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>assert-is-collection</artifactId>
-        <version>0.0.8</version>
+        <version>0.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -248,7 +248,7 @@
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>assert-is-integer</artifactId>
-        <version>0.0.8</version>
+        <version>0.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -273,7 +273,7 @@
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>assert-is-object-like</artifactId>
-        <version>0.0.8</version>
+        <version>0.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -323,7 +323,7 @@
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>assert-tools-array-function</artifactId>
-        <version>0.0.7</version>
+        <version>0.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -338,7 +338,7 @@
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>cli-ctor</artifactId>
-        <version>0.0.3</version>
+        <version>0.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -383,7 +383,7 @@
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>constants-float64-high-word-sign-mask</artifactId>
-        <version>0.0.1</version>
+        <version>0.2.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -403,7 +403,7 @@
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>constants-float64-min-base2-exponent-subnormal</artifactId>
-        <version>0.0.8</version>
+        <version>0.2.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -458,7 +458,7 @@
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>math-base-assert-is-infinite</artifactId>
-        <version>0.0.9</version>
+        <version>0.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -513,7 +513,7 @@
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>number-float64-base-from-words</artifactId>
-        <version>0.0.6</version>
+        <version>0.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -533,7 +533,7 @@
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>number-float64-base-to-words</artifactId>
-        <version>0.0.7</version>
+        <version>0.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -548,7 +548,7 @@
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>process-cwd</artifactId>
-        <version>0.0.8</version>
+        <version>0.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -643,12 +643,12 @@
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>utils-get-prototype-of</artifactId>
-        <version>0.0.7</version>
+        <version>0.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>utils-global</artifactId>
-        <version>0.0.7</version>
+        <version>0.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -668,7 +668,7 @@
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>utils-noop</artifactId>
-        <version>0.0.14</version>
+        <version>0.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -678,7 +678,7 @@
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>utils-type-of</artifactId>
-        <version>0.0.8</version>
+        <version>0.2.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.types</groupId>
@@ -703,7 +703,7 @@
       <dependency>
         <groupId>org.mvnpm.at.types</groupId>
         <artifactId>react</artifactId>
-        <version>18.2.71</version>
+        <version>18.3.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.types</groupId>
@@ -734,7 +734,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>core-js</artifactId>
-        <version>3.37.0</version>
+        <version>3.37.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -744,7 +744,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>debug</artifactId>
-        <version>2.6.9</version>
+        <version>4.3.4</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -794,12 +794,12 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>js-cookie</artifactId>
-        <version>3.0.1</version>
+        <version>3.0.5</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>js-tokens</artifactId>
-        <version>4.0.0</version>
+        <version>9.0.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -819,7 +819,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>ms</artifactId>
-        <version>2.0.0</version>
+        <version>2.1.3</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -829,7 +829,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>node-fetch</artifactId>
-        <version>2.7.0</version>
+        <version>3.3.2</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -884,7 +884,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>react-dom</artifactId>
-        <version>18.2.0</version>
+        <version>18.3.1</version>
         <classifier>sources</classifier>
       </dependency>
       <dependency>
@@ -901,7 +901,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>react-is</artifactId>
-        <version>16.13.1</version>
+        <version>18.3.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -921,7 +921,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>react</artifactId>
-        <version>18.2.0</version>
+        <version>18.3.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -936,7 +936,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>scheduler</artifactId>
-        <version>0.23.0</version>
+        <version>0.23.2</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -961,7 +961,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>tr46</artifactId>
-        <version>0.0.3</version>
+        <version>4.1.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -986,7 +986,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>webidl-conversions</artifactId>
-        <version>3.0.1</version>
+        <version>7.0.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
