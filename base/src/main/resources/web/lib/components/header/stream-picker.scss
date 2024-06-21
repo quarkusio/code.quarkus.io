@@ -69,7 +69,8 @@
       width: 10px;
     }
 
-    .selected svg {
+    .selected svg,
+    .tag svg {
       width: 10px;
       font-size: 10px;
       color: var(--streamPickerDropdownStreamIdTextColor);
@@ -90,6 +91,7 @@
       line-height: 20px;
       margin-right: 5px;
       order: 1;
+      width: 35px;
     }
 
     .tag {
