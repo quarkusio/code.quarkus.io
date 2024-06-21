@@ -3,7 +3,7 @@ import './stream-picker.scss';
 import { Platform, Stream } from '../api/model';
 import { getRecommendedStream, getProjectStream } from '../api/quarkus-project-utils';
 import { Dropdown } from 'react-bootstrap';
-import { FaAngleDown, FaCheck } from 'react-icons/fa';
+import { FaAngleDown, FaCheck, FaStar } from 'react-icons/fa';
 import { useAnalytics } from '../../core/analytics';
 import classNames from 'classnames';
 
@@ -61,9 +61,9 @@ function StreamItem(props: { streamKey: string; quarkusCoreVersion?: string; pla
       {props.selected ? <span className="selected"><FaCheck /></span> : <span className="unselected"/>}
       <span className="platform-key">{platformKey}</span>
       <span className="stream-id">{streamId}</span>
-      {props.recommended && <span className="tag recommended">(recommended)</span>}
-      {props.lts && <span className="tag lts">(lts)</span>}
+      {props.lts && !status && <span className="tag lts">(lts)</span>}
       {status && <span className="tag status">({status})</span>}
+      {props.recommended && <span className="tag recommended"><FaStar title="Recommended"/> </span>}
     </div>
   );
 }
