@@ -52,7 +52,7 @@ const SelectedStream = (props: {stream: Stream}) => {
   );
 }
 
-function StreamItem(props: { streamKey: string; quarkusCoreVersion?: string; platformVersion?: string; recommended: boolean; selected?: boolean; status?: string }) {
+function StreamItem(props: { streamKey: string; quarkusCoreVersion?: string; platformVersion?: string; recommended: boolean; selected?: boolean; status?: string; lts?: boolean }) {
   const status = formatStreamStatus(props.status, props.quarkusCoreVersion);
   const { platformKey, streamId} = parseStreamKey(props.streamKey);
   
@@ -62,6 +62,7 @@ function StreamItem(props: { streamKey: string; quarkusCoreVersion?: string; pla
       <span className="platform-key">{platformKey}</span>
       <span className="stream-id">{streamId}</span>
       {props.recommended && <span className="tag recommended">(recommended)</span>}
+      {props.lts && <span className="tag lts">(lts)</span>}
       {status && <span className="tag status">({status})</span>}
     </div>
   );
@@ -86,7 +87,7 @@ export function StreamPicker(props: StreamPickerProps) {
         <Dropdown.Menu>
           {props.platform.streams.map((s, i) => (
             <Dropdown.Item as="div" key={i} onClick={() => s !== stream && setStreamKey(s)}>
-              <StreamItem streamKey={s.key} quarkusCoreVersion={s.quarkusCoreVersion} platformVersion={s.platformVersion} recommended={s.recommended} selected={s === stream} status={s.status}/>
+              <StreamItem streamKey={s.key} quarkusCoreVersion={s.quarkusCoreVersion} platformVersion={s.platformVersion} recommended={s.recommended} selected={s === stream} status={s.status} lts={s.lts}/>
             </Dropdown.Item>
           ))}
         </Dropdown.Menu>
