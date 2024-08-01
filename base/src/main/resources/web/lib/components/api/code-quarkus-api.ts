@@ -77,12 +77,15 @@ export async function fetchPlatform(api: Api, streamKey?: string, platformOnly: 
   if (platformCache.has(cacheKey)) {
     return platformCache.get(cacheKey);
   }
-  const path = streamKey ? `/extensions/stream/${streamKey}?platformOnly=${String(platformOnly)}` : `/extensions?platformOnly=${String(platformOnly)}`;
+  const extensionsPath = streamKey ? `/extensions/stream/${streamKey}?platformOnly=${String(platformOnly)}` : `/extensions?platformOnly=${String(platformOnly)}`;
+  const presetsPath = streamKey ? `/presets/stream/${streamKey}` : `/presets`;
   const data = await Promise.all([
-    fetch(`${api.backendUrl}${path}`, api.requestOptions)
+    fetch(`${api.backendUrl}${extensionsPath}`, api.requestOptions)
       .catch(() => Promise.reject(new Error('Failed to fetch the Quarkus extensions list from the api'))),
     fetch(`${api.backendUrl}/streams`, api.requestOptions)
-      .catch(() => Promise.reject(new Error('Failed to fetch the Quarkus stream list from the api')))
+      .catch(() => Promise.reject(new Error('Failed to fetch the Quarkus stream list from the api'))),
+    fetch(`${api.backendUrl}${presetsPath}`, api.requestOptions)
+      .catch(() => Promise.reject(new Error('Failed to fetch the Quarkus extensions list from the api')))
   ]);
   if (!data[0].ok) {
     throw new Error('Failed to load the Quarkus extension list');
@@ -95,6 +98,7 @@ export async function fetchPlatform(api: Api, streamKey?: string, platformOnly: 
   let platform = {
     extensions: json[0],
     streams: json[1],
+    presets: json[2],
     tagsDef: api.tagsDef || DEFAULT_TAGS
   };
   platformCache.set(cacheKey, platform);

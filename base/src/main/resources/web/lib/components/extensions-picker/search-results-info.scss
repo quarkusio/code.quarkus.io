@@ -4,8 +4,12 @@
   margin: 0 0 5px 0;
   height: 30px;
 
+  .platform-icon {
+    fill: var(--originPlatformColor);
+  }
+
   .origin-count {
-    margin-left: 10px;
+    margin-left: 20px;
     cursor: pointer;
     color: var(--switchOriginTextColor);
     &.current-origin {

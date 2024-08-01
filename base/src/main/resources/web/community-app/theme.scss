@@ -103,6 +103,11 @@
   --extensionsPickerSearchBorderColorOnFocus: var(--secondary);
   --extensionsPickerSearchClearColor: var(--warningColor);
 
+  // Presets
+  --presetsTitleTextColor: var(--extensionsPickerCategoryTextColor);
+  --presetsCardBorderColor: #373668;
+  --presetsCardTextColor: var(--textColor);
+
   // Copy to clipboard
   --copyToClipboardBackgroundColor: #1f1f1f;
   --copyToClipboardBodyBackgroundColor: #1f1f1f;

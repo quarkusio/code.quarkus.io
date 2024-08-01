@@ -222,8 +222,13 @@ export function newDefaultProject(): QuarkusProject {
 
 const FILTER_PARAM_NAME = 'extension-search';
 
+export function isFilterEmpty(filterParam: string = '') {
+  return filterParam.trim() === DEFAULT_FILTER.trim();
+}
+
+
 function syncParamsInQuery(api: Api, project: QuarkusProject | undefined, filterParam: string = ''): void {
-  const filter = filterParam.trim() === DEFAULT_FILTER.trim() ? '' : filterParam;
+  const filter = isFilterEmpty(filterParam) ? '' : filterParam;
   if (!project) {
     window.history.replaceState(null, '', `/?${formatParam(FILTER_PARAM_NAME, filter)}`);
     return;
@@ -264,7 +269,7 @@ export function getQueryParams(): object | undefined {
   return queryParams;
 }
 
-export const DEFAULT_FILTER = 'origin:platform '
+export const DEFAULT_FILTER = ''
 
 export function resolveInitialFilterQueryParam(queryParams = getQueryParams()): string {
   if (!queryParams || !queryParams[FILTER_PARAM_NAME]) {

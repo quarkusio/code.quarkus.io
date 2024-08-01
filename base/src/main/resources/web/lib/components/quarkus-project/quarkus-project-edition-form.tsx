@@ -80,7 +80,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
             <ExtensionsCart  value={{ extensions: props.selectedExtensions }} onChange={setExtensions} tagsDef={props.platform.tagsDef}/>
             <GenerateButton 
               api={props.api} 
-              project={props.project} 
+              project={props.project}
               generate={save} 
               isProjectValid={isProjectValid} 
               githubClientId={props.config.gitHubClientId}
@@ -93,11 +93,11 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
       </div>
       <div className="project-extensions">
         <ExtensionsPicker
-          entries={props.platform.extensions as ExtensionEntry[]}
+          platform={props.platform}
           tagsDef={props.platform.tagsDef}
           value={{ extensions: props.selectedExtensions }}
           onChange={setExtensions}
-          placeholder="Filter & Pick extensions: jaxrs, hibernate, reactive, web, data..."
+          placeholder="Search across all available extensions: rest, hibernate, web, data..."
           buildTool={props.project.metadata.buildTool}
           project={props.project}
           filter={filter}

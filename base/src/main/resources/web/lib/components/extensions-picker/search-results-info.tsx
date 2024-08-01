@@ -7,6 +7,7 @@ import './search-results-info.scss';
 import { DEFAULT_FILTER } from '../api/quarkus-project-utils';
 import { useAnalytics } from '../../core/analytics';
 import { Plural } from '../../core/components';
+import { PlatformIcon } from "./extensions-origin";
 
 export function SearchResultsInfo(props: { filter: string; setFilter: React.Dispatch<SetStateAction<string>>, result: FilterResult }) {
   const analytics = useAnalytics();
@@ -45,7 +46,7 @@ export function SearchResultsInfo(props: { filter: string; setFilter: React.Disp
               <span className='origins-count'>
                 <span className='results'>Extensions found by origin: </span>
                 <span className={classNames('origin-count', 'platform-origin', { 'current-origin': originPlatform })} onClick={clickPlatform}>
-                  {originPlatform && <FaCheck />}<span className='count'>{props.result.platform.length}</span> in platform
+                  {originPlatform && <FaCheck />}<span className='count'>{props.result.platform.length}</span> in platform <PlatformIcon />
                 </span>
                 <span className={classNames('origin-count', 'other-origin', { 'current-origin': origin === 'other' })} onClick={clickOther}>
                   {originOther && <FaCheck />}<span className='count'>{props.result.other.length}</span> in other

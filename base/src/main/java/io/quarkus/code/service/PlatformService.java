@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+import io.quarkus.code.model.Preset;
 import io.quarkus.code.model.ProjectDefinition;
 import io.quarkus.code.model.Stream;
 import io.quarkus.devtools.commands.data.QuarkusCommandException;
@@ -46,6 +47,24 @@ import static io.quarkus.platform.catalog.processor.CatalogProcessor.getRecommen
 
 @Singleton
 public class PlatformService {
+
+    public static final List<Preset> PRESETS = List.of(
+            new Preset("db-service", "Microservice with database", "/static/media/presets/db-service.svg",
+                    List.of("io.quarkus:quarkus-rest", "io.quarkus:quarkus-rest-jackson",
+                            "io.quarkus:quarkus-hibernate-orm-panache", "io.quarkus:quarkus-jdbc-postgresql")),
+            new Preset("event-driven-kafka", "Event driven service with Kafka", "/static/media/presets/event-driven-kafka.svg",
+                    List.of("io.quarkus:quarkus-messaging-kafka")),
+            new Preset("cli", "Command-line tool", "/static/media/presets/cli.svg",
+                    List.of("io.quarkus:quarkus-picocli")),
+            new Preset("webapp-mvc", "Web app with Model-View-Controller", "/static/media/presets/webapp-mvc.svg",
+                    List.of("io.quarkiverse.renarde:quarkus-renarde", "io.quarkiverse.web-bundler:quarkus-web-bundler")),
+            new Preset("webapp-npm", "Web app with NPM UI", "/static/media/presets/webapp-npm.svg",
+                    List.of("io.quarkus:quarkus-rest", "io.quarkiverse.quinoa:quarkus-quinoa")),
+            new Preset("webapp-qute", "Web app with ServerSide Rendering", "static/media/presets/webapp-qute.svg",
+                    List.of("io.quarkiverse.qute.web:quarkus-qute-web", "io.quarkiverse.web-bundler:quarkus-web-bundler")),
+            new Preset("ai-infused", "AI Infused service", "static/media/presets/ai-infused.svg",
+                    List.of("io.quarkiverse.langchain4j:quarkus-langchain4j-openai",
+                            "io.quarkiverse.langchain4j:quarkus-langchain4j-easy-rag")));
 
     @Inject
     private PlatformConfig platformConfig;

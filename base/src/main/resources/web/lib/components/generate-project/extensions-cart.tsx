@@ -1,44 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './extensions-cart.scss';
-import { FaExclamation, FaRocket } from 'react-icons/fa';
-import { Alert, Button, ButtonGroup, Dropdown } from 'react-bootstrap';
-import { ExtensionRow } from '../extensions-picker/extension-row';
+import {FaRocket} from 'react-icons/fa';
+import {Button, ButtonGroup, Dropdown} from 'react-bootstrap';
 import DropdownToggle from 'react-bootstrap/DropdownToggle';
-import { ExtensionEntry, TagEntry } from '../extensions-picker/extensions-picker';
-import { useAnalytics } from '../../core/analytics';
-import { InputProps } from '../../core/types';
+import {ExtensionEntry, TagEntry} from '../extensions-picker/extensions-picker';
+import {useAnalytics} from '../../core/analytics';
+import {InputProps} from '../../core/types';
 import _ from 'lodash';
 import classNames from 'classnames';
-
-const SelectedExtensions = (props: any) => {
-  return (
-    <div className="selected-extensions">
-      <h4>Selected Extensions</h4>
-      {props.extensions.length === 0 && (
-        <Alert variant="warning" >
-          <FaExclamation />&nbsp;You haven't selected any extension for your Quarkus application. Browse and select from the list below.
-        </Alert>
-      )}
-      {props.extensions.length > 0 && (
-        <div className="extension-list-wrapper">
-          {
-            props.extensions.map((ex, i) => (
-              <ExtensionRow
-                {...ex}
-                key={i}
-                selected={true}
-                onClick={() => props.remove(ex.id, 'Selection')}
-                pickerLayout={false}
-                tagsDef={props.tagsDef}
-              />
-            ))
-          }
-        </div>
-      )}
-    </div>
-  );
-}
-
+import {SelectedExtensions} from "../extensions-picker/selected-extensions";
 
 export interface ExtensionsCartValue {
   extensions: ExtensionEntry[];
@@ -50,8 +20,8 @@ export interface ExtensionsCartProps extends InputProps<ExtensionsCartValue> {
 
 
 export function ExtensionsCart(props: ExtensionsCartProps) {
-  const [ isOpen, setIsOpen ] = useState(false);
-  const [ openedFromChange, setOpenedFromChange ] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [openedFromChange, setOpenedFromChange] = useState(false);
 
   const analytics = useAnalytics();
 
@@ -69,8 +39,8 @@ export function ExtensionsCart(props: ExtensionsCartProps) {
   }
 
   function onRemove(id: string, type: string) {
-    props.onChange({ extensions: _.filter(props.value.extensions, e => e.id !== id && id !== '*') });
-    analytics.event('Unselect extension', { extension: id, type, element: 'extension-cart'});
+    props.onChange({extensions: _.filter(props.value.extensions, e => e.id !== id && id !== '*')});
+    analytics.event('Unselect extension', {extension: id, type, element: 'extension-cart'});
   }
 
   useEffect(() => {
@@ -80,16 +50,17 @@ export function ExtensionsCart(props: ExtensionsCartProps) {
       timeout = setTimeout(() => setOpenedFromChange(false), 3000);
     }
     return () => {
-      if(timeout) {
+      if (timeout) {
         clearTimeout(timeout);
       }
     };
-  }, [ props.value.extensions.length ])
+  }, [props.value.extensions.length])
 
   return (
-    <Dropdown className={classNames('extensions-cart', openedFromChange && 'opened-from-change')} as={ButtonGroup} show={isOpen || openedFromChange} onMouseLeave={onMouseLeaveFn}>
+    <Dropdown className={classNames('extensions-cart', openedFromChange && 'opened-from-change')} as={ButtonGroup}
+              show={isOpen || openedFromChange} onMouseLeave={onMouseLeaveFn}>
       <DropdownToggle as={Button} aria-label="Selected extensions" className="extensions-cart-button"
-        onMouseEnter={onMouseEnterFn}>
+                      onMouseEnter={onMouseEnterFn}>
         <FaRocket/>
         {props.value.extensions.length}
       </DropdownToggle>
