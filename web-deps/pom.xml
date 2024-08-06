@@ -15,7 +15,7 @@
             <dependency>
                 <groupId>org.mvnpm.at.types</groupId>
                 <artifactId>react</artifactId>
-                <version>18.2.71</version>
+                <version>18.3.3</version>
             </dependency>
             <!-- MVNPM Conflicts -->
             <dependency>
@@ -50,12 +50,12 @@
         <dependency>
             <groupId>org.mvnpm</groupId>
             <artifactId>react</artifactId>
-            <version>18.2.0</version>
+            <version>18.3.1</version>
         </dependency>
         <dependency>
             <groupId>org.mvnpm</groupId>
             <artifactId>react-dom</artifactId>
-            <version>18.2.0</version>
+            <version>18.3.1</version>
             <classifier>sources</classifier>
         </dependency>
         <dependency>
@@ -93,7 +93,7 @@
         <dependency>
             <groupId>org.mvnpm.at.sentry</groupId>
             <artifactId>browser</artifactId>
-            <version>7.110.1</version>
+            <version>8.23.0</version>
         </dependency>
         <dependency>
             <groupId>org.mvnpm.at.segment</groupId>
