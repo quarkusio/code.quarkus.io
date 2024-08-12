@@ -26,11 +26,12 @@ src/main/java/my/quinoa/yaml/app/GreetingConfig.java
 src/main/resources/
 src/main/resources/application.yml
 src/main/webui/
+src/main/webui/counter.js
+src/main/webui/index.html
 src/main/webui/main.js
 src/main/webui/package-lock.json
 src/main/webui/package.json
 src/main/webui/public/
+src/main/webui/public/quarkus.svg
 src/main/webui/public/vite.svg
-src/main/webui/quinoa.css
-src/main/webui/quinoa.html
-src/main/webui/vite.config.js
+src/main/webui/style.css
