@@ -162,7 +162,7 @@ public class CodeQuarkusResource {
     }
 
     @GET
-    @Path("/extensions/presets/{streamKey}")
+    @Path("/presets/stream/{streamKey}")
     @Produces(MediaType.APPLICATION_JSON)
     @NoCache
     @Operation(operationId = "presetsForStream", summary = "Get the Quarkus Launcher list of Presets")
