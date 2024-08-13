@@ -42,6 +42,9 @@ public class CodeQuarkusPlaywrightTest {
     public static final String LABEL_GENERATE_YOUR_APPLICATION = "[aria-label='Generate your application']";
     public static final String LABEL_DOWNLOAD_THE_ZIP = "[aria-label='Download the zip']";
     public static final String LABEL_TOGGLE_PANEL = "[aria-label='Toggle panel']";
+    public static final String LABEL_TOGGLE_FULL_LIST = "[aria-label='Toggle full list of extensions']";
+    public static final String LABEL_CLEAR_SELECTION = "[aria-label='Clear extension selection']";
+
     @Inject
     PlatformService platformService;
 
@@ -122,11 +125,40 @@ public class CodeQuarkusPlaywrightTest {
     }
 
     @Test
+    public void testPresets() {
+        final Page page = openIndex();
+        page.waitForSelector("[aria-label='Select db-service preset']").click();
+        final List<ElementHandle> pickerSelectedExtensions = page.querySelectorAll(".selected-extensions.picker .extension-id");
+        assertThat(pickerSelectedExtensions)
+                .hasSize(4)
+                .extracting(ElementHandle::innerText)
+                .map(String::trim)
+                .containsExactlyInAnyOrder("[quarkus-rest]", "[quarkus-rest-jackson]", "[quarkus-hibernate-orm-panache]",
+                        "[quarkus-jdbc-postgresql]");
+        page.waitForSelector(LABEL_CLEAR_SELECTION).click();
+        page.waitForSelector("[aria-label='Select webapp-npm preset']");
+    }
+
+    @Test
+    public void testFullList() {
+        final Page page = openIndex();
+        page.waitForSelector(LABEL_TOGGLE_FULL_LIST).click();
+        selectExtension(page, "io.quarkus:quarkus-grpc");
+        page.waitForSelector(LABEL_TOGGLE_FULL_LIST).click();
+        final List<ElementHandle> pickerSelectedExtensions = page.querySelectorAll(".selected-extensions.picker .extension-id");
+        assertThat(pickerSelectedExtensions)
+                .hasSize(1)
+                .extracting(ElementHandle::innerText)
+                .map(String::trim)
+                .containsExactlyInAnyOrder("[quarkus-grpc]");
+    }
+
+    @Test
     public void testSearchFilters() {
         final Page page = openIndex();
 
         ElementHandle searchInput = page.waitForSelector(LABEL_SEARCH_EXTENSIONS);
-        assertThat(searchInput.inputValue().trim()).isEqualTo("origin:platform");
+        assertThat(searchInput.inputValue().trim()).isEqualTo("");
 
         page.waitForSelector(LABEL_TOGGLE_SEARCH_FILTERS).click();
         page.waitForSelector(".inactive[aria-label='Toggle origin:other filter']").click();
@@ -165,8 +197,8 @@ public class CodeQuarkusPlaywrightTest {
         // Test clear search button
         page.waitForSelector(LABEL_TOGGLE_SEARCH_FILTERS).click();
         page.waitForSelector("[aria-label='Clear search']").click();
-        page.waitForSelector(".extension-category");
-        assertThat(searchInput.inputValue().trim()).isEqualTo("origin:platform");
+        page.waitForSelector(".extension-picker-summary");
+        assertThat(searchInput.inputValue().trim()).isEqualTo("");
 
         page.close();
     }
@@ -189,8 +221,15 @@ public class CodeQuarkusPlaywrightTest {
             final ElementHandle selectedExtensionsButton = page.waitForSelector(LABEL_SELECTED_EXTENSIONS);
             assertThat(selectedExtensionsButton.innerText()).isEqualTo("3");
             selectedExtensionsButton.hover();
-            final List<ElementHandle> extensions = page.querySelectorAll(".selected-extensions .extension-id");
-            assertThat(extensions)
+            final List<ElementHandle> cartExtensions = page.querySelectorAll(".selected-extensions.cart .extension-id");
+            assertThat(cartExtensions)
+                    .hasSize(3)
+                    .extracting(ElementHandle::innerText)
+                    .map(String::trim)
+                    .containsExactlyInAnyOrder("[quarkus-hibernate-orm]", "[quarkus-grpc]", "[quarkus-hibernate-validator]");
+            final List<ElementHandle> pickerSelectedExtensions = page
+                    .querySelectorAll(".selected-extensions.picker .extension-id");
+            assertThat(pickerSelectedExtensions)
                     .hasSize(3)
                     .extracting(ElementHandle::innerText)
                     .map(String::trim)
@@ -216,7 +255,7 @@ public class CodeQuarkusPlaywrightTest {
             final ElementHandle selectedExtensionsButton = page2.waitForSelector(LABEL_SELECTED_EXTENSIONS);
             assertThat(selectedExtensionsButton.innerText()).isEqualTo("1");
             selectedExtensionsButton.hover();
-            final List<ElementHandle> extensions = page2.querySelectorAll(".selected-extensions .extension-id");
+            final List<ElementHandle> extensions = page2.querySelectorAll(".selected-extensions.cart .extension-id");
             assertThat(extensions)
                     .hasSize(1)
                     .extracting(ElementHandle::innerText)
@@ -247,6 +286,7 @@ public class CodeQuarkusPlaywrightTest {
             versionInput.fill("1.0.0-TEST");
 
             // Select extensions
+            page.waitForSelector(LABEL_TOGGLE_FULL_LIST).click();
             selectExtension(page, "io.quarkus:quarkus-grpc");
             selectExtension(page, "io.quarkus:quarkus-resteasy");
             selectExtension(page, "io.quarkus:quarkus-resteasy-jackson");
@@ -263,7 +303,7 @@ public class CodeQuarkusPlaywrightTest {
     private static void search(Page page, String query, Runnable runnable) {
         ElementHandle searchInput = page.waitForSelector(LABEL_SEARCH_EXTENSIONS);
         searchInput.fill("");
-        page.waitForSelector(".extension-category");
+        page.waitForSelector(".extension-picker-summary");
         searchInput.fill(query);
         page.waitForSelector(".search-results-info");
         if (runnable != null) {

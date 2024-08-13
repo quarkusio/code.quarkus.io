@@ -42,6 +42,14 @@ export interface Extension {
   bom?: string;
 }
 
+export interface Preset {
+  key: string;
+  title: string;
+  icon: string;
+  extensions: string[];
+  resolvedExtensions?: Extension[];
+}
+
 export interface PlatformMappedExtensions {
   mapped: Extension[];
   missing: string[];
@@ -50,6 +58,7 @@ export interface PlatformMappedExtensions {
 export interface Platform {
   extensions: Extension[];
   streams: Stream[];
+  presets: Preset[];
   tagsDef: Tag[];
 }
 

@@ -2,9 +2,10 @@ import React, { SVGProps } from 'react';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 // Generated using svgr
-function PlatformIcon(props: SVGProps<SVGSVGElement>){
+export function PlatformIcon(props: SVGProps<SVGSVGElement>){
   return (
     <svg
+      className="platform-icon"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 32 32"
       enableBackground="new 0 0 32 32"
@@ -28,7 +29,7 @@ function PlatformIcon(props: SVGProps<SVGSVGElement>){
 export function ExtensionsOrigin(props: { platform: boolean }) {
   const Overlay = (
     <Tooltip id="extension-origin-platform-tooltip" style={{ zIndex: 200 }}>
-      The quark indicates the extension is part of the selected Quarkus Platform. Extensions from the platform are recommended over other extensions: they are tested and verified together and thus easier to use and upgrade.
+      The quark icon indicates the extension is part of the selected Quarkus Platform. Extensions in a platform are tested and verified together and thus safer to use and easier to upgrade.
     </Tooltip>
   );
   return (

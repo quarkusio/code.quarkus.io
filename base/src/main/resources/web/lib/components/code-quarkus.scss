@@ -154,10 +154,11 @@ code.code {
   color: var(--codeTextColor);
 }
 
-button.btn.btn-base {
-  border: 1px solid var(--buttonBorderColor);
+button.btn.btn-light {
+  border: none;
   cursor: pointer;
   border-radius: 0;
+  font-weight: bold;
   background-color: transparent;
   color: var(--linkTextColor);
 
@@ -165,6 +166,7 @@ button.btn.btn-base {
     margin-top: 2px;
     margin-right: 5px;
     font-size: 0.8rem;
+    color: var(--textColor);
   }
 }
 

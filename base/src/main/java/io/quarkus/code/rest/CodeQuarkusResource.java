@@ -29,7 +29,6 @@ import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -39,6 +38,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import static io.quarkus.code.service.PlatformService.PRESETS;
 import static java.util.function.Predicate.not;
 
 @Path("/")
@@ -144,6 +144,33 @@ public class CodeQuarkusResource {
             @QueryParam("id") String extensionId) {
         List<CodeQuarkusExtension> extensions = platformService.codeQuarkusExtensions(streamKey);
         return extensions(platformOnly, extensions, extensionId);
+    }
+
+    @GET
+    @Path("/presets")
+    @Produces(MediaType.APPLICATION_JSON)
+    @NoCache
+    @Operation(operationId = "presets", summary = "Get the Quarkus Launcher list of Presets")
+    @Tag(name = "Presets", description = "Preset related endpoints")
+    @APIResponse(responseCode = "200", description = "List of Presets", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Preset.class, type = SchemaType.ARRAY)))
+    public Uni<Response> presets() {
+        String lastUpdated = platformService.cacheLastUpdated().format(FORMATTER);
+        Response response = Response.ok(PRESETS)
+                .header(LAST_MODIFIED_HEADER, lastUpdated)
+                .build();
+        return Uni.createFrom().item(response);
+    }
+
+    @GET
+    @Path("/extensions/presets/{streamKey}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @NoCache
+    @Operation(operationId = "presetsForStream", summary = "Get the Quarkus Launcher list of Presets")
+    @Tag(name = "Presets", description = "Preset related endpoints")
+    @APIResponse(responseCode = "200", description = "List of Presets for a certain stream", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Preset.class, type = SchemaType.ARRAY)))
+    public Uni<Response> presetsForStream(
+            @PathParam("streamKey") String streamKey) {
+        return presets();
     }
 
     private Uni<Response> extensions(

@@ -1,5 +1,9 @@
 @import "../_config.scss";
 
+button.button-toggle-list {
+  margin-bottom: 20px;
+}
+
 .extensions-picker {
   color: var(--extensionsPickerTextColor);
   .button-show-more {
@@ -54,7 +58,6 @@
       }
 
       .extension-more {
-        order: 5;
         order: 3;
         flex-basis: 32px;
       }
@@ -101,7 +104,7 @@
 
   .main-container {
     margin: 0 auto;
-    padding: 20px 20px 200px;
+    padding: 20px 0 200px;
 
     flex-grow: 1;
     overflow: hidden;

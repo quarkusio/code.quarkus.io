@@ -81,6 +81,11 @@
         </dependency>
         <dependency>
             <groupId>org.mvnpm</groupId>
+            <artifactId>styled-components</artifactId>
+            <version>6.1.12</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mvnpm</groupId>
             <artifactId>copy-to-clipboard</artifactId>
             <version>3.3.3</version>
             <classifier>sources</classifier>

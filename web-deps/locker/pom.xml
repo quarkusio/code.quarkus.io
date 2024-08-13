@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>io.quarkus.code</groupId>
@@ -17,7 +20,22 @@
       <dependency>
         <groupId>org.mvnpm.at.babel</groupId>
         <artifactId>runtime</artifactId>
-        <version>7.24.4</version>
+        <version>7.25.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm.at.emotion</groupId>
+        <artifactId>is-prop-valid</artifactId>
+        <version>1.2.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm.at.emotion</groupId>
+        <artifactId>memoize</artifactId>
+        <version>0.8.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm.at.emotion</groupId>
+        <artifactId>unitless</artifactId>
+        <version>0.8.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.lukeed</groupId>
@@ -712,6 +730,11 @@
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.types</groupId>
+        <artifactId>stylis</artifactId>
+        <version>4.2.5</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm.at.types</groupId>
         <artifactId>warning</artifactId>
         <version>3.0.3</version>
       </dependency>
@@ -719,6 +742,11 @@
         <groupId>org.mvnpm</groupId>
         <artifactId>asap</artifactId>
         <version>2.0.6</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm</groupId>
+        <artifactId>camelize</artifactId>
+        <version>1.0.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -734,7 +762,17 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>core-js</artifactId>
-        <version>3.37.0</version>
+        <version>3.37.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm</groupId>
+        <artifactId>css-color-keywords</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm</groupId>
+        <artifactId>css-to-react-native</artifactId>
+        <version>3.2.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -789,7 +827,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>is-core-module</artifactId>
-        <version>2.13.1</version>
+        <version>2.15.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -823,6 +861,11 @@
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
+        <artifactId>nanoid</artifactId>
+        <version>4.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm</groupId>
         <artifactId>new-date</artifactId>
         <version>1.0.3</version>
       </dependency>
@@ -853,6 +896,21 @@
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
+        <artifactId>picocolors</artifactId>
+        <version>1.0.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm</groupId>
+        <artifactId>postcss-value-parser</artifactId>
+        <version>4.2.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm</groupId>
+        <artifactId>postcss</artifactId>
+        <version>8.4.38</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm</groupId>
         <artifactId>promise</artifactId>
         <version>8.3.0</version>
       </dependency>
@@ -880,6 +938,11 @@
         <groupId>org.mvnpm</groupId>
         <artifactId>react-bootstrap</artifactId>
         <version>1.6.8</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm</groupId>
+        <artifactId>react-dom</artifactId>
+        <version>18.3.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -921,7 +984,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>react</artifactId>
-        <version>18.2.0</version>
+        <version>18.3.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -936,12 +999,32 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>scheduler</artifactId>
-        <version>0.23.0</version>
+        <version>0.23.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm</groupId>
+        <artifactId>shallowequal</artifactId>
+        <version>1.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm</groupId>
+        <artifactId>source-map-js</artifactId>
+        <version>1.2.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>spark-md5</artifactId>
         <version>3.0.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm</groupId>
+        <artifactId>styled-components</artifactId>
+        <version>6.1.12</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm</groupId>
+        <artifactId>stylis</artifactId>
+        <version>4.3.2</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>

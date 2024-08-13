@@ -18,7 +18,7 @@ export interface ExtensionSearchBarProps {
   result: FilterResult
 }
 
-function ListItem(props: { className?: string, children: React.ReactChildren }) {
+function ListItem(props: { className?: string, children: React.ReactNode }) {
   const className = `${props.className || ''} list-item`;
   return (
     <div {...props} className={className}>{props.children}</div>
@@ -60,7 +60,7 @@ function FilterShortcutsDropdown(props: ExtensionSearchBarProps) {
   return (
     <Dropdown  className="filter-shortcut" onClick={(e) => e.stopPropagation()} onToggle={setIsOpen} show={isOpen}>
       <Dropdown.Toggle className="filter-shortcut-button" aria-label="Toggle search filters">
-        Filters {isOpen ? <FaAngleUp /> : <FaAngleDown />}
+        Search {isOpen ? <FaAngleUp /> : <FaAngleDown />}
       </Dropdown.Toggle>
       <Dropdown.Menu
         align="left"

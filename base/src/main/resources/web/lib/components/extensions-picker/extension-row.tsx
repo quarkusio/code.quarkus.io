@@ -10,7 +10,7 @@ import { ExtensionsOrigin } from './extensions-origin';
 export interface ExtensionRowProps extends ExtensionEntry {
   selected?: boolean;
   keyboardActived?: boolean;
-  pickerLayout?: boolean;
+  layout?: 'picker' | 'cart';
   buildTool?: string;
   tagsDef: TagEntry[];
 
@@ -47,6 +47,7 @@ export function ExtensionRow(props: ExtensionRowProps) {
   const description = props.description || '...';
   const selected = props.selected || props.default;
   const ga = props.id.split(':');
+  const id = ga[1] + (props.platform ? '' : `:${props.version}`);
   return (
     <div {...activationEvents} className={classNames('extension-row', {
       'keyboard-actived': props.keyboardActived,
@@ -54,7 +55,7 @@ export function ExtensionRow(props: ExtensionRowProps) {
       selected,
       'by-default': props.default
     })} ref={ref} aria-label={props.id} >
-      {props.pickerLayout && (
+      {props.layout === 'picker' && (
         <div
           className="extension-selector"
           aria-label={`Switch ${props.id} extension`}
@@ -66,12 +67,12 @@ export function ExtensionRow(props: ExtensionRowProps) {
 
       <div className="extension-summary">
         <span className="extension-name" title={`${props.name} (${props.version})`}>{props.name}</span>
-        <span className="extension-id" title={props.id}> [{ga[1]}]</span>
+        <span className="extension-id" title={props.id}> [{id}]</span>
         <ExtensionsOrigin platform={props.platform} />
         {props.tags && props.tags.map((s, i) => <ExtensionTags key={i} tagsDef={props.tagsDef} name={s} hover={hover}/>)}
       </div>
 
-      {!props.pickerLayout && (
+      {props.layout === 'cart' && (
         <div
           className="extension-remove"
         >
@@ -79,7 +80,7 @@ export function ExtensionRow(props: ExtensionRowProps) {
         </div>
       )}
 
-      {props.pickerLayout && (
+      {props.layout === 'picker' && (
         <React.Fragment>
           <div
             className="extension-description" title={description}
