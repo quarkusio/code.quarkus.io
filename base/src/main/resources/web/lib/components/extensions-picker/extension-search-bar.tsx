@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Button, Dropdown, Form, FormGroup } from 'react-bootstrap';
-import { FaAngleDown, FaAngleUp, FaSearch } from 'react-icons/fa';
+import { FaAngleDown, FaAngleUp, FaSearch, FaTimes } from 'react-icons/fa';
 import { QuarkusProject } from '../api/model';
 import './extension-search-bar.scss';
 import DropdownItem from 'react-bootstrap/DropdownItem';
 import { clearFilterOrigin, FilterResult } from './extensions-utils';
 import classNames from 'classnames';
-import { DEFAULT_FILTER } from '../api/quarkus-project-utils';
+import {DEFAULT_FILTER, isFilterEmpty} from '../api/quarkus-project-utils';
 import { useAnalytics } from '../../core/analytics';
 import * as _ from 'lodash';
 
@@ -99,13 +99,17 @@ export function ExtensionSearchBar(props: ExtensionSearchBarProps) {
     setFilter(e.currentTarget.value);
   };
 
+  function clearFilters() {
+    setFilter(DEFAULT_FILTER);
+  }
+
   return (
     <div className="search-bar responsive-container">
       <FilterShortcutsDropdown {...props} />
       <FormGroup
         controlId="extensions-search-input"
       >
-        <FaSearch className="search-icon" />
+        <div className="search-icon"><FaSearch/></div>
         <Form.Control
           type="search"
           aria-label="Search extensions"
@@ -115,6 +119,7 @@ export function ExtensionSearchBar(props: ExtensionSearchBarProps) {
           value={filter}
           onChange={search}
         />
+        {!isFilterEmpty(filter) && <Button as="a" className='clear-button' onClick={clearFilters}><FaTimes />Clear</Button>}
       </FormGroup>
     </div>
   );

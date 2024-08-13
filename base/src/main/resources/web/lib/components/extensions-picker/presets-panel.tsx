@@ -73,7 +73,7 @@ export const PresetsPanel = (props: PresetsProps) => {
   };
   return (
     <PresetsPanelDiv className="presets-panel">
-      <div className="panel-title">Start from an extensions presets</div>
+      <div className="panel-title">Start from an extensions preset</div>
       <div className="presets-list">
         {presets.map(p => (
           <PresetCard key={p.key} preset={p} tagsDef={props.platform.tagsDef} onClick={() => selectPreset(p)}/>

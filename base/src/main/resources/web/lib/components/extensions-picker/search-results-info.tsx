@@ -30,9 +30,7 @@ export function SearchResultsInfo(props: { filter: string; setFilter: React.Disp
       props.setFilter(`${clearFilterOrigin(props.filter)}`);
     }
   }
-  function clearFilters() {
-    props.setFilter(DEFAULT_FILTER);
-  }
+
   const origin = props.result?.origin;
   const originOther =  origin === 'other' ;
   const originPlatform =  origin === 'platform';
@@ -53,7 +51,7 @@ export function SearchResultsInfo(props: { filter: string; setFilter: React.Disp
                 </span>
               </span>
             )}
-            <Button as="a" className='clear-button' onClick={clearFilters}>Clear filters</Button>
+
           </div>
           {props.result.selected.length === 0 && props.result.other.length > 0 && (
             <Alert variant="info" className="search-results-alert">
