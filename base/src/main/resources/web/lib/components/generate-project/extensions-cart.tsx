@@ -43,19 +43,6 @@ export function ExtensionsCart(props: ExtensionsCartProps) {
     analytics.event('Unselect extension', {extension: id, type, element: 'extension-cart'});
   }
 
-  useEffect(() => {
-    let timeout: any;
-    if (props.value.extensions.length > 0) {
-      setOpenedFromChange(true);
-      timeout = setTimeout(() => setOpenedFromChange(false), 3000);
-    }
-    return () => {
-      if (timeout) {
-        clearTimeout(timeout);
-      }
-    };
-  }, [props.value.extensions.length])
-
   return (
     <Dropdown className={classNames('extensions-cart', openedFromChange && 'opened-from-change')} as={ButtonGroup}
               show={isOpen || openedFromChange} onMouseLeave={onMouseLeaveFn}>

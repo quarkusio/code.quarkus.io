@@ -3,16 +3,36 @@
   width: 100%;
   display: flex;
 
+  a.clear-button.btn {
+    width: 100px;
+    cursor: pointer;
+    color: var(--extensionsPickerSearchClearColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: 1px solid var(--extensionsPickerSearchClearColor);
+    margin-right: 5px;
+  }
+
+
   .form-group {
     border: 1px solid var(--extensionsPickerSearchBorderColor);
     border-left: none;
     display: flex;
     flex-grow: 1;
-
-    svg.search-icon {
-      margin: 10px;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    .search-icon {
+      flex-basis: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .search-icon svg {
+      height: 20px;
       width: 20px;
-      font-size: 1.2rem;
     }
     &:focus-within {
       border-color: var(--extensionsPickerSearchBorderColorOnFocus);
@@ -73,6 +93,7 @@
       font-size: 1rem;
       width: 20px;
       margin-left: 10px;
+
     }
   }
 
@@ -80,7 +101,7 @@
     font-size: 14px;
     height: 40px;
     line-height: 40px;
-    width: 100%;
+    flex-grow: 1;
     background: transparent;
     color: var(--extensionsPickerSearchTextColor);
     font-family: var(--inputFont);
