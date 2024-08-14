@@ -33,6 +33,7 @@ public class AcceptanceTestApp implements QuarkusApplication {
     private static final Logger LOG = LoggerFactory.getLogger(AcceptanceTestApp.class);
 
     private static final String GENERATE_YOUR_APPLICATION_TEXT = "generate your application";
+    public static final String LABEL_TOGGLE_FULL_LIST = "[aria-label='Toggle full list of extensions']";
     public static final String LABEL_DOWNLOAD_THE_ZIP = "[aria-label='Download the zip']";
     private static final int DEFAULT_MIN_EXTENSIONS = 50;
     private static final int DEFAULT_MIN_STREAMS = 1;
@@ -80,7 +81,7 @@ public class AcceptanceTestApp implements QuarkusApplication {
             } else {
                 LOG.info("{} streams found", streams.size());
             }
-
+            page.waitForSelector(LABEL_TOGGLE_FULL_LIST).click();
             page.waitForSelector(".extensions-picker .extension-row");
             final List<ElementHandle> extensions = page.querySelectorAll(".extensions-picker .extension-row");
             final Integer minExtensions = testConfig.getMinExtensions().orElse(DEFAULT_MIN_EXTENSIONS);

@@ -29,6 +29,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -154,11 +155,7 @@ public class CodeQuarkusResource {
     @Tag(name = "Presets", description = "Preset related endpoints")
     @APIResponse(responseCode = "200", description = "List of Presets", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Preset.class, type = SchemaType.ARRAY)))
     public Uni<Response> presets() {
-        String lastUpdated = platformService.cacheLastUpdated().format(FORMATTER);
-        Response response = Response.ok(PRESETS)
-                .header(LAST_MODIFIED_HEADER, lastUpdated)
-                .build();
-        return Uni.createFrom().item(response);
+        return presets(platformService.recommendedPlatformInfo().extensionsById());
     }
 
     @GET
@@ -170,7 +167,19 @@ public class CodeQuarkusResource {
     @APIResponse(responseCode = "200", description = "List of Presets for a certain stream", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Preset.class, type = SchemaType.ARRAY)))
     public Uni<Response> presetsForStream(
             @PathParam("streamKey") String streamKey) {
-        return presets();
+
+        final Map<String, ExtensionRef> extensionsById = platformService.platformInfo(streamKey).extensionsById();
+        return presets(extensionsById);
+    }
+
+    private Uni<Response> presets(Map<String, ExtensionRef> extensionsById) {
+        String lastUpdated = platformService.cacheLastUpdated().format(FORMATTER);
+        final List<Preset> presets = PRESETS.stream().filter(p -> p.extensions().stream().allMatch(extensionsById::containsKey))
+                .toList();
+        Response response = Response.ok(presets)
+                .header(LAST_MODIFIED_HEADER, lastUpdated)
+                .build();
+        return Uni.createFrom().item(response);
     }
 
     private Uni<Response> extensions(
