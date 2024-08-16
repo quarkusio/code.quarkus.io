@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ExtensionRow} from "./extension-row";
 import styled from 'styled-components';
-import {FaExclamation, FaTrashAlt} from 'react-icons/fa';
+import {FaExclamation, FaTrashAlt, FaAngleDown, FaAngleUp} from 'react-icons/fa';
 import {Alert} from 'react-bootstrap';
 import {ExtensionEntry, TagEntry} from "./extensions-picker";
 import classNames from 'classnames';
+import {Platform} from "../api/model";
 
 
 const SelectedExtensionsDiv = styled.div`
@@ -18,6 +19,17 @@ const SelectedExtensionsDiv = styled.div`
         }
 
 
+    }
+
+    h5 {
+        margin-top: 20px;
+        cursor: pointer;
+        user-select: none;
+        
+        svg {
+            width: 20px;
+            vertical-align: middle;
+        }
     }
 
     &.picker {
@@ -79,18 +91,36 @@ const SelectedExtensionsDiv = styled.div`
 `
 
 
-export const SelectedExtensions = (props: {layout?: 'cart' | 'picker'; extensions: ExtensionEntry[]; tagsDef: TagEntry[]; remove: (id: string, type: string) => void }) => {
+export const SelectedExtensions = (props: {
+  layout?: 'cart' | 'picker',
+  extensions: ExtensionEntry[],
+  tagsDef: TagEntry[],
+  remove: (id: string, type: string) => void,
+  platform: Platform
+}) => {
+  const [showTransitive, setShowTransitive] = useState<boolean>(false);
   const clear = () => {
     props.remove('*', 'Selection clear');
   };
+
+  function flipTransitive() {
+    setShowTransitive(!showTransitive);
+  }
+
   const layout = props.layout || 'cart';
+  let transitiveExtensions = [...new Set<string>(props.extensions
+    .flatMap((ex) => ex.transitiveExtensions)
+    .filter(id => props.platform.extensionById[id]))]
+    .map(id => props.platform.extensionById[id])
+    .filter(ex => props.extensions.indexOf(ex) < 0);
   return (
     <SelectedExtensionsDiv className={classNames('selected-extensions', layout)}>
       <h4>
         Selected Extensions
-        {props.extensions.length > 0 && <button className="btn btn-light btn-clear" onClick={clear} aria-label="Clear extension selection">
-            <FaTrashAlt/>Clear selection
-        </button>}
+        {props.extensions.length > 0 &&
+            <button className="btn btn-light btn-clear" onClick={clear} aria-label="Clear extension selection">
+                <FaTrashAlt/>Clear selection
+            </button>}
       </h4>
       {props.extensions.length === 0 && (
         <Alert variant="warning">
@@ -113,8 +143,26 @@ export const SelectedExtensions = (props: {layout?: 'cart' | 'picker'; extension
                 />
               ))
             }
-          </div>
 
+          </div>
+          <h5 onClick={flipTransitive}>Transitive extensions ({transitiveExtensions.length}) {showTransitive ?
+            <FaAngleUp/> : <FaAngleDown/>}</h5>
+          {showTransitive &&
+              <div className="extension-list-wrapper transitive">
+                {
+                  transitiveExtensions.map((ex, i) => (
+                    <ExtensionRow
+                      {...ex}
+                      key={i}
+                      selected={true}
+                      transitive={true}
+                      layout={layout}
+                      tagsDef={props.tagsDef}
+                    />
+                  ))
+                }
+              </div>
+          }
         </>
       )}
     </SelectedExtensionsDiv>

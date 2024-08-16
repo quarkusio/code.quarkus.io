@@ -15,6 +15,10 @@
     pointer-events: none;
   }
 
+  &.transitive {
+    color: var(--readOnlyTextColor) !important;
+  }
+
   .extension-selector {
     color: var(--extensionsPickerCheckColor);
   }
@@ -25,6 +29,14 @@
 
   &.hover.selected .extension-selector {
     color: var(--extensionsPickerCheckSelectedHoverColor);
+  }
+
+  &.transitive .extension-selector {
+    color: var(--readOnlyTextColor);
+  }
+
+  &.hover.transitive .extension-selector {
+    color: var(--readOnlyTextColor);
   }
 
   div:focus {

@@ -9,12 +9,14 @@ import {InputProps} from '../../core/types';
 import _ from 'lodash';
 import classNames from 'classnames';
 import {SelectedExtensions} from "../extensions-picker/selected-extensions";
+import {Platform} from "../api/model";
 
 export interface ExtensionsCartValue {
   extensions: ExtensionEntry[];
 }
 
 export interface ExtensionsCartProps extends InputProps<ExtensionsCartValue> {
+  platform: Platform;
   tagsDef: TagEntry[];
 }
 
@@ -53,7 +55,7 @@ export function ExtensionsCart(props: ExtensionsCartProps) {
       </DropdownToggle>
 
       <Dropdown.Menu onMouseEnter={onMouseEnterFn} align="left">
-        <SelectedExtensions extensions={props.value.extensions} remove={onRemove} tagsDef={props.tagsDef}/>
+        <SelectedExtensions platform={props.platform} extensions={props.value.extensions} remove={onRemove} tagsDef={props.tagsDef}/>
       </Dropdown.Menu>
     </Dropdown>
   );

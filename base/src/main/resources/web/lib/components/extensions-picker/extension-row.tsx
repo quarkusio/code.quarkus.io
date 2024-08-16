@@ -13,8 +13,9 @@ export interface ExtensionRowProps extends ExtensionEntry {
   layout?: 'picker' | 'cart';
   buildTool?: string;
   tagsDef: TagEntry[];
+  transitive?:  boolean;
 
-  onClick(id: string): void;
+  onClick?(id: string): void;
 }
 
 export function ExtensionRow(props: ExtensionRowProps) {
@@ -28,6 +29,9 @@ export function ExtensionRow(props: ExtensionRowProps) {
   }
 
   const onClick = () => {
+    if (props.transitive) {
+      return;
+    }
     props.onClick(props.id);
     setHover(false);
   };
@@ -45,6 +49,7 @@ export function ExtensionRow(props: ExtensionRowProps) {
   }, [ props.keyboardActived ])
 
   const description = props.description || '...';
+  const transitive = props.transitive;
   const selected = props.selected || props.default;
   const ga = props.id.split(':');
   const id = ga[1] + (props.platform ? '' : `:${props.version}`);
@@ -52,6 +57,7 @@ export function ExtensionRow(props: ExtensionRowProps) {
     <div {...activationEvents} className={classNames('extension-row', {
       'keyboard-actived': props.keyboardActived,
       hover,
+      transitive,
       selected,
       'by-default': props.default
     })} ref={ref} aria-label={props.id} >
@@ -72,7 +78,7 @@ export function ExtensionRow(props: ExtensionRowProps) {
         {props.tags && props.tags.map((s, i) => <ExtensionTags key={i} tagsDef={props.tagsDef} name={s} hover={hover}/>)}
       </div>
 
-      {props.layout === 'cart' && (
+      {props.layout === 'cart' && !props.transitive && (
         <div
           className="extension-remove"
         >

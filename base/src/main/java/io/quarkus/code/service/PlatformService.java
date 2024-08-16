@@ -77,9 +77,11 @@ public class PlatformService {
                     "https://raw.githubusercontent.com/quarkusio/code.quarkus.io/main/base/assets/icons/presets/webapp-npm.svg",
                     List.of("io.quarkus:quarkus-rest", "io.quarkus:quarkus-rest-jackson",
                             "io.quarkiverse.quinoa:quarkus-quinoa")),
-            new Preset("webapp-qute", "Web app with ServerSide Rendering", "https://raw.githubusercontent.com/quarkusio/code.quarkus.io/main/base/assets/icons/presets/webapp-qute.svg",
+            new Preset("webapp-qute", "Web app with ServerSide Rendering",
+                    "https://raw.githubusercontent.com/quarkusio/code.quarkus.io/main/base/assets/icons/presets/webapp-qute.svg",
                     List.of("io.quarkiverse.qute.web:quarkus-qute-web", "io.quarkiverse.web-bundler:quarkus-web-bundler")),
-            new Preset("ai-infused", "AI Infused service", "https://raw.githubusercontent.com/quarkusio/code.quarkus.io/main/base/assets/icons/presets/ai-infused.svg",
+            new Preset("ai-infused", "AI Infused service",
+                    "https://raw.githubusercontent.com/quarkusio/code.quarkus.io/main/base/assets/icons/presets/ai-infused.svg",
                     List.of("io.quarkiverse.langchain4j:quarkus-langchain4j-openai",
                             "io.quarkiverse.langchain4j:quarkus-langchain4j-easy-rag")));
 

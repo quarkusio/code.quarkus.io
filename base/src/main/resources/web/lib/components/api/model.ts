@@ -31,6 +31,7 @@ export interface Extension {
   version: string;
   name: string;
   keywords: string[];
+  transitiveExtensions: string[];
   tags: string[];
   description?: string;
   shortName?: string;
@@ -57,6 +58,7 @@ export interface PlatformMappedExtensions {
 
 export interface Platform {
   extensions: Extension[];
+  extensionById: {[index: string]: Extension};
   streams: Stream[];
   presets: Preset[];
   tagsDef: Tag[];

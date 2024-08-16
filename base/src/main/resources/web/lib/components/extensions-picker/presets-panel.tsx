@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {TagEntry} from "./extensions-picker";
 import {Platform, Preset} from "../api/model";
-import _ from "lodash";
+
 import {useAnalytics} from "../../core/analytics";
 
 interface PresetsProps {
@@ -66,9 +66,9 @@ export const PresetCard = (props: { preset: Preset, tagsDef: TagEntry[], onClick
 export const PresetsPanel = (props: PresetsProps) => {
   let analytics = useAnalytics();
   const context = {element: 'preset-picker'};
-  const byId = _.keyBy(props.platform.extensions, ({id}) => id);
+  const extensionById = props.platform.extensionById;
   const presets = props.platform.presets.map(p => ({
-    ...p, resolvedExtensions: p.extensions.filter(e => byId[e]).map(e => byId[e])
+    ...p, resolvedExtensions: p.extensions.filter(e => extensionById[e]).map(e => extensionById[e])
   } as Preset))
 
   const selectPreset = (preset: Preset) => {
