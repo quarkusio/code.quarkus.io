@@ -19,6 +19,7 @@ export interface ExtensionEntry {
   name: string;
   version: string;
   keywords: string[];
+  transitiveExtensions: string[];
   tags: string[];
   description?: string;
   shortName?: string;
@@ -173,7 +174,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
               extensions<FaAngleRight/></Button></div>
             {props.project.extensions.length === 0 ?
               <PresetsPanel platform={props.platform} select={addById}/> :
-              <SelectedExtensions extensions={extensions} tagsDef={props.tagsDef} remove={removeById} layout="picker"/>
+              <SelectedExtensions platform={props.platform} extensions={extensions} tagsDef={props.tagsDef} remove={removeById} layout="picker"/>
             }
           </div>
 

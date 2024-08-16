@@ -1,4 +1,5 @@
 import { Config, Platform, Tag } from './model';
+import _ from "lodash";
 
 let platformCache: Map<string, Platform> = new Map<string, Platform>();
 let config: Config | undefined;
@@ -97,6 +98,7 @@ export async function fetchPlatform(api: Api, streamKey?: string, platformOnly: 
 
   let platform = {
     extensions: json[0],
+    extensionById: _.keyBy(json[0], ({id}) => id),
     streams: json[1],
     presets: json[2],
     tagsDef: api.tagsDef || DEFAULT_TAGS

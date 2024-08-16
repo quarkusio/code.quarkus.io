@@ -77,7 +77,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
             <InfoPicker currentStream={currentStream} value={props.project.metadata} onChange={setMetadata} />
           </div>
           <div className="generate-project">
-            <ExtensionsCart  value={{ extensions: props.selectedExtensions }} onChange={setExtensions} tagsDef={props.platform.tagsDef}/>
+            <ExtensionsCart platform={props.platform} value={{ extensions: props.selectedExtensions }} onChange={setExtensions} tagsDef={props.platform.tagsDef}/>
             <GenerateButton 
               api={props.api} 
               project={props.project}

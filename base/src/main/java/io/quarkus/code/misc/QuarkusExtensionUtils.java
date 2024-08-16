@@ -1,6 +1,5 @@
 package io.quarkus.code.misc;
 
-import com.google.common.collect.Lists;
 import io.quarkus.code.model.CodeQuarkusExtension;
 import io.quarkus.maven.dependency.ArtifactCoords;
 import io.quarkus.platform.catalog.processor.CatalogProcessor;
@@ -60,6 +59,7 @@ public class QuarkusExtensionUtils {
                 .category(cat.getName())
                 .tags(getTags(extensionProcessor))
                 .keywords(extensionProcessor.getExtendedKeywords())
+                .transitiveExtensions(ExtensionProcessor.getMetadataValue(ext, "extension-dependencies").asStringList())
                 .order(order.getAndIncrement())
                 .providesCode(extensionProcessor.providesCode())
                 .providesExampleCode(extensionProcessor.providesCode())
