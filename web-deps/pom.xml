@@ -15,7 +15,7 @@
             <dependency>
                 <groupId>org.mvnpm.at.types</groupId>
                 <artifactId>react</artifactId>
-                <version>18.2.71</version>
+                <version>18.3.5</version>
             </dependency>
             <!-- MVNPM Conflicts -->
             <dependency>
@@ -50,7 +50,7 @@
         <dependency>
             <groupId>org.mvnpm</groupId>
             <artifactId>react</artifactId>
-            <version>18.2.0</version>
+            <version>18.3.1</version>
         </dependency>
         <dependency>
             <groupId>org.mvnpm</groupId>
@@ -71,7 +71,7 @@
         <dependency>
             <groupId>org.mvnpm</groupId>
             <artifactId>react-hotkeys-hook</artifactId>
-            <version>4.5.0</version>
+            <version>4.5.1</version>
             <classifier>sources</classifier>
         </dependency>
         <dependency>
@@ -82,7 +82,7 @@
         <dependency>
             <groupId>org.mvnpm</groupId>
             <artifactId>styled-components</artifactId>
-            <version>6.1.12</version>
+            <version>6.1.13</version>
         </dependency>
         <dependency>
             <groupId>org.mvnpm</groupId>
@@ -98,7 +98,7 @@
         <dependency>
             <groupId>org.mvnpm.at.sentry</groupId>
             <artifactId>browser</artifactId>
-            <version>7.110.1</version>
+            <version>8.30.0</version>
         </dependency>
         <dependency>
             <groupId>org.mvnpm.at.segment</groupId>
