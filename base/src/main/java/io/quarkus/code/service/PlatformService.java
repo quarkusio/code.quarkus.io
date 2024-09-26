@@ -60,7 +60,7 @@ public class PlatformService {
             new Preset("event-driven-reactive-kafka", "Event driven service with Kafka",
                     "https://raw.githubusercontent.com/quarkusio/code.quarkus.io/main/base/assets/icons/presets/event-driven-kafka.svg",
                     List.of("io.quarkus:quarkus-smallrye-reactive-messaging-kafka")),
-            new Preset("db-service", "Microservice with database",
+            new Preset("db-service", "REST service with database",
                     "https://raw.githubusercontent.com/quarkusio/code.quarkus.io/main/base/assets/icons/presets/db-service.svg",
                     List.of("io.quarkus:quarkus-rest", "io.quarkus:quarkus-rest-jackson",
                             "io.quarkus:quarkus-hibernate-orm-panache", "io.quarkus:quarkus-jdbc-postgresql")),
