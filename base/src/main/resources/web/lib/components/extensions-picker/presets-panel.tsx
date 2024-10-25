@@ -30,6 +30,7 @@ const PresetsPanelDiv = styled.div`
 
     .preset-card {
         flex-basis: 292px;
+        background-color: var(--presetsCardBackgroundColor);
         border: 1px solid var(--presetsCardBorderColor);
         display: flex;
         flex-direction: column;
