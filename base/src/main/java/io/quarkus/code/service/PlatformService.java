@@ -50,6 +50,12 @@ public class PlatformService {
 
     public static final List<Preset> PRESETS = List.of(
             // Some presets are duplicated to support platforms before and after the Big Reactive Renaming
+            new Preset("rest-service", "REST service",
+                    "https://raw.githubusercontent.com/quarkusio/code.quarkus.io/main/base/assets/icons/presets/rest.svg",
+                    List.of("io.quarkus:quarkus-rest")),
+            new Preset("rest-service", "REST service",
+                    "https://raw.githubusercontent.com/quarkusio/code.quarkus.io/main/base/assets/icons/presets/rest.svg",
+                    List.of("io.quarkus:quarkus-resteasy-reactive")),
             new Preset("db-service", "REST service with database",
                     "https://raw.githubusercontent.com/quarkusio/code.quarkus.io/main/base/assets/icons/presets/db-service.svg",
                     List.of("io.quarkus:quarkus-rest", "io.quarkus:quarkus-rest-jackson",
