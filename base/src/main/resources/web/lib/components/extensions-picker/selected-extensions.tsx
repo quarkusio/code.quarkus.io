@@ -122,7 +122,7 @@ export const SelectedExtensions = (props: {
         Selected Extensions
         {props.extensions.length > 0 &&
             <button className="btn btn-light btn-clear" onClick={clear} aria-label="Clear extension selection">
-                <FaTrashAlt/> Clear { layout === 'picker' && <span>and start from presets</span>}
+                <FaTrashAlt/> Clear { layout === 'picker' && <span>- back to presets</span>}
             </button>}
       </h4>
       {props.extensions.length === 0 && (
