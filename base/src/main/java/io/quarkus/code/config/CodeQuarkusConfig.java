@@ -1,5 +1,6 @@
 package io.quarkus.code.config;
 
+import java.util.List;
 import java.util.Optional;
 
 import io.smallrye.config.ConfigMapping;
@@ -20,4 +21,6 @@ public interface CodeQuarkusConfig {
     Optional<String> hostname();
 
     UIConfig ui();
+
+    List<PresetConfig> presets();
 }
