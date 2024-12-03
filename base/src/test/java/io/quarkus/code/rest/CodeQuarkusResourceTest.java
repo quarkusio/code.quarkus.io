@@ -204,16 +204,6 @@ class CodeQuarkusResourceTest {
     }
 
     @Test
-    void shouldFailWhenArtifactIdIsEmpty() {
-        given()
-                .when()
-                .get("/api/download?g=org.acme&a=&pv=1.0.0&c=org.acme.TotoResource&e=resteasy")
-                .then()
-                .log().ifValidationFails()
-                .statusCode(400);
-    }
-
-    @Test
     @DisplayName("Should fail when using invalid groupId")
     void testWithInvalidGroupId() {
         given()
@@ -323,7 +313,6 @@ class CodeQuarkusResourceTest {
                 projectService.getCreatedProject(), equalTo(
                         ProjectDefinition.builder().artifactId("test-empty-ext").version("1.0.1")
                                 .className("org.test.ExampleResource")
-                                .extensions(Set.of(""))
                                 .build()));
     }
 

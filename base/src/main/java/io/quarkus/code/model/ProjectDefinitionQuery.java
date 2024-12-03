@@ -21,7 +21,6 @@ public class ProjectDefinitionQuery {
     String streamKey;
 
     @DefaultValue(DEFAULT_GROUPID)
-    @NotEmpty
     @Pattern(regexp = GROUPID_PATTERN)
     @QueryParam("g")
     @Parameter(name = "g", description = "GAV: groupId", required = false)
@@ -29,7 +28,6 @@ public class ProjectDefinitionQuery {
     String groupId = DEFAULT_GROUPID;
 
     @DefaultValue(DEFAULT_ARTIFACTID)
-    @NotEmpty
     @Pattern(regexp = ARTIFACTID_PATTERN)
     @QueryParam("a")
     @Parameter(name = "a", description = "GAV: artifactId", required = false)
@@ -37,7 +35,6 @@ public class ProjectDefinitionQuery {
     String artifactId = DEFAULT_ARTIFACTID;
 
     @DefaultValue(DEFAULT_VERSION)
-    @NotEmpty
     @QueryParam("v")
     @Parameter(name = "v", description = "GAV: version", required = false)
     @Schema(description = "GAV: version", required = false, defaultValue = DEFAULT_VERSION)
@@ -72,7 +69,6 @@ public class ProjectDefinitionQuery {
     boolean noCode = DEFAULT_NO_CODE;
 
     @DefaultValue(DEFAULT_BUILDTOOL)
-    @NotEmpty
     @QueryParam("b")
     @Pattern(regexp = BUILDTOOL_PATTERN)
     @Parameter(name = "b", description = "The build tool to use (MAVEN, GRADLE or GRADLE_KOTLIN_DSL)", required = false, schema = @Schema(enumeration = {
