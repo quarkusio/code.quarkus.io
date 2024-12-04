@@ -20,14 +20,14 @@
         <quarkus.platform.version>3.17.2</quarkus.platform.version>
 
         <skipITs>true</skipITs>
-        <surefire-plugin.version>3.5.1</surefire-plugin.version>
+        <surefire-plugin.version>3.5.2</surefire-plugin.version>
         <quarkus-web-bundler.version>1.7.3</quarkus-web-bundler.version>
         <quarkus-playwright.version>1.0.0</quarkus-playwright.version>
 
         <formatter.plugin.version>2.24.1</formatter.plugin.version>
         <quarkus.ide-config.version>${quarkus.platform.version}</quarkus.ide-config.version>
         <surefire.plugin.version>3.1.2</surefire.plugin.version>
-        <maven-javadoc-plugin.version>3.10.1</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>3.11.1</maven-javadoc-plugin.version>
         <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
         <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
         <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
@@ -111,7 +111,7 @@
                 <plugin>
                     <groupId>io.smallrye</groupId>
                     <artifactId>jandex-maven-plugin</artifactId>
-                    <version>3.2.2</version>
+                    <version>3.2.3</version>
                 </plugin>
             </plugins>
         </pluginManagement>
