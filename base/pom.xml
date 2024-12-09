@@ -13,7 +13,7 @@
     <properties>
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <rest-assured.version>4.3.2</rest-assured.version>
-        <surefire-plugin.version>3.5.1</surefire-plugin.version>
+        <surefire-plugin.version>3.5.2</surefire-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
