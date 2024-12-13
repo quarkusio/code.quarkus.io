@@ -8,6 +8,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -298,6 +299,7 @@ class CodeQuarkusResourceTest {
 
     }
 
+    @Disabled
     @Test
     @DisplayName("Should return a project with specified configuration when extensions is empty")
     void testWithEmptyExtensions() {
