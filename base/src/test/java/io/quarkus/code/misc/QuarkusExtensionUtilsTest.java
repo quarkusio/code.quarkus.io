@@ -33,7 +33,7 @@ class QuarkusExtensionUtilsTest {
                 extensions.get(0), is(CodeQuarkusExtension.builder()
                         .id("io.quarkus:quarkus-resteasy")
                         .shortId("ignored")
-                        .version("999-SNAPSHOT")
+                        .version("5.5.0.1")
                         .name("RESTEasy JAX-RS")
                         .description("REST endpoint framework implementing JAX-RS and more")
                         .shortName("jax-rs")
@@ -46,12 +46,12 @@ class QuarkusExtensionUtilsTest {
                         .guide("https://quarkus.io/guides/rest-json")
                         .order(0)
                         .platform(true)
-                        .bom("io.quarkus:quarkus-bom:999-SNAPSHOT")
+                        .bom("io.quarkus:quarkus-bom:5.5.0.1")
                         .build()));
         assertThat(extensions.get(6), is(CodeQuarkusExtension.builder()
                 .id("io.quarkus:quarkus-rest-client-mutiny")
                 .shortId("ignored")
-                .version("999-SNAPSHOT")
+                .version("5.5.0.1")
                 .name("Mutiny support for REST Client")
                 .description("Enable Mutiny for the REST client")
                 .category("Web")
@@ -63,7 +63,7 @@ class QuarkusExtensionUtilsTest {
                 .guide(null)
                 .order(6)
                 .platform(true)
-                .bom("io.quarkus:quarkus-bom:999-SNAPSHOT")
+                .bom("io.quarkus:quarkus-bom:5.5.0.1")
                 .build()));
     }
 

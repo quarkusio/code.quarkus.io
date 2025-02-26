@@ -91,7 +91,7 @@ jobs:
       # Persist logs
       - name: JReleaser release output
         if: steps.check_changes.outputs.skip == 'false'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: jreleaser-release
           path: |
