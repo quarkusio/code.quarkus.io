@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.regex.Pattern;
 
 import io.quarkus.code.model.Preset;
 import io.quarkus.code.model.ProjectDefinition;
@@ -39,6 +40,7 @@ import io.quarkus.registry.catalog.PlatformStream;
 import io.quarkus.runtime.StartupEvent;
 import io.quarkus.scheduler.Scheduled;
 import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
+import org.jetbrains.annotations.Nullable;
 
 import static io.quarkus.code.misc.QuarkusExtensionUtils.processExtensions;
 import static io.quarkus.devtools.project.JavaVersion.getCompatibleLTSVersions;
@@ -91,6 +93,7 @@ public class PlatformService {
                     "https://raw.githubusercontent.com/quarkusio/code.quarkus.io/main/base/assets/icons/presets/ai-infused.svg",
                     List.of("io.quarkiverse.langchain4j:quarkus-langchain4j-openai",
                             "io.quarkiverse.langchain4j:quarkus-langchain4j-easy-rag")));
+    public static final Pattern NUMERIC_PATTERN = Pattern.compile("\\d+");
 
     @Inject
     private PlatformConfig platformConfig;
@@ -325,9 +328,20 @@ public class PlatformService {
         }
     }
 
-    private String getStreamStatus(String quarkusCoreVersion) {
-        String qualifier = new DefaultArtifactVersion(quarkusCoreVersion).getQualifier();
-        return qualifier == null || qualifier.isBlank() ? "FINAL" : qualifier.toUpperCase();
+    static String getStreamStatus(String version) {
+        for (String part : version.split("[.-]")) {
+            if (part.equalsIgnoreCase("redhat")) {
+                return "FINAL";
+            }
+            if (!part.isBlank() && !isNumeric(part)) {
+                return part.toUpperCase();
+            }
+        }
+        return "FINAL";
+    }
+
+    private static boolean isNumeric(String part) {
+        return NUMERIC_PATTERN.matcher(part).matches();
     }
 
     private String createStreamKey(String platformKey, String streamId) {

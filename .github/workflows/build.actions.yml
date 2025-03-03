@@ -25,7 +25,7 @@ jobs:
           java-version: openjdk21
       - name: Cache Maven Repository
         id: cache-maven
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
