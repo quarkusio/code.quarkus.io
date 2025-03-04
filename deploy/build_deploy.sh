@@ -3,7 +3,8 @@
 set -exv
 
 if [[ $(git --no-pager  log --oneline -1) == *Bump* ]]; then
-  exit 1
+  echo "This is a dependabot bump, let's ignore this commit."
+  exit 0
 fi
 
 ./deploy/build_deploy_community_app.sh;
