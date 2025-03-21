@@ -24,7 +24,7 @@
         <quarkus-web-bundler.version>1.8.1</quarkus-web-bundler.version>
         <quarkus-playwright.version>2.1.1</quarkus-playwright.version>
 
-        <formatter.plugin.version>2.25.0</formatter.plugin.version>
+        <formatter.plugin.version>2.26.0</formatter.plugin.version>
         <quarkus.ide-config.version>${quarkus.platform.version}</quarkus.ide-config.version>
         <surefire.plugin.version>3.1.2</surefire.plugin.version>
         <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
