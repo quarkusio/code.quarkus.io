@@ -100,12 +100,12 @@ public class QuarkusProjectServiceTest {
     }
 
     @Test
-    @DisplayName("When using 3.2 project, then, it should create all the files correctly with the requested content")
-    void test3__2(TestInfo info) throws Throwable {
+    @DisplayName("When using 3.15 project, then, it should create all the files correctly with the requested content")
+    void test3__15(TestInfo info) throws Throwable {
         // When
         QuarkusProjectService creator = getProjectService();
-        PlatformInfo platformInfo = platformService.platformInfo("3.2");
-        Path projDir = creator.createTmp(platformInfo, ProjectDefinition.builder().streamKey("3.2").build());
+        PlatformInfo platformInfo = platformService.platformInfo("3.15");
+        Path projDir = creator.createTmp(platformInfo, ProjectDefinition.builder().streamKey("3.15").build());
 
         // Then
         assertThatDirectoryTreeMatchSnapshots(info, projDir);
@@ -121,9 +121,9 @@ public class QuarkusProjectServiceTest {
                 .satisfies(checkContains("<quarkus.platform.version>%s</quarkus.platform.version>"
                         .formatted(platformInfo.extensionCatalog().getBom().getVersion())))
                 .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
-                .satisfies(checkContains("<artifactId>quarkus-resteasy-reactive</artifactId>"))
+                .satisfies(checkContains("<artifactId>quarkus-rest</artifactId>"))
                 .satisfies(checkContains("<maven.compiler.release>%s</maven.compiler.release>"
-                        .formatted(platformService.platformInfo("3.2").stream().javaCompatibility().recommended())))
+                        .formatted(platformService.platformInfo("3.15").stream().javaCompatibility().recommended())))
                 .satisfies(checkContains("<artifactId>rest-assured</artifactId>"));
 
         assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/GreetingResource.java")
