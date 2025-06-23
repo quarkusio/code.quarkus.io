@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
+mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
+
 ## Testing using quarkus snapshot + no real platform; just core. Will thus not find platform issues; but will
 ## find core vs code.quarkus issues.
 mvn --settings $PWD/.github/quarkus-ecosystem-maven-settings.xml -B clean install -Dlib -Dcommunity-app -Dacceptance-test \

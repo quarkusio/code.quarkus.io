@@ -64,6 +64,9 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
+      - name: Ensure browsers are installed
+        run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
+
       - name: Maven release ${{steps.metadata.outputs.current-version}}
         if: steps.check_changes.outputs.skip == 'false'
         id: maven_release
