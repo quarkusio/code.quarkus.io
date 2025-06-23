@@ -8,6 +8,7 @@
     <relativePath>../../pom.xml</relativePath>
   </parent>
   <artifactId>code-quarkus-web-deps-locker</artifactId>
+  <name>Code Quarkus - Web Dependencies - Locker</name>
   <packaging>pom</packaging>
 
   <!-- Locked dependencies (Update with 'mvn io.mvnpm:locker-maven-plugin:LATEST:lock -Dunlocked') -->
