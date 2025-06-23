@@ -29,6 +29,8 @@ jobs:
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+      - name: Ensure browsers are installed
+        run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
       - name: Build
         run: |
           mvn -e -B -DskipTests=true clean package -Dlib -Dacceptance-test -Dcommunity-app
