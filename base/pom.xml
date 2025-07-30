@@ -13,12 +13,12 @@
     <properties>
         <maven.compiler.parameters>true</maven.compiler.parameters>
         <rest-assured.version>4.3.2</rest-assured.version>
-        <surefire-plugin.version>3.5.2</surefire-plugin.version>
+        <surefire-plugin.version>3.5.3</surefire-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
-        <commons-compress.version>1.27.1</commons-compress.version>
-        <hoverfly-java.version>0.20.0</hoverfly-java.version>
+        <commons-compress.version>1.28.0</commons-compress.version>
+        <hoverfly-java.version>0.20.2</hoverfly-java.version>
         <assertj.version>3.27.3</assertj.version>
         <git.commit.id>local</git.commit.id>
         <!-- Quarkus devtools version -->
@@ -28,7 +28,7 @@
         <quarkus.jgit.version>3.6.0</quarkus.jgit.version>
         <quarkus.logging.sentry.version>2.1.6</quarkus.logging.sentry.version>
         <quarkus.quinoa.version>2.0.5</quarkus.quinoa.version>
-        <segment-analytics.version>3.5.1</segment-analytics.version>
+        <segment-analytics.version>3.5.2</segment-analytics.version>
     </properties>
     <dependencyManagement>
         <dependencies>
