@@ -16,26 +16,28 @@ https://github.com/redhat-developer/code.quarkus.redhat.com is an example of how
 
 # Development
 
+Install [https://github.com/casey/just](just)
+
 Api is located in `base/src/main/java`
 UI is located in `base/src/main/resources/web/`
 
 Use this command to start `community-app` dev mode on: http://0.0.0.0:8080 (Api and UI).
 ```shell
 # Install the parent pom and web-deps
-./mvnw clean install -N;./mvnw clean install -f web-deps
+just deps
 
 # Start the dev mode
-./mvnw quarkus:dev -f base
+just dev
 ```
 
 Build the app locally:
 ```shell
-mvn clean install -Dlib -Dcommunity-app
+just build
 ```
 
 After building, use this command to start the `community-app` in production mode:
 ```shell
-java -jar community-app/target/quarkus-app/quarkus-run.jar
+just start
 ```
 
 # Staging
