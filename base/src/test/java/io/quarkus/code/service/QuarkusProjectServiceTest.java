@@ -204,8 +204,8 @@ public class QuarkusProjectServiceTest {
                 .satisfies(checkContains("implementation 'io.quarkus:quarkus-rest'"))
                 .satisfies(checkContains("implementation 'io.quarkus:quarkus-kotlin'"))
                 .satisfies(checkContains("implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk"))
-                .satisfies(checkContains("group 'com.kot'"))
-                .satisfies(checkContains("version '2.0.0'"));
+                .satisfies(checkContains("group = 'com.kot'"))
+                .satisfies(checkContains("version = '2.0.0'"));
 
         assertThatMatchSnapshot(info, projDir, "src/main/kotlin/com/test/TestResource.kt")
                 .satisfies(checkContains("fun hello() = \"Hello from Quarkus REST\""));
