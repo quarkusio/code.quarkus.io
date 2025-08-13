@@ -63,7 +63,7 @@ export function CopyToClipboard(props: CopyToClipboardProps) {
   }
 
   return (
-    <OverlayTrigger  trigger="hover" placement={props.tooltipPlacement} overlay={tooltip} delay={{ show: 0, hide: 0 }}>
+    <OverlayTrigger  placement={props.tooltipPlacement} overlay={tooltip} delay={{ show: 0, hide: 0 }}>
       <div
         onClick={copyToClipboard}
         className={classNames('copy-to-clipboard', props.className)}

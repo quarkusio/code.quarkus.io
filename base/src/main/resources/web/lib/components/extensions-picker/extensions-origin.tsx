@@ -27,7 +27,7 @@ export function PlatformIcon(props: SVGProps<SVGSVGElement>){
 }
 
 export function ExtensionsOrigin(props: { platform: boolean }) {
-  const Overlay = (
+  const tooltip = (
     <Tooltip id="extension-origin-platform-tooltip" style={{ zIndex: 200 }}>
       The quark icon indicates the extension is part of the selected Quarkus Platform. Extensions in a platform are tested and verified together and thus safer to use and easier to upgrade.
     </Tooltip>
@@ -35,7 +35,7 @@ export function ExtensionsOrigin(props: { platform: boolean }) {
   return (
     props.platform ? <OverlayTrigger
       placement="bottom"
-      overlay={Overlay}
+      overlay={tooltip}
       delay={{ show: 200, hide: 0 }}
     >
       <span className="extension-origin-platform">

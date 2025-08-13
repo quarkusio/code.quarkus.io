@@ -35,7 +35,7 @@ const FIELD_KEYS = FIELD_IDENTIFIERS.map(s => s.keys).reduce((acc, value) => acc
 
 const getInPattern = keys => `(?<expr>([a-zA-Z0-9-._]+\\s+)*[a-zA-Z0-9-._]+)\\sin\\s(?<fields>((${keys.join('|')}),?)+)`;
 const getInRegexp = keys => new RegExp(getInPattern(keys), 'gi');
-const getEqualsPattern = keys => `(?<field>${keys.join('|')}):(?<expr>([a-zA-Z0-9-._,]+|("([a-zA-Z0-9-._,:]+\\s*)+")))`;
+const getEqualsPattern = keys => `(-|!)?(?<field>${keys.join('|')}):(?<expr>\\*|(([a-zA-Z0-9-._,]+|"([a-zA-Z0-9-._,:]+\\s*)+"),?)+)`;
 const getEqualsRegexp = keys => new RegExp(getEqualsPattern(keys), 'gi');
 const ORIGIN_PATTERN = '\\s*origin:(?<origin>platform|other)\\s*'
 const ORIGIN_REGEX = new RegExp(ORIGIN_PATTERN, 'gi');
@@ -136,6 +136,9 @@ function equalsFilter(e: ExtensionValues, expr: string[], field: string) {
   const val = e.values.get(field);
   if (val) {
     for (const e of expr) {
+      if (e === '*' && val) {
+        return true;
+      }
       if (typeof val === 'string') {
         if (val === e) {
           return true;
@@ -152,6 +155,30 @@ function defaultFiltering(filtered: ExtensionValues[], formattedSearch: string) 
   return filtered.filter(e => inFilter(e, formattedSearch.split(/\s+/), [ 'name', 'shortname', 'keywords', 'category', 'artifact-id' ]));
 }
 
+
+function splitOnCommaOutsideQuotes(input: string): string[] {
+  const parts: string[] = [];
+  let current = '';
+  let insideQuotes = false;
+
+  for (const char of input) {
+    if (char === '"') {
+      insideQuotes = !insideQuotes; // toggle state
+      // don’t add quote char to current
+    } else if (char === ',' && !insideQuotes) {
+      parts.push(current.trim());
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+
+  if (current.length) {
+    parts.push(current.trim());
+  }
+
+  return parts;
+}
 
 export function search(search: string, processedExtensions: ProcessedExtensions): Extension[] {
   let formattedSearch = search.trim().toLowerCase();
@@ -177,10 +204,13 @@ export function search(search: string, processedExtensions: ProcessedExtensions)
     if (!e.groups?.expr || !e.groups?.field) {
       continue;
     }
-
-    const expr = e.groups.expr.replace(/"/g, '').split(',').map(s => s.toLowerCase().trim());
+    const not = e[1] === '-' || e[1] === '!' ;
+    const expr = splitOnCommaOutsideQuotes(e.groups.expr).map(s => s.toLowerCase().trim());
     const field = e.groups.field.trim().toLowerCase();
-    filtered = filtered.filter(e => equalsFilter(e, expr, field));
+    filtered = filtered.filter(item => {
+      const match = equalsFilter(item, expr, field);
+      return not ? !match : match;
+    });
   }
 
   formattedSearch = formattedSearch.replace(equalsRegex, ';').replace(ORIGIN_REGEX, ';').trim();
