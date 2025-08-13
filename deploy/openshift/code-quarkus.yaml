@@ -83,7 +83,7 @@ objects:
                       name: secrets
                       key: github-client-secret
                       optional: true
-                - name: QUARKUS_LOG_SENTRY
+                - name: QUARKUS_LOG_SENTRY_ENABLED
                   value: ${QUARKUS_LOG_SENTRY}
                 - name: QUARKUS_LOG_SENTRY_ENVIRONMENT
                   value: ${IO_QUARKUS_CODE_ENVIRONMENT}
