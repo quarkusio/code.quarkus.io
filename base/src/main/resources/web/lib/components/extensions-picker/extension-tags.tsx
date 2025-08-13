@@ -1,6 +1,6 @@
 import React from 'react';
 import { TagEntry } from './extensions-picker';
-import { Dropdown, Overlay } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import { HoverControlledDropdown } from '../../core/components';
 
 export function ExtensionTags(props: { name?: string; tagsDef: TagEntry[]; hover: boolean }) {
@@ -38,7 +38,6 @@ export function ExtensionTags(props: { name?: string; tagsDef: TagEntry[]; hover
     <HoverControlledDropdown
       className="extension-tag-dropdown"
       placement="right"
-      overlay={Overlay}
       delay={{ show: 200, hide: 0 }}
     >
       <Dropdown.Toggle as="div"
