@@ -174,12 +174,20 @@ public class CodeQuarkusResource {
 
     private Uni<Response> presets(Map<String, ExtensionRef> extensionsById) {
         String lastUpdated = platformService.cacheLastUpdated().format(FORMATTER);
-        final List<Preset> presets = PRESETS.stream().filter(p -> p.extensions().stream().allMatch(extensionsById::containsKey))
+        final List<Preset> presets = getAllPresets().stream()
+                .filter(p -> p.extensions().stream().allMatch(extensionsById::containsKey))
                 .toList();
         Response response = Response.ok(presets)
                 .header(LAST_MODIFIED_HEADER, lastUpdated)
                 .build();
         return Uni.createFrom().item(response);
+    }
+
+    List<Preset> getAllPresets() {
+        List<Preset> presets = new ArrayList<>(PRESETS);
+        config.presets().stream().map(presetConfig -> new Preset(presetConfig.key(), presetConfig.title(), presetConfig.icon(),
+                presetConfig.extensions())).forEach(presets::add);
+        return presets;
     }
 
     private Uni<Response> extensions(
