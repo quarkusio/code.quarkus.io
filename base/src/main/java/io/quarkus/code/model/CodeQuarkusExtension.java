@@ -34,6 +34,26 @@ public record CodeQuarkusExtension(
         return new Builder();
     }
 
+    public static Builder builderFrom(CodeQuarkusExtension existing) {
+        return new Builder()
+                .id(existing.id())
+                .shortId(existing.shortId())
+                .version(existing.version())
+                .name(existing.name())
+                .description(existing.description())
+                .shortName(existing.shortName())
+                .category(existing.category())
+                .transitiveExtensions(existing.transitiveExtensions())
+                .tags(existing.tags())
+                .keywords(existing.keywords())
+                .providesExampleCode(existing.providesExampleCode())
+                .providesCode(existing.providesCode())
+                .guide(existing.guide())
+                .order(existing.order())
+                .platform(existing.platform())
+                .bom(existing.bom());
+    }
+
     public static class Builder {
         private String id;
         private String shortId;

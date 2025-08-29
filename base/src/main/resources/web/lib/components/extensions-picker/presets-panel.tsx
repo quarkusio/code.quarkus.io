@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {TagEntry} from "./extensions-picker";
 import {Platform, Preset} from "../api/model";
+import {FaArrowDown, FaArrowUp} from 'react-icons/fa';
 
 import {useAnalytics} from "../../core/analytics";
 
@@ -14,11 +15,12 @@ const PresetsPanelDiv = styled.div`
 
 
     .panel-title {
-        font-weight: bold;
-        color: var(--extensionsPickerCategoryTextColor);
-        font-size: 1.3rem;
+        font-weight: 100;
+        text-transform: uppercase;
+        font-size: 1.2rem;
         margin: 10px 0 10px 0;
         height: 30px;
+        
     }
 
     .presets-list {
@@ -78,7 +80,7 @@ export const PresetsPanel = (props: PresetsProps) => {
   };
   return (
     <PresetsPanelDiv className="presets-panel">
-      <div className="panel-title">Start from an extensions preset</div>
+      <div className="panel-title">Use a preset <FaArrowDown /> or Search extensions for your application <FaArrowUp /></div>
       <div className="presets-list">
         {presets.map(p => (
           <PresetCard key={p.key} preset={p} tagsDef={props.platform.tagsDef} onClick={() => selectPreset(p)}/>

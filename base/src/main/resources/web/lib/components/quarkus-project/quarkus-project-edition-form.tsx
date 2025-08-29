@@ -97,7 +97,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
           tagsDef={props.platform.tagsDef}
           value={{ extensions: props.selectedExtensions }}
           onChange={setExtensions}
-          placeholder="Search across all available extensions: rest, hibernate, web, data..."
+          placeholder="Start typing to search extensions by name or category: REST, Hibernate, AI, Web, CLI…"
           buildTool={props.project.metadata.buildTool}
           project={props.project}
           filter={filter}

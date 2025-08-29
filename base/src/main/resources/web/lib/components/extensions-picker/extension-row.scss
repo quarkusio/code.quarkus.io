@@ -15,6 +15,16 @@
     pointer-events: none;
   }
 
+  &.hover {
+    background-color: rgba(0, 0, 0, 0.4);
+    background-blend-mode: multiply;
+  }
+
+  &.keyboard-focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    background-blend-mode: multiply;
+  }
+
   &.transitive {
     color: var(--readOnlyTextColor) !important;
   }

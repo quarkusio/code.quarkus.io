@@ -2,103 +2,59 @@
   margin: 0 auto;
   width: 100%;
   display: flex;
+  flex-direction: column;
 
   a.clear-button.btn {
-    width: 100px;
+    width: 140px;
+    padding: 0 10px;
     cursor: pointer;
-    color: var(--extensionsPickerSearchClearColor);
+    color: var(--extensionsPickerSearchTextColor);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 10px;
-    border: 1px solid var(--extensionsPickerSearchClearColor);
+    background-color: var(--extensionsPickerSearchClearButtonBg);
     margin-right: 5px;
+  }
+
+  .button-toggle-list {
+    font-weight: 100;
+    text-transform: uppercase;
   }
 
 
   .form-group {
     border: 1px solid var(--extensionsPickerSearchBorderColor);
-    border-left: none;
     display: flex;
     flex-grow: 1;
     align-items: center;
     justify-content: center;
     height: 42px;
+
     .search-icon {
       flex-basis: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
+
     .search-icon svg {
       height: 20px;
       width: 20px;
     }
+
     &:focus-within {
       border-color: var(--extensionsPickerSearchBorderColorOnFocus);
 
-      svg {
+      .search-icon svg {
         color: var(--extensionsPickerSearchBorderColorOnFocus);
       }
     }
   }
-  .filter-shortcut {
-    .dropdown-item.list-item {
-      width: 700px;
-      height: auto;
-      display: block;
-      border: none;
-      cursor: auto;
-      line-height: 30px;
-      margin-right: 10px;
 
-
-      span {
-        display: inline-block;
-        margin-left: 7px;
-        font-size: 0.9rem;
-        cursor: pointer;
-        color: var(--extensionsPickerSearchBorderColorOnFocus);
-        border: none;
-        text-decoration: underline;
-
-        &.active {
-          color: var(--extensionsPickerSearchClearColor);
-          font-weight: bold;
-        }
-      }
-    }
-    .dropdown-item {
-      font-weight: normal;
-      line-height: 35px;
-      height: 35px;
-    }
-
-    .dropdown-item.clear-filter {
-      color: var(--extensionsPickerSearchClearColor);
-    }
-  }
-
-  .filter-shortcut-button {
-    display: flex;
-    cursor: pointer;
-    background-color: transparent;
-    color: var(--extensionsPickerSearchTextColor);
-    line-height: 40px;
-    font-weight: bold;
-    padding: 0 10px;
-    align-items: center;
-    border: 1px solid var(--extensionsPickerSearchBorderColor);
-    svg {
-      font-size: 1rem;
-      width: 20px;
-      margin-left: 10px;
-
-    }
-  }
 
   input.form-control {
-    font-size: 14px;
+    font-size: 1rem;
     height: 40px;
     line-height: 40px;
     flex-grow: 1;
@@ -112,5 +68,96 @@
       outline: none;
     }
   }
+
+  .filters-bar {
+    display: flex;
+    margin: 0;
+    padding: 5px 0;
+    font-size: 1rem;
+    justify-content: space-between;
+
+    .filters {
+      display: flex;
+
+      h3 {
+        margin: 0;
+        padding: 0;
+        font-size: 1.2rem;
+        font-weight: 100;
+        text-transform: uppercase;
+      }
+
+      svg {
+        vertical-align: middle;
+      }
+    }
+
+    .search-results-info {
+
+      padding: 3px 5px;
+
+      .result-count {
+
+      }
+
+      .count {
+        margin-right: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        color: var(--mainContainerTextColor);
+
+      }
+
+    }
+
+    .filter-combo-button.dropdown-toggle {
+      cursor: pointer;
+      text-transform: capitalize;
+      margin: 0 10px;
+      padding: 3px 5px;
+
+      &[aria-expanded="true"], &:hover {
+        font-weight: bold;
+        background-color: var(--extensionsPickerSearchBorderColorOnFocus);
+      }
+    }
+
+    .dropdown-menu {
+      padding: 10px;
+
+      .filter-combo-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      button {
+        cursor: pointer;
+        color: var(--extensionsPickerSearchTextColor);
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 10px;
+        background-color: transparent;
+        border: none;
+        margin-right: 5px;
+
+        svg {
+          color: var(--primary);
+        }
+      }
+    }
+
+    .dropdown-item {
+      padding-left: 5px;
+    }
+
+    .dropdown-item.special-filter {
+      background-color: var(--readonlyLabelAndBorderColor);
+    }
+
+
+  }
+
 }
 

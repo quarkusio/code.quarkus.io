@@ -12,6 +12,7 @@ import io.quarkus.registry.catalog.ExtensionCatalog;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Function;
 
 public class QuarkusExtensionUtils {
 
@@ -22,12 +23,17 @@ public class QuarkusExtensionUtils {
     }
 
     public static List<CodeQuarkusExtension> processExtensions(ExtensionCatalog catalog) {
+        return processExtensions(catalog, Function.identity());
+    }
+
+    public static List<CodeQuarkusExtension> processExtensions(ExtensionCatalog catalog,
+            Function<CodeQuarkusExtension, CodeQuarkusExtension> extensionMapper) {
         List<CodeQuarkusExtension> list = new ArrayList<>();
         List<ProcessedCategory> processedCategories = CatalogProcessor.getProcessedCategoriesInOrder(catalog);
         AtomicInteger order = new AtomicInteger();
         processedCategories.forEach(c -> {
             c.getSortedExtensions().forEach(e -> {
-                CodeQuarkusExtension codeQExt = toCodeQuarkusExtension(e, c.getCategory(), order);
+                CodeQuarkusExtension codeQExt = extensionMapper.apply(toCodeQuarkusExtension(e, c.getCategory(), order));
                 if (codeQExt != null) {
                     list.add(codeQExt);
                 }

@@ -1,16 +1,8 @@
-import { ExtensionEntry } from './extensions-picker';
-import { Extension } from '../api/model';
+import {ExtensionEntry} from './extensions-picker';
+import {Extension} from '../api/model';
 import _ from 'lodash';
-import { Analytics } from '../../core/analytics';
-
-function* matchAll(str, regexp) {
-  const flags = regexp.global ? regexp.flags : regexp.flags + 'g';
-  const re = new RegExp(regexp, flags);
-  let match;
-  while (match = re.exec(str)) {
-    yield match;
-  }
-}
+import {Analytics} from '../../core/analytics';
+import {parse, EqFilter, InFilter, TermFilter, Filter} from "../../core/search";
 
 type ExtensionFieldValueSupplier = (e: Extension) => string | string[] | undefined
 
@@ -19,27 +11,24 @@ interface ExtensionFieldIdentifier {
   valueSupplier: ExtensionFieldValueSupplier;
 }
 
+const HIDE_FILTER_PREDICATE = (key: string) => [].includes(key);
+const RADIO_FILTER_PREDICATE = (key: string) => ['platform'].includes(key);
+const OPTIONAL_FILTER_PREDICATE = (key: string) => key === 'support' || key.endsWith('-support');
+
 // FOR SHORTCUT KEYS, MAKE SURE IT IS AFTER THE FULL KEY (REPLACE IS TAKING THE FIRST)
 const FIELD_IDENTIFIERS: ExtensionFieldIdentifier[] = [
-  { keys: [ 'name' ], valueSupplier: e => e.name?.toLowerCase() },
-  { keys: [ 'description', 'desc' ], valueSupplier: e => e.description?.toLowerCase() },
-  { keys: [ 'groupid', 'group-id', 'group' ], valueSupplier: e => e.id?.toLowerCase().split(':')[0] },
-  { keys: [ 'artifactid', 'artifact-id', 'artifact' ], valueSupplier: e => e.id?.toLowerCase().split(':')[1] },
-  { keys: [ 'shortname', 'short-name' ], valueSupplier: e => e.shortName?.toLowerCase() },
-  { keys: [ 'keywords', 'keyword' ], valueSupplier: e => e.keywords },
-  { keys: [ 'tags', 'tag' ], valueSupplier: e => e.tags },
-  { keys: [ 'category', 'cat' ], valueSupplier: e => e.category?.toLowerCase().replace(' ', '-') },
+  {keys: ['name'], valueSupplier: e => e.name?.toLowerCase()},
+  {keys: ['description', 'desc'], valueSupplier: e => e.description?.toLowerCase()},
+  {keys: ['groupid', 'group-id', 'group'], valueSupplier: e => e.id?.toLowerCase().split(':')[0]},
+  {keys: ['artifactid', 'artifact-id', 'artifact'], valueSupplier: e => e.id?.toLowerCase().split(':')[1]},
+  {keys: ['shortname', 'short-name'], valueSupplier: e => e.shortName?.toLowerCase()},
+  {keys: ['keywords', 'keyword'], valueSupplier: e => e.keywords},
+  {keys: ['tags', 'tag'], valueSupplier: e => e.tags},
+  {keys: ['platform', 'p'], valueSupplier: e => e.platform ? 'yes' : 'no'},
+  {keys: ['category', 'cat'], valueSupplier: e => catToId(e.category)},
 ];
 
 const FIELD_KEYS = FIELD_IDENTIFIERS.map(s => s.keys).reduce((acc, value) => acc.concat(value), [])
-
-const getInPattern = keys => `(?<expr>([a-zA-Z0-9-._]+\\s+)*[a-zA-Z0-9-._]+)\\sin\\s(?<fields>((${keys.join('|')}),?)+)`;
-const getInRegexp = keys => new RegExp(getInPattern(keys), 'gi');
-const getEqualsPattern = keys => `(-|!)?(?<field>${keys.join('|')}):(?<expr>\\*|(([a-zA-Z0-9-._,]+|"([a-zA-Z0-9-._,:]+\\s*)+"),?)+)`;
-const getEqualsRegexp = keys => new RegExp(getEqualsPattern(keys), 'gi');
-const ORIGIN_PATTERN = '\\s*origin:(?<origin>platform|other)\\s*'
-const ORIGIN_REGEX = new RegExp(ORIGIN_PATTERN, 'gi');
-const ORIGIN_REGEX_CLEAR = new RegExp(ORIGIN_PATTERN, 'i');
 
 export interface ProcessedExtensions {
   extensionsValues: ExtensionValues[];
@@ -76,10 +65,13 @@ export function processTags(tags: string[]): { [field: string]: string[] } {
       key = 'tag';
       value = tag;
     }
-    if(!processed[key]) {
+    if (HIDE_FILTER_PREDICATE(key)) {
+      continue;
+    }
+    if (!processed[key]) {
       processed[key] = [];
     }
-    processed[key].push(value) ;
+    processed[key].push(value);
   }
   return processed;
 }
@@ -103,7 +95,7 @@ export function processExtensionsValues(extensions: Extension[]): ProcessedExten
         values.set(pair[0], v);
       }
     }
-    const extensionValues = { extension, values };
+    const extensionValues = {extension, values};
     extensionsValues.push(extensionValues);
   }
   let fieldKeys = getAllKeys(extensions);
@@ -113,9 +105,9 @@ export function processExtensionsValues(extensions: Extension[]): ProcessedExten
   };
 }
 
-function inFilter(e: ExtensionValues, expr: string[], fields: string[]) {
+function filterIn(e: ExtensionValues, expr: string[], fields: string[]) {
   for (const field of fields) {
-    const val = e.values.get(field);
+    const val = e.values.get(field.toLowerCase());
     if (val) {
       let allFoundInValue = true;
       for (const e of expr) {
@@ -132,105 +124,89 @@ function inFilter(e: ExtensionValues, expr: string[], fields: string[]) {
   return false;
 }
 
-function equalsFilter(e: ExtensionValues, expr: string[], field: string) {
-  const val = e.values.get(field);
-  if (val) {
-    for (const e of expr) {
-      if (e === '*' && val) {
-        return true;
-      }
-      if (typeof val === 'string') {
-        if (val === e) {
-          return true;
-        }
-      } else if (val.indexOf(e) >= 0) {
-        return true;
-      }
+function filterEquals(extension: ExtensionValues, values: string[], field: string) {
+  const extensionFieldValue = extension.values.get(field);
+  if (!extensionFieldValue) return false;
+
+  if (values.includes('*')) return true;
+  for (const val of values) {
+    const matches =
+      typeof extensionFieldValue === 'string'
+        ? extensionFieldValue === val
+        : extensionFieldValue.indexOf(val) >= 0;
+    if (matches) {
+      return true;
     }
   }
-  return false;
+  return false
 }
 
-function defaultFiltering(filtered: ExtensionValues[], formattedSearch: string) {
-  return filtered.filter(e => inFilter(e, formattedSearch.split(/\s+/), [ 'name', 'shortname', 'keywords', 'category', 'artifact-id' ]));
+function defaultFiltering(filtered: ExtensionValues[], term: string) {
+  return filtered.filter(e => filterIn(e, [term], ['name', 'shortname', 'keywords', 'category', 'artifact-id']));
 }
 
-
-function splitOnCommaOutsideQuotes(input: string): string[] {
-  const parts: string[] = [];
-  let current = '';
-  let insideQuotes = false;
-
-  for (const char of input) {
-    if (char === '"') {
-      insideQuotes = !insideQuotes; // toggle state
-      // don’t add quote char to current
-    } else if (char === ',' && !insideQuotes) {
-      parts.push(current.trim());
-      current = '';
-    } else {
-      current += char;
-    }
-  }
-
-  if (current.length) {
-    parts.push(current.trim());
-  }
-
-  return parts;
-}
-
-export function search(search: string, processedExtensions: ProcessedExtensions): Extension[] {
-  let formattedSearch = search.trim().toLowerCase();
+function parseQuery(query: string): Filter[] {
+  const formattedSearch = query.trim().toLowerCase();
   if (!formattedSearch) {
+    return [];
+  }
+
+  if (formattedSearch.indexOf(' in ') < 0 && formattedSearch.indexOf(':') < 0 && !formattedSearch.startsWith('-') && !formattedSearch.startsWith('!')) {
+    return [{type: 'term', value: formattedSearch} as TermFilter];
+  }
+  try {
+    return parse(formattedSearch);
+  } catch (e: any) {
+    console.log(e);
+    return [];
+  }
+}
+
+export function search(filters: Filter[], processedExtensions: ProcessedExtensions): Extension[] {
+  if (!filters || filters.length === 0) {
     return processedExtensions.extensionsValues.map(v => v.extension);
   }
-  let filtered = [ ...processedExtensions.extensionsValues ];
-  const shortNameIndex = filtered.findIndex(e => e.values.get('shortname') === formattedSearch);
-  if (shortNameIndex >= 0) {
-    const val = filtered.splice(shortNameIndex, 1);
-    filtered.unshift(val[0]);
-  }
+  let filtered = [...processedExtensions.extensionsValues];
+
   // Basic search
-  if(formattedSearch.indexOf(' in ') < 0 && formattedSearch.indexOf(':') < 0) {
-    filtered = defaultFiltering(filtered, formattedSearch);
+  if (filters.length === 1 && filters[0].type === 'term') {
+    let f: TermFilter = filters[0];
+    // We move any direct match to the top
+    const shortNameIndex = filtered.findIndex(e => e.values.get('shortname') === f.value);
+    if (shortNameIndex >= 0) {
+      const val = filtered.splice(shortNameIndex, 1);
+      filtered.unshift(val[0]);
+    }
+
+    // And then filter
+    filtered = defaultFiltering(filtered, f.value);
     return filtered.map(e => e.extension);
   }
 
-  // Complex search
-  const equalsRegex = getEqualsRegexp(processedExtensions.fieldKeys)
-  const equalsMatches = matchAll(formattedSearch, equalsRegex);
-  for (const e of equalsMatches) {
-    if (!e.groups?.expr || !e.groups?.field) {
-      continue;
-    }
-    const not = e[1] === '-' || e[1] === '!' ;
-    const expr = splitOnCommaOutsideQuotes(e.groups.expr).map(s => s.toLowerCase().trim());
-    const field = e.groups.field.trim().toLowerCase();
-    filtered = filtered.filter(item => {
-      const match = equalsFilter(item, expr, field);
-      return not ? !match : match;
-    });
-  }
-
-  formattedSearch = formattedSearch.replace(equalsRegex, ';').replace(ORIGIN_REGEX, ';').trim();
-
-  if (formattedSearch) {
-    const inRegex = getInRegexp(processedExtensions.fieldKeys)
-    const inMatches = matchAll(formattedSearch, inRegex);
-    for (const e of inMatches) {
-      if (!e.groups?.expr || !e.groups?.fields) {
-        continue;
-      }
-      const expr = e.groups.expr.split(/\s+/);
-      const fields = e.groups.fields.split(/[\s,]+/);
-      filtered = filtered.filter(e => inFilter(e, expr, fields));
-    }
-    formattedSearch = formattedSearch.replace(inRegex, '').replace(/;/g, '').trim();
-    if (formattedSearch) {
-      filtered = defaultFiltering(filtered, formattedSearch);
+  // Advanced search
+  for (let filter of filters) {
+    switch (filter.type) {
+      case 'eq':
+        const eqFilter = filter as EqFilter;
+        if (!processedExtensions.fieldKeys.includes(eqFilter.field.toLowerCase())) {
+          continue;
+        }
+        filtered = filtered.filter(item => {
+          const match = filterEquals(item, eqFilter.values, eqFilter.field);
+          return eqFilter.negated ? !match : match;
+        });
+        break;
+      case 'in':
+        const inFilter = filter as InFilter;
+        filtered = filtered.filter(item => filterIn(item, [inFilter.value], inFilter.fields))
+        break;
+      case 'term':
+        const termFilter = filter as TermFilter;
+        filtered = defaultFiltering(filtered, termFilter.value);
+        break;
     }
   }
+
   return filtered.map(e => e.extension);
 }
 
@@ -238,47 +214,77 @@ export const removeDuplicateIds = (entries: ExtensionEntry[]): ExtensionEntry[] 
   return _.uniqBy(entries, 'id');
 };
 
-type Origin = 'other' | 'platform' | 'all';
+export interface MetadataFilterValues {
+  radio: boolean;
+  optional: boolean;
+  exclude: boolean;
+  any: boolean;
+  all: { label: string, value: string; active: boolean; }[];
+  active: string[];
+  inactive: string[];
+}
 
 export interface MetadataFilters {
-  [key: string]: {
-    active: string[];
-    inactive: string[];
-  }
+  [key: string]: MetadataFilterValues
 }
 
 export interface FilterResult {
-  all: ExtensionEntry[];
-  platform: ExtensionEntry[];
-  other: ExtensionEntry[];
-  selected: ExtensionEntry[];
-  effective: ExtensionEntry[];
-  origin: Origin;
+  entries: ExtensionEntry[];
   filters: MetadataFilters;
   filtered: boolean;
 }
 
-function getOrigin(filter: string): Origin {
-  const originMatches = matchAll(filter, ORIGIN_REGEX);
-  for (const e of originMatches) {
-    if (e.groups?.origin) {
-      return e.groups.origin as Origin;
-    }
+
+export function shouldFilter(query: string): boolean {
+  return query && query.length > 0;
+}
+
+export function addMetadataFilter(filters: MetadataFilters, query: string, key: string, value: string): string {
+  if (filters[key].radio || filters[key].exclude || filters[key].any) {
+    return (`${key}:${value} ` + clearMetadataFilter(query, key));
   }
-  return 'all';
+
+  if (filters[key].inactive.length === 1 && filters[key].inactive[0] === value && filters[key].optional) {
+    return addStarMetadataFilter(query, key);
+  }
+  if (filters[key].active.length > 0) {
+    let split = query.split(new RegExp(`${key}:\\S+`, 'i'))
+    return (split[0] + key + ':' + [...filters[key].active, value].join(',') + split[1]).trim();
+  }
+  return `${key}:${value} ${query}`.trim();
 }
 
-export function shouldFilter(filter: string): boolean {
-  return filter.length > 0 && clearFilterOrigin(filter).trim().length > 0;
+export function removeMetadataFilter(filters: MetadataFilters, query: string, key: string, value: string) {
+  let active = filters[key].active;
+  if (active.length <= 1) {
+    return query.replace(`${key}:${value}`, '').trim();
+  }
+  let split = query.split(new RegExp(`${key}:\\S+`))
+  active.splice(active.indexOf(value), 1);
+  return (split[0] + key + ':' + active.join(',') + split[1]).trim();
 }
 
-export function clearFilterOrigin(filter: string) {
-  return filter.replace(ORIGIN_REGEX_CLEAR, '');
+export function clearMetadataFilter(query: string, key: string) {
+  return query
+    .replace(`-${key}`, '')
+    .replace(`!${key}`, '')
+    .replace(new RegExp(`${key}:\\S+`), '').trim();
+}
+
+export function addExcludeMetadataFilter(query: string, key: string) {
+  return `!${key}` + query.replace(new RegExp(`${key}:\\S+`), '').trim();
+}
+
+export function addStarMetadataFilter(query: string, key: string) {
+  return `${key}:* ` + query.replace(new RegExp(`${key}:\\S+`), '').trim();
 }
 
 
+function catToId(category?: string): string {
+  return category?.toLowerCase().replace(' ', '-').replace(/\s+.+$/i, '');
+}
 
-function getMetadataFilters(filter: string, entries: ExtensionEntry[]): MetadataFilters {
+function getMetadataFilters(filters: Filter[], entries: ExtensionEntry[]): MetadataFilters {
   const tags = new Set<string>();
   const cats = new Set<string>();
   for (let entry of entries) {
@@ -287,55 +293,56 @@ function getMetadataFilters(filter: string, entries: ExtensionEntry[]): Metadata
         tags.add(tag);
       }
     }
-    cats.add(entry.category?.toLowerCase().replace(' ', '-'))
+    cats.add(catToId(entry.category))
   }
-  const rawFilters = processTags(Array.from(tags));
-  rawFilters.category = Array.from(cats);
-  const filters: MetadataFilters = {};
-  for (let key in rawFilters) {
-    filters[key] = { active: [], inactive: [] };
-    for (let val of rawFilters[key]) {
-      if(filter.indexOf(key + ':' + val) >= 0) {
-        filters[key].active.push(val);
+  const tagFilters = processTags(Array.from(tags));
+  tagFilters.category = Array.from(cats);
+  tagFilters.platform = ['yes', 'no'];
+
+
+  const metadataFilters: MetadataFilters = {};
+
+  for (let key in tagFilters) {
+    let filtersForTag = filters.filter(f => f.type === 'eq' && f.field === key) as EqFilter[];
+    let filterForTag = filtersForTag?.length === 1 && filtersForTag[0];
+    let any = filterForTag?.values?.includes('*') && !filterForTag.negated;
+    let exclude = filterForTag?.values?.includes('*') && filterForTag.negated;
+    metadataFilters[key] = {all: [], active: [], inactive: [], any, exclude,  radio: RADIO_FILTER_PREDICATE(key), optional: OPTIONAL_FILTER_PREDICATE(key)};
+    for (let value of tagFilters[key]) {
+      let label = value;
+      let active = !filterForTag.negated && (filterForTag?.values?.includes(value) || any);
+
+      if (active) {
+        metadataFilters[key].all.push({value, label, active: true});
+        metadataFilters[key].active.push(value);
       } else {
-        filters[key].inactive.push(val);
+        metadataFilters[key].all.push({value, label, active: false});
+        metadataFilters[key].inactive.push(value);
       }
     }
+
   }
-  return filters;
+  return metadataFilters;
 }
 
-export function toFilterResult(filter: string, entries: Extension[], filtered: boolean, onResult: (result: FilterResult) => void) {
+export function toFilterResult(filters: Filter[], entries: Extension[], filteredEntries: Extension[], filtered: boolean, onResult: (result: FilterResult) => void) {
   const result: FilterResult = {
-    all: entries,
-    platform: [],
-    other: [],
-    origin: getOrigin(filter),
-    selected: [],
-    effective: [],
+    entries: filteredEntries,
     filters: {},
     filtered
   }
-  for (let entry of entries) {
-    if (entry.platform) {
-      result.platform.push(entry);
-    } else {
-      result.other.push(entry);
-    }
-  }
-  result.selected = result[result.origin];
-  result.effective = result.selected.length > 0 ? result.selected : result.all;
-  result.filters = getMetadataFilters(filter, result.selected);
+  result.filters = getMetadataFilters(filters, entries);
   onResult(result);
 }
 
-const computeResults = (analytics: Analytics, filter: string, entries: ExtensionEntry[], processedExtensions: ProcessedExtensions, onResult: (result: FilterResult) => void): void => {
-  if (shouldFilter(filter)) {
-    analytics.event('Search', { filter, element: 'search-bar' })
-    const filtered = search(filter, processedExtensions);
-    toFilterResult(filter, filtered, true, onResult);
+const computeResults = (analytics: Analytics, query: string, entries: ExtensionEntry[], processedExtensions: ProcessedExtensions, onResult: (result: FilterResult) => void): void => {
+  if (shouldFilter(query)) {
+    analytics.event('Search', {filter: query, element: 'search-bar'})
+    const filters = parseQuery(query);
+    const filtered = search(filters, processedExtensions);
+    toFilterResult(filters, entries, filtered, true, onResult);
   } else {
-    toFilterResult(filter, entries, false, onResult);
+    toFilterResult([], entries, entries, false, onResult);
   }
 };
 
