@@ -1,6 +1,7 @@
 package io.quarkus.code;
 
 import com.microsoft.playwright.BrowserContext;
+import com.microsoft.playwright.Dialog;
 import com.microsoft.playwright.ElementHandle;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Response;
@@ -26,11 +27,11 @@ import static io.quarkus.code.SnapshotTesting.assertThatMatchSnapshot;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
-@WithPlaywright(verbose = true)
+@WithPlaywright(verbose = true, slowMo = 150)
 @TestProfile(CodeQuarkusPlaywrightTest.PlaywrightTestProfile.class)
 public class CodeQuarkusPlaywrightTest {
 
-    public static final String LABEL_TOGGLE_SEARCH_FILTERS = "[aria-label='Toggle search filters']";
+    public static final String LABEL_TOGGLE_SEARCH_COMBO = "[aria-label='Toggle %s combobox']";
     public static final String LABEL_EDIT_GROUP_ID = "[aria-label='Edit groupId']";
     public static final String LABEL_EDIT_ARTIFACT_ID = "[aria-label='Edit artifactId']";
     public static final String LABEL_EDIT_PROJECT_VERSION = "[aria-label='Edit project version']";
@@ -135,6 +136,7 @@ public class CodeQuarkusPlaywrightTest {
                 .map(String::trim)
                 .containsExactlyInAnyOrder("[quarkus-rest]", "[quarkus-rest-jackson]", "[quarkus-hibernate-orm-panache]",
                         "[quarkus-jdbc-postgresql]");
+        page.onDialog(Dialog::accept);
         page.waitForSelector(LABEL_CLEAR_SELECTION).click();
         page.waitForSelector("[aria-label='Select webapp-npm preset']");
     }
@@ -160,43 +162,47 @@ public class CodeQuarkusPlaywrightTest {
         ElementHandle searchInput = page.waitForSelector(LABEL_SEARCH_EXTENSIONS);
         assertThat(searchInput.inputValue().trim()).isEqualTo("");
 
-        page.waitForSelector(LABEL_TOGGLE_SEARCH_FILTERS).click();
-        page.waitForSelector(".inactive[aria-label='Toggle origin:other filter']").click();
-        assertThat(searchInput.inputValue().trim()).isEqualTo("origin:other");
+        page.waitForSelector(LABEL_TOGGLE_SEARCH_COMBO.formatted("platform")).click();
+        page.waitForSelector(".inactive[aria-label='Add platform:yes filter']").click();
+        assertThat(searchInput.inputValue().trim()).isEqualTo("platform:yes");
 
-        page.waitForSelector(LABEL_TOGGLE_SEARCH_FILTERS).click();
-        page.waitForSelector(".inactive[aria-label='Toggle origin:platform filter']").click();
-        assertThat(searchInput.inputValue().trim()).isEqualTo("origin:platform");
-
-        page.waitForSelector(LABEL_TOGGLE_SEARCH_FILTERS).click();
-        page.waitForSelector(".active[aria-label='Toggle origin:platform filter']").click();
+        page.waitForSelector(LABEL_TOGGLE_SEARCH_COMBO.formatted("platform")).click();
+        page.waitForSelector(".active[aria-label='Remove platform:yes filter']").click();
         assertThat(searchInput.inputValue().trim()).isEqualTo("");
 
-        page.waitForSelector(LABEL_TOGGLE_SEARCH_FILTERS).click();
-        page.waitForSelector("[aria-label='Filter by category:web']").click();
+        page.waitForSelector(LABEL_TOGGLE_SEARCH_COMBO.formatted("category")).click();
+        page.waitForSelector("[aria-label='Add category:web filter']").click();
         assertThat(searchInput.inputValue().trim()).isEqualTo("category:web");
 
-        page.waitForSelector(LABEL_TOGGLE_SEARCH_FILTERS).click();
+        page.waitForSelector(LABEL_TOGGLE_SEARCH_COMBO.formatted("category")).click();
         page.waitForSelector("[aria-label='Remove category:web filter']").click();
         assertThat(searchInput.inputValue().trim()).isEqualTo("");
 
-        page.waitForSelector(LABEL_TOGGLE_SEARCH_FILTERS).click();
-        page.waitForSelector(".inactive[aria-label='Toggle origin:platform filter']").click();
-        assertThat(searchInput.inputValue().trim()).isEqualTo("origin:platform");
+        page.waitForSelector(LABEL_TOGGLE_SEARCH_COMBO.formatted("platform")).click();
+        page.waitForSelector(".inactive[aria-label='Add platform:yes filter']").click();
+        assertThat(searchInput.inputValue().trim()).isEqualTo("platform:yes");
 
-        page.waitForSelector(LABEL_TOGGLE_SEARCH_FILTERS).click();
-        page.waitForSelector("[aria-label='Filter by category:web']").click();
-        page.waitForSelector(LABEL_TOGGLE_SEARCH_FILTERS).click();
-        page.waitForSelector("[aria-label='Filter by status:experimental']").click();
-        assertThat(searchInput.inputValue().trim()).isEqualTo("status:experimental category:web origin:platform");
+        page.waitForSelector(LABEL_TOGGLE_SEARCH_COMBO.formatted("category")).click();
+        page.waitForSelector("[aria-label='Add category:web filter']").click();
 
-        page.waitForSelector(LABEL_TOGGLE_SEARCH_FILTERS).click();
-        page.waitForSelector(".active[aria-label='Toggle origin:platform filter']").click();
+        page.waitForSelector(LABEL_TOGGLE_SEARCH_COMBO.formatted("status")).click();
+        page.waitForSelector("[aria-label='Add status:experimental filter']").click();
+        assertThat(searchInput.inputValue().trim()).isEqualTo("status:experimental category:web platform:yes");
+
+        page.waitForSelector(LABEL_TOGGLE_SEARCH_COMBO.formatted("platform")).click();
+        page.waitForSelector(".active[aria-label='Remove platform:yes filter']").click();
         assertThat(searchInput.inputValue().trim()).isEqualTo("status:experimental category:web");
 
+        page.waitForSelector(LABEL_TOGGLE_SEARCH_COMBO.formatted("category")).click();
+        page.waitForSelector("[aria-label='Add category:data filter']").click();
+        assertThat(searchInput.inputValue().trim()).isEqualTo("status:experimental category:web,data");
+
+        page.waitForSelector(LABEL_TOGGLE_SEARCH_COMBO.formatted("category")).click();
+        page.waitForSelector("[aria-label='Drop category filter']").click();
+        assertThat(searchInput.inputValue().trim()).isEqualTo("status:experimental");
+
         // Test clear search button
-        page.waitForSelector(LABEL_TOGGLE_SEARCH_FILTERS).click();
-        page.waitForSelector("[aria-label='Clear search']").click();
+        page.waitForSelector("[aria-label='Clear filters']").click();
         page.waitForSelector(".extension-picker-summary");
         assertThat(searchInput.inputValue().trim()).isEqualTo("");
 

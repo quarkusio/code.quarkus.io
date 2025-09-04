@@ -77,8 +77,6 @@
   --codeTextColor: var(--textColor);;
 
   // Extensions picker
-  --switchOriginSelectedTextColor: var(--mainContainerTextColor);
-  --switchOriginTextColor: #8d8d8d;
   --originPlatformColor: #cd54e1;
 
   --extensionsPickerTextColor: var(--mainContainerTextColor);
@@ -89,6 +87,7 @@
   --extensionsPickerCheckSelectedByDefaultColor: var(--readonlyLabelAndBorderColor);
   --extensionsPickerKeyboardActivedTextColor: var(--secondary);
   --extensionsPickerRemoveButtonColor: var(--warningColor);
+  --extensionsPickerRowHoverBackgroundColor: var(--secondary);
 
   --extensionsPickerDescriptionTextColorOnTablet: #ccc;
 
@@ -101,7 +100,10 @@
   --extensionsPickerSearchTextColor: var(--mainContainerTextColor);
   --extensionsPickerSearchBorderColor: var(--extensionsPickerSearchTextColor);
   --extensionsPickerSearchBorderColorOnFocus: var(--secondary);
-  --extensionsPickerSearchClearColor: var(--warningColor);
+  --extensionsPickerSearchClearButtonBg: #404955;
+
+  --clearSelectedExtensionButtonBorderColor: var(--warningColor);
+  --clearSelectedExtensionButtonTextColor: var(--mainContainerTextColor);
 
   // Presets
   --presetsTitleTextColor: var(--extensionsPickerCategoryTextColor);

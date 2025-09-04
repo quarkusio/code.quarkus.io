@@ -1,8 +1,5 @@
 @import "../_config.scss";
 
-button.button-toggle-list {
-  margin-bottom: 20px;
-}
 
 .extensions-picker {
   color: var(--extensionsPickerTextColor);
@@ -26,7 +23,7 @@ button.button-toggle-list {
     .extension-row {
       color: var(--extensionsPickerTextColor);
 
-      &.keyboard-actived {
+      &.keyboard-focus {
         color: var(--extensionsPickerKeyboardActivedTextColor);
       }
 

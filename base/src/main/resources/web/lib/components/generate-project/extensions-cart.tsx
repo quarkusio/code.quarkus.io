@@ -54,7 +54,7 @@ export function ExtensionsCart(props: ExtensionsCartProps) {
         {props.value.extensions.length}
       </DropdownToggle>
 
-      <Dropdown.Menu onMouseEnter={onMouseEnterFn} align="left">
+      <Dropdown.Menu onMouseEnter={onMouseEnterFn} align="left" className="cart-menu">
         <SelectedExtensions platform={props.platform} extensions={props.value.extensions} remove={onRemove} tagsDef={props.tagsDef}/>
       </Dropdown.Menu>
     </Dropdown>

@@ -28,6 +28,7 @@ import io.quarkus.registry.ExtensionCatalogResolver;
 import io.quarkus.registry.catalog.PlatformRelease;
 import io.quarkus.runtime.LaunchMode;
 import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import io.quarkus.code.config.PlatformConfig;
@@ -100,6 +101,9 @@ public class PlatformService {
 
     @Inject
     private QuarkusProjectService projectService;
+
+    @Inject
+    Instance<PlatformOverride> platformOverride;
 
     private final ExtensionCatalogResolver catalogResolver;
     private final AtomicReference<PlatformServiceCache> platformServiceCacheRef = new AtomicReference<>();
@@ -187,6 +191,10 @@ public class PlatformService {
         }
     }
 
+    private PlatformOverride getPlatformOverride() {
+        return platformOverride.isResolvable() ? platformOverride.get() : PlatformOverride.DEFAULT_PLATFORM_OVERRIDE;
+    }
+
     private void reloadPlatformServiceCache() throws RegistryResolutionException, IOException, QuarkusCommandException {
         catalogResolver.clearRegistryCache();
         PlatformCatalog platformCatalog;
@@ -217,7 +225,8 @@ public class PlatformService {
                 PlatformRelease recommendedRelease = stream.getRecommendedRelease();
                 ExtensionCatalog extensionCatalog = catalogResolver
                         .resolveExtensionCatalog(recommendedRelease.getMemberBoms());
-                List<CodeQuarkusExtension> codeQuarkusExtensions = processExtensions(extensionCatalog);
+                List<CodeQuarkusExtension> codeQuarkusExtensions = processExtensions(extensionCatalog,
+                        getPlatformOverride().extensionMapper());
                 String platformKey = platform.getPlatformKey();
                 String streamId = stream.getId();
                 String streamKey = createStreamKey(platformKey, streamId);

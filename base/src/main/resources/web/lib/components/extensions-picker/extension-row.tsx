@@ -9,7 +9,7 @@ import { ExtensionsOrigin } from './extensions-origin';
 
 export interface ExtensionRowProps extends ExtensionEntry {
   selected?: boolean;
-  keyboardActived?: boolean;
+  keyboardFocus?: boolean;
   layout?: 'picker' | 'cart';
   buildTool?: string;
   tagsDef: TagEntry[];
@@ -43,10 +43,10 @@ export function ExtensionRow(props: ExtensionRowProps) {
   };
 
   useEffect(() => {
-    if (props.keyboardActived) {
+    if (props.keyboardFocus) {
       scrollIntoView();
     }
-  }, [ props.keyboardActived ])
+  }, [ props.keyboardFocus ])
 
   const description = props.description || '...';
   const transitive = props.transitive;
@@ -55,7 +55,7 @@ export function ExtensionRow(props: ExtensionRowProps) {
   const id = ga[1] + (props.platform ? '' : `:${props.version}`);
   return (
     <div {...activationEvents} className={classNames('extension-row', {
-      'keyboard-actived': props.keyboardActived,
+      'keyboard-focus': props.keyboardFocus,
       hover,
       transitive,
       selected,

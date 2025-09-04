@@ -1,32 +1,7 @@
-.search-results-info {
-  border-bottom: 1px solid var(--extensionsPickerCategoryUnderlineColor);
-  font-size: 1.1rem;
-  margin: 0 0 5px 0;
-  height: 30px;
 
-  .platform-icon {
-    fill: var(--originPlatformColor);
-  }
-
-  .origin-count {
-    margin-left: 20px;
-    cursor: pointer;
-    color: var(--switchOriginTextColor);
-    &.current-origin {
-      font-weight: bold;
-      color: var(--switchOriginSelectedTextColor);
-    }
-
-    svg {
-      font-size: 0.8rem;
-      margin-right: 5px;
-    }
-  }
-
-}
 
 .alert-info.search-results-alert {
-  margin-top: 20px;
+
 
   a {
     font-weight: bold;

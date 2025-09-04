@@ -8,11 +8,11 @@ import './extensions-picker.scss';
 import {ExtensionRow} from './extension-row';
 import {ExtensionSearchBar} from './extension-search-bar';
 import {Button} from 'react-bootstrap';
-import {FaAngleDown, FaAngleLeft, FaAngleRight, FaRocket} from 'react-icons/fa';
-import {SearchResultsInfo} from './search-results-info';
+import {FaAngleDown} from 'react-icons/fa';
 import {PresetsPanel} from "./presets-panel";
 import _ from 'lodash';
 import {SelectedExtensions} from "./selected-extensions";
+import classNames from 'classnames';
 
 export interface ExtensionEntry {
   id: string;
@@ -37,6 +37,7 @@ export interface TagEntry {
   description?: string;
   color?: string;
   hide?: boolean;
+  mapper?: (string) => string;
 }
 
 export interface ExtensionsPickerValue {
@@ -73,7 +74,7 @@ const hotkeysOptions = {
 export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const {filter} = props;
   const [processedExtensions, setProcessedExtensions] = React.useState<ProcessedExtensions | undefined>(undefined);
-  const [keyboardActivated,  setKeyBoardActivated] = React.useState<number>(-1);
+  const [keyboardIndex,  setKeyboardIndex] = React.useState<number>(-1);
   const [showList, setShowList] = React.useState<boolean>(false);
   const [showAll, setShowAll] = React.useState<boolean>(false);
   const [result, setResult] = React.useState<FilterResult | undefined>();
@@ -81,9 +82,8 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const context = {element: 'extension-picker'};
 
   function setFilter(filter: string) {
-    setKeyBoardActivated(-1);
+    setKeyboardIndex(-1);
     setShowAll(false);
-    setShowList(false);
     props.setFilter(filter);
   }
 
@@ -100,7 +100,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     debouncedComputeResults(analytics, filter, props.platform.extensions, processedExtensions, setResult);
   }, [filter, processedExtensions, props.platform.extensions, setShowAll, setResult]);
 
-  const allEntries = result?.effective || [];
+  const allEntries = result?.entries || [];
   const entries = showAll ? allEntries : allEntries.slice(0, REDUCED_SIZE)
 
   const addById = (id: string, type: string) => {
@@ -112,8 +112,8 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const add = (index: number, type: string) => {
     const id = entries[index].id;
     addById(id, type);
-    if (keyboardActivated >= 0) {
-      setKeyBoardActivated(index);
+    if (keyboardIndex >= 0) {
+      setKeyboardIndex(index);
     }
   };
 
@@ -136,22 +136,22 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   };
 
 
-  useHotkeys('esc', () => setKeyBoardActivated(-1), hotkeysOptions);
+  useHotkeys('esc', () => setKeyboardIndex(-1), hotkeysOptions);
   useHotkeys('up', () => {
-    setKeyBoardActivated((prev) => Math.max(0, prev - 1))
+    setKeyboardIndex((prev) => Math.max(0, prev - 1))
   }, hotkeysOptions);
-  useHotkeys('down', () => setKeyBoardActivated((prev) => Math.min(entries.length - 1, prev + 1)), hotkeysOptions, [entries]);
+  useHotkeys('down', () => setKeyboardIndex((prev) => Math.min(entries.length - 1, prev + 1)), hotkeysOptions, [entries]);
   useHotkeys('space', (event) => {
-    if (keyboardActivated >= 0) {
+    if (keyboardIndex >= 0) {
       event.preventDefault();
-      flip(keyboardActivated, 'Keyboard');
+      flip(keyboardIndex, 'Keyboard');
     }
-  }, hotkeysOptions, [entries, keyboardActivated]);
+  }, hotkeysOptions, [entries, keyboardIndex]);
 
   let currentCat: string | undefined;
 
   function toggleShowList() {
-    setKeyBoardActivated(-1);
+    setKeyboardIndex(-1);
     setShowList(!showList);
   }
 
@@ -164,14 +164,11 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     <div className="extensions-picker" aria-label="Extensions picker">
       <div className="control-container">
         <ExtensionSearchBar placeholder={props.placeholder} filter={filter} project={props.project}
-                            setFilter={setFilter} result={result}/>
+                            setFilter={setFilter} result={result} showList={showList} toggleShowList={toggleShowList}/>
       </div>
       <div className="main-container responsive-container">
         {!result?.filtered && !showList ? (
           <div className="extension-picker-summary">
-            <div className="toggle-list"><Button className='button-toggle-list btn-light' aria-label="Toggle full list of extensions"
-                                                    onClick={toggleShowList}><FaRocket/>View the full list of available
-              extensions<FaAngleRight/></Button></div>
             {props.project.extensions.length === 0 ?
               <PresetsPanel platform={props.platform} select={addById}/> :
               <SelectedExtensions platform={props.platform} extensions={extensions} tagsDef={props.tagsDef} remove={removeById} layout="picker"/>
@@ -179,16 +176,13 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
           </div>
 
         ) : (
-          <div className="extension-picker-list">
-            <SearchResultsInfo filter={props.filter} setFilter={props.setFilter} result={result}/>
-            {!result?.filtered &&
-                <Button className='button-toggle-list btn-light' aria-label="Toggle full list of extensions" onClick={toggleShowList}><FaAngleLeft/>Back</Button>}
+          <div className={classNames("extension-picker-list", {"keyboard-activated": keyboardIndex !== -1})}>
             <div className="extension-list-wrapper">
               {entries.map((ex, i) => {
                 const ext = (
                   <ExtensionRow
                     selected={entrySet.has(ex.id)}
-                    keyboardActived={i === keyboardActivated}
+                    keyboardFocus={i === keyboardIndex}
                     {...ex}
                     key={i}
                     tagsDef={props.tagsDef}
