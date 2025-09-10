@@ -48,6 +48,7 @@
 
   .dropdown-menu {
     margin-top: 5px;
+    box-shadow: var(--dropdownMenuShadow);
     background-color: var(--streamPickerDropdownBackgroundColor);
   }
   .dropdown-item {

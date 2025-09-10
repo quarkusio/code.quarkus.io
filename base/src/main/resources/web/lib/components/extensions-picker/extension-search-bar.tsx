@@ -51,7 +51,7 @@ function FiltersBar(props: ExtensionSearchBarProps) {
       ) : (props.showList ? (
         <Button className='button-toggle-list' aria-label="Toggle full list of extensions"
                 onClick={props.toggleShowList}><FaCaretUp/>Hide the full list</Button>) : (
-        <div className="toggle-list"><Button className='button-toggle-list'
+        <div className="toggle-list"><Button className='button-toggle-list main-title'
                                              aria-label="Toggle full list of extensions"
                                              onClick={props.toggleShowList}><FaCaretDown/>Toggle the full list of
           extensions</Button></div>

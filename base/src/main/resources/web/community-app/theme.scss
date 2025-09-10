@@ -12,6 +12,9 @@
 
   --textColor: white;
 
+  --mainTitleFontWeight: 100;
+  --mainTitleTextTransform: uppercase;
+
   --primary: #71aeef;
   --secondary: #4695eb;
   --tertiary: #be9100;
@@ -27,6 +30,7 @@
   --loaderColor: white;
 
   --buttonBorderColor: var(--primary);
+
 
   // Top container
   --topContainerTextColor: var(--textColor);
@@ -56,6 +60,7 @@
   --mainContainerTextColor: var(--textColor);;
   --mainContainerBg: var(--background);
 
+  --mainContainerControlBarTextColor: white;
   --mainContainerControlBarBg: #06101A;
 
   // Next steps Modal
@@ -81,6 +86,7 @@
   // Extensions picker
   --originPlatformColor: #cd54e1;
 
+
   --extensionsPickerTextColor: var(--mainContainerTextColor);
   --extensionsPickerIdTextColor: var(--primary);
   --extensionsPickerListBg: var(--background3);
@@ -96,29 +102,35 @@
   --extensionsPickerDescriptionTextColorOnTablet: #ccc;
 
   --dropdownMenuBg: #363a50;
+  --dropdownMenuShadow: 0 4px 12px rgba(0, 0, 0, 1);
   --dropdownMenuTextColor: var(--textColor);;
 
-
+  --extensionsPickerSearchBg: transparent;
   --extensionsPickerSearchTextColor: var(--mainContainerTextColor);
   --extensionsPickerSearchBorderColor: var(--extensionsPickerSearchTextColor);
   --extensionsPickerSearchBorderColorOnFocus: var(--secondary);
   --extensionsPickerSearchPlaceholderColor: #bebebe;
   --extensionsPickerSearchClearButtonBg: #404955;
+  --extensionsPickerSearchIconColor: var(--extensionsPickerSearchTextColor);
   --extensionsPickerSearchIconBg: var(--mainContainerControlBarBg);
 
+  --selectedExtensionAlertInfoBg: black;
+  --selectedExtensionAlertInfoTextColor: white;
   --clearSelectedExtensionButtonBorderColor: var(--warningColor);
   --clearSelectedExtensionButtonTextColor: var(--mainContainerTextColor);
 
   // Presets
+  --presetsPanelBg: var(--extensionsPickerListBg);
   --presetsTitleTextColor: var(--mainContainerTextColor);
   --presetsCardBorderColor: var(--background);
   --presetsCardTextColor: var(--textColor);
   --presetsCardBackgroundColor: transparent;
+  --presetsCardHoverBackgroundColor: #09141F;
 
   // Copy to clipboard
-  --copyToClipboardBackgroundColor: #1f1f1f;
-  --copyToClipboardBodyBackgroundColor: #1f1f1f;
-  --copyToClipboardHeaderTextColor: #b4b4b4;
+  --copyToClipboardBackgroundColor: var(--dropdownMenuBg);
+  --copyToClipboardBodyBackgroundColor: var(--background3);
+  --copyToClipboardHeaderTextColor: var(--dropdownMenuTextColor);
   --copyToClipboardBodyTextColor: var(--tertiary);
 
   // Header
