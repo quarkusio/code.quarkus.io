@@ -13,6 +13,7 @@ import {PresetsPanel} from "./presets-panel";
 import _ from 'lodash';
 import {SelectedExtensions} from "./selected-extensions";
 import classNames from 'classnames';
+import useMinWidth from "../../core/components/use-min-width";
 
 export interface ExtensionEntry {
   id: string;
@@ -36,8 +37,9 @@ export interface TagEntry {
   href?: string;
   description?: string;
   color?: string;
+  border?: string;
+  background?: string;
   hide?: boolean;
-  mapper?: (string) => string;
 }
 
 export interface ExtensionsPickerValue {
@@ -78,6 +80,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   const [showList, setShowList] = React.useState<boolean>(false);
   const [showAll, setShowAll] = React.useState<boolean>(false);
   const [result, setResult] = React.useState<FilterResult | undefined>();
+  const isMobile = useMinWidth();
   const analytics = useAnalytics();
   const context = {element: 'extension-picker'};
 
@@ -160,14 +163,15 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     analytics.event('Unselect extension', {extension: id, type, element: 'extension-picker'});
   }
 
+  let showPresets = !isMobile && !result?.filtered && !showList;
   return (
-    <div className="extensions-picker" aria-label="Extensions picker">
+    <div className={classNames('extensions-picker', { 'presets': showPresets })} aria-label="Extensions picker">
       <div className="control-container">
         <ExtensionSearchBar placeholder={props.placeholder} filter={filter} project={props.project}
                             setFilter={setFilter} result={result} showList={showList} toggleShowList={toggleShowList}/>
       </div>
       <div className="main-container responsive-container">
-        {!result?.filtered && !showList ? (
+        {showPresets ? (
           <div className="extension-picker-summary">
             {props.project.extensions.length === 0 ?
               <PresetsPanel platform={props.platform} select={addById}/> :

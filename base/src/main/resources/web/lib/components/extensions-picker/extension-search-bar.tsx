@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Form, FormGroup} from 'react-bootstrap';
-import {FaSearch, FaTimes, FaEye, FaEyeSlash} from 'react-icons/fa';
+import {FaSearch, FaTimes, FaCaretUp, FaCaretDown} from 'react-icons/fa';
 import {QuarkusProject} from '../api/model';
 import './extension-search-bar.scss';
 import {
@@ -37,8 +37,28 @@ function FiltersBar(props: ExtensionSearchBarProps) {
 
   return (
     <div className="filters-bar">
+      {props.result?.filtered ? (
+        <div className="search-results-info">
+          {props.result.entries.length === 0 && <b>No extensions found </b>}
+          {props.result.entries.length > 0 && (
+            <span className='result-count'>
+                <span className='count'>{props.result.entries.length}</span>
+                <span className='info'>extensions found</span>
+              </span>
+          )}
+
+        </div>
+      ) : (props.showList ? (
+        <Button className='button-toggle-list' aria-label="Toggle full list of extensions"
+                onClick={props.toggleShowList}><FaCaretUp/>Hide the full list</Button>) : (
+        <div className="toggle-list"><Button className='button-toggle-list'
+                                             aria-label="Toggle full list of extensions"
+                                             onClick={props.toggleShowList}><FaCaretDown/>Toggle the full list of
+          extensions</Button></div>
+      ))
+      }
       <div className="filters">
-        <h3>Add filters:</h3>
+        <h3>Filter By</h3>
         {filters.map(([key, value]: any, i) => (
           <FilterCombo
             key={i}
@@ -63,26 +83,6 @@ function FiltersBar(props: ExtensionSearchBarProps) {
           />
         ))}
       </div>
-      {props.result?.filtered ? (
-        <div className="search-results-info">
-          {props.result.entries.length === 0 && <b>No extensions found </b>}
-          {props.result.entries.length > 0 && (
-            <span className='result-count'>
-                <span className='count'>{props.result.entries.length}</span>
-                <span className='info'>extensions found</span>
-              </span>
-          )}
-
-        </div>
-      ) : (props.showList ? (
-        <Button className='button-toggle-list btn-light' aria-label="Toggle full list of extensions"
-                onClick={props.toggleShowList}><FaEyeSlash/>Hide the full list</Button>) : (
-        <div className="toggle-list"><Button className='button-toggle-list btn-light'
-                                             aria-label="Toggle full list of extensions"
-                                             onClick={props.toggleShowList}><FaEye/>View the full list of
-          extensions</Button></div>
-      ))
-      }
     </div>
   );
 }
@@ -99,7 +99,7 @@ export function ExtensionSearchBar(props: ExtensionSearchBarProps) {
 
   return (
     <div className="search-bar responsive-container">
-      <FiltersBar {...props} />
+
       <FormGroup
         controlId="extensions-search-input"
       >
@@ -114,11 +114,11 @@ export function ExtensionSearchBar(props: ExtensionSearchBarProps) {
           onChange={search}
         />
         {!isFilterEmpty(filter) &&
-            <Button as="a" className='clear-button' onClick={clearFilters} aria-label="Clear filters"><FaTimes/>Clear filters</Button>
+            <Button as="a" className='clear-button' onClick={clearFilters} aria-label="Clear filters"><FaTimes/><span>Clear filters</span></Button>
         }
 
       </FormGroup>
-
+      <FiltersBar {...props} />
     </div>
   );
 }

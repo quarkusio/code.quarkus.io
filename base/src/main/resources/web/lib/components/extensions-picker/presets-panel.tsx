@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {TagEntry} from "./extensions-picker";
 import {Platform, Preset} from "../api/model";
-import {FaArrowDown, FaArrowUp} from 'react-icons/fa';
+import {FaRocket} from 'react-icons/fa';
 
 import {useAnalytics} from "../../core/analytics";
 
@@ -12,26 +12,31 @@ interface PresetsProps {
 
 
 const PresetsPanelDiv = styled.div`
-
+    background-color: var(--background3);
 
     .panel-title {
         font-weight: 100;
         text-transform: uppercase;
-        font-size: 1.2rem;
-        margin: 10px 0 10px 0;
-        height: 30px;
+        font-size: 1rem;
+        margin: 10px 0 0 0;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        padding: 10px;
         
+        svg {
+            margin-right: 5px;
+        }
     }
 
     .presets-list {
         display: flex;
         flex-wrap: wrap;
         justify-items: left;
-        gap: 10px;
     }
 
     .preset-card {
-        flex-basis: 292px;
+        flex-basis: 300px;
         background-color: var(--presetsCardBackgroundColor);
         border: 1px solid var(--presetsCardBorderColor);
         display: flex;
@@ -39,6 +44,11 @@ const PresetsPanelDiv = styled.div`
         align-items: center;
         padding: 20px;
         cursor: pointer;
+    }
+    
+    .preset-card:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+        background-blend-mode: multiply;
     }
 
     .preset-title {
@@ -57,7 +67,7 @@ const PresetsPanelDiv = styled.div`
     
 `;
 
-export const PresetCard = (props: { preset: Preset, tagsDef: TagEntry[], onClick?: () => void }) => {
+export const PresetCard = (props: { preset: Preset, onClick?: () => void }) => {
   return (
     <div className="preset-card" onClick={props.onClick} aria-label={`Select ${props.preset.key} preset`}>
       <div className="preset-icon"><img src={props.preset.icon}/></div>
@@ -80,10 +90,10 @@ export const PresetsPanel = (props: PresetsProps) => {
   };
   return (
     <PresetsPanelDiv className="presets-panel">
-      <div className="panel-title">Use a preset <FaArrowDown /> or Search extensions for your application <FaArrowUp /></div>
+      <div className="panel-title"><FaRocket />&nbsp;Start with a preset of extensions</div>
       <div className="presets-list">
         {presets.map(p => (
-          <PresetCard key={p.key} preset={p} tagsDef={props.platform.tagsDef} onClick={() => selectPreset(p)}/>
+          <PresetCard key={p.key} preset={p} onClick={() => selectPreset(p)}/>
         ))}
       </div>
     </PresetsPanelDiv>

@@ -17,10 +17,10 @@ export function ExtensionTags(props: { name?: string; tagsDef: TagEntry[]; hover
   let s = props.name.split(':');
   const key = s.length > 1 ? s[1] : s[0];
   const tag = (
-    <span 
+    <
     >
       {key.toUpperCase()}
-    </span>
+    </>
   );
   const tooltip = !props.hover ? '': (
     <>
@@ -34,6 +34,19 @@ export function ExtensionTags(props: { name?: string; tagsDef: TagEntry[]; hover
     </>
   );
 
+  const style: {border?: string; backgroundColor?: string; color?: string} = {};
+  if (tagDef.border) {
+    style.border = '1px solid ' + tagDef.border;
+  }
+
+  if (tagDef.background) {
+    style.backgroundColor = tagDef.background;
+  }
+
+  if (tagDef.color) {
+    style.color = tagDef.color;
+  }
+
   return (
     <HoverControlledDropdown
       className="extension-tag-dropdown"
@@ -42,7 +55,7 @@ export function ExtensionTags(props: { name?: string; tagsDef: TagEntry[]; hover
     >
       <Dropdown.Toggle as="div"
         className={`extension-tag ${props.name.toLowerCase().replace(":", "-")}`}
-        style={{ borderColor: tagDef.color!! }}>{tag}</Dropdown.Toggle>
+        style={style}>{tag}</Dropdown.Toggle>
       <Dropdown.Menu>{tooltip}</Dropdown.Menu>
     </HoverControlledDropdown>
   );

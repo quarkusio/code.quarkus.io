@@ -1,25 +1,51 @@
+@import "../_config.scss";
+
 .search-bar {
   margin: 0 auto;
   width: 100%;
   display: flex;
   flex-direction: column;
 
+
   a.clear-button.btn {
-    width: 140px;
-    padding: 0 10px;
+    padding: 0 5px;
+    height: 100%;
     cursor: pointer;
     color: var(--extensionsPickerSearchTextColor);
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 10px;
+    gap: 5px;
     background-color: var(--extensionsPickerSearchClearButtonBg);
-    margin-right: 5px;
+
+    @media screen and (max-width: $mobileWidth) {
+      span {
+        display: none;
+      }
+    }
   }
 
   .button-toggle-list {
     font-weight: 100;
     text-transform: uppercase;
+    height: 40px;
+    background: none;
+    border: none;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    appearance: none;
+    color: var(--textColor);
+
+    svg {
+      margin: 0 !important;
+      margin-right: 5px !important;
+    }
+
+    @media screen and (max-width: $mobileWidth) {
+      display: none;
+    }
+
   }
 
 
@@ -30,12 +56,14 @@
     align-items: center;
     justify-content: center;
     height: 42px;
-
+    gap: 5px;
     .search-icon {
       flex-basis: 40px;
+      height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
+      background-color: var(--extensionsPickerSearchIconBg);
     }
 
     .search-icon svg {
@@ -47,7 +75,6 @@
       border-color: var(--extensionsPickerSearchBorderColorOnFocus);
 
       .search-icon svg {
-        color: var(--extensionsPickerSearchBorderColorOnFocus);
       }
     }
   }
@@ -64,25 +91,44 @@
     border: none;
     outline: none;
 
+    &::placeholder {
+      color: var(--extensionsPickerSearchPlaceholderColor);
+    }
+
     &:focus {
       outline: none;
     }
   }
 
   .filters-bar {
+
+    .filters h3 {
+      display: none;
+    }
+
+    margin: 20px 0 0;
+    background-color: var(--mainContainerControlBarBg);
     display: flex;
-    margin: 0;
-    padding: 5px 0;
+
+    padding: 0 5px;
+    height: 40px;
     font-size: 1rem;
     justify-content: space-between;
 
     .filters {
       display: flex;
 
+
+      @media screen and (max-width: $mobileWidth) {
+        display: none;
+      }
+
       h3 {
         margin: 0;
-        padding: 0;
         font-size: 1.2rem;
+        display: none;
+        align-items: center;
+        height: 100%;
         font-weight: 100;
         text-transform: uppercase;
       }
@@ -93,8 +139,9 @@
     }
 
     .search-results-info {
-
-      padding: 3px 5px;
+      display: flex;
+      align-items: center;
+      padding: 0 5px;
 
       .result-count {
 
@@ -111,10 +158,13 @@
     }
 
     .filter-combo-button.dropdown-toggle {
+      height: 40px;
+      display: flex;
+      align-items: center;
       cursor: pointer;
       text-transform: capitalize;
       margin: 0 10px;
-      padding: 3px 5px;
+      padding: 0px 10px;
 
       &[aria-expanded="true"], &:hover {
         font-weight: bold;
@@ -160,4 +210,3 @@
   }
 
 }
-

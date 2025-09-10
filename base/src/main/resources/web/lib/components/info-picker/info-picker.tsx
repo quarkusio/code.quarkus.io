@@ -6,6 +6,7 @@ import { BuildToolSelect } from './build-tool-select';
 import { NoCodeSelect } from './no-code-select';
 import { JavaVersionSelect } from './java-version-select';
 import { Stream } from '../api/model';
+import useMinWidth from "../../core/components/use-min-width";
 
 export interface InfoPickerValue {
   groupId?: string;
@@ -33,7 +34,7 @@ export const isValidInfo = (value: InfoPickerValue) => {
 };
 
 export const InfoPicker = (props: InfoPickerProps) => {
-
+  const tooSmallForMore = useMinWidth(1200);
   const onInputChange = props.onChange;
 
   const onGroupIdChange = (newValue: string) => onInputChange({ ...props.value, groupId: newValue });
@@ -42,7 +43,7 @@ export const InfoPicker = (props: InfoPickerProps) => {
   const onNoCodeChange = (newValue: boolean) => onInputChange({ ...props.value, noCode: newValue });
   const onBuildToolChange = (newValue: string) => onInputChange({ ...props.value, buildTool: newValue });
   const onJavaVersionChange = (newValue: string) => onInputChange({ ...props.value, javaVersion: newValue });
-
+  const showMoreOptions = !tooSmallForMore && props.showMoreOptions;
   return (
     <div className={'info-picker horizontal'}>
       <div className="base-settings form">
@@ -64,8 +65,8 @@ export const InfoPicker = (props: InfoPickerProps) => {
         />
         <BuildToolSelect onChange={onBuildToolChange} value={props.value.buildTool || 'MAVEN'}/>
       </div>
-      {optionalBool(props.showMoreOptions, true) && (
-        <TogglePanel id="info-extended" mode="horizontal" openLabel="More options" event="Extends app info" eventContext={{ location: 'info-picker' }}>
+      {optionalBool(showMoreOptions, true) && (
+        <TogglePanel id="info-extended" mode="display" direction="horizontal" openLabel="More options" event="Extends app info" eventContext={{ location: 'info-picker' }}>
           <div className="extended-settings form">
             <ExtendedTextInput
               label="Version"

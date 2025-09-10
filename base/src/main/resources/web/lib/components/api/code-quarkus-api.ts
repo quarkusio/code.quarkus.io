@@ -16,47 +16,26 @@ export type ConfigApi = (api: Api) => Promise<Config>
 
 export const DEFAULT_TAGS: Tag[] = [
   {
-    name: 'preview',
-    color: '#4695eb',
-    description: 'This is work in progress. API or configuration properties might change as the extension matures. Give us your feedback :)'
-  },
-  {
-    name: 'experimental',
-    color: '#ff004a',
-    description: 'Early feedback is requested to mature the idea. There is no guarantee of stability nor long term presence in the platform until the solution matures.'
-  },
-  {
-    name: 'deprecated',
-    color: '#707070',
-    description: 'This extension has been deprecated. It is likely to be replaced or removed in a future version of Quarkus'
-  },
-  {
-    name: 'code',
-    color: '#be9100',
-    description: 'This extension provides starter code (may not be available in all languages).'
-  },
-  {
-    name: 'stable',
-    hide: true
-  },
-  {
     name: 'status:preview',
-    color: '#4695eb',
+    background: '#1f6feb',
+    color: '#ffffff',
     description: 'This is work in progress. API or configuration properties might change as the extension matures. Give us your feedback :)'
   },
   {
     name: 'status:experimental',
-    color: '#ff004a',
+    background: '#d73a49',
+    color: '#ffffff',
     description: 'Early feedback is requested to mature the idea. There is no guarantee of stability nor long term presence in the platform until the solution matures.'
   },
   {
     name: 'status:deprecated',
-    color: '#707070',
+    background: '#6a737d',
+    color: '#ffffff',
     description: 'This extension has been deprecated. It is likely to be replaced or removed in a future version of Quarkus'
   },
   {
     name: 'with:starter-code',
-    color: '#be9100',
+    border: '#ffdd57',
     description: 'This extension provides starter code (may not be available in all languages).'
   },
   {

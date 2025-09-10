@@ -39,21 +39,30 @@ const SelectedExtensionsDiv = styled.div`
     }
     
     .alert-info {
-        margin-top: 30px;
         padding: 5px;
+        color: var(--mainContainerTextColor);
         font-size: 0.9rem;
-        background-color: rgba(255, 255, 255, 0.1);
-        background-blend-mode: multiply;
     }
 
     &.picker {
-        background-color: rgba(0, 0, 0, 0.1);
-        background-blend-mode: multiply;
+        background-color: var(--extensionsPickerListBg);
         border: none;
-        padding: 10px;
+        margin-top: 20px;
 
         h4 {
-            margin-bottom: 20px;
+            padding: 10px;
+            margin: 0;
+            background-color: var(--mainContainerControlBarBg);
+            display: flex;
+            
+           span {
+               flex-grow: 1;
+           }
+        }
+        
+        h5 {
+            padding: 10px;
+            margin: 0;
         }
     }
 
@@ -71,12 +80,16 @@ const SelectedExtensionsDiv = styled.div`
 
         .extension-row {
             flex-wrap: nowrap;
-            height: 22px;
-            line-height: 22px;
+            height: 30px;
+            line-height: 30px;
+            border: none;
+            color: white;
+            padding: 0 5px;
 
             .extension-name {
-                line-height: 22px;
-                height: 22px;
+                line-height: 30px;
+                height: 30px;
+                
             }
 
             .extension-origin-platform {
@@ -135,13 +148,6 @@ export const SelectedExtensions = (props: {
     .filter(ex => props.extensions.indexOf(ex) < 0);
   return (
     <SelectedExtensionsDiv className={classNames('selected-extensions', layout)}>
-      <h4>
-        Selected Extensions ({props.extensions.length})
-        {props.extensions.length > 0 &&
-            <button className="btn btn-light btn-clear" onClick={clear} aria-label="Clear extension selection">
-                <FaTrashAlt/> Clear selection
-            </button>}
-      </h4>
       {props.extensions.length === 0 && (
         <Alert variant="warning">
           <FaExclamation/>&nbsp;You haven't selected any extension for your Quarkus application. Browse and select from
@@ -150,7 +156,18 @@ export const SelectedExtensions = (props: {
       )}
       {props.extensions.length > 0 && (
         <>
-
+          <h4>
+            <span>{props.extensions.length} selected {props.extensions.length > 1 ? 'extensions' : 'extension'}</span>
+            {props.extensions.length > 0 &&
+                <button className="btn btn-light btn-clear" onClick={clear} aria-label="Clear extension selection">
+                    <FaTrashAlt/> Clear selection
+                </button>}
+          </h4>
+          {layout === 'picker' && (
+            <Alert variant="info">
+              <FaLightbulb/>&nbsp;Find more extensions with search, filters, or the full list. Clear selection to show the presets again.
+            </Alert>
+          )}
           <div className="extension-list-wrapper">
             {
               props.extensions.map((ex, i) => (
@@ -166,12 +183,7 @@ export const SelectedExtensions = (props: {
             }
 
           </div>
-          {layout === 'picker' && (
-            <Alert variant="info">
-              <FaLightbulb/>&nbsp;Find more extensions with search, filters, or the full list. Clear selection to show the presets again.
-            </Alert>
-          )}
-          <h5 onClick={flipTransitive}>Transitive extensions ({transitiveExtensions.length}) {showTransitive ?
+          <h5 onClick={flipTransitive}>{transitiveExtensions.length} transitive {transitiveExtensions.length > 1 ? 'extensions' :  'extension'} {showTransitive ?
             <FaAngleUp/> : <FaAngleDown/>}</h5>
           {showTransitive &&
               <div className="extension-list-wrapper transitive">
