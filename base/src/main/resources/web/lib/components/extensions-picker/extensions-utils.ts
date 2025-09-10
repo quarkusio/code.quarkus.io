@@ -12,7 +12,7 @@ interface ExtensionFieldIdentifier {
 }
 
 const HIDE_FILTER_PREDICATE = (key: string) => [].includes(key);
-const RADIO_FILTER_PREDICATE = (key: string) => ['platform'].includes(key);
+const RADIO_FILTER_PREDICATE = (key: string) => ['platform', 'category'].includes(key);
 const OPTIONAL_FILTER_PREDICATE = (key: string) => key === 'support' || key.endsWith('-support');
 
 // FOR SHORTCUT KEYS, MAKE SURE IT IS AFTER THE FULL KEY (REPLACE IS TAKING THE FIRST)

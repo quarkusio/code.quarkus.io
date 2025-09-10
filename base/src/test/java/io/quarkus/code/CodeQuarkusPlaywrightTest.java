@@ -195,7 +195,7 @@ public class CodeQuarkusPlaywrightTest {
 
         page.waitForSelector(LABEL_TOGGLE_SEARCH_COMBO.formatted("category")).click();
         page.waitForSelector("[aria-label='Add category:data filter']").click();
-        assertThat(searchInput.inputValue().trim()).isEqualTo("status:experimental category:web,data");
+        assertThat(searchInput.inputValue().trim()).isEqualTo("category:data status:experimental");
 
         page.waitForSelector(LABEL_TOGGLE_SEARCH_COMBO.formatted("category")).click();
         page.waitForSelector("[aria-label='Drop category filter']").click();
