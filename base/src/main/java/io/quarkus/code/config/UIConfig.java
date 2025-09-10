@@ -4,6 +4,8 @@ import java.util.Optional;
 
 public interface UIConfig {
 
+    String id();
+
     String name();
 
     Optional<String> favicon();

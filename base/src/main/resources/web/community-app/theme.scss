@@ -6,9 +6,9 @@
   --font: 'Open Sans', Arial, sans-serif;
   --inputFont: "PT Mono", Regular;
 
-  --background: #0d1c2c;
+  --background: #0D1C2C;
   --background2: black;
-  --background3: #282A39;
+  --background3: #0A1623;
 
   --textColor: white;
 
@@ -56,6 +56,8 @@
   --mainContainerTextColor: var(--textColor);;
   --mainContainerBg: var(--background);
 
+  --mainContainerControlBarBg: #06101A;
+
   // Next steps Modal
   --modalBg: var(--background);
   --modalTextColor: var(--textColor);;
@@ -81,12 +83,14 @@
 
   --extensionsPickerTextColor: var(--mainContainerTextColor);
   --extensionsPickerIdTextColor: var(--primary);
+  --extensionsPickerListBg: var(--background3);
   --extensionsPickerCheckColor: white;
   --extensionsPickerCheckSelectedHoverColor: white;
   --extensionsPickerCheckSelectedColor: var(--primary);
   --extensionsPickerCheckSelectedByDefaultColor: var(--readonlyLabelAndBorderColor);
   --extensionsPickerKeyboardActivedTextColor: var(--secondary);
   --extensionsPickerRemoveButtonColor: var(--warningColor);
+  --extensionsPickerRowBorderColor: var(--background);
   --extensionsPickerRowHoverBackgroundColor: var(--secondary);
 
   --extensionsPickerDescriptionTextColorOnTablet: #ccc;
@@ -94,20 +98,20 @@
   --dropdownMenuBg: #363a50;
   --dropdownMenuTextColor: var(--textColor);;
 
-  --extensionsPickerCategoryTextColor: var(--mainContainerTextColor);
-  --extensionsPickerCategoryUnderlineColor: var(--secondary);
 
   --extensionsPickerSearchTextColor: var(--mainContainerTextColor);
   --extensionsPickerSearchBorderColor: var(--extensionsPickerSearchTextColor);
   --extensionsPickerSearchBorderColorOnFocus: var(--secondary);
+  --extensionsPickerSearchPlaceholderColor: #bebebe;
   --extensionsPickerSearchClearButtonBg: #404955;
+  --extensionsPickerSearchIconBg: var(--mainContainerControlBarBg);
 
   --clearSelectedExtensionButtonBorderColor: var(--warningColor);
   --clearSelectedExtensionButtonTextColor: var(--mainContainerTextColor);
 
   // Presets
-  --presetsTitleTextColor: var(--extensionsPickerCategoryTextColor);
-  --presetsCardBorderColor: #373668;
+  --presetsTitleTextColor: var(--mainContainerTextColor);
+  --presetsCardBorderColor: var(--background);
   --presetsCardTextColor: var(--textColor);
   --presetsCardBackgroundColor: transparent;
 

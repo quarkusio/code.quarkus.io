@@ -7,20 +7,22 @@ import { FaCaretSquareDown, FaCaretSquareLeft, FaCaretSquareRight, FaCaretSquare
 
 interface TogglePanelProps {
   id: string;
+  mode: 'visibility' | 'display';
   closeLabel?: string;
   openLabel?: string
   event?: string;
   eventContext?: object;
-  mode?: 'vertical' | 'horizontal';
+  direction?: 'vertical' | 'horizontal';
   children: React.ReactNode;
 }
 
 export function TogglePanel(props: TogglePanelProps) {
   const analytics = useAnalytics();
   const [ open, setOpen ] = useLocalStorage<boolean>(props.id, false);
-  const mode = props.mode || 'vertical';
-  const CloseIcon = mode === 'horizontal' ? <FaCaretSquareLeft/> : <FaCaretSquareUp/>;
-  const OpenIcon = mode === 'horizontal' ? <FaCaretSquareRight/> : <FaCaretSquareDown/>;
+  const direction = props.direction || 'vertical';
+  const mode = props.mode || 'visibility';
+  const CloseIcon = direction === 'horizontal' ? <FaCaretSquareLeft/> : <FaCaretSquareUp/>;
+  const OpenIcon = direction === 'horizontal' ? <FaCaretSquareRight/> : <FaCaretSquareDown/>;
   const flip = () => {
     if (props.event && props.event.length === 2) {
       let eventContext = props.eventContext || {};
@@ -32,7 +34,7 @@ export function TogglePanel(props: TogglePanelProps) {
   };
   return (
     <>
-      <div className={`toggle-panel ${mode} ${(open ? 'open' : '')}`}>
+      <div className={`toggle-panel ${mode} ${direction} ${(open ? 'open' : '')}`}>
         {props.children}
       </div>
       <Button

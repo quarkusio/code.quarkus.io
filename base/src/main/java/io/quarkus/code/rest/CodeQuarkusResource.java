@@ -39,7 +39,6 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import static io.quarkus.code.service.PlatformService.PRESETS;
 import static java.util.function.Predicate.not;
 
 @Path("/")
@@ -174,7 +173,8 @@ public class CodeQuarkusResource {
 
     private Uni<Response> presets(Map<String, ExtensionRef> extensionsById) {
         String lastUpdated = platformService.cacheLastUpdated().format(FORMATTER);
-        final List<Preset> presets = PRESETS.stream().filter(p -> p.extensions().stream().allMatch(extensionsById::containsKey))
+        final List<Preset> presets = platformService.presets().stream()
+                .filter(p -> p.extensions().stream().allMatch(extensionsById::containsKey))
                 .toList();
         Response response = Response.ok(presets)
                 .header(LAST_MODIFIED_HEADER, lastUpdated)

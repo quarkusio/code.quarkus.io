@@ -6,5 +6,6 @@ export * from './sentry-boundary';
 export * from './stuff';
 export * from './toggle-panel';
 export * from './use-debounce';
+export * from './use-min-width';
 
 

@@ -4,19 +4,22 @@
   max-width: 400px;
 }
 
+
 .extension-row {
   display: flex;
   width: 100%;
   line-height: 30px;
   cursor: pointer;
   flex-wrap: wrap;
+  border-bottom: 1px solid var(--extensionsPickerRowBorderColor);
+  padding: 10px;
 
   svg {
     pointer-events: none;
   }
 
   &.hover {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.1);
     background-blend-mode: multiply;
   }
 
@@ -86,7 +89,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: bold;
     height: 24px;
     outline: none;
@@ -96,7 +99,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     margin: 0 5px;
     height: 24px;
     outline: none;
@@ -107,14 +110,19 @@
   }
 
   .extension-tag {
-    font-size: 0.6rem;
-    line-height: 17px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    line-height: 20px;
     margin: 5px 5px;
-    padding: 0 3px;
+    padding: 0 7px;
     height: 20px;
+    vertical-align: middle;
+    font-family: var(--monospaceFontFamily), monospace;
     white-space: nowrap;
-    text-transform: uppercase;
-    border: 1px solid black;
+    text-transform: lowercase;
+    border-radius: 20px;
   }
 
   .extension-tag-dropdown .dropdown-menu {
@@ -130,7 +138,7 @@
   .extension-description {
     padding-left: 30px;
     padding-right: 30px;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: var(--extensionsPickerDescriptionTextColorOnTablet);
   }
 

@@ -23,6 +23,8 @@ export interface Tag {
   href?: string;
   description?: string;
   color?: string;
+  border?: string;
+  background?: string;
   hide?: boolean;
 }
 

@@ -38,7 +38,7 @@
   }
 
   .project-info {
-    flex-basis: 75%;
+    flex-grow: 1;
     height: 190px;
     margin-bottom: 10px;
 
@@ -65,6 +65,7 @@
     flex-basis: 100%;
     background-color: var(--mainContainerBg);
     color: var(--mainContainerTextColor);
+    min-height: calc(100vh - 270px);
 
     & > .title {
       color: var(--mainContainerTextColor);

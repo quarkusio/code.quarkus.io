@@ -3,21 +3,25 @@
 
 .extensions-picker {
   color: var(--extensionsPickerTextColor);
+
+  .extension-picker-list {
+    background-color: var(--extensionsPickerListBg);
+  }
+
   .button-show-more {
     margin-top: 20px;
   }
   .main-container .extension-list-wrapper {
     .extension-category {
-      border-bottom: 1px solid var(--extensionsPickerCategoryUnderlineColor);
+      border-top: 3px solid var(--extensionsPickerRowBorderColor);
+      border-bottom: 1px solid var(--extensionsPickerRowBorderColor);
       font-weight: bold;
-      color: var(--extensionsPickerCategoryTextColor);
+      padding: 15px;
       font-size: 1.1rem;
-      margin: 10px 0 5px 0;
-      height: 30px;
     }
 
     .extension-category:first-child {
-      margin: 0 0 5px 0;
+      border-top: 1px solid var(--extensionsPickerRowBorderColor);
     }
 
     .extension-row {
@@ -47,8 +51,6 @@
         flex-basis: 350px;
         order: 2;
         flex-grow: 1;
-        flex-basis: calc(100% - 62px);
-
         @media screen and (max-width: $mobileWidth) {
           flex-basis: calc(100% - 32px);
         }
@@ -74,7 +76,7 @@
     padding-top: 20px;
 
     @media screen and (max-width: $mobileWidth) {
-      display: none;
+      top: 0;
     }
 
     h4 {
@@ -101,13 +103,12 @@
 
   .main-container {
     margin: 0 auto;
-    padding: 20px 0 200px;
+    padding: 0 0 200px;
 
     flex-grow: 1;
     overflow: hidden;
 
     @media screen and (max-width: $mobileWidth) {
-      margin: 5px;
       padding: 0px 0px 200px;
     }
 

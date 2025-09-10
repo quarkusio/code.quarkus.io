@@ -40,8 +40,6 @@ import io.quarkus.registry.catalog.PlatformCatalog;
 import io.quarkus.registry.catalog.PlatformStream;
 import io.quarkus.runtime.StartupEvent;
 import io.quarkus.scheduler.Scheduled;
-import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
-import org.jetbrains.annotations.Nullable;
 
 import static io.quarkus.code.misc.QuarkusExtensionUtils.processExtensions;
 import static io.quarkus.devtools.project.JavaVersion.getCompatibleLTSVersions;
@@ -51,7 +49,7 @@ import static io.quarkus.platform.catalog.processor.CatalogProcessor.getRecommen
 @Singleton
 public class PlatformService {
 
-    public static final List<Preset> PRESETS = List.of(
+    public static final List<Preset> DEFAULT_PRESETS = List.of(
             // Some presets are duplicated to support platforms before and after the Big Reactive Renaming
             new Preset("rest-service", "REST service",
                     "https://raw.githubusercontent.com/quarkusio/code.quarkus.io/main/base/assets/icons/presets/rest.svg",
@@ -137,6 +135,10 @@ public class PlatformService {
             throw new IllegalStateException("Platforms cache must not be used if not loaded");
         }
         return cache;
+    }
+
+    public List<Preset> presets() {
+        return platformOverride.isResolvable() ? platformOverride.get().presets() : DEFAULT_PRESETS;
     }
 
     public PlatformInfo recommendedPlatformInfo() {
@@ -226,7 +228,7 @@ public class PlatformService {
                 ExtensionCatalog extensionCatalog = catalogResolver
                         .resolveExtensionCatalog(recommendedRelease.getMemberBoms());
                 List<CodeQuarkusExtension> codeQuarkusExtensions = processExtensions(extensionCatalog,
-                        getPlatformOverride().extensionMapper());
+                        getPlatformOverride());
                 String platformKey = platform.getPlatformKey();
                 String streamId = stream.getId();
                 String streamKey = createStreamKey(platformKey, streamId);

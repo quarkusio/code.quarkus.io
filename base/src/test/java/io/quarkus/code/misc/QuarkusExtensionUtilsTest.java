@@ -1,13 +1,13 @@
 package io.quarkus.code.misc;
 
 import io.quarkus.code.model.CodeQuarkusExtension;
+import io.quarkus.code.service.PlatformOverride;
 import io.quarkus.registry.catalog.ExtensionCatalog;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Function;
 
 import static io.quarkus.code.misc.QuarkusExtensionUtils.processExtensions;
 import static io.quarkus.code.misc.QuarkusExtensionUtils.toShortcut;
@@ -29,7 +29,7 @@ class QuarkusExtensionUtilsTest {
 
     @Test
     void textContent() throws IOException {
-        List<CodeQuarkusExtension> extensions = processExtensions(getTestCatalog());
+        List<CodeQuarkusExtension> extensions = processExtensions(getTestCatalog(), PlatformOverride.DEFAULT_PLATFORM_OVERRIDE);
         assertThat(
                 extensions.get(0), is(CodeQuarkusExtension.builder()
                         .id("io.quarkus:quarkus-resteasy")
@@ -70,7 +70,7 @@ class QuarkusExtensionUtilsTest {
 
     @Test
     void testOrder() throws IOException {
-        List<CodeQuarkusExtension> extensions = processExtensions(getTestCatalog());
+        List<CodeQuarkusExtension> extensions = processExtensions(getTestCatalog(), PlatformOverride.DEFAULT_PLATFORM_OVERRIDE);
         assertThat(
                 extensions.stream().map(CodeQuarkusExtension::name).toList().subList(0, 5), contains(
                         "RESTEasy JAX-RS",

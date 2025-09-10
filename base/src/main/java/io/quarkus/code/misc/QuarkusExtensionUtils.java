@@ -1,6 +1,7 @@
 package io.quarkus.code.misc;
 
 import io.quarkus.code.model.CodeQuarkusExtension;
+import io.quarkus.code.service.PlatformOverride;
 import io.quarkus.maven.dependency.ArtifactCoords;
 import io.quarkus.platform.catalog.processor.CatalogProcessor;
 import io.quarkus.platform.catalog.processor.ExtensionProcessor;
@@ -22,18 +23,14 @@ public class QuarkusExtensionUtils {
         return id.replaceFirst("^(?:[^:]+:)?(?:quarkus-)?", "");
     }
 
-    public static List<CodeQuarkusExtension> processExtensions(ExtensionCatalog catalog) {
-        return processExtensions(catalog, Function.identity());
-    }
-
     public static List<CodeQuarkusExtension> processExtensions(ExtensionCatalog catalog,
-            Function<CodeQuarkusExtension, CodeQuarkusExtension> extensionMapper) {
+            PlatformOverride platformOverride) {
         List<CodeQuarkusExtension> list = new ArrayList<>();
         List<ProcessedCategory> processedCategories = CatalogProcessor.getProcessedCategoriesInOrder(catalog);
         AtomicInteger order = new AtomicInteger();
         processedCategories.forEach(c -> {
             c.getSortedExtensions().forEach(e -> {
-                CodeQuarkusExtension codeQExt = extensionMapper.apply(toCodeQuarkusExtension(e, c.getCategory(), order));
+                CodeQuarkusExtension codeQExt = toCodeQuarkusExtension(platformOverride, e, c.getCategory(), order);
                 if (codeQExt != null) {
                     list.add(codeQExt);
                 }
@@ -43,7 +40,7 @@ public class QuarkusExtensionUtils {
     }
 
     public static CodeQuarkusExtension toCodeQuarkusExtension(
-            Extension ext,
+            PlatformOverride platformOverride, Extension ext,
             Category cat,
             AtomicInteger order) {
         if (ext == null || ext.getName() == null) {
@@ -55,7 +52,7 @@ public class QuarkusExtensionUtils {
         }
         String id = ext.managementKey();
         final ArtifactCoords bom = getBom(ext);
-        return CodeQuarkusExtension.builder()
+        return platformOverride.extensionMapper().apply(CodeQuarkusExtension.builder()
                 .id(id)
                 .shortId("ignored")
                 .version(ext.getArtifact().getVersion())
@@ -63,7 +60,7 @@ public class QuarkusExtensionUtils {
                 .description(ext.getDescription())
                 .shortName(extensionProcessor.getShortName())
                 .category(cat.getName())
-                .tags(getTags(extensionProcessor))
+                .tags(platformOverride.extensionTagsMapper(getTags(extensionProcessor)))
                 .keywords(extensionProcessor.getExtendedKeywords())
                 .transitiveExtensions(ExtensionProcessor.getMetadataValue(ext, "extension-dependencies").asStringList())
                 .order(order.getAndIncrement())
@@ -72,7 +69,7 @@ public class QuarkusExtensionUtils {
                 .guide(extensionProcessor.getGuide())
                 .platform(ext.hasPlatformOrigin())
                 .bom("%s:%s:%s".formatted(bom.getGroupId(), bom.getArtifactId(), bom.getVersion()))
-                .build();
+                .build());
     }
 
     private static List<String> getTags(ExtensionProcessor extension) {

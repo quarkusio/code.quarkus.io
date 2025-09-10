@@ -1,7 +1,7 @@
 .toggle-panel {
   overflow: hidden;
 
-  &.vertical {
+  &.visibility.vertical {
     max-height: 0;
     transition: max-height 0.25s ease-in-out;
     &.open {
@@ -9,10 +9,17 @@
     }
   }
 
-  &.horizontal {
+  &.visibility.horizontal {
     visibility: hidden;
     &.open {
       visibility: visible;
+    }
+  }
+
+  &.display {
+    display: none;
+    &.open {
+      display: block;
     }
   }
 

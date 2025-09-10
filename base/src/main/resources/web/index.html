@@ -1,5 +1,7 @@
 {#let publicUrl = (config:property('io.quarkus.code.ui.public-url') ?: '')}
 {#let apiUrl = (config:property('io.quarkus.code.ui.api-url') ?: '/api')}
+{#let name = (config:property('io.quarkus.code.ui.name') ?: '')}
+{#let id = (config:property('io.quarkus.code.ui.id') ?: null)}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +11,8 @@
     <meta name="theme-color" content="#000000" />
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
     <link rel="shortcut icon" type="image/png" href="{config:property('io.quarkus.code.ui.favicon') ?: 'https://quarkus.io/favicon.ico'}">
-    <title>Quarkus - Start coding with {config:property("io.quarkus.code.ui.name")}</title>
-    {#bundle tag="style" /}
+    <title>Quarkus - Start coding with {name}</title>
+    {#bundle tag="style" key=id/}
     <!-- Segment Analytics -->
     <script>
        window.PUBLIC_URL='{publicUrl}';
@@ -19,7 +21,7 @@
     </script>
     <!-- End Segment Analytics -->
 
-    {#bundle tag="script" /}
+    {#bundle tag="script" key=id/}
 </head>
 
 <body>
@@ -28,7 +30,7 @@
         <div id="loading">
             <img src="{publicUrl}/static/media/quarkus-icon-splash.svg" title="Quarkus">
             <span>Start coding with</span>
-            <span>{config:property("io.quarkus.code.ui.name")}</span>
+            <span>{name}</span>
         </div>
     </div>
 
