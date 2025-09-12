@@ -8,7 +8,7 @@
     <parent>
         <groupId>io.quarkus.code</groupId>
         <artifactId>code-quarkus-parent</artifactId>
-        <version>49-SNAPSHOT</version>
+        <version>50-SNAPSHOT</version>
     </parent>
     <properties>
         <maven.compiler.parameters>true</maven.compiler.parameters>
@@ -49,6 +49,10 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-rest-jackson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.qute.web</groupId>
+            <artifactId>quarkus-qute-web</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
