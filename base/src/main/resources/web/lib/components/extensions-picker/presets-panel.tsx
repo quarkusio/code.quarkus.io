@@ -12,17 +12,17 @@ interface PresetsProps {
 
 
 const PresetsPanelDiv = styled.div`
-    background-color: var(--background3);
+    background-color: var(--presetsPanelBg);
 
     .panel-title {
-        font-weight: 100;
-        text-transform: uppercase;
-        font-size: 1rem;
+        font-size: 1.1rem;
         margin: 10px 0 0 0;
         height: 40px;
         display: flex;
         align-items: center;
         padding: 10px;
+        background-color: var(--presetsPanelBg);
+        color: var(--presetsTitleTextColor);
         
         svg {
             margin-right: 5px;
@@ -47,8 +47,7 @@ const PresetsPanelDiv = styled.div`
     }
     
     .preset-card:hover {
-        background-color: rgba(0, 0, 0, 0.1);
-        background-blend-mode: multiply;
+        background-color: var(--presetsCardHoverBackgroundColor);
     }
 
     .preset-title {
@@ -90,7 +89,7 @@ export const PresetsPanel = (props: PresetsProps) => {
   };
   return (
     <PresetsPanelDiv className="presets-panel">
-      <div className="panel-title"><FaRocket />&nbsp;Start with a preset of extensions</div>
+      <div className="panel-title main-title"><FaRocket />&nbsp;Start with a preset of extensions</div>
       <div className="presets-list">
         {presets.map(p => (
           <PresetCard key={p.key} preset={p} onClick={() => selectPreset(p)}/>

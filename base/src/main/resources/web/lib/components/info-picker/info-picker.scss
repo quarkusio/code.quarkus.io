@@ -26,7 +26,6 @@
     cursor: pointer;
     color: var(--topContainerTextColor);
     font-size: 14px;
-    text-transform: uppercase;
     text-align: left;
     white-space: nowrap;
     svg {
@@ -67,7 +66,7 @@
         width: 100px;
         color: var(--fieldLabelAndBorderColor);
         font-size: 14px;
-        font-weight: 600;
+        font-weight: bold;
         padding-bottom: 8px;
         margin-bottom: 0;
         text-transform: capitalize;
@@ -137,7 +136,7 @@
         display: inline-block;
         color: var(--fieldTextColor);
         font-family: var(--inputFont);
-        font-weight: 400;
+        font-weight: normal;
       }
 
       .code-switch-control:checked ~ .code-switch-label:after {

@@ -14,6 +14,11 @@ code {
   monospace;
 }
 
+.main-title, .main-title * {
+  font-weight: var(--mainTitleFontWeight) !important;
+  text-transform: var(--mainTitleTextTransform) !important;
+}
+
 .responsive-container {
   max-width: 1200px;
 
@@ -124,6 +129,7 @@ button.btn, a.btn {
     }
 
     &.github {
+      color: var(--modalTextColor);
       background-color: transparent;
     }
   }
@@ -196,14 +202,15 @@ button.btn.btn-light {
 
 .quarkus-project-edition-form .dropdown-menu {
   background-color: var(--dropdownMenuBg);
+  box-shadow: var(--dropdownMenuShadow);
   padding: 0;
 
   .dropdown-item {
     display: flex;
+    align-items: center;
     height: 30px;
     border: none;
     line-height: 30px;
-    font-weight: bold;
     width: 100%;
     padding: 0 0 0 20px;
     color: var(--dropdownMenuTextColor);
@@ -246,6 +253,7 @@ button.btn.btn-light {
   max-width: none;
   color: var(--dropdownMenuTextColor);
   background-color: var(--copyToClipboardBackgroundColor);
+  box-shadow: var(--dropdownMenuShadow);
   margin: 9px;
   border: none;
   border-radius: 6px;
@@ -257,7 +265,6 @@ button.btn.btn-light {
     font-size: 1rem;
     padding: 10px;
     margin-bottom: 0;
-    font-weight: 100;
     background-color: transparent;
     border: none;
     color: var(--copyToClipboardHeaderTextColor);

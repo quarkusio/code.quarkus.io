@@ -26,8 +26,6 @@
   }
 
   .button-toggle-list {
-    font-weight: 100;
-    text-transform: uppercase;
     height: 40px;
     background: none;
     border: none;
@@ -35,7 +33,8 @@
     cursor: pointer;
     align-items: center;
     appearance: none;
-    color: var(--textColor);
+    color: inherit;
+    font-size: 1.1rem;
 
     svg {
       margin: 0 !important;
@@ -57,12 +56,15 @@
     justify-content: center;
     height: 42px;
     gap: 5px;
+    background-color: var(--extensionsPickerSearchBg);
+
     .search-icon {
       flex-basis: 40px;
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
+      color: var(--extensionsPickerSearchIconColor);
       background-color: var(--extensionsPickerSearchIconBg);
     }
 
@@ -108,6 +110,7 @@
 
     margin: 20px 0 0;
     background-color: var(--mainContainerControlBarBg);
+    color: var(--mainContainerControlBarTextColor);
     display: flex;
 
     padding: 0 5px;
@@ -129,8 +132,6 @@
         display: none;
         align-items: center;
         height: 100%;
-        font-weight: 100;
-        text-transform: uppercase;
       }
 
       svg {
@@ -141,7 +142,7 @@
     .search-results-info {
       display: flex;
       align-items: center;
-      padding: 0 5px;
+      padding: 0 10px;
 
       .result-count {
 
@@ -151,8 +152,6 @@
         margin-right: 5px;
         cursor: pointer;
         font-weight: bold;
-        color: var(--mainContainerTextColor);
-
       }
 
     }
@@ -167,13 +166,11 @@
       padding: 0px 10px;
 
       &[aria-expanded="true"], &:hover {
-        font-weight: bold;
         background-color: var(--extensionsPickerSearchBorderColorOnFocus);
       }
     }
 
     .dropdown-menu {
-      padding: 10px;
 
       .filter-combo-actions {
         display: flex;
@@ -182,6 +179,7 @@
       }
 
       button {
+        height: 35px;
         cursor: pointer;
         color: var(--extensionsPickerSearchTextColor);
         display: flex;
@@ -191,15 +189,22 @@
         background-color: transparent;
         border: none;
         margin-right: 5px;
+        outline: none;
 
         svg {
           color: var(--primary);
+        }
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.1);
+          background-blend-mode: multiply;
         }
       }
     }
 
     .dropdown-item {
-      padding-left: 5px;
+      padding: 0 10px;
+      height: 35px;
     }
 
     .dropdown-item.special-filter {

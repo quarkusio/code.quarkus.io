@@ -113,13 +113,12 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     line-height: 20px;
     margin: 5px 5px;
     padding: 0 7px;
     height: 20px;
     vertical-align: middle;
-    font-family: var(--monospaceFontFamily), monospace;
     white-space: nowrap;
     text-transform: lowercase;
     border-radius: 20px;
@@ -157,7 +156,6 @@
       cursor: pointer;
 
       display: flex;
-      font-weight: 400;
       align-items: center;
       justify-content: space-between;
     }

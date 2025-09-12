@@ -69,7 +69,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
       <div className="form-header-sticky-container">
         <div className="form-header responsive-container">
           <div className="project-info">
-            <div className="title">
+            <div className="title main-title">
               <h3>
                 Configure your application
               </h3>

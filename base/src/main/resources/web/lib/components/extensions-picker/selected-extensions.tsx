@@ -10,7 +10,7 @@ import {Platform} from "../api/model";
 
 const SelectedExtensionsDiv = styled.div`
 
-    
+
     button.btn.btn-clear {
         margin-left: 10px;
         color: var(--clearSelectedExtensionButtonTextColor);
@@ -18,29 +18,30 @@ const SelectedExtensionsDiv = styled.div`
 
         svg {
             color: var(--clearSelectedExtensionButtonBorderColor);
-        } 
-        
+        }
+
         &:hover {
             background-color: rgba(0, 0, 0, 0.2);
             background-blend-mode: multiply;
         }
     }
-    
-    
+
+
     h5 {
         margin-top: 20px;
         cursor: pointer;
         user-select: none;
-        
+
         svg {
             width: 20px;
             vertical-align: middle;
         }
     }
-    
+
     .alert-info {
+        background-color: var(--selectedExtensionAlertInfoBg);
+        color: var(--selectedExtensionAlertInfoTextColor);
         padding: 5px;
-        color: var(--mainContainerTextColor);
         font-size: 0.9rem;
     }
 
@@ -53,13 +54,19 @@ const SelectedExtensionsDiv = styled.div`
             padding: 10px;
             margin: 0;
             background-color: var(--mainContainerControlBarBg);
+            color: var(--mainContainerControlBarTextColor);
             display: flex;
-            
-           span {
-               flex-grow: 1;
-           }
+            font-weight: normal;
+
+            span {
+                flex-grow: 1;
+            }
+
+            .count {
+                font-weight: bold;
+            }
         }
-        
+
         h5 {
             padding: 10px;
             margin: 0;
@@ -83,13 +90,12 @@ const SelectedExtensionsDiv = styled.div`
             height: 30px;
             line-height: 30px;
             border: none;
-            color: white;
             padding: 0 5px;
 
             .extension-name {
                 line-height: 30px;
                 height: 30px;
-                
+
             }
 
             .extension-origin-platform {
@@ -157,7 +163,7 @@ export const SelectedExtensions = (props: {
       {props.extensions.length > 0 && (
         <>
           <h4>
-            <span>{props.extensions.length} selected {props.extensions.length > 1 ? 'extensions' : 'extension'}</span>
+            <span><span className="count">{props.extensions.length}</span> selected {props.extensions.length > 1 ? 'extensions' : 'extension'}</span>
             {props.extensions.length > 0 &&
                 <button className="btn btn-light btn-clear" onClick={clear} aria-label="Clear extension selection">
                     <FaTrashAlt/> Clear selection
