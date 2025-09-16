@@ -6,17 +6,16 @@
     background-color: var(--extensionsCartButtonBgColor);
     color: var(--extensionsCartButtonTextColor);
     width: 50px;
-    text-align: center;
-    line-height: 40px;
     font-weight: bold;
     padding: 0;
     border: none;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    svg {
+    .extension-icon {
       margin-right: 5px;
-      height: 40px;
-      vertical-align: top;
     }
   }
 

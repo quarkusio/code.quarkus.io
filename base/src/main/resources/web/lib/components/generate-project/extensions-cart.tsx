@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import './extensions-cart.scss';
-import {FaRocket} from 'react-icons/fa';
 import {Button, ButtonGroup, Dropdown} from 'react-bootstrap';
 import DropdownToggle from 'react-bootstrap/DropdownToggle';
 import {ExtensionEntry, TagEntry} from '../extensions-picker/extensions-picker';
@@ -50,7 +49,7 @@ export function ExtensionsCart(props: ExtensionsCartProps) {
               show={isOpen || openedFromChange} onMouseLeave={onMouseLeaveFn}>
       <DropdownToggle as={Button} aria-label="Selected extensions" className="extensions-cart-button"
                       onMouseEnter={onMouseEnterFn}>
-        <FaRocket/>
+        <span className="extension-icon"></span>
         {props.value.extensions.length}
       </DropdownToggle>
 
