@@ -19,6 +19,14 @@ code {
   text-transform: var(--mainTitleTextTransform) !important;
 }
 
+.extension-icon {
+  background-image: var(--extensionIconSvg);
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+
 .responsive-container {
   max-width: 1200px;
 

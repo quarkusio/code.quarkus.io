@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import {TagEntry} from "./extensions-picker";
 import {Platform, Preset} from "../api/model";
-import {FaRocket} from 'react-icons/fa';
 
 import {useAnalytics} from "../../core/analytics";
 
@@ -24,8 +23,8 @@ const PresetsPanelDiv = styled.div`
         background-color: var(--presetsPanelBg);
         color: var(--presetsTitleTextColor);
         
-        svg {
-            margin-right: 5px;
+        .extension-icon {
+            margin-right: 3px;
         }
     }
 
@@ -89,7 +88,7 @@ export const PresetsPanel = (props: PresetsProps) => {
   };
   return (
     <PresetsPanelDiv className="presets-panel">
-      <div className="panel-title main-title"><FaRocket />&nbsp;Start with a preset of extensions</div>
+      <div className="panel-title main-title"><span className="extension-icon"></span>&nbsp;Start with a preset of extensions</div>
       <div className="presets-list">
         {presets.map(p => (
           <PresetCard key={p.key} preset={p} onClick={() => selectPreset(p)}/>
