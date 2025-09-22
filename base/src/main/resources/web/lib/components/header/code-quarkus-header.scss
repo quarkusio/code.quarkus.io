@@ -18,7 +18,13 @@
     display: flex;
     height: 70px;
 
-    .nav-container {
+    .nav-left {
+      flex-grow: 1;
+      height: 70px;
+      display: flex;
+    }
+
+    .nav-right {
       display: flex;
       height: 55px;
       line-height: 55px;
@@ -43,30 +49,28 @@
       }
     }
 
-    .quarkus-brand {
-      flex-grow: 1;
-      line-height: 70px;
+    .brand {
       display: flex;
+      align-items: center;
+    }
 
-      a {
-        display: inline-block;
-        vertical-align: middle;
-        margin: 0;
-        padding: 0;
+    a.quarkus-brand {
+      display: inline-block;
+      margin: 0;
+      padding: 0;
 
+      img {
+        height: 40px;
+        width: auto;
+      }
+
+      @media screen and (max-width: $mobileWidth) {
+        margin-left: 20px;
         img {
-          vertical-align: middle;
-          height: 40px;
-          width: auto;
-        }
-
-        @media screen and (max-width: $mobileWidth) {
-          margin-left: 20px;
-          img {
-            height: 20px;
-          }
+          height: 20px;
         }
       }
     }
+
   }
 }
