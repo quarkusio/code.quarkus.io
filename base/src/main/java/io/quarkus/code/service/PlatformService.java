@@ -260,8 +260,12 @@ public class PlatformService {
                         recommended,
                         codeQuarkusExtensions,
                         extensionCatalog);
-                streams.add(streamInfo);
-                updatedStreamCatalogMap.put(streamKey, platformInfo);
+                if (!codeQuarkusExtensions.isEmpty()) {
+                    streams.add(streamInfo);
+                    updatedStreamCatalogMap.put(streamKey, platformInfo);
+                } else {
+                    LOG.warning("No extension found for streamKey: %s (skipping)".formatted(streamKey));
+                }
             }
         }
         PlatformServiceCache newCache = new PlatformServiceCache(
@@ -311,7 +315,7 @@ public class PlatformService {
 
         for (Map.Entry<String, PlatformInfo> entry : newCache.streamCatalogMap().entrySet()) {
             if (entry.getValue().codeQuarkusExtensions().isEmpty()) {
-                throw new RuntimeException("No extension found in the stream: " + entry.getKey());
+                throw new IllegalStateException("No extension found in the stream: " + entry.getKey());
             }
             projectService.createTmp(
                     entry.getValue(),

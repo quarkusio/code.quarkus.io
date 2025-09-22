@@ -7,6 +7,7 @@ import defaultQuarkusLogo from '../media/quarkus-logo.svg';
 export interface CodeQuarkusHeaderProps {
   streamProps: StreamPickerProps;
   quarkusLogo?: string;
+  brand?: JSX.Element;
 }
 
 export interface CompanyHeaderProps extends CodeQuarkusHeaderProps {
@@ -19,13 +20,17 @@ export function CompanyHeader(props: CompanyHeaderProps) {
   return (
     <div className="header">
       <div className="header-content responsive-container">
-        <div className="quarkus-brand">
-          <a href="/" onClick={linkTracker}>
-            <img src={props.quarkusLogo || `${defaultQuarkusLogo}`} className="project-logo" title="Quarkus" alt="Quarkus"/>
-          </a>
+        <div className="nav-left">
+          <div className="brand">
+            {props.brand || (
+              <a href="/" onClick={linkTracker} className="quarkus-brand">
+                <img src={props.quarkusLogo || `${defaultQuarkusLogo}`} className="project-logo" title="Quarkus" alt="Quarkus"/>
+              </a>
+            )}
+          </div>
           <StreamPicker {...props.streamProps} />
         </div>
-        <div className="nav-container">
+        <div className="nav-right">
           {props.children}
         </div>
       </div>
