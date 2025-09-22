@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
 
 @ConfigMapping(prefix = "io.quarkus.code")
 public interface CodeQuarkusConfig {
@@ -22,5 +23,9 @@ public interface CodeQuarkusConfig {
 
     UIConfig ui();
 
-    List<PresetConfig> presets();
+    Optional<List<PresetConfig>> customPresets();
+
+    @WithDefault(value = "true")
+    boolean useDefaultPresets();
+
 }

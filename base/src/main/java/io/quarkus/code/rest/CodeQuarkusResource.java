@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -39,6 +40,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import static java.util.Collections.emptyList;
 import static java.util.function.Predicate.not;
 
 @Path("/")
@@ -183,9 +185,13 @@ public class CodeQuarkusResource {
     }
 
     List<Preset> getAllPresets() {
-        List<Preset> presets = new ArrayList<>(platformService.presets());
-        config.presets().stream().map(presetConfig -> new Preset(presetConfig.key(), presetConfig.title(), presetConfig.icon(),
-                presetConfig.extensions())).forEach(presets::add);
+
+        List<Preset> presets = new ArrayList<>(config.useDefaultPresets() ? platformService.presets() : emptyList());
+
+        config.customPresets().ifPresent(customConfigs -> customConfigs.stream()
+                .map(pc -> new Preset(pc.key(), pc.title(), pc.icon(), pc.extensions()))
+                .forEach(presets::add));
+
         return presets;
     }
 
