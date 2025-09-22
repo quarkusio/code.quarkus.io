@@ -8,7 +8,7 @@
     <properties>
         <code-quarkus.version>${project.version}</code-quarkus.version>
 
-        <compiler-plugin.version>3.14.0</compiler-plugin.version>
+        <compiler-plugin.version>3.14.1</compiler-plugin.version>
         <maven.compiler.release>21</maven.compiler.release>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
@@ -27,7 +27,7 @@
         <formatter.plugin.version>2.29.0</formatter.plugin.version>
         <quarkus.ide-config.version>${quarkus.platform.version}</quarkus.ide-config.version>
         <surefire.plugin.version>3.1.2</surefire.plugin.version>
-        <maven-javadoc-plugin.version>3.11.3</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
         <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
         <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
         <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
