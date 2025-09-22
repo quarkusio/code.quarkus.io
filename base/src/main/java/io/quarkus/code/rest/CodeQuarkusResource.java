@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -39,6 +40,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import static java.util.Collections.emptyList;
 import static java.util.function.Predicate.not;
 
 @Path("/")
@@ -173,13 +175,24 @@ public class CodeQuarkusResource {
 
     private Uni<Response> presets(Map<String, ExtensionRef> extensionsById) {
         String lastUpdated = platformService.cacheLastUpdated().format(FORMATTER);
-        final List<Preset> presets = platformService.presets().stream()
+        final List<Preset> presets = getAllPresets().stream()
                 .filter(p -> p.extensions().stream().allMatch(extensionsById::containsKey))
                 .toList();
         Response response = Response.ok(presets)
                 .header(LAST_MODIFIED_HEADER, lastUpdated)
                 .build();
         return Uni.createFrom().item(response);
+    }
+
+    List<Preset> getAllPresets() {
+
+        List<Preset> presets = new ArrayList<>(config.useDefaultPresets() ? platformService.presets() : emptyList());
+
+        config.customPresets().ifPresent(customConfigs -> customConfigs.stream()
+                .map(pc -> new Preset(pc.key(), pc.title(), pc.icon(), pc.extensions()))
+                .forEach(presets::add));
+
+        return presets;
     }
 
     private Uni<Response> extensions(
