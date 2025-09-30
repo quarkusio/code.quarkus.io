@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Form, FormGroup} from 'react-bootstrap';
-import {FaSearch, FaTimes, FaCaretUp, FaCaretDown} from 'react-icons/fa';
+import {FaSearch, FaCaretUp, FaCaretDown} from 'react-icons/fa';
+import {FaRegCircleXmark} from 'react-icons/fa6';
 import {QuarkusProject} from '../api/model';
 import './extension-search-bar.scss';
 import {
@@ -114,7 +115,7 @@ export function ExtensionSearchBar(props: ExtensionSearchBarProps) {
           onChange={search}
         />
         {!isFilterEmpty(filter) &&
-            <Button as="a" className='clear-button' onClick={clearFilters} aria-label="Clear filters"><FaTimes/><span>Clear filters</span></Button>
+            <Button as="a" className='clear-button' onClick={clearFilters} aria-label="Clear filters"><FaRegCircleXmark/><span>Clear filters</span></Button>
         }
 
       </FormGroup>
