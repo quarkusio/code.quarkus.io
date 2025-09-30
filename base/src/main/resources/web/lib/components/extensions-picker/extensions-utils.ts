@@ -272,7 +272,7 @@ export function clearMetadataFilter(query: string, key: string) {
 }
 
 export function addExcludeMetadataFilter(query: string, key: string) {
-  return `!${key}` + query.replace(new RegExp(`${key}:\\S+`), '').trim();
+  return `!${key} ` + query.replace(new RegExp(`${key}:\\S+`), '').trim();
 }
 
 export function addStarMetadataFilter(query: string, key: string) {
