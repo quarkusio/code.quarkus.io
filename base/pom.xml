@@ -8,7 +8,7 @@
     <parent>
         <groupId>io.quarkus.code</groupId>
         <artifactId>code-quarkus-parent</artifactId>
-        <version>55</version>
+        <version>56-SNAPSHOT</version>
     </parent>
     <properties>
         <maven.compiler.parameters>true</maven.compiler.parameters>
