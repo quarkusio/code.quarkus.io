@@ -23,6 +23,8 @@
         <surefire-plugin.version>3.5.4</surefire-plugin.version>
         <quarkus-web-bundler.version>1.9.3</quarkus-web-bundler.version>
         <quarkus-playwright.version>2.1.3</quarkus-playwright.version>
+        <quarkus.qute-web.version>3.4.4</quarkus.qute-web.version>
+
 
         <formatter.plugin.version>2.29.0</formatter.plugin.version>
         <quarkus.ide-config.version>${quarkus.platform.version}</quarkus.ide-config.version>
