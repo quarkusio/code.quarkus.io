@@ -4,7 +4,7 @@
     <parent>
         <groupId>io.quarkus.code</groupId>
         <artifactId>code-quarkus-parent</artifactId>
-        <version>56-SNAPSHOT</version>
+        <version>56</version>
     </parent>
 
     <artifactId>code-quarkus-community-app</artifactId>
