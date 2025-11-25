@@ -1,4 +1,4 @@
-@import "../_config.scss";
+@use "../_config.scss" as config;
 
 #extension-origin-platform-tooltip > .tooltip-inner {
   max-width: 400px;
@@ -63,7 +63,7 @@
 
   .extension-selector {
 
-    @media screen and (max-width: $mobileWidth) {
+    @media screen and (max-width: config.$mobileWidth) {
       display: none;
     }
   }
@@ -104,7 +104,7 @@
     height: 24px;
     outline: none;
     color: var(--extensionsPickerIdTextColor);
-    @media screen and (max-width: $mobileWidth) {
+    @media screen and (max-width: config.$mobileWidth) {
       display: none;
     }
   }

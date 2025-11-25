@@ -1,4 +1,4 @@
-@import "../_config.scss";
+@use "../_config.scss" as config;
 
 .search-bar {
   margin: 0 auto;
@@ -18,7 +18,7 @@
     gap: 5px;
     background-color: var(--extensionsPickerSearchClearButtonBg);
 
-    @media screen and (max-width: $mobileWidth) {
+    @media screen and (max-width: config.$mobileWidth) {
       span {
         display: none;
       }
@@ -41,7 +41,7 @@
       margin-right: 5px !important;
     }
 
-    @media screen and (max-width: $mobileWidth) {
+    @media screen and (max-width: config.$mobileWidth) {
       display: none;
     }
 
@@ -59,7 +59,7 @@
     background-color: var(--extensionsPickerSearchBg);
 
 
-    @media screen and (max-width: $mobileWidth) {
+    @media screen and (max-width: config.$mobileWidth) {
       margin: 0 10px;
     }
 
@@ -128,7 +128,7 @@
       display: flex;
       gap: 3px;
 
-      @media screen and (max-width: $mobileWidth) {
+      @media screen and (max-width: config.$mobileWidth) {
         display: none;
       }
 
