@@ -217,7 +217,7 @@ public class PlatformService {
         }
         if (platformServiceCacheRef.get() != null
                 && platformServiceCacheRef.get().platformTimestamp().equals(platformTimestamp)) {
-            LOG.log(Level.DEBUG, "The platform cache is up to date with the registry");
+            LOG.log(Level.FINE, "The platform cache is up to date with the registry");
             return;
         }
         Collection<Platform> platforms = platformCatalog.getPlatforms();
