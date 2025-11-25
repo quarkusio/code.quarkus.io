@@ -1,4 +1,4 @@
-@import "../_config.scss";
+@use "../_config.scss" as config;
 
 .stream-picker {
   z-index: 1500;
@@ -114,7 +114,7 @@
     }
   }
 
-  @media screen and (max-width: $mobileWidth) {
+  @media screen and (max-width: config.$mobileWidth) {
     display: none;
   }
 }

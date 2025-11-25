@@ -1,4 +1,4 @@
-@import "../_config.scss";
+@use "../_config.scss" as config;
 
 .info-picker {
   height: 118px;
@@ -15,7 +15,7 @@
     padding: 0;
   }
 
-  @media screen and (max-width: $tabletWidth) {
+  @media screen and (max-width: config.$tabletWidth) {
     .extended-settings,
     .toggle-button {
       display: none;

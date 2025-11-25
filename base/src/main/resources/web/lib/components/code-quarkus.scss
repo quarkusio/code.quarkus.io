@@ -1,4 +1,4 @@
-@import "config";
+@use "config" as config;
 
 body {
   margin: 0;
@@ -30,23 +30,23 @@ code {
 .responsive-container {
   max-width: 1200px;
 
-  @media screen and (max-width: $tabletWidth) {
+  @media screen and (max-width: config.$tabletWidth) {
     max-width: 900px;
   }
 
-  @media screen and (max-width: $mobileWidth) {
+  @media screen and (max-width: config.$mobileWidth) {
     max-width: 100%;
   }
 }
 
 .mobile-only {
-  @media screen and (min-width: $mobileWidth) {
+  @media screen and (min-width: config.$mobileWidth) {
     display: none !important;
   }
 }
 
 .desktop-only {
-  @media screen and (max-width: $mobileWidth) {
+  @media screen and (max-width: config.$mobileWidth) {
     display: none !important;
   }
 }

@@ -1,4 +1,4 @@
-@import "../_config.scss";
+@use "../_config.scss" as config;
 
 
 .extensions-picker {
@@ -51,7 +51,7 @@
         flex-basis: 350px;
         order: 2;
         flex-grow: 1;
-        @media screen and (max-width: $mobileWidth) {
+        @media screen and (max-width: config.$mobileWidth) {
           flex-basis: calc(100% - 32px);
         }
       }
@@ -75,7 +75,7 @@
     z-index: 99;
     padding-top: 20px;
 
-    @media screen and (max-width: $mobileWidth) {
+    @media screen and (max-width: config.$mobileWidth) {
       top: 0;
     }
 
@@ -108,7 +108,7 @@
     flex-grow: 1;
     overflow: hidden;
 
-    @media screen and (max-width: $mobileWidth) {
+    @media screen and (max-width: config.$mobileWidth) {
       padding: 0px 0px 200px;
     }
 

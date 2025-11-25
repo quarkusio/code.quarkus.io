@@ -12,6 +12,8 @@ import io.quarkus.devtools.project.QuarkusProject;
 import io.quarkus.devtools.project.QuarkusProjectHelper;
 
 import io.quarkus.devtools.project.compress.QuarkusProjectCompress;
+import jakarta.enterprise.inject.Instance;
+import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -25,11 +27,15 @@ import java.util.logging.Logger;
 @Singleton
 public class QuarkusProjectService {
 
+    @Inject
+    Instance<PlatformOverride> platformOverride;
+
     public byte[] create(PlatformInfo platformInfo, ProjectDefinition projectDefinition)
             throws IOException, QuarkusCommandException {
         Path path = createTmp(platformInfo, projectDefinition);
         long time = System.currentTimeMillis() - 24 * 3600000;
         Path zipPath = Files.createTempDirectory("zipped-").resolve("project.zip");
+
         QuarkusProjectCompress.zip(path, zipPath, true, time);
         return Files.readAllBytes(zipPath);
     }
@@ -54,6 +60,9 @@ public class QuarkusProjectService {
             boolean silent) throws IOException, QuarkusCommandException {
         Path location = Files.createTempDirectory("generated-").resolve(projectDefinition.artifactId());
         createProject(platformInfo, projectDefinition, location, isGitHub, silent);
+        if (platformOverride != null && platformOverride.isResolvable()) {
+            platformOverride.get().onNewProject(projectDefinition, location);
+        }
         return location;
     }
 

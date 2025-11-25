@@ -2,7 +2,9 @@ package io.quarkus.code.service;
 
 import io.quarkus.code.model.CodeQuarkusExtension;
 import io.quarkus.code.model.Preset;
+import io.quarkus.code.model.ProjectDefinition;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
@@ -14,6 +16,8 @@ public interface PlatformOverride {
     Function<CodeQuarkusExtension, CodeQuarkusExtension> extensionMapper();
 
     List<Preset> presets();
+
+    void onNewProject(ProjectDefinition projectDefinition, Path dir);
 
     List<String> extensionTagsMapper(List<String> tags);
 
@@ -30,6 +34,11 @@ public interface PlatformOverride {
         @Override
         public List<Preset> presets() {
             return PlatformService.DEFAULT_PRESETS;
+        }
+
+        @Override
+        public void onNewProject(ProjectDefinition projectDefinition, Path dir) {
+
         }
 
         @Override
