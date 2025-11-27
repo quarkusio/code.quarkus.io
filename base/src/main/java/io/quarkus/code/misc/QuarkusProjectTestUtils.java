@@ -1,4 +1,4 @@
-package io.quarkus.code.service;
+package io.quarkus.code.misc;
 
 import org.apache.commons.compress.archivers.ArchiveException;
 import org.apache.commons.compress.archivers.ArchiveInputStream;
@@ -13,17 +13,19 @@ import java.nio.file.Files;
 import java.util.AbstractMap.SimpleImmutableEntry;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class QuarkusProjectServiceTestUtils {
+public class QuarkusProjectTestUtils {
 
     private static final List<String> EXECUTABLES = List.of(
             "gradlew",
             "gradlew.bat",
             "mvnw",
             "mvnw.bat");
+
+    private QuarkusProjectTestUtils() {
+    }
 
     public static List<String> readFiles(File testDir) throws IOException {
         List<String> fileList = new ArrayList<>();

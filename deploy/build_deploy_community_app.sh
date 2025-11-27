@@ -2,12 +2,20 @@
 
 set -exv
 
+STAGE=false
+
+if [[ $(git --no-pager  log --oneline -1) == *[STAGE]* ]]; then
+  echo "This is commit is flagged with [STAGE] and won't go to production"
+  STAGE=true
+fi
+
+
 GIT_REV=$(git rev-parse HEAD)
 GIT_REV_SHORT=$(git rev-parse --short=7 HEAD)
 IMAGE=${IMAGE-"quay.io/quarkus/code-quarkus-app"}
 IMAGE_TAG=${IMAGE_TAG-$GIT_REV_SHORT}
 
-docker build --compress -f docker/Dockerfile.community-app.multistage --build-arg MAVEN_BUILD_EXTRA_ARGS="-Dgit.commit.id=$GIT_REV" -t "${IMAGE}:${IMAGE_TAG}" .
+docker build --compress -f docker/Dockerfile.community-app.multistage --build-arg MAVEN_BUILD_EXTRA_ARGS="-Dgit.commit.id=$GIT_REV -Dio.quarkus.code.build.stage=$STAGE" -t "${IMAGE}:${IMAGE_TAG}" .
 
 if [[ -n "$QUAY_USER" && -n "$QUAY_TOKEN" ]]; then
     DOCKER_CONF="$PWD/.docker"
