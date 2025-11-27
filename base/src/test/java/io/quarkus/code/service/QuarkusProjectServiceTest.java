@@ -1,6 +1,7 @@
 package io.quarkus.code.service;
 
 import io.quarkus.code.config.CodeQuarkusConfig;
+import io.quarkus.code.misc.QuarkusProjectTestUtils;
 import io.quarkus.code.model.ProjectDefinition;
 import io.quarkus.devtools.commands.data.QuarkusCommandException;
 import io.quarkus.test.junit.QuarkusTest;
@@ -45,7 +46,7 @@ public class QuarkusProjectServiceTest {
         // When
         QuarkusProjectService creator = getProjectService();
         byte[] proj = creator.create(platformService.recommendedPlatformInfo(), ProjectDefinition.of());
-        var testDir = QuarkusProjectServiceTestUtils.extractProject(proj);
+        var testDir = QuarkusProjectTestUtils.extractProject(proj);
         var projDir = Paths.get(testDir.getKey().getPath(), "code-with-quarkus");
 
         // Then
@@ -147,7 +148,7 @@ public class QuarkusProjectServiceTest {
                                         "hibernate-validator"))
                         .javaVersion(platformService.recommendedPlatformInfo().stream().javaCompatibility().recommended())
                         .build());
-        Entry<File, List<String>> testDir = QuarkusProjectServiceTestUtils.extractProject(proj);
+        Entry<File, List<String>> testDir = QuarkusProjectTestUtils.extractProject(proj);
         Path projDir = Paths.get(testDir.getKey().toString(), "test-app");
 
         // Then
@@ -192,7 +193,7 @@ public class QuarkusProjectServiceTest {
                         .className("com.test.TestResource")
                         .extensions(Set.of("rest", "kotlin"))
                         .build());
-        Entry<File, List<String>> testDir = QuarkusProjectServiceTestUtils.extractProject(proj);
+        Entry<File, List<String>> testDir = QuarkusProjectTestUtils.extractProject(proj);
         Path projDir = Paths.get(testDir.getKey().toString(), "test-kotlin-app");
 
         // Then
@@ -225,7 +226,7 @@ public class QuarkusProjectServiceTest {
                         .buildTool("GRADLE")
                         .javaVersion(17)
                         .build());
-        Entry<File, List<String>> testDir = QuarkusProjectServiceTestUtils.extractProject(proj);
+        Entry<File, List<String>> testDir = QuarkusProjectTestUtils.extractProject(proj);
         Path projDir = Paths.get(testDir.getKey().toString(), "test-gradle-17-app");
 
         // Then
@@ -248,7 +249,7 @@ public class QuarkusProjectServiceTest {
                         .buildTool("GRADLE")
                         .javaVersion(21)
                         .build());
-        Entry<File, List<String>> testDir = QuarkusProjectServiceTestUtils.extractProject(proj);
+        Entry<File, List<String>> testDir = QuarkusProjectTestUtils.extractProject(proj);
         Path projDir = Paths.get(testDir.getKey().getPath(), "test-gradle-21-app");
 
         // Then
@@ -271,7 +272,7 @@ public class QuarkusProjectServiceTest {
                         .buildTool("MAVEN")
                         .extensions(Set.of("quinoa", "config-yaml"))
                         .build());
-        Entry<File, List<String>> testDir = QuarkusProjectServiceTestUtils.extractProject(proj);
+        Entry<File, List<String>> testDir = QuarkusProjectTestUtils.extractProject(proj);
         Path projDir = Paths.get(testDir.getKey().toString(), "test-quinoa-yaml-app");
 
         // Then

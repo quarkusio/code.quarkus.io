@@ -1,6 +1,7 @@
 package io.quarkus.code;
 
-import io.quarkus.code.service.QuarkusProjectServiceTestUtils;
+import io.quarkus.code.misc.QuarkusProjectTestUtils;
+import io.quarkus.devtools.testing.WrapperRunner;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.commons.compress.archivers.ArchiveException;
@@ -9,7 +10,6 @@ import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import io.quarkus.devtools.testing.WrapperRunner;
 
 import java.io.IOException;
 
@@ -31,7 +31,7 @@ public class CodeQuarkusIT {
                 .header("Content-Disposition", "attachment; filename=\"" + appName + ".zip\"")
                 .extract().asByteArray();
         MatcherAssert.assertThat(result, CoreMatchers.notNullValue());
-        var project = QuarkusProjectServiceTestUtils.extractProject(result).getKey();
+        var project = QuarkusProjectTestUtils.extractProject(result).getKey();
         var appDir = project.toPath().resolve(appName);
         int run = WrapperRunner.run(appDir, WrapperRunner.Wrapper.MAVEN);
         MatcherAssert.assertThat(run, CoreMatchers.is(0));
@@ -53,7 +53,7 @@ public class CodeQuarkusIT {
                 .header("Content-Disposition", "attachment; filename=\"" + appName + ".zip\"")
                 .extract().asByteArray();
         MatcherAssert.assertThat(result, CoreMatchers.notNullValue());
-        var project = QuarkusProjectServiceTestUtils.extractProject(result).getKey();
+        var project = QuarkusProjectTestUtils.extractProject(result).getKey();
         int run = WrapperRunner.run(project.toPath().resolve(appName), WrapperRunner.Wrapper.GRADLE);
         MatcherAssert.assertThat(run, CoreMatchers.is(0));
     }

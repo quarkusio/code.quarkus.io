@@ -1,6 +1,7 @@
 package io.quarkus.code.rest;
 
 import com.google.common.base.Strings;
+import io.quarkus.code.config.BuildConfig;
 import io.quarkus.code.config.CodeQuarkusConfig;
 import io.quarkus.code.config.GitHubConfig;
 import io.quarkus.code.config.SegmentConfig;
@@ -28,7 +29,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -60,6 +60,9 @@ public class CodeQuarkusResource {
     private GitHubConfig gitHubConfig;
 
     @Inject
+    private BuildConfig buildConfig;
+
+    @Inject
     private PlatformService platformService;
 
     @Inject
@@ -75,6 +78,7 @@ public class CodeQuarkusResource {
     @Operation(summary = "Get the Quarkus Launcher configuration", hidden = true)
     public Uni<PublicConfig> config() {
         PublicConfig publicConfig = new PublicConfig.Builder()
+                .stageBuild(buildConfig.stage())
                 .environment(config.environment().orElse("dev"))
                 .segmentWriteKey(segmentConfig.writeKey().filter(not(Strings::isNullOrEmpty)).orElse(null))
                 .sentryDSN(config.sentryFrontendDSN().filter(not(Strings::isNullOrEmpty)).orElse(null))
@@ -83,6 +87,7 @@ public class CodeQuarkusResource {
                 .quarkusVersion(config.quarkusPlatformVersion().orElse("unknown"))
                 .gitHubClientId(gitHubConfig.clientId().filter(not(Strings::isNullOrEmpty)).orElse(null))
                 .gitCommitId(config.gitCommitId().orElse("unknown"))
+
                 .build();
         return Uni.createFrom().item(publicConfig);
     }
