@@ -4,8 +4,9 @@ set -exv
 
 STAGE=false
 
-if [[ $(git --no-pager  log --oneline -1) == *[STAGE]* ]]; then
-  echo "This is commit is flagged with [STAGE] and won't go to production"
+
+if git --no-pager log -1 --format='%h %s' | grep -Fq '[STAGE]'; then
+  echo "This commit is flagged with [STAGE] and won't go to production"
   STAGE=true
 fi
 
