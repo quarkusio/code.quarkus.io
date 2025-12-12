@@ -6,6 +6,9 @@ import org.apache.commons.compress.archivers.ArchiveStreamFactory;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -63,6 +66,12 @@ public class QuarkusProjectTestUtils {
             while ((entry = zip.getNextEntry()) != null) {
                 fileList.add(entry.getName());
                 File file = new File(outputDir, entry.getName());
+
+                // Check for Zip Slip vulnerability
+                if (!file.toPath().normalize().startsWith(outputDir.toPath().normalize())) {
+                    throw new IOException("Detected Zip Slip vulnerability: " + entry.getName());
+                }
+
                 if (entry.isDirectory()) {
                     file.mkdirs();
                 } else {
