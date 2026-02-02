@@ -245,7 +245,7 @@ public class PlatformService {
                     // We use the recommended Java version as maximum
                     compatibleJavaLTSVersions = compatibleJavaLTSVersions.stream()
                             .filter(v -> v <= new JavaVersion(catalogRecommendedJavaVersion.get()).getAsInt())
-                            .collect(Collectors.toCollection(TreeSet::new));;
+                            .collect(Collectors.toCollection(TreeSet::new));
                 }
                 int recommendedJavaVersion = catalogRecommendedJavaVersion
                         .map(Integer::parseInt).orElse(compatibleJavaLTSVersions.stream().findFirst().orElseThrow());
