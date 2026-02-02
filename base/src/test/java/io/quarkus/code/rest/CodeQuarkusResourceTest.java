@@ -101,6 +101,8 @@ class CodeQuarkusResourceTest {
                 .extensions(platformService.recommendedCodeQuarkusExtensions()
                         .stream()
                         .filter(extension -> !extension.category().equals("Alternative languages"))
+                        // Remove this when we use java 25 in quarkus
+                        .filter(extension -> !"io.quarkiverse.langchain4j:quarkus-langchain4j-gpu-llama3".equals(extension.id()))
                         .map(CodeQuarkusExtension::id)
                         .collect(Collectors.toSet()))
                 .build();
