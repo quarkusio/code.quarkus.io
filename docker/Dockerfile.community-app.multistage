@@ -2,7 +2,9 @@
 FROM registry.access.redhat.com/ubi8/openjdk-21:1.18 AS build
 ARG MAVEN_BUILD_EXTRA_ARGS=
 RUN echo "$MAVEN_BUILD_EXTRA_ARGS"
-
+USER root
+RUN microdnf install -y gzip tar atk at-spi2-atk libdrm libxkbcommon at-spi2-core libXdamage libXfixes libXrandr mesa-libgbm pango cairo && microdnf clean all
+USER 185
 COPY mvnw pom.xml maven-settings.xml* /usr/src/app/
 COPY web-deps/pom.xml /usr/src/app/web-deps/
 COPY web-deps/locker/pom.xml /usr/src/app/web-deps/locker/
@@ -14,7 +16,6 @@ COPY base/src /usr/src/app/base/src
 COPY community-app/src /usr/src/app/community-app/src
 USER root
 RUN chown -R 185 /usr/src/app
-RUN microdnf install -y gzip atk at-spi2-atk libdrm libxkbcommon at-spi2-core libXdamage libXfixes libXrandr mesa-libgbm pango cairo && microdnf clean all
 USER 185
 RUN cd /usr/src/app/ && ./mvnw clean install -DskipTests -Dlib -Dcommunity-app $MAVEN_BUILD_EXTRA_ARGS
 
