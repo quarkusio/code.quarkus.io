@@ -2,7 +2,9 @@
 FROM registry.access.redhat.com/ubi8/openjdk-17:1.18 AS build
 ARG MAVEN_BUILD_EXTRA_ARGS=
 RUN echo "$MAVEN_BUILD_EXTRA_ARGS"
-
+USER root
+RUN microdnf install -y tar gzip && microdnf clean all
+USER 185
 COPY mvnw pom.xml maven-settings.xml* /usr/src/app/
 COPY acceptance-test/pom.xml /usr/src/app/acceptance-test/
 COPY .mvn /usr/src/app/.mvn
