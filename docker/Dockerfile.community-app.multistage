@@ -1,5 +1,5 @@
 ## Stage 1 : build with maven builder image
-FROM registry.access.redhat.com/ubi8/openjdk-21:1.18 AS build
+FROM registry.access.redhat.com/ubi9/openjdk-21:1.24 AS build
 ARG MAVEN_BUILD_EXTRA_ARGS=
 RUN echo "$MAVEN_BUILD_EXTRA_ARGS"
 USER root
