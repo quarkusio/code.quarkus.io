@@ -18,7 +18,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <hoverfly-java.version>0.20.2</hoverfly-java.version>
-        <assertj.version>3.27.6</assertj.version>
+        <assertj.version>3.27.7</assertj.version>
         <git.commit.id>local</git.commit.id>
         <!-- Quarkus devtools version -->
         <quarkus.devtools.version>${quarkus.platform.version}</quarkus.devtools.version>
@@ -27,7 +27,7 @@
         <quarkus.jgit.version>3.6.1</quarkus.jgit.version>
         <quarkus.logging.sentry.version>2.3.0</quarkus.logging.sentry.version>
         <quarkus.quinoa.version>2.0.5</quarkus.quinoa.version>
-        <segment-analytics.version>3.5.2</segment-analytics.version>
+        <segment-analytics.version>3.5.4</segment-analytics.version>
     </properties>
     <dependencyManagement>
         <dependencies>
