@@ -91,7 +91,7 @@ public class PlatformService {
             new Preset("webapp-qute", "Web app with ServerSide Rendering",
                     "/static/media/presets/webapp-qute_neg.svg",
                     List.of("io.quarkiverse.qute.web:quarkus-qute-web", "io.quarkiverse.web-bundler:quarkus-web-bundler")),
-            new Preset("ai-infused", "AI Infused service",
+            new Preset("ai-infused", "AI-Infused service",
                     "/static/media/presets/ai-infused_neg.svg",
                     List.of("io.quarkiverse.langchain4j:quarkus-langchain4j-openai",
                             "io.quarkiverse.langchain4j:quarkus-langchain4j-easy-rag")));
