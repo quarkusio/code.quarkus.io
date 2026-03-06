@@ -252,11 +252,13 @@ public class PlatformService {
                 String quarkusCoreVersion = stream.getRecommendedRelease().getQuarkusCoreVersion();
                 boolean recommended = stream.getId().equals(platform.getRecommendedStream().getId());
                 final String platformVersion = stream.getRecommendedRelease().getVersion().toString();
+                Stream.JavaCompatibility javaCompatibility = new Stream.JavaCompatibility(compatibleJavaLTSVersions, recommendedJavaVersion);
+                // Allow platform override to modify Java compatibility
+                javaCompatibility = getPlatformOverride().javaCompatibilityMapper(streamKey, javaCompatibility);
                 Stream streamInfo = Stream.builder()
                         .key(streamKey)
                         .quarkusCoreVersion(quarkusCoreVersion)
-                        .javaCompatibility(
-                                new Stream.JavaCompatibility(compatibleJavaLTSVersions, recommendedJavaVersion))
+                        .javaCompatibility(javaCompatibility)
                         .lts(lts)
                         .platformVersion(platformVersion)
                         .recommended(recommended)
