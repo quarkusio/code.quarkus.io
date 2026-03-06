@@ -3,6 +3,7 @@ package io.quarkus.code.service;
 import io.quarkus.code.model.CodeQuarkusExtension;
 import io.quarkus.code.model.Preset;
 import io.quarkus.code.model.ProjectDefinition;
+import io.quarkus.code.model.Stream;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -20,6 +21,8 @@ public interface PlatformOverride {
     void onNewProject(ProjectDefinition projectDefinition, Path dir);
 
     List<String> extensionTagsMapper(List<String> tags);
+
+    Stream.JavaCompatibility javaCompatibilityMapper(String streamKey, Stream.JavaCompatibility javaCompatibility);
 
     class DefaultPlatformOverride implements PlatformOverride {
 
@@ -44,6 +47,11 @@ public interface PlatformOverride {
         @Override
         public List<String> extensionTagsMapper(List<String> tags) {
             return tags.stream().filter(TAGS::contains).toList();
+        }
+
+        @Override
+        public Stream.JavaCompatibility javaCompatibilityMapper(String streamKey, Stream.JavaCompatibility javaCompatibility) {
+            return javaCompatibility;
         }
     }
 
