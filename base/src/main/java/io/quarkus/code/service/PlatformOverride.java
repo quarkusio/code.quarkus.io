@@ -24,6 +24,9 @@ public interface PlatformOverride {
 
     Stream.JavaCompatibility javaCompatibilityMapper(String streamKey, Stream.JavaCompatibility javaCompatibility);
 
+    Stream.BuildToolCompatibility buildToolCompatibilityMapper(String streamKey,
+            Stream.BuildToolCompatibility buildToolCompatibility);
+
     class DefaultPlatformOverride implements PlatformOverride {
 
         private static final Set<String> TAGS = Set.of(
@@ -52,6 +55,12 @@ public interface PlatformOverride {
         @Override
         public Stream.JavaCompatibility javaCompatibilityMapper(String streamKey, Stream.JavaCompatibility javaCompatibility) {
             return javaCompatibility;
+        }
+
+        @Override
+        public Stream.BuildToolCompatibility buildToolCompatibilityMapper(String streamKey,
+                Stream.BuildToolCompatibility buildToolCompatibility) {
+            return buildToolCompatibility;
         }
     }
 

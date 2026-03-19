@@ -211,7 +211,7 @@ public class PlatformService {
         }
         Map<String, PlatformInfo> updatedStreamCatalogMap = new HashMap<>();
         if (platformCatalog == null || platformCatalog.getMetadata() == null
-            || platformCatalog.getPlatforms() == null) {
+                || platformCatalog.getPlatforms() == null) {
             throw new RuntimeException("Platform catalog not found");
         }
 
@@ -220,7 +220,7 @@ public class PlatformService {
             throw new RuntimeException("Platform last updated date is empty");
         }
         if (platformServiceCacheRef.get() != null
-            && platformServiceCacheRef.get().platformTimestamp().equals(platformTimestamp)) {
+                && platformServiceCacheRef.get().platformTimestamp().equals(platformTimestamp)) {
             LOG.log(Level.FINE, "The platform cache is up to date with the registry");
             return;
         }
@@ -238,7 +238,8 @@ public class PlatformService {
                 String streamKey = createStreamKey(platformKey, streamId);
                 boolean lts = (boolean) stream.getMetadata().get("lts");
                 String minimumJavaVersion = getMinimumJavaVersion(extensionCatalog);
-                final Optional<String> catalogRecommendedJavaVersion = Optional.ofNullable(getRecommendedJavaVersion(extensionCatalog));
+                final Optional<String> catalogRecommendedJavaVersion = Optional
+                        .ofNullable(getRecommendedJavaVersion(extensionCatalog));
                 SortedSet<Integer> compatibleJavaLTSVersions = getCompatibleLTSVersions(
                         new JavaVersion(minimumJavaVersion));
                 if (catalogRecommendedJavaVersion.isPresent()) {
@@ -252,13 +253,20 @@ public class PlatformService {
                 String quarkusCoreVersion = stream.getRecommendedRelease().getQuarkusCoreVersion();
                 boolean recommended = stream.getId().equals(platform.getRecommendedStream().getId());
                 final String platformVersion = stream.getRecommendedRelease().getVersion().toString();
-                Stream.JavaCompatibility javaCompatibility = new Stream.JavaCompatibility(compatibleJavaLTSVersions, recommendedJavaVersion);
+                Stream.JavaCompatibility javaCompatibility = new Stream.JavaCompatibility(compatibleJavaLTSVersions,
+                        recommendedJavaVersion);
                 // Allow platform override to modify Java compatibility
                 javaCompatibility = getPlatformOverride().javaCompatibilityMapper(streamKey, javaCompatibility);
+                Stream.BuildToolCompatibility buildToolCompatibility = new Stream.BuildToolCompatibility(
+                        ProjectDefinition.ALL_BUILDTOOLS,
+                        ProjectDefinition.DEFAULT_BUILDTOOL);
+                // Allow platform override to restrict build tool compatibility
+                buildToolCompatibility = getPlatformOverride().buildToolCompatibilityMapper(streamKey, buildToolCompatibility);
                 Stream streamInfo = Stream.builder()
                         .key(streamKey)
                         .quarkusCoreVersion(quarkusCoreVersion)
                         .javaCompatibility(javaCompatibility)
+                        .buildToolCompatibility(buildToolCompatibility)
                         .lts(lts)
                         .platformVersion(platformVersion)
                         .recommended(recommended)

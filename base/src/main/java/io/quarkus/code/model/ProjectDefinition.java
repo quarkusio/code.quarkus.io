@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -42,10 +44,18 @@ public record ProjectDefinition(
         Objects.requireNonNull(extensions, "extensions is required");
     }
 
+    public static final String BUILDTOOL_MAVEN = "MAVEN";
+    public static final String BUILDTOOL_GRADLE = "GRADLE";
+    public static final String BUILDTOOL_GRADLE_KOTLIN_DSL = "GRADLE_KOTLIN_DSL";
+    public static final Set<String> ALL_BUILDTOOLS = new LinkedHashSet<>(List.of(
+            BUILDTOOL_MAVEN,
+            BUILDTOOL_GRADLE,
+            BUILDTOOL_GRADLE_KOTLIN_DSL));
+
     public static final String DEFAULT_GROUPID = "org.acme";
     public static final String DEFAULT_ARTIFACTID = "code-with-quarkus";
     public static final String DEFAULT_VERSION = "1.0.0-SNAPSHOT";
-    public static final String DEFAULT_BUILDTOOL = "MAVEN";
+    public static final String DEFAULT_BUILDTOOL = BUILDTOOL_MAVEN;
     public static final Boolean DEFAULT_NO_CODE = false;
     public static final String DEFAULT_NO_CODE_STRING = "false";
 
@@ -53,7 +63,8 @@ public record ProjectDefinition(
     public static final String ARTIFACTID_PATTERN = "^[a-z][a-z0-9-._]*$";
     public static final String CLASSNAME_PATTERN = GROUPID_PATTERN;
     public static final String PATH_PATTERN = "^\\/([a-z0-9\\-._~%!$&'()*+,;=:@]+\\/?)*$";
-    public static final String BUILDTOOL_PATTERN = "^(MAVEN)|(GRADLE)|(GRADLE_KOTLIN_DSL)$";
+    public static final String BUILDTOOL_PATTERN = "^(" + BUILDTOOL_MAVEN + ")|(" + BUILDTOOL_GRADLE + ")|("
+            + BUILDTOOL_GRADLE_KOTLIN_DSL + ")$";
 
     public static ProjectDefinition of() {
         return new ProjectDefinition(null, DEFAULT_GROUPID, DEFAULT_ARTIFACTID, DEFAULT_VERSION, null, null, DEFAULT_BUILDTOOL,

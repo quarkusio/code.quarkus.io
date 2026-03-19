@@ -71,6 +71,11 @@ export interface JavaCompatibility {
   recommended: number;
 }
 
+export interface BuildToolCompatibility {
+  tools: string[];
+  recommended: string;
+}
+
 export interface Stream {
   key: string;
   quarkusCoreVersion: string;
@@ -79,6 +84,7 @@ export interface Stream {
   status: string;
   lts: boolean;
   javaCompatibility: JavaCompatibility;
+  buildToolCompatibility: BuildToolCompatibility;
 }
 
 export interface Config {

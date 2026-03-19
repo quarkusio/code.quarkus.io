@@ -63,7 +63,7 @@ export const InfoPicker = (props: InfoPickerProps) => {
           onChange={onArtifactIdChange}
           isValid={isValidId(props.value.artifactId)}
         />
-        <BuildToolSelect onChange={onBuildToolChange} value={props.value.buildTool || 'MAVEN'}/>
+        <BuildToolSelect buildToolCompatibility={props.currentStream?.buildToolCompatibility} onChange={onBuildToolChange} value={props.value.buildTool || 'MAVEN'}/>
       </div>
       {optionalBool(showMoreOptions, true) && (
         <TogglePanel id="info-extended" mode="display" direction="horizontal" openLabel="More options" event="Extends app info" eventContext={{ location: 'info-picker' }}>

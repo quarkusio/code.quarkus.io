@@ -1,16 +1,21 @@
 package io.quarkus.code.model;
 
+import java.util.Set;
 import java.util.SortedSet;
 
 public record Stream(
         String key,
         String quarkusCoreVersion,
         JavaCompatibility javaCompatibility,
+        BuildToolCompatibility buildToolCompatibility,
         String platformVersion,
         boolean recommended,
         String status,
         boolean lts) {
     public static record JavaCompatibility(SortedSet<Integer> versions, int recommended) {
+    }
+
+    public static record BuildToolCompatibility(Set<String> tools, String recommended) {
     }
 
     public static StreamBuilder builder() {
@@ -21,6 +26,7 @@ public record Stream(
         private String key;
         private String quarkusCoreVersion;
         private JavaCompatibility javaCompatibility;
+        private BuildToolCompatibility buildToolCompatibility;
         private String platformVersion;
         private boolean recommended;
         private String status;
@@ -41,6 +47,11 @@ public record Stream(
 
         public StreamBuilder javaCompatibility(JavaCompatibility javaCompatibility) {
             this.javaCompatibility = javaCompatibility;
+            return this;
+        }
+
+        public StreamBuilder buildToolCompatibility(BuildToolCompatibility buildToolCompatibility) {
+            this.buildToolCompatibility = buildToolCompatibility;
             return this;
         }
 
@@ -65,7 +76,8 @@ public record Stream(
         }
 
         public Stream build() {
-            return new Stream(key, quarkusCoreVersion, javaCompatibility, platformVersion, recommended, status, lts);
+            return new Stream(key, quarkusCoreVersion, javaCompatibility, buildToolCompatibility, platformVersion, recommended,
+                    status, lts);
         }
 
     }
