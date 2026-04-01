@@ -20,12 +20,6 @@ public class ProjectDefinitionQuery {
     @Schema(description = "The platform stream to use to create this project ('platformKey:streamId' or 'streamId')", required = false)
     String streamKey;
 
-    // PŘIDÁNO: Mapování pro preset (používáme zkratku 'pr' v URL)
-    @QueryParam("pr")
-    @Parameter(name = "pr", description = "The preset id to use to create this project", required = false)
-    @Schema(description = "The preset id to use to create this project", required = false)
-    String preset;
-
     @DefaultValue(DEFAULT_GROUPID)
     @Pattern(regexp = GROUPID_PATTERN)
     @QueryParam("g")
@@ -96,7 +90,6 @@ public class ProjectDefinitionQuery {
     public ProjectDefinition toProjectDefinition() {
         return new ProjectDefinition(
                 streamKey,
-                preset, // PŘIDÁNO: Předáváme preset do konstruktoru
                 groupId,
                 artifactId,
                 version,

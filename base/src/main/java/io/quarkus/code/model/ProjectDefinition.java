@@ -1,6 +1,7 @@
 package io.quarkus.code.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
@@ -14,9 +15,6 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record ProjectDefinition(
         String streamKey,
-
-        // Přidáno pole pro preset
-        String preset,
 
         @NotEmpty @Pattern(regexp = GROUPID_PATTERN) String groupId,
 
@@ -58,8 +56,7 @@ public record ProjectDefinition(
     public static final String BUILDTOOL_PATTERN = "^(MAVEN)|(GRADLE)|(GRADLE_KOTLIN_DSL)$";
 
     public static ProjectDefinition of() {
-        return new ProjectDefinition(null, null, DEFAULT_GROUPID, DEFAULT_ARTIFACTID, DEFAULT_VERSION, null, null,
-                DEFAULT_BUILDTOOL,
+        return new ProjectDefinition(null, DEFAULT_GROUPID, DEFAULT_ARTIFACTID, DEFAULT_VERSION, null, null, DEFAULT_BUILDTOOL,
                 null, DEFAULT_NO_CODE, DEFAULT_NO_CODE, Set.of());
     }
 
@@ -71,7 +68,6 @@ public record ProjectDefinition(
     @JsonPOJOBuilder(withPrefix = "")
     public static final class Builder {
         private String streamKey = null;
-        private String preset = null; // Přidáno do Builderu
         private String groupId = DEFAULT_GROUPID;
         private String artifactId = DEFAULT_ARTIFACTID;
         private String version = DEFAULT_VERSION;
@@ -88,11 +84,6 @@ public record ProjectDefinition(
 
         public Builder streamKey(String streamKey) {
             this.streamKey = streamKey;
-            return this;
-        }
-
-        public Builder preset(String preset) { // Přidána metoda do Builderu
-            this.preset = preset;
             return this;
         }
 
@@ -147,9 +138,9 @@ public record ProjectDefinition(
         }
 
         public ProjectDefinition build() {
-            return new ProjectDefinition(streamKey, preset, groupId, artifactId, version, className, path, buildTool,
-                    javaVersion,
+            return new ProjectDefinition(streamKey, groupId, artifactId, version, className, path, buildTool, javaVersion,
                     noCode, noExamples, extensions);
         }
     }
+
 }

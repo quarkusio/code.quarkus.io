@@ -58,10 +58,7 @@ public class QuarkusProjectService {
             ProjectDefinition projectDefinition,
             boolean isGitHub,
             boolean silent) throws IOException, QuarkusCommandException {
-        // POUŽITÍ LOGIKY PRO NÁZEV ADRESÁŘE
-        String artifactId = getEffectiveArtifactId(projectDefinition);
-        Path location = Files.createTempDirectory("generated-").resolve(artifactId);
-
+        Path location = Files.createTempDirectory("generated-").resolve(projectDefinition.artifactId());
         createProject(platformInfo, projectDefinition, location, isGitHub, silent);
         if (platformOverride != null && platformOverride.isResolvable()) {
             platformOverride.get().onNewProject(projectDefinition, location);
@@ -106,12 +103,9 @@ public class QuarkusProjectService {
                     buildTool,
                     javaVersion,
                     messageWriter);
-
-            String artifactId = getEffectiveArtifactId(projectDefinition);
-
             CreateProject projectDefinitionCreateProject = new CreateProject(project)
                     .groupId(projectDefinition.groupId())
-                    .artifactId(artifactId)
+                    .artifactId(projectDefinition.artifactId())
                     .version(projectDefinition.version())
                     .resourcePath(projectDefinition.path())
                     .extraCodestarts(codestarts)
@@ -131,15 +125,6 @@ public class QuarkusProjectService {
         } catch (CodestartException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
-    }
-
-    private String getEffectiveArtifactId(ProjectDefinition projectDefinition) {
-        if (ProjectDefinition.DEFAULT_ARTIFACTID.equals(projectDefinition.artifactId())
-                && projectDefinition.preset() != null
-                && !projectDefinition.preset().isBlank()) {
-            return projectDefinition.preset();
-        }
-        return projectDefinition.artifactId();
     }
 
 }

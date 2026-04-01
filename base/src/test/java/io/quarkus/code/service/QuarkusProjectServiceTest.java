@@ -307,24 +307,4 @@ public class QuarkusProjectServiceTest {
     private QuarkusProjectService getProjectService() {
         return new QuarkusProjectService();
     }
-
-    @Test
-    @DisplayName("When using a preset, artifactId should match the presetId")
-    void testPresetAsArtifactId(TestInfo info) throws Throwable {
-
-        QuarkusProjectService creator = getProjectService();
-        String myPreset = "my-custom-preset";
-
-
-        var projectDef = ProjectDefinition.builder()
-          .preset(myPreset)
-          .build();
-        var projDir = creator.createTmp(platformService.recommendedPlatformInfo(), projectDef);
-
-
-        assertThat(projDir.getFileName().toString()).isEqualTo(myPreset);
-
-        assertThat(projDir.resolve("pom.xml"))
-          .satisfies(checkContains("<artifactId>%s</artifactId>".formatted(myPreset)));
-    }
 }
