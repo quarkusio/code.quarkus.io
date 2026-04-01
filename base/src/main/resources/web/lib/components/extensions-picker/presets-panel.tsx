@@ -1,14 +1,14 @@
+import * as React from 'react';
 import styled from 'styled-components';
-import {TagEntry} from "./extensions-picker";
-import {Platform, Preset} from "../api/model";
-
-import {useAnalytics} from "../../core/analytics";
+import { Platform, Preset, QuarkusProject } from "../api/model";
+import { useAnalytics } from "../../core/analytics";
 
 interface PresetsProps {
-  platform: Platform,
-  select?: (id: string, type: string) => void
+  platform: Platform;
+  project: QuarkusProject;
+  setProject: React.Dispatch<React.SetStateAction<QuarkusProject>>;
+  select: (id: string, type: string) => void;
 }
-
 
 const PresetsPanelDiv = styled.div`
     background-color: var(--presetsPanelBg);
@@ -22,7 +22,7 @@ const PresetsPanelDiv = styled.div`
         padding: 10px;
         background-color: var(--presetsPanelBg);
         color: var(--presetsTitleTextColor);
-        
+
         .extension-icon {
             margin-right: 3px;
         }
@@ -44,7 +44,7 @@ const PresetsPanelDiv = styled.div`
         padding: 20px;
         cursor: pointer;
     }
-    
+
     .preset-card:hover {
         background-color: var(--presetsCardHoverBackgroundColor);
     }
@@ -62,13 +62,12 @@ const PresetsPanelDiv = styled.div`
     .preset-icon img {
         width: 90px;
     }
-    
 `;
 
 export const PresetCard = (props: { preset: Preset, onClick?: () => void }) => {
   return (
     <div className="preset-card" onClick={props.onClick} aria-label={`Select ${props.preset.key} preset`}>
-      <div className="preset-icon"><img src={props.preset.icon}/></div>
+      <div className="preset-icon"><img src={props.preset.icon} alt={props.preset.title}/></div>
       <div className="preset-title">{props.preset.title}</div>
     </div>
   );
@@ -84,8 +83,22 @@ export const PresetsPanel = (props: PresetsProps) => {
 
   const selectPreset = (preset: Preset) => {
     analytics.event('Select preset', {preset: preset.key, ...context});
+
+
     preset.extensions.forEach(e => props.select(e, "presets"));
+
+
+    if (props.project.metadata.artifactId === 'code-with-quarkus') {
+      props.setProject(prev => ({
+        ...prev,
+        metadata: {
+          ...prev.metadata,
+          artifactId: preset.key
+        }
+      }));
+    }
   };
+
   return (
     <PresetsPanelDiv className="presets-panel">
       <div className="panel-title main-title"><span className="extension-icon"></span>&nbsp;Start with a preset of extensions</div>
