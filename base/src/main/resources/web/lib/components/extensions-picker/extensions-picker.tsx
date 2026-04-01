@@ -173,10 +173,22 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
       <div className="main-container responsive-container">
         {showPresets ? (
           <div className="extension-picker-summary">
-            {props.project.extensions.length === 0 ?
-              <PresetsPanel platform={props.platform} select={addById}/> :
-              <SelectedExtensions platform={props.platform} extensions={extensions} tagsDef={props.tagsDef} remove={removeById} layout="picker"/>
-            }
+            {props.project && props.project.extensions.length === 0 ? (
+              <PresetsPanel
+                platform={props.platform}
+                select={addById}
+                project={props.project}
+                setProject={(props as any).setProject}
+              />
+            ) : (
+              <SelectedExtensions
+                platform={props.platform}
+                extensions={extensions}
+                tagsDef={props.tagsDef}
+                remove={removeById}
+                layout="picker"
+              />
+            )}
           </div>
 
         ) : (
@@ -219,4 +231,3 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     </div>
   );
 };
-
