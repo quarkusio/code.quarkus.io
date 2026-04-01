@@ -3,6 +3,7 @@ package io.quarkus.code.service;
 import io.quarkus.code.config.CodeQuarkusConfig;
 import io.quarkus.code.misc.QuarkusProjectTestUtils;
 import io.quarkus.code.model.ProjectDefinition;
+import io.quarkus.code.model.Stream;
 import io.quarkus.devtools.commands.data.QuarkusCommandException;
 import io.quarkus.test.junit.QuarkusTest;
 import org.apache.commons.compress.archivers.ArchiveException;
@@ -101,12 +102,24 @@ public class QuarkusProjectServiceTest {
     }
 
     @Test
-    @DisplayName("When using 3.15 project, then, it should create all the files correctly with the requested content")
-    void test3__15(TestInfo info) throws Throwable {
+    @DisplayName("When using a non-recommended stream, then, it should create all the files correctly with the requested content")
+    void testNonRecommendedStream(TestInfo info) throws Throwable {
+        // Find a non-recommended stream
+        String nonRecommendedStreamKey = platformService.streams().stream()
+                .filter(s -> !s.recommended())
+                .map(Stream::key)
+                .findFirst()
+                .orElse(null);
+        if (nonRecommendedStreamKey == null) {
+            // Only one stream available, skip this test
+            return;
+        }
+
         // When
         QuarkusProjectService creator = getProjectService();
-        PlatformInfo platformInfo = platformService.platformInfo("3.15");
-        Path projDir = creator.createTmp(platformInfo, ProjectDefinition.builder().streamKey("3.15").build());
+        PlatformInfo platformInfo = platformService.platformInfo(nonRecommendedStreamKey);
+        Path projDir = creator.createTmp(platformInfo,
+                ProjectDefinition.builder().streamKey(nonRecommendedStreamKey).build());
 
         // Then
         assertThatDirectoryTreeMatchSnapshots(info, projDir);
@@ -124,7 +137,7 @@ public class QuarkusProjectServiceTest {
                 .satisfies(checkContains("<groupId>io.quarkus</groupId>"))
                 .satisfies(checkContains("<artifactId>quarkus-rest</artifactId>"))
                 .satisfies(checkContains("<maven.compiler.release>%s</maven.compiler.release>"
-                        .formatted(platformService.platformInfo("3.15").stream().javaCompatibility().recommended())))
+                        .formatted(platformInfo.stream().javaCompatibility().recommended())))
                 .satisfies(checkContains("<artifactId>rest-assured</artifactId>"));
 
         assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/GreetingResource.java")
