@@ -64,11 +64,17 @@ export interface Platform {
   streams: Stream[];
   presets: Preset[];
   tagsDef: Tag[];
+  buildToolConfig?: BuildToolCompatibility;
 }
 
 export interface JavaCompatibility {
   versions: number[];
   recommended: number;
+}
+
+export interface BuildToolCompatibility {
+  tools: string[];
+  recommended: string;
 }
 
 export interface Stream {
