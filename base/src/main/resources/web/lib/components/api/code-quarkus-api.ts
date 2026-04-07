@@ -1,4 +1,4 @@
-import { Config, Platform, Tag } from './model';
+import { BuildToolCompatibility, Config, Platform, Tag } from './model';
 import _ from "lodash";
 
 let platformCache: Map<string, Platform> = new Map<string, Platform>();
@@ -8,6 +8,7 @@ export interface Api {
   backendUrl: string;
   clientName: string;
   tagsDef?: Tag[];
+  buildToolConfig?: BuildToolCompatibility;
   requestOptions: RequestInit;
 }
 
@@ -80,7 +81,8 @@ export async function fetchPlatform(api: Api, streamKey?: string, platformOnly: 
     extensionById: _.keyBy(json[0], ({id}) => id),
     streams: json[1],
     presets: json[2],
-    tagsDef: api.tagsDef || DEFAULT_TAGS
+    tagsDef: api.tagsDef || DEFAULT_TAGS,
+    buildToolConfig: api.buildToolConfig
   };
   platformCache.set(cacheKey, platform);
   return platform;
