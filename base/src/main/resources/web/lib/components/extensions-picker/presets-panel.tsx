@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Platform, Preset, QuarkusProject } from "../api/model";
 import { useAnalytics } from "../../core/analytics";
+import { DEFAULT_ARTIFACT_ID } from '../api/quarkus-project-utils';
 
 interface PresetsProps {
   platform: Platform;
@@ -84,11 +85,11 @@ export const PresetsPanel = (props: PresetsProps) => {
   const selectPreset = (preset: Preset) => {
     analytics.event('Select preset', {preset: preset.key, ...context});
 
-
+    // 1. Vybrat rozšíření
     preset.extensions.forEach(e => props.select(e, "presets"));
 
-
-    if (props.project.metadata.artifactId === 'code-with-quarkus') {
+    // 2. Pokud je název výchozí, změnit ho podle presetu
+    if (props.project.metadata.artifactId === DEFAULT_ARTIFACT_ID) {
       props.setProject(prev => ({
         ...prev,
         metadata: {

@@ -3,12 +3,13 @@ import {Extension, PlatformMappedExtensions, QuarkusProject, Platform, Stream } 
 import _ from 'lodash';
 import {Api} from './code-quarkus-api';
 
+export const DEFAULT_ARTIFACT_ID = 'code-with-quarkus';
 
-const ERROR_STREAM: Stream = { 
-  key: 'recommended.not.found:stream', 
-  quarkusCoreVersion: 'error', 
-  recommended: true, 
-  status: 'NOT_FOUND', 
+const ERROR_STREAM: Stream = {
+  key: 'recommended.not.found:stream',
+  quarkusCoreVersion: 'error',
+  recommended: true,
+  status: 'NOT_FOUND',
   platformVersion: 'error',
   lts: false,
   javaCompatibility: { versions: [], recommended: -1 }
@@ -211,7 +212,7 @@ export function newDefaultProject(): QuarkusProject {
   return ({
     metadata: {
       groupId: 'org.acme',
-      artifactId: 'code-with-quarkus',
+      artifactId: DEFAULT_ARTIFACT_ID,
       version: '1.0.0-SNAPSHOT',
       buildTool: 'MAVEN',
       noCode: false
