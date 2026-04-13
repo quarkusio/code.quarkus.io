@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.quarkus.code</groupId>
     <artifactId>code-quarkus-parent</artifactId>
-    <version>72-SNAPSHOT</version>
+    <version>73-SNAPSHOT</version>
     <packaging>pom</packaging>
     <properties>
         <code-quarkus.version>${project.version}</code-quarkus.version>
@@ -17,11 +17,11 @@
 
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-        <quarkus.platform.version>3.32.1</quarkus.platform.version>
+        <quarkus.platform.version>3.34.1</quarkus.platform.version>
 
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.5.5</surefire-plugin.version>
-        <quarkus-web-bundler.version>2.0.4</quarkus-web-bundler.version>
+        <quarkus-web-bundler.version>2.3.0</quarkus-web-bundler.version>
         <quarkus-playwright.version>2.3.1</quarkus-playwright.version>
         <quarkus.qute-web.version>3.4.4</quarkus.qute-web.version>
 

@@ -3,7 +3,7 @@ FROM registry.access.redhat.com/ubi9/openjdk-21:1.24 AS build
 ARG MAVEN_BUILD_EXTRA_ARGS=
 RUN echo "$MAVEN_BUILD_EXTRA_ARGS"
 USER root
-RUN microdnf install -y tar gzip && microdnf clean all
+RUN microdnf install -y unzip && microdnf clean all
 USER 185
 COPY mvnw pom.xml maven-settings.xml* /usr/src/app/
 COPY acceptance-test/pom.xml /usr/src/app/acceptance-test/
