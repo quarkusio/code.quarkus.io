@@ -75,7 +75,7 @@ export function ExtensionRow(props: ExtensionRowProps) {
         <span className="extension-name" title={`${props.name} (${props.version})`}>{props.name}</span>
         <span className="extension-id" title={props.id}> [{id}]</span>
         <ExtensionsOrigin platform={props.platform} />
-        {props.tags && props.tags.map((s, i) => <ExtensionTags key={i} tagsDef={props.tagsDef} name={s} hover={hover}/>)}
+        <ExtensionTags tags={props.tags} tagsDef={props.tagsDef} hover={hover} />
       </div>
 
       {props.layout === 'cart' && !props.transitive && (
