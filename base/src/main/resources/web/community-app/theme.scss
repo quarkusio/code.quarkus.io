@@ -86,7 +86,6 @@
   // Extensions picker
   --originPlatformColor: #cd54e1;
 
-
   --extensionsPickerTextColor: var(--mainContainerTextColor);
   --extensionsPickerIdTextColor: var(--primary);
   --extensionsPickerListBg: var(--background3);
@@ -168,4 +167,9 @@
   --blurbTextColor: var(--textColor);;
   --blurbLinkTextColor: var(--linkTextColor);
   --blurbInfoIconColor: var(--primary);
+
+  // Tags namespace
+  --tagNameColor: var(--primary);
+  --tagNameBackground: var(--background2);
+  --tagNameBorder: none; // Use format: "1px solid #color" for borders
 }

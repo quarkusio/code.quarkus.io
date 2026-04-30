@@ -40,6 +40,7 @@ export interface TagEntry {
   border?: string;
   background?: string;
   hide?: boolean;
+  showFullName?: boolean;
 }
 
 export interface ExtensionsPickerValue {

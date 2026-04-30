@@ -2,6 +2,7 @@ import React from 'react';
 import { TagEntry } from './extensions-picker';
 import { Dropdown } from 'react-bootstrap';
 import { HoverControlledDropdown } from '../../core/components';
+import './extension-tag.scss';
 
 export function ExtensionTag(props: { name: string; tagsDef: TagEntry[]; hover: boolean }) {
   const tagDef = props.tagsDef.find(t => t.name === props.name) || {
@@ -13,12 +14,35 @@ export function ExtensionTag(props: { name: string; tagsDef: TagEntry[]; hover: 
   }
   let s = props.name.split(':');
   const key = s.length > 1 ? s[1] : s[0];
-  const tag = (
-    <
-    >
-      {key.toUpperCase()}
-    </>
-  );
+  const displayText = tagDef.showFullName ? props.name : key;
+
+  // Check if we should render with full name (name:value split)
+  const hasFullName = tagDef.showFullName && s.length > 1;
+
+  let tag;
+  if (hasFullName) {
+    const valueStyle: {backgroundColor?: string; color?: string} = {};
+    if (tagDef.background) {
+      valueStyle.backgroundColor = tagDef.background;
+    }
+    if (tagDef.color) {
+      valueStyle.color = tagDef.color;
+    }
+
+    tag = (
+      <>
+        <span className="extension-tag-name">{s[0].toUpperCase()}</span>
+        <span className="extension-tag-value" style={valueStyle}>{s[1].toUpperCase()}</span>
+      </>
+    );
+  } else {
+    tag = (
+      <>
+        {displayText.toUpperCase()}
+      </>
+    );
+  }
+
   const tooltip = !props.hover ? '': (
     <>
       [{props.name}] - {tagDef.description}
@@ -36,13 +60,18 @@ export function ExtensionTag(props: { name: string; tagsDef: TagEntry[]; hover: 
     style.border = '1px solid ' + tagDef.border;
   }
 
-  if (tagDef.background) {
-    style.backgroundColor = tagDef.background;
+  // Only apply single-color styles if not using full name mode
+  if (!hasFullName) {
+    if (tagDef.background) {
+      style.backgroundColor = tagDef.background;
+    }
+
+    if (tagDef.color) {
+      style.color = tagDef.color;
+    }
   }
 
-  if (tagDef.color) {
-    style.color = tagDef.color;
-  }
+  const containerClass = `extension-tag ${props.name.toLowerCase().replace(":", "-")}${hasFullName ? ' extension-tag-full-name' : ''}`;
 
   return (
     <HoverControlledDropdown
@@ -51,7 +80,7 @@ export function ExtensionTag(props: { name: string; tagsDef: TagEntry[]; hover: 
       delay={{ show: 200, hide: 0 }}
     >
       <Dropdown.Toggle as="div"
-        className={`extension-tag ${props.name.toLowerCase().replace(":", "-")}`}
+        className={containerClass}
         style={style}>{tag}</Dropdown.Toggle>
       <Dropdown.Menu>{tooltip}</Dropdown.Menu>
     </HoverControlledDropdown>
