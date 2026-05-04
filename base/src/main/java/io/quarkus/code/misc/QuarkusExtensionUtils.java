@@ -77,7 +77,9 @@ public class QuarkusExtensionUtils {
         var data = extension.getSyntheticMetadata();
         for (var entry : data.entrySet()) {
             if (TAG_KEYS.stream().anyMatch(it -> entry.getKey().matches(it)) && !entry.getValue().isEmpty()) {
-                tags.add(entry.getKey() + ":" + entry.getValue().iterator().next());
+                for (String value : entry.getValue()) {
+                    tags.add(entry.getKey() + ":" + value);
+                }
             }
         }
         return tags;
