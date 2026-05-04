@@ -85,10 +85,8 @@ export const PresetsPanel = (props: PresetsProps) => {
   const selectPreset = (preset: Preset) => {
     analytics.event('Select preset', {preset: preset.key, ...context});
 
-    // 1. Vybrat rozšíření
     preset.extensions.forEach(e => props.select(e, "presets"));
 
-    // 2. Pokud je název výchozí, změnit ho podle presetu
     if (props.project.metadata.artifactId === DEFAULT_ARTIFACT_ID) {
       props.setProject(prev => ({
         ...prev,
