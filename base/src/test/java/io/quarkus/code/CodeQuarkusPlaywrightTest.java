@@ -6,6 +6,7 @@ import com.microsoft.playwright.ElementHandle;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Response;
 import com.microsoft.playwright.options.WaitForSelectorState;
+import io.quarkiverse.playwright.BrowserContextConfig;
 import io.quarkiverse.playwright.InjectPlaywright;
 import io.quarkiverse.playwright.WithPlaywright;
 import io.quarkus.code.model.ExtensionRef;
@@ -27,7 +28,7 @@ import static io.quarkus.code.SnapshotTesting.assertThatMatchSnapshot;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
-@WithPlaywright(verbose = true, slowMo = 150)
+@WithPlaywright(verbose = true, slowMo = 150, browserContext = @BrowserContextConfig(viewportSize = @BrowserContextConfig.ViewportSize(width = 1280, height = 720)))
 @TestProfile(CodeQuarkusPlaywrightTest.PlaywrightTestProfile.class)
 public class CodeQuarkusPlaywrightTest {
 
