@@ -1,0 +1,20 @@
+.extension-tag {
+  &-name {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding: 0 7px;
+    background-color: var(--tagNameBackground);
+    color: var(--tagNameColor);
+    border: var(--tagNameBorder);
+  }
+
+  &-value {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    padding: 0 7px;
+  }
+
+  &-full-name {
+    padding: 0;
+  }
+}
