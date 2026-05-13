@@ -8,7 +8,9 @@ metadata:
     pipelinesascode.tekton.dev/cancel-in-progress: "false"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch
-      == "main"
+      == "main" && !body.head_commit.message.startsWith("Bump") && (".tekton/code-quarkus-acceptance-test-**".pathChanged()
+      || "acceptance-test/**".pathChanged() || "docker/Dockerfile.acceptance-test.multistage".pathChanged()
+      || "pom.xml".pathChanged())
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: code-quarkus-community
@@ -24,6 +26,9 @@ spec:
     value: '{{revision}}'
   - name: output-image
     value: quay.io/quarkus/code-quarkus-acceptance-test:{{revision}}
+  - name: build-args
+    value:
+    - MAVEN_BUILD_EXTRA_ARGS=-Dgit.commit.id={{revision}}
   - name: dockerfile
     value: docker/Dockerfile.acceptance-test.multistage
   - name: path-context
@@ -447,6 +452,9 @@ spec:
         value: $(tasks.build-image-index.results.IMAGE_URL)
       - name: IMAGE_DIGEST
         value: $(tasks.build-image-index.results.IMAGE_DIGEST)
+      - name: ADDITIONAL_TAGS
+        value:
+        - latest
       runAfter:
       - build-image-index
       taskRef:
