@@ -1,0 +1,36 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "groupName": "quarkus",
+      "matchPackagePatterns": ["^io\\.quarkus", "^quarkus"]
+    },
+    {
+      "groupName": "quarkiverse",
+      "matchPackagePatterns": ["^io\\.quarkiverse"]
+    },
+    {
+      "groupName": "mvnpm",
+      "matchPackagePatterns": ["^org\\.mvnpm"],
+      "excludePackageNames": [
+        "org.mvnpm:react",
+        "org.mvnpm:react-dom",
+        "org.mvnpm:react-bootstrap",
+        "org.mvnpm:classnames",
+        "org.mvnpm:hooks"
+      ]
+    },
+    {
+      "description": "Block major updates for react-bootstrap compat-sensitive deps",
+      "matchPackageNames": [
+        "org.mvnpm:react",
+        "org.mvnpm:react-dom",
+        "org.mvnpm:react-bootstrap",
+        "org.mvnpm:classnames",
+        "org.mvnpm:hooks"
+      ],
+      "matchUpdateTypes": ["major", "minor"],
+      "enabled": false
+    }
+  ]
+}
