@@ -54,6 +54,7 @@ interface ExtensionsPickerProps extends InputProps<ExtensionsPickerValue> {
   placeholder: string;
   buildTool: string;
   project?: QuarkusProject;
+  setProject?: React.Dispatch<React.SetStateAction<QuarkusProject>>;
   platform: Platform;
 
   filter: string;
@@ -179,7 +180,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
                 platform={props.platform}
                 select={addById}
                 project={props.project}
-                setProject={(props as any).setProject}
+                setProject={props.setProject!}
               />
             ) : (
               <SelectedExtensions

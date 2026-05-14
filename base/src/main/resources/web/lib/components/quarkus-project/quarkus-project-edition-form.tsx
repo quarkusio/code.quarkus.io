@@ -100,6 +100,7 @@ export function CodeQuarkusForm(props: CodeQuarkusFormProps) {
           placeholder="Start typing to search extensions by name or category: REST, Hibernate, AI, Web, CLI…"
           buildTool={props.project.metadata.buildTool}
           project={props.project}
+          setProject={setProject}
           filter={filter}
           setFilter={setFilter}
         />
