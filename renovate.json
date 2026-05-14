@@ -3,21 +3,26 @@
   "packageRules": [
     {
       "groupName": "quarkus",
-      "matchPackagePatterns": ["^io\\.quarkus", "^quarkus"]
+      "matchPackageNames": [
+        "/^io\\.quarkus/",
+        "/^quarkus/"
+      ]
     },
     {
       "groupName": "quarkiverse",
-      "matchPackagePatterns": ["^io\\.quarkiverse"]
+      "matchPackageNames": [
+        "/^io\\.quarkiverse/"
+      ]
     },
     {
       "groupName": "mvnpm",
-      "matchPackagePatterns": ["^org\\.mvnpm"],
-      "excludePackageNames": [
-        "org.mvnpm:react",
-        "org.mvnpm:react-dom",
-        "org.mvnpm:react-bootstrap",
-        "org.mvnpm:classnames",
-        "org.mvnpm:hooks"
+      "matchPackageNames": [
+        "/^org\\.mvnpm/",
+        "!org.mvnpm:react",
+        "!org.mvnpm:react-dom",
+        "!org.mvnpm:react-bootstrap",
+        "!org.mvnpm:classnames",
+        "!org.mvnpm:hooks"
       ]
     },
     {
@@ -29,7 +34,10 @@
         "org.mvnpm:classnames",
         "org.mvnpm:hooks"
       ],
-      "matchUpdateTypes": ["major", "minor"],
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
       "enabled": false
     }
   ]
