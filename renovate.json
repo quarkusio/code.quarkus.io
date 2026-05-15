@@ -28,6 +28,13 @@
       ]
     },
     {
+      "groupName": "playwright",
+      "matchPackageNames": [
+        "mcr.microsoft.com/playwright",
+        "com.microsoft.playwright:playwright"
+      ]
+    },
+    {
       "description": "Block major/minor updates for react-bootstrap compat-sensitive deps",
       "matchPackageNames": [
         "org.mvnpm:react",
