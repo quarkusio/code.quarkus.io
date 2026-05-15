@@ -71,7 +71,7 @@
         <dependency>
             <groupId>org.mvnpm</groupId>
             <artifactId>react-hotkeys-hook</artifactId>
-            <version>4.5.0</version>
+            <version>5.3.2</version>
             <classifier>sources</classifier>
         </dependency>
         <dependency>
@@ -87,7 +87,7 @@
         <dependency>
             <groupId>org.mvnpm</groupId>
             <artifactId>copy-to-clipboard</artifactId>
-            <version>3.3.3</version>
+            <version>4.0.2</version>
             <classifier>sources</classifier>
         </dependency>
         <dependency>
@@ -98,7 +98,7 @@
         <dependency>
             <groupId>org.mvnpm.at.sentry</groupId>
             <artifactId>browser</artifactId>
-            <version>7.110.1</version>
+            <version>10.53.1</version>
         </dependency>
         <dependency>
             <groupId>org.mvnpm.at.segment</groupId>
