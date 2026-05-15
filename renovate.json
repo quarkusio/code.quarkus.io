@@ -22,22 +22,21 @@
         "!org.mvnpm:react-dom",
         "!org.mvnpm:react-bootstrap",
         "!org.mvnpm:classnames",
-        "!org.mvnpm:hooks"
+        "!org.mvnpm:hooks",
+        "!org.mvnpm.at.types:react"
       ]
     },
     {
-      "description": "Block major updates for react-bootstrap compat-sensitive deps",
+      "description": "Block major/minor updates for react-bootstrap compat-sensitive deps",
       "matchPackageNames": [
         "org.mvnpm:react",
         "org.mvnpm:react-dom",
         "org.mvnpm:react-bootstrap",
         "org.mvnpm:classnames",
-        "org.mvnpm:hooks"
+        "org.mvnpm:hooks",
+        "org.mvnpm.at.types:react"
       ],
-      "matchUpdateTypes": [
-        "major",
-        "minor"
-      ],
+      "matchUpdateTypes": ["major", "minor"],
       "enabled": false
     }
   ]
