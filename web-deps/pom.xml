@@ -8,7 +8,7 @@
     <parent>
         <groupId>io.quarkus.code</groupId>
         <artifactId>code-quarkus-parent</artifactId>
-        <version>75-SNAPSHOT</version>
+        <version>76-SNAPSHOT</version>
     </parent>
     <dependencyManagement>
         <dependencies>
