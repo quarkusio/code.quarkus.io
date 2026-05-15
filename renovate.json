@@ -23,7 +23,8 @@
         "!org.mvnpm:react-bootstrap",
         "!org.mvnpm:classnames",
         "!org.mvnpm:hooks",
-        "!org.mvnpm.at.types:react"
+        "!org.mvnpm.at.types:react",
+        "!org.mvnpm:styled-components"
       ]
     },
     {
@@ -34,7 +35,8 @@
         "org.mvnpm:react-bootstrap",
         "org.mvnpm:classnames",
         "org.mvnpm:hooks",
-        "org.mvnpm.at.types:react"
+        "org.mvnpm.at.types:react",
+        "org.mvnpm:styled-components"
       ],
       "matchUpdateTypes": ["major", "minor"],
       "enabled": false
