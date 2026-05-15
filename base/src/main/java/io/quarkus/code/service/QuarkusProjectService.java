@@ -22,7 +22,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Logger;
 
 @Singleton
 public class QuarkusProjectService {
@@ -92,11 +91,8 @@ public class QuarkusProjectService {
                     "This Java version is not yet compatible with Kotlin and Scala using Quarkus (max:"
                             + JavaVersion.MAX_LTS_SUPPORTED_BY_KOTLIN + "): " + javaVersionString);
         }
-        MessageWriter messageWriter = silent ? MessageWriter.info(new PrintStream(new OutputStream() {
-            public void write(int b) {
-            }
-        })) : MessageWriter.info();
-        try {
+        try (PrintStream out = createPrintStream(silent)) {
+            MessageWriter messageWriter = createMessageWriter(out);
             QuarkusProject project = QuarkusProjectHelper.getProject(
                     projectFolderPath,
                     platformInfo.extensionCatalog(),
@@ -125,6 +121,20 @@ public class QuarkusProjectService {
         } catch (CodestartException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
+    }
+
+    private static PrintStream createPrintStream(boolean silent) {
+        if (silent) {
+            return new PrintStream(new OutputStream() {
+                public void write(int b) {
+                }
+            });
+        }
+        return null;
+    }
+
+    private static MessageWriter createMessageWriter(PrintStream out) {
+        return out != null ? MessageWriter.info(out) : MessageWriter.info();
     }
 
 }
