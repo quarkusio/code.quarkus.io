@@ -21,7 +21,7 @@
             <dependency>
                 <groupId>org.mvnpm.at.restart</groupId>
                 <artifactId>hooks</artifactId>
-                <version>0.4.16</version>
+                <version>0.6.2</version>
             </dependency>
             <dependency>
                 <groupId>org.mvnpm</groupId>
@@ -40,12 +40,12 @@
         <dependency>
             <groupId>org.mvnpm</groupId>
             <artifactId>lodash</artifactId>
-            <version>4.17.21</version>
+            <version>4.18.1</version>
         </dependency>
         <dependency>
             <groupId>org.mvnpm.at.types</groupId>
             <artifactId>lodash</artifactId>
-            <version>4.17.0</version>
+            <version>4.17.24</version>
         </dependency>
         <dependency>
             <groupId>org.mvnpm</groupId>
@@ -71,18 +71,18 @@
         <dependency>
             <groupId>org.mvnpm</groupId>
             <artifactId>react-hotkeys-hook</artifactId>
-            <version>4.5.0</version>
+            <version>4.6.1</version>
             <classifier>sources</classifier>
         </dependency>
         <dependency>
             <groupId>org.mvnpm</groupId>
             <artifactId>react-icons</artifactId>
-            <version>5.5.0</version>
+            <version>5.6.0</version>
         </dependency>
         <dependency>
             <groupId>org.mvnpm</groupId>
             <artifactId>styled-components</artifactId>
-            <version>6.1.12</version>
+            <version>6.4.1</version>
         </dependency>
         <dependency>
             <groupId>org.mvnpm</groupId>
@@ -98,12 +98,12 @@
         <dependency>
             <groupId>org.mvnpm.at.sentry</groupId>
             <artifactId>browser</artifactId>
-            <version>7.110.1</version>
+            <version>7.114.0</version>
         </dependency>
         <dependency>
             <groupId>org.mvnpm.at.segment</groupId>
             <artifactId>analytics-next</artifactId>
-            <version>1.62.0</version>
+            <version>1.84.0</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.mvnpm</groupId>
