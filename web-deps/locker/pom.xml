@@ -905,7 +905,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>postcss</artifactId>
-        <version>8.5.14</version>
+        <version>8.5.15</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
