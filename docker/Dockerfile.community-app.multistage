@@ -20,7 +20,7 @@ USER 185
 RUN cd /usr/src/app/ && ./mvnw clean install -DskipTests -Dlib -Dcommunity-app $MAVEN_BUILD_EXTRA_ARGS
 
 ## Stage 2 : create the docker final image
-FROM registry.access.redhat.com/ubi8/openjdk-21:1.23-4.1778494660
+FROM registry.access.redhat.com/ubi8/openjdk-21:1.23-4.1778751353
 
 ARG MAVEN_EXTRA_ARGS=
 RUN echo "$MAVEN_EXTRA_ARGS"
