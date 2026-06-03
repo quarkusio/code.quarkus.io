@@ -253,8 +253,18 @@ public class CodeQuarkusResource {
                     || projectDefinition.noExamples() != ProjectDefinition.DEFAULT_NO_CODE) {
                 params.add(new BasicNameValuePair("nc", String.valueOf(!ProjectDefinition.DEFAULT_NO_CODE)));
             }
+            if (projectDefinition.noWrapper() != ProjectDefinition.DEFAULT_NO_WRAPPER) {
+                params.add(new BasicNameValuePair("nw", String.valueOf(projectDefinition.noWrapper())));
+            }
+            if (projectDefinition.noDockerfiles() != ProjectDefinition.DEFAULT_NO_DOCKERFILES) {
+                params.add(new BasicNameValuePair("ndf", String.valueOf(projectDefinition.noDockerfiles())));
+            }
             if (!projectDefinition.extensions().isEmpty()) {
                 projectDefinition.extensions().forEach(extension -> params.add(new BasicNameValuePair("e", extension)));
+            }
+            if (!projectDefinition.codestartData().isEmpty()) {
+                projectDefinition.codestartData()
+                        .forEach((k, v) -> params.add(new BasicNameValuePair("cd", k + "=" + v)));
             }
             if (projectDefinition.path() != null) {
                 params.add(new BasicNameValuePair("p", projectDefinition.path()));
