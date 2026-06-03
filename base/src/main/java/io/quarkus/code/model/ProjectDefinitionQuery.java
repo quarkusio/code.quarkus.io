@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.QueryParam;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 
 import static io.quarkus.code.model.ProjectDefinition.*;
@@ -82,10 +84,38 @@ public class ProjectDefinitionQuery {
     @Schema(description = "The Java version for the generation application", required = false)
     Integer javaVersion;
 
+    @DefaultValue(DEFAULT_NO_WRAPPER_STRING)
+    @QueryParam("nw")
+    @Parameter(name = "nw", description = "No build tool wrapper", required = false)
+    @Schema(description = "No build tool wrapper", required = false, defaultValue = DEFAULT_NO_WRAPPER_STRING)
+    boolean noWrapper = DEFAULT_NO_WRAPPER;
+
+    @DefaultValue(DEFAULT_NO_DOCKERFILES_STRING)
+    @QueryParam("ndf")
+    @Parameter(name = "ndf", description = "No Dockerfiles", required = false)
+    @Schema(description = "No Dockerfiles", required = false, defaultValue = DEFAULT_NO_DOCKERFILES_STRING)
+    boolean noDockerfiles = DEFAULT_NO_DOCKERFILES;
+
     @QueryParam("e")
     @Parameter(name = "e", description = "The set of extension ids that will be included in the generated application", required = false)
     @Schema(description = "The set of extension ids that will be included in the generated application", required = false)
     Set<String> extensions = Set.of();
+
+    @QueryParam("cd")
+    @Parameter(name = "cd", description = "Codestart data (key=value format, e.g. cd=my.key=myvalue)", required = false)
+    @Schema(description = "Codestart data (key=value format, e.g. cd=my.key=myvalue)", required = false)
+    Set<String> codestartData = Set.of();
+
+    static Map<String, String> parseCodestartData(Set<String> entries) {
+        Map<String, String> dataMap = new LinkedHashMap<>();
+        for (String entry : entries) {
+            int idx = entry.indexOf('=');
+            if (idx > 0) {
+                dataMap.put(entry.substring(0, idx), entry.substring(idx + 1));
+            }
+        }
+        return dataMap;
+    }
 
     public ProjectDefinition toProjectDefinition() {
         return new ProjectDefinition(
@@ -99,7 +129,10 @@ public class ProjectDefinitionQuery {
                 javaVersion,
                 noCode,
                 noExamples,
-                extensions);
+                noWrapper,
+                noDockerfiles,
+                extensions,
+                parseCodestartData(codestartData));
     }
 
 }

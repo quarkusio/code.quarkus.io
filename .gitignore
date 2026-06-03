@@ -29,6 +29,9 @@ nb-configuration.xml
 # OSX
 .DS_Store
 
+# Claude Code
+CLAUDE.md
+
 # Vim
 *.swp
 *.swo

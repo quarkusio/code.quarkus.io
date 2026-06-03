@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -30,7 +31,10 @@ public record ProjectDefinition(
         Integer javaVersion,
         Boolean noCode,
         Boolean noExamples,
-        Set<String> extensions) {
+        Boolean noWrapper,
+        Boolean noDockerfiles,
+        Set<String> extensions,
+        Map<String, String> codestartData) {
 
     public ProjectDefinition {
         Objects.requireNonNull(groupId, "groupId is required");
@@ -39,7 +43,10 @@ public record ProjectDefinition(
         Objects.requireNonNull(buildTool, "buildTool is required");
         Objects.requireNonNull(noCode, "noCode is required");
         Objects.requireNonNull(noExamples, "noExamples is required");
+        Objects.requireNonNull(noWrapper, "noWrapper is required");
+        Objects.requireNonNull(noDockerfiles, "noDockerfiles is required");
         Objects.requireNonNull(extensions, "extensions is required");
+        Objects.requireNonNull(codestartData, "codestartData is required");
     }
 
     public static final String DEFAULT_GROUPID = "org.acme";
@@ -48,6 +55,10 @@ public record ProjectDefinition(
     public static final String DEFAULT_BUILDTOOL = "MAVEN";
     public static final Boolean DEFAULT_NO_CODE = false;
     public static final String DEFAULT_NO_CODE_STRING = "false";
+    public static final Boolean DEFAULT_NO_WRAPPER = false;
+    public static final String DEFAULT_NO_WRAPPER_STRING = "false";
+    public static final Boolean DEFAULT_NO_DOCKERFILES = false;
+    public static final String DEFAULT_NO_DOCKERFILES_STRING = "false";
 
     public static final String GROUPID_PATTERN = "^([a-zA-Z_$][a-zA-Z\\d_$]*\\.)*[a-zA-Z_$][a-zA-Z\\d_$]*$";
     public static final String ARTIFACTID_PATTERN = "^[a-z][a-z0-9-._]*$";
@@ -57,7 +68,7 @@ public record ProjectDefinition(
 
     public static ProjectDefinition of() {
         return new ProjectDefinition(null, DEFAULT_GROUPID, DEFAULT_ARTIFACTID, DEFAULT_VERSION, null, null, DEFAULT_BUILDTOOL,
-                null, DEFAULT_NO_CODE, DEFAULT_NO_CODE, Set.of());
+                null, DEFAULT_NO_CODE, DEFAULT_NO_CODE, DEFAULT_NO_WRAPPER, DEFAULT_NO_DOCKERFILES, Set.of(), Map.of());
     }
 
     @JsonCreator
@@ -77,7 +88,10 @@ public record ProjectDefinition(
         private Integer javaVersion = null;
         private Boolean noCode = DEFAULT_NO_CODE;
         private Boolean noExamples = DEFAULT_NO_CODE;
+        private Boolean noWrapper = DEFAULT_NO_WRAPPER;
+        private Boolean noDockerfiles = DEFAULT_NO_DOCKERFILES;
         private Set<String> extensions = Set.of();
+        private Map<String, String> codestartData = Map.of();
 
         private Builder() {
         }
@@ -132,14 +146,29 @@ public record ProjectDefinition(
             return this;
         }
 
+        public Builder noWrapper(Boolean noWrapper) {
+            this.noWrapper = noWrapper;
+            return this;
+        }
+
+        public Builder noDockerfiles(Boolean noDockerfiles) {
+            this.noDockerfiles = noDockerfiles;
+            return this;
+        }
+
         public Builder extensions(Set<String> extensions) {
             this.extensions = extensions;
             return this;
         }
 
+        public Builder codestartData(Map<String, String> codestartData) {
+            this.codestartData = codestartData;
+            return this;
+        }
+
         public ProjectDefinition build() {
             return new ProjectDefinition(streamKey, groupId, artifactId, version, className, path, buildTool, javaVersion,
-                    noCode, noExamples, extensions);
+                    noCode, noExamples, noWrapper, noDockerfiles, extensions, codestartData);
         }
     }
 

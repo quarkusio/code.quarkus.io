@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -294,6 +295,45 @@ public class QuarkusProjectServiceTest {
                         "src/main/webui/package.json",
                         "src/main/java/my/quinoa/yaml/app/GreetingConfig.java",
                         "src/main/resources/application.yml");
+    }
+
+    @Test
+    @DisplayName("When noWrapper is true, then, the project should not contain Maven wrapper files")
+    void testNoWrapper(TestInfo info) throws Throwable {
+        QuarkusProjectService creator = getProjectService();
+        Path projDir = creator.createTmp(platformService.recommendedPlatformInfo(),
+                ProjectDefinition.builder().noWrapper(true).build());
+
+        assertThat(projDir.resolve("mvnw")).doesNotExist();
+        assertThat(projDir.resolve("mvnw.cmd")).doesNotExist();
+        assertThat(projDir.resolve(".mvn")).doesNotExist();
+    }
+
+    @Test
+    @DisplayName("When noDockerfiles is true, then, the project should not contain Dockerfiles")
+    void testNoDockerfiles(TestInfo info) throws Throwable {
+        QuarkusProjectService creator = getProjectService();
+        Path projDir = creator.createTmp(platformService.recommendedPlatformInfo(),
+                ProjectDefinition.builder().noDockerfiles(true).build());
+
+        assertThat(projDir.resolve("src/main/docker")).doesNotExist();
+    }
+
+    @Test
+    @DisplayName("When using codestart data with rest-codestart keys, then, it should set resource class name and path")
+    void testCodestartData(TestInfo info) throws Throwable {
+        QuarkusProjectService creator = getProjectService();
+        Path projDir = creator.createTmp(platformService.recommendedPlatformInfo(),
+                ProjectDefinition.builder()
+                        .codestartData(Map.of(
+                                "rest-codestart.resource.class-name", "MyCustomResource",
+                                "rest-codestart.resource.path", "/custom"))
+                        .build());
+
+        assertThat(projDir.resolve("src/main/java/org/acme/MyCustomResource.java")).exists();
+        assertThatMatchSnapshot(info, projDir, "src/main/java/org/acme/MyCustomResource.java")
+                .satisfies(checkContains("@Path(\"/custom\")"))
+                .satisfies(checkContains("class MyCustomResource"));
     }
 
     @Test

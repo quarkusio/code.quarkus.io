@@ -108,7 +108,13 @@ public class QuarkusProjectService {
                     .javaVersion(javaVersion.getVersion())
                     .resourceClassName(projectDefinition.className())
                     .extensions(extensions)
-                    .noCode(projectDefinition.noCode() || projectDefinition.noExamples());
+                    .noCode(projectDefinition.noCode() || projectDefinition.noExamples())
+                    .noBuildToolWrapper(projectDefinition.noWrapper())
+                    .noDockerfiles(projectDefinition.noDockerfiles());
+            if (!projectDefinition.codestartData().isEmpty()) {
+                projectDefinitionCreateProject.setValue(
+                        CreateProject.CreateProjectKey.DATA, projectDefinition.codestartData());
+            }
             if (platformInfo.quarkusCoreVersion().contains("-redhat-")) {
                 // Hack to use the community quarkus gradle plugin (it is not released with the RHBQ)
                 projectDefinitionCreateProject
