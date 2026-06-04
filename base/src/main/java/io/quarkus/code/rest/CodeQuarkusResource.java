@@ -262,10 +262,6 @@ public class CodeQuarkusResource {
             if (!projectDefinition.extensions().isEmpty()) {
                 projectDefinition.extensions().forEach(extension -> params.add(new BasicNameValuePair("e", extension)));
             }
-            if (!projectDefinition.codestartData().isEmpty()) {
-                projectDefinition.codestartData()
-                        .forEach((k, v) -> params.add(new BasicNameValuePair("cd", k + "=" + v)));
-            }
             if (projectDefinition.path() != null) {
                 params.add(new BasicNameValuePair("p", projectDefinition.path()));
             }
