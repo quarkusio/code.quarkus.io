@@ -18,7 +18,7 @@
       <dependency>
         <groupId>org.mvnpm.at.babel</groupId>
         <artifactId>runtime</artifactId>
-        <version>7.29.2</version>
+        <version>7.29.7</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.emotion</groupId>
@@ -109,12 +109,12 @@
       <dependency>
         <groupId>org.mvnpm.at.sentry-internal</groupId>
         <artifactId>feedback</artifactId>
-        <version>10.53.1</version>
+        <version>10.56.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry-internal</groupId>
         <artifactId>replay-canvas</artifactId>
-        <version>10.53.1</version>
+        <version>10.56.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry-internal</groupId>
@@ -124,12 +124,12 @@
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>browser</artifactId>
-        <version>10.53.1</version>
+        <version>10.56.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>core</artifactId>
-        <version>10.53.1</version>
+        <version>10.56.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
@@ -139,7 +139,7 @@
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>types</artifactId>
-        <version>10.53.1</version>
+        <version>10.56.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
@@ -810,7 +810,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>hasown</artifactId>
-        <version>2.0.3</version>
+        <version>2.0.4</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -830,7 +830,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>js-cookie</artifactId>
-        <version>3.0.7</version>
+        <version>3.0.8</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -905,7 +905,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>postcss</artifactId>
-        <version>8.5.14</version>
+        <version>8.5.15</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -962,7 +962,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>react-is</artifactId>
-        <version>19.2.6</version>
+        <version>19.2.7</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
