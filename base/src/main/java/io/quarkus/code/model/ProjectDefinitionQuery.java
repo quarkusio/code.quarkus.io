@@ -9,6 +9,7 @@ import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.QueryParam;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -101,6 +102,11 @@ public class ProjectDefinitionQuery {
     @Schema(description = "The set of extension ids that will be included in the generated application", required = false)
     Set<String> extensions = Set.of();
 
+    @QueryParam("ec")
+    @Parameter(name = "ec", description = "Extra codestarts to include in the generated application", required = false)
+    @Schema(description = "Extra codestarts to include in the generated application", required = false)
+    List<String> extraCodestarts = List.of();
+
     @QueryParam("cd")
     @Parameter(name = "cd", description = "Codestart data (key=value format, e.g. cd=my.key=myvalue)", required = false)
     @Schema(description = "Codestart data (key=value format, e.g. cd=my.key=myvalue)", required = false)
@@ -132,6 +138,7 @@ public class ProjectDefinitionQuery {
                 noWrapper,
                 noDockerfiles,
                 extensions,
+                extraCodestarts,
                 parseCodestartData(codestartData));
     }
 

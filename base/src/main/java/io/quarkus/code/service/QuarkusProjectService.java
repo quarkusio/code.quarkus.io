@@ -79,6 +79,7 @@ public class QuarkusProjectService {
         if (gitHub) {
             codestarts.add("tooling-github-action");
         }
+        codestarts.addAll(projectDefinition.extraCodestarts());
         JavaVersion javaVersion = new JavaVersion(javaVersionString);
         if (javaVersion.isPresent() && !platformInfo.stream().javaCompatibility().versions().contains(javaVersion.getAsInt())) {
             throw new IllegalArgumentException("This Java version is not compatible with this stream ("

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -34,6 +35,7 @@ public record ProjectDefinition(
         Boolean noWrapper,
         Boolean noDockerfiles,
         Set<String> extensions,
+        List<String> extraCodestarts,
         Map<String, String> codestartData) {
 
     public ProjectDefinition {
@@ -46,6 +48,7 @@ public record ProjectDefinition(
         Objects.requireNonNull(noWrapper, "noWrapper is required");
         Objects.requireNonNull(noDockerfiles, "noDockerfiles is required");
         Objects.requireNonNull(extensions, "extensions is required");
+        Objects.requireNonNull(extraCodestarts, "extraCodestarts is required");
         Objects.requireNonNull(codestartData, "codestartData is required");
     }
 
@@ -68,7 +71,8 @@ public record ProjectDefinition(
 
     public static ProjectDefinition of() {
         return new ProjectDefinition(null, DEFAULT_GROUPID, DEFAULT_ARTIFACTID, DEFAULT_VERSION, null, null, DEFAULT_BUILDTOOL,
-                null, DEFAULT_NO_CODE, DEFAULT_NO_CODE, DEFAULT_NO_WRAPPER, DEFAULT_NO_DOCKERFILES, Set.of(), Map.of());
+                null, DEFAULT_NO_CODE, DEFAULT_NO_CODE, DEFAULT_NO_WRAPPER, DEFAULT_NO_DOCKERFILES, Set.of(), List.of(),
+                Map.of());
     }
 
     @JsonCreator
@@ -91,6 +95,7 @@ public record ProjectDefinition(
         private Boolean noWrapper = DEFAULT_NO_WRAPPER;
         private Boolean noDockerfiles = DEFAULT_NO_DOCKERFILES;
         private Set<String> extensions = Set.of();
+        private List<String> extraCodestarts = List.of();
         private Map<String, String> codestartData = Map.of();
 
         private Builder() {
@@ -161,6 +166,11 @@ public record ProjectDefinition(
             return this;
         }
 
+        public Builder extraCodestarts(List<String> extraCodestarts) {
+            this.extraCodestarts = extraCodestarts;
+            return this;
+        }
+
         public Builder codestartData(Map<String, String> codestartData) {
             this.codestartData = codestartData;
             return this;
@@ -168,7 +178,7 @@ public record ProjectDefinition(
 
         public ProjectDefinition build() {
             return new ProjectDefinition(streamKey, groupId, artifactId, version, className, path, buildTool, javaVersion,
-                    noCode, noExamples, noWrapper, noDockerfiles, extensions, codestartData);
+                    noCode, noExamples, noWrapper, noDockerfiles, extensions, extraCodestarts, codestartData);
         }
     }
 
