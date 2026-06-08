@@ -29,7 +29,6 @@ import io.quarkus.registry.Constants;
 import io.quarkus.registry.ExtensionCatalogResolver;
 import io.quarkus.registry.catalog.PlatformRelease;
 import io.quarkus.runtime.LaunchMode;
-import io.smallrye.common.annotation.Blocking;
 import jakarta.enterprise.event.Observes;
 import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
@@ -109,7 +108,6 @@ public class PlatformService {
     private final ExtensionCatalogResolver catalogResolver;
     private final AtomicReference<PlatformServiceCache> platformServiceCacheRef = new AtomicReference<>();
 
-    @Blocking
     public void onStart(@Observes StartupEvent e) {
         reload();
     }
