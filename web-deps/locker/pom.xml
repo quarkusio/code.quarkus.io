@@ -18,7 +18,7 @@
       <dependency>
         <groupId>org.mvnpm.at.babel</groupId>
         <artifactId>runtime</artifactId>
-        <version>7.29.7</version>
+        <version>8.0.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.emotion</groupId>
@@ -134,7 +134,7 @@
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>replay</artifactId>
-        <version>7.116.0</version>
+        <version>10.62.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
