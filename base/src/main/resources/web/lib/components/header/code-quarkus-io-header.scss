@@ -49,6 +49,26 @@
           color: #D73F22;
         }
 
+        .icon-ibm {
+          margin-right: 20px;
+          width: 1em;
+          height: 1em;
+          vertical-align: middle;
+          filter: brightness(0) saturate(100%) invert(27%) sepia(83%) saturate(5765%) hue-rotate(220deg) brightness(101%) contrast(99%);
+        }
+
+        .icon-text-ibm {
+          margin-right: 20px;
+          align-items: center;
+          justify-content: center;
+          width: 1em;
+          height: 1em;
+          font-size: 1em;
+          font-weight: bold;
+          vertical-align: middle;
+          color: #0f62fe;
+        }
+
         &:hover {
           text-decoration: none;
           border-color: var(--headerSupportPanelTextColor);
@@ -61,7 +81,7 @@
       }
 
       .support-panel {
-        max-height: 100px;
+        max-height: 200px;
       }
     }
 
