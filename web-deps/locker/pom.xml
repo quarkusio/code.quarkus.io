@@ -109,12 +109,12 @@
       <dependency>
         <groupId>org.mvnpm.at.sentry-internal</groupId>
         <artifactId>feedback</artifactId>
-        <version>10.56.0</version>
+        <version>10.57.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry-internal</groupId>
         <artifactId>replay-canvas</artifactId>
-        <version>10.56.0</version>
+        <version>10.57.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry-internal</groupId>
@@ -124,12 +124,12 @@
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>browser</artifactId>
-        <version>10.56.0</version>
+        <version>10.62.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>core</artifactId>
-        <version>10.56.0</version>
+        <version>10.62.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
@@ -139,7 +139,7 @@
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>types</artifactId>
-        <version>10.56.0</version>
+        <version>10.62.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
@@ -629,7 +629,7 @@
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
         <artifactId>types</artifactId>
-        <version>0.4.3</version>
+        <version>0.5.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.stdlib</groupId>
@@ -860,7 +860,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>nanoid</artifactId>
-        <version>5.1.11</version>
+        <version>5.1.16</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -905,7 +905,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>postcss</artifactId>
-        <version>8.5.15</version>
+        <version>8.5.16</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -951,7 +951,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>react-hotkeys-hook</artifactId>
-        <version>5.3.2</version>
+        <version>5.3.3</version>
         <classifier>sources</classifier>
       </dependency>
       <dependency>
