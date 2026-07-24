@@ -2254,6 +2254,22 @@
     },
     "artifact" : "io.quarkus:quarkus-redis-client::jar:5.5.0.1",
     "origins" : [ "io.quarkus:quarkus-bom-quarkus-platform-descriptor:5.5.0.1:json:5.5.0.1" ]
+  }, {
+    "name" : "Camel Core",
+    "description" : "Apache Camel integration framework",
+    "metadata" : {
+      "keywords" : [ "camel", "integration" ],
+      "categories" : [ "integration" ],
+      "status" : "stable",
+      "built-with-quarkus-core" : "5.5.0.1",
+      "integrates" : [ {
+        "name" : "Camel",
+        "artifact" : "org.apache.camel:camel-core",
+        "version" : "4.10.0"
+      } ]
+    },
+    "artifact" : "org.apache.camel.quarkus:camel-quarkus-core::jar:3.20.0",
+    "origins" : [ "io.quarkus:quarkus-bom-quarkus-platform-descriptor:5.5.0.1:json:5.5.0.1" ]
   } ],
   "categories" : [ {
     "id" : "web",
@@ -2328,6 +2344,11 @@
     "id" : "alt-languages",
     "name" : "Alternative languages",
     "description" : "Support for other JVM based languages",
+    "metadata" : { }
+  }, {
+    "id" : "integration",
+    "name" : "Integration",
+    "description" : "Integration frameworks",
     "metadata" : { }
   } ],
   "metadata" : {

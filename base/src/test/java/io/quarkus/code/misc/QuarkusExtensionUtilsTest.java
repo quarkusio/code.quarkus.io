@@ -1,6 +1,7 @@
 package io.quarkus.code.misc;
 
 import io.quarkus.code.model.CodeQuarkusExtension;
+import io.quarkus.code.model.IntegratedDependency;
 import io.quarkus.code.service.PlatformOverride;
 import io.quarkus.registry.catalog.ExtensionCatalog;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,8 @@ import static io.quarkus.code.misc.QuarkusExtensionUtils.toShortcut;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.notNullValue;
 
 class QuarkusExtensionUtilsTest {
     private static final String FAKE_CATALOG_JSON = "/fakeextensions.json";
@@ -78,6 +81,26 @@ class QuarkusExtensionUtilsTest {
                         "RESTEasy JSON-B",
                         "Eclipse Vert.x GraphQL",
                         "gRPC"));
+    }
+
+    @Test
+    void testIntegrates() throws IOException {
+        List<CodeQuarkusExtension> extensions = processExtensions(getTestCatalog(), PlatformOverride.DEFAULT_PLATFORM_OVERRIDE);
+
+        CodeQuarkusExtension camelCore = extensions.stream()
+                .filter(e -> e.id().equals("org.apache.camel.quarkus:camel-quarkus-core"))
+                .findFirst()
+                .orElse(null);
+        assertThat(camelCore, is(notNullValue()));
+        assertThat(camelCore.integrates(), is(List.of(
+                new IntegratedDependency("Camel", "org.apache.camel:camel-core", "4.10.0"))));
+
+        CodeQuarkusExtension resteasy = extensions.stream()
+                .filter(e -> e.id().equals("io.quarkus:quarkus-resteasy"))
+                .findFirst()
+                .orElse(null);
+        assertThat(resteasy, is(notNullValue()));
+        assertThat(resteasy.integrates(), is(nullValue()));
     }
 
     private ExtensionCatalog getTestCatalog() throws IOException {
