@@ -1,5 +1,6 @@
 package io.quarkus.code.misc;
 
+import io.quarkus.code.model.CodeQuarkusCategory;
 import io.quarkus.code.model.CodeQuarkusExtension;
 import io.quarkus.code.service.PlatformOverride;
 import io.quarkus.maven.dependency.ArtifactCoords;
@@ -59,7 +60,7 @@ public class QuarkusExtensionUtils {
                 .name(ext.getName())
                 .description(ext.getDescription())
                 .shortName(extensionProcessor.getShortName())
-                .category(cat.getName())
+                .category(new CodeQuarkusCategory(cat.getId(), cat.getName()))
                 .tags(platformOverride.extensionTagsMapper(getTags(extensionProcessor)))
                 .keywords(extensionProcessor.getExtendedKeywords())
                 .transitiveExtensions(ExtensionProcessor.getMetadataValue(ext, "extension-dependencies").asStringList())

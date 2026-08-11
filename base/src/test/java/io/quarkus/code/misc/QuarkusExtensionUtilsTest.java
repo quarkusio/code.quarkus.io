@@ -1,5 +1,6 @@
 package io.quarkus.code.misc;
 
+import io.quarkus.code.model.CodeQuarkusCategory;
 import io.quarkus.code.model.CodeQuarkusExtension;
 import io.quarkus.code.service.PlatformOverride;
 import io.quarkus.registry.catalog.ExtensionCatalog;
@@ -38,7 +39,7 @@ class QuarkusExtensionUtilsTest {
                         .name("RESTEasy JAX-RS")
                         .description("REST endpoint framework implementing JAX-RS and more")
                         .shortName("jax-rs")
-                        .category("Web")
+                        .category(new CodeQuarkusCategory("web", "Webbed"))
                         .tags(List.of("with:starter-code", "status:stable"))
                         .keywords(Set.of("endpoint", "framework", "jax", "jaxrs", "jax-rs", "quarkus-resteasy", "rest",
                                 "resteasy", "web"))
@@ -55,7 +56,7 @@ class QuarkusExtensionUtilsTest {
                 .version("5.5.0.1")
                 .name("Mutiny support for REST Client")
                 .description("Enable Mutiny for the REST client")
-                .category("Web")
+                .category(new CodeQuarkusCategory("web", "Webbed"))
                 .tags(List.of("status:preview"))
                 .keywords(Set.of("rest", "reactive", "web", "web-client", "rest-client", "client", "quarkus-rest-client-mutiny",
                         "microprofile-rest-client", "support", "mutiny", "rest-client-mutiny"))
