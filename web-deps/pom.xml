@@ -45,7 +45,7 @@
         <dependency>
             <groupId>org.mvnpm.at.types</groupId>
             <artifactId>lodash</artifactId>
-            <version>4.17.24</version>
+            <version>4.17.25</version>
         </dependency>
         <dependency>
             <groupId>org.mvnpm</groupId>
@@ -71,13 +71,13 @@
         <dependency>
             <groupId>org.mvnpm</groupId>
             <artifactId>react-hotkeys-hook</artifactId>
-            <version>5.3.2</version>
+            <version>5.3.3</version>
             <classifier>sources</classifier>
         </dependency>
         <dependency>
             <groupId>org.mvnpm</groupId>
             <artifactId>react-icons</artifactId>
-            <version>5.6.0</version>
+            <version>5.7.0</version>
         </dependency>
         <dependency>
             <groupId>org.mvnpm</groupId>
@@ -98,12 +98,12 @@
         <dependency>
             <groupId>org.mvnpm.at.sentry</groupId>
             <artifactId>browser</artifactId>
-            <version>10.56.0</version>
+            <version>10.70.0</version>
         </dependency>
         <dependency>
             <groupId>org.mvnpm.at.segment</groupId>
             <artifactId>analytics-next</artifactId>
-            <version>1.84.0</version>
+            <version>1.84.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.mvnpm</groupId>
