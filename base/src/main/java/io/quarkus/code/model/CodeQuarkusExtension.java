@@ -18,6 +18,7 @@ public record CodeQuarkusExtension(
         List<String> transitiveExtensions,
         List<String> tags,
         Set<String> keywords,
+        List<IntegratedDependency> integrates,
         @Deprecated boolean providesExampleCode,
         boolean providesCode,
         String guide,
@@ -51,7 +52,8 @@ public record CodeQuarkusExtension(
                 .guide(existing.guide())
                 .order(existing.order())
                 .platform(existing.platform())
-                .bom(existing.bom());
+                .bom(existing.bom())
+                .integrates(existing.integrates());
     }
 
     public static class Builder {
@@ -71,6 +73,7 @@ public record CodeQuarkusExtension(
         private int order;
         private boolean platform;
         private String bom;
+        private List<IntegratedDependency> integrates;
 
         private Builder() {
         }
@@ -155,6 +158,11 @@ public record CodeQuarkusExtension(
             return this;
         }
 
+        public Builder integrates(List<IntegratedDependency> integrates) {
+            this.integrates = integrates;
+            return this;
+        }
+
         public CodeQuarkusExtension build() {
             return new CodeQuarkusExtension(
                     id,
@@ -167,6 +175,7 @@ public record CodeQuarkusExtension(
                     transitiveExtensions,
                     tags,
                     keywords,
+                    integrates,
                     providesExampleCode,
                     providesCode,
                     guide,

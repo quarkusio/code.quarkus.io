@@ -35,6 +35,7 @@ export interface Extension {
   keywords: string[];
   transitiveExtensions: string[];
   tags: string[];
+  integrates?: { name: string; artifact: string; version: string }[];
   description?: string;
   shortName?: string;
   category: string;

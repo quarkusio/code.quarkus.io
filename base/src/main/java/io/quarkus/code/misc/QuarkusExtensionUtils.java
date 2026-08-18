@@ -1,6 +1,7 @@
 package io.quarkus.code.misc;
 
 import io.quarkus.code.model.CodeQuarkusExtension;
+import io.quarkus.code.model.IntegratedDependency;
 import io.quarkus.code.service.PlatformOverride;
 import io.quarkus.maven.dependency.ArtifactCoords;
 import io.quarkus.platform.catalog.processor.CatalogProcessor;
@@ -12,8 +13,8 @@ import io.quarkus.registry.catalog.ExtensionCatalog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Function;
 
 public class QuarkusExtensionUtils {
 
@@ -69,7 +70,24 @@ public class QuarkusExtensionUtils {
                 .guide(extensionProcessor.getGuide())
                 .platform(ext.hasPlatformOrigin())
                 .bom("%s:%s:%s".formatted(bom.getGroupId(), bom.getArtifactId(), bom.getVersion()))
+                .integrates(getIntegrates(ext))
                 .build());
+    }
+
+    @SuppressWarnings("unchecked")
+    private static List<IntegratedDependency> getIntegrates(Extension ext) {
+        Object raw = ext.getMetadata().get("integrates");
+        if (!(raw instanceof List<?> list) || list.isEmpty()) {
+            return null;
+        }
+        return list.stream()
+                .filter(Map.class::isInstance)
+                .map(e -> (Map<String, Object>) e)
+                .map(m -> new IntegratedDependency(
+                        (String) m.get("name"),
+                        (String) m.get("artifact"),
+                        (String) m.get("version")))
+                .toList();
     }
 
     private static List<String> getTags(ExtensionProcessor extension) {
