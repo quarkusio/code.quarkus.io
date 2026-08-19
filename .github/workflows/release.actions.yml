@@ -24,20 +24,24 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          token: ${{ secrets.GH_PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
       - name: Check for changes
         id: check_changes
         run: |
-          LAST_RELEASE_SHA=$(git rev-list --tags --max-count=1)
-          LAST_COMMIT_SHA=$(git rev-parse HEAD~2)
-
-          if [ "$LAST_RELEASE_SHA" == "$LAST_COMMIT_SHA" ]; then
-            echo "No changes since last release. Skipping..."
-            echo "::set-output name=skip::true"
+          LAST_RELEASE_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -z "$LAST_RELEASE_TAG" ]; then
+            echo "No previous release tag found. Proceeding with release..."
+            echo "skip=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          CHANGES=$(git log "${LAST_RELEASE_TAG}..HEAD" --oneline --invert-grep --grep='\[maven-release-plugin\]' -- . ':!.github' | head -1)
+          if [ -z "$CHANGES" ]; then
+            echo "No changes since last release ($LAST_RELEASE_TAG). Skipping..."
+            echo "skip=true" >> $GITHUB_OUTPUT
           else
-            echo "Changes detected. Proceeding with release..."
-            echo "::set-output name=skip::false"
+            echo "Changes detected since $LAST_RELEASE_TAG. Proceeding with release..."
+            echo "skip=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Set up JDK 21
@@ -60,21 +64,22 @@ jobs:
           git config --local user.name "GitHub Action"
 
       - name: Ensure browsers are installed
+        if: steps.check_changes.outputs.skip == 'false'
         run: mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install chromium --with-deps"
 
-      - name: Maven release ${{steps.metadata.outputs.current-version}}
+      - name: Maven release
         if: steps.check_changes.outputs.skip == 'false'
         id: maven_release
         run: |
           current_version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
           release_version=${current_version%-SNAPSHOT}
           echo "Next release version is: $release_version"
-          next_dev_version="$(( ${current_version} + 1 ))-SNAPSHOT"
+          next_dev_version="$(( ${release_version} + 1 ))-SNAPSHOT"
           echo "Next development version is: $next_dev_version"
           mvn -B release:prepare -DreleaseVersion=${release_version} -DdevelopmentVersion=${next_dev_version} -Dlib -Prelease -Dcommunity-app -Dacceptance-test
           mvn -B release:perform -Prelease -Dlib
-          echo "::set-output name=release_version::$release_version"
-          echo "::set-output name=next_dev_version::$next_dev_version"
+          echo "release_version=$release_version" >> $GITHUB_OUTPUT
+          echo "next_dev_version=$next_dev_version" >> $GITHUB_OUTPUT
         env:
           MAVEN_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
@@ -99,7 +104,6 @@ jobs:
             out/jreleaser/trace.log
             out/jreleaser/output.properties
 
-      - name: Push changes to ${{github.base_ref}} branch
+      - name: Push version bump
         if: steps.check_changes.outputs.skip == 'false'
-        run: |
-          git push
+        run: git push
