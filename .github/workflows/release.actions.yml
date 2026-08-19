@@ -35,7 +35,7 @@ jobs:
             echo "skip=false" >> $GITHUB_OUTPUT
             exit 0
           fi
-          CHANGES=$(git log "${LAST_RELEASE_TAG}..HEAD" --oneline --invert-grep --grep='\[maven-release-plugin\]' -- . ':!.github' | head -1)
+          CHANGES=$(git log "${LAST_RELEASE_TAG}..HEAD" --oneline -1 --invert-grep --grep='\[maven-release-plugin\]' -- . ':!.github')
           if [ -z "$CHANGES" ]; then
             echo "No changes since last release ($LAST_RELEASE_TAG). Skipping..."
             echo "skip=true" >> $GITHUB_OUTPUT
