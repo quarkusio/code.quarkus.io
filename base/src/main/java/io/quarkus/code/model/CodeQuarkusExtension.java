@@ -14,7 +14,7 @@ public record CodeQuarkusExtension(
         String name,
         String description,
         String shortName,
-        String category,
+        CodeQuarkusCategory category,
         List<String> transitiveExtensions,
         List<String> tags,
         Set<String> keywords,
@@ -63,7 +63,7 @@ public record CodeQuarkusExtension(
         private String name;
         private String description;
         private String shortName = "";
-        private String category;
+        private CodeQuarkusCategory category;
         private List<String> tags;
         private List<String> transitiveExtensions = List.of();
         private Set<String> keywords;
@@ -108,7 +108,7 @@ public record CodeQuarkusExtension(
             return this;
         }
 
-        public Builder category(String category) {
+        public Builder category(CodeQuarkusCategory category) {
             this.category = category;
             return this;
         }

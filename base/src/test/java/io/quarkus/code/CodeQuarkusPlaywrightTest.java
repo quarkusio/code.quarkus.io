@@ -106,7 +106,7 @@ public class CodeQuarkusPlaywrightTest {
                         .toList();
                 refs.forEach(ref -> {
                     assertThat(platformService.recommendedPlatformInfo().codeQuarkusExtensions()).anyMatch(
-                            e -> e.id().equals(ref.id()) && e.category().equalsIgnoreCase("cloud"));
+                            e -> e.id().equals(ref.id()) && e.category().id().equalsIgnoreCase("cloud"));
                 });
             });
 

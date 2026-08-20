@@ -38,7 +38,7 @@ export interface Extension {
   integrates?: { name: string; artifact: string; version: string }[];
   description?: string;
   shortName?: string;
-  category: string;
+  category: Category;
   platform: boolean;
   default: boolean;
   order: number;
@@ -71,6 +71,11 @@ export interface Platform {
 export interface JavaCompatibility {
   versions: number[];
   recommended: number;
+}
+
+export interface Category {
+    id: string;
+    name: string;
 }
 
 export interface BuildToolCompatibility {
