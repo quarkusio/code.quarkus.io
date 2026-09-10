@@ -1,8 +1,8 @@
 import {ExtensionEntry} from './extensions-picker';
-import {Extension} from '../api/model';
+import {Category, Extension} from '../api/model';
 import _ from 'lodash';
 import {Analytics} from '../../core/analytics';
-import {parse, EqFilter, InFilter, TermFilter, Filter} from "../../core/search";
+import {EqFilter, Filter, InFilter, parse, TermFilter} from "../../core/search";
 
 type ExtensionFieldValueSupplier = (e: Extension) => string | string[] | undefined
 
@@ -25,7 +25,7 @@ const FIELD_IDENTIFIERS: ExtensionFieldIdentifier[] = [
   {keys: ['keywords', 'keyword'], valueSupplier: e => e.keywords},
   {keys: ['tags', 'tag'], valueSupplier: e => e.tags},
   {keys: ['platform', 'p'], valueSupplier: e => e.platform ? 'yes' : 'no'},
-  {keys: ['category', 'cat'], valueSupplier: e => catToId(e.category)},
+  {keys: ['category', 'cat'], valueSupplier: e => e.category?.id},
 ];
 
 const FIELD_KEYS = FIELD_IDENTIFIERS.map(s => s.keys).reduce((acc, value) => acc.concat(value), [])
@@ -53,8 +53,8 @@ export function getAllKeys(extensions: Extension[]): string[] {
   return Array.from(keys);
 }
 
-export function processTags(tags: string[]): { [field: string]: string[] } {
-  const processed: { [field: string]: string[] } = {};
+export function processTags(tags: string[]): { [field: string]: FilterOption[] } {
+  const processed: { [field: string]: FilterOption[] } = {};
   for (let tag of tags) {
     let key: string, value: string;
     if (tag.indexOf(':') > 0) {
@@ -71,7 +71,7 @@ export function processTags(tags: string[]): { [field: string]: string[] } {
     if (!processed[key]) {
       processed[key] = [];
     }
-    processed[key].push(value);
+    processed[key].push({value: value, label: value});
   }
   return processed;
 }
@@ -214,6 +214,11 @@ export const removeDuplicateIds = (entries: ExtensionEntry[]): ExtensionEntry[] 
   return _.uniqBy(entries, 'id');
 };
 
+export interface FilterOption{
+    label: string;
+    value: string;
+}
+
 export interface MetadataFilterValues {
   radio: boolean;
   optional: boolean;
@@ -280,25 +285,23 @@ export function addStarMetadataFilter(query: string, key: string) {
 }
 
 
-function catToId(category?: string): string {
-  return category?.toLowerCase().replace(' ', '-').replace(/\s+.+$/i, '');
-}
-
 function getMetadataFilters(filters: Filter[], entries: ExtensionEntry[]): MetadataFilters {
   const tags = new Set<string>();
-  const cats = new Set<string>();
+  const cats = new Map<string, FilterOption>();
   for (let entry of entries) {
     if (entry.tags) {
-      for (let tag of entry.tags) {
-        tags.add(tag);
-      }
+        for (let tag of entry.tags) {
+            tags.add(tag);
+        }
+        // Do a uniqueness check here rather than filtering after, since Sets do uniqueness by reference for objects
+        if (!cats.has(entry.category.id)) {
+            cats.set(entry.category.id, {label: entry.category.name, value: entry.category.id});
+        }
     }
-    cats.add(catToId(entry.category))
   }
   const tagFilters = processTags(Array.from(tags));
-  tagFilters.category = Array.from(cats);
-  tagFilters.platform = ['yes', 'no'];
-
+  tagFilters.category = [...cats.values()];
+  tagFilters.platform = toFilterOptions(['yes', 'no']);
 
   const metadataFilters: MetadataFilters = {};
 
@@ -308,8 +311,9 @@ function getMetadataFilters(filters: Filter[], entries: ExtensionEntry[]): Metad
     let any = filterForTag?.values?.includes('*') && !filterForTag.negated;
     let exclude = filterForTag?.values?.includes('*') && filterForTag.negated;
     metadataFilters[key] = {all: [], active: [], inactive: [], any, exclude,  radio: RADIO_FILTER_PREDICATE(key), optional: OPTIONAL_FILTER_PREDICATE(key)};
-    for (let value of tagFilters[key]) {
-      let label = value;
+      for (let entry of tagFilters[key]) {
+      let label = entry.label;
+      let value = entry.value;
       let active = !filterForTag.negated && (filterForTag?.values?.includes(value) || any);
 
       if (active) {
@@ -323,6 +327,10 @@ function getMetadataFilters(filters: Filter[], entries: ExtensionEntry[]): Metad
 
   }
   return metadataFilters;
+}
+
+function toFilterOptions(strings: string[]): FilterOption[] {
+    return strings.map(s => ( {label: s, value: s}));
 }
 
 export function toFilterResult(filters: Filter[], entries: Extension[], filteredEntries: Extension[], filtered: boolean, onResult: (result: FilterResult) => void) {

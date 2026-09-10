@@ -100,7 +100,7 @@ class CodeQuarkusResourceTest {
         var projectDefinition = ProjectDefinition.builder().noCode(true)
                 .extensions(platformService.recommendedCodeQuarkusExtensions()
                         .stream()
-                        .filter(extension -> !extension.category().equals("Alternative languages"))
+                        .filter(extension -> !"alt-languages".equals(extension.category().id()))
                         // Remove this when we use java 25 in quarkus
                         .filter(extension -> !"io.quarkiverse.langchain4j:quarkus-langchain4j-gpu-llama3"
                                 .equals(extension.id()))

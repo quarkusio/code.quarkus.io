@@ -53,7 +53,7 @@ export function FilterCombo({
             key={idx}
             className={classNames('filter-option', item.active ? "active" : "inactive")}
             onClick={() => onToggleValue(item.value, item.active)}
-            aria-label={`${item.active ? 'Remove' : 'Add'} ${label}:${item.label} filter`}
+            aria-label={`${item.active ? 'Remove' : 'Add'} ${label}:${item.value} filter`}
           >
             {item.active ? selectIcons[0] : selectIcons[1]}
             <span className='label'>{item.label}</span>

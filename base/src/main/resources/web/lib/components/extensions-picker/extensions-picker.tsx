@@ -3,7 +3,7 @@ import {useHotkeys} from 'react-hotkeys-hook';
 import {useAnalytics} from '../../core/analytics';
 import {InputProps} from '../../core/types';
 import {debouncedComputeResults, FilterResult, ProcessedExtensions, processExtensionsValues} from './extensions-utils';
-import {Platform, QuarkusProject} from '../api/model';
+import {Category, Platform, QuarkusProject} from '../api/model';
 import './extensions-picker.scss';
 import {ExtensionRow} from './extension-row';
 import {ExtensionSearchBar} from './extension-search-bar';
@@ -24,7 +24,7 @@ export interface ExtensionEntry {
   tags: string[];
   description?: string;
   shortName?: string;
-  category: string;
+  category: Category;
   order: number;
   default: boolean;
   guide?: string;
@@ -153,7 +153,7 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
     }
   }, hotkeysOptions, [entries, keyboardIndex]);
 
-  let currentCat: string | undefined;
+  let currentCat: Category | undefined;
 
   function toggleShowList() {
     setKeyboardIndex(-1);
@@ -209,12 +209,12 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
                     layout="picker"
                   />
                 );
-                if (!result.filtered && (!currentCat || currentCat !== ex.category)) {
+                if (!result.filtered && (!currentCat || currentCat.id !== ex.category.id)) {
                   currentCat = ex.category;
                   return (
                     <React.Fragment key={i}>
                       <div className="extension-category">
-                        {currentCat}
+                        {currentCat.name}
                       </div>
                       {ext}
                     </React.Fragment>
