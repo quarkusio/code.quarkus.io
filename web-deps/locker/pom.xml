@@ -108,38 +108,48 @@
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry-internal</groupId>
-        <artifactId>feedback</artifactId>
-        <version>10.56.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.sentry-internal</groupId>
-        <artifactId>replay-canvas</artifactId>
-        <version>10.56.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mvnpm.at.sentry-internal</groupId>
         <artifactId>tracing</artifactId>
         <version>7.114.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>browser</artifactId>
-        <version>10.56.0</version>
+        <version>10.73.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm.at.sentry</groupId>
+        <artifactId>browser-utils</artifactId>
+        <version>10.73.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm.at.sentry</groupId>
+        <artifactId>conventions</artifactId>
+        <version>0.16.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>core</artifactId>
-        <version>10.56.0</version>
+        <version>10.73.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm.at.sentry</groupId>
+        <artifactId>feedback</artifactId>
+        <version>10.73.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>replay</artifactId>
-        <version>7.116.0</version>
+        <version>10.73.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mvnpm.at.sentry</groupId>
+        <artifactId>replay-canvas</artifactId>
+        <version>10.73.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>types</artifactId>
-        <version>10.56.0</version>
+        <version>10.73.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
