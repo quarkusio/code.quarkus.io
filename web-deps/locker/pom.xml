@@ -18,7 +18,7 @@
       <dependency>
         <groupId>org.mvnpm.at.babel</groupId>
         <artifactId>runtime</artifactId>
-        <version>7.29.7</version>
+        <version>8.0.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.emotion</groupId>
@@ -870,7 +870,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>nanoid</artifactId>
-        <version>5.1.16</version>
+        <version>6.0.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -1087,7 +1087,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>whatwg-url</artifactId>
-        <version>16.0.1</version>
+        <version>17.1.0</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
