@@ -21,6 +21,7 @@ jobs:
     name: release
     permissions:
       contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v7
         with:
@@ -29,6 +30,13 @@ jobs:
       - name: Check for changes
         id: check_changes
         run: |
+          release_version=$(grep -m1 '<version>' pom.xml | sed 's/.*<version>\(.*\)<\/version>/\1/' | sed 's/-SNAPSHOT//')
+          status=$(curl -s -o /dev/null -w "%{http_code}" "https://repo1.maven.org/maven2/io/quarkus/code/code-quarkus/${release_version}/code-quarkus-${release_version}.pom")
+          if [ "$status" = "200" ]; then
+            echo "Version ${release_version} already published on Maven Central. Skipping..."
+            echo "skip=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
           LAST_RELEASE_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
           if [ -z "$LAST_RELEASE_TAG" ]; then
             echo "No previous release tag found. Proceeding with release..."
@@ -104,6 +112,17 @@ jobs:
             out/jreleaser/trace.log
             out/jreleaser/output.properties
 
-      - name: Push version bump
+      - name: Open snapshot bump PR
         if: steps.check_changes.outputs.skip == 'false'
-        run: git push
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_VERSION: ${{ steps.maven_release.outputs.release_version }}
+          NEXT_DEV_VERSION: ${{ steps.maven_release.outputs.next_dev_version }}
+        run: |
+          git push origin "HEAD:refs/heads/release-${RELEASE_VERSION}"
+          PR_URL=$(gh pr create \
+            --title "Prepare for next development iteration (${NEXT_DEV_VERSION})" \
+            --body "Automated snapshot bump after release ${RELEASE_VERSION}" \
+            --base main \
+            --head "release-${RELEASE_VERSION}")
+          gh pr merge "$PR_URL" --auto --merge
