@@ -21,11 +21,10 @@ jobs:
     name: release
     permissions:
       contents: write
-      pull-requests: write
     steps:
       - uses: actions/checkout@v7
         with:
-          token: ${{ secrets.GH_PAT }}
+          persist-credentials: false
           fetch-depth: 0
       - name: Check for changes
         id: check_changes
@@ -65,11 +64,14 @@ jobs:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
 
-      - name: Configure Git author
+      - name: Configure Git
         if: steps.check_changes.outputs.skip == 'false'
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          git remote set-url origin "https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git"
 
       - name: Ensure browsers are installed
         if: steps.check_changes.outputs.skip == 'false'
@@ -112,17 +114,6 @@ jobs:
             out/jreleaser/trace.log
             out/jreleaser/output.properties
 
-      - name: Open snapshot bump PR
+      - name: Push version bump
         if: steps.check_changes.outputs.skip == 'false'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RELEASE_VERSION: ${{ steps.maven_release.outputs.release_version }}
-          NEXT_DEV_VERSION: ${{ steps.maven_release.outputs.next_dev_version }}
-        run: |
-          git push origin "HEAD:refs/heads/release-${RELEASE_VERSION}"
-          PR_URL=$(gh pr create \
-            --title "Prepare for next development iteration (${NEXT_DEV_VERSION})" \
-            --body "Automated snapshot bump after release ${RELEASE_VERSION}" \
-            --base main \
-            --head "release-${RELEASE_VERSION}")
-          gh pr merge "$PR_URL" --auto --merge
+        run: git push
