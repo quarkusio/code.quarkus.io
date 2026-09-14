@@ -35,7 +35,15 @@
       ]
     },
     {
-      "description": "Block major/minor updates for react-bootstrap compat-sensitive deps",
+      "description": "Block major updates for web deps (transitive deps controlled by upstream libraries)",
+      "matchPackageNames": [
+        "/^org\\.mvnpm/"
+      ],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
+      "description": "Block minor updates for react-bootstrap compat-sensitive deps",
       "matchPackageNames": [
         "org.mvnpm:react",
         "org.mvnpm:react-dom",
@@ -45,7 +53,7 @@
         "org.mvnpm.at.types:react",
         "org.mvnpm:styled-components"
       ],
-      "matchUpdateTypes": ["major", "minor"],
+      "matchUpdateTypes": ["minor"],
       "enabled": false
     }
   ]
