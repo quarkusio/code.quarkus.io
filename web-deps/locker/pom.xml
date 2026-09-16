@@ -79,7 +79,7 @@
       <dependency>
         <groupId>org.mvnpm.at.segment</groupId>
         <artifactId>analytics-next</artifactId>
-        <version>1.84.1</version>
+        <version>1.84.3</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.segment</groupId>
@@ -124,7 +124,7 @@
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>conventions</artifactId>
-        <version>0.21.0</version>
+        <version>0.23.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
@@ -734,7 +734,7 @@
       <dependency>
         <groupId>org.mvnpm.at.types</groupId>
         <artifactId>scheduler</artifactId>
-        <version>0.26.0</version>
+        <version>0.28.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.types</groupId>
