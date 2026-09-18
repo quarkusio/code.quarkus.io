@@ -3,7 +3,9 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["docker/Dockerfile\\.acceptance-test\\.multistage"],
+      "managerFilePatterns": [
+        "/docker/Dockerfile\\.acceptance-test\\.multistage/"
+      ],
       "matchStrings": [
         "FROM mcr\\.microsoft\\.com/playwright:v(?<currentValue>\\d+\\.\\d+\\.\\d+)-\\w+"
       ],
