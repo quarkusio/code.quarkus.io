@@ -98,7 +98,7 @@
         <dependency>
             <groupId>org.mvnpm.at.sentry</groupId>
             <artifactId>browser</artifactId>
-            <version>10.75.0</version>
+            <version>10.75.2</version>
         </dependency>
         <dependency>
             <groupId>org.mvnpm.at.segment</groupId>
