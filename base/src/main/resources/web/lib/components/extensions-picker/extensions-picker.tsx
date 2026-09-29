@@ -102,7 +102,9 @@ export const ExtensionsPicker = (props: ExtensionsPickerProps) => {
   }, [props.platform.extensions, setProcessedExtensions]);
 
   React.useEffect(() => {
-    debouncedComputeResults(analytics, filter, props.platform.extensions, processedExtensions, setResult);
+    if (processedExtensions) {
+      debouncedComputeResults(analytics, filter, props.platform.extensions, processedExtensions, setResult);
+    }
   }, [filter, processedExtensions, props.platform.extensions, setShowAll, setResult]);
 
   const allEntries = result?.entries || [];
