@@ -13,8 +13,6 @@ import io.quarkus.code.model.ExtensionRef;
 import io.quarkus.code.service.PlatformService;
 import io.quarkus.test.common.http.TestHTTPResource;
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.QuarkusTestProfile;
-import io.quarkus.test.junit.TestProfile;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -29,7 +27,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
 @WithPlaywright(verbose = true, slowMo = 150, browserContext = @BrowserContextConfig(viewportSize = @BrowserContextConfig.ViewportSize(width = 1280, height = 720)))
-@TestProfile(CodeQuarkusPlaywrightTest.PlaywrightTestProfile.class)
 public class CodeQuarkusPlaywrightTest {
 
     public static final String LABEL_TOGGLE_SEARCH_COMBO = "[aria-label='Toggle %s combobox']";
@@ -342,14 +339,4 @@ public class CodeQuarkusPlaywrightTest {
         page.waitForSelector("[aria-label='Close the introduction modal']").click();
     }
 
-    public static final class PlaywrightTestProfile implements QuarkusTestProfile {
-
-        @Override
-        public String getConfigProfile() {
-            return QuarkusTestProfile.super.getConfigProfile() + ",playwright";
-        }
-
-        public PlaywrightTestProfile() {
-        }
-    }
 }
