@@ -114,42 +114,42 @@
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>browser</artifactId>
-        <version>10.75.0</version>
+        <version>10.75.2</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>browser-utils</artifactId>
-        <version>10.75.0</version>
+        <version>10.75.2</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>conventions</artifactId>
-        <version>0.23.0</version>
+        <version>0.24.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>core</artifactId>
-        <version>10.75.0</version>
+        <version>10.75.2</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>feedback</artifactId>
-        <version>10.75.0</version>
+        <version>10.75.2</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>replay</artifactId>
-        <version>10.75.0</version>
+        <version>10.75.2</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>replay-canvas</artifactId>
-        <version>10.75.0</version>
+        <version>10.75.2</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>types</artifactId>
-        <version>10.75.0</version>
+        <version>10.75.2</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
