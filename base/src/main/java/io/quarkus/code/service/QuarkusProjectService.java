@@ -5,6 +5,7 @@ import io.quarkus.devtools.codestarts.CodestartException;
 import io.quarkus.devtools.commands.CreateProject;
 import io.quarkus.devtools.commands.data.QuarkusCommandException;
 import io.quarkus.devtools.commands.data.QuarkusCommandOutcome;
+import io.quarkus.devtools.commands.handlers.CreateProjectCodestartDataConverter.PlatformPropertiesKey;
 import io.quarkus.devtools.messagewriter.MessageWriter;
 import io.quarkus.devtools.project.BuildTool;
 import io.quarkus.devtools.project.JavaVersion;
@@ -118,8 +119,8 @@ public class QuarkusProjectService {
             }
             if (platformInfo.quarkusCoreVersion().contains("-redhat-")) {
                 // Hack to use the community quarkus gradle plugin (it is not released with the RHBQ)
-                projectDefinitionCreateProject
-                        .quarkusGradlePluginVersion(platformInfo.quarkusCoreVersion().replace("-redhat-.*", ""));
+                projectDefinitionCreateProject.setValue(PlatformPropertiesKey.QUARKUS_GRADLE_PLUGIN_VERSION,
+                        platformInfo.quarkusCoreVersion().replace("-redhat-.*", ""));
             }
             QuarkusCommandOutcome result = projectDefinitionCreateProject.execute();
             if (!result.isSuccess()) {
