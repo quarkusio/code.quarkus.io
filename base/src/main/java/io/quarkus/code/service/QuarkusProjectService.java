@@ -116,11 +116,6 @@ public class QuarkusProjectService {
                 projectDefinitionCreateProject.setValue(
                         CreateProject.CreateProjectKey.DATA, projectDefinition.codestartData());
             }
-            if (platformInfo.quarkusCoreVersion().contains("-redhat-")) {
-                // Hack to use the community quarkus gradle plugin (it is not released with the RHBQ)
-                projectDefinitionCreateProject
-                        .quarkusGradlePluginVersion(platformInfo.quarkusCoreVersion().replace("-redhat-.*", ""));
-            }
             QuarkusCommandOutcome result = projectDefinitionCreateProject.execute();
             if (!result.isSuccess()) {
                 throw new IOException("Error during Quarkus project creation");
