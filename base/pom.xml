@@ -122,11 +122,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-junit5-mockito</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>io.specto</groupId>
             <artifactId>hoverfly-java-junit5</artifactId>
             <version>${hoverfly-java.version}</version>
