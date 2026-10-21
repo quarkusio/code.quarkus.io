@@ -1,5 +1,6 @@
 name: "Quarkus ecosystem CI"
 on:
+  workflow_dispatch:
   watch:
     types: [started]
 
@@ -47,3 +48,4 @@ jobs:
         run: ./ecosystem-ci/setup-and-test
         env:
           ECOSYSTEM_CI_TOKEN: ${{ secrets.ECOSYSTEM_CI_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
