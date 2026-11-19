@@ -40,5 +40,6 @@ COPY --from=build --chown=185 usr/src/app/community-app/target/quarkus-app/quark
 EXPOSE 8080
 USER 185
 ENV AB_JOLOKIA_OFF=""
-ENV JAVA_OPTS_APPEND="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dfile.encoding=UTF-8 $MAVEN_EXTRA_ARGS"
+# Temporary JVM hardening flag, remove once the base image JDK is updated
+ENV JAVA_OPTS_APPEND="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dfile.encoding=UTF-8 -XX:-UseBASE64Intrinsics $MAVEN_EXTRA_ARGS"
 ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
