@@ -24,7 +24,7 @@
         <quarkus.devtools.version>${quarkus.platform.version}</quarkus.devtools.version>
         <quarkus.base-codestarts.version>${quarkus.devtools.version}</quarkus.base-codestarts.version>
         <!-- Quarkiverse versions -->
-        <quarkus.jgit.version>3.7.0</quarkus.jgit.version>
+        <quarkus.jgit.version>4.0.0</quarkus.jgit.version>
         <quarkus.logging.sentry.version>2.3.6</quarkus.logging.sentry.version>
         <quarkus.quinoa.version>2.0.5</quarkus.quinoa.version>
         <segment-analytics.version>3.5.5</segment-analytics.version>
