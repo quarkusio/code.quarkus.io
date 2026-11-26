@@ -18,7 +18,7 @@
       <dependency>
         <groupId>org.mvnpm.at.babel</groupId>
         <artifactId>runtime</artifactId>
-        <version>7.29.13</version>
+        <version>7.29.15</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.emotion</groupId>
@@ -79,7 +79,7 @@
       <dependency>
         <groupId>org.mvnpm.at.segment</groupId>
         <artifactId>analytics-next</artifactId>
-        <version>1.84.3</version>
+        <version>1.84.4</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.segment</groupId>
@@ -124,7 +124,7 @@
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
         <artifactId>conventions</artifactId>
-        <version>0.33.0</version>
+        <version>0.36.0</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm.at.sentry</groupId>
@@ -785,7 +785,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>csstype</artifactId>
-        <version>3.2.3</version>
+        <version>3.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -845,7 +845,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>js-tokens</artifactId>
-        <version>10.0.0</version>
+        <version>10.0.1</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -915,7 +915,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>postcss</artifactId>
-        <version>8.5.32</version>
+        <version>8.5.33</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
@@ -1017,7 +1017,7 @@
       <dependency>
         <groupId>org.mvnpm</groupId>
         <artifactId>source-map-js</artifactId>
-        <version>1.2.2</version>
+        <version>1.2.4</version>
       </dependency>
       <dependency>
         <groupId>org.mvnpm</groupId>
